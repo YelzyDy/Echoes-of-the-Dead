@@ -4,9 +4,6 @@
  */
 package echoes.of.the.dead;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
