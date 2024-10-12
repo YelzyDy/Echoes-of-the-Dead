@@ -105,7 +105,9 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     public void onHover(MouseEvent e) {
         if(type.equals("shop")){
            currentFrame = 1;
-           animationTimer.start();
+            if(isAnimated){
+               animationTimer.start();
+            }
         }
     }
 
@@ -113,7 +115,9 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     public void onExit(MouseEvent e) {
        if(type.equals("shop")){
            currentFrame = 0;
-           animationTimer.stop();
+           if(isAnimated){
+               animationTimer.stop();
+           }
         }
     }
     
