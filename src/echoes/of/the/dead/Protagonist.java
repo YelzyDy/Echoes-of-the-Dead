@@ -16,7 +16,6 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
