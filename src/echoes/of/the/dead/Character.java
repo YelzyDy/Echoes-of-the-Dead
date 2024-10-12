@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package echoes.of.the.dead;
-//good heaveans unsaon maning pull req? test rani guys btw 
-import java.util.Scanner;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JPanel;
