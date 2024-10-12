@@ -40,9 +40,9 @@ public class SceneBuilder extends JPanel{
         return sceneList.getSize();
     }
     
-    public void initializeCharacter(String charType) {
+    public void initializeCharacter(String charType, String playerName) {
         if(type.equals("world1")){
-            character = new Protagonist("name", charType, this, 0, (int)(screenSize.height * 0.25));
+            character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.25));
             this.addMouseListener(new MouseClickListener(character));
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
@@ -57,7 +57,7 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
-            shop = new EchoesObjects((int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), this, "shop", false);
+            shop = new EchoesObjects((int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true);
             this.add(shop);
             
         } else if (type.equals("chooseCharacter")) {
