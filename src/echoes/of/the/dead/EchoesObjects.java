@@ -26,30 +26,35 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private int posX;
     private int posY;
     private Timer animationTimer;
-    private SceneBuilder panel;
     private int currentFrame = 0;
     private ImageList objSprites = new ImageList();
     private String type = null;
     private ImageList state  = new ImageList();
     private boolean isAnimated = false;
-    public EchoesObjects(int x, int y, int width, int height, SceneBuilder panel, String type, boolean isAnimated){
+    public EchoesObjects(int x, int y, int width, int height, String type, boolean isAnimated, boolean isState){
         super(x, y, width, height);
         this.type = type;
-        this.panel = panel;
-        startAnimationTimer(panel);
+        startAnimationTimer();
         this.isAnimated = isAnimated;
-       
-        initializeObjState((int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
+        
+        if(isState){
+            initializeObjState(width,height, 2);
+        }else{
+            initializeObjState(width,height, 1);
+            System.out.println(height + " " + width);
+        }
+        
+        if(isAnimated){
+            initializeObjSprites(width, height);
+        }
         this.addMouseListener(new MouseClickListener(this));
     }   
     
-    private void startAnimationTimer(SceneBuilder panel) {
+    private void startAnimationTimer() {
         animationTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateAnimation();
-                panel.repaint();
-                System.out.println("animating?");
             }
         });
         if(isAnimated){
@@ -76,12 +81,13 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         objSprites.resizeImageList((int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
     }
     
-    public void initializeObjState(int width, int height){
+    public void initializeObjState(int width, int height, int numOfState){
         state.clear();
-        int size = 2;
+        int size = numOfState;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/world1_assets/" + type + i + ".png";
+            System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
@@ -91,8 +97,10 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
                 e.printStackTrace();
             }
         }
-        state.resizeImageList((int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
+        state.resizeImageList(width, height);
     }
+    
+   
     
     @Override
     public void onClick(MouseEvent e) {
@@ -105,9 +113,9 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     public void onHover(MouseEvent e) {
         if(type.equals("shop")){
            currentFrame = 1;
-            if(isAnimated){
-               animationTimer.start();
-            }
+           if(isAnimated){
+            animationTimer.start();
+           }
         }
     }
 
@@ -116,7 +124,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
        if(type.equals("shop")){
            currentFrame = 0;
            if(isAnimated){
-               animationTimer.stop();
+            animationTimer.stop();
            }
         }
     }
