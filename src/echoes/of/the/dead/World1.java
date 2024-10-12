@@ -16,11 +16,13 @@ import javax.swing.JFrame;
  */
 public class World1 extends javax.swing.JFrame implements MouseInteractable{
     private String characterType;
+    private String playerName;
     SceneBuilder scene;
     TransparentPanel btn_shop;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    public World1(String characterType){
+    public World1(String characterType, String playerName){
         this.characterType = characterType;
+        this.playerName = playerName;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("World 1");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -33,7 +35,7 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
     public void addScene(){  
         scene = new SceneBuilder("world1");
         scene.createScene();
-        scene.initializeCharacter(characterType);
+        scene.initializeCharacter(characterType, playerName);
         this.add(scene);
         this.setVisible(true);
     }
