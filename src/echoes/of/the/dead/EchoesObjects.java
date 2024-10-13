@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 /**
@@ -165,5 +166,9 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.drawImage(getCurrentSprite(), posX, posY, null);
+    }
+
+    void setIcon(ImageIcon get) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
