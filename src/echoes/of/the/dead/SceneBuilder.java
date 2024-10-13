@@ -24,7 +24,8 @@ public class SceneBuilder extends JPanel{
     protected ImageList spriteList = new ImageList();
     protected Protagonist character;
     protected int currentPanelIndex = 0;
-    private EchoesObjects shop;
+    private EchoesObjects shop;     // shop png -z
+    private EchoesObjects portal;   // portal png -z
     String type;
 
     public SceneBuilder(String type){
@@ -58,7 +59,9 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true);
-            this.add(shop);
+            this.add(shop); // shop png displayed -z
+            portal = new EchoesObjects("world1", (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.2), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.2), "portal", false, true);
+            this.add(portal); // portal png displayed -z
             
         } else if (type.equals("chooseCharacter")) {
             this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -73,16 +76,19 @@ public class SceneBuilder extends JPanel{
     
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);      
-        
+        super.paintComponent(g);
         if(currentPanelIndex < sceneList.getSize()){
             g.drawImage(sceneList.get(currentPanelIndex), (int)(sceneList.getX(currentPanelIndex)), 0, this);
         }
         character.draw(g);
         if(type.equals("world1")){
             shop.setVisible(false);
+            portal.setVisible(false);  // Hide portal by default
             if(currentPanelIndex == 1){
                 shop.setVisible(true);
+            }
+            if(currentPanelIndex == 1){  // Show portal on the third panel (index 2)
+                portal.setVisible(true);
             }
         }
     }

@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author Joana
@@ -22,12 +22,14 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     TransparentPanel btn_priest;
     EchoesObjects btn_select;
     EchoesObjects btn_ok;
+    EchoesObjects btn_cancel;
+    EchoesObjects promptPanel;
     String charType;
     JTextField nameField;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = screenSize.width;
     int height = screenSize.height;
-
+    boolean selectButtonIsEnable = true;
     public ChooseChar() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Choose Character");
@@ -81,47 +83,80 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         return new java.awt.Font("SansSerif", java.awt.Font.PLAIN, Math.max(baseFontSize, dynamicFontSize));
     }
 
-    @Override
-    public void onClick(MouseEvent e) {
-        Object source = e.getSource();
-        if (source == btn_select) {
-            EchoesObjects promptPanel = new EchoesObjects(
-            "world1",(int) (screenSize.width * 0.20), 
-            (int) (screenSize.height * 0.12), 
-            (int) (screenSize.width * 0.58), 
-            (int) (screenSize.height * 0.7), 
-            "namePromptPanel", false, false
-            );
-        
-            promptPanel.setVisible(true);
-            int panelWidth = promptPanel.getWidth();
-            int panelHeight = promptPanel.getHeight();
+    private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
+    String type, boolean isAnimated, boolean isState){
+        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState);
+        object.setVisible(true);
+        return object;
+    }
+
+    private void addPromptNamePanel(){
+        promptPanel = createObj(
+        "world1",(int) (screenSize.width * 0.20), 
+        (int) (screenSize.height * 0.12), 
+        (int) (screenSize.width * 0.58), 
+        (int) (screenSize.height * 0.7), 
+        "namePromptPanel", false, false
+        );
+    }
+
+    private void addNameField(int panelHeight, int panelWidth){
         // Create and add a transparent JTextField to the promptPanel
-            nameField = new JTextField();
-            nameField.setBounds((int) (panelWidth * 0.293), 
-                    (int) (panelHeight * 0.45), 
-                    (int) (panelWidth * 0.42), 
-                    (int) (panelHeight * 0.10));
-            nameField.setFont(createDynamicFont(40)); // Font styling
-        
-            // Make the JTextField transparent
-            nameField.setOpaque(false); // This makes the background transparent
-            nameField.setBorder(null); 
-            nameField.setForeground(Color.WHITE); // Set text color to white (or any other color for contrast)
-            nameField.setBackground(new Color(0, 0, 0, 0)); // Optional: Ensure no background color is applied
-            btn_ok = new EchoesObjects(
-                "button", (int) (panelWidth * 0.38),
-                (int) (panelHeight * 0.68),
-                (int) (panelWidth * 0.22),
-                (int) (panelHeight * 0.13),
+        nameField = new JTextField(20);
+        nameField.setBounds((int) (panelWidth * 0.490), 
+                (int) (panelHeight * 0.29), 
+                (int) (panelWidth * 0.47), 
+                (int) (panelHeight * 0.10));
+        nameField.setFont(createDynamicFont(40)); // Font styling
+        nameField.setHorizontalAlignment(JTextField.CENTER);
+        // Make the JTextField transparent
+        nameField.setOpaque(false); // This makes the background transparent
+        nameField.setBorder(null); 
+        nameField.setForeground(Color.WHITE); // Set text color to white (or any other color for contrast)
+        nameField.setBackground(new Color(0, 0, 0, 0)); // Optional: Ensure no background color is applied
+        promptPanel.add(nameField);
+    }
+
+    private void addOkButton(int panelHeight, int panelWidth){
+        btn_ok = createObj(
+                "button", (int) (panelWidth * 0.35),
+                (int) (panelHeight * 0.45),
+                (int) (panelWidth * 0.25),
+                (int) (panelHeight * 0.098),
                 "ok_button", false, true
             );
             btn_ok.setVisible(true);
             btn_ok.addMouseListener(new MouseClickListener(this));
             promptPanel.add(btn_ok);
-            promptPanel.add(nameField); // Add the text field to the prompt panel
-            scene.add(promptPanel); // Add the prompt panel to the scene
-        
+    }
+
+    public void addBtnCancel(int panelHeight, int panelWidth){
+        btn_cancel = new EchoesObjects(
+                "button", (int) (panelWidth * 0.89),
+                (int) (panelHeight * 0.45),
+                (int) (panelWidth * 0.25),
+                (int) (panelHeight * 0.098),
+                "cancel_button", false, true
+            );
+            btn_cancel.setVisible(true);
+            btn_cancel.addMouseListener(new MouseClickListener(this));
+            promptPanel.add(btn_cancel);
+    }
+    @Override
+    public void onClick(MouseEvent e) {
+        Object source = e.getSource();
+        if (source == btn_select) {
+            if(!selectButtonIsEnable){
+                return;
+            }
+            selectButtonIsEnable = false;
+            addPromptNamePanel();
+            int width = promptPanel.getWidth();
+            int height = promptPanel.getHeight();
+            addNameField(width, height);
+            addOkButton(width, height);
+            addBtnCancel(width, height);
+            scene.add(promptPanel);  
         } else if (source == btn_knight) {
             charType = "knight";
             scene.character.setCharacterType(charType);
@@ -144,12 +179,18 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.currentPanelIndex = 2;
         }else if(source == btn_ok){
-            if(!(nameField.getText().trim().isEmpty())){
+            if((nameField.getText().trim().isEmpty())){
+                JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
                 World1 window = new World1(charType, nameField.getText());
                 System.out.println(nameField.getText());
                 window.setVisible(true);
                 this.setVisible(false);
-            }
+            
+        }else if(source == btn_cancel){        
+            promptPanel.setVisible(false);    
+            selectButtonIsEnable = true;
         }
     }
 
