@@ -108,7 +108,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 (int) (panelWidth * 0.47), 
                 (int) (panelHeight * 0.10));
         nameField.setFont(createDynamicFont(40)); // Font styling
-    
+        nameField.setHorizontalAlignment(JTextField.CENTER);
         // Make the JTextField transparent
         nameField.setOpaque(false); // This makes the background transparent
         nameField.setBorder(null); 
