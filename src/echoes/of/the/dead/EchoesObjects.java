@@ -29,23 +29,25 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private int currentFrame = 0;
     private ImageList objSprites = new ImageList();
     private String type = null;
+    private String assetPackage = null;
     private ImageList state  = new ImageList();
     private boolean isAnimated = false;
-    public EchoesObjects(int x, int y, int width, int height, String type, boolean isAnimated, boolean isState){
+    private boolean isState = false;
+    public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState){
         super(x, y, width, height);
         this.type = type;
         startAnimationTimer();
         this.isAnimated = isAnimated;
-        
+        this.isState = isState;
         if(isState){
-            initializeObjState(width,height, 2);
+            initializeObjState(assetPackage, width, height, 2);
         }else{
-            initializeObjState(width,height, 1);
+            initializeObjState(assetPackage, width, height, 1);
             System.out.println(height + " " + width);
         }
         
         if(isAnimated){
-            initializeObjSprites(width, height);
+            initializeObjSprites(assetPackage, width, height);
         }
         this.addMouseListener(new MouseClickListener(this));
     }   
@@ -58,17 +60,17 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
             }
         });
         if(isAnimated){
-            initializeObjSprites((int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
+            initializeObjSprites(assetPackage, (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
             animationTimer.start();
         }
     }
     
-    public void initializeObjSprites(int width, int height){
+    public void initializeObjSprites(String assetPackage, int width, int height){
         state.clear();
         int size = 2;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
-            spritePaths[i] = "/world1_assets/" + type + "/sprite/"+ ".png";
+            spritePaths[i] = "/" + assetPackage + "_assets/" + type + "/sprite/"+ ".png";
         }     
         for (String path : spritePaths) {
             try {
@@ -81,12 +83,12 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         objSprites.resizeImageList((int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
     }
     
-    public void initializeObjState(int width, int height, int numOfState){
+    public void initializeObjState(String assetPackage, int width, int height, int numOfState){
         state.clear();
         int size = numOfState;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
-            spritePaths[i] = "/world1_assets/" + type + i + ".png";
+            spritePaths[i] = "/" + assetPackage + "_assets/" + type + i + ".png";
             System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
@@ -103,29 +105,30 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
    
     
     @Override
-    public void onClick(MouseEvent e) {
-       if(type.equals("shop")){
-           
+    public void onClick(MouseEvent e) {     
            animationTimer.stop();
-       }
     }
     @Override
     public void onHover(MouseEvent e) {
-        if(type.equals("shop")){
+        if(isState){
            currentFrame = 1;
-           if(isAnimated){
+           repaint();
+           return;
+        }
+        if(isAnimated){
             animationTimer.start();
-           }
         }
     }
 
     @Override
     public void onExit(MouseEvent e) {
-       if(type.equals("shop")){
-           currentFrame = 0;
-           if(isAnimated){
+        if(isState){
+            currentFrame = 0;  
+            repaint();    
+            return;  
+        }
+        if(isAnimated){
             animationTimer.stop();
-           }
         }
     }
     

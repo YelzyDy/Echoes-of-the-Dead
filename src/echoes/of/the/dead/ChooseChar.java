@@ -20,8 +20,8 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     TransparentPanel btn_knight;
     TransparentPanel btn_wizard;
     TransparentPanel btn_priest;
-    EchoesButton btn_select;
-    EchoesButton btn_ok;
+    EchoesObjects btn_select;
+    EchoesObjects btn_ok;
     String charType;
     JTextField nameField;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -36,7 +36,16 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         this.setLocationRelativeTo(null);
         charType = "knight";
         addScene();
-        btn_select = addSelectButton("SELECT", 50, 60, Color.BLACK, new Color(180, 148, 124), new Color(75, 84, 122), new Color(125, 132, 157), new Color(180, 148, 124), width * 0.7, height * 0.85, width * 0.2, height * 0.1);
+
+        btn_select = new EchoesObjects(
+                "button", (int) (width * 0.7),
+                (int) (height * 0.82),
+                (int) (width * 0.2),
+                (int) (height * 0.14),
+                "select_button", false, true
+            );
+        btn_select.setVisible(true);
+        btn_select.addMouseListener(new MouseClickListener(this));
         scene.add(btn_select);
         addTransparentButton();
     }
@@ -48,28 +57,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         this.add(scene);
         this.setVisible(true);
     }
-
-    public EchoesButton addSelectButton(String text, int radius, int baseFontSize, Color color, Color foreGround, 
-                                        Color colorOver, Color colorClick, Color BorderColor,
-                                        double x, double y, double width, double height) {
-        EchoesButton btn = new EchoesButton();
-        btn.setFont(createDynamicFont(baseFontSize));
-        btn.setForeground(foreGround);
-        btn.setText(text);
-        btn.setOpaque(true);
-        btn.setColor(color);
-        btn.setColorOver(colorOver);
-        btn.setRadius(radius);
-        btn.setColorClick(colorClick);
-        btn.setBorderColor(BorderColor);
-        // Set bounds based on screen size
-        btn.setBounds((int)x, (int)y, (int)width, (int)height);
-
-        btn.setVisible(true);
-        btn.addMouseListener(new MouseClickListener(this));
-        return btn;
-    }
-
     public void addTransparentButton() {
         // Position buttons relative to the screen size
         btn_knight = new TransparentPanel((int) (width * 0.03), (int) (height * 0.046), (int) (width * 0.158), (int) (height * 0.28));
@@ -99,7 +86,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         Object source = e.getSource();
         if (source == btn_select) {
             EchoesObjects promptPanel = new EchoesObjects(
-            (int) (screenSize.width * 0.20), 
+            "world1",(int) (screenSize.width * 0.20), 
             (int) (screenSize.height * 0.12), 
             (int) (screenSize.width * 0.58), 
             (int) (screenSize.height * 0.7), 
@@ -122,9 +109,15 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             nameField.setBorder(null); 
             nameField.setForeground(Color.WHITE); // Set text color to white (or any other color for contrast)
             nameField.setBackground(new Color(0, 0, 0, 0)); // Optional: Ensure no background color is applied
-            btn_ok = new EchoesButton();
-            btn_ok = addSelectButton("OK", 50, 40, new Color(39,75,84), new Color(235,195,150,255), new Color(29,70,78,255), 
-                    new Color(4,33,40), new Color(237,196,150,255), panelWidth * 0.43, panelHeight * 0.68, panelWidth * 0.15, panelHeight * 0.12);          
+            btn_ok = new EchoesObjects(
+                "button", (int) (panelWidth * 0.38),
+                (int) (panelHeight * 0.68),
+                (int) (panelWidth * 0.22),
+                (int) (panelHeight * 0.13),
+                "ok_button", false, true
+            );
+            btn_ok.setVisible(true);
+            btn_ok.addMouseListener(new MouseClickListener(this));
             promptPanel.add(btn_ok);
             promptPanel.add(nameField); // Add the text field to the prompt panel
             scene.add(promptPanel); // Add the prompt panel to the scene

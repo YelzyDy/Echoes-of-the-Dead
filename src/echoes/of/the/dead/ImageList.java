@@ -23,8 +23,7 @@ public class ImageList {
     
     public void add(Image icon, double x){
         ArrayList<Object> imageDetails = new ArrayList<>();
-        
-        
+            
         imageDetails.add(icon);
         imageDetails.add(x);
         origHeight = icon.getHeight(null);
