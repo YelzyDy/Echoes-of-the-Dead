@@ -23,7 +23,7 @@ public class SceneBuilder extends JPanel{
     protected ImageList sceneList;
     protected ImageList spriteList = new ImageList();
     protected Protagonist character;
-    protected int currentPanelIndex = 0;
+    protected int currentSceneIndex = 0;
     private EchoesObjects shop;
     String type;
 
@@ -75,13 +75,13 @@ public class SceneBuilder extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);      
         
-        if(currentPanelIndex < sceneList.getSize()){
-            g.drawImage(sceneList.get(currentPanelIndex), (int)(sceneList.getX(currentPanelIndex)), 0, this);
+        if(currentSceneIndex < sceneList.getSize()){
+            g.drawImage(sceneList.get(currentSceneIndex), (int)(sceneList.getX(currentSceneIndex)), 0, this);
         }
         character.draw(g);
         if(type.equals("world1")){
             shop.setVisible(false);
-            if(currentPanelIndex == 1){
+            if(currentSceneIndex == 1){
                 shop.setVisible(true);
             }
         }

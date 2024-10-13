@@ -130,11 +130,11 @@ public class Protagonist extends Character implements MouseInteractable{
                     e.printStackTrace();
                 }
             }
-            if(posX >= (int)(screenSize.width * 0.9) &&  panel.currentPanelIndex < maxPanel - 1){
-                panel.currentPanelIndex++;
+            if(posX >= (int)(screenSize.width * 0.9) &&  panel.currentSceneIndex < maxPanel - 1){
+                panel.currentSceneIndex++;
                 posX = (int)(screenSize.width * 0.001);
-            }else if(panel.currentPanelIndex > 0 && posX <= (int)(screenSize.width * 0.05)){
-                panel.currentPanelIndex--;
+            }else if(panel.currentSceneIndex > 0 && posX <= (int)(screenSize.width * 0.05)){
+                panel.currentSceneIndex--;
                 posX = (int)(screenSize.width * 0.9);
             }   
             stopMovement();

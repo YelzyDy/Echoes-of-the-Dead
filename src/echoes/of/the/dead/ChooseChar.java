@@ -163,21 +163,21 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.character.initializeIdleSprites(18);
             scene.character.setPosX((int)(width * 0.32)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
-            scene.currentPanelIndex = 0;
+            scene.currentSceneIndex = 0;
         } else if (source == btn_priest) {
             charType = "priest";
             scene.character.setCharacterType(charType);
             scene.character.initializeIdleSprites(18);
             scene.character.setPosX((int)(width * 0.349)); // Update position based on width
             scene.character.setPosY((int)(height * 0.49)); // Update position based on height
-            scene.currentPanelIndex = 1;
+            scene.currentSceneIndex = 1;
         } else if (source == btn_wizard) {
             charType = "wizard";
             scene.character.setCharacterType(charType);
             scene.character.initializeIdleSprites(18);
             scene.character.setPosX((int)(width * 0.34)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
-            scene.currentPanelIndex = 2;
+            scene.currentSceneIndex = 2;
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
