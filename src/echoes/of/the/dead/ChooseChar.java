@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author Joana
@@ -121,7 +121,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         btn_ok = createObj(
                 "button", (int) (panelWidth * 0.35),
                 (int) (panelHeight * 0.45),
-                (int) (panelWidth * 0.24),
+                (int) (panelWidth * 0.25),
                 (int) (panelHeight * 0.098),
                 "ok_button", false, true
             );
@@ -134,7 +134,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         btn_cancel = new EchoesObjects(
                 "button", (int) (panelWidth * 0.89),
                 (int) (panelHeight * 0.45),
-                (int) (panelWidth * 0.24),
+                (int) (panelWidth * 0.25),
                 (int) (panelHeight * 0.098),
                 "cancel_button", false, true
             );
@@ -179,12 +179,15 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.currentPanelIndex = 2;
         }else if(source == btn_ok){
-            if(!(nameField.getText().trim().isEmpty())){
+            if((nameField.getText().trim().isEmpty())){
+                JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
                 World1 window = new World1(charType, nameField.getText());
                 System.out.println(nameField.getText());
                 window.setVisible(true);
                 this.setVisible(false);
-            }
+            
         }else if(source == btn_cancel){        
             promptPanel.setVisible(false);    
             selectButtonIsEnable = true;

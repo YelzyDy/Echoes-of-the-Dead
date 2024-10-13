@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,6 +38,7 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
         scene.initializeCharacter(characterType, playerName);
         this.add(scene);
         this.setVisible(true);
+        JOptionPane.showMessageDialog(null, "Welcome to Echoes of the Dead!\n" + playerName, "", JOptionPane.INFORMATION_MESSAGE);
     }
    
     
