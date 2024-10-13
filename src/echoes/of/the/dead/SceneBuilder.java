@@ -23,6 +23,7 @@ public class SceneBuilder extends JPanel{
     protected ImageList sceneList;
     protected ImageList spriteList = new ImageList();
     protected Protagonist character;
+    Npc yoo;
     protected int currentSceneIndex = 0;
     private EchoesObjects shop;
     String type;
@@ -44,6 +45,8 @@ public class SceneBuilder extends JPanel{
         if(type.equals("world1")){
             character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.25));
             this.addMouseListener(new MouseClickListener(character));
+            yoo = new Npc("yoo", this, 0, (int)(screenSize.height * 0.225));
+      
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
             character.initializeIdleSprites((int)(screenSize.height * 0.017));
@@ -56,9 +59,11 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true);
             this.add(shop);
+           
             
         } else if (type.equals("chooseCharacter")) {
             this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -74,14 +79,16 @@ public class SceneBuilder extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);      
-        
         if(currentSceneIndex < sceneList.getSize()){
             g.drawImage(sceneList.get(currentSceneIndex), (int)(sceneList.getX(currentSceneIndex)), 0, this);
         }
         character.draw(g);
+        if (yoo != null) {
+            yoo.draw(g);  // Draw the NPC
+        }
         if(type.equals("world1")){
             shop.setVisible(false);
-            if(currentSceneIndex == 1){
+            if(currentSceneIndex == 2){
                 shop.setVisible(true);
             }
         }
