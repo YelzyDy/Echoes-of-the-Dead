@@ -7,8 +7,11 @@ package echoes.of.the.dead;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+
 import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
+
 import javax.swing.JPanel;
 import java.util.ArrayList; // added imports for animation of portal-z
 import javax.swing.Timer; // -z
@@ -74,7 +77,6 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true);
-<<<<<<< HEAD
             this.add(shop);
            
 =======
@@ -112,7 +114,7 @@ public class SceneBuilder extends JPanel{
         });
         portalTimer.start();  // Start the animation timer
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
 <<<<<<< HEAD
