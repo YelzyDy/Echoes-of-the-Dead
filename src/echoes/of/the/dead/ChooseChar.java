@@ -151,9 +151,12 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.currentPanelIndex = 2;
         }else if(source == btn_ok){
-            World1 window = new World1(charType, nameField.getText());
-            window.setVisible(true);
-            this.setVisible(false);
+            if(!(nameField.getText().trim().isEmpty())){
+                World1 window = new World1(charType, nameField.getText());
+                System.out.println(nameField.getText());
+                window.setVisible(true);
+                this.setVisible(false);
+            }
         }
     }
 
