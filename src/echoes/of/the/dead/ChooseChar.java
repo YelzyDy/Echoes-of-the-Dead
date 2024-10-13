@@ -22,6 +22,8 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     TransparentPanel btn_priest;
     EchoesObjects btn_select;
     EchoesObjects btn_ok;
+    EchoesObjects btn_cancel;
+    EchoesObjects promptPanel;
     String charType;
     JTextField nameField;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -85,7 +87,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
         if (source == btn_select) {
-            EchoesObjects promptPanel = new EchoesObjects(
+            promptPanel = new EchoesObjects(
             "world1",(int) (screenSize.width * 0.20), 
             (int) (screenSize.height * 0.12), 
             (int) (screenSize.width * 0.58), 
@@ -110,7 +112,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             nameField.setForeground(Color.WHITE); // Set text color to white (or any other color for contrast)
             nameField.setBackground(new Color(0, 0, 0, 0)); // Optional: Ensure no background color is applied
             btn_ok = new EchoesObjects(
-                "button", (int) (panelWidth * 0.38),
+                "button", (int) (panelWidth * 0.24),
                 (int) (panelHeight * 0.68),
                 (int) (panelWidth * 0.22),
                 (int) (panelHeight * 0.13),
@@ -119,6 +121,18 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             btn_ok.setVisible(true);
             btn_ok.addMouseListener(new MouseClickListener(this));
             promptPanel.add(btn_ok);
+
+            btn_cancel = new EchoesObjects(
+                "button", (int) (panelWidth * 0.55),
+                (int) (panelHeight * 0.68),
+                (int) (panelWidth * 0.22),
+                (int) (panelHeight * 0.13),
+                "cancel_button", false, true
+            );
+            btn_cancel.setVisible(true);
+            btn_cancel.addMouseListener(new MouseClickListener(this));
+            promptPanel.add(btn_cancel);
+
             promptPanel.add(nameField); // Add the text field to the prompt panel
             scene.add(promptPanel); // Add the prompt panel to the scene
         
@@ -150,6 +164,8 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 window.setVisible(true);
                 this.setVisible(false);
             }
+        }else if(source == btn_cancel){        
+                promptPanel.setVisible(false);    
         }
     }
 
