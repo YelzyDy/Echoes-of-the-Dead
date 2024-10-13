@@ -7,7 +7,6 @@ package echoes.of.the.dead;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
