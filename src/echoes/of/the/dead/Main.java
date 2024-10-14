@@ -1,19 +1,14 @@
 package echoes.of.the.dead;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Main extends javax.swing.JFrame implements MouseInteractable {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = screenSize.width;
     int height = screenSize.height;
-    private Image backgroundImage;
 
     public Main() {
         // Configure JFrame
@@ -24,7 +19,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
 
         // Create custom JPanel that will paint the background
         EchoesObjects backgroundPanel = new EchoesObjects(
-            "title_screen", 0, 0, width, height, "titleScreen", false, false);
+            "title_screen", 0, 0, width, height, "titleScreen", false, false,0);
         backgroundPanel.setVisible(true);
 
         EchoesObjects btn_title_play = new EchoesObjects(
@@ -32,7 +27,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
                 (int) (screenSize.height * 0.82),
                 (int) (screenSize.width * 0.21),
                 (int) (screenSize.height * 0.13),
-                "title_button", false, true
+                "title_button", false, true, 0
             );
         
         btn_title_play.setVisible(true);

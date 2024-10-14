@@ -22,7 +22,7 @@ import javax.swing.Timer;
  *
  * @author Joana
  */
-public class Protagonist implements MouseInteractable, Entity{
+public class Npc implements MouseInteractable, Entity{
     private int mana;
     private int attack;
     private int health;
@@ -39,19 +39,30 @@ public class Protagonist implements MouseInteractable, Entity{
     protected String characterType;
     protected SceneBuilder panel;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
+    public Npc(String characterType, SceneBuilder panel, int posX, int posY){
         this.posY = posY;
         this.posX = posX;
-        this.name = name;
         this.characterType = characterType;
         initializeWalkSprites((int)(screenSize.height * 0.006));
         initializeIdleSprites((int)(screenSize.height * 0.006));
         this.panel = panel;
+        startAnimationTimer(panel);
+    }
+    
+    private void startAnimationTimer(SceneBuilder panel) {
+        animationTimer = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateAnimation();
+                panel.repaint();
+            }
+        });
+        animationTimer.start();
     }
     
     public void initializeWalkSprites(int scale){
         walkSprites.clear();
-        int size = 8;
+        int size = 4;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/character_asset/" + characterType + "/walk/sprite" + (i + 1) + ".png";
@@ -68,7 +79,7 @@ public class Protagonist implements MouseInteractable, Entity{
     }
     
     public void initializeIdleSprites(int scale){
-        int size = 6;
+        int size = 4;
         idleSprites.clear();
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){

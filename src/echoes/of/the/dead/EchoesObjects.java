@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 /**
@@ -26,6 +25,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int posX;
     private int posY;
+
     private Timer animationTimer;
     private int currentFrame = 0;
     private ImageList objSprites = new ImageList();
@@ -34,26 +34,27 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private ImageList state  = new ImageList();
     private boolean isAnimated = false;
     private boolean isState = false;
-    public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState){
+    private int numOfSprites = 0;
+    public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
         this.type = type;
-        startAnimationTimer();
         this.isAnimated = isAnimated;
+        startAnimationTimer();
         this.isState = isState;
+        this.numOfSprites = numOfSprites;
+        this.assetPackage = assetPackage;
         if(isState){
             initializeObjState(assetPackage, width, height, 2);
-        }else{
+        }else if(isAnimated){
+            initializeObjSprites(assetPackage, width, height);
+        }else if(!isState && !isAnimated){
             initializeObjState(assetPackage, width, height, 1);
             System.out.println(height + " " + width);
-        }
-        
-        if(isAnimated){
-            initializeObjSprites(assetPackage, width, height);
         }
         this.addMouseListener(new MouseClickListener(this));
     }   
     
-    private void startAnimationTimer() {
+    public void startAnimationTimer() {
         animationTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,27 +62,27 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
             }
         });
         if(isAnimated){
-            initializeObjSprites(assetPackage, (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
             animationTimer.start();
         }
     }
     
     public void initializeObjSprites(String assetPackage, int width, int height){
         state.clear();
-        int size = 2;
+        int size = numOfSprites;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
-            spritePaths[i] = "/" + assetPackage + "_assets/" + type + "/sprite/"+ ".png";
+            spritePaths[i] = "/" + assetPackage + "_assets/" + type + "/sprite"+ i +".png";
         }     
         for (String path : spritePaths) {
             try {
+                System.out.println("Attempting to load image from path: " + path);
                 Image image = ImageIO.read(getClass().getResource(path));
                 objSprites.add(image); 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        objSprites.resizeImageList((int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32));
+        objSprites.resizeImageList(width, height);
     }
     
     public void initializeObjState(String assetPackage, int width, int height, int numOfState){
@@ -90,13 +91,13 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "_assets/" + type + i + ".png";
-            System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
+                System.out.println("Attempting to load image from path: " + path);
                 Image image = ImageIO.read(getClass().getResource(path));
                 state.add(image); 
-            } catch (IOException e) {
+            } catch (IOException e) {;
                 e.printStackTrace();
             }
         }
@@ -111,25 +112,19 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     }
     @Override
     public void onHover(MouseEvent e) {
-        if(isState){
+        if(!isAnimated){
            currentFrame = 1;
            repaint();
            return;
-        }
-        if(isAnimated){
-            animationTimer.start();
         }
     }
 
     @Override
     public void onExit(MouseEvent e) {
-        if(isState){
+        if(!isAnimated){
             currentFrame = 0;  
             repaint();    
             return;  
-        }
-        if(isAnimated){
-            animationTimer.stop();
         }
     }
     
@@ -140,10 +135,12 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     
     @Override
     public void updateAnimation(){
-        currentFrame++;
-        if(currentFrame >= objSprites.getSize()){
-            currentFrame = 0;
-        }      
+        if(isAnimated){
+            currentFrame++;
+            if(currentFrame >= objSprites.getSize()){
+                currentFrame = 0;
+            }      
+        }
     }
     
     @Override
@@ -166,9 +163,5 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.drawImage(getCurrentSprite(), posX, posY, null);
-    }
-
-    void setIcon(ImageIcon get) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

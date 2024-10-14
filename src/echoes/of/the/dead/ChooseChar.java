@@ -39,7 +39,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         charType = "knight";
         addScene();
 
-        btn_select = new EchoesObjects(
+        btn_select = createObj(
                 "button", (int) (width * 0.7),
                 (int) (height * 0.82),
                 (int) (width * 0.2),
@@ -85,7 +85,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
 
     private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
     String type, boolean isAnimated, boolean isState){
-        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState);
+        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState, 0);
         object.setVisible(true);
         return object;
     }
@@ -131,7 +131,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     public void addBtnCancel(int panelHeight, int panelWidth){
-        btn_cancel = new EchoesObjects(
+        btn_cancel = createObj(
                 "button", (int) (panelWidth * 0.89),
                 (int) (panelHeight * 0.45),
                 (int) (panelWidth * 0.25),
@@ -163,21 +163,21 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.character.initializeIdleSprites(18);
             scene.character.setPosX((int)(width * 0.32)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
-            scene.currentPanelIndex = 0;
+            scene.currentSceneIndex = 0;
         } else if (source == btn_priest) {
             charType = "priest";
             scene.character.setCharacterType(charType);
             scene.character.initializeIdleSprites(18);
             scene.character.setPosX((int)(width * 0.349)); // Update position based on width
             scene.character.setPosY((int)(height * 0.49)); // Update position based on height
-            scene.currentPanelIndex = 1;
+            scene.currentSceneIndex = 1;
         } else if (source == btn_wizard) {
             charType = "wizard";
             scene.character.setCharacterType(charType);
             scene.character.initializeIdleSprites(18);
             scene.character.setPosX((int)(width * 0.34)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
-            scene.currentPanelIndex = 2;
+            scene.currentSceneIndex = 2;
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
