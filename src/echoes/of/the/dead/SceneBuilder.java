@@ -25,7 +25,8 @@ public class SceneBuilder extends JPanel{
     protected Protagonist character;
     protected int currentSceneIndex = 0;
     private EchoesObjects shop;     // shop png -z
-    private EchoesObjects portal;   // portal png -z
+    private EchoesObjects portal;   // portal sa minions -z
+    private EchoesObjects portalMB; // portal sa mini boss -z
     String type;
     private Timer animationTimer;           // Timer for animating the portal -z
 
@@ -59,12 +60,14 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0); // added an extension :> -z
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 0);
-            this.add(shop); // shop png displayed -z
-            portal = new EchoesObjects("world1", (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29
-            );
-            this.add(portal); // portal png displayed -z
+            this.add(shop); 
+            portal = new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);
+            this.add(portal); // portal minions added -z
+            portalMB = new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47);
+            this.add(portalMB); // portal mini boss added -z
             
         } else if (type.equals("chooseCharacter")) {
             this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -97,11 +100,21 @@ public class SceneBuilder extends JPanel{
         }
         character.draw(g);
         if (type.equals("world1")) {
-            if (currentSceneIndex == 1) {
+            // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
+            if (currentSceneIndex == 2) {
                 shop.setVisible(true);
+                portalMB.setVisible(true);
+                portal.setVisible(false);
             }
             if (currentSceneIndex == 1) {
+                shop.setVisible(false);
+                portalMB.setVisible(false);
                 portal.setVisible(true);
+            }
+            if (currentSceneIndex == 0){
+                shop.setVisible(false);
+                portalMB.setVisible(false);
+                portal.setVisible(false);
             }
         }
     }
