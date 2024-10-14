@@ -76,13 +76,14 @@ public class SceneBuilder extends JPanel{
         }
     }
     
-    // Method to start the portal animation using a Timer - z
     private void startAnimationTimer() {
         animationTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                character. updateAnimation();
-                
+                if (portal != null && portal.isAnimated()) {
+                    portal.updateAnimation();
+                }
+                character.updateAnimation();
                 repaint();
             }
         });
