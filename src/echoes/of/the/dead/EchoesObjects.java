@@ -159,6 +159,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         super.paintComponent(g);
         draw(g);
     }
+    
     @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
