@@ -10,10 +10,6 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import java.util.ArrayList; // added imports for animation of portal-z
-import javax.swing.Timer; // -z
-import java.awt.event.ActionEvent; // -z
-import java.awt.event.ActionListener; // -z
 
 /**
  *
@@ -127,17 +123,6 @@ public class SceneBuilder extends JPanel{
         if(type.equals("world1")){
             shop.setVisible(false);
             if(currentSceneIndex == 2){
-=======
-        super.paintComponent(g);
-        if (currentPanelIndex < sceneList.getSize()) {
-            g.drawImage(sceneList.get(currentPanelIndex), (int) (sceneList.getX(currentPanelIndex)), 0, this);
-        }
-        character.draw(g);
-        if (type.equals("world1")) {
-            shop.setVisible(false);
-            portal.setVisible(false);  // Hide portal by default
-            if (currentPanelIndex == 1) {
->>>>>>> b958fe001969a6b31101d0f564cae1c387b4bea9
                 shop.setVisible(true);
             }
             if (currentPanelIndex == 1) {
