@@ -43,6 +43,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.isState = isState;
         this.numOfSprites = numOfSprites;
         this.assetPackage = assetPackage;
+        System.out.println("isState: " + isState);
         if(isState){
             initializeObjState(assetPackage, width, height, 2);
         }else if(isAnimated){
@@ -112,7 +113,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     }
     @Override
     public void onHover(MouseEvent e) {
-        if(!isAnimated){
+        if(!isAnimated && isState){
            currentFrame = 1;
            repaint();
            return;
@@ -121,7 +122,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     @Override
     public void onExit(MouseEvent e) {
-        if(!isAnimated){
+        if(!isAnimated && isState){
             currentFrame = 0;  
             repaint();    
             return;  
@@ -150,7 +151,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     @Override
     public Image getCurrentSprite() {
-        System.out.println(assetPackage + "  " + type);
         return ((isAnimated) ? objSprites : state).get(currentFrame);      
     }
     
