@@ -13,12 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.Timer; // -z
 import java.awt.event.ActionEvent; // -z
 import java.awt.event.ActionListener; // -z
+import java.awt.event.MouseEvent; // -z
 
 /**
  *
  * @author Joana
  */
-public class SceneBuilder extends JPanel{
+public class SceneBuilder extends JPanel implements MouseInteractable { // implemented MouseInteractable -z
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected ImageList sceneList;
     protected ImageList spriteList = new ImageList();
@@ -58,9 +59,10 @@ public class SceneBuilder extends JPanel{
         if (type.equals("world1")) {
             sceneList = new ImageList();
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0); // added an extension :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 1);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 3); // added an extension :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 4); // added scene for inside the minion portal background :> -z
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 0);
             this.add(shop); 
@@ -68,6 +70,8 @@ public class SceneBuilder extends JPanel{
             this.add(portal); // portal minions added -z
             portalMB = new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47);
             this.add(portalMB); // portal mini boss added -z
+            portal.addMouseListener(new MouseClickListener(this)); // attempted to add mouselistener sa portals -z
+            portalMB.addMouseListener(new MouseClickListener(this)); // (up) -z
             
         } else if (type.equals("chooseCharacter")) {
             this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -95,27 +99,39 @@ public class SceneBuilder extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (currentSceneIndex < sceneList.getSize()) {
+        if (currentSceneIndex < sceneList.getSize()) { 
             g.drawImage(sceneList.get(currentSceneIndex), (int) (sceneList.getX(currentSceneIndex)), 0, this);
         }
         character.draw(g);
         if (type.equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
-            if (currentSceneIndex == 2) {
-                shop.setVisible(true);
-                portalMB.setVisible(true);
-                portal.setVisible(false);
-            }
-            if (currentSceneIndex == 1) {
-                shop.setVisible(false);
-                portalMB.setVisible(false);
-                portal.setVisible(true);
-            }
-            if (currentSceneIndex == 0){
-                shop.setVisible(false);
-                portalMB.setVisible(false);
-                portal.setVisible(false);
-            }
+            shop.setVisible(currentSceneIndex == 2);
+            portal.setVisible(currentSceneIndex == 1);
+            portalMB.setVisible(currentSceneIndex == 2);
         }
+    }
+
+
+    @Override // from MouseInteractable interface -z shet guys di siya mo scene change
+    public void onClick(MouseEvent e) {
+        if (portal.isVisible() && portal.getBounds().contains(e.getPoint())) {
+            currentSceneIndex = 4;
+            repaint();
+        } else if (portalMB.isVisible() && portalMB.getBounds().contains(e.getPoint())) {
+            currentSceneIndex = 4; 
+            repaint();
+        }
+    }
+
+
+    @Override // from MouseInteractable interface -z
+    public void onHover(MouseEvent e) {
+        //nothing -z
+    }
+
+
+    @Override // from MouseInteractable interface -z
+    public void onExit(MouseEvent e) {
+        //nothing -z
     }
 }
