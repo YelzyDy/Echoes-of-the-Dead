@@ -150,6 +150,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     @Override
     public Image getCurrentSprite() {
+        System.out.println(assetPackage + "  " + type);
         return ((isAnimated) ? objSprites : state).get(currentFrame);      
     }
     
