@@ -47,18 +47,6 @@ public class Protagonist implements MouseInteractable, Entity{
         initializeWalkSprites((int)(screenSize.height * 0.006));
         initializeIdleSprites((int)(screenSize.height * 0.006));
         this.panel = panel;
-        startAnimationTimer(panel);
-    }
-    
-    private void startAnimationTimer(SceneBuilder panel) {
-        animationTimer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateAnimation();
-                panel.repaint();
-            }
-        });
-        animationTimer.start();
     }
     
     public void initializeWalkSprites(int scale){

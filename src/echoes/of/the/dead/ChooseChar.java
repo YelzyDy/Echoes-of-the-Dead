@@ -39,7 +39,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         charType = "knight";
         addScene();
 
-        btn_select = new EchoesObjects(
+        btn_select = createObj(
                 "button", (int) (width * 0.7),
                 (int) (height * 0.82),
                 (int) (width * 0.2),
@@ -85,7 +85,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
 
     private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
     String type, boolean isAnimated, boolean isState){
-        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState);
+        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState, 0);
         object.setVisible(true);
         return object;
     }
@@ -131,7 +131,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     public void addBtnCancel(int panelHeight, int panelWidth){
-        btn_cancel = new EchoesObjects(
+        btn_cancel = createObj(
                 "button", (int) (panelWidth * 0.89),
                 (int) (panelHeight * 0.45),
                 (int) (panelWidth * 0.25),
