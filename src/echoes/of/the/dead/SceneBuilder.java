@@ -10,6 +10,10 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import java.util.ArrayList; // added imports for animation of portal-z
+import javax.swing.Timer; // -z
+import java.awt.event.ActionEvent; // -z
+import java.awt.event.ActionListener; // -z
 
 /**
  *
@@ -20,15 +24,9 @@ public class SceneBuilder extends JPanel{
     protected ImageList sceneList;
     protected ImageList spriteList = new ImageList();
     protected Protagonist character;
-<<<<<<< HEAD
-    Npc yoo;
     protected int currentSceneIndex = 0;
-    private EchoesObjects shop;
-=======
-    protected int currentPanelIndex = 0;
     private EchoesObjects shop;     // shop png -z
     private EchoesObjects portal;   // portal png -z
->>>>>>> b958fe001969a6b31101d0f564cae1c387b4bea9
     String type;
     private ArrayList<ImageIcon> portalFrames = new ArrayList<>();  // For portal animation -z
     private int currentPortalFrame = 0;  // Track the current frame -z
@@ -53,8 +51,6 @@ public class SceneBuilder extends JPanel{
         if(type.equals("world1")){
             character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.25));
             this.addMouseListener(new MouseClickListener(character));
-            yoo = new Npc("yoo", this, 0, (int)(screenSize.height * 0.225));
-      
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
             character.initializeIdleSprites((int)(screenSize.height * 0.017));
@@ -67,17 +63,11 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true);
-<<<<<<< HEAD
-            this.add(shop);
-           
-=======
             this.add(shop); // shop png displayed -z
             portal = new EchoesObjects("world1", (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", false, true);
             this.add(portal); // portal png displayed -z
->>>>>>> b958fe001969a6b31101d0f564cae1c387b4bea9
             
         } else if (type.equals("chooseCharacter")) {
             this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -111,21 +101,18 @@ public class SceneBuilder extends JPanel{
 
     @Override
     protected void paintComponent(Graphics g) {
-<<<<<<< HEAD
-        super.paintComponent(g);      
-        if(currentSceneIndex < sceneList.getSize()){
-            g.drawImage(sceneList.get(currentSceneIndex), (int)(sceneList.getX(currentSceneIndex)), 0, this);
+        super.paintComponent(g);
+        if (currentSceneIndex < sceneList.getSize()) {
+            g.drawImage(sceneList.get(currentSceneIndex), (int) (sceneList.getX(currentSceneIndex)), 0, this);
         }
         character.draw(g);
-        if (yoo != null) {
-            yoo.draw(g);  // Draw the NPC
-        }
-        if(type.equals("world1")){
+        if (type.equals("world1")) {
             shop.setVisible(false);
-            if(currentSceneIndex == 2){
+            portal.setVisible(false);  // Hide portal by default
+            if (currentSceneIndex == 1) {
                 shop.setVisible(true);
             }
-            if (currentPanelIndex == 1) {
+            if (currentSceneIndex == 1) {
                 g.drawImage(portalFrames.get(currentPortalFrame).getImage(),
                         portal.getX(), portal.getY(),
                         portal.getWidth(), portal.getHeight(), this);
