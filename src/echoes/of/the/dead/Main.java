@@ -18,10 +18,22 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         this.setLayout(null);  // Absolute layout for positioning
 
         // Create custom JPanel that will paint the background
+        // EchoesObjects is a *class* that serves as a blueprint for all the objects that we will display on screen i.e shop and portals -- jian
+        // in line 23 - 25, we will used EchoesObjects to display our background -- jian
+        // its parameters are the name of the assetPackage, x, y, width, height, type, isAnimated Boolean, isState Boolean, -- jian
+        // and numberOfSprites in that order -- jian
+        // our backgroundPanel doesn't have animation, it doesn't have a state(meaning on or off/ hover or not hovered), and -- jian
+        // since it's not animated, its number of sprites is 0 -- jian
         EchoesObjects backgroundPanel = new EchoesObjects(
             "title_screen", 0, 0, width, height, "titleScreen", false, false,0);
-        backgroundPanel.setVisible(true);
+        // we set our backgroundPanel's visibility to true since by default, its class (EchoesObjects) had set its visibility to false -- jian
+        // as our EchoesObjects extends to TransparentPanel, it's superclass -- jian
+            backgroundPanel.setVisible(true);
 
+        // we use the same class or blueprint for our object btn_title_play, but it's isState is true this time -- jian
+        // meaning that there are on or off states / hovered or not hovered state / mouse OnHover or mouse onExit -- jian
+        // note that the String assetPackage and String type is essential for accessing the pathName of the image we will use -- jian
+        // images are the core of our EchoesObjects which will be explained in the EchoesObjects class -- jian
         EchoesObjects btn_title_play = new EchoesObjects(
                 "button", (int) (screenSize.width * 0.75),
                 (int) (screenSize.height * 0.82),
@@ -29,11 +41,18 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
                 (int) (screenSize.height * 0.13),
                 "title_button", false, true, 0
             );
-        
+        // just like the backgroundPanel, we set its visibility to true since TransParentPanel, its parent class is --jian
+        // initially false --jian
         btn_title_play.setVisible(true);
+        // another difference between the backgroundPanel and the btn_title_play is that btn_title_play has --jian
+        // a MouseListener attached which listens to to mouseEvents that will occur within the bouds of btn_title_play --jian
         btn_title_play.addMouseListener(new MouseClickListener(this));
-        this.add(btn_title_play); // The Main Button
-        this.add(backgroundPanel);
+      
+        // do not forget to add our custom JPanel objects to our JFrame/Jpanel or whatever parent container it should have --jian
+        // in this case, the parent container is the JFrame and the children of JFrame is the objects we instantiated --jian
+        this.add(btn_title_play); 
+        this.add(backgroundPanel); 
+      
     }
 
 
@@ -43,7 +62,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         });
     }
 
-    @Override
+    @Override  
     public void onClick(MouseEvent e) {
         // StoryLine window = new printExpositionText();
         new Dialogues(1);

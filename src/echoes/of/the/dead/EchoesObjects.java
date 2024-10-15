@@ -10,12 +10,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.Timer;
 
 /**
  *
@@ -25,8 +22,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int posX;
     private int posY;
-
-    private Timer animationTimer;
     private int currentFrame = 0;
     private ImageList objSprites = new ImageList();
     private String type = null;
@@ -39,7 +34,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         super(x, y, width, height);
         this.type = type;
         this.isAnimated = isAnimated;
-        startAnimationTimer();
         this.isState = isState;
         this.numOfSprites = numOfSprites;
         this.assetPackage = assetPackage;
@@ -55,18 +49,10 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.addMouseListener(new MouseClickListener(this));
     }   
     
-    public void startAnimationTimer() {
-        animationTimer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateAnimation();
-            }
-        });
-        if(isAnimated){
-            animationTimer.start();
-        }
-    }
     
+    public boolean isAnimated(){
+        return isAnimated;
+    }
     public void initializeObjSprites(String assetPackage, int width, int height){
         state.clear();
         int size = numOfSprites;
@@ -109,8 +95,9 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     
     @Override
     public void onClick(MouseEvent e) {     
-           animationTimer.stop();
+          
     }
+
     @Override
     public void onHover(MouseEvent e) {
         if(!isAnimated && isState){
@@ -159,10 +146,12 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         super.paintComponent(g);
         draw(g);
     }
+
     @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        System.out.println(assetPackage + " " + type + currentFrame);
         g2d.drawImage(getCurrentSprite(), posX, posY, null);
     }
 }
