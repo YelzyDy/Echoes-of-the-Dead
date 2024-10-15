@@ -210,4 +210,16 @@ public class Npc implements MouseInteractable, Entity{
     public void onExit(MouseEvent e) {
         
     }
+
+    @Override
+    public void initializeSprites(String assetPackage, String type, int scale) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'initializeSprites'");
+    }
+
+    @Override
+    public void initializeSprites(String assetPackage, int width, int height) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'initializeSprites'");
+    }
 }

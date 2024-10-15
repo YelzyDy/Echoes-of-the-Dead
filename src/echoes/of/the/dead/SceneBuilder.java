@@ -32,6 +32,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
+    private boolean isTransportedToPillars = false; // same stuff but sa mini boss na portal -z
 
     public SceneBuilder(String type){
         this.type = type;
@@ -71,6 +72,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 1);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2);
             this.add(shop); 
@@ -129,7 +131,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
             shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
             portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
-            portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToSwamp);  // Hide portal after transport
+            portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToPillars);  // Hide portal after transport
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
             }
@@ -142,8 +144,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         Object source = e.getSource();
         if(source == portal){
             currentSceneIndex = 3;
+            isTransportedToSwamp = true;
         }else if (source == portalMB) {
-            currentSceneIndex = 3; 
+            currentSceneIndex = 4; 
+            isTransportedToPillars = true;
         }
     }
 
