@@ -30,6 +30,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects portalMB; // portal sa mini boss -z
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
+    private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
 
     public SceneBuilder(String type){
         this.type = type;
@@ -64,8 +65,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 1);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 3); // added an extension :> -z
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 4); // added scene for inside the minion portal background :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 0);
             this.add(shop); 
@@ -105,6 +105,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (portal != null && portal.isAnimated()) {
             portal.updateAnimation();
         }
+        if (portal != null && portalMB.isAnimated()){
+            portalMB.updateAnimation();
+        }
         // Add any other game state updates here
     }
 
@@ -117,22 +120,30 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (type.equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
             shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
-            portal.setVisible(currentSceneIndex == 1);
-            portalMB.setVisible(currentSceneIndex == 2);
+            portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
+            portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToSwamp);  // Hide portal after transport
         }
     }
 
 
-    @Override // from MouseInteractable interface -z shet guys di siya mo scene change
+    @Override
     public void onClick(MouseEvent e) {
-        if (portal.isVisible() && portal.getBounds().contains(e.getPoint())) {
-            currentSceneIndex = 4;
-            repaint();
-        } else if (portalMB.isVisible() && portalMB.getBounds().contains(e.getPoint())) {
-            currentSceneIndex = 4; 
-            repaint();
+        if (isTransportedToSwamp){
+            return;
+        }
+        if (!isTransportedToSwamp) {  // Allow transport only if not already in the swamp -z
+            if (portal.isVisible()) {
+                currentSceneIndex = 3;
+                isTransportedToSwamp = true;  // Set flag when entering the swamp
+                repaint();
+            } else if (portalMB.isVisible()) {
+                currentSceneIndex = 3;
+                isTransportedToSwamp = true;  // Set flag when entering the swamp
+                repaint();
+            }
         }
     }
+
 
 
     @Override // from MouseInteractable interface -z
