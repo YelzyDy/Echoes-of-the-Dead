@@ -10,7 +10,6 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import java.util.ArrayList; // added imports for animation of portal-z
 import javax.swing.Timer; // -z
 import java.awt.event.ActionEvent; // -z
 import java.awt.event.ActionListener; // -z
@@ -83,6 +82,7 @@ public class SceneBuilder extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 character. updateAnimation();
+                
                 repaint();
             }
         });
