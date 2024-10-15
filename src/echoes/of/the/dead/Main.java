@@ -32,8 +32,8 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         
         btn_title_play.setVisible(true);
         btn_title_play.addMouseListener(new MouseClickListener(this));
-        this.add(btn_title_play); 
-        this.add(backgroundPanel); 
+        this.add(btn_title_play); // The Main Button
+        this.add(backgroundPanel);
     }
 
 
@@ -45,7 +45,10 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
-        ChooseChar window = new ChooseChar();
+        // StoryLine window = new printExpositionText();
+        new Dialogues(1);
+
+        ChooseChar window = new ChooseChar(); // Will invoke the character selection scene
         window.setVisible(true);
         this.setVisible(false);
     }
