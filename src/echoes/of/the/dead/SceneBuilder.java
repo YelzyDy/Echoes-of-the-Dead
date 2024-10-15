@@ -28,6 +28,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects shop;     // shop png -z
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
+    //private MinionsWorld1 minions1; // minions -z
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
@@ -48,6 +49,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     public void initializeCharacter(String charType, String playerName) {
         if(type.equals("world1")){
             character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.25));
+            //minions1 = new MinionsWorld1("minion", this, ALLBITS, ABORT);
             this.addMouseListener(new MouseClickListener(character));
             this.add(character);
             this.setComponentZOrder(character, 0);
@@ -122,6 +124,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
             portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToSwamp);  // Hide portal after transport
+            //minions1.setVisible(currentSceneIndex == 3);
         }
     }
 
