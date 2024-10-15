@@ -128,9 +128,6 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
 
     @Override
     public void onClick(MouseEvent e) {
-        if (isTransportedToSwamp){
-            return;
-        }
         if (!isTransportedToSwamp) {  // Allow transport only if not already in the swamp -z
             if (portal.isVisible()) {
                 currentSceneIndex = 3;
@@ -145,7 +142,6 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     }
 
 
-
     @Override // from MouseInteractable interface -z
     public void onHover(MouseEvent e) {
         //nothing -z
@@ -156,4 +152,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     public void onExit(MouseEvent e) {
         //nothing -z
     }
+
+    /*Ako pa i fix ang bug nga if ma transport siya, 
+    dapat di siya maka balik sa forest unless na patay na ang enemy */
 }
