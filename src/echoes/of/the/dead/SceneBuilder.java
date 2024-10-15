@@ -116,7 +116,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         }
         if (type.equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
-            shop.setVisible(currentSceneIndex == 2);
+            shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
             portal.setVisible(currentSceneIndex == 1);
             portalMB.setVisible(currentSceneIndex == 2);
         }
