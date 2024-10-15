@@ -45,6 +45,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
+        // ari diri bem
         ChooseChar window = new ChooseChar();
         window.setVisible(true);
         this.setVisible(false);
