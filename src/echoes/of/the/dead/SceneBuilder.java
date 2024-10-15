@@ -154,5 +154,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     }
 
     /*Ako pa i fix ang bug nga if ma transport siya, 
-    dapat di siya maka balik sa forest unless na patay na ang enemy */
+    dapat di siya maka balik sa forest unless na patay na ang enemy. 
+    Also need to fix nga layo kaayo ang character pero maka sud ra siya sa portal,
+    dapat di siya maka sud unless duol duol*/
 }
