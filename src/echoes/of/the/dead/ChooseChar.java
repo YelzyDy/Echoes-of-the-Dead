@@ -48,7 +48,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 (int) (height * 0.82),
                 (int) (width * 0.2),
                 (int) (height * 0.14),
-                "select_button", false, true
+                "select_button", false, true, 2
             );
         btn_select.setVisible(true);
         btn_select.addMouseListener(new MouseClickListener(this)); // attaching a mouseListener to our btn_select --jian
@@ -97,10 +97,10 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
-    String type, boolean isAnimated, boolean isState){
+    String type, boolean isAnimated, boolean isState, int numOfSprites){
         // a method that will return EchoesObjects... there's not really much difference if we just call EchoesObjects --jian
         // without this method but it saves us two lines each instantiation :D --jian
-        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState, 0);
+        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState, numOfSprites);
         object.setVisible(true);
         return object;
     }
@@ -111,7 +111,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         (int) (screenSize.height * 0.12), 
         (int) (screenSize.width * 0.58), 
         (int) (screenSize.height * 0.7), 
-        "namePromptPanel", false, false
+        "namePromptPanel", false, false, 1
         );
         scene.add(promptPanel);  
     }
@@ -139,7 +139,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 (int) (panelHeight * 0.45),
                 (int) (panelWidth * 0.25),
                 (int) (panelHeight * 0.098),
-                "ok_button", false, true
+                "ok_button", false, true, 2
             );
             btn_ok.setVisible(true);
             btn_ok.addMouseListener(new MouseClickListener(this));
@@ -152,7 +152,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 (int) (panelHeight * 0.45),
                 (int) (panelWidth * 0.25),
                 (int) (panelHeight * 0.098),
-                "cancel_button", false, true
+                "cancel_button", false, true, 2
             );
             btn_cancel.setVisible(true);
             btn_cancel.addMouseListener(new MouseClickListener(this));
@@ -180,21 +180,21 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         } else if (source == btn_knight) {
             charType = "knight";
             scene.character.setCharacterType(charType);
-            scene.character.initializeIdleSprites(18);
+            scene.character.initializeSprites("character_asset", "idle", 18);
             scene.character.setPosX((int)(width * 0.32)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.currentSceneIndex = 0;
         } else if (source == btn_priest) {
             charType = "priest";
             scene.character.setCharacterType(charType);
-            scene.character.initializeIdleSprites(18);
+            scene.character.initializeSprites("character_asset", "idle", 18);
             scene.character.setPosX((int)(width * 0.349)); // Update position based on width
             scene.character.setPosY((int)(height * 0.49)); // Update position based on height
             scene.currentSceneIndex = 1;
         } else if (source == btn_wizard) {
             charType = "wizard";
             scene.character.setCharacterType(charType);
-            scene.character.initializeIdleSprites(18);
+            scene.character.initializeSprites("character_asset", "idle", 18);
             scene.character.setPosX((int)(width * 0.34)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.currentSceneIndex = 2;

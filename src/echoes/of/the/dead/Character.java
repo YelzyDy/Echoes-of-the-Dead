@@ -6,23 +6,27 @@ package echoes.of.the.dead;
 
 import javax.swing.Timer;
 
+
 /**
  *
  * @author Joana
  */
-public abstract class Character implements Entity{
+public abstract class Character extends TransparentPanel implements Entity{
     protected String name;
     protected int posX;
     protected int posY;
-    protected ImageList walkSprites = new ImageList();
-    protected ImageList idleSprites = new ImageList();
-    protected int currentFrame = 0;
+    protected int currentFrame;
     protected Timer animationTimer;
     protected boolean isMoving = false;
+
     protected boolean isFacingRight = true;
     protected String characterType;
     protected SceneBuilder panel;
-    
-    public abstract void moveTo(int targetX);
+   
+    public Character(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
 
+    public abstract void moveTo(int targetX);
+    
 }

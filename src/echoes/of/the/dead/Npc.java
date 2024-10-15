@@ -23,9 +23,6 @@ import javax.swing.Timer;
  * @author Joana
  */
 public class Npc implements MouseInteractable, Entity{
-    private int mana;
-    private int attack;
-    private int health;
     protected String name;
     protected int posX;
     protected int posY;

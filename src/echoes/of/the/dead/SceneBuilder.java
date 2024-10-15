@@ -55,7 +55,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.setComponentZOrder(character, 0);
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
-            character.initializeIdleSprites((int)(screenSize.height * 0.017));
+            character.initializeSprites("character_asset", "idle", (int)(screenSize.height * 0.017));
             this.add(character);
         }
         initializeGameLoop();
@@ -69,7 +69,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
-            shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 0);
+            shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2);
             this.add(shop); 
             portal = new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);
             this.add(portal); // portal minions added -z
@@ -131,16 +131,11 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
 
     @Override
     public void onClick(MouseEvent e) {
-        if (!isTransportedToSwamp) {  // Allow transport only if not already in the swamp -z
-            if (portal.isVisible()) {
-                currentSceneIndex = 3;
-                isTransportedToSwamp = true;  // Set flag when entering the swamp
-                repaint();
-            } else if (portalMB.isVisible()) {
-                currentSceneIndex = 3;
-                isTransportedToSwamp = true;  // Set flag when entering the swamp
-                repaint();
-            }
+        Object source = e.getSource();
+        if(source == portal){
+            currentSceneIndex = 3;
+        }else if (source == portalMB) {
+            currentSceneIndex = 3; 
         }
     }
 
