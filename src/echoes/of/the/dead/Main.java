@@ -65,7 +65,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     @Override  
     public void onClick(MouseEvent e) {
         // StoryLine window = new printExpositionText();
-        new Dialogues(1);
+        new Dialogues(1, 1); // 1 for full screen box, 0 for message box
 
         ChooseChar window = new ChooseChar(); // Will invoke the character selection scene
         window.setVisible(true);
