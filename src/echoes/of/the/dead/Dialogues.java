@@ -13,17 +13,17 @@ public class Dialogues extends JFrame {
     }
 
     // Method to open the story dialog box and display either exposition or resolution
-    private void openstoryDialogue(int storyPart) {
+    private void openstoryDialogue(int dialogue) {
         // Create a modal dialog for the story
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
-        storyDialogue.setSize(1400, 700);
+        storyDialogue.setSize(1275,400);
         storyDialogue.setLayout(new BorderLayout());
 
         // Set up the story and label for the text
         StoryLine story = new StoryLine();
-        story.loadStoryPart(storyPart); // Load either exposition or resolution based on the parameter
+        story.loadStoryPart(dialogue); // Load either exposition or resolution based on the parameter
         JLabel textLabel = new JLabel(story.getStoryLine(0), SwingConstants.CENTER);
-        textLabel.setFont(new Font("Serif", Font.PLAIN, 24));
+        textLabel.setFont(new Font("MonoSpaced", Font.PLAIN, 28));
         textLabel.setForeground(Color.WHITE); // Set text color to white
         textLabel.setVerticalAlignment(SwingConstants.CENTER);
 
@@ -32,6 +32,9 @@ public class Dialogues extends JFrame {
 
         // Add the text label to the dialogue
         storyDialogue.add(textLabel, BorderLayout.CENTER);
+
+        // Set the location of the dialogue window
+        storyDialogue.setLocation(0, 320);
 
         // Add a mouse listener to the dialogue for text progression
         storyDialogue.addMouseListener(new MouseAdapter() {
