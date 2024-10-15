@@ -18,10 +18,11 @@ import javax.swing.Timer;
  *
  * @author Joana
  */
-public class Protagonist extends TransparentPanel implements MouseInteractable, Entity {
-    private int mana;
-    private int attack;
-    private int health;
+public class Protagonist extends TransparentPanel implements MouseInteractable, Entity, Battle {
+    private int mana = 100;
+    private int attack = 20;
+    private int health = 150;
+    private int money = 0;
     protected String name;
     protected int posX;
     protected int posY;
@@ -34,7 +35,7 @@ public class Protagonist extends TransparentPanel implements MouseInteractable, 
     protected boolean isFacingRight = true;
     protected String characterType;
     protected SceneBuilder panel;
-    
+
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(posX, posY, 0, 0);
@@ -205,7 +206,59 @@ public class Protagonist extends TransparentPanel implements MouseInteractable, 
 
         g2d.drawImage(currentSprite, drawX, drawY, null);
     }
-    
+ 
+// Created the 3 skills for the protagonists but function will be implemented later --jm
+    @Override
+    public void skill1(){
+        switch(this.characterType){
+            case "knight":
+                System.out.println(name + " used OBJECTION SURGE");
+                System.out.println("-15 Soul Shards, +15 Attack");
+                break;
+            case "wizard":
+                System.out.println(name + " used OVERCLOCK");
+                System.out.println("-15 Mana, +15 Attack");
+                break;
+            case "priest":
+                System.out.println(name + " used VITAL RUSH");
+                System.out.println("-15 Soul Energy, +15 Attack");
+                break;
+        }
+    }
+
+    public void skill2(){
+        switch(this.characterType){
+            case "knight":
+                System.out.println(name + " used ETHEREAL SHIELD OF LOGIC");
+                System.out.println("Absorbs 40% damage, if damage is greater than 20% Soul Energy left, increase Soul Shards by 10%");
+                break;
+            case "wizard":
+                System.out.println(name + " used QUANTUM SHIFT");
+                System.out.println("Has a 60% chance to dodge the attack. Deals 40 damage and regains 50 mana if successful");
+                break;
+            case "priest":
+                System.out.println(name + " used LIFE LEECH");
+                System.out.println("Steals 30% of self's Soul Energy from the opponent");
+                break;
+        }
+    }
+
+    public void skill3(){
+        switch(this.characterType){
+            case "knight":
+                System.out.println(name + " used TRUTHBINDING");
+                System.out.println("Deal 200% Attack + 40% Soul Shards damage and the opponent can’t attack this turn");
+                break;
+            case "wizard":
+                System.out.println(name + " used CODE RAGE QUAKE");
+                System.out.println("Induce a strong quake dealing 60 + 25% Mana damage");
+                break;
+            case "priest":
+                System.out.println(name + " used VENGEFUL VITALITY");
+                System.out.println("Deal 60% of Soul Energy lost to the opponent and gains 40% Soul Energy");
+                break;
+        }
+    }
 
     @Override
     public void onClick(MouseEvent e) {
