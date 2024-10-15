@@ -184,7 +184,6 @@ public class Protagonist extends Character implements MouseInteractable {
     }
  
 // Created the 3 skills for the protagonists but function will be implemented later --jm
-    @Override
     public void skill1(){
         switch(this.characterType){
             case "knight":
