@@ -47,10 +47,12 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         // another difference between the backgroundPanel and the btn_title_play is that btn_title_play has --jian
         // a MouseListener attached which listens to to mouseEvents that will occur within the bouds of btn_title_play --jian
         btn_title_play.addMouseListener(new MouseClickListener(this));
+      
         // do not forget to add our custom JPanel objects to our JFrame/Jpanel or whatever parent container it should have --jian
         // in this case, the parent container is the JFrame and the children of JFrame is the objects we instantiated --jian
         this.add(btn_title_play); 
         this.add(backgroundPanel); 
+      
     }
 
 
@@ -60,12 +62,14 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         });
     }
 
-    @Override
-    public void onClick(MouseEvent e) { // These are all abstract methods from the MouseInteractable -- jian
-        // ari diri bem
-        ChooseChar window = new ChooseChar(); // we created an instance of ChooseChar, another class which extends to JPanel -- jian
-        window.setVisible(true); // we set its visibility to true -- jian
-        this.setVisible(false); // we set the visibility of this JFrame to false -- jian
+    @Override  
+    public void onClick(MouseEvent e) {
+        // StoryLine window = new printExpositionText();
+        new Dialogues(1);
+
+        ChooseChar window = new ChooseChar(); // Will invoke the character selection scene
+        window.setVisible(true);
+        this.setVisible(false);
     }
 
     @Override
