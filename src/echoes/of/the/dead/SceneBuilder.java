@@ -29,6 +29,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
     private MinionsWorld1 minions1; // minions -z
+    private Npc yoo;
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
@@ -80,6 +81,11 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.add(portalMB); // portal mini boss added -z
             portal.addMouseListener(new MouseClickListener(this)); // attempted to add mouselistener sa portals -z
             portalMB.addMouseListener(new MouseClickListener(this)); // (up) -z
+
+            yoo = new Npc("Yoo", "yoo", this, 0, (int)(screenSize.height * 0.25));
+            yoo.addMouseListener(new MouseClickListener(this));
+            yoo.setPosY((int)(screenSize.height * 0.21));
+            this.add(yoo);
             
         } else if (type.equals("chooseCharacter")) {
             this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -116,6 +122,11 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (minions1 != null) {
             minions1.updateAnimation();
         }
+        if(yoo != null){
+            yoo.updateAnimation();
+            yoo.updateBounds();
+            yoo.moveTo(yoo.getPosX());
+        }
         // Add any other game state updates here
     }
 
@@ -130,6 +141,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
             portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToSwamp);  // Hide portal after transport
+            yoo.setVisible(currentSceneIndex == 0);
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
             }
