@@ -40,7 +40,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4));
         System.out.println(this.getSize());  
         if (type.equals("world1")) { // adding minion
-            minions1 = new MinionsWorld1("minion", this, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25));
+            minions1 = new MinionsWorld1("minion", this, (int)(screenSize.width * 0.82), (int)(screenSize.height * 0.23));
             this.addMouseListener(new MouseClickListener(minions1));
         }     
     }

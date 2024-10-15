@@ -38,7 +38,7 @@ public class MinionsWorld1 implements MouseInteractable, Entity {
         this.posY = posY;
         this.posX = posX;
         this.characterType = characterType;
-        initializeIdleSprites("world1", (int)(screenSize.width *0.1), (int) (screenSize.height * 0.12));  
+        initializeIdleSprites("world1", (int)(screenSize.width *0.15), (int) (screenSize.height * 0.15));  
         this.panel = panel;
         startAnimationTimer(panel);
         this.screenWidth = (int)screenSize.getWidth();
@@ -120,43 +120,9 @@ public class MinionsWorld1 implements MouseInteractable, Entity {
         g2d.drawImage(getCurrentSprite(), transform, null);
     }
 
-    // Move the minion to a new X position (linear movement)
-    public void moveTo(int targetX) {
-        if (targetX > posX) {
-            isFacingRight = true;
-        } else {
-            isFacingRight = false;
-        }
-
-        isMoving = true;
-        Timer moveTimer = new Timer(20, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isFacingRight) {
-                    posX += 2;
-                    if (posX >= targetX || posX >= screenWidth - getCurrentSprite().getWidth(null)) {
-                        posX = Math.min(targetX, screenWidth - getCurrentSprite().getWidth(null));
-                        ((Timer) e.getSource()).stop();
-                        stopMovement();
-                    }
-                } else {
-                    posX -= 2;
-                    if (posX <= targetX || posX <= 0) {
-                        posX = Math.max(targetX, 0);
-                        ((Timer) e.getSource()).stop();
-                        stopMovement();
-                    }
-                }
-                panel.repaint();
-            }
-        });
-        moveTimer.start();
-    }
-
     @Override
     public void onClick(MouseEvent e) {
-        int targetX = Math.max(0, Math.min(e.getX(), screenWidth - getCurrentSprite().getWidth(null)));
-        moveTo(targetX);
+        //none?
     }
 
     @Override
