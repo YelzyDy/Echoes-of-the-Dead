@@ -16,6 +16,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setLayout(null);  // Absolute layout for positioning
+        this.setTitle("Title Screen");
 
         // Create custom JPanel that will paint the background
         // EchoesObjects is a *class* that serves as a blueprint for all the objects that we will display on screen i.e shop and portals -- jian
@@ -41,7 +42,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
                 (int) (screenSize.height * 0.13),
                 "title_button", false, true, 0
             );
-        // just like the backgroundPanel, we set its visibility to true since TransParentPanel, its parent class is --jian
+        // just like the backgroundPanel, we set its visibility to true since TransparentPanel, its parent class is --jian
         // initially false --jian
         btn_title_play.setVisible(true);
         // another difference between the backgroundPanel and the btn_title_play is that btn_title_play has --jian
@@ -54,7 +55,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         java.awt.EventQueue.invokeLater(() -> {
             new Main().setVisible(true);  // Create and display the Main window
         });
@@ -69,12 +70,12 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     }
 
     @Override
-    public void onHover(MouseEvent e) {
+    public void onHover(MouseEvent e) { // These are all abstract methods from the MouseInteractable -- jian
 
     }
 
     @Override
-    public void onExit(MouseEvent e) {
+    public void onExit(MouseEvent e) { // These are all abstract methods from the MouseInteractable -- jian
 
     }
 }

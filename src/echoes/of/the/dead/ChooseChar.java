@@ -30,15 +30,19 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     int width = screenSize.width;
     int height = screenSize.height;
     boolean selectButtonIsEnable = true;
-    public ChooseChar() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Choose Character");
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        charType = "knight";
-        addScene();
 
+    public ChooseChar() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //setting the properties for this frame --jian
+        this.setTitle("Choose Character"); // all of these are methods from the parent class JFrame line 36-39 and some other lines below --jian
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // the window is maximized so it covers the whole screen --jian
+        this.setResizable(false); // the frame is set to non-resizable because we cannot support resposnive design --jian
+        this.setLocationRelativeTo(null); // we set its Layout Manager to Absolute Layout. There are multiple Layout Managers but we used AbsoluteLayout --jian
+        // because the components in our game are layered. This Layout Manager is typically not advisable if we wan't a responsive design --jian
+        // but we have no choice unless we want to draw everything in our ui manually using hard code --jian
+        charType = "knight"; // the default charType is "knight" as observed when we open this window, the first background Image is the knight / lawyer --jian
+        addScene(); // calling the method addScene. addScene is a method we created ourselves for this class line 58 --jian
+
+        // echoesObjects instances explained in Main class --jian
         btn_select = createObj(
                 "button", (int) (width * 0.7),
                 (int) (height * 0.82),
@@ -47,24 +51,33 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 "select_button", false, true
             );
         btn_select.setVisible(true);
-        btn_select.addMouseListener(new MouseClickListener(this));
+        btn_select.addMouseListener(new MouseClickListener(this)); // attaching a mouseListener to our btn_select --jian
+        // the MouseClickListener class's parameter is a class that implements MouseInteractable, which is this class  --jian
         scene.add(btn_select);
+
         addTransparentButton();
     }
 
     public void addScene() {
+        //method called in line 43; creating an instance or object from the SceneBuilder. Note that SceneBuilder extends JPanel, so SceneBuilder can access methods from JPanel, we can treat it as JPanel --jian
         scene = new SceneBuilder("chooseCharacter");
-        scene.createScene();
-        scene.initializeCharacter("knight", "knight");
-        this.add(scene);
-        this.setVisible(true);
+        scene.createScene(); // calling method from SceneBuilder to createScene which includes displaying background and other objects --jian
+        scene.initializeCharacter("knight", "knight"); // we initalize our character to knight as a default --jian
+        this.add(scene); // again, do not forget to add SwingComponents to a parent Container for it to be visible (in this case, the parent Container is this Frame) --jian
+        // to visualize : [parent: JFrame[child: JPanel [child: select_button]]]  --jian
+        // this is just an example, but actually, our JPanel or *scene* has many children which are the buttons that are created  --jian
+        //using the methods below
+        this.setVisible(true); 
+        // setting Visibility to true to show our JPanel. without this, we can only see a white background which is jsut the JFrame itself --jian
     }
     public void addTransparentButton() {
         // Position buttons relative to the screen size
+        // these instances are objects created with TransparentPanel as its blueprint. --jian
+        // unline our EchoesObjects instances, these objects/ custom Swing Panels below are transparent by setting the .setOpaque's boolean/flag to false --jian
         btn_knight = new TransparentPanel((int) (width * 0.03), (int) (height * 0.046), (int) (width * 0.158), (int) (height * 0.28));
         btn_knight.addMouseListener(new MouseClickListener(this));
         btn_knight.setVisible(true);
-        scene.add(btn_knight);
+        scene.add(btn_knight); // again, do not forget to add swing components to a parent container, if you don't it will never be visible --jian
 
         btn_wizard = new TransparentPanel((int) (width * 0.03), (int) (height * 0.359), (int) (width * 0.158), (int) (height * 0.28));
         btn_wizard.addMouseListener(new MouseClickListener(this));
@@ -79,12 +92,14 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
 
     private java.awt.Font createDynamicFont(int baseFontSize) {
         // Adjust the font size based on window height
-        int dynamicFontSize = (int) (height * 0.05); // 5% of the window height
+        int dynamicFontSize = (int) (height * 0.05); // 5% of the window height --jian
         return new java.awt.Font("SansSerif", java.awt.Font.PLAIN, Math.max(baseFontSize, dynamicFontSize));
     }
 
     private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
     String type, boolean isAnimated, boolean isState){
+        // a method that will return EchoesObjects... there's not really much difference if we just call EchoesObjects --jian
+        // without this method but it saves us two lines each instantiation :D --jian
         EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState, 0);
         object.setVisible(true);
         return object;
@@ -98,23 +113,24 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         (int) (screenSize.height * 0.7), 
         "namePromptPanel", false, false
         );
+        scene.add(promptPanel);  
     }
 
     private void addNameField(int panelHeight, int panelWidth){
-        // Create and add a transparent JTextField to the promptPanel
+        // Create and add a transparent JTextField to the promptPanel --jian
         nameField = new JTextField(20);
         nameField.setBounds((int) (panelWidth * 0.490), 
                 (int) (panelHeight * 0.29), 
                 (int) (panelWidth * 0.47), 
                 (int) (panelHeight * 0.10));
-        nameField.setFont(createDynamicFont(40)); // Font styling
+        nameField.setFont(createDynamicFont(40)); // Font styling --jian
         nameField.setHorizontalAlignment(JTextField.CENTER);
         // Make the JTextField transparent
-        nameField.setOpaque(false); // This makes the background transparent
+        nameField.setOpaque(false); // This makes the background transparent --jian
         nameField.setBorder(null); 
-        nameField.setForeground(Color.WHITE); // Set text color to white (or any other color for contrast)
-        nameField.setBackground(new Color(0, 0, 0, 0)); // Optional: Ensure no background color is applied
-        promptPanel.add(nameField);
+        nameField.setForeground(Color.WHITE); // Set text color to white (or any other color for contrast) --jian
+        nameField.setBackground(new Color(0, 0, 0, 0)); // Optional: Ensure no background color is applied --jian
+        promptPanel.add(nameField); 
     }
 
     private void addOkButton(int panelHeight, int panelWidth){
@@ -144,19 +160,22 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
     @Override
     public void onClick(MouseEvent e) {
+        // Since we have many EchoesObjects (buttons) that is attached with a MouseListener, we have to listen --jian
+        // which of them caused the event using e.getSource() --jian
         Object source = e.getSource();
         if (source == btn_select) {
-            if(!selectButtonIsEnable){
+            if(!selectButtonIsEnable){ // this prevents the execution of the following lines of code --jian
+                // when our promptPanel is Visible --jian
                 return;
             }
             selectButtonIsEnable = false;
-            addPromptNamePanel();
+            addPromptNamePanel(); // if btn_select is clicked, we create the PromptNamePannel using this method --jian
             int width = promptPanel.getWidth();
             int height = promptPanel.getHeight();
             addNameField(width, height);
             addOkButton(width, height);
             addBtnCancel(width, height);
-            scene.add(promptPanel);  
+            
             scene.setComponentZOrder(promptPanel, 0);
         } else if (source == btn_knight) {
             charType = "knight";
@@ -180,7 +199,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.currentSceneIndex = 2;
         }else if(source == btn_ok){
-            if((nameField.getText().trim().isEmpty())){
+            if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
@@ -189,9 +208,9 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 window.setVisible(true);
                 this.setVisible(false);
             
-        }else if(source == btn_cancel){        
-            promptPanel.setVisible(false);    
-            selectButtonIsEnable = true;
+        }else if(source == btn_cancel){ 
+            promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian
+            selectButtonIsEnable = true; // this allows us to click our btn_select again because promptPanel is closed --jian
         }
     }
 
