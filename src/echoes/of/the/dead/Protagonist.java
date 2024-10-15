@@ -221,7 +221,7 @@ public class Protagonist extends TransparentPanel implements MouseInteractable, 
                 break;
             case "priest":
                 System.out.println(name + " used VITAL RUSH");
-                System.out.println("-15 Soul Energy, +15 Attack");
+                System.out.println("-15 Soul Energy, +15 Attack");  
                 break;
         }
     }
