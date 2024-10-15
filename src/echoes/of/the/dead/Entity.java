@@ -17,8 +17,18 @@ public interface Entity {
     public void stopMovement();
     
     public abstract int getPosX();
+
+    public void setPosY(int posY);
+    
+    public void setPosX(int posX);
     
     public abstract Image getCurrentSprite();
+
+    public abstract void initializeSprites(String assetPackage, String type, int scale);
+
+    public abstract void initializeSprites(String assetPackage, int width, int height);
     
     public abstract void draw(Graphics g);
+
+    public abstract void scaleSprites(String spriteType, int scale);
 }
