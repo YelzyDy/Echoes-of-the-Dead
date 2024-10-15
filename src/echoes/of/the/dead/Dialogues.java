@@ -1,6 +1,8 @@
 package echoes.of.the.dead;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,15 +10,32 @@ import java.awt.event.MouseEvent;
 public class Dialogues extends JFrame {
 
     // Constructor that takes an integer parameter to determine which story part to display
-    public Dialogues(int dialogue) {
-        openstoryDialogue(dialogue);
+    public Dialogues(int dialogue, int boxSize) {
+        openstoryDialogue(dialogue , boxSize);
     }
 
     // Method to open the story dialog box and display either exposition or resolution
-    private void openstoryDialogue(int dialogue) {
+    private void openstoryDialogue(int dialogue, int boxSize) {
+        int width, height, x, y, borderLine = 0;
+
+        // Box Size Controller
+        if (boxSize == 1) {
+            width = 1280;
+            height = 700;
+            x = 0;
+            y = 23;
+        } else {
+            width = 1268;
+            height = 315;
+            x = 5;
+            y = 400;
+            borderLine = 5;
+        }
+
         // Create a modal dialog for the story
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
-        storyDialogue.setSize(1275,400);
+        storyDialogue.setUndecorated(true); // Remove title bar and exit button
+        storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());
 
         // Set up the story and label for the text
@@ -33,8 +52,12 @@ public class Dialogues extends JFrame {
         // Add the text label to the dialogue
         storyDialogue.add(textLabel, BorderLayout.CENTER);
 
+        // Create a border and set it to the dialogue
+        LineBorder border = new LineBorder(Color.WHITE, borderLine); // White border of width 5
+        storyDialogue.getRootPane().setBorder(border); // Apply border to the root pane
+
         // Set the location of the dialogue window
-        storyDialogue.setLocation(0, 320);
+        storyDialogue.setLocation(x, y);
 
         // Add a mouse listener to the dialogue for text progression
         storyDialogue.addMouseListener(new MouseAdapter() {
@@ -71,7 +94,7 @@ public class Dialogues extends JFrame {
     class StoryLine {
         private String[] arr;
 
-        // Load either exposition or resolution based on the integer parameter
+        // Load either exposition or resolution based on the integer parameter, add more here...
         public void loadStoryPart(int dialogue) {
             switch (dialogue) {
                 case 1 -> loadExposition();
