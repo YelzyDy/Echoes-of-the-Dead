@@ -24,9 +24,8 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         // its parameters are the name of the assetPackage, x, y, width, height, type, isAnimated Boolean, isState Boolean, -- jian
         // and numberOfSprites in that order -- jian
         // our backgroundPanel doesn't have animation, it doesn't have a state(meaning on or off/ hover or not hovered), and -- jian
-        // since it's not animated, its number of sprites is 0 -- jian
         EchoesObjects backgroundPanel = new EchoesObjects(
-            "title_screen", 0, 0, width, height, "titleScreen", false, false,0);
+            "title_screen", 0, 0, width, height, "titleScreen", false, false,1);
         // we set our backgroundPanel's visibility to true since by default, its class (EchoesObjects) had set its visibility to false -- jian
         // as our EchoesObjects extends to TransparentPanel, it's superclass -- jian
             backgroundPanel.setVisible(true);
@@ -40,7 +39,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
                 (int) (screenSize.height * 0.82),
                 (int) (screenSize.width * 0.21),
                 (int) (screenSize.height * 0.13),
-                "title_button", false, true, 0
+                "title_button", false, true, 2
             );
         // just like the backgroundPanel, we set its visibility to true since TransparentPanel, its parent class is --jian
         // initially false --jian

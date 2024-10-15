@@ -9,86 +9,61 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.Timer;
+import java.awt.Toolkit;
 /**
  *
  * @author Joana
  */
-public class Protagonist extends TransparentPanel implements MouseInteractable, Entity, Battle {
+
+public class Protagonist extends Character implements MouseInteractable {
     private int mana = 100;
     private int attack = 20;
     private int health = 150;
     private int money = 0;
-    protected String name;
-    protected int posX;
-    protected int posY;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected ImageList walkSprites = new ImageList();
     protected ImageList idleSprites = new ImageList();
-    protected int currentFrame;
-    protected Timer animationTimer;
-    protected boolean isMoving = false;
-
-    protected boolean isFacingRight = true;
-    protected String characterType;
-    protected SceneBuilder panel;
-
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(posX, posY, 0, 0);
         this.posY = posY;
         this.posX = posX;
         this.name = name;
         this.characterType = characterType;
-        initializeWalkSprites((int)(screenSize.height * 0.006));
-        initializeIdleSprites((int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
         this.panel = panel;
         this.setVisible(true);
-        this.setOpaque(false);
         this.currentFrame = 0;
         updateBounds();
-        this.addMouseListener(new MouseClickListener(this));
     }
-    
-    public void initializeWalkSprites(int scale){
-        walkSprites.clear();
-        int size = 8;
+    @Override
+    public void initializeSprites(String assetPackage, String type, int scale){
+        ((type.equals("walk"))? walkSprites : idleSprites).clear();
+        int size = (type.equals("walk") ? 8 : 6);
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
-            spritePaths[i] = "/character_asset/" + characterType + "/walk/sprite" + (i + 1) + ".png";
+            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
         }     
         for (String path : spritePaths) {
             try {
                 Image image = ImageIO.read(getClass().getResource(path));
-                walkSprites.add(image); 
+                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        walkSprites.scaleImageList(scale);
+        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
     
-    public void initializeIdleSprites(int scale){
-        int size = 6;
-        idleSprites.clear();
-        String[] spritePaths = new String[size];
-        for(int i = 0; i < size; i++){
-            spritePaths[i] = "/character_asset/" + characterType + "/idle/sprite" + (i + 1) + ".png";
-        }     
-        for (String path : spritePaths) {
-            try {
-                Image image = ImageIO.read(getClass().getResource(path));
-                idleSprites.add(image); 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        idleSprites.scaleImageList(scale);
+    @Override
+    public void initializeSprites(String assetPackage, int width, int height) {
+        
     }
-    
+
+    @Override
     public void scaleSprites(String spriteType, int scale){
         if(spriteType.equals("walk")){
             walkSprites.scaleImageList(scale);
@@ -96,16 +71,16 @@ public class Protagonist extends TransparentPanel implements MouseInteractable, 
             idleSprites.scaleImageList(scale);
         }
     }
-    
+    @Override
     public void setPosY(int posY){
         this.posY = posY;
     }
-    
+    @Override
     public void setPosX(int posX){
         this.posX = posX;
     }
     
-   
+   @Override
     public void moveTo(int targetX) {
         int maxPanel = panel.getNumOfScenes() - 1;
         if (isMoving) {
@@ -140,6 +115,7 @@ public class Protagonist extends TransparentPanel implements MouseInteractable, 
                 panel.currentSceneIndex--;
                 posX = (int)(screenSize.width * 0.9);
             }   
+            System.out.println("After scene change - posX: " + posX + ", currentSceneIndex: " + panel.currentSceneIndex);
             stopMovement();
         }).start();
     }
@@ -208,7 +184,6 @@ public class Protagonist extends TransparentPanel implements MouseInteractable, 
     }
  
 // Created the 3 skills for the protagonists but function will be implemented later --jm
-    @Override
     public void skill1(){
         switch(this.characterType){
             case "knight":

@@ -28,7 +28,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects shop;     // shop png -z
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
-    //private MinionsWorld1 minions1; // minions -z
+    private MinionsWorld1 minions1; // minions -z
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
@@ -38,7 +38,11 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         this.setBackground(Color.black);
         this.setLayout(null); // Using null layout for absolute positioning
         this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4));
-        System.out.println(this.getSize());       
+        System.out.println(this.getSize());  
+        if (type.equals("world1")) { // adding minion
+            minions1 = new MinionsWorld1("minion", this, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25));
+            this.addMouseListener(new MouseClickListener(minions1));
+        }     
     }
    
     
@@ -49,13 +53,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     public void initializeCharacter(String charType, String playerName) {
         if(type.equals("world1")){
             character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.25));
-            //minions1 = new MinionsWorld1("minion", this, ALLBITS, ABORT);
             this.addMouseListener(new MouseClickListener(character));
             this.add(character);
             this.setComponentZOrder(character, 0);
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
-            character.initializeIdleSprites((int)(screenSize.height * 0.017));
+            character.initializeSprites("character_asset", "idle", (int)(screenSize.height * 0.017));
             this.add(character);
         }
         initializeGameLoop();
@@ -69,7 +72,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
-            shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 0);
+            shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2);
             this.add(shop); 
             portal = new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);
             this.add(portal); // portal minions added -z
@@ -110,6 +113,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (portal != null && portalMB.isAnimated()){
             portalMB.updateAnimation();
         }
+        if (minions1 != null) {
+            minions1.updateAnimation();
+        }
         // Add any other game state updates here
     }
 
@@ -124,23 +130,20 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
             portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToSwamp);  // Hide portal after transport
-            //minions1.setVisible(currentSceneIndex == 3);
+            if (currentSceneIndex == 3) {
+                minions1.draw(g);
+            }
         }
     }
 
 
     @Override
     public void onClick(MouseEvent e) {
-        if (!isTransportedToSwamp) {  // Allow transport only if not already in the swamp -z
-            if (portal.isVisible()) {
-                currentSceneIndex = 3;
-                isTransportedToSwamp = true;  // Set flag when entering the swamp
-                repaint();
-            } else if (portalMB.isVisible()) {
-                currentSceneIndex = 3;
-                isTransportedToSwamp = true;  // Set flag when entering the swamp
-                repaint();
-            }
+        Object source = e.getSource();
+        if(source == portal){
+            currentSceneIndex = 3;
+        }else if (source == portalMB) {
+            currentSceneIndex = 3; 
         }
     }
 

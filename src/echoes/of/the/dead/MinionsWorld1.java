@@ -14,11 +14,12 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+//import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class MinionsWorld1 implements MouseInteractable, Entity {
-    private int attack = 10;
-    private int health = 100;
+    //private int attack = 10;
+    //private int health = 100;
     protected String name;
     protected int posX;
     protected int posY;
@@ -28,16 +29,20 @@ public class MinionsWorld1 implements MouseInteractable, Entity {
     protected boolean isMoving = false;
     protected String characterType;
     protected SceneBuilder panel;
-    protected boolean isFacingRight = true;  // Flag to determine direction
+    protected boolean isFacingRight = true; 
+    private int screenWidth;
+    private int screenHeight;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public MinionsWorld1(String characterType, SceneBuilder panel, int posX, int posY) {
         this.posY = posY;
         this.posX = posX;
         this.characterType = characterType;
-        initializeIdleSprites("world1", (int)(screenSize.width *0.1), (int) (screenSize.height * 0.006));  
+        initializeIdleSprites("world1", (int)(screenSize.width *0.1), (int) (screenSize.height * 0.12));  
         this.panel = panel;
         startAnimationTimer(panel);
+        this.screenWidth = (int)screenSize.getWidth();
+        this.screenHeight = (int)screenSize.getHeight();
     }
 
     private void startAnimationTimer(SceneBuilder panel) {
@@ -124,21 +129,20 @@ public class MinionsWorld1 implements MouseInteractable, Entity {
         }
 
         isMoving = true;
-        // Linear movement animation (can be adjusted later)
         Timer moveTimer = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (isFacingRight) {
                     posX += 2;
-                    if (posX >= targetX) {
-                        posX = targetX;
+                    if (posX >= targetX || posX >= screenWidth - getCurrentSprite().getWidth(null)) {
+                        posX = Math.min(targetX, screenWidth - getCurrentSprite().getWidth(null));
                         ((Timer) e.getSource()).stop();
                         stopMovement();
                     }
                 } else {
                     posX -= 2;
-                    if (posX <= targetX) {
-                        posX = targetX;
+                    if (posX <= targetX || posX <= 0) {
+                        posX = Math.max(targetX, 0);
                         ((Timer) e.getSource()).stop();
                         stopMovement();
                     }
@@ -151,7 +155,8 @@ public class MinionsWorld1 implements MouseInteractable, Entity {
 
     @Override
     public void onClick(MouseEvent e) {
-        moveTo(e.getX());  // Move to the X position where clicked
+        int targetX = Math.max(0, Math.min(e.getX(), screenWidth - getCurrentSprite().getWidth(null)));
+        moveTo(targetX);
     }
 
     @Override
