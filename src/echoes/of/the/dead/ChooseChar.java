@@ -157,6 +157,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             addOkButton(width, height);
             addBtnCancel(width, height);
             scene.add(promptPanel);  
+            scene.setComponentZOrder(promptPanel, 0);
         } else if (source == btn_knight) {
             charType = "knight";
             scene.character.setCharacterType(charType);

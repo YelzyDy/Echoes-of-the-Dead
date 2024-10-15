@@ -27,7 +27,7 @@ public class SceneBuilder extends JPanel{
     private EchoesObjects shop;     // shop png -z
     private EchoesObjects portal;   // portal png -z
     String type;
-    private Timer animationTimer;           // Timer for animating the portal -z
+    private Timer gameLoopTimer ;           // Timer for animating the portal -z
 
     public SceneBuilder(String type){
         this.type = type;
@@ -46,11 +46,14 @@ public class SceneBuilder extends JPanel{
         if(type.equals("world1")){
             character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.25));
             this.addMouseListener(new MouseClickListener(character));
+            this.add(character);
+            this.setComponentZOrder(character, 0);
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
             character.initializeIdleSprites((int)(screenSize.height * 0.017));
+            this.add(character);
         }
-        startAnimationTimer();
+        initializeGameLoop();
     }
     
     public void createScene() {
@@ -76,18 +79,26 @@ public class SceneBuilder extends JPanel{
         }
     }
     
-    private void startAnimationTimer() {
-        animationTimer = new Timer(100, new ActionListener() {
+    private void initializeGameLoop() {
+        gameLoopTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (portal != null && portal.isAnimated()) {
-                    portal.updateAnimation();
-                }
-                character.updateAnimation();
+                updateGameState();
                 repaint();
             }
         });
-        animationTimer.start();
+        gameLoopTimer.start();
+    }
+
+    private void updateGameState() {
+        if (character != null) {
+            character.updateAnimation();
+            character.updateBounds();
+        }
+        if (portal != null && portal.isAnimated()) {
+            portal.updateAnimation();
+        }
+        // Add any other game state updates here
     }
 
     @Override
@@ -96,14 +107,11 @@ public class SceneBuilder extends JPanel{
         if (currentSceneIndex < sceneList.getSize()) {
             g.drawImage(sceneList.get(currentSceneIndex), (int) (sceneList.getX(currentSceneIndex)), 0, this);
         }
-        character.draw(g);
         if (type.equals("world1")) {
-            if (currentSceneIndex == 1) {
-                shop.setVisible(true);
-            }
-            if (currentSceneIndex == 1) {
-                portal.setVisible(true);
-            }
+            // Set both shop and portal visibility based on currentSceneIndex
+            boolean isSceneIndex1 = currentSceneIndex == 1; // Check once and reuse
+            shop.setVisible(isSceneIndex1);
+            portal.setVisible(isSceneIndex1);
         }
     }
 }
