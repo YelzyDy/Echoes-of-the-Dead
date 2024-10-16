@@ -93,7 +93,10 @@ public void initializeSprites(String assetPackage, int width, int height) {
         
     }
    
-    
+    public void setCurrentFrame(int value){
+        currentFrame = value;
+    }
+
     @Override
     public void onClick(MouseEvent e) {     
           
