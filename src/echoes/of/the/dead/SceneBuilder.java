@@ -86,13 +86,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             portalMB.addMouseListener(new MouseClickListener(this)); // (up) -z
 
             yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
-            yoo.addMouseListener(new MouseClickListener(this));
             yoo.setPosY((int)(screenSize.height * 0.21));
             this.setComponentZOrder(yoo, 1);
 
             miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.7), (int)(screenSize.height * 0.25));
-            miggins.addMouseListener(new MouseClickListener(this));
             miggins.setPosY((int)(screenSize.height * 0.21));
+            
             this.add(miggins);
             this.setComponentZOrder(miggins, 1);
 

@@ -22,17 +22,22 @@ public class Npc extends Character implements MouseInteractable {
         isPaused = false; // Start in a moving state
         chooseNewDirection(); // Start with a direction
         System.out.println("NPC created at position: " + posX + ", " + posY);
+        addMouseListener(new MouseClickListener(this));
+        isMoving = true;
     }
 
     public void updateMovement() {
         long currentTime = System.currentTimeMillis();
+
+        if(!isMoving){
+            return;
+        }
 
         if (isPaused) {
             if (currentTime - lastMovementTime >= pauseDuration) {
                 isPaused = false;
                 lastMovementTime = currentTime;
                 chooseNewDirection();
-                System.out.println("NPC resumed movement");
             }
             return;
         }
@@ -41,7 +46,6 @@ public class Npc extends Character implements MouseInteractable {
             isPaused = true;
             lastMovementTime = currentTime;
             stopMovement();
-            System.out.println("NPC paused at position: " + posX + ", " + posY);
             return;
         }
 
@@ -59,7 +63,7 @@ public class Npc extends Character implements MouseInteractable {
         }
 
         updateBounds();
-        System.out.println("NPC moved to position: " + posX + ", " + posY + " (Moving " + (isMovingRight ? "right" : "left") + ")");
+    
     }
 
     private void chooseNewDirection() {
@@ -76,22 +80,26 @@ public class Npc extends Character implements MouseInteractable {
             currentFrame = 0; // Reset animation frame when changing direction
         }
         moveTo(target, moveSpeed);
-        System.out.println("NPC chose new direction: " + (isMovingRight ? "right" : "left") + " towards " + target);
     }
 
     @Override
     public void onClick(MouseEvent e) {
-        System.out.println("NPC clicked at position: " + posX + ", " + posY);
+        System.out.println("Mouse paused NPC at position: " + posX + ", " + posY);
+        isPaused = true;
+        stopMovement();
+        // handle the dialogues here use conditions for example. if name is "miggins", implement dialogues for miggins
     }
 
     @Override
     public void onHover(MouseEvent e) {
-        System.out.println("Mouse hovering over NPC at position: " + posX + ", " + posY);
+        isPaused = true;
+        stopMovement();
     }
 
     @Override
     public void onExit(MouseEvent e) {
-        System.out.println("Mouse exited NPC at position: " + posX + ", " + posY);
+        isPaused = false;
+        isMoving = true;
     }
 
 }
