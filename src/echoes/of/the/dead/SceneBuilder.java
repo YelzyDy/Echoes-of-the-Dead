@@ -14,7 +14,7 @@ import javax.swing.Timer; // -z
 import java.awt.event.ActionEvent; // -z
 import java.awt.event.ActionListener; // -z
 import java.awt.event.MouseEvent; // -z
-
+import java.util.Random;
 /**
  *
  * @author Joana
@@ -30,10 +30,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects portalMB; // portal sa mini boss -z
     private MinionsWorld1 minions1; // minions -z
     private Npc yoo;
+    private Npc miggins;
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
-
     public SceneBuilder(String type){
         this.type = type;
         this.setBackground(Color.black);
@@ -74,7 +74,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2);
-            this.add(shop); 
+            this.add(shop);
             portal = new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);
             this.add(portal); // portal minions added -z
             portalMB = new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47);
@@ -85,7 +85,14 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             yoo = new Npc("Yoo", "yoo", this, 0, (int)(screenSize.height * 0.25));
             yoo.addMouseListener(new MouseClickListener(this));
             yoo.setPosY((int)(screenSize.height * 0.21));
-            this.add(yoo);
+            this.setComponentZOrder(yoo, 1);
+
+            miggins = new Npc("Miggins", "miggins", this, 0, (int)(screenSize.height * 0.25));
+            miggins.addMouseListener(new MouseClickListener(this));
+            miggins.setPosY((int)(screenSize.height * 0.21));
+            this.add(miggins);
+            this.setComponentZOrder(miggins, 1);
+
             
         } else if (type.equals("chooseCharacter")) {
             this.setBounds(0, 0, screenSize.width, screenSize.height);
@@ -111,6 +118,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private void updateGameState() {
         if (character != null) {
             character.updateAnimation();
+            character.updateMovement();
             character.updateBounds();
         }
         if (portal != null && portal.isAnimated()) {
@@ -123,9 +131,15 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             minions1.updateAnimation();
         }
         if(yoo != null){
-            yoo.updateAnimation();
+            yoo.updateAnimation(); 
+            yoo.updateMovement();
             yoo.updateBounds();
-            yoo.moveTo(yoo.getPosX());
+        }
+
+        if(miggins != null){
+            miggins.updateAnimation();
+            miggins.updateMovement();
+            miggins.updateBounds();
         }
         // Add any other game state updates here
     }
@@ -142,6 +156,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToSwamp);  // Hide portal after transport
             yoo.setVisible(currentSceneIndex == 0);
+            miggins.setVisible(currentSceneIndex == 2);
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
             }

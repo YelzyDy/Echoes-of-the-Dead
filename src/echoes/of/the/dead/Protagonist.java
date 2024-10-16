@@ -21,7 +21,39 @@ public class Protagonist extends Character implements MouseInteractable {
         super(name, characterType, panel, posX, posY);
     }
    
- 
+    public void updateMovement() {
+        int maxPanel = panel.getNumOfScenes() - 1;
+        if (!isMoving) return;
+    
+        // Assuming deltaX is the distance to move
+        if (isMovingRight) {
+            posX += (deltaX - 10);
+            if (posX >= targetX) { // Check if it reached the target position
+                stopMovement(); // Stop when the target is reached
+                posX = targetX; // Ensure it doesn't overshoot
+                if (posX >= (int)(screenSize.width * 0.9) && panel.currentSceneIndex < maxPanel - 1) {
+                    panel.currentSceneIndex++;
+                    posX = (int)(screenSize.width * 0.001);
+                } else if (panel.currentSceneIndex > 0 && posX <= (int)(screenSize.width * 0.05)) {
+                    panel.currentSceneIndex--;
+                    posX = (int)(screenSize.width * 0.9);
+                }   
+            }
+        } else {
+            posX += deltaX;
+            if (posX <= targetX) { // Check if it reached the target position
+                stopMovement(); // Stop when the target is reached
+                posX = targetX; // Ensure it doesn't overshoot
+                if (posX >= (int)(screenSize.width * 0.9) && panel.currentSceneIndex < maxPanel - 1) {
+                    panel.currentSceneIndex++;
+                    posX = (int)(screenSize.width * 0.001);
+                } else if (panel.currentSceneIndex > 0 && posX <= (int)(screenSize.width * 0.05)) {
+                    panel.currentSceneIndex--;
+                    posX = (int)(screenSize.width * 0.9);
+                }   
+            }
+        }
+    }
 // Created the 3 skills for the protagonists but function will be implemented later --jm
     public void skill1(){
         switch(this.characterType){
@@ -76,7 +108,8 @@ public class Protagonist extends Character implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
-        moveTo(e.getX());
+        int deltaX = (e.getX() - posX) / 10;
+        moveTo(e.getX(), deltaX);
     }
 
     @Override
