@@ -55,7 +55,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     
     public void initializeCharacter(String charType, String playerName) {
         if(type.equals("world1")){
-            character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.25));
+            character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.24));
             this.addMouseListener(new MouseClickListener(character));
             this.add(character);
             this.setComponentZOrder(character, 0);
@@ -85,12 +85,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             portal.addMouseListener(new MouseClickListener(this)); // attempted to add mouselistener sa portals -z
             portalMB.addMouseListener(new MouseClickListener(this)); // (up) -z
 
-            yoo = new Npc("Yoo", "yoo", this, 0, (int)(screenSize.height * 0.25));
+            yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
             yoo.addMouseListener(new MouseClickListener(this));
             yoo.setPosY((int)(screenSize.height * 0.21));
             this.setComponentZOrder(yoo, 1);
 
-            miggins = new Npc("Miggins", "miggins", this, 0, (int)(screenSize.height * 0.25));
+            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.7), (int)(screenSize.height * 0.25));
             miggins.addMouseListener(new MouseClickListener(this));
             miggins.setPosY((int)(screenSize.height * 0.21));
             this.add(miggins);
