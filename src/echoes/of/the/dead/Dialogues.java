@@ -9,22 +9,22 @@ import java.util.Random;
 public class Dialogues extends JFrame {
     // This class does not need a constructor
     StoryLine story = new StoryLine();
-
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     // Accepts firstIndex, finalIndex, order, and boxSize
     public void displayDialogues(int firstIndex, int finalIndex, int order, int boxSize) {
         int width, height, x, y;
 
         // Box Size Controller
         if (boxSize == 0) {
-            width = 1280;
-            height = 700;
+            width = screenSize.width;
+            height = screenSize.height;
             x = 0;
             y = 23;
         } else {
-            width = 1270;
-            height = 400;
-            x = 5;
-            y = 315;
+            width = screenSize.width;
+            height = (int)(screenSize.height * 0.6);
+            x = 0;
+            y = (int)(screenSize.height * 0.41);
         }
 
         // Create a modal dialog for the story

@@ -4,12 +4,13 @@
  */
 package echoes.of.the.dead;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.JPanel;
 /**
  *
  * @author Joana
@@ -22,6 +23,10 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
     TransparentPanel btn_shop;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public World1(String characterType, String playerName){
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+        this.add(panel);
         this.characterType = characterType;
         this.playerName = playerName;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

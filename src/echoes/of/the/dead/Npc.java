@@ -28,6 +28,7 @@ public class Npc extends Character implements MouseInteractable {
         initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
         chooseNewDirection(); // Start with a direction
         updateBounds();
+        this.addMouseListener(new MouseClickListener(this));
     }
 
     @Override
@@ -102,7 +103,9 @@ public class Npc extends Character implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
-        
+        if(characterType.equals("yoo")){
+            System.out.println("Look, Lady. Whatever you're selling, I ain't buying yo");
+        }
     }
 
     @Override
