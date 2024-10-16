@@ -88,8 +88,11 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
 
             yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
             yoo.setPosY((int)(screenSize.height * 0.21));
-            this.add(yoo);
             this.setComponentZOrder(yoo, 1);
+
+            faithful = new Npc("Faithful", "faithful", this, (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25)); // Add Faithful NPC
+            faithful.setPosY((int)(screenSize.height * 0.21)); // Adjust position for Faithful
+            this.setComponentZOrder(faithful, 1);
 
             miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
             miggins.setPosY((int)(screenSize.height * 0.21));
@@ -178,6 +181,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             yoo.setVisible(currentSceneIndex == 0);
             miggins.setVisible(currentSceneIndex == 2);
             miniBoss1.setVisible(currentSceneIndex == 4);
+            faithful.setVisible(currentSceneIndex == 1);
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
             }
