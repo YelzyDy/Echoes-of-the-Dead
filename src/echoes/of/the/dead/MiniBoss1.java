@@ -34,7 +34,7 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     @Override
     public void initializeSprites(String assetPackage, String type, int scale){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
-        int size = 7;
+        int size = ((type.equals("walk") ? 13 : 7));
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
