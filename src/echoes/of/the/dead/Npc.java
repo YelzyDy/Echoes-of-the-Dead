@@ -3,6 +3,7 @@ package echoes.of.the.dead;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
+// This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable {
     private Random random;
     private long lastMovementTime;

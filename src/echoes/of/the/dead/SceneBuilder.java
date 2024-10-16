@@ -31,6 +31,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private MiniBoss1 miniBoss1;
     private Npc yoo;
     private Npc miggins;
+    private Npc faithful;
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
@@ -91,6 +92,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             yoo.setPosY((int)(screenSize.height * 0.21));
             this.setComponentZOrder(yoo, 1);
 
+            faithful = new Npc("Faithful", "faithful", this, (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25)); // Add Faithful NPC
+            faithful.setPosY((int)(screenSize.height * 0.21)); // Adjust position for Faithful
+            this.setComponentZOrder(faithful, 1);
+
             miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.7), (int)(screenSize.height * 0.25));
             miggins.setPosY((int)(screenSize.height * 0.21));
             
@@ -148,6 +153,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miggins.updateMovement();
             miggins.updateBounds();
         }
+
+        if (faithful != null) {  // Update Faithful NPC
+            faithful.updateAnimation();
+            faithful.updateMovement();
+            faithful.updateBounds();
+        }
         // Add any other game state updates here
     }
 
@@ -164,6 +175,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToPillars);  // Hide portal after transport
             yoo.setVisible(currentSceneIndex == 0);
             miggins.setVisible(currentSceneIndex == 2);
+            faithful.setVisible(currentSceneIndex == 1);
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
             }

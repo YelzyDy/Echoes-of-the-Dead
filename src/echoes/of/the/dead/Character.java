@@ -9,9 +9,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.awt.Toolkit;
 /**
 
 
@@ -19,6 +19,8 @@ import java.awt.Toolkit;
  *
  * @author Joana
  */
+
+ // This class basically draws/animates the sprite and sets its bounds
 public class Character extends TransparentPanel implements Entity{
     protected String name;
     protected int posX;
