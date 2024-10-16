@@ -14,7 +14,6 @@ import javax.swing.Timer; // -z
 import java.awt.event.ActionEvent; // -z
 import java.awt.event.ActionListener; // -z
 import java.awt.event.MouseEvent; // -z
-import java.util.Random;
 /**
  *
  * @author Joana
