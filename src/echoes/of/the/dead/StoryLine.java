@@ -106,8 +106,4 @@ public class StoryLine extends JFrame {
     public String getLine(int i) {
             return "<html><center>" + this.arr[i] + "</center></html>";
     }
-
-    public int getLineCount() {
-        return 80;
-    }
 }

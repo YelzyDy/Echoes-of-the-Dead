@@ -39,8 +39,8 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
         scene.initializeCharacter(characterType, playerName);
         this.add(scene);
         this.setVisible(true);
-        dialogues.displayDialogues(40, 50, 1, 1); // Remove this dialogue box
         JOptionPane.showMessageDialog(null, "Welcome to Echoes of the Dead!\n" + playerName, "", JOptionPane.INFORMATION_MESSAGE);
+        dialogues.displayDialogues(40, 50, 1, 1); // Remove this dialogue box
     }
    
     
