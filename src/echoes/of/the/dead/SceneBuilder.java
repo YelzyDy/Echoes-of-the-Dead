@@ -29,6 +29,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
     private MinionsWorld1 minions1; // minions -z
+    private MiniBoss1 miniBoss1;
     private Npc yoo;
     private Npc miggins;
     String type;
@@ -45,6 +46,8 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (type.equals("world1")) { // adding minion
             minions1 = new MinionsWorld1("minion", this, (int)(screenSize.width * 0.82), (int)(screenSize.height * 0.23));
             this.addMouseListener(new MouseClickListener(minions1));
+            miniBoss1 = new MiniBoss1("miniboss", this, (int)(screenSize.width * 0.82), (int)(screenSize.height * 0.23));
+            this.addMouseListener(new MouseClickListener(miniBoss1));
         }     
     }
    
@@ -132,6 +135,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (minions1 != null) {
             minions1.updateAnimation();
         }
+        if (miniBoss1 != null){
+            miniBoss1.updateAnimation();
+        }
         if(yoo != null){
             yoo.updateAnimation(); 
             yoo.updateMovement();
@@ -157,13 +163,15 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
             portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToPillars);  // Hide portal after transport
-            portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToSwamp);  // Hide portal after transport
             yoo.setVisible(currentSceneIndex == 0);
             miggins.setVisible(currentSceneIndex == 2);
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
             }
-        }
+            if  (currentSceneIndex == 4){
+                miniBoss1.draw(g);
+            }
+        }    
     }
 
 
