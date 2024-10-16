@@ -93,9 +93,5 @@ public class Npc extends Character implements MouseInteractable {
     public void onExit(MouseEvent e) {
         System.out.println("Mouse exited NPC at position: " + posX + ", " + posY);
     }
-<<<<<<< HEAD
 
 }
-=======
-}
->>>>>>> main
