@@ -25,8 +25,10 @@ public class Character extends TransparentPanel implements Entity{
     protected int posY;
     protected int currentFrame;
     protected boolean isMoving = false;
+    protected boolean isMovingRight = true;
+    protected int targetX;
+    protected int deltaX;
 
-    protected boolean isFacingRight = true;
     protected String characterType;
     protected SceneBuilder panel;
    
@@ -98,45 +100,13 @@ public class Character extends TransparentPanel implements Entity{
         this.posX = posX;
     }
     
-
-    public void moveTo(int targetX) {
-        int maxPanel = panel.getNumOfScenes() - 1;
-        if (isMoving) {
-            return;
-        }
-
-        if (targetX < posX && isFacingRight) {
-            isFacingRight = false;
-        } else if (targetX > posX && !isFacingRight) {
-            isFacingRight = true;
-        }
-        isMoving = true;
-        new Thread(() -> {
-            int deltaX = (targetX - posX) / 10;
-
-            for (int i = 0; i < 10; i++) {
-                if (isFacingRight) {
-                    posX += (deltaX - 10);
-                } else {
-                    posX += deltaX;
-                }
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (posX >= (int)(screenSize.width * 0.9) && panel.currentSceneIndex < maxPanel - 1) {
-                panel.currentSceneIndex++;
-                posX = (int)(screenSize.width * 0.001);
-            } else if (panel.currentSceneIndex > 0 && posX <= (int)(screenSize.width * 0.05)) {
-                panel.currentSceneIndex--;
-                posX = (int)(screenSize.width * 0.9);
-            }   
-            System.out.println("After scene change - posX: " + posX + ", currentSceneIndex: " + panel.currentSceneIndex);
-            stopMovement();
-        }).start();
+    public void moveTo(int targetX, int deltaX) {
+        this.targetX = targetX;
+        this.deltaX = deltaX;
+        this.isMoving = true;
+        this.isMovingRight = (targetX > posX);
     }
+
 
     public void updateBounds() {
         Image currentSprite = getCurrentSprite();
@@ -165,9 +135,6 @@ public class Character extends TransparentPanel implements Entity{
         return posX;
     }
     
-    public boolean getIsFacingRight(){
-        return isFacingRight;
-    }
     
     @Override
     public Image getCurrentSprite(){
@@ -191,7 +158,7 @@ public class Character extends TransparentPanel implements Entity{
         int drawX = 0;
         int drawY = 0;
 
-        if (!isFacingRight) {
+        if (!isMovingRight) {
             drawX = getWidth() - currentSprite.getWidth(null);
             g2d.scale(-1, 1);
             g2d.translate(-getWidth(), 0);
@@ -199,6 +166,4 @@ public class Character extends TransparentPanel implements Entity{
 
         g2d.drawImage(currentSprite, drawX, drawY, null);
     }
-
-
 }
