@@ -1,204 +1,108 @@
- /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package echoes.of.the.dead;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
+import java.util.Random;
+import java.awt.Image;
 import javax.imageio.ImageIO;
-import javax.swing.Timer;
 
-/**
- *
- * @author Joana
- */
-public class Npc implements MouseInteractable, Entity{
-    protected String name;
-    protected int posX;
-    protected int posY;
-    protected ImageList walkSprites = new ImageList();
-    protected ImageList idleSprites = new ImageList();
-    protected int currentFrame = 0;
-    protected Timer animationTimer;
-    protected boolean isMoving = false;
+// This class makes NPC move randomly
+public class Npc extends Character implements MouseInteractable {
+    private Random random;
+    private long lastMovementTime;
+    private long lastDirectionChangeTime;
+    private int moveDuration = 5000; // Move for 5 seconds
+    private int pauseDuration = 1000; // Pause for 1 second (reduced for more frequent movement)
+    private int directionChangeCooldown = 5000; // 5 seconds cooldown for direction changes
+    private boolean isPaused;
+    private int moveSpeed = 2; // Pixels per frame
 
-    protected boolean isFacingRight = true;
-    protected String characterType;
-    protected SceneBuilder panel;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    public Npc(String characterType, SceneBuilder panel, int posX, int posY){
-        this.posY = posY;
-        this.posX = posX;
-        this.characterType = characterType;
-        initializeWalkSprites((int)(screenSize.height * 0.006));
-        initializeIdleSprites((int)(screenSize.height * 0.006));
-        this.panel = panel;
-        startAnimationTimer(panel);
+    public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY) {
+        super(name, characterType, panel, posX, posY);
+        setVisible(true); // Make sure the NPC is visible
+        random = new Random();
+        lastMovementTime = System.currentTimeMillis();
+        lastDirectionChangeTime = System.currentTimeMillis();
+        isPaused = false; // Start in a moving state
+        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
+        chooseNewDirection(); // Start with a direction
+        updateBounds();
     }
-    
-    private void startAnimationTimer(SceneBuilder panel) {
-        animationTimer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateAnimation();
-                panel.repaint();
-            }
-        });
-        animationTimer.start();
-    }
-    
-    public void initializeWalkSprites(int scale){
-        walkSprites.clear();
+
+    @Override
+    public void initializeSprites(String assetPackage, String type, int scale){
+        ((type.equals("walk"))? walkSprites : idleSprites).clear();
         int size = 4;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
-            spritePaths[i] = "/character_asset/" + characterType + "/walk/sprite" + (i + 1) + ".png";
+            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
+            System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
                 Image image = ImageIO.read(getClass().getResource(path));
-                walkSprites.add(image); 
+                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        walkSprites.scaleImageList(scale);
+        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
-    
-    public void initializeIdleSprites(int scale){
-        int size = 4;
-        idleSprites.clear();
-        String[] spritePaths = new String[size];
-        for(int i = 0; i < size; i++){
-            spritePaths[i] = "/character_asset/" + characterType + "/idle/sprite" + (i + 1) + ".png";
-        }     
-        for (String path : spritePaths) {
-            try {
-                Image image = ImageIO.read(getClass().getResource(path));
-                idleSprites.add(image); 
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void updateMovement() {
+        long currentTime = System.currentTimeMillis();
+
+        if (isPaused) {
+            if (currentTime - lastMovementTime >= pauseDuration) {
+                isPaused = false;
+                lastMovementTime = currentTime;
+                chooseNewDirection();
             }
-        }
-        idleSprites.scaleImageList(scale);
-    }
-    
-    public void scaleSprites(String spriteType, int scale){
-        if(spriteType.equals("walk")){
-            walkSprites.scaleImageList(scale);
-        }else if(spriteType.equals("idle")){
-            idleSprites.scaleImageList(scale);
-        }
-    }
-    
-    public void setPosY(int posY){
-        this.posY = posY;
-    }
-    
-    public void setPosX(int posX){
-        this.posX = posX;
-    }
-    
-    public void moveTo(int targetX) {
-        int maxPanel = panel.getNumOfScenes()-1;
-        if(isMoving){
             return;
         }
-         
-        if(targetX < posX && isFacingRight){
-            isFacingRight = false;
-        }else if(targetX > posX && !isFacingRight){
-            isFacingRight = true;
-        }
-        isMoving = true;
-        new Thread(() -> {
-        
-            int deltaX = (targetX - posX) / 10;
 
-            for (int i = 0; i < 10; i++) {
-                if(isFacingRight){
-                    posX += (deltaX - 10);
-                }else{
-                    posX += deltaX;
-                }
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(posX >= (int)(screenSize.width * 0.9) &&  panel.currentSceneIndex < maxPanel - 1){
-                panel.currentSceneIndex++;
-                posX = (int)(screenSize.width * 0.001);
-            }else if(panel.currentSceneIndex > 0 && posX <= (int)(screenSize.width * 0.05)){
-                panel.currentSceneIndex--;
-                posX = (int)(screenSize.width * 0.9);
-            }   
+        if (currentTime - lastMovementTime >= moveDuration) {
+            isPaused = true;
+            lastMovementTime = currentTime;
             stopMovement();
-        }).start();
-    }
-    
-    public void setCharacterType(String characterType){
-        this.characterType = characterType;
-    }
-    
-    
-    @Override
-    public void stopMovement(){
-        isMoving = false;
-        currentFrame = 0;
-    }
-    @Override
-    public void updateAnimation(){
-        currentFrame++;
-        if(currentFrame >= (((!isMoving) ? idleSprites : walkSprites).getSize())){
-            currentFrame = 0;
-        }      
-    }
-    @Override
-    public int getPosX(){
-        return posX;
-    }
-    
-    public boolean getIsFacingRight(){
-        return isFacingRight;
-    }
-    
-    @Override
-    public Image getCurrentSprite(){
-        return ((!isMoving) ? idleSprites : walkSprites).get(currentFrame);      
-    }
-    
-    @Override
-    public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        
-        AffineTransform transform = new AffineTransform();
-        
-        if(getIsFacingRight()){
-            transform.translate(getPosX(), posY);
-        }else{
-            transform.translate(getPosX() + getCurrentSprite().getWidth(null), posY); // Move origin right
-            transform.scale(-1, 1);
-        }        
-        g2d.drawImage(getCurrentSprite(), transform, null);
-        
-    }
+            return;
+        }
+
+        // Move the NPC
+        if (isMovingRight) {
+            posX += moveSpeed;
+            if (posX >= targetX || posX >= screenSize.width * 0.8) {
+                chooseNewDirection();
+            }
+        } else {
+            posX -= moveSpeed;
+            if (posX <= targetX || posX <= 0) {
+                chooseNewDirection();
+            }
+        }
+
+        updateBounds();
+          }
+
+    private void chooseNewDirection() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDirectionChangeTime < directionChangeCooldown) {
+            return;
+        }
+
+        lastDirectionChangeTime = currentTime;
+        int target = random.nextInt((int)(screenSize.width * 0.8));
+        boolean newDirection = random.nextBoolean();
+        if (newDirection != isMovingRight) {
+            isMovingRight = newDirection;
+            currentFrame = 0; // Reset animation frame when changing direction
+        }
+        moveTo(target, moveSpeed);
+          }
 
     @Override
     public void onClick(MouseEvent e) {
-        moveTo(e.getX());
+        
     }
 
     @Override
@@ -208,6 +112,6 @@ public class Npc implements MouseInteractable, Entity{
 
     @Override
     public void onExit(MouseEvent e) {
-        
+      
     }
 }

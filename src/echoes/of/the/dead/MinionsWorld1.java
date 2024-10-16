@@ -38,7 +38,7 @@ public class MinionsWorld1 implements MouseInteractable, Entity {
         this.posY = posY;
         this.posX = posX;
         this.characterType = characterType;
-        initializeIdleSprites("world1", (int)(screenSize.width *0.15), (int) (screenSize.height * 0.15));  
+        initializeIdleSprites("world1", (int)(screenSize.width *0.15), (int) (screenSize.height * 0.12));  
         this.panel = panel;
         startAnimationTimer(panel);
         this.screenWidth = (int)screenSize.getWidth();
@@ -138,6 +138,36 @@ public class MinionsWorld1 implements MouseInteractable, Entity {
     public void setVisible(boolean b) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setVisible'");
+    }
+
+    @Override
+    public void setPosY(int posY) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPosY'");
+    }
+
+    @Override
+    public void setPosX(int posX) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPosX'");
+    }
+
+    @Override
+    public void initializeSprites(String assetPackage, String type, int scale) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'initializeSprites'");
+    }
+
+    @Override
+    public void initializeSprites(String assetPackage, int width, int height) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'initializeSprites'");
+    }
+
+    @Override
+    public void scaleSprites(String spriteType, int scale) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'scaleSprites'");
     }
 }
 
