@@ -1,7 +1,10 @@
 package echoes.of.the.dead;
 
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Random;
+import java.awt.Image;
+import javax.imageio.ImageIO;
 
 public class Npc extends Character implements MouseInteractable {
     private Random random;
@@ -20,10 +23,31 @@ public class Npc extends Character implements MouseInteractable {
         lastMovementTime = System.currentTimeMillis();
         lastDirectionChangeTime = System.currentTimeMillis();
         isPaused = false; // Start in a moving state
+        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
         chooseNewDirection(); // Start with a direction
-        System.out.println("NPC created at position: " + posX + ", " + posY);
+        updateBounds();
     }
 
+    @Override
+    public void initializeSprites(String assetPackage, String type, int scale){
+        ((type.equals("walk"))? walkSprites : idleSprites).clear();
+        int size = 4;
+        String[] spritePaths = new String[size];
+        for(int i = 0; i < size; i++){
+            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
+            System.out.println(spritePaths[i]);
+        }     
+        for (String path : spritePaths) {
+            try {
+                Image image = ImageIO.read(getClass().getResource(path));
+                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
+    }
     public void updateMovement() {
         long currentTime = System.currentTimeMillis();
 
@@ -32,7 +56,6 @@ public class Npc extends Character implements MouseInteractable {
                 isPaused = false;
                 lastMovementTime = currentTime;
                 chooseNewDirection();
-                System.out.println("NPC resumed movement");
             }
             return;
         }
@@ -41,7 +64,6 @@ public class Npc extends Character implements MouseInteractable {
             isPaused = true;
             lastMovementTime = currentTime;
             stopMovement();
-            System.out.println("NPC paused at position: " + posX + ", " + posY);
             return;
         }
 
@@ -59,8 +81,7 @@ public class Npc extends Character implements MouseInteractable {
         }
 
         updateBounds();
-        System.out.println("NPC moved to position: " + posX + ", " + posY + " (Moving " + (isMovingRight ? "right" : "left") + ")");
-    }
+          }
 
     private void chooseNewDirection() {
         long currentTime = System.currentTimeMillis();
@@ -76,21 +97,20 @@ public class Npc extends Character implements MouseInteractable {
             currentFrame = 0; // Reset animation frame when changing direction
         }
         moveTo(target, moveSpeed);
-        System.out.println("NPC chose new direction: " + (isMovingRight ? "right" : "left") + " towards " + target);
-    }
+          }
 
     @Override
     public void onClick(MouseEvent e) {
-        System.out.println("NPC clicked at position: " + posX + ", " + posY);
+        
     }
 
     @Override
     public void onHover(MouseEvent e) {
-        System.out.println("Mouse hovering over NPC at position: " + posX + ", " + posY);
+        
     }
 
     @Override
     public void onExit(MouseEvent e) {
-        System.out.println("Mouse exited NPC at position: " + posX + ", " + posY);
+      
     }
 }

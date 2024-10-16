@@ -9,8 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import java.awt.Toolkit;
 /**
 
@@ -42,40 +40,15 @@ public class Character extends TransparentPanel implements Entity{
         this.posX = posX;
         this.name = name;
         this.characterType = characterType;
-        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
-        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
         this.panel = panel;
         this.setVisible(true);
         this.currentFrame = 0;
-        updateBounds();
     }
 
-    private int getSpriteSize(String type){
-        if(characterType.equals("priest") || characterType.equals("knight")
-        || characterType.equals("wizard")){
-            return (type.equals("walk") ? 8 : 6);
-        }
-        return 4;
-    }
 
     @Override
     public void initializeSprites(String assetPackage, String type, int scale){
-        ((type.equals("walk"))? walkSprites : idleSprites).clear();
-        int size = getSpriteSize(type);
-        String[] spritePaths = new String[size];
-        for(int i = 0; i < size; i++){
-            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            System.out.println(spritePaths[i]);
-        }     
-        for (String path : spritePaths) {
-            try {
-                Image image = ImageIO.read(getClass().getResource(path));
-                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
+      
     }
     
     @Override

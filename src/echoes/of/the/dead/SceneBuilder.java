@@ -45,8 +45,6 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (type.equals("world1")) { // adding minion
             minions1 = new MinionsWorld1("minion", this, (int)(screenSize.width * 0.82), (int)(screenSize.height * 0.23));
             this.addMouseListener(new MouseClickListener(minions1));
-            miniBoss1 = new MiniBoss1("miniboss", this, (int)(screenSize.width * 0.82), (int)(screenSize.height * 0.23));
-            this.addMouseListener(new MouseClickListener(miniBoss1));
         }     
     }
    
@@ -89,13 +87,19 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
 
             yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
             yoo.setPosY((int)(screenSize.height * 0.21));
+            this.add(yoo);
             this.setComponentZOrder(yoo, 1);
 
-            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.7), (int)(screenSize.height * 0.25));
+            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
             miggins.setPosY((int)(screenSize.height * 0.21));
-            
             this.add(miggins);
+
+            miniBoss1 = new MiniBoss1("MiniBoss", "miniBoss1", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.10));
+            this.add(miniBoss1);
+            
+            this.setComponentZOrder(miniBoss1, 0);
             this.setComponentZOrder(miggins, 1);
+            this.setComponentZOrder(shop, 2);
 
             
         } else if (type.equals("chooseCharacter")) {
@@ -135,7 +139,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             minions1.updateAnimation();
         }
         if (miniBoss1 != null){
-            miniBoss1.updateAnimation();
+            miniBoss1.updateAnimation(); 
+            miniBoss1.updateMovement();
+            miniBoss1.updateBounds();
         }
         if(yoo != null){
             yoo.updateAnimation(); 
@@ -164,11 +170,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToPillars);  // Hide portal after transport
             yoo.setVisible(currentSceneIndex == 0);
             miggins.setVisible(currentSceneIndex == 2);
+            miniBoss1.setVisible(currentSceneIndex == 4);
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
-            }
-            if  (currentSceneIndex == 4){
-                miniBoss1.draw(g);
             }
         }    
     }
