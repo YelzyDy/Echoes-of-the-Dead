@@ -74,6 +74,23 @@ public class ImageList {
         }
     }
     
+    public void scaleImageListDown(double scaleFactor) {
+        if (scaleFactor <= 0 || scaleFactor >= 1) {
+            System.out.println("Invalid scale factor. It must be between 0 and 1.");
+            return;
+        }
+    
+        for (int i = 0; i < size; i++) {
+            Image originalImage = (Image) imageList.get(i).get(0);
+            int newWidth = (int) (originalImage.getWidth(null) * scaleFactor);
+            int newHeight = (int) (originalImage.getHeight(null) * scaleFactor);
+            
+            Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            imageList.get(i).set(0, scaledImage);
+        }
+    }
+
+    
     public void resizeImageList(int width, int height){
         for (int i = 0; i < size; i++) {
             Image originalImage = (Image)imageList.get(i).get(0);

@@ -6,6 +6,9 @@ package echoes.of.the.dead;
 
 
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.awt.Image;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -19,8 +22,31 @@ public class Protagonist extends Character implements MouseInteractable {
     private int money = 0;
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
+        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
+        updateBounds();
     }
-   
+    
+    @Override
+    public void initializeSprites(String assetPackage, String type, int scale){
+        ((type.equals("walk"))? walkSprites : idleSprites).clear();
+        int size = (type.equals("walk") ? 8 : 6);
+        String[] spritePaths = new String[size];
+        for(int i = 0; i < size; i++){
+            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
+            System.out.println(spritePaths[i]);
+        }     
+        for (String path : spritePaths) {
+            try {
+                Image image = ImageIO.read(getClass().getResource(path));
+                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
+    }
+
     public void updateMovement() {
         int maxPanel = panel.getNumOfScenes() - 1;
         if (!isMoving) return;
