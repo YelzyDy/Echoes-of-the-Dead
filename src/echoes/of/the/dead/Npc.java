@@ -16,7 +16,8 @@ public class Npc extends Character implements MouseInteractable {
     private int directionChangeCooldown = 5000; // 5 seconds cooldown for direction changes
     private boolean isPaused;
     private int moveSpeed = 2; // Pixels per frame
-
+    private boolean isInteracting;
+    
     public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
@@ -29,6 +30,7 @@ public class Npc extends Character implements MouseInteractable {
         chooseNewDirection(); // Start with a direction
         updateBounds();
         this.addMouseListener(new MouseClickListener(this));
+        startMovement();
     }
 
     @Override
@@ -51,6 +53,10 @@ public class Npc extends Character implements MouseInteractable {
         ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
     public void updateMovement() {
+        if (isInteracting) {
+            return; // Don't update movement if interacting with user
+        }
+
         long currentTime = System.currentTimeMillis();
 
         if (isPaused) {
@@ -58,6 +64,7 @@ public class Npc extends Character implements MouseInteractable {
                 isPaused = false;
                 lastMovementTime = currentTime;
                 chooseNewDirection();
+                isMoving = true; // Start moving after pause
             }
             return;
         }
@@ -65,7 +72,7 @@ public class Npc extends Character implements MouseInteractable {
         if (currentTime - lastMovementTime >= moveDuration) {
             isPaused = true;
             lastMovementTime = currentTime;
-            stopMovement();
+            isMoving = false; // Stop moving when paused
             return;
         }
 
@@ -83,7 +90,7 @@ public class Npc extends Character implements MouseInteractable {
         }
 
         updateBounds();
-          }
+    }
 
     private void chooseNewDirection() {
         long currentTime = System.currentTimeMillis();
@@ -99,22 +106,52 @@ public class Npc extends Character implements MouseInteractable {
             currentFrame = 0; // Reset animation frame when changing direction
         }
         moveTo(target, moveSpeed);
-          }
-
-    @Override
-    public void onClick(MouseEvent e) {
-        if(characterType.equals("yoo")){
-            System.out.println("Look, Lady. Whatever you're selling, I ain't buying yo");
         }
-    }
 
+        @Override
+        public void onClick(MouseEvent e) {
+            stopMovement();
+            isPaused = true;
+            isInteracting = true;
+            
+            if(characterType.equals("yoo")){
+                System.out.println("Look, Lady. Whatever you're selling, I ain't buying yo");
+            }else if(characterType.equals("miggins")){
+                System.out.println("Well, my name is Skyler White, yo.\r\n" + //
+                                    "\r\n" + //
+                                    "My husband is Walter White, yo.\r\n" + //
+                                    "\r\n" + //
+                                    "Uh, huh.\r\n" + //
+                                    "\r\n" + //
+                                    "He told me everything.");
+            }
+        }
+      
     @Override
     public void onHover(MouseEvent e) {
-        
+        stopMovement();
+        isPaused = true;
+        isInteracting = true;
     }
-
+    
     @Override
     public void onExit(MouseEvent e) {
-      
+        isInteracting = false;
+        startMovement();
+        isPaused = false;
+    }
+    
+      // Modify the stopMovement method
+    @Override
+    public void stopMovement() {
+        super.stopMovement();
+        isMoving = false;
+    }
+    @Override
+    public void startMovement() {
+        super.startMovement();
+        isMoving = true;
+        isPaused = false;
+        lastMovementTime = System.currentTimeMillis();
     }
 }

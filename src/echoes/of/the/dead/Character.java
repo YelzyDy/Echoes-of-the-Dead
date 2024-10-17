@@ -98,6 +98,11 @@ public class Character extends TransparentPanel implements Entity{
         isMoving = false;
         currentFrame = 0;
     }
+
+    
+    public void startMovement(){
+        isMoving = true;
+    }
     @Override
     public void updateAnimation(){
         currentFrame++;
