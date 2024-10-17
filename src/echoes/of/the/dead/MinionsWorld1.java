@@ -15,6 +15,7 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     private int directionChangeCooldown = 5000; // 5 seconds cooldown for direction changes
     private boolean isPaused;
     private int moveSpeed = 2; // Pixels per frame
+    private boolean isInteracting = false;
 
     public MinionsWorld1(String name, String characterType, SceneBuilder panel, int posX, int posY) {
         super(name, characterType, panel, posX, posY);
@@ -51,6 +52,10 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
     public void updateMovement() {
+        if (isInteracting) {
+            return; // Don't update movement if interacting with user
+        }
+
         long currentTime = System.currentTimeMillis();
 
         if (isPaused) {
@@ -103,7 +108,11 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
-        
+        stopMovement();
+        isPaused = true;
+        isInteracting = true;
+        isMoving = false;
+        lastMovementTime = System.currentTimeMillis(); // Reset the movement timer
     }
 
     @Override
@@ -114,5 +123,11 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     @Override
     public void onExit(MouseEvent e) {
       
+    }
+
+    @Override
+    public void stopMovement() {
+        super.stopMovement();
+        isMoving = false;
     }
 }
