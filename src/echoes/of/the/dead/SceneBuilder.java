@@ -32,6 +32,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private Npc yoo;
     private Npc miggins;
     private Npc faithful;
+    private Npc natty;
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
@@ -67,6 +68,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miggins.setPosY((int)(screenSize.height * 0.21));
             this.add(miggins);
 
+            natty = new Npc("Natty", "natty", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
+            natty.setPosY((int)(screenSize.height * 0.21));
+            this.add(natty);
+
             miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
             this.add(miniBoss1);
 
@@ -74,6 +79,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.setComponentZOrder(faithful, 1);
             this.setComponentZOrder(miniBoss1, 0);
             this.setComponentZOrder(miggins, 1);
+            this.setComponentZOrder(natty, 1);
     }
     
     public void initializeCharacter(String charType, String playerName) {
@@ -172,6 +178,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             faithful.updateMovement();
             faithful.updateBounds();
         }
+
+        if (natty != null){
+            natty.updateAnimation();
+            natty.updateMovement();
+            natty.updateBounds();
+        }
         // Add any other game state updates here
     }
 
@@ -190,6 +202,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miggins.setVisible(currentSceneIndex == 2);
             miniBoss1.setVisible(currentSceneIndex == 4);
             faithful.setVisible(currentSceneIndex == 1);
+            natty.setVisible(currentSceneIndex == 1);
             if (currentSceneIndex == 3) {
                 minions1.draw(g);
             }
