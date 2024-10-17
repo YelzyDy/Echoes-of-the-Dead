@@ -4,9 +4,8 @@
  */
 package echoes.of.the.dead;
 
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -108,29 +107,89 @@ public class ImageList {
     }
     
     public void replaceImageAtIndex(int index, Image newImage) {
-    if (index >= 0 && index < size) {
-        // Preserve the current x position
-        double currentX = (double) imageList.get(index).get(1);
+        if (index >= 0 && index < size) {
+            // Preserve the current x position
+            double currentX = (double) imageList.get(index).get(1);
 
-        // Get the original image details
-        Image originalImage = (Image) imageList.get(index).get(0);
-        int originalHeight = originalImage.getHeight(null); // Store the original height
-        int originalWidth = originalImage.getWidth(null);   // Store the original width
+            // Get the original image details
+            Image originalImage = (Image) imageList.get(index).get(0);
+            int originalHeight = originalImage.getHeight(null); // Store the original height
+            int originalWidth = originalImage.getWidth(null);   // Store the original width
 
-        // Update the image with the new one
-        imageList.get(index).set(0, newImage);
+            // Update the image with the new one
+            imageList.get(index).set(0, newImage);
 
-        // Resize the new image to match the dimensions of the original image
-        Image resizedImage = newImage.getScaledInstance(originalWidth, originalHeight, Image.SCALE_SMOOTH);
-        imageList.get(index).set(0, resizedImage);
+            // Resize the new image to match the dimensions of the original image
+            Image resizedImage = newImage.getScaledInstance(originalWidth, originalHeight, Image.SCALE_SMOOTH);
+            imageList.get(index).set(0, resizedImage);
 
-        // Set back the x position
-        imageList.get(index).set(1, currentX);
-    } else {
-        System.out.println("Index out of bounds. Cannot replace image.");
+            // Set back the x position
+            imageList.get(index).set(1, currentX);
+        } else {
+            System.out.println("Index out of bounds. Cannot replace image.");
+        }
     }
-}
 
+    public void cropAllImages() {
+        for (int i = 0; i < size; i++) {
+            Image originalImage = (Image) imageList.get(i).get(0);
+
+            // Convert the image to a BufferedImage for pixel manipulation
+            BufferedImage bufferedImage = new BufferedImage(
+                originalImage.getWidth(null),
+                originalImage.getHeight(null),
+                BufferedImage.TYPE_INT_ARGB
+            );
+
+            Graphics g = bufferedImage.getGraphics();
+            g.drawImage(originalImage, 0, 0, null);
+            g.dispose();
+
+            // Find the bounding box of non-transparent pixels
+            Rectangle boundingBox = findBoundingBox(bufferedImage);
+
+            if (boundingBox != null) {
+                // Crop the image using the bounding box
+                BufferedImage croppedImage = bufferedImage.getSubimage(
+                    boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height
+                );
+
+                // Update the image in the list with the cropped image
+                imageList.get(i).set(0, croppedImage);
+            } else {
+                System.out.println("No pixels found to crop for image at index: " + i);
+            }
+        }
+    }
+
+    // Method to find the bounding box of non-transparent pixels
+    private Rectangle findBoundingBox(BufferedImage image) {
+        int minX = image.getWidth();
+        int minY = image.getHeight();
+        int maxX = 0;
+        int maxY = 0;
+
+        boolean foundPixel = false;
+
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                // Check if the pixel is not transparent
+                if ((image.getRGB(x, y) >> 24) != 0x00) {
+                    foundPixel = true;
+                    if (x < minX) minX = x;
+                    if (y < minY) minY = y;
+                    if (x > maxX) maxX = x;
+                    if (y > maxY) maxY = y;
+                }
+            }
+        }
+
+        if (foundPixel) {
+            return new Rectangle(minX, minY, maxX - minX + 1, maxY - minY + 1);
+        } else {
+            return null; // No pixels found
+        }
+    }
     
     public void clear() {
         imageList.clear();  // Clears the entire list of images
