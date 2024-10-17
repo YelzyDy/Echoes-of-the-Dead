@@ -7,6 +7,7 @@ package echoes.of.the.dead;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -36,6 +37,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
     private boolean isTransportedToPillars = false; // same stuff but sa mini boss na portal -z
+    
+    // added shop variables: -sheen
+    private EchoesObjects shopBg; //shop bg image
+    private boolean isTransportedToShop = false; 
 
     public SceneBuilder(String type){
         this.type = type;
@@ -76,6 +81,8 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
+            
             sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2);
             this.add(shop);
@@ -85,6 +92,11 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.add(portalMB); // portal mini boss added -z
             portal.addMouseListener(new MouseClickListener(this)); // attempted to add mouselistener sa portals -z
             portalMB.addMouseListener(new MouseClickListener(this)); // (up) -z
+        
+            //sheena add
+            shop.addMouseListener(new MouseClickListener(this)); // adds shop mouse listener - sheen
+            // shopBg = new EchoesObjects("shop_assets",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop0-bg", false, true, 2);
+            // this.add(shopBg);
 
             yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
             yoo.setPosY((int)(screenSize.height * 0.21));
@@ -139,6 +151,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         if (portal != null && portalMB.isAnimated()){
             portalMB.updateAnimation();
         }
+        if (shop != null && shop.isAnimated()){ // added shop animation here - sheen
+            shop.updateAnimation();
+        }
         if (minions1 != null) {
             minions1.updateAnimation();
         }
@@ -175,7 +190,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         }
         if (type.equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
-            shop.setVisible(currentSceneIndex == 2); // visibility will base sa current sceneIndex if true - j will add other comments later
+            shop.setVisible(currentSceneIndex == 2 && !isTransportedToShop); // visibility will base sa current sceneIndex if true - j will add other comments later //added if clicked will be transported to shop -sheen
             portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
             portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToPillars);  // Hide portal after transport
             yoo.setVisible(currentSceneIndex == 0);
@@ -198,6 +213,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         }else if (source == portalMB) {
             currentSceneIndex = 4; 
             isTransportedToPillars = true;
+        }else if (source == shop) {
+            currentSceneIndex = 5;
+            isTransportedToShop = true;
         }
     }
 

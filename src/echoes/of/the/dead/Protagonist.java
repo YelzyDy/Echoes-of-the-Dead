@@ -5,9 +5,9 @@
 package echoes.of.the.dead;
 
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.awt.Image;
 import javax.imageio.ImageIO;
 
 /**
