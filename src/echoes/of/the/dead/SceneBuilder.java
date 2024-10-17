@@ -71,11 +71,15 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
             this.add(miniBoss1);
 
+            minions1 = new MinionsWorld1("Minions", "slime", this, (int) (screenSize.width * 0.8), (int)(screenSize.height * 0.0));
+            this.add(minions1);
+
             this.setComponentZOrder(yoo, 1);
             this.setComponentZOrder(faithful, 1);
             this.setComponentZOrder(miniBoss1, 0);
             this.setComponentZOrder(miggins, 1);
             this.setComponentZOrder(natty, 1);
+            this.setComponentZOrder(minions1, 0);;
     }
     
     public void initializeCharacter(String charType, String playerName) {
@@ -84,7 +88,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.addMouseListener(new MouseClickListener(character));
             this.add(character);
             this.setComponentZOrder(character, 0);
-            initializeWorld1Chars();
+            //initializeWorld1Chars();
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
             character.initializeSprites("character_asset", "idle", (int)(screenSize.height * 0.017));
