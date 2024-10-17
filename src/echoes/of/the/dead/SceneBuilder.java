@@ -50,6 +50,33 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     public int getNumOfScenes(){
         return sceneList.getSize();
     }
+
+    public void initializeWorld1Chars(){
+            yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
+            yoo.setPosY((int)(screenSize.height * 0.21));
+            this.add(yoo);
+
+            faithful = new Npc("Faithful", "faithful", this, (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25)); // Add Faithful NPC
+            faithful.setPosY((int)(screenSize.height * 0.21)); // Adjust position for Faithful
+            this.add(faithful);
+            
+            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
+            miggins.setPosY((int)(screenSize.height * 0.21));
+            this.add(miggins);
+
+            natty = new Npc("Natty", "natty", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
+            natty.setPosY((int)(screenSize.height * 0.21));
+            this.add(natty);
+
+            miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
+            this.add(miniBoss1);
+
+            this.setComponentZOrder(yoo, 1);
+            this.setComponentZOrder(faithful, 1);
+            this.setComponentZOrder(miniBoss1, 0);
+            this.setComponentZOrder(miggins, 1);
+            this.setComponentZOrder(natty, 1);
+    }
     
     public void initializeCharacter(String charType, String playerName) {
         if(type.equals("world1")){
@@ -57,6 +84,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.addMouseListener(new MouseClickListener(character));
             this.add(character);
             this.setComponentZOrder(character, 0);
+            initializeWorld1Chars();
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
             character.initializeSprites("character_asset", "idle", (int)(screenSize.height * 0.017));
@@ -109,6 +137,8 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.setComponentZOrder(minions1, 0);
             this.setComponentZOrder(miggins, 1);
             this.setComponentZOrder(shop, 2);
+            this.setComponentZOrder(portal, 2);
+            this.setComponentZOrder(portalMB, 2);
 
             
         } else if (type.equals("chooseCharacter")) {
