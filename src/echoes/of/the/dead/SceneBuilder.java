@@ -43,11 +43,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         this.setBackground(Color.black);
         this.setLayout(null); // Using null layout for absolute positioning
         this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4));
-        System.out.println(this.getSize());  
-        if (type.equals("world1")) { // adding minion
-            minions1 = new MinionsWorld1("minion", this, (int)(screenSize.width * 0.82), (int)(screenSize.height * 0.23));
-            this.addMouseListener(new MouseClickListener(minions1));
-        }     
+        System.out.println(this.getSize());      
     }
    
     
@@ -105,8 +101,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
 
             miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
             this.add(miniBoss1);
+
+            minions1 = new MinionsWorld1("Minions", "slime", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
+            this.add(minions1);
             
             this.setComponentZOrder(miniBoss1, 0);
+            this.setComponentZOrder(minions1, 0);
             this.setComponentZOrder(miggins, 1);
             this.setComponentZOrder(shop, 2);
 
@@ -145,7 +145,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             portalMB.updateAnimation();
         }
         if (minions1 != null) {
-            minions1.updateAnimation();
+            minions1.updateAnimation(); 
+            minions1.updateMovement();
+            minions1.updateBounds();
         }
         if (miniBoss1 != null){
             miniBoss1.updateAnimation(); 
@@ -194,9 +196,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miniBoss1.setVisible(currentSceneIndex == 4);
             faithful.setVisible(currentSceneIndex == 1);
             natty.setVisible(currentSceneIndex == 1);
-            if (currentSceneIndex == 3) {
-                minions1.draw(g);
-            }
+            minions1.setVisible(currentSceneIndex == 3);
         }    
     }
 
