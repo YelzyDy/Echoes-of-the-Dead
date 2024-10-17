@@ -119,6 +119,7 @@ public class Npc extends Character implements MouseInteractable {
         }
         if (characterType.equals("missC")) {
             dialogues.displayDialogues(40, 50, 0, 1);
+        } 
     }
 
       
