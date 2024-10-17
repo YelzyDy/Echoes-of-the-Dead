@@ -33,6 +33,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private Npc yoo;
     private Npc miggins;
     private Npc faithful;
+    private Npc natty;
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
@@ -47,16 +48,44 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         this.setBackground(Color.black);
         this.setLayout(null); // Using null layout for absolute positioning
         this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4));
-        System.out.println(this.getSize());  
-        if (type.equals("world1")) { // adding minion
-            minions1 = new MinionsWorld1("minion", this, (int)(screenSize.width * 0.82), (int)(screenSize.height * 0.23));
-            this.addMouseListener(new MouseClickListener(minions1));
-        }     
+        System.out.println(this.getSize());      
     }
    
     
     public int getNumOfScenes(){
         return sceneList.getSize();
+    }
+
+    public void initializeWorld1Chars(){
+
+            yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.8);
+            yoo.setPosY((int)(screenSize.height * 0.21));
+            this.add(yoo);
+
+            faithful = new Npc("Faithful", "faithful", this, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4); // Add Faithful NPC
+            faithful.setPosY((int)(screenSize.height * 0.21)); // Adjust position for Faithful
+            this.add(faithful);
+            
+            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62);
+            miggins.setPosY((int)(screenSize.height * 0.21));
+            this.add(miggins);
+
+            natty = new Npc("Natty", "natty", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8);
+            natty.setPosY((int)(screenSize.height * 0.21));
+            this.add(natty);
+
+            miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
+            this.add(miniBoss1);
+
+            minions1 = new MinionsWorld1("Minions", "slime", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
+            this.add(minions1);
+            
+            this.setComponentZOrder(yoo, 2);
+            this.setComponentZOrder(faithful, 2);
+            this.setComponentZOrder(miniBoss1, 0);
+            this.setComponentZOrder(minions1, 0);
+            this.setComponentZOrder(miggins, 2);
+            this.setComponentZOrder(natty, 2);
     }
     
     public void initializeCharacter(String charType, String playerName) {
@@ -65,6 +94,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             this.addMouseListener(new MouseClickListener(character));
             this.add(character);
             this.setComponentZOrder(character, 0);
+            initializeWorld1Chars();
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
             character.initializeSprites("character_asset", "idle", (int)(screenSize.height * 0.017));
@@ -98,24 +128,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             // shopBg = new EchoesObjects("shop_assets",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop0-bg", false, true, 2);
             // this.add(shopBg);
 
-            yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
-            yoo.setPosY((int)(screenSize.height * 0.21));
-            this.setComponentZOrder(yoo, 1);
-
-            faithful = new Npc("Faithful", "faithful", this, (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25)); // Add Faithful NPC
-            faithful.setPosY((int)(screenSize.height * 0.21)); // Adjust position for Faithful
-            this.setComponentZOrder(faithful, 1);
-
-            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
-            miggins.setPosY((int)(screenSize.height * 0.21));
-            this.add(miggins);
-
-            miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
-            this.add(miniBoss1);
-            
-            this.setComponentZOrder(miniBoss1, 0);
-            this.setComponentZOrder(miggins, 1);
             this.setComponentZOrder(shop, 2);
+            this.setComponentZOrder(portal, 2);
+            this.setComponentZOrder(portalMB, 2);
 
             
         } else if (type.equals("chooseCharacter")) {
@@ -155,7 +170,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             shop.updateAnimation();
         }
         if (minions1 != null) {
-            minions1.updateAnimation();
+            minions1.updateAnimation(); 
+            minions1.updateMovement();
+            minions1.updateBounds();
         }
         if (miniBoss1 != null){
             miniBoss1.updateAnimation(); 
@@ -179,6 +196,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             faithful.updateMovement();
             faithful.updateBounds();
         }
+
+        if (natty != null){
+            natty.updateAnimation();
+            natty.updateMovement();
+            natty.updateBounds();
+        }
         // Add any other game state updates here
     }
 
@@ -197,9 +220,8 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miggins.setVisible(currentSceneIndex == 2);
             miniBoss1.setVisible(currentSceneIndex == 4);
             faithful.setVisible(currentSceneIndex == 1);
-            if (currentSceneIndex == 3) {
-                minions1.draw(g);
-            }
+            natty.setVisible(currentSceneIndex == 1);
+            minions1.setVisible(currentSceneIndex == 3);
         }    
     }
 

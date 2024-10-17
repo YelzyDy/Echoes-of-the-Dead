@@ -4,17 +4,17 @@
  */
 package echoes.of.the.dead;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
-
+import javax.swing.JPanel;
 /**
  *
  * @author Joana
  */
 public class World1 extends javax.swing.JFrame implements MouseInteractable{
-    Dialogues dialogues = new Dialogues();
     private String characterType;
     private String playerName;
     SceneBuilder scene;
@@ -30,6 +30,10 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
     // EchoesObjects btn_ok;
 
     public World1(String characterType, String playerName){
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+        this.add(panel);
         this.characterType = characterType;
         this.playerName = playerName;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +53,6 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
         this.add(scene);
         this.setVisible(true);
         JOptionPane.showMessageDialog(null, "Welcome to Echoes of the Dead!\n" + playerName, "", JOptionPane.INFORMATION_MESSAGE);
-        dialogues.displayDialogues(40, 50, 1, 1); // Remove this dialogue box
     }
    */
     
