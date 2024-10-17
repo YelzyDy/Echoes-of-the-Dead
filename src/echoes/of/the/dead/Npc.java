@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable {
+    Dialogues dialogues = new Dialogues();
     private Random random;
     private long lastMovementTime;
     private long lastDirectionChangeTime;
@@ -106,26 +107,20 @@ public class Npc extends Character implements MouseInteractable {
             currentFrame = 0; // Reset animation frame when changing direction
         }
         moveTo(target, moveSpeed);
-        }
+          }
 
-        @Override
-        public void onClick(MouseEvent e) {
-            stopMovement();
-            isPaused = true;
-            isInteracting = true;
-            
-            if(characterType.equals("yoo")){
-                System.out.println("Look, Lady. Whatever you're selling, I ain't buying yo");
-            }else if(characterType.equals("miggins")){
-                System.out.println("Well, my name is Skyler White, yo.\r\n" + //
-                                    "\r\n" + //
-                                    "My husband is Walter White, yo.\r\n" + //
-                                    "\r\n" + //
-                                    "Uh, huh.\r\n" + //
-                                    "\r\n" + //
-                                    "He told me everything.");
-            }
+    @Override
+    public void onClick(MouseEvent e) {
+        stopMovement();
+        isPaused = true;
+        isInteracting = true;
+        if (characterType.equals("natty")){
+            dialogues.displayDialogues(60, 70, 0, 1);
         }
+        if (characterType.equals("missC")) {
+            dialogues.displayDialogues(40, 50, 0, 1);
+    }
+
       
     @Override
     public void onHover(MouseEvent e) {
