@@ -17,23 +17,24 @@ import javax.swing.JPanel;
 public class World1 extends javax.swing.JFrame implements MouseInteractable{
     private String characterType;
     private String playerName;
-    SceneBuilder scene;
-    TransparentPanel btn_shop;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+    private SceneBuilder scene;
+    private TransparentPanel btn_shop;
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private JPanel panel;
     //new variables - sheena
     //
-    EchoesObjects promptPanel;
-    // int width = screenSize.width;
-    // int height = screenSize.height;
-    // EchoesObjects btn_select;
-    // EchoesObjects btn_ok;
+    private EchoesObjects promptPanel;
+    private EchoesObjects btn_ok;
 
     public World1(String characterType, String playerName){
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+        panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+        panel.setLayout(null); // Set layout for the panel
+
         this.add(panel);
+
         this.characterType = characterType;
         this.playerName = playerName;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,20 +42,9 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setLayout(null);
-        addScene();
+        this.setContentPane(panel); // Set the panel as the content pane
+        Welcome();
     }
-    //jian's addScene orig
-    /* 
-    public void addScene(){  
-        scene = new SceneBuilder("world1");
-        scene.createScene();
-        scene.initializeCharacter(characterType, playerName);
-        this.add(scene);
-        this.setVisible(true);
-        JOptionPane.showMessageDialog(null, "Welcome to Echoes of the Dead!\n" + playerName, "", JOptionPane.INFORMATION_MESSAGE);
-    }
-   */
     
     //tried to add welcome message prompt - sheen 
     private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
@@ -67,75 +57,49 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
     }
 
     private void addPromptNamePanel(){
-        promptPanel = createObj("world1",(int) (screenSize.width * 0.30), 
-        (int) (screenSize.height * 0.013), 
-        (int) (screenSize.width * 0.40), 
-        (int) (screenSize.height * 0.40), 
+        promptPanel = createObj("world1",(int) (screenSize.width * 0.1), 
+        (int) (screenSize.height * 0.1), 
+        (int) (screenSize.width * 0.80), 
+        (int) (screenSize.height * 0.80), 
         "welcomePrompt", false, false, 1);
-
-        scene.add(promptPanel);  
-        promptPanel.setVisible(true);
-    
-        scene.setComponentZOrder(promptPanel, 1);
     }
 
-    // private void addOkButton(int panelHeight, int panelWidth){
-    //     btn_ok = createObj(
-    //             "button", (int) (panelWidth * 0.35),
-    //             (int) (panelHeight * 0.45),
-    //             (int) (panelWidth * 0.25),
-    //             (int) (panelHeight * 0.098),
-    //             "ok_button", false, true, 2
-    //         );
-    //         btn_ok.setVisible(true);
-    //         btn_ok.addMouseListener(new MouseClickListener(this));
-    //         promptPanel.add(btn_ok);
-    // }
-
-    private void addOkButton(int panelHeight, int panelWidth) {
-        EchoesObjects btn_ok = createObj(
-                "button", (int) (panelWidth * 0.35),
-                (int) (panelHeight * 0.45),
-                (int) (panelWidth * 0.05),
-                (int) (panelHeight * 0.098),
-                "ok_button", false, true, 2
-            );
-        btn_ok.setVisible(true);
-        
-        // Add a mouse listener to handle button click
-        btn_ok.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Remove the prompt panel when OK button is clicked
-                scene.remove(promptPanel);
-                scene.repaint();
-            }
-        });
-    
+    private void addOkButton() {
+        btn_ok = createObj(
+            "button", 
+            (int) (promptPanel.getWidth() * 0.59),  // Position relative to promptPanel
+            (int) (promptPanel.getHeight() * 0.78),  // Position relative to promptPanel
+            (int) (promptPanel.getWidth() * 0.1),
+            (int) (promptPanel.getHeight() * 0.1),
+            "ok_button", false, true, 2
+        );
         promptPanel.add(btn_ok);
+        btn_ok.addMouseListener(new MouseClickListener(this));  // Add mouse listener
     }
     
-    //Object source = e.getSource();
+    
 
-    public void addScene(){  
-        scene = new SceneBuilder("world1");
-        scene.createScene();
+    public void Welcome(){  
         addPromptNamePanel();
-        addOkButton(promptPanel.getHeight(), promptPanel.getWidth());
-        
-        scene.initializeCharacter(characterType, playerName);
-        this.add(scene);
+        addOkButton();
+        panel.add(promptPanel);
+        panel.setComponentZOrder(btn_ok, 0);
+        promptPanel.setVisible(true);
         this.setVisible(true);
-        
-        //JOptionPane.showMessageDialog(null, "Welcome to Echoes of the Dead!\n" + playerName, "", JOptionPane.INFORMATION_MESSAGE);
-        //dialogues.displayDialogues(40, 50, 1, 1); // Remove this dialogue box
     }
-
 
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        
+        if(source == btn_ok){
+            promptPanel.setVisible(false);
+            btn_ok.setVisible(false);
+            scene = new SceneBuilder("world1");
+            scene.initializeCharacter(characterType, playerName);
+            panel.add(scene);
+            scene.createScene();
+            
+        }
     }
 
     @Override
