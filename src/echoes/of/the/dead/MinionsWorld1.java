@@ -1,174 +1,118 @@
-// file initially made by zendy
-
 package echoes.of.the.dead;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
-//import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class MinionsWorld1 implements MouseInteractable, Entity {
-    //private int attack = 10;
-    //private int health = 100;
-    protected String name;
-    protected int posX;
-    protected int posY;
-    protected ImageList idleSprites = new ImageList();
-    protected int currentFrame = 3;
-    protected Timer animationTimer;
-    protected boolean isMoving = false;
-    protected String characterType;
-    protected SceneBuilder panel;
-    protected boolean isFacingRight = true; 
-    private int screenWidth;
-    private int screenHeight;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+public class MinionsWorld1 extends Character implements MouseInteractable {
+    private Random random;
+    private long lastMovementTime;
+    private long lastDirectionChangeTime;
+    private int moveDuration = 5000; // Move for 5 seconds
+    private int pauseDuration = 1000; // Pause for 1 second (reduced for more frequent movement)
+    private int directionChangeCooldown = 5000; // 5 seconds cooldown for direction changes
+    private boolean isPaused;
+    private int moveSpeed = 2; // Pixels per frame
 
-    public MinionsWorld1(String characterType, SceneBuilder panel, int posX, int posY) {
-        this.posY = posY;
-        this.posX = posX;
-        this.characterType = characterType;
-        initializeIdleSprites("world1", (int)(screenSize.width *0.15), (int) (screenSize.height * 0.12));  
-        this.panel = panel;
-        startAnimationTimer(panel);
-        this.screenWidth = (int)screenSize.getWidth();
-        this.screenHeight = (int)screenSize.getHeight();
+    public MinionsWorld1(String name, String characterType, SceneBuilder panel, int posX, int posY) {
+        super(name, characterType, panel, posX, posY);
+        setVisible(true); // Make sure the NPC is visible
+        random = new Random();
+        lastMovementTime = System.currentTimeMillis();
+        lastDirectionChangeTime = System.currentTimeMillis();
+        isPaused = false; // Start in a moving state
+        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
+        idleSprites.scaleImageListDown(0.58);
+        walkSprites.scaleImageListDown(0.58);
+        chooseNewDirection(); // Start with a direction
+        updateBounds();
     }
 
-    private void startAnimationTimer(SceneBuilder panel) {
-        animationTimer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateAnimation();
-                panel.repaint();
-            }
-        });
-        animationTimer.start();
-    }
-
-    // Initialize idle sprites (placeholder for now)
-    public void initializeIdleSprites(String assetPackage, int width, int height) {
-        int size = 8;
-        idleSprites.clear();
+    @Override
+    public void initializeSprites(String assetPackage, String type, int scale){
+        ((type.equals("walk"))? walkSprites : idleSprites).clear();
+        int size = ((type.equals("walk") ? 8 : 8));
         String[] spritePaths = new String[size];
-        for (int i = 0; i < size; i++) {
-            spritePaths[i] = "/" + assetPackage + "_assets/minionsWorld1/sprite" + i + ".png";
-        }
+        for(int i = 0; i < size; i++){
+            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i) + ".png";
+            System.out.println(spritePaths[i]);
+        }     
         for (String path : spritePaths) {
             try {
                 Image image = ImageIO.read(getClass().getResource(path));
-                idleSprites.add(image);
+                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        idleSprites.resizeImageList(width, height);
+        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
+    public void updateMovement() {
+        long currentTime = System.currentTimeMillis();
 
-    @Override
-    public void stopMovement() {
-        isMoving = false;
-        currentFrame = 0;
-    }
-
-    @Override
-    public void updateAnimation() {
-        currentFrame++;
-        if (currentFrame >= idleSprites.getSize()) {
-            currentFrame = 0;
+        if (isPaused) {
+            if (currentTime - lastMovementTime >= pauseDuration) {
+                isPaused = false;
+                lastMovementTime = currentTime;
+                chooseNewDirection();
+            }
+            return;
         }
-    }
 
-    @Override
-    public int getPosX() {
-        return posX;
-    }
+        if (currentTime - lastMovementTime >= moveDuration) {
+            isPaused = true;
+            lastMovementTime = currentTime;
+            stopMovement();
+            return;
+        }
 
-    public boolean getIsFacingRight() {
-        return isFacingRight;
-    }
-
-    @Override
-    public Image getCurrentSprite() {
-        // Always use idle sprites until walking sprites are available
-        return idleSprites.get(currentFrame);
-    }
-
-    @Override
-    public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
-        AffineTransform transform = new AffineTransform();
-
-        if (getIsFacingRight()) {
-            transform.translate(getPosX(), posY);
+        // Move the NPC
+        if (isMovingRight) {
+            posX += moveSpeed;
+            if (posX >= targetX || posX >= screenSize.width * 0.8) {
+                chooseNewDirection();
+            }
         } else {
-            transform.translate(getPosX() + getCurrentSprite().getWidth(null), posY); // Move origin right
-            transform.scale(-1, 1);
+            posX -= moveSpeed;
+            if (posX <= targetX || posX <= 0) {
+                chooseNewDirection();
+            }
         }
-        g2d.drawImage(getCurrentSprite(), transform, null);
-    }
+
+        updateBounds();
+          }
+
+    private void chooseNewDirection() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDirectionChangeTime < directionChangeCooldown) {
+            return;
+        }
+
+        lastDirectionChangeTime = currentTime;
+        int target = random.nextInt((int)(screenSize.width * 0.8));
+        boolean newDirection = random.nextBoolean();
+        if (newDirection != isMovingRight) {
+            isMovingRight = newDirection;
+            currentFrame = 0; // Reset animation frame when changing direction
+        }
+        moveTo(target, moveSpeed);
+          }
 
     @Override
     public void onClick(MouseEvent e) {
-        //none?
+        
     }
 
     @Override
     public void onHover(MouseEvent e) {
-        // Optional hover behavior
+        
     }
 
     @Override
     public void onExit(MouseEvent e) {
-        // Optional exit behavior
-    }
-
-    public void setVisible(boolean b) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setVisible'");
-    }
-
-    @Override
-    public void setPosY(int posY) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPosY'");
-    }
-
-    @Override
-    public void setPosX(int posX) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPosX'");
-    }
-
-    @Override
-    public void initializeSprites(String assetPackage, String type, int scale) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'initializeSprites'");
-    }
-
-    @Override
-    public void initializeSprites(String assetPackage, int width, int height) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'initializeSprites'");
-    }
-
-    @Override
-    public void scaleSprites(String spriteType, int scale) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'scaleSprites'");
+      
     }
 }
-
-
