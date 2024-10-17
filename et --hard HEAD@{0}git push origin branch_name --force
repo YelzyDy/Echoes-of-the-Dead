@@ -117,4 +117,36 @@
 [33me0e28ce[m HEAD@{116}: checkout: moving from master to main
 [33mb7d7cff[m HEAD@{117}: reset: moving to HEAD
 [33mb7d7cff[m HEAD@{118}: commit: update
-[33m37ebea2[m HE
+[33m37ebea2[m HEAD@{119}: reset: moving to HEAD
+[33m37ebea2[m HEAD@{120}: commit: replaced currentPanelIndex keyword to currentSceneIndex for clarity
+[33m18bd74f[m HEAD@{121}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{122}: checkout: moving from master to main
+[33m18bd74f[m HEAD@{123}: commit: setting textfield to center
+[33m13694f0[m HEAD@{124}: commit: assets update
+[33m3bd701f[m HEAD@{125}: commit: Player Name display/message feature
+[33m7586647[m HEAD@{126}: commit: promptName update
+[33m44fb557[m HEAD@{127}: commit: implemet cancel in namePrompt
+[33me819085[m HEAD@{128}: commit: update
+[33m5e2b269[m HEAD@{129}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{130}: checkout: moving from master to main
+[33m5e2b269[m HEAD@{131}: reset: moving to HEAD
+[33m5e2b269[m HEAD@{132}: commit: update nameField to not accept empty fields
+[33mc500377[m HEAD@{133}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{134}: checkout: moving from master to main
+[33mc500377[m HEAD@{135}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{136}: checkout: moving from master to main
+[33mc500377[m HEAD@{137}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{138}: checkout: moving from master to main
+[33mc500377[m HEAD@{139}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{140}: checkout: moving from master to main
+[33mc500377[m HEAD@{141}: reset: moving to HEAD
+[33mc500377[m HEAD@{142}: checkout: moving from master to master
+[33mc500377[m HEAD@{143}: commit (merge): Merge branch 'main'
+[33mbbf878b[m HEAD@{144}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{145}: checkout: moving from master to main
+[33mbbf878b[m HEAD@{146}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{147}: checkout: moving from master to main
+[33mbbf878b[m HEAD@{148}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{149}: checkout: moving from master to main
+[33mbbf878b[m HEAD@{150}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{151}: commit (initial): prompt name feature
