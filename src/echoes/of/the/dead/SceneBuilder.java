@@ -56,30 +56,30 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     }
 
     public void initializeWorld1Chars(){
-            yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25));
+            yoo = new Npc("Yoo", "yoo", this, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.8);
             yoo.setPosY((int)(screenSize.height * 0.21));
             this.add(yoo);
 
-            faithful = new Npc("Faithful", "faithful", this, (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25)); // Add Faithful NPC
+            faithful = new Npc("Faithful", "faithful", this, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4); // Add Faithful NPC
             faithful.setPosY((int)(screenSize.height * 0.21)); // Adjust position for Faithful
             this.add(faithful);
             
-            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
+            miggins = new Npc("Miggins", "miggins", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62);
             miggins.setPosY((int)(screenSize.height * 0.21));
             this.add(miggins);
 
-            natty = new Npc("Natty", "natty", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25));
+            natty = new Npc("Natty", "natty", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8);
             natty.setPosY((int)(screenSize.height * 0.21));
             this.add(natty);
 
             miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.25), (int)(screenSize.height * 0.0));
             this.add(miniBoss1);
 
-            this.setComponentZOrder(yoo, 1);
-            this.setComponentZOrder(faithful, 1);
+            this.setComponentZOrder(yoo, 2);
+            this.setComponentZOrder(faithful, 2);
             this.setComponentZOrder(miniBoss1, 0);
-            this.setComponentZOrder(miggins, 1);
-            this.setComponentZOrder(natty, 1);
+            this.setComponentZOrder(miggins, 2);
+            this.setComponentZOrder(natty, 2);
     }
     
     public void initializeCharacter(String charType, String playerName) {

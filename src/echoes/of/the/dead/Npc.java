@@ -18,8 +18,9 @@ public class Npc extends Character implements MouseInteractable {
     private boolean isPaused;
     private int moveSpeed = 2; // Pixels per frame
     private boolean isInteracting;
-    
-    public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY) {
+    private double minRange;
+    private double maxRange;
+    public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
         random = new Random();
@@ -31,6 +32,9 @@ public class Npc extends Character implements MouseInteractable {
         chooseNewDirection(); // Start with a direction
         updateBounds();
         this.addMouseListener(new MouseClickListener(this));
+        this.minRange = minRange;
+        this.maxRange = maxRange;
+
         startMovement();
     }
 
@@ -80,12 +84,12 @@ public class Npc extends Character implements MouseInteractable {
         // Move the NPC
         if (isMovingRight) {
             posX += moveSpeed;
-            if (posX >= targetX || posX >= screenSize.width * 0.8) {
+            if (posX >= targetX || posX >= maxRange) {
                 chooseNewDirection();
             }
         } else {
             posX -= moveSpeed;
-            if (posX <= targetX || posX <= 0) {
+            if (posX <= targetX || posX <= minRange) {
                 chooseNewDirection();
             }
         }
@@ -100,14 +104,14 @@ public class Npc extends Character implements MouseInteractable {
         }
 
         lastDirectionChangeTime = currentTime;
-        int target = random.nextInt((int)(screenSize.width * 0.8));
+        int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
         boolean newDirection = random.nextBoolean();
         if (newDirection != isMovingRight) {
             isMovingRight = newDirection;
             currentFrame = 0; // Reset animation frame when changing direction
         }
         moveTo(target, moveSpeed);
-          }
+    }
 
     @Override
     public void onClick(MouseEvent e) {
