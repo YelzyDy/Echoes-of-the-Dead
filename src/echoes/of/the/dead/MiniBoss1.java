@@ -123,7 +123,6 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         stopMovement();
         isPaused = true;
         isInteracting = true;
-<<<<<<< HEAD
         isInBattle = true;
         if (isEnlarged){
             return;
@@ -137,8 +136,7 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         if (characterType.equals("missC")) {
             dialogues.displayDialogues(40, 50, 0, 1);
         } 
-=======
->>>>>>> cbbae893e94bdb1014db31cc4102a6d94d876bfe
+
     }
 
       

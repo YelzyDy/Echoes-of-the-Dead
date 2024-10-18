@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  * @author Joana
  */
 
-public class Protagonist extends Character implements MouseInteractable, Battle {
+public class Protagonist extends Character implements MouseInteractable {
     private int mana = 100;
     private int attack = 20;
     private int health = 150;
