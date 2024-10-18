@@ -124,7 +124,8 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         if (isEnlarged){
             return;
         }
-        setPosY(0);
+        //setPosX((int)screenSize);
+        setPosY(10);
         scaleSprites("idle", 2);
         isEnlarged = true;
     }

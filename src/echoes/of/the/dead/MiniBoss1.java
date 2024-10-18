@@ -1,9 +1,9 @@
 package echoes.of.the.dead;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Random;
-import java.awt.Image;
 import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
@@ -20,6 +20,9 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
+    private boolean isInBattle;
+    private boolean isEnlarged;
+
     public MiniBoss1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
@@ -120,6 +123,13 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         stopMovement();
         isPaused = true;
         isInteracting = true;
+        isInBattle = true;
+        if (isEnlarged){
+            return;
+        }
+        // set pos x and
+        scaleSprites("idle", (int)0.5);
+        isEnlarged = true;
         if (characterType.equals("natty")){
             dialogues.displayDialogues(60, 70, 0, 1);
         }
@@ -131,6 +141,9 @@ public class MiniBoss1 extends Character implements MouseInteractable {
       
     @Override
     public void onHover(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         stopMovement();
         isPaused = true;
         isInteracting = true;
@@ -138,6 +151,9 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         isInteracting = false;
         startMovement();
         isPaused = false;

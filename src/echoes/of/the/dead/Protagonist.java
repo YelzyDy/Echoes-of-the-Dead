@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  * @author Joana
  */
 
-public class Protagonist extends Character implements MouseInteractable {
+public class Protagonist extends Character implements MouseInteractable, Battle {
     private int mana = 100;
     private int attack = 20;
     private int health = 150;
@@ -83,7 +83,7 @@ public class Protagonist extends Character implements MouseInteractable {
 // Created the 3 skills for the protagonists but function will be implemented later --jm
     public void skill1(){
         switch(this.characterType){
-            case "knight":
+            case "knight": 
                 System.out.println(name + " used OBJECTION SURGE");
                 System.out.println("-15 Soul Shards, +15 Attack");
                 break;
