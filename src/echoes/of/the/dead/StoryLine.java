@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class StoryLine extends JFrame {
     Random r = new Random();
-    private final String[] arr = new String[80];
+    private final String[] arr = new String[200];
 
     StoryLine() {
             // Exposition / ID 0 1 2 3
@@ -53,54 +53,173 @@ public class StoryLine extends JFrame {
             this.arr[38] = "Your journey begins now.";
             this.arr[39] = "...";
 
-            // Miss Constance Dialogues / ID 4
-            this.arr[40] = "[You walk into a misty area of the underworld and spots an ordinary woman sitting on a rock, talking to herself. She notices you and her eyes light up.]";
-            this.arr[41] = "Miss Constance: \"Oh! A new face! You're probably wondering who's who down here, right? Well, I know everything! Like, did you hear about Faithful? Total creep! He stalked everyone that came down here and asking about their love life, like that is so none of your business! My name's Miss Constance by the way, you can call me Miss C!\"";
+            // Miss Constance Intoduction / ID 4
+            this.arr[40] = "[You enter a misty area of the underworld and spot an ordinary woman sitting on a rock, talking to herself. She looks up and her eyes brighten.]";
+
+            this.arr[41] = "Miss Constance: \"Oh! A new face! You must be curious about who's who down here, right? Well, I know everything! Like, have you heard about Faithful? Total creep! He stalked everyone who came down here! I'm Miss Constance, by the way; you can call me Miss C!\"";
             this.arr[42] = "You: \"Actually, I—\"";
-            this.arr[43] = "Miss C (cutting them off): \"And Yoo? Such a drama queen! Acts all mysterious, but it's just an act. Oh, and don't get me started on Miggins—tried to sneak an advertisement in The Grand Mausoleum! Can you believe the nerve?\"";
-            this.arr[44] = "You (awkward): \"Yeah, I'm just—\"";
-            this.arr[45] = "Miss C: \"Leaving so early? Oh, sure! But come back! I've got loads more to tell—wait till you hear about Myself!\"";
-            this.arr[46] = "[You walk away quickly, the woman's voice trailing behind them.]";
-            this.arr[47] = "Miss C (yelling):\"Don't forget to visit! I know everything! Also, don't try to-\"";
-            this.arr[48] = "...";
-            this.arr[49] = "...";
+            
+            this.arr[43] = "Miss C (interrupting): \"And Yoo? Such a drama queen! Acts all mysterious, but it's just a show. And don't get me started on Miggins—he tried to sneak an advertisement into The Grand Mausoleum! Can you believe the nerve?\"";           
+            this.arr[44] = "You (awkwardly): \"Yeah, well, it was nice to meet you, I might check out the rest of the forest before going to-\"";
+            
+            this.arr[45] = "Miss C: \"Leaving so soon? Oh, sure! But come back! I've got loads more to share—wait till you hear about Myself!\"";
+            
+            this.arr[46] = "[She's a little to much to take in right now, you slowly back away, the woman's voice trailing after you.]";
+            
+            this.arr[47] = "Miss C (calling out): \"Don't forget to visit! I know everything! Also, don't try to approach some of the monsters roaming around, unless you're prepared!\"";
+            
+            this.arr[48] = "Miss C (continuing): \"...I have the juiciest stories about all the denizens here! You wouldn't believe what they're really like!\"";
+            
+            this.arr[49] = "Miss C (shouting): \"Also, I'm always here if you need to-!\"";
         
             // Miss Constance Lines / ID 5
-            this.arr[50] = "\"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a demon would pass by or something. Do you think they're avoiding me? I'm starting to think they are.\"";
-            this.arr[51] = "\"Do you think the living still remember me? I bet they don't. I wasn't famous or anything. Just your average city girl. But I like to think there's a statue somewhere with my name on it. Wishful thinking, right?\"";
-            this.arr[52] = "\"I tried making friends with the other souls, but they're so… distant. It's like, 'Hello! We're stuck here for eternity together! Can we at least pretend to like each other?' No one ever laughs at my jokes, either. Rude!\"";
-            this.arr[53] = "\"Do you know how long I've been dead? Of course, you don't! Time is weird down here. But I feel like I've been dead for… maybe a thousand years? Or was it ten? You lose track after the first century. What year is it, anyway?\"";
-            this.arr[54] = "\"The spirit world, right? It's just as gloomy as you'd expect. No sun. No moon. No stars. Just endless dark skies. Oh, and the fog. Don't get me started on the fog. It's like a constant wet blanket on your soul.\"";
-            this.arr[55] = "\"I tried making friends with this other soul earlier, but they're so cranky. It's like, 'Hello! We're stuck here for eternity together! Can we at least pretend to like each other?\"";
-            this.arr[56] = "\"Oh, and don't even get me started on Yoo. He's always acting like he's so mysterious, sitting by the river and staring into the abyss. Please, he's just being dramatic. We get it, you're moody. Join the club, honey.\"";
-            this.arr[57] = "\"You know Miggins, right? She's been trying to impress everyone by selling her \"Homemade Pies\". As if we're stupid enough to believe that! I 'm pretty sure she just heated up 'ready to eat' mall pies and called it a day. It's sad, really.\"";
-            this.arr[58] = "\"You ever hear that saying, 'Death is peaceful'? Lies! It's so boring down here. No one talks. Except me, of course. I keep talking because if I don't, I'll go mad. Or maybe I already have.\"";
-            this.arr[59] = "...";
+            this.arr[50] = "\"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a spirit would swing by or something. Do you think they're avoiding me? Honestly, I'm starting to take it personally.\"";
+
+            this.arr[51] = "\"Do you think the living still remember me? Probably not, right? I wasn't exactly a celebrity. Just your average city girl. But, oh, how I like to imagine there's a statue somewhere with my name on it! A girl can dream, even in the afterlife.\"";
+
+            this.arr[52] = "\"I tried to make friends with the other souls, but they're all so… distant. Like, 'Hello! We're stuck here together for eternity, can we at least pretend to like each other?' No one ever laughs at my jokes either. Rude, right?\"";
+
+            this.arr[53] = "\"How long have I been dead, you ask? Oh wait, you didn't ask. Well, too bad! Time is a blur down here. I feel like I've been dead for a thousand years… or maybe just ten? You lose track after a century or two. By the way, what year is it?\"";
+
+            this.arr[54] = "\"The spirit world, ugh, just as bleak as you'd imagine. No sun, no moon, no stars. Just endless dark skies. And the fog! Don't even get me started on the fog. It's like a wet blanket draped over your soul 24/7.\"";
+
+            this.arr[55] = "\"Tried chatting with another soul earlier. They're all so cranky! It's like, 'Hello! We're stuck here for eternity together! Could we at least *pretend* to like each other?' I swear, they all think being moody is a personality trait.\"";
+
+            this.arr[56] = "\"Oh, and Yoo? Don't even get me started on that one. Always acting so mysterious, sitting by the river, staring dramatically into the abyss. We get it, Yoo, you're deep. Join the club, honey! We're all brooding down here.\"";
+
+            this.arr[57] = "\"You know Miggins, right? Yeah, she's been trying to impress everyone with her so-called 'Homemade Pies.' Please! We all know she just heats up store-bought ones and calls it a day. It's honestly kind of sad.\"";
+
+            this.arr[58] = "\"You ever hear that saying, 'Death is peaceful'? Lies! It's boring down here. No one talks. Except me, of course. I keep talking because if I don't, I'll probably go mad. Or maybe I already have. Who's to say?\"";
+
+            this.arr[59] = "\"Oh my gosh, like, if the sun emitted Wi-Fi, trees would be like cell towers, you know? I mean, cellphones are basically fruits from those trees or whatever. Don't even get me started on how apples are used to make smartphones, like, it's science, right?";
+
             
             // Natty Introduction / ID 6
-            this.arr[60] = "You wander through a shadowy, eerie part of the underworld. A woman stands alone by the edge of a dark river, looking anxious. You approach carefully.";
-            this.arr[61] = "Natty: \"Oh no, it's you… I-I wasn't expecting to see you again. I thought maybe… maybe you'd forgotten about me. It's so dark here, and I don't know if I can handle this… I'm scared…\"";
-            this.arr[62] = "You: \"It's alright. We're both stuck here, but we'll figure it out.\"";
-            this.arr[63] = "Natty: \"Figure it out? Of course we will! I'm not afraid of this place! I've faced worse before. I wasn't going to let them control me, and I'm not letting this place beat me either!\"";
-            this.arr[64] = "Natty: \"But what if I'm not strong enough? I barely made it through last time. What if I'm too weak now? This place… it's worse than anything we went through before. I can't do it… I'm too scared…\"";
-            this.arr[65] = "You: \"Take it easy. We aren't exactly alone here.\"";
-            this.arr[66] = "Natty: \"Alone? I'm never alone! I'm too strong to be beaten by fear! I'm not the same fragile person they thought I was. I'm a fighter! I can handle anything!\"";
-            this.arr[67] = "You: \"I'm not sure how to respond to that...\"";
-            this.arr[68] = "Natty: \"No. Not that. I… I can't.\"";
-            this.arr[69] = "You reach out as Natty alternates between fear and courage, her emotions like a pendulum, trapped in a constant internal struggle. It may be better to return to her later.";         
+            this.arr[60] = "You wander through a shadowy, eerie part of the underworld. A woman stands alone by the edge of a dark river, her eyes darting nervously. You approach cautiously, sensing the tension in the air.";
+
+            this.arr[61] = "Natty: \"Oh... it's you? I-I didn't expect to see you again, I'm Natty. I thought maybe... maybe you'd forgotten me. It's so dark here, and I'm not sure I can do this... I'm scared.\"";
+            this.arr[62] = "You: \"Have we really met before?. I have my fair share with people like you, I think?\"";
+
+            this.arr[63] = "Natty: \"Before? Ha! Of course you did! Also, I'm pretty new here. This place kind of spooky, right? I've been through worse! They can't hurt me then, and this place won't break me now!\"";
+            this.arr[64] = "Natty: \"But... what if I'm not strong enough this time? Last time, I barely made it. This place... it's worse than anything we've seen before. I-I don't think I can survive it... I'm too scared.\"";
+
+            this.arr[65] = "You: \"Just take a deep breath. You're not exactly alone here, Natty. We can handle this.\"";
+            this.arr[66] = "Natty: \"Alone? No! No! No! I'm never alone! That won't beat me, not now, not ever! I'm not the fragile person you thought I was. I'm a unstoppable! I can handle anything! HAHAHA!\"";
+
+            this.arr[67] = "You: \"Are you... Okay? You're swinging between your moods way too fast.\"";
+            this.arr[68] = "Natty: \"No... No, I didn't! I... I can't!\"";
+
+            this.arr[69] = "You reach out, watching as Natty shifts between defiance and fear, her emotions like a pendulum. She seems caught in an internal struggle, and it might be best to leave her to calm down before speaking further.";
         
             // Natty Lines / ID 7
-            this.arr[70] = "\"I've been through worse, but this place... it whispers to me, you know? It knows my name! They even know my birthday! It's October 16.\"";
-            this.arr[71] = "\"There's no way out, and I'm just wandering in circles. This place sucks.\"";
-            this.arr[72] = "\"They said I won't be able to survive out on my own, but I'm still here, just barely getting by! This place isn't as bad as the last one I've been in.\"";
-            this.arr[73] = "\"I remember my last Chrstmas with my family, I was a nice girl they said. Too bad Santa disagrees.\"";
-            this.arr[74] = "\"Me? Crazy? Okay. If I was crazy, you wouldn't be talking to me! That's right, you only NEED something from me! From this poor mentally handicapped lady! Shame on you!\"";
-            this.arr[75] = "\"Wanna hear a joke? Who sells fake pies and calls herself Miggins?\"";
-            this.arr[76] = "\"Nothing scares me more than pretty people, I'm so insecure I'd die again if I ever see one!\"";
-            this.arr[77] = "\"Why are asylums full of singles? Because they couldn't keep their thoughts together!\"";
-            this.arr[78] = "\"Me? Afraid? I'm not afraid of you...\"";
-            this.arr[79] = "\"I can't do this again! The voices are everywhere! They're crawling under my skin, it tickles!\"";
-        }
+            this.arr[70] = "\"I've seen worse, but there's something about this place... it whispers to me, you know? Almost like it knows who I am.\"";
+            this.arr[71] = "\"There's no escape, is there? Feels like I've been walking in circles for hours.\"";
+
+            this.arr[72] = "\"They said I wouldn't last a day on my own. But look at me now, still breathing! This place isn't as bad as where I came from.\"";
+            this.arr[73] = "\"Last Christmas, I remember sitting with my family. They called me the 'good girl.' Too bad Santa didn't agree.\"";
+
+            this.arr[74] = "\"You think I'm crazy? Oh, please! If I were, you wouldn't be here talking to me! You just need something from poor little Natty, don't you? Shame on you.\"";
+            this.arr[75] = "\"Want to hear a joke? Who sells fake pies and calls herself Miggins?\" *[chuckles to herself]*";
+
+            this.arr[76] = "\"Pretty people terrify me. I swear, if I see another one, I might just drop dead again!\"";
+            this.arr[77] = "\"Why are asylums full of singles? Because none of them can keep their thoughts together!\" *[laughs hysterically]*";
+
+            this.arr[78] = "\"You think I'm terrified? No. I'm not afraid of you... hehe.\"";
+            this.arr[79] = "\"I can't do this! The voices—they're everywhere! Crawling under my skin, it tickles! HAHAHAHA!\"";
+
+            // Yoo Introduction / ID 10 11
+            this.arr[100] = "You: \"Do I know you from somewhere? You seem... familiar, somehow.\"";
+            this.arr[101] = "Yoo: \"...\"";
+
+            this.arr[102] = "You: \"Um, it's strange. I can't quite place you, but it feels like we've crossed paths before.\"";
+            this.arr[103] = "Yoo: \"...\"";
+
+            this.arr[104] = "You: \"Um, hello? Ah, I see. You're not like others, I guess. Are you the quiet type?\"";
+            this.arr[105] = "Yoo: \"What'd ya expect? You think people just talk with strangers down here?\"";
+
+            this.arr[106] = "You: \"Sorry. It's just, are you...\"";
+            this.arr[107] = "Yoo: \"Single? Sorry, you're a little too late for that.\"";
+
+            this.arr[108] = "You: \"O-oh, I mean. Are you new here?\"";
+            this.arr[109] = "Yoo: \"I'm just someone passing through. Like everyone else. I'm here for a while now.\"";
+
+            this.arr[110] = "You: \"Why are you all the way here, anyway? You don't like the people over there?\"";
+            this.arr[111] = "Yoo: \"The reason doesn't matter.\"";
+
+            this.arr[112] = "You: \"Sorry for prying, I was just curious.\"";
+            this.arr[113] = "Yoo: \"You should mind your own business. You seem to be the nosy type, like Constance.\"";
+
+            this.arr[114] = "You: \"Excuse me? I'm just trying to get to know you better.\"";
+            this.arr[115] = "Yoo: \"My story isn't worth telling. Beat it.\"";
+
+            // Yoo lines / ID 12
+            this.arr[120] = "\"...\"";
+            
+            this.arr[121] = "\"Don't look at me.\"";
+
+            this.arr[122] = "\"Don't you have better things to do?\"";
+
+            this.arr[123] = "\"Miggins' pies taste like medicine.\"";
+
+            this.arr[124] = "\"You died unexpectedly? Damn, like everyone else here did? It's not my fault you're a bad driver.\"";
+
+            this.arr[125] = "\"Go away.\"";
+
+            this.arr[126] = "\"You're so annoying...\"";
+
+            this.arr[127] = "\"You reek of seafood.\"";
+
+            this.arr[128] = "\"The moment you step foot on this forest, it was raining ever since.\"";
+
+            this.arr[129] = "\"Did you know that the weather here corresponds with the emotions of those who live under it?\"";
+
+            // Miggins Introduction / ID 14
+            this.arr[140] = "You: \"I feel like I know you. Have we met before?\"";
+            this.arr[141] = "Miggins: \"Oh, my dear, I doubt it. But then again, faces blur after a while down here, don't they?\"";
+
+            this.arr[142] = "You: \"Something smells good.\"";
+            this.arr[143] = "Miggins: \"Could be the scent of my pies. I sell it to almost everyone who wanders through. Hard to resist a good snack, even in the afterlife.\"";
+
+            this.arr[144] = "You: \"That sounds lovely, I'd do anything for a slice of pi- wait. Do I need to eat? I'm already dead.\"";
+            this.arr[145] = "Miggins: \"Well, sweetheart, the thing is... Souls do get hungry, they just don't die from it.\"";
+
+            this.arr[146] = "You: \"Oh...\"";
+            this.arr[147] = "Miggins: \"Still hungry? Not for a long. My store is still very much alive! Are you interested in some apple pies or apple potions?\"";
+
+            this.arr[148] = "You: \"So, how much would that be?\"";
+            this.arr[149] = "Miggins: \"Oh, cheaper than most, I assure you.\"";
+
+            this.arr[150] = "You: \"Why set up shop all the way over here?\"";
+            this.arr[151] = "Miggins: \"Oh, I decided to set a shop here since souls like you arrive here often after death. It's also pretty peaceful around these parts.\"";
+
+            this.arr[152] = "You: \"Well, that would also mean that 'they' are also here...\"";
+            this.arr[153] = "Miggins: \"Who?\"";
+
+            this.arr[154] = "You: \"Someone that I was searching for, it's important.\"";
+            this.arr[155] = "Miggins: \"Oh, then I hope you find them soon. You're more than welcome to come back if you wish to purchase something, dear.\"";
+
+
+            // Miggins lines / ID 16
+            this.arr[160] = "\"The red potions are apple flavored, it may taste like medicine since it is one.\"";
+            
+            this.arr[161] = "\"Some of the denizens here don't like me at all, why is that?\"";
+
+            this.arr[162] = "\"Plants grow here without the need for sunlight, the faint glow of the underworld is more than enough.\"";
+
+            this.arr[163] = "\"My shop is open for all!\"";
+
+            this.arr[164] = "\"It's a shame that you died that way, perhaps I could cheer you up with some of my cookings?\"";
+
+            this.arr[165] = "\"Some souls could go months without food, but the hunger is way too unbearable that most wouldn't last a year without it.\"";
+
+            this.arr[166] = "\"You'd be surprised by how many souls crave a little comfort food.\"";
+
+            this.arr[167] = "\"Do you like seafood? Unfortunately, most of them are gobbled up by slimes.\"";
+
+            this.arr[168] = "\"The weather here recently is terrible. It's scaring away the customers!\"";
+
+            this.arr[169] = "\"Oh, sweetie, the grave doesn't stop me from whipping up a batch of cookies!\"";
+    }
 
     // Get a specific line of the story by index
     public String getLine(int i) {
