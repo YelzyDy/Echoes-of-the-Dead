@@ -31,17 +31,18 @@ public class Dialogues extends JFrame {
         storyDialogue.setLayout(new BorderLayout());
 
         JLabel textBox = new JLabel("", SwingConstants.CENTER);
-        textBox.setFont(new Font("MonoSpaced", Font.PLAIN, 28));
+        textBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
         textBox.setForeground(Color.WHITE);
         textBox.setVerticalAlignment(SwingConstants.CENTER);
+
         storyDialogue.getContentPane().setBackground(Color.BLACK);
         storyDialogue.add(textBox, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
 
         JButton button = new JButton("SKIP");
         button.setFont(new Font("Monospaced", Font.PLAIN, 28));
-        button.setPreferredSize(new Dimension(0, 50));
-
+        button.setPreferredSize(new Dimension(500, 50));
+        
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
 
@@ -49,7 +50,11 @@ public class Dialogues extends JFrame {
             storyDialogue.dispose();
         });
 
-        storyDialogue.add(button, BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.add(button);
+
+        storyDialogue.add(buttonPanel, BorderLayout.SOUTH);
 
         if (order == 0) {
             textBox.setText(story.getLine(firstIndex));
