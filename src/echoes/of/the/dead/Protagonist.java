@@ -34,7 +34,7 @@ public class Protagonist extends Character implements MouseInteractable {
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            System.out.println(spritePaths[i]);
+            // System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
@@ -53,29 +53,29 @@ public class Protagonist extends Character implements MouseInteractable {
     
         // Assuming deltaX is the distance to move
         if (isMovingRight) {
-            posX += (deltaX - 10);
-            if (posX >= targetX) { // Check if it reached the target position
+            setPosX(getPosX() + deltaX - 10);
+            if (getPosX() >= targetX) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
-                posX = targetX; // Ensure it doesn't overshoot
-                if (posX >= (int)(screenSize.width * 0.9) && panel.currentSceneIndex < maxPanel - 1) {
+                setPosX(targetX);; // Ensure it doesn't overshoot
+                if (getPosX()  >= (int)(screenSize.width * 0.8) && panel.currentSceneIndex < maxPanel - 1) {
                     panel.currentSceneIndex++;
-                    posX = (int)(screenSize.width * 0.001);
-                } else if (panel.currentSceneIndex > 0 && posX <= (int)(screenSize.width * 0.05)) {
+                    setPosX((int)(screenSize.width * 0.001));
+                } else if (panel.currentSceneIndex > 0 && getPosX() <= (int)(screenSize.width * 0.05)) {
                     panel.currentSceneIndex--;
-                    posX = (int)(screenSize.width * 0.9);
+                    setPosX((int)(screenSize.width * 0.09));
                 }   
             }
         } else {
-            posX += deltaX;
-            if (posX <= targetX) { // Check if it reached the target position
+            setPosX(getPosX() + deltaX); 
+            if (getPosX() <= targetX) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
-                posX = targetX; // Ensure it doesn't overshoot
-                if (posX >= (int)(screenSize.width * 0.9) && panel.currentSceneIndex < maxPanel - 1) {
+                setPosX(targetX);
+                if (getPosX()>= (int)(screenSize.width * 0.8) && panel.currentSceneIndex < maxPanel - 1) {
                     panel.currentSceneIndex++;
-                    posX = (int)(screenSize.width * 0.001);
-                } else if (panel.currentSceneIndex > 0 && posX <= (int)(screenSize.width * 0.05)) {
+                    setPosX((int)(screenSize.width * 0.001));
+                } else if (panel.currentSceneIndex > 0 && getPosX() <= (int)(screenSize.width * 0.05)) {
                     panel.currentSceneIndex--;
-                    posX = (int)(screenSize.width * 0.9);
+                    setPosX((int)(screenSize.width * 0.9));
                 }   
             }
         }
@@ -134,7 +134,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
-        int deltaX = (e.getX() - posX) / 10;
+        int deltaX = (e.getX() - getPosX()) / 10;
         moveTo(e.getX(), deltaX);
     }
 

@@ -21,8 +21,8 @@ import java.awt.Toolkit;
  // This class basically draws/animates the sprite and sets its bounds
 public class Character extends TransparentPanel implements Entity{
     protected String name;
-    protected int posX;
-    protected int posY;
+    private int posX;
+    private int posY;
     protected int currentFrame;
     protected boolean isMoving = false;
     protected boolean isMovingRight = true;
@@ -98,11 +98,12 @@ public class Character extends TransparentPanel implements Entity{
         isMoving = false;
         currentFrame = 0;
     }
-
     
+    @Override
     public void startMovement(){
         isMoving = true;
     }
+
     @Override
     public void updateAnimation(){
         if (isMoving) {

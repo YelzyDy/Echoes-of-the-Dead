@@ -19,6 +19,7 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
+    
     public MinionsWorld1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
@@ -44,7 +45,7 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            System.out.println(spritePaths[i]);
+            // System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
@@ -82,13 +83,13 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
 
         // Move the NPC
         if (isMovingRight) {
-            posX += moveSpeed;
-            if (posX >= targetX || posX >= maxRange) {
+            setPosX(getPosX() + moveSpeed); 
+            if (getPosX() >= targetX || getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
-            posX -= moveSpeed;
-            if (posX <= targetX || posX <= minRange) {
+            setPosX(getPosX() - moveSpeed); 
+            if (getPosX() <= targetX || getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
@@ -128,9 +129,9 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
-        isInteracting = false;
         startMovement();
         isPaused = false;
+        isInteracting = false;
     }
     
       // Modify the stopMovement method
