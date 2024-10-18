@@ -77,7 +77,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8);
             this.add(miniBoss1);
 
-            minions1 = new MinionsWorld1("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8);
+            minions1 = new MinionsWorld1("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8);
             this.add(minions1);
             
             this.setComponentZOrder(yoo, 2);
