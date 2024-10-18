@@ -15,6 +15,8 @@ public interface Entity {
     public void updateAnimation();
     
     public void stopMovement();
+
+    public void startMovement();
     
     public abstract int getPosX();
 
@@ -31,4 +33,5 @@ public interface Entity {
     public abstract void draw(Graphics g);
 
     public abstract void scaleSprites(String spriteType, int scale);
+
 }

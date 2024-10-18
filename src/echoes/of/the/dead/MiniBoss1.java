@@ -62,7 +62,7 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         }
         ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
-    public void updateMovement() {
+     public void updateMovement() {
         if (isInteracting) {
             return; // Don't update movement if interacting with user
         }
@@ -88,13 +88,13 @@ public class MiniBoss1 extends Character implements MouseInteractable {
 
         // Move the NPC
         if (isMovingRight) {
-            posX += moveSpeed;
-            if (posX >= targetX || posX >= maxRange) {
+            setPosX(getPosX() + moveSpeed); 
+            if (getPosX() >= targetX || getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
-            posX -= moveSpeed;
-            if (posX <= targetX || posX <= minRange) {
+            setPosX(getPosX() - moveSpeed); 
+            if (getPosX() <= targetX || getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
@@ -123,6 +123,7 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         stopMovement();
         isPaused = true;
         isInteracting = true;
+<<<<<<< HEAD
         isInBattle = true;
         if (isEnlarged){
             return;
@@ -136,6 +137,8 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         if (characterType.equals("missC")) {
             dialogues.displayDialogues(40, 50, 0, 1);
         } 
+=======
+>>>>>>> cbbae893e94bdb1014db31cc4102a6d94d876bfe
     }
 
       

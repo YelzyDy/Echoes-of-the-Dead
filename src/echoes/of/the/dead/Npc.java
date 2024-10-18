@@ -83,13 +83,13 @@ public class Npc extends Character implements MouseInteractable {
 
         // Move the NPC
         if (isMovingRight) {
-            posX += moveSpeed;
-            if (posX >= targetX || posX >= maxRange) {
+            setPosX(getPosX() + moveSpeed); 
+            if (getPosX() >= targetX || getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
-            posX -= moveSpeed;
-            if (posX <= targetX || posX <= minRange) {
+            setPosX(getPosX() - moveSpeed); 
+            if (getPosX() <= targetX || getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
