@@ -105,11 +105,19 @@ public class Character extends TransparentPanel implements Entity{
     }
     @Override
     public void updateAnimation(){
-        currentFrame++;
-        if(currentFrame >= (((!isMoving) ? idleSprites : walkSprites).getSize())){
-            currentFrame = 0;
-        }      
+        if (isMoving) {
+            currentFrame++;
+            if (currentFrame >= walkSprites.getSize()) {
+                currentFrame = 0;
+            }
+        } else {
+            currentFrame++;
+            if (currentFrame >= idleSprites.getSize()) {
+                currentFrame = 0;
+            }
+        }  
     }
+    
     @Override
     public int getPosX(){
         return posX;
@@ -118,7 +126,9 @@ public class Character extends TransparentPanel implements Entity{
     
     @Override
     public Image getCurrentSprite(){
-        return ((!isMoving) ? idleSprites : walkSprites).get(currentFrame);      
+        ImageList sprites = isMoving ? walkSprites : idleSprites;
+        currentFrame = Math.min(currentFrame, sprites.getSize() - 1);
+        return sprites.get(currentFrame);
     }
 
     @Override

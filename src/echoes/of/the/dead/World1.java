@@ -8,8 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 /**
  *
  * @author Joana
@@ -17,23 +16,25 @@ import javax.swing.JPanel;
 public class World1 extends javax.swing.JFrame implements MouseInteractable{
     private String characterType;
     private String playerName;
-    SceneBuilder scene;
-    TransparentPanel btn_shop;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+    private SceneBuilder scene;
+    private TransparentPanel btn_shop;
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private JPanel panel;
     //new variables - sheena
     //
-    EchoesObjects promptPanel;
-    // int width = screenSize.width;
-    // int height = screenSize.height;
-    // EchoesObjects btn_select;
-    // EchoesObjects btn_ok;
+    private EchoesObjects promptPanel;
+    private EchoesObjects btn_ok;
+    private JTextField name;
 
     public World1(String characterType, String playerName){
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+        panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+        panel.setLayout(null); // Set layout for the panel
+
         this.add(panel);
+
         this.characterType = characterType;
         this.playerName = playerName;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,20 +42,9 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setLayout(null);
-        addScene();
+        this.setContentPane(panel); // Set the panel as the content pane
+        Welcome();
     }
-    //jian's addScene orig
-    /* 
-    public void addScene(){  
-        scene = new SceneBuilder("world1");
-        scene.createScene();
-        scene.initializeCharacter(characterType, playerName);
-        this.add(scene);
-        this.setVisible(true);
-        JOptionPane.showMessageDialog(null, "Welcome to Echoes of the Dead!\n" + playerName, "", JOptionPane.INFORMATION_MESSAGE);
-    }
-   */
     
     //tried to add welcome message prompt - sheen 
     private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
@@ -67,75 +57,68 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
     }
 
     private void addPromptNamePanel(){
-        promptPanel = createObj("world1",(int) (screenSize.width * 0.30), 
-        (int) (screenSize.height * 0.013), 
-        (int) (screenSize.width * 0.40), 
-        (int) (screenSize.height * 0.40), 
+        promptPanel = createObj("world1",(int) (screenSize.width * 0.1), 
+        (int) (screenSize.height * 0.1), 
+        (int) (screenSize.width * 0.80), 
+        (int) (screenSize.height * 0.80), 
         "welcomePrompt", false, false, 1);
-
-        scene.add(promptPanel);  
-        promptPanel.setVisible(true);
-    
-        scene.setComponentZOrder(promptPanel, 1);
+        promptPanel.setLayout(null);
+        panel.add(promptPanel);
     }
-
-    // private void addOkButton(int panelHeight, int panelWidth){
-    //     btn_ok = createObj(
-    //             "button", (int) (panelWidth * 0.35),
-    //             (int) (panelHeight * 0.45),
-    //             (int) (panelWidth * 0.25),
-    //             (int) (panelHeight * 0.098),
-    //             "ok_button", false, true, 2
-    //         );
-    //         btn_ok.setVisible(true);
-    //         btn_ok.addMouseListener(new MouseClickListener(this));
-    //         promptPanel.add(btn_ok);
-    // }
 
     private void addOkButton(int panelHeight, int panelWidth) {
-        EchoesObjects btn_ok = createObj(
-                "button", (int) (panelWidth * 0.35),
-                (int) (panelHeight * 0.45),
-                (int) (panelWidth * 0.05),
-                (int) (panelHeight * 0.098),
-                "ok_button", false, true, 2
-            );
-        btn_ok.setVisible(true);
-        
-        // Add a mouse listener to handle button click
-        btn_ok.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Remove the prompt panel when OK button is clicked
-                scene.remove(promptPanel);
-                scene.repaint();
-            }
-        });
-    
+        btn_ok = createObj(
+            "button", 
+            (int) (panelWidth * 0.82),  // Position relative to promptPanel
+            (int) (panelHeight * 0.35),  // Position relative to promptPanel
+            (int) (panelWidth* 0.2),
+            (int) (panelHeight* 0.058),
+            "ok_button", false, true, 2
+        );
         promptPanel.add(btn_ok);
+        btn_ok.addMouseListener(new MouseClickListener(this));  // Add mouse listener
+    }
+
+    private java.awt.Font createDynamicFont(int baseFontSize) {
+        int dynamicFontSize = (int) (screenSize.height * 0.05); 
+        return new java.awt.Font("SansSerif", java.awt.Font.PLAIN, Math.max(baseFontSize, dynamicFontSize));
     }
     
-    //Object source = e.getSource();
-
-    public void addScene(){  
-        scene = new SceneBuilder("world1");
-        scene.createScene();
-        addPromptNamePanel();
-        addOkButton(promptPanel.getHeight(), promptPanel.getWidth());
-        
-        scene.initializeCharacter(characterType, playerName);
-        this.add(scene);
-        this.setVisible(true);
-        
-        //JOptionPane.showMessageDialog(null, "Welcome to Echoes of the Dead!\n" + playerName, "", JOptionPane.INFORMATION_MESSAGE);
-        //dialogues.displayDialogues(40, 50, 1, 1); // Remove this dialogue box
+    public void addPlayerName(int panelHeight, int panelWidth){
+        name = new JTextField(playerName); // Create a JTextField with text
+        name.setFont(createDynamicFont(50));
+        name.setForeground(new Color(238,218,180,255));
+        name.setBackground(new Color(0, 0, 0, 0)); // Set background to transparent
+        name.setEditable(false); // Make it non-editable
+        name.setBorder(null); // Remove the border
+        name.setHorizontalAlignment(JTextField.CENTER); // Center the text horizontally
+        name.setBounds((int) (panelWidth * 0.675), 
+                (int) (panelHeight* 0.24), 
+                (int) (panelWidth * 0.47), 
+                (int) (panelHeight* 0.10));
+        promptPanel.add(name); // Add textField to the panel
     }
 
+    public void Welcome(){  
+        addPromptNamePanel();
+        int width = promptPanel.getWidth();
+        int height = promptPanel.getHeight();
+        addOkButton(width, height);
+        addPlayerName(width, height);
+        this.setVisible(true);
+    }
 
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        
+        if(source == btn_ok){
+            promptPanel.setVisible(false);
+            scene = new SceneBuilder("world1");
+            scene.initializeCharacter(characterType, playerName);
+            panel.add(scene);
+            scene.createScene();
+            
+        }
     }
 
     @Override

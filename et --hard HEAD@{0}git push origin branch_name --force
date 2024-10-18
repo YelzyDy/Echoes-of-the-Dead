@@ -1,0 +1,152 @@
+[33m8c42c77[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31mEchoes-of-the-Dead/master[m[33m)[m HEAD@{0}: commit: slime update
+[33m5f3bbc3[m HEAD@{1}: commit: add display name
+[33m09fcd5c[m HEAD@{2}: pull --tags Echoes-of-the-Dead master: Merge made by the 'ort' strategy.
+[33m0b9ed26[m HEAD@{3}: commit: makabuang guys simple ra pero haha
+[33mce98915[m[33m ([m[1;31mEchoes-of-the-Dead/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{4}: merge main: Fast-forward
+[33me53900e[m HEAD@{5}: checkout: moving from main to master
+[33mce98915[m[33m ([m[1;31mEchoes-of-the-Dead/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{6}: commit (merge): Merge branch 'master'
+[33me2a2a83[m HEAD@{7}: pull --tags Echoes-of-the-Dead main: Fast-forward
+[33m3538ba9[m HEAD@{8}: checkout: moving from master to main
+[33me53900e[m HEAD@{9}: checkout: moving from main to master
+[33m3538ba9[m HEAD@{10}: checkout: moving from master to main
+[33me53900e[m HEAD@{11}: reset: moving to HEAD
+[33me53900e[m HEAD@{12}: checkout: moving from master to master
+[33me53900e[m HEAD@{13}: checkout: moving from master to master
+[33me53900e[m HEAD@{14}: checkout: moving from master to master
+[33me53900e[m HEAD@{15}: checkout: moving from main to master
+[33m3538ba9[m HEAD@{16}: checkout: moving from master to main
+[33me53900e[m HEAD@{17}: commit (merge): Merge branch 'master' of https://github.com/YelzyDy/Echoes-of-the-Dead
+[33m0e7ae08[m HEAD@{18}: commit: add parameter range for npc movement
+[33m4c1962a[m HEAD@{19}: commit (merge): Merge branch 'master' of https://github.com/YelzyDy/Echoes-of-the-Dead
+[33m4f3ef84[m HEAD@{20}: commit: attempt to fix z index
+[33m7e7375d[m HEAD@{21}: commit: natty sprites
+[33m7526ec2[m HEAD@{22}: commit: bracjer kulang
+[33meecd7f9[m HEAD@{23}: commit (merge): Merge branch 'master' of https://github.com/YelzyDy/Echoes-of-the-Dead
+[33m30d3355[m HEAD@{24}: commit: npc mouse functions
+[33m7165db6[m HEAD@{25}: commit: click for npcs
+[33m66aa9ab[m HEAD@{26}: commit: adding a setter for the frame in echoes objects
+[33md3b7e4a[m HEAD@{27}: pull --tags Echoes-of-the-Dead master: Merge made by the 'ort' strategy.
+[33mc01dd0f[m HEAD@{28}: commit: i crop pa si gorgon pero unya ra
+[33mbe1c46f[m HEAD@{29}: pull --tags Echoes-of-the-Dead master: Fast-forward
+[33mcda152a[m HEAD@{30}: commit: fix missing files
+[33med839d7[m HEAD@{31}: pull --tags Echoes-of-the-Dead master: Merge made by the 'ort' strategy.
+[33m55a1f49[m HEAD@{32}: commit: added miniBoss
+[33m8592b93[m HEAD@{33}: checkout: moving from main to master
+[33m3538ba9[m HEAD@{34}: checkout: moving from master to main
+[33m8592b93[m HEAD@{35}: commit: failed mouse event
+[33m4272048[m HEAD@{36}: pull --tags Echoes-of-the-Dead master: Merge made by the 'ort' strategy.
+[33m7264a8a[m HEAD@{37}: commit: mouse click listener for npc
+[33ma3f9c9b[m HEAD@{38}: commit: fixed coordinated for the characters
+[33m47a3cce[m HEAD@{39}: commit: npc movement update
+[33md142dab[m HEAD@{40}: commit (merge): merging from main. npc movement update
+[33m4c198dd[m HEAD@{41}: checkout: moving from main to master
+[33m3538ba9[m HEAD@{42}: commit: character random movement updated
+[33m4f94d28[m HEAD@{43}: checkout: moving from master to main
+[33m4c198dd[m HEAD@{44}: commit: merge
+[33mf220da6[m HEAD@{45}: commit (merge): Merge branch 'main'
+[33md220c05[m HEAD@{46}: checkout: moving from main to master
+[33m4f94d28[m HEAD@{47}: checkout: moving from master to main
+[33md220c05[m HEAD@{48}: reset: moving to HEAD
+[33md220c05[m HEAD@{49}: pull --tags Echoes-of-the-Dead master: Fast-forward
+[33m967d6c4[m HEAD@{50}: reset: moving to 967d6c4
+[33m99db4c6[m HEAD@{51}: commit (merge): Merge branch 'main'
+[33md220c05[m HEAD@{52}: pull --tags Echoes-of-the-Dead master: Fast-forward
+[33m967d6c4[m HEAD@{53}: checkout: moving from main to master
+[33m4f94d28[m HEAD@{54}: commit: will fix the movement later
+[33m967d6c4[m HEAD@{55}: merge master: Fast-forward
+[33m6895821[m HEAD@{56}: checkout: moving from master to main
+[33m967d6c4[m HEAD@{57}: checkout: moving from main to master
+[33m6895821[m HEAD@{58}: checkout: moving from master to main
+[33m967d6c4[m HEAD@{59}: pull --tags Echoes-of-the-Dead master: Merge made by the 'ort' strategy.
+[33m167dc5a[m HEAD@{60}: commit: merge again
+[33m1aae647[m HEAD@{61}: commit (merge): Merge branch 'main'
+[33m9591edd[m HEAD@{62}: pull --tags Echoes-of-the-Dead master: Fast-forward
+[33m13ab685[m HEAD@{63}: checkout: moving from main to master
+[33m6895821[m HEAD@{64}: commit: update portal and encapsulation (tas characters najud )
+[33m13ab685[m HEAD@{65}: checkout: moving from master to main
+[33m13ab685[m HEAD@{66}: checkout: moving from main to master
+[33m13ab685[m HEAD@{67}: checkout: moving from master to main
+[33m13ab685[m HEAD@{68}: checkout: moving from main to master
+[33m13ab685[m HEAD@{69}: checkout: moving from master to main
+[33m13ab685[m HEAD@{70}: checkout: moving from master to master
+[33m13ab685[m HEAD@{71}: checkout: moving from main to master
+[33m13ab685[m HEAD@{72}: checkout: moving from master to main
+[33m13ab685[m HEAD@{73}: checkout: moving from main to master
+[33m13ab685[m HEAD@{74}: merge master: Fast-forward
+[33md83860d[m HEAD@{75}: checkout: moving from master to main
+[33m13ab685[m HEAD@{76}: reset: moving to HEAD
+[33m13ab685[m HEAD@{77}: pull --tags Echoes-of-the-Dead master: Merge made by the 'ort' strategy.
+[33mc0ebe15[m HEAD@{78}: commit: ChooseChar comments
+[33m6acff1e[m HEAD@{79}: commit: Main Class comments added
+[33mf6a2497[m HEAD@{80}: commit: unya lng nako addan ug comments guys
+[33m320f1fa[m HEAD@{81}: commit (merge): merge to master
+[33md83860d[m HEAD@{82}: merge main: Fast-forward
+[33m8c33ffc[m HEAD@{83}: checkout: moving from main to master
+[33md83860d[m HEAD@{84}: commit: converted protagonist from custom paint to jpanel.
+[33mc2817db[m HEAD@{85}: checkout: moving from master to main
+[33m8c33ffc[m HEAD@{86}: checkout: moving from main to master
+[33mc2817db[m HEAD@{87}: checkout: moving from master to main
+[33m8c33ffc[m HEAD@{88}: checkout: moving from main to master
+[33mc2817db[m HEAD@{89}: checkout: moving from master to main
+[33m8c33ffc[m HEAD@{90}: checkout: moving from main to master
+[33mc2817db[m HEAD@{91}: reset: moving to HEAD
+[33mc2817db[m HEAD@{92}: checkout: moving from master to main
+[33m8c33ffc[m HEAD@{93}: checkout: moving from main to master
+[33mc2817db[m HEAD@{94}: reset: moving to HEAD
+[33mc2817db[m HEAD@{95}: commit: removed loop in echoes objects
+[33me59caee[m HEAD@{96}: commit: merged from main to master
+[33m8c33ffc[m HEAD@{97}: checkout: moving from master to main
+[33m8c33ffc[m HEAD@{98}: merge main: Fast-forward
+[33m5506360[m HEAD@{99}: checkout: moving from main to master
+[33m8c33ffc[m HEAD@{100}: commit: fixed exceptions
+[33m5506360[m HEAD@{101}: merge master: Fast-forward
+[33mb7d7cff[m HEAD@{102}: checkout: moving from master to main
+[33m5506360[m HEAD@{103}: commit: update Echoes Objects, Progaonist, SceneBuilder (has exceptions but will fix it in main file, will merge the main to master later)
+[33mcb5311a[m HEAD@{104}: commit: attempt2
+[33m0e099eb[m HEAD@{105}: commit: attempt to put game loops into 1 file for optimization.
+[33md70e154[m HEAD@{106}: commit (merge): Merge branch 'master' of https://github.com/YelzyDy/Echoes-of-the-Dead
+[33mc6cb4e9[m HEAD@{107}: commit: merge portal attempt2
+[33m8c72a3b[m HEAD@{108}: commit: merge portal
+[33m95bc315[m HEAD@{109}: reset: moving to HEAD~1
+[33m693101e[m HEAD@{110}: reset: moving to HEAD~1
+[33m745259c[m HEAD@{111}: commit: merge portal
+[33m693101e[m HEAD@{112}: commit: merge
+[33m95bc315[m HEAD@{113}: commit (merge): Merge branch 'master' of https://github.com/YelzyDy/Echoes-of-the-Dead
+[33mb7d7cff[m HEAD@{114}: checkout: moving from main to master
+[33mb7d7cff[m HEAD@{115}: merge master: Fast-forward
+[33me0e28ce[m HEAD@{116}: checkout: moving from master to main
+[33mb7d7cff[m HEAD@{117}: reset: moving to HEAD
+[33mb7d7cff[m HEAD@{118}: commit: update
+[33m37ebea2[m HEAD@{119}: reset: moving to HEAD
+[33m37ebea2[m HEAD@{120}: commit: replaced currentPanelIndex keyword to currentSceneIndex for clarity
+[33m18bd74f[m HEAD@{121}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{122}: checkout: moving from master to main
+[33m18bd74f[m HEAD@{123}: commit: setting textfield to center
+[33m13694f0[m HEAD@{124}: commit: assets update
+[33m3bd701f[m HEAD@{125}: commit: Player Name display/message feature
+[33m7586647[m HEAD@{126}: commit: promptName update
+[33m44fb557[m HEAD@{127}: commit: implemet cancel in namePrompt
+[33me819085[m HEAD@{128}: commit: update
+[33m5e2b269[m HEAD@{129}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{130}: checkout: moving from master to main
+[33m5e2b269[m HEAD@{131}: reset: moving to HEAD
+[33m5e2b269[m HEAD@{132}: commit: update nameField to not accept empty fields
+[33mc500377[m HEAD@{133}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{134}: checkout: moving from master to main
+[33mc500377[m HEAD@{135}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{136}: checkout: moving from master to main
+[33mc500377[m HEAD@{137}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{138}: checkout: moving from master to main
+[33mc500377[m HEAD@{139}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{140}: checkout: moving from master to main
+[33mc500377[m HEAD@{141}: reset: moving to HEAD
+[33mc500377[m HEAD@{142}: checkout: moving from master to master
+[33mc500377[m HEAD@{143}: commit (merge): Merge branch 'main'
+[33mbbf878b[m HEAD@{144}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{145}: checkout: moving from master to main
+[33mbbf878b[m HEAD@{146}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{147}: checkout: moving from master to main
+[33mbbf878b[m HEAD@{148}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{149}: checkout: moving from master to main
+[33mbbf878b[m HEAD@{150}: checkout: moving from main to master
+[33me0e28ce[m HEAD@{151}: commit (initial): prompt name feature
