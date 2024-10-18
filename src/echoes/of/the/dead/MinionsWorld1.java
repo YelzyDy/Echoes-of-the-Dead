@@ -1,9 +1,9 @@
 package echoes.of.the.dead;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Random;
-import java.awt.Image;
 import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
@@ -19,6 +19,8 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
+    private boolean isInBattle;
+    private boolean isEnlarged;
     public MinionsWorld1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
@@ -26,6 +28,8 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         lastMovementTime = System.currentTimeMillis();
         lastDirectionChangeTime = System.currentTimeMillis();
         isPaused = false; // Start in a moving state
+        isInBattle = false;
+        isEnlarged = false;
         initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.0045));
         initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.0045));
         chooseNewDirection(); // Start with a direction
@@ -57,7 +61,7 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
     public void updateMovement() {
-        if (isInteracting) {
+        if (isInteracting || isInBattle) {
             return; // Don't update movement if interacting with user
         }
 
@@ -116,11 +120,21 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         stopMovement();
         isPaused = true;
         isInteracting = true;
+        isInBattle = true;
+        if (isEnlarged){
+            return;
+        }
+        setPosY(0);
+        scaleSprites("idle", 2);
+        isEnlarged = true;
     }
 
       
     @Override
     public void onHover(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         stopMovement();
         isPaused = true;
         isInteracting = true;
@@ -128,6 +142,9 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         isInteracting = false;
         startMovement();
         isPaused = false;
