@@ -1,14 +1,13 @@
 package echoes.of.the.dead;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Random;
-import java.awt.Image;
 import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
-public class MiniBoss1 extends Character implements MouseInteractable {
-    Dialogues dialogues = new Dialogues();
+public class Minions extends Character implements MouseInteractable {
     private Random random;
     private long lastMovementTime;
     private long lastDirectionChangeTime;
@@ -20,34 +19,38 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
-    public MiniBoss1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
+    private Protagonist character;
+    private boolean isInBattle;
+    private boolean isEnlarged;
+
+    public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
         random = new Random();
         lastMovementTime = System.currentTimeMillis();
         lastDirectionChangeTime = System.currentTimeMillis();
         isPaused = false; // Start in a moving state
-        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
-        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
-        idleSprites.scaleImageListDown(0.58);
-        walkSprites.scaleImageListDown(0.58);
+        isInBattle = false;
+        isEnlarged = false;
+        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.0045));
+        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.0045));
         chooseNewDirection(); // Start with a direction
         updateBounds();
         this.addMouseListener(new MouseClickListener(this));
         this.minRange = minRange;
         this.maxRange = maxRange;
-
+        this.character = character;
         startMovement();
     }
 
     @Override
-    public void initializeSprites(String assetPackage, String type, int scale){
+    public void initializeSprites(String assetPackage, String type, double scale){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
-        int size = ((type.equals("walk") ? 13 : 7));
+        int size = 8;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            System.out.println(spritePaths[i]);
+            // System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
@@ -60,44 +63,48 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
     public void updateMovement() {
-        if (isInteracting) {
-            return; // Don't update movement if interacting with user
+        if (isInteracting || isInBattle) {
+            return; // Don't update movement if interacting or in battle
         }
 
-        long currentTime = System.currentTimeMillis();
+    long currentTime = System.currentTimeMillis();
 
-        if (isPaused) {
-            if (currentTime - lastMovementTime >= pauseDuration) {
-                isPaused = false;
-                lastMovementTime = currentTime;
-                chooseNewDirection();
-                isMoving = true; // Start moving after pause
-            }
-            return;
+    if (isPaused || isEnlarged) {
+        if (getCurrentFrame() != 1) {
+            setCurrentFrame(1);  // Stick to the first idle frame
         }
-
-        if (currentTime - lastMovementTime >= moveDuration) {
-            isPaused = true;
+        if (currentTime - lastMovementTime >= pauseDuration) {
+            isPaused = false;
             lastMovementTime = currentTime;
-            isMoving = false; // Stop moving when paused
-            return;
+            chooseNewDirection();
+            setIsMoving(true); // Start moving after pause
         }
-
-        // Move the NPC
-        if (isMovingRight) {
-            posX += moveSpeed;
-            if (posX >= targetX || posX >= maxRange) {
-                chooseNewDirection();
-            }
-        } else {
-            posX -= moveSpeed;
-            if (posX <= targetX || posX <= minRange) {
-                chooseNewDirection();
-            }
-        }
-
-        updateBounds();
+        return;
     }
+
+    if (currentTime - lastMovementTime >= moveDuration) {
+        isPaused = true;
+        lastMovementTime = currentTime;
+        setIsMoving(false); // Stop moving when paused
+        return;
+    }
+
+    // Move the NPC if not paused
+    if (getIsMovingRight()) {
+        setPosX(getPosX() + moveSpeed);
+        if (getPosX() >= getTargetX() || getPosX() >= maxRange) {
+            chooseNewDirection();
+        }
+    } else {
+        setPosX(getPosX() - moveSpeed);
+        if (getPosX() <= getTargetX() || getPosX() <= minRange) {
+            chooseNewDirection();
+        }
+    }
+
+    updateBounds();
+}
+
 
     private void chooseNewDirection() {
         long currentTime = System.currentTimeMillis();
@@ -108,9 +115,9 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         lastDirectionChangeTime = currentTime;
         int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
         boolean newDirection = random.nextBoolean();
-        if (newDirection != isMovingRight) {
-            isMovingRight = newDirection;
-            currentFrame = 0; // Reset animation frame when changing direction
+        if (newDirection != getIsMovingRight()) {
+            setIsMovingRight(newDirection);
+            restartAnimation();
         }
         moveTo(target, moveSpeed);
     }
@@ -120,17 +127,30 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         stopMovement();
         isPaused = true;
         isInteracting = true;
-        if (characterType.equals("natty")){
-            dialogues.displayDialogues(60, 70, 0, 1);
+        isInBattle = true;
+        if (isEnlarged){
+            return;
         }
-        if (characterType.equals("missC")) {
-            dialogues.displayDialogues(40, 50, 0, 1);
-        } 
+
+        setPosY(10);
+        scaleSprites("idle", 2);
+        isEnlarged = true;
+        setCurrentFrame(1);;
+
+        // Enlarge the player
+        character.setIsInBattle(true);
+        character.stopMovement();
+        character.setPosX(100);
+        character.setPosY(0); // Adjust Y position as needed
+        character.scaleSprites("idle", 4);
     }
 
       
     @Override
     public void onHover(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         stopMovement();
         isPaused = true;
         isInteracting = true;
@@ -138,21 +158,25 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         isInteracting = false;
         startMovement();
         isPaused = false;
+        isInteracting = false;
     }
     
       // Modify the stopMovement method
     @Override
     public void stopMovement() {
         super.stopMovement();
-        isMoving = false;
+        setIsMoving(false);
     }
     @Override
     public void startMovement() {
         super.startMovement();
-        isMoving = true;
+        setIsMoving(false);
         isPaused = false;
         lastMovementTime = System.currentTimeMillis();
     }

@@ -24,12 +24,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     protected ImageList sceneList;
     protected ImageList spriteList = new ImageList();
     protected Protagonist character;
-    protected int currentSceneIndex = 0;
+    private int currentSceneIndex = 0;
     private EchoesObjects shop;     // shop png -z
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
-    private MinionsWorld1 minions1; // minions -z
-    private MiniBoss1 miniBoss1;
+    private Minions minions1; // minions -z
+    private MiniBoss miniBoss1;
     private Npc yoo;
     private Npc miggins;
     private Npc faithful;
@@ -47,13 +47,28 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         this.type = type;
         this.setBackground(Color.black);
         this.setLayout(null); // Using null layout for absolute positioning
-        this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4));
-        System.out.println(this.getSize());      
+        this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4)); 
     }
    
     
     public int getNumOfScenes(){
         return sceneList.getSize();
+    }
+
+    public int getCurrentSceneIndex(){
+        return currentSceneIndex;
+    }
+
+    public void setCurrentSceneIndex(int value){
+        this.currentSceneIndex = value;
+    }
+
+    public void decCurrentScene(){
+        this.currentSceneIndex--;
+    }
+
+    public void incCurrentScene(){
+        this.currentSceneIndex++;
     }
 
     public void initializeWorld1Chars(){
@@ -74,10 +89,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             natty.setPosY((int)(screenSize.height * 0.21));
             this.add(natty);
 
-            miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8);
+            miniBoss1 = new MiniBoss("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, character);
             this.add(miniBoss1);
 
-            minions1 = new MinionsWorld1("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8);
+            minions1 = new Minions("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8, character);
             this.add(minions1);
             
             this.setComponentZOrder(yoo, 2);
@@ -113,7 +128,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
             
-            sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
+            sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2);
             this.add(shop);
             portal = new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);

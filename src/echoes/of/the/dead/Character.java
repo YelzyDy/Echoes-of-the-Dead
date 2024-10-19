@@ -20,13 +20,13 @@ import java.awt.Toolkit;
 
  // This class basically draws/animates the sprite and sets its bounds
 public class Character extends TransparentPanel implements Entity{
-    protected String name;
-    protected int posX;
-    protected int posY;
-    protected int currentFrame;
-    protected boolean isMoving = false;
-    protected boolean isMovingRight = true;
-    protected int targetX;
+    private String name;
+    private int posX;
+    private int posY;
+    private int currentFrame;
+    private boolean isMoving = false;
+    private boolean isMovingRight = true;
+    private int targetX;
     protected int deltaX;
 
     protected String characterType;
@@ -45,27 +45,47 @@ public class Character extends TransparentPanel implements Entity{
         this.panel = panel;
         this.setVisible(true);
         this.currentFrame = 0;
+    }   
+
+    public String getName(){
+        return name;
     }
 
-
     @Override
-    public void initializeSprites(String assetPackage, String type, int scale){
-      
+    public int getPosX(){
+        return posX;
+    }
+
+    public boolean getMovement(){
+        return isMoving;
     }
     
+    public int getTargetX(){
+        return targetX;
+    }
     @Override
-    public void initializeSprites(String assetPackage, int width, int height) {
-        
+    public Image getCurrentSprite(){
+        ImageList sprites = isMoving ? walkSprites : idleSprites;
+        currentFrame = Math.min(currentFrame, sprites.getSize() - 1);
+        return sprites.get(currentFrame);
     }
 
-    @Override
-    public void scaleSprites(String spriteType, int scale){
-        if(spriteType.equals("walk")){
-            walkSprites.scaleImageList(scale);
-        }else if(spriteType.equals("idle")){
-            idleSprites.scaleImageList(scale);
-        }
+    public int getCurrentFrame(){
+        return currentFrame;
     }
+
+    public boolean getIsMoving(){
+        return isMoving;
+    }
+
+    public boolean getIsMovingRight(){
+        return isMovingRight;
+    }
+
+    public void setCharacterType(String characterType){
+        this.characterType = characterType;
+    }
+
     @Override
     public void setPosY(int posY){
         this.posY = posY;
@@ -73,6 +93,49 @@ public class Character extends TransparentPanel implements Entity{
     @Override
     public void setPosX(int posX){
         this.posX = posX;
+    }
+
+    public void startMovement(){
+        isMoving = true;
+    }
+    
+    public void setTargetX(int targetX){
+        this.targetX = targetX;
+    }
+    public void setCurrentFrame(int value){
+        this.currentFrame = value;
+    }
+    public void setIsMoving(boolean value){
+        this.isMoving = value;
+    }
+
+    public void setIsMovingRight(boolean value){
+        this.isMovingRight = value;
+    }
+
+    @Override
+    public void restartAnimation(){
+        this.currentFrame = 0;
+    }
+
+    public void stopMovement(){
+        isMoving = false;
+        restartAnimation();
+    }
+
+    @Override
+    public void initializeSprites(String assetPackage, String type, double scale){
+      
+    }
+    
+    @Override
+    public void initializeSprites(String assetPackage, double width, double height) {
+        
+    }
+
+    @Override
+    public void scaleSprites(String spriteType, double scale){
+        (spriteType.equals("walk") ? walkSprites : idleSprites).scaleImageList(scale);
     }
     
     public void moveTo(int targetX, int deltaX) {
@@ -87,22 +150,8 @@ public class Character extends TransparentPanel implements Entity{
         Image currentSprite = getCurrentSprite();
         setBounds(posX, posY, currentSprite.getWidth(null), currentSprite.getHeight(null));
     }
-
     
-    public void setCharacterType(String characterType){
-        this.characterType = characterType;
-    }
     
-    @Override
-    public void stopMovement(){
-        isMoving = false;
-        currentFrame = 0;
-    }
-
-    
-    public void startMovement(){
-        isMoving = true;
-    }
     @Override
     public void updateAnimation(){
         if (isMoving) {
@@ -118,18 +167,6 @@ public class Character extends TransparentPanel implements Entity{
         }  
     }
     
-    @Override
-    public int getPosX(){
-        return posX;
-    }
-    
-    
-    @Override
-    public Image getCurrentSprite(){
-        ImageList sprites = isMoving ? walkSprites : idleSprites;
-        currentFrame = Math.min(currentFrame, sprites.getSize() - 1);
-        return sprites.get(currentFrame);
-    }
 
     @Override
     protected void paintComponent(Graphics g) {

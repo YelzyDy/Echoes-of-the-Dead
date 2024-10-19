@@ -9,8 +9,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 /**
  *
  * @author Joana
@@ -124,11 +124,11 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 (int) (panelWidth * 0.47), 
                 (int) (panelHeight * 0.10));
         nameField.setFont(createDynamicFont(40)); // Font styling --jian
+        nameField.setForeground(new Color(238,218,180,255));
         nameField.setHorizontalAlignment(JTextField.CENTER);
         // Make the JTextField transparent
         nameField.setOpaque(false); // This makes the background transparent --jian
         nameField.setBorder(null); 
-        nameField.setForeground(Color.WHITE); // Set text color to white (or any other color for contrast) --jian
         nameField.setBackground(new Color(0, 0, 0, 0)); // Optional: Ensure no background color is applied --jian
         promptPanel.add(nameField); 
     }
@@ -183,21 +183,21 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.character.initializeSprites("character_asset", "idle", 18);
             scene.character.setPosX((int)(width * 0.32)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
-            scene.currentSceneIndex = 0;
+            scene.setCurrentSceneIndex(0);
         } else if (source == btn_priest) {
             charType = "priest";
             scene.character.setCharacterType(charType);
             scene.character.initializeSprites("character_asset", "idle", 18);
             scene.character.setPosX((int)(width * 0.349)); // Update position based on width
             scene.character.setPosY((int)(height * 0.49)); // Update position based on height
-            scene.currentSceneIndex = 1;
+            scene.setCurrentSceneIndex(0);
         } else if (source == btn_wizard) {
             charType = "wizard";
             scene.character.setCharacterType(charType);
             scene.character.initializeSprites("character_asset", "idle", 18);
             scene.character.setPosX((int)(width * 0.34)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
-            scene.currentSceneIndex = 2;
+            scene.setCurrentSceneIndex(0);
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);

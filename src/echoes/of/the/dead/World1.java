@@ -116,8 +116,7 @@ public class World1 extends javax.swing.JFrame implements MouseInteractable{
             scene = new SceneBuilder("world1");
             scene.initializeCharacter(characterType, playerName);
             panel.add(scene);
-            scene.createScene();
-            
+            scene.createScene();  
         }
     }
 

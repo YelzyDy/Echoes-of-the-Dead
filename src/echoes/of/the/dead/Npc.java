@@ -20,6 +20,13 @@ public class Npc extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
+
+    private int natty;
+    private int missC;
+    private int yoo;
+    private int faithful;
+    private int miggins;
+
     public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
@@ -38,14 +45,14 @@ public class Npc extends Character implements MouseInteractable {
         startMovement();
     }
 
-    @Override
-    public void initializeSprites(String assetPackage, String type, int scale){
+   @Override
+    public void initializeSprites(String assetPackage, String type, double scale){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
         int size = 4;
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            System.out.println(spritePaths[i]);
+            // System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
@@ -69,7 +76,7 @@ public class Npc extends Character implements MouseInteractable {
                 isPaused = false;
                 lastMovementTime = currentTime;
                 chooseNewDirection();
-                isMoving = true; // Start moving after pause
+                setIsMoving(true); // Start moving after pause
             }
             return;
         }
@@ -77,23 +84,22 @@ public class Npc extends Character implements MouseInteractable {
         if (currentTime - lastMovementTime >= moveDuration) {
             isPaused = true;
             lastMovementTime = currentTime;
-            isMoving = false; // Stop moving when paused
+            setIsMoving(false); // Stop moving when paused
             return;
         }
 
         // Move the NPC
-        if (isMovingRight) {
-            posX += moveSpeed;
-            if (posX >= targetX || posX >= maxRange) {
+        if (getIsMovingRight()) {
+            setPosX(getPosX() + moveSpeed); 
+            if (getPosX() >= getTargetX() || getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
-            posX -= moveSpeed;
-            if (posX <= targetX || posX <= minRange) {
+            setPosX(getPosX() - moveSpeed); 
+            if (getPosX() <= getTargetX() || getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
-
         updateBounds();
     }
 
@@ -106,18 +112,12 @@ public class Npc extends Character implements MouseInteractable {
         lastDirectionChangeTime = currentTime;
         int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
         boolean newDirection = random.nextBoolean();
-        if (newDirection != isMovingRight) {
-            isMovingRight = newDirection;
-            currentFrame = 0; // Reset animation frame when changing direction
+        if (newDirection != getIsMovingRight()) {
+            setIsMovingRight(newDirection);
+            restartAnimation();
         }
         moveTo(target, moveSpeed);
     }
-
-    private int natty;
-    private int missC;
-    private int yoo;
-    private int faithful;
-    private int miggins;
 
     @Override
     public void onClick(MouseEvent e) {
@@ -166,6 +166,7 @@ public class Npc extends Character implements MouseInteractable {
         } 
     }
 
+
       
     @Override
     public void onHover(MouseEvent e) {
@@ -179,18 +180,19 @@ public class Npc extends Character implements MouseInteractable {
         isInteracting = false;
         startMovement();
         isPaused = false;
+        isInteracting = false;
     }
     
       // Modify the stopMovement method
     @Override
     public void stopMovement() {
         super.stopMovement();
-        isMoving = false;
+        setIsMoving(false);
     }
     @Override
     public void startMovement() {
         super.startMovement();
-        isMoving = true;
+        setIsMoving(false);
         isPaused = false;
         lastMovementTime = System.currentTimeMillis();
     }

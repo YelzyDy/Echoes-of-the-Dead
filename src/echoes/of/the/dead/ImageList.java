@@ -61,14 +61,12 @@ public class ImageList {
         return this.size;
     }
     
-    public void scaleImageList(int scaleFactor) {
+    public void scaleImageList(double scaleFactor) {
         for (int i = 0; i < size; i++) {
             Image originalImage = (Image)imageList.get(i).get(0);
-            Image scaledImage = originalImage.getScaledInstance(
-                    originalImage.getWidth(null) * scaleFactor,
-                    originalImage.getHeight(null) * scaleFactor,
-                    Image.SCALE_SMOOTH
-            );
+            int newWidth = (int)(originalImage.getWidth(null) * scaleFactor);
+            int newHeight = (int)(originalImage.getHeight(null) * scaleFactor);
+            Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
             imageList.get(i).set(0, scaledImage);         
         }
     }
@@ -90,10 +88,10 @@ public class ImageList {
     }
 
     
-    public void resizeImageList(int width, int height){
+    public void resizeImageList(double width, double height){
         for (int i = 0; i < size; i++) {
             Image originalImage = (Image)imageList.get(i).get(0);
-            Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            Image scaledImage = originalImage.getScaledInstance((int)width, (int)height, Image.SCALE_SMOOTH);
             imageList.get(i).set(0, scaledImage);
         }
     }
