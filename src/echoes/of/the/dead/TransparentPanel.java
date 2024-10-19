@@ -11,8 +11,8 @@ import javax.swing.JPanel;
  * @author Joana
  */
 public class TransparentPanel extends JPanel {
-    public TransparentPanel(int x, int y, int width, int height) {
-        this.setBounds(x, y, width, height);
+    public TransparentPanel(double x, double y, double width, double height) {
+        this.setBounds((int)x, (int)y, (int)width, (int)height);
         this.setVisible(false);
         this.setOpaque(false);
     }

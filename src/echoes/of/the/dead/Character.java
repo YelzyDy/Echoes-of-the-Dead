@@ -23,13 +23,16 @@ public class Character extends TransparentPanel implements Entity{
     private String name;
     private double posX;
     private double posY;
+    private double width;
+    private double height;
     private String characterType;
+
    
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected SceneBuilder panel;
     protected CharacterAnimator animator;
 
-    public Character(String name, String characterType, SceneBuilder panel, int posX, int posY) {
+    public Character(String name, String characterType, SceneBuilder panel, double  posX, double posY) {
         super(posX, posY, 0, 0);
         this.posY = posY;
         this.posX = posX;
@@ -46,6 +49,10 @@ public class Character extends TransparentPanel implements Entity{
 
     public String getCharacterType(){
         return characterType;
+    }
+
+    public double setWidth(){
+        return width;
     }
 
     @Override

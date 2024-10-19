@@ -194,7 +194,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         } else if (source == btn_wizard) {
             charType = "wizard";
             scene.character.setCharacterType(charType);
-             scene.character.animator.importSprites("character_asset", "idle", 18, 6);
+            scene.character.animator.importSprites("character_asset", "idle", 18, 6);
             scene.character.setPosX(width * 0.34); // Update position based on width
             scene.character.setPosY(height * 0.51); // Update position based on height
             scene.setCurrentSceneIndex(2);

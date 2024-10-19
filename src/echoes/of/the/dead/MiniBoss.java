@@ -5,16 +5,16 @@ import java.awt.event.MouseEvent;
 
 // This class makes NPC move randomly
 public class MiniBoss extends Character implements MouseInteractable {
+    private int health = 200;
+    private int attack = 20;
     Dialogues dialogues = new Dialogues();
     private Protagonist character;
 
-    public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
+    public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character, int numIdleSprites, int numWalkSprites) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 13);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.006), 7);
-        animator.getSprite("walk").scaleImageListDown(0.58);
-        animator.getSprite("idle").scaleImageListDown(0.58);
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);
+        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), numIdleSprites);
         this.addMouseListener(new MouseClickListener(this));
         animator.startMovement();
         animator.chooseNewDirection(); 
@@ -23,13 +23,9 @@ public class MiniBoss extends Character implements MouseInteractable {
         this.character = character;
     }
 
-    // private int playerHp;
-    // public void Battle(Protagonist player){
-    //     playerHp = player.getHp();
-    //     while(playerHp > 0 || health > 0){
-    //         health -= player.skill1();
-    //     }
-    // }
+    public int getHp(){
+        return health;
+    }
 
     @Override
     public void onClick(MouseEvent e) {
@@ -53,8 +49,10 @@ public class MiniBoss extends Character implements MouseInteractable {
         character.setPosY(0); // Adjust Y position as needed
         character.animator.scaleSprites("idle", 4);
         character.setIsInBattle(true);
-        // Battle battle = new Battle(character, this);
-        // battle.start();
+
+        //start battle
+        Battle battle = new Battle(character, this);
+        battle.start();
     }
 
     @Override

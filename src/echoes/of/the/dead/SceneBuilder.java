@@ -33,6 +33,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private Npc miggins;
     private Npc faithful;
     private Npc natty;
+    private Npc missC;
     String type;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     private boolean isTransportedToSwamp = false; // boolean to know if na transport ba siya sa fight scene -z
@@ -88,20 +89,25 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             natty.setPosY((int)(screenSize.height * 0.21));
             this.add(natty);
 
-            miniBoss1 = new MiniBoss("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, character);
+            missC = new Npc("Constantine", "missC", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8);
+            missC.setPosY((int)(screenSize.height * 0.21));
+            this.add(missC);
+
+            miniBoss1 = new MiniBoss("MiniBoss", "necromancer", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, character, 50, 10);
             this.add(miniBoss1);
 
-            minions1 = new Minions("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8, character);
+            minions1 = new Minions("Minions", "skeleton", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)), screenSize.width * 0.4, screenSize.width * 0.8, character, 6, 8);
             this.add(minions1);
             
             this.setComponentZOrder(yoo, 2);
+            this.setComponentZOrder(missC, 2);
             this.setComponentZOrder(faithful, 2);
             this.setComponentZOrder(miniBoss1, 1);
             this.setComponentZOrder(minions1, 1);
             this.setComponentZOrder(miggins, 2);
             this.setComponentZOrder(natty, 2);
     }
-    
+
     public void initializeCharacter(String charType, String playerName) {
         if(type.equals("world1")){
             character = new Protagonist(playerName, charType, this, 0, (int)(screenSize.height * 0.24));
@@ -123,7 +129,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 1);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/swamp.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/graveyard.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
             
@@ -216,6 +222,12 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             natty.animator.updateNPCMovement();
             natty.animator.updateBounds();
         }
+
+        if (missC != null){
+            missC.animator.updateAnimation();
+            missC.animator.updateNPCMovement();
+            missC.animator.updateBounds();
+        }
         // Add any other game state updates here
     }
 
@@ -235,6 +247,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             miniBoss1.setVisible(currentSceneIndex == 4);
             faithful.setVisible(currentSceneIndex == 1);
             natty.setVisible(currentSceneIndex == 1);
+            missC.setVisible(currentSceneIndex == 0);
             minions1.setVisible(currentSceneIndex == 3);
         }    
     }
@@ -245,7 +258,6 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         Object source = e.getSource();
 
         if(source == portal){
-            System.out.println(source);
             currentSceneIndex = 3;
             isTransportedToSwamp = true;
         }else if (source == portalMB) {
