@@ -2,6 +2,7 @@ package echoes.of.the.dead;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
@@ -10,10 +11,47 @@ public class Dialogues extends JFrame {
     StoryLine story = new StoryLine();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public void displayDialogues(int firstIndex, int finalIndex, int order, int boxSize) {
+    private JButton createSkillButton(ImageIcon defaultIcon, ImageIcon hoverIcon, ActionListener action) {
+        JButton button = new JButton(defaultIcon);
+        int width = (int) (screenSize.width * 0.15);
+        int height = (int) (screenSize.height * 0.15);
+        button.setPreferredSize(new Dimension(width, height));
+        button.setBackground(Color.BLACK);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.addActionListener(action);
+        
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setIcon(hoverIcon);
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setIcon(defaultIcon);
+            }
+        });
+    
+        return button;
+    }
+
+    public ImageIcon scaleImageIcon(String path) {
+        int width = (int) (screenSize.width * 0.3);
+        int height = (int) (screenSize.height * 0.3);
+        
+        ImageIcon icon = new ImageIcon(path);
+        Image img = icon.getImage();
+        
+        Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        
+        return new ImageIcon(scaledImg);
+    }
+
+    public void displayDialogues(int firstIndex, int finalIndex, int order, int boxType) {
         int width, height, x, y;
 
-        if (boxSize == 0) {
+        if (boxType == 0) {
             width = screenSize.width;
             height = (int)(screenSize.height * 0.97);
             x = 0;
@@ -25,31 +63,85 @@ public class Dialogues extends JFrame {
             y = (int)(screenSize.height * 0.44);
         }
 
+        // THE WINDOW
+
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());
 
         JLabel textBox = new JLabel("", SwingConstants.CENTER);
-        textBox.setFont(new Font("MonoSpaced", Font.PLAIN, 28));
+        textBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
         textBox.setForeground(Color.WHITE);
         textBox.setVerticalAlignment(SwingConstants.CENTER);
+
         storyDialogue.getContentPane().setBackground(Color.BLACK);
         storyDialogue.add(textBox, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
 
-        JButton button = new JButton("SKIP");
-        button.setFont(new Font("Monospaced", Font.PLAIN, 28));
-        button.setPreferredSize(new Dimension(0, 50));
+        // THE BUTTONS
+        // SKIP BUTTON
+        if (boxType == 0 || boxType == 1) {
+            JButton skipButton = new JButton("SKIP");
+            skipButton.setFont(new Font("Monospaced", Font.PLAIN, 28));
+            skipButton.setPreferredSize(new Dimension(150, 50));
+            
+            skipButton.setBackground(Color.BLACK);
+            skipButton.setForeground(Color.WHITE);
 
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
+            skipButton.addActionListener(e -> {
+                storyDialogue.dispose();
+            });
 
-        button.addActionListener(e -> {
-            storyDialogue.dispose();
-        });
+            JPanel skipButtonPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+            skipButtonPanel.setBackground(Color.BLACK);
+            skipButtonPanel.add(skipButton);
 
-        storyDialogue.add(button, BorderLayout.SOUTH);
+            storyDialogue.add(skipButtonPanel, BorderLayout.NORTH);
+
+        } else if (boxType == 2) {
+
+            JPanel skillButtonsPanel = new JPanel(new GridLayout(2, 2, 1, 1));
+            skillButtonsPanel.setBackground(Color.BLACK);
+
+            ActionListener actionA = e -> {
+                storyDialogue.dispose();
+            };
+
+            ActionListener actionB = e -> {
+                storyDialogue.dispose();
+            };
+
+            ActionListener actionC = e -> {
+                storyDialogue.dispose();
+            };
+
+            ActionListener actionD = e -> {
+                storyDialogue.dispose();
+            };
+
+            // Load both default and hover images
+            ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
+            ImageIcon skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
+
+            ImageIcon skillBIcon = scaleImageIcon("src/button_assets/1stskill0.png");
+            ImageIcon skillBHoverIcon = scaleImageIcon("src/button_assets/1stskill1.png");
+
+            ImageIcon skillCIcon = scaleImageIcon("src/button_assets/2ndskill0.png");
+            ImageIcon skillCHoverIcon = scaleImageIcon("src/button_assets/2ndskill1.png");
+
+            ImageIcon skillDIcon = scaleImageIcon("src/button_assets/3rdskill0.png");
+            ImageIcon skillDHoverIcon = scaleImageIcon("src/button_assets/3rdskill1.png");
+
+            // Create skill buttons with hover icons
+            skillButtonsPanel.add(createSkillButton(skillAIcon, skillAHoverIcon, actionA));
+            skillButtonsPanel.add(createSkillButton(skillBIcon, skillBHoverIcon, actionB));
+            skillButtonsPanel.add(createSkillButton(skillCIcon, skillCHoverIcon, actionC));
+            skillButtonsPanel.add(createSkillButton(skillDIcon, skillDHoverIcon, actionD));
+
+            storyDialogue.add(skillButtonsPanel, BorderLayout.WEST);
+
+        }
 
         if (order == 0) {
             textBox.setText(story.getLine(firstIndex));
