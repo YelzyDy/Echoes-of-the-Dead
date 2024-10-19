@@ -174,4 +174,10 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     public void scaleSprites(String spriteType, double scale) {
        
     }
+
+    @Override
+    public void startMovement() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'startMovement'");
+    }
 }

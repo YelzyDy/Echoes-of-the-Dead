@@ -20,11 +20,13 @@ public class Protagonist extends Character implements MouseInteractable {
     private int attack = 20;
     private int health = 150;
     private int money = 0;
+    private boolean isInBattle;
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         initializeSprites("character_asset", "walk", screenSize.height * 0.006);
         initializeSprites("character_asset", "idle", screenSize.height * 0.006);
         updateBounds();
+        isInBattle =false;
     }
     
     @Override
@@ -55,9 +57,9 @@ public class Protagonist extends Character implements MouseInteractable {
         // Assuming deltaX is the distance to move
         if (getIsMovingRight()) {
             setPosX(getPosX() + deltaX - 10);
-            if (getPosX() >= getTragetX()) { // Check if it reached the target position
+            if (getPosX() >= getTargetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
-                setPosX(getTragetX());; // Ensure it doesn't overshoot
+                setPosX(getTargetX());; // Ensure it doesn't overshoot
                 if (getPosX()  >= (int)(screenSize.width * 0.8) && currentScene< maxPanel - 1) {
                     panel.incCurrentScene();
                     setPosX((int)(screenSize.width * 0.001));
@@ -68,9 +70,9 @@ public class Protagonist extends Character implements MouseInteractable {
             }
         } else {
             setPosX(getPosX() + deltaX); 
-            if (getPosX() <= getTragetX()) { // Check if it reached the target position
+            if (getPosX() <= getTargetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
-                setPosX(getTragetX());
+                setPosX(getTargetX());
                 if (getPosX()>= (int)(screenSize.width * 0.8) && currentScene<  maxPanel - 1) {
                     panel.incCurrentScene();
                     setPosX((int)(screenSize.width * 0.001));
@@ -84,7 +86,7 @@ public class Protagonist extends Character implements MouseInteractable {
 // Created the 3 skills for the protagonists but function will be implemented later --jm
     public void skill1(){
         switch(this.characterType){
-            case "knight":
+            case "knight": 
                 System.out.println(getName() + " used OBJECTION SURGE");
                 System.out.println("-15 Soul Shards, +15 Attack");
                 break;
@@ -135,6 +137,9 @@ public class Protagonist extends Character implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         int deltaX = (e.getX() - getPosX()) / 10;
         moveTo(e.getX(), deltaX);
     }
@@ -147,5 +152,9 @@ public class Protagonist extends Character implements MouseInteractable {
     @Override
     public void onExit(MouseEvent e) {
         
+    }
+
+    public void setIsInBattle (boolean isInBattle){
+        this.isInBattle = isInBattle;
     }
 }

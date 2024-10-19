@@ -7,7 +7,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
-public class MinionsWorld1 extends Character implements MouseInteractable {
+public class MiniBoss extends Character implements MouseInteractable {
+    Dialogues dialogues = new Dialogues();
     private Random random;
     private long lastMovementTime;
     private long lastDirectionChangeTime;
@@ -19,33 +20,37 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
-    
+    private Protagonist character;
     private boolean isInBattle;
     private boolean isEnlarged;
-    public MinionsWorld1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
+
+    public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
         random = new Random();
         lastMovementTime = System.currentTimeMillis();
         lastDirectionChangeTime = System.currentTimeMillis();
         isPaused = false; // Start in a moving state
-        isInBattle = false;
-        isEnlarged = false;
-        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.0045));
-        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.0045));
+        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
+        idleSprites.scaleImageListDown(0.58);
+        walkSprites.scaleImageListDown(0.58);
         chooseNewDirection(); // Start with a direction
         updateBounds();
         this.addMouseListener(new MouseClickListener(this));
         this.minRange = minRange;
         this.maxRange = maxRange;
-
+        this.character = character;
+        isEnlarged = false;
+        isInBattle = false;
+        isInteracting = false;
         startMovement();
     }
 
     @Override
     public void initializeSprites(String assetPackage, String type, double scale){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
-        int size = 8;
+        int size = ((type.equals("walk") ? 13 : 7));
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
@@ -125,9 +130,26 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         if (isEnlarged){
             return;
         }
-        setPosY(0);
+
+        setPosY(10);
         scaleSprites("idle", 2);
         isEnlarged = true;
+        setCurrentFrame(1);
+
+        // Enlarge the player
+        character.setIsInBattle(true);
+        character.stopMovement();
+        character.setPosX(100);
+        character.setPosY(0); // Adjust Y position as needed
+        character.scaleSprites("idle", 4);
+
+        if (characterType.equals("natty")){
+            dialogues.displayDialogues(60, 70, 0, 1);
+        }
+        if (characterType.equals("missC")) {
+            dialogues.displayDialogues(40, 50, 0, 1);
+        } 
+
     }
 
       
@@ -152,7 +174,6 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         isInteracting = false;
     }
     
-      // Modify the stopMovement method
     @Override
     public void stopMovement() {
         super.stopMovement();
