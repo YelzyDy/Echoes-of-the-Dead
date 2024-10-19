@@ -45,43 +45,82 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
-    public void skill2(){
+    public double skill2(){
         switch(getCharacterType()){
             case "knight":
                 System.out.println(getName() + " used ETHEREAL SHIELD OF LOGIC");
                 System.out.println("Absorbs 40% damage, if damage is greater than 20% Soul Energy left, increase Soul Shards by 10%");
-                break;
+                return 0.4;
             case "wizard":
                 System.out.println(getName() + " used QUANTUM SHIFT");
                 System.out.println("Has a 60% chance to dodge the attack. Deals 40 damage and regains 50 mana if successful");
-                break;
+                return 40.0;
             case "priest":
                 System.out.println(getName() + " used LIFE LEECH");
                 System.out.println("Steals 30% of self's Soul Energy from the opponent");
-                break;
+                return 0.3;
+            default:
+                return 0;
         }
     }
 
-    public void skill3(){
+    public double skill3(){
         switch(getCharacterType()){
             case "knight":
                 System.out.println(getName() + " used TRUTHBINDING");
                 System.out.println("Deal 200% Attack + 40% Soul Shards damage and the opponent can’t attack this turn");
-                break;
+                return 0.4;
             case "wizard":
                 System.out.println(getName() + " used CODE RAGE QUAKE");
                 System.out.println("Induce a strong quake dealing 60 + 25% Mana damage");
-                break;
+                return 0.25;
             case "priest":
                 System.out.println(getName() + " used VENGEFUL VITALITY");
                 System.out.println("Deal 60% of Soul Energy lost to the opponent and gains 40% Soul Energy");
-                break;
+                return 0.6;
+            default:
+                return 0;
         }
+    }
+    //get hp for battle sequence
+    public int getHp(){
+        return health;
+    }
+
+    //set hp after battle sequence
+    public void setHp(int newHealth){
+        health = newHealth;
+    }
+
+    //get mana for battle sequence
+    public int getMana(){
+        return mana;
+    }
+
+    //set mana after battle sequence
+    public void setMana(int newMana){
+        mana = newMana;
+    }
+
+    //get hp for battle sequence
+    public int getMoney(){
+        return money;
+    }
+
+    //set hp after battle sequence
+    public void setMoney(int newMoney){
+        money = newMoney;
+    }
+
+    //get atk for battle sequence
+    public int getAttack(){
+        return attack;
     }
 
     public void setIsInBattle (boolean isInBattle){
         this.isInBattle = isInBattle;
     }
+
     @Override
     public void onClick(MouseEvent e) {
         if (isInBattle){

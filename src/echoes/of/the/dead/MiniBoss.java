@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 
 // This class makes NPC move randomly
 public class MiniBoss extends Character implements MouseInteractable {
+    private int health = 200;
+    private int attack = 20;
     Dialogues dialogues = new Dialogues();
     private Protagonist character;
 
@@ -22,14 +24,6 @@ public class MiniBoss extends Character implements MouseInteractable {
         animator.setRange(minRange, maxRange);
         this.character = character;
     }
-
-    // private int playerHp;
-    // public void Battle(Protagonist player){
-    //     playerHp = player.getHp();
-    //     while(playerHp > 0 || health > 0){
-    //         health -= player.skill1();
-    //     }
-    // }
 
     @Override
     public void onClick(MouseEvent e) {
@@ -53,8 +47,14 @@ public class MiniBoss extends Character implements MouseInteractable {
         character.setPosY(0); // Adjust Y position as needed
         character.animator.scaleSprites("idle", 4);
         character.setIsInBattle(true);
-        // Battle battle = new Battle(character, this);
-        // battle.start();
+
+        //start battle
+        Battle battle = new Battle(character, this);
+        battle.start();
+    }
+
+    public int getHp(){
+        return health;
     }
 
     @Override
