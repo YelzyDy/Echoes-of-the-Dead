@@ -1,25 +1,10 @@
 package echoes.of.the.dead;
 
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.util.Random;
-import java.awt.Image;
-import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
-    private Random random;
-    private long lastMovementTime;
-    private long lastDirectionChangeTime;
-    private int moveDuration = 5000; // Move for 5 seconds
-    private int pauseDuration = 1000; // Pause for 1 second (reduced for more frequent movement)
-    private int directionChangeCooldown = 5000; // 5 seconds cooldown for direction changes
-    private boolean isPaused;
-    private int moveSpeed = 2; // Pixels per frame
-    private boolean isInteracting;
-    private double minRange;
-    private double maxRange;
 
     private int natty;
     private int missC;
@@ -30,101 +15,24 @@ public class Npc extends Character implements MouseInteractable {
     public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
-        random = new Random();
-        lastMovementTime = System.currentTimeMillis();
-        lastDirectionChangeTime = System.currentTimeMillis();
-        isPaused = false; // Start in a moving state
-        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
-        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
-        chooseNewDirection(); // Start with a direction
-        updateBounds();
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 4);
+        animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 4);
         this.addMouseListener(new MouseClickListener(this));
-        this.minRange = minRange;
-        this.maxRange = maxRange;
+        animator.startMovement();
+        animator.chooseNewDirection(); 
 
-        startMovement();
-    }
-
-   @Override
-    public void initializeSprites(String assetPackage, String type, double scale){
-        ((type.equals("walk"))? walkSprites : idleSprites).clear();
-        int size = 4;
-        String[] spritePaths = new String[size];
-        for(int i = 0; i < size; i++){
-            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            // System.out.println(spritePaths[i]);
-        }     
-        for (String path : spritePaths) {
-            try {
-                Image image = ImageIO.read(getClass().getResource(path));
-                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
-    }
-    public void updateMovement() {
-        if (isInteracting) {
-            return; // Don't update movement if interacting with user
-        }
-
-        long currentTime = System.currentTimeMillis();
-
-        if (isPaused) {
-            if (currentTime - lastMovementTime >= pauseDuration) {
-                isPaused = false;
-                lastMovementTime = currentTime;
-                chooseNewDirection();
-                setIsMoving(true); // Start moving after pause
-            }
-            return;
-        }
-
-        if (currentTime - lastMovementTime >= moveDuration) {
-            isPaused = true;
-            lastMovementTime = currentTime;
-            setIsMoving(false); // Stop moving when paused
-            return;
-        }
-
-        // Move the NPC
-        if (getIsMovingRight()) {
-            setPosX(getPosX() + moveSpeed); 
-            if (getPosX() >= getTargetX() || getPosX() >= maxRange) {
-                chooseNewDirection();
-            }
-        } else {
-            setPosX(getPosX() - moveSpeed); 
-            if (getPosX() <= getTargetX() || getPosX() <= minRange) {
-                chooseNewDirection();
-            }
-        }
-        updateBounds();
-    }
-
-    private void chooseNewDirection() {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastDirectionChangeTime < directionChangeCooldown) {
-            return;
-        }
-
-        lastDirectionChangeTime = currentTime;
-        int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
-        boolean newDirection = random.nextBoolean();
-        if (newDirection != getIsMovingRight()) {
-            setIsMovingRight(newDirection);
-            restartAnimation();
-        }
-        moveTo(target, moveSpeed);
+        System.out.println();
+        animator.updateBounds();
+        animator.setRange(minRange, maxRange);
     }
 
     @Override
     public void onClick(MouseEvent e) {
-        stopMovement();
-        isPaused = true;
-        isInteracting = true;
-        if (characterType.equals("natty")){
+        animator.stopMovement();
+        animator.setPaused(true);
+        animator.setInteracting(true);
+        
+        if (getCharacterType().equals("natty")){
             if (natty != 0) {
                 dialogues.displayDialogues(70, 80, 1, 1);
             } else {
@@ -132,7 +40,7 @@ public class Npc extends Character implements MouseInteractable {
                 this.natty = 1;
             }
         } 
-        if (characterType.equals("missC")){
+        if (getCharacterType().equals("missC")){
             if (missC != 0) {
                 dialogues.displayDialogues(50, 60, 1, 1);
             } else {
@@ -140,7 +48,7 @@ public class Npc extends Character implements MouseInteractable {
                 this.missC = 1;
             }
         } 
-        if (characterType.equals("yoo")){
+        if (getCharacterType().equals("yoo")){
             if (yoo != 0) {
                 dialogues.displayDialogues(120, 130, 1, 2);
             } else {
@@ -148,7 +56,7 @@ public class Npc extends Character implements MouseInteractable {
                 this.yoo = 1;
             }
         } 
-        if (characterType.equals("faithful")){
+        if (getCharacterType().equals("faithful")){
             if (faithful != 0) {
                 dialogues.displayDialogues(0, 1, 1, 1);
             } else {
@@ -156,7 +64,7 @@ public class Npc extends Character implements MouseInteractable {
                 this.faithful = 1;
             }
         } 
-        if (characterType.equals("miggins")){
+        if (getCharacterType().equals("miggins")){
             if (miggins != 0) {
                 dialogues.displayDialogues(160, 170, 1, 1);
             } else {
@@ -166,34 +74,17 @@ public class Npc extends Character implements MouseInteractable {
         } 
     }
 
-
-      
     @Override
     public void onHover(MouseEvent e) {
-        stopMovement();
-        isPaused = true;
-        isInteracting = true;
+        animator.stopMovement();
+        animator.setPaused(true);
+        animator.setInteracting(true);
     }
     
     @Override
     public void onExit(MouseEvent e) {
-        isInteracting = false;
-        startMovement();
-        isPaused = false;
-        isInteracting = false;
-    }
-    
-      // Modify the stopMovement method
-    @Override
-    public void stopMovement() {
-        super.stopMovement();
-        setIsMoving(false);
-    }
-    @Override
-    public void startMovement() {
-        super.startMovement();
-        setIsMoving(false);
-        isPaused = false;
-        lastMovementTime = System.currentTimeMillis();
+        animator.startMovement();
+        animator.setPaused(false);
+        animator.setInteracting(false);
     }
 }

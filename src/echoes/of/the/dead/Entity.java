@@ -5,31 +5,16 @@
 package echoes.of.the.dead;
 
 import java.awt.Graphics;
-import java.awt.Image;
 
-/**
- *
- * @author Joana
- */
 public interface Entity {
-    public void updateAnimation();
-
-    public void restartAnimation();
+    public double getPosX();
     
-    public abstract int getPosX();
-
-    public void setPosY(int posY);
+    public double getPosY();
     
-    public void setPosX(int posX);
+    public void setPosX(double posX);
+
+    public void setPosY(double posY);
     
-    public abstract Image getCurrentSprite();
-
-    public abstract void initializeSprites(String assetPackage, String type, double scale);
-
-    public abstract void initializeSprites(String assetPackage,  double width, double height);
-    
-    public abstract void draw(Graphics g);
-
-    public abstract void scaleSprites(String spriteType, double scale);
+    public void draw(Graphics g);
 
 }

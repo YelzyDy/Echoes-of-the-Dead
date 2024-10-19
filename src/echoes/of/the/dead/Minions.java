@@ -1,14 +1,12 @@
 package echoes.of.the.dead;
 
-import java.awt.Image;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.util.Random;
-import javax.imageio.ImageIO;
+
 
 // This class makes NPC move randomly
 public class Minions extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
+
     private Random random;
     private long lastMovementTime;
     private long lastDirectionChangeTime;
@@ -20,170 +18,74 @@ public class Minions extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
+
     private Protagonist character;
-    private boolean isInBattle;
-    private boolean isEnlarged;
 
     public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
-        random = new Random();
-        lastMovementTime = System.currentTimeMillis();
-        lastDirectionChangeTime = System.currentTimeMillis();
-        isPaused = false; // Start in a moving state
-        isInBattle = false;
-        isEnlarged = false;
-        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.0045));
-        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.0045));
-        chooseNewDirection(); // Start with a direction
-        updateBounds();
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.0045), 8);
+        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.0045), 8);
         this.addMouseListener(new MouseClickListener(this));
-        this.minRange = minRange;
-        this.maxRange = maxRange;
+        animator.startMovement();
+        animator.chooseNewDirection(); 
+        animator.updateBounds();
+        animator.setRange(minRange, maxRange);
         this.character = character;
-        startMovement();
     }
 
-    @Override
-    public void initializeSprites(String assetPackage, String type, double scale){
-        ((type.equals("walk"))? walkSprites : idleSprites).clear();
-        int size = 8;
-        String[] spritePaths = new String[size];
-        for(int i = 0; i < size; i++){
-            spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            // System.out.println(spritePaths[i]);
-        }     
-        for (String path : spritePaths) {
-            try {
-                Image image = ImageIO.read(getClass().getResource(path));
-                ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
-    }
-    public void updateMovement() {
-        if (isInteracting || isInBattle) {
-            return; // Don't update movement if interacting or in battle
-        }
-
-    long currentTime = System.currentTimeMillis();
-
-    if (isPaused || isEnlarged) {
-        if (getCurrentFrame() != 1) {
-            setCurrentFrame(1);  // Stick to the first idle frame
-        }
-        if (currentTime - lastMovementTime >= pauseDuration) {
-            isPaused = false;
-            lastMovementTime = currentTime;
-            chooseNewDirection();
-            setIsMoving(true); // Start moving after pause
-        }
-        return;
-    }
-
-    if (currentTime - lastMovementTime >= moveDuration) {
-        isPaused = true;
-        lastMovementTime = currentTime;
-        setIsMoving(false); // Stop moving when paused
-        return;
-    }
-
-    // Move the NPC if not paused
-    if (getIsMovingRight()) {
-        setPosX(getPosX() + moveSpeed);
-        if (getPosX() >= getTargetX() || getPosX() >= maxRange) {
-            chooseNewDirection();
-        }
-    } else {
-        setPosX(getPosX() - moveSpeed);
-        if (getPosX() <= getTargetX() || getPosX() <= minRange) {
-            chooseNewDirection();
-        }
-    }
-
-    updateBounds();
-}
-
-
-    private void chooseNewDirection() {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastDirectionChangeTime < directionChangeCooldown) {
-            return;
-        }
-
-        lastDirectionChangeTime = currentTime;
-        int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
-        boolean newDirection = random.nextBoolean();
-        if (newDirection != getIsMovingRight()) {
-            setIsMovingRight(newDirection);
-            restartAnimation();
-        }
-        moveTo(target, moveSpeed);
-    }
+    // private int playerHp;
+    // public void Battle(Protagonist player){
+    //     playerHp = player.getHp();
+    //     while(playerHp > 0 || health > 0){
+    //         health -= player.skill1();
+    //     }
+    // }
 
     @Override
     public void onClick(MouseEvent e) {
-        stopMovement();
-        isPaused = true;
-        isInteracting = true;
-        isInBattle = true;
-        if (isEnlarged){
+        animator.stopMovement();
+        animator.setPaused(true);
+        animator.setInteracting(true);
+        animator.isInBattle = true;
+        if (animator.isEnlarged){
             return;
         }
 
-        setPosY(10);
-        scaleSprites("idle", 2);
-        isEnlarged = true;
-        setCurrentFrame(1);;
+        setPosX(screenSize.width * 0.6);
+        setPosY(0);
+        animator.scaleSprites("idle", 2);
+        animator.isEnlarged = true;
+        animator.setCurrentFrame(1);
 
         // Enlarge the player
-        character.setIsInBattle(true);
-        character.stopMovement();
-        character.setPosX(100);
+        character.animator.stopMovement();
+        character.setPosX(screenSize.width * 0.1);
         character.setPosY(0); // Adjust Y position as needed
-        character.scaleSprites("idle", 4);
 
-        if (characterType.equals("slime")){
-            
-        }
-        
+        character.animator.scaleSprites("idle", 4);
+        character.setIsInBattle(true);
+        // Battle battle = new Battle(character, this);
+        // battle.start();
     }
 
-      
     @Override
     public void onHover(MouseEvent e) {
-        if (isInBattle){
+        if (animator.isInBattle){
             return;
         }
-        stopMovement();
-        isPaused = true;
-        isInteracting = true;
+        animator.stopMovement();
+        animator.setPaused(true);
+        animator.setInteracting(true);
     }
     
     @Override
     public void onExit(MouseEvent e) {
-        if (isInBattle){
+        if (animator.isInBattle){
             return;
         }
-        isInteracting = false;
-        startMovement();
-        isPaused = false;
-        isInteracting = false;
-    }
-    
-      // Modify the stopMovement method
-    @Override
-    public void stopMovement() {
-        super.stopMovement();
-        setIsMoving(false);
-    }
-    @Override
-    public void startMovement() {
-        super.startMovement();
-        setIsMoving(false);
-        isPaused = false;
-        lastMovementTime = System.currentTimeMillis();
+        animator.startMovement();
+        animator.setPaused(false);
+        animator.setInteracting(false);
     }
 }

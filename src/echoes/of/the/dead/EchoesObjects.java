@@ -20,8 +20,8 @@ import javax.imageio.ImageIO;
  */
 public class EchoesObjects extends TransparentPanel implements MouseInteractable, Entity{
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private int posX;
-    private int posY;
+    private double posX;
+    private double posY;
     private int currentFrame = 0;
     private ImageList objSprites = new ImageList();
     private String type = null;
@@ -55,7 +55,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         return isAnimated;
     }
 
-    @Override
     public void initializeSprites(String assetPackage, double width, double height) {
         objSprites.clear();
         int size = numOfSprites;
@@ -87,11 +86,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // System.out.println("Number of sprites loaded: " + objSprites.getSize());
     }
 
-
-    @Override
-    public void initializeSprites(String assetPackage, String type, double scale){
-        
-    }
    
     public void setCurrentFrame(int value){
         currentFrame = value;
@@ -120,12 +114,11 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         }
     }
     
-    @Override
     public void restartAnimation(){
         currentFrame = 0;
     }
     
-    @Override
+
     public void updateAnimation(){
         if(isAnimated){
             currentFrame++;
@@ -136,21 +129,25 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     }
     
     @Override
-    public int getPosX() {
+    public double getPosX() {
         return posX;
     }
 
     @Override
-    public void setPosX(int posX) {
+    public double getPosY() {
+        return posY;
+    }
+
+    @Override
+    public void setPosX(double posX) {
         this.posX = posX;
     }
 
     @Override
-    public void setPosY(int posY) {
+    public void setPosY(double posY) {
         this.posY = posY;
     }
 
-    @Override
     public Image getCurrentSprite() {
         return objSprites.get(currentFrame);      
     }
@@ -165,19 +162,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2d.drawImage(getCurrentSprite(), posX, posY, null);
-        
+        g2d.drawImage(getCurrentSprite(), (int)posX, (int)posY, null);
     }
 
-
-    @Override
-    public void scaleSprites(String spriteType, double scale) {
-       
-    }
-
-    @Override
-    public void startMovement() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startMovement'");
-    }
 }
