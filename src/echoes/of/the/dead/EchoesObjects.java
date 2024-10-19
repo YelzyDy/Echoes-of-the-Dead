@@ -175,7 +175,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
        
     }
 
-    @Override
+
     public void startMovement() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'startMovement'");

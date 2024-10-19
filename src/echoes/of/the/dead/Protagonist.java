@@ -21,6 +21,8 @@ public class Protagonist extends Character implements MouseInteractable {
     private int health = 150;
     private int money = 0;
     private boolean isInBattle;
+
+
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         initializeSprites("character_asset", "walk", screenSize.height * 0.006);
@@ -84,20 +86,22 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 // Created the 3 skills for the protagonists but function will be implemented later --jm
-    public void skill1(){
+    public int skill1(){
         switch(this.characterType){
             case "knight": 
                 System.out.println(getName() + " used OBJECTION SURGE");
                 System.out.println("-15 Soul Shards, +15 Attack");
-                break;
+                return 15;
             case "wizard":
                 System.out.println(getName() + " used OVERCLOCK");
                 System.out.println("-15 Mana, +15 Attack");
-                break;
+                return 15;
             case "priest":
                 System.out.println(getName() + " used VITAL RUSH");
                 System.out.println("-15 Soul Energy, +15 Attack");  
-                break;
+                return 15;
+            default:
+                return 0;
         }
     }
 
@@ -133,6 +137,14 @@ public class Protagonist extends Character implements MouseInteractable {
                 System.out.println("Deal 60% of Soul Energy lost to the opponent and gains 40% Soul Energy");
                 break;
         }
+    }
+
+    public int getHp(){
+        return health;
+    }
+
+    public int getMana(){
+        return health;
     }
 
     @Override

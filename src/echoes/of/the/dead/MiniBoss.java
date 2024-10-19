@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
 public class MiniBoss extends Character implements MouseInteractable {
+    private int health = 150;
+    private int attack = 20;
     Dialogues dialogues = new Dialogues();
     private Random random;
     private long lastMovementTime;
@@ -121,6 +123,14 @@ public class MiniBoss extends Character implements MouseInteractable {
         moveTo(target, moveSpeed);
     }
 
+    // private int playerHp;
+    // public void Battle(Protagonist player){
+    //     playerHp = player.getHp();
+    //     while(playerHp > 0 || health > 0){
+    //         health -= player.skill1();
+    //     }
+    // }
+
     @Override
     public void onClick(MouseEvent e) {
         stopMovement();
@@ -150,8 +160,9 @@ public class MiniBoss extends Character implements MouseInteractable {
             dialogues.displayDialogues(40, 50, 0, 1);
         } 
 
+        Battle battle = new Battle(character, this);
+        battle.start();
     }
-
       
     @Override
     public void onHover(MouseEvent e) {
@@ -161,6 +172,10 @@ public class MiniBoss extends Character implements MouseInteractable {
         stopMovement();
         isPaused = true;
         isInteracting = true;
+    }
+
+    public int getHp(){
+        return health;
     }
     
     @Override
