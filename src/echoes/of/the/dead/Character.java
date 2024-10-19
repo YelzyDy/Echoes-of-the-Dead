@@ -60,7 +60,7 @@ public class Character extends TransparentPanel implements Entity{
         return isMoving;
     }
     
-    public int getTragetX(){
+    public int getTargetX(){
         return targetX;
     }
     @Override

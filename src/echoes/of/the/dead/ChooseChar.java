@@ -181,41 +181,23 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             charType = "knight";
             scene.character.setCharacterType(charType);
             scene.character.initializeSprites("character_asset", "idle", 18);
-<<<<<<< HEAD
             scene.character.setPosX((int)(width * 0.32)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.setCurrentSceneIndex(0);
-=======
-            scene.character.setPosX((int)(width * 0.275)); // Update position based on width
-            scene.character.setPosY((int)(height * 0.35)); // Update position based on height
-            scene.currentSceneIndex = 0;
->>>>>>> aec752710d947e734cab992fb5d1aac1f5c8f879
         } else if (source == btn_priest) {
             charType = "priest";
             scene.character.setCharacterType(charType);
             scene.character.initializeSprites("character_asset", "idle", 18);
-<<<<<<< HEAD
             scene.character.setPosX((int)(width * 0.349)); // Update position based on width
             scene.character.setPosY((int)(height * 0.49)); // Update position based on height
             scene.setCurrentSceneIndex(0);
-=======
-            scene.character.setPosX((int)(width * 0.3)); // Update position based on width
-            scene.character.setPosY((int)(height * 0.35)); // Update position based on height
-            scene.currentSceneIndex = 1;
->>>>>>> aec752710d947e734cab992fb5d1aac1f5c8f879
         } else if (source == btn_wizard) {
             charType = "wizard";
             scene.character.setCharacterType(charType);
             scene.character.initializeSprites("character_asset", "idle", 18);
-<<<<<<< HEAD
             scene.character.setPosX((int)(width * 0.34)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.setCurrentSceneIndex(0);
-=======
-            scene.character.setPosX((int)(width * 0.3)); // Update position based on width
-            scene.character.setPosY((int)(height * 0.35)); // Update position based on height
-            scene.currentSceneIndex = 2;
->>>>>>> aec752710d947e734cab992fb5d1aac1f5c8f879
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);

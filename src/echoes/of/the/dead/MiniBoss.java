@@ -93,12 +93,12 @@ public class MiniBoss extends Character implements MouseInteractable {
         // Move the NPC
         if (getIsMovingRight()) {
             setPosX(getPosX() + moveSpeed); 
-            if (getPosX() >= getTragetX() || getPosX() >= maxRange) {
+            if (getPosX() >= getTargetX() || getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
             setPosX(getPosX() - moveSpeed); 
-            if (getPosX() <= getTragetX() || getPosX() <= minRange) {
+            if (getPosX() <= getTargetX() || getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
