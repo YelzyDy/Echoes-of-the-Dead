@@ -27,6 +27,9 @@ public class CharacterAnimator {
     private double minRange;
     private double maxRange;
 
+    protected boolean isInBattle;
+    protected boolean isEnlarged;
+
     public CharacterAnimator(Character character) {
         this.currentFrame = 0;
         this.isMoving = false;
@@ -38,6 +41,8 @@ public class CharacterAnimator {
         isPaused = false; // Start in a moving state
         walkSprites = new ImageList();
         idleSprites = new ImageList();
+        isEnlarged = false;
+        isInBattle = false;
     }
 
     public void setRange(double minRange, double maxRange){
@@ -210,7 +215,7 @@ public class CharacterAnimator {
     }
 
     public void updateNPCMovement() {
-        if (isInteracting) {
+        if (isInteracting || isInBattle) {
             return; // Don't update movement if interacting with user
         }
 
@@ -263,5 +268,4 @@ public class CharacterAnimator {
         }
         moveTo(target, moveSpeed);
     }
-
 }

@@ -79,6 +79,9 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
+    public void setIsInBattle (boolean isInBattle){
+        this.isInBattle = isInBattle;
+    }
     @Override
     public void onClick(MouseEvent e) {
         if (isInBattle){
@@ -96,9 +99,5 @@ public class Protagonist extends Character implements MouseInteractable {
     @Override
     public void onExit(MouseEvent e) {
         
-    }
-
-    public void setIsInBattle (boolean isInBattle){
-        this.isInBattle = isInBattle;
     }
 }

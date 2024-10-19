@@ -28,7 +28,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
     private Minions minions1; // minions -z
-    private MiniBoss1 miniBoss1;
+    private MiniBoss miniBoss1;
     private Npc yoo;
     private Npc miggins;
     private Npc faithful;
@@ -88,10 +88,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             natty.setPosY((int)(screenSize.height * 0.21));
             this.add(natty);
 
-            miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8);
+            miniBoss1 = new MiniBoss("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, character);
             this.add(miniBoss1);
 
-            minions1 = new Minions("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8);
+            minions1 = new Minions("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8, character);
             this.add(minions1);
             
             this.setComponentZOrder(yoo, 2);
