@@ -11,8 +11,8 @@ public class Minions extends Character implements MouseInteractable {
     public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.0045), 8);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.0045), 8);
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.008), 8);
+        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.008), 6);
         this.addMouseListener(new MouseClickListener(this));
         animator.startMovement();
         animator.chooseNewDirection(); 
@@ -40,15 +40,15 @@ public class Minions extends Character implements MouseInteractable {
         }
 
         setPosX(screenSize.width * 0.6);
-        setPosY(0);
-        animator.scaleSprites("idle", 2);
+        setPosY(screenSize.width * 0.04);
+        animator.scaleSprites("idle", 2.9);
         animator.isEnlarged = true;
         animator.setCurrentFrame(1);
-
+        animator.setMovingRight(false);
         // Enlarge the player
         character.animator.stopMovement();
         character.setPosX(screenSize.width * 0.1);
-        character.setPosY(0); // Adjust Y position as needed
+        character.setPosY(0.); // Adjust Y position as needed
         character.animator.scaleSprites("idle", 4);
         character.setIsInBattle(true);
         // Battle battle = new Battle(character, this);
