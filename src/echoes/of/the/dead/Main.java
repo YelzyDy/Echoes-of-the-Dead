@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 public class Main extends javax.swing.JFrame implements MouseInteractable {
-    Dialogues dialogues = new Dialogues();
+    FullScreenDialogues dialogues = new FullScreenDialogues();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = screenSize.width;
     int height = screenSize.height;
@@ -65,8 +65,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
 
     @Override  
     public void onClick(MouseEvent e) {
-        // StoryLine window = new printExpositionText();
-        dialogues.displayDialogues(1, 40, 0,0); // 0 for full screen box, 1 for message box
+        dialogues.displayDialogue(0);
 
         ChooseChar window = new ChooseChar(); // Will invoke the character selection scene
         window.setVisible(true);

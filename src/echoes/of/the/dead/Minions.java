@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 // This class makes NPC move randomly
 public class Minions extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
+    BattleUI battleUI = new BattleUI();
     private Protagonist character;
 
     public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
@@ -53,6 +54,7 @@ public class Minions extends Character implements MouseInteractable {
         character.setIsInBattle(true);
         // Battle battle = new Battle(character, this);
         // battle.start();
+        battleUI.displayDialogues();
     }
 
     @Override

@@ -10,6 +10,8 @@ public class StoryLine {
         private final String[] yooLines = new String[100];
         private final String[] migginsIntro = new String[100];
         private final String[] migginsLines = new String[100];
+        private String[] arr = new String[100];
+        private int size;
 
         public void Exposition() {
                 int i = 0;
@@ -58,6 +60,8 @@ public class StoryLine {
                 this.exposition[i++] = "Your journey begins now.";
                 this.exposition[i++] = "...";
 
+                this.size = i;
+                this.arr = this.exposition;
         }
 
         public void missConstanceIntro() {
@@ -74,6 +78,9 @@ public class StoryLine {
                 this.missCIntro[i++] = "Miss C (continuing): \"...I have the juiciest stories about all the denizens here! You wouldn't believe what they're really like!\"";            
                 this.missCIntro[i++] = "Miss C (shouting): \"Also, I'm always here if you need to-!\"";
         
+                this.size = i;
+                this.arr = this.missCIntro;
+
         }
 
         public void missConstanceLines() {
@@ -89,6 +96,9 @@ public class StoryLine {
                 this.missCLines[i++] = "\"You know Miggins, right? Yeah, she's been trying to impress everyone with her so-called 'Homemade Pies.' Please! We all know she just heats up store-bought ones and calls it a day. It's honestly kind of sad.\"";
                 this.missCLines[i++] = "\"You ever hear that saying, 'Death is peaceful'? Lies! It's boring down here. No one talks. Except me, of course. I keep talking because if I don't, I'll probably go mad. Or maybe I already have. Who's to say?\"";
                 this.missCLines[i++] = "\"Oh my gosh, like, if the sun emitted Wi-Fi, trees would be like cell towers, you know? I mean, cellphones are basically fruits from those trees or whatever. Don't even get me started on how apples are used to make smartphones, like, it's science, right?";
+
+                this.size = i;
+                this.arr = this.missCLines;
 
         }
 
@@ -106,6 +116,9 @@ public class StoryLine {
                 this.nattyIntro[i++] = "Natty: \"No... No, I didn't! I... I can't!\"";
                 this.nattyIntro[i++] = "You reach out, watching as Natty shifts between defiance and fear, her emotions like a pendulum. She seems caught in an internal struggle, and it might be best to leave her to calm down before speaking further.";
         
+                this.size = i;
+                this.arr = this.nattyIntro;
+
         }
         
         public void nattyLines() {
@@ -121,6 +134,9 @@ public class StoryLine {
                 this.nattyLines[i++] = "\"Why are asylums full of singles? Because none of them can keep their thoughts together!\" *[laughs hysterically]*";
                 this.nattyLines[i++] = "\"You think I'm terrified? No. I'm not afraid of you... hehe.\"";
                 this.nattyLines[i++] = "\"I can't do this! The voices—they're everywhere! Crawling under my skin, it tickles! HAHAHAHA!\"";
+
+                this.size = i;
+                this.arr = this.nattyLines;
 
         }
 
@@ -144,6 +160,9 @@ public class StoryLine {
                 this.yooIntro[i++] = "You: \"Excuse me? I'm just trying to get to know you better.\"";
                 this.yooIntro[i++] = "Yoo: \"My story isn't worth telling. Beat it.\"";
 
+                this.size = i;
+                this.arr = this.yooIntro;
+
         }
            
         public void yooLines() {
@@ -160,6 +179,9 @@ public class StoryLine {
                 this.yooLines[i++] = "\"The moment you step foot on this forest, it was raining ever since.\"";
                 this.yooLines[i++] = "\"Did you know that the weather here corresponds with the emotions of those who live under it?\"";
         
+                this.size = i;
+                this.arr = this.yooLines;
+
         }
 
         public void migginsIntro() {
@@ -182,6 +204,9 @@ public class StoryLine {
                 this.migginsIntro[i++] = "You: \"Someone that I was searching for, it's important.\"";
                 this.migginsIntro[i++] = "Miggins: \"Oh, then I hope you find them soon. You're more than welcome to come back if you wish to purchase something, dear.\"";
 
+                this.size = i;
+                this.arr = this.migginsIntro;
+
         }
         
         public void migginsLines() {
@@ -198,9 +223,16 @@ public class StoryLine {
                 this.migginsLines[i++] = "\"The weather here recently is terrible. It's scaring away the customers!\"";
                 this.migginsLines[i++] = "\"Oh, sweetie, the grave doesn't stop me from whipping up a batch of cookies!\"";
 
+                this.size = i;
+                this.arr = this.migginsLines;
+
         }
 
         public String getLine(int i) {
-                return "<html><center>" + this.exposition[i] + "</center></html>";
+                return "<html><center>" + this.arr[i] + "</center></html>";
+        }
+
+        public int getSize() {
+                return this.size;
         }
 }

@@ -4,42 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
-public class Dialogues extends JFrame {
+public class FullScreenDialogues extends JFrame {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     StoryLine story = new StoryLine();
-    private final int width = (int) (screenSize.width * 0.99);
-    private final int height = (int) (screenSize.height * 0.55);
-    private final int x = 6;
-    private final int y = (int) (screenSize.height * 0.44);
-    private int size;
-    private int index;
+    private final int width = screenSize.width;
+    private final int height = (int)(screenSize.height * 0.97);
+    private final int x = 0;
+    private final int y = 23;
 
-    public void displayDialogues(int ID) {
-
-        // THE WINDOW
+    public void displayDialogue(int ID) {
 
         switch (ID) {
-            case 1: story.missConstanceIntro();
-                break;
-            case 2: story.missConstanceLines();
-                break;
-            case 3: story.nattyIntro();
-                break;
-            case 4: story.nattyLines();
-                break;
-            case 5: story.yooIntro();
-                break;
-            case 6: story.yooLines();
-                break;
-            case 7: story.migginsIntro();
-                break;
-            case 8: story.migginsLines();
+            case 0: story.Exposition(); 
                 break;
             default:
                 break;
         }
+
+        // THE WINDOW
 
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
         storyDialogue.setUndecorated(true);
@@ -49,7 +32,7 @@ public class Dialogues extends JFrame {
         JLabel textBox = new JLabel("", SwingConstants.CENTER);
         textBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
         textBox.setForeground(Color.WHITE);
-        textBox.setVerticalAlignment(SwingConstants.NORTH);
+        textBox.setVerticalAlignment(SwingConstants.CENTER);
 
         storyDialogue.getContentPane().setBackground(Color.BLACK);
         storyDialogue.add(textBox, BorderLayout.CENTER);
@@ -91,18 +74,9 @@ public class Dialogues extends JFrame {
         skipButtonPanel.add(skipButton);
 
         storyDialogue.add(skipButtonPanel, BorderLayout.NORTH);
-        
-        this.size = story.getSize();
-        if (ID % 2 != 0) {
-            textBox.setText(story.getLine(0));
-            addMouseListenerForMultipleLines(story, textBox, storyDialogue, 0 , 0, this.size);
-        } else {
-            do {
-                this.index = new Random().nextInt(size);
-            } while (this.index % 2 == 0);
-            textBox.setText(story.getLine(this.index));
-            addMouseListenerForMultipleLines(story, textBox, storyDialogue, 1, this.index, this.size);
-        }
+
+        textBox.setText(story.getLine(0));
+        addMouseListenerForMultipleLines(story, textBox, storyDialogue);
 
         storyDialogue.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -131,23 +105,20 @@ public class Dialogues extends JFrame {
         return new ImageIcon(scaledImg);
     }
 
-    private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue, int random, int index, int size) {
+    private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue) {
         storyDialogue.addMouseListener(new MouseAdapter() {
-            int i = index;
-            int j = index + 2;
+            int index = 0;
+            int size = story.getSize();
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (i < size && random == 0) {
-                    textBox.setText(story.getLine(i));
-                } else if (i < j && random == 1) {
-                    textBox.setText(story.getLine(i));
+                index++;
+                if (index < size) {
+                    textBox.setText(story.getLine(index));
                 } else {
                     storyDialogue.dispose();
                 }
-                i++;
             }
         });
     }  
 }
 
-// Ask me nalang if naa mo questions with the Dialogues, giremove nako ang comments temporarily para easier debugging - Blair
