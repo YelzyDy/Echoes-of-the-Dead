@@ -55,7 +55,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         return isAnimated;
     }
 
-    @Override
     public void initializeSprites(String assetPackage, double width, double height) {
         objSprites.clear();
         int size = numOfSprites;
@@ -87,11 +86,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // System.out.println("Number of sprites loaded: " + objSprites.getSize());
     }
 
-
-    @Override
-    public void initializeSprites(String assetPackage, String type, double scale){
-        
-    }
    
     public void setCurrentFrame(int value){
         currentFrame = value;
@@ -120,12 +114,11 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         }
     }
     
-    @Override
     public void restartAnimation(){
         currentFrame = 0;
     }
     
-    @Override
+
     public void updateAnimation(){
         if(isAnimated){
             currentFrame++;
@@ -150,7 +143,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.posY = posY;
     }
 
-    @Override
     public Image getCurrentSprite() {
         return objSprites.get(currentFrame);      
     }
@@ -169,15 +161,4 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         
     }
 
-
-    @Override
-    public void scaleSprites(String spriteType, double scale) {
-       
-    }
-
-    @Override
-    public void startMovement() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startMovement'");
-    }
 }

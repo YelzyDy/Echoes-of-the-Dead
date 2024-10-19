@@ -180,21 +180,21 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         } else if (source == btn_knight) {
             charType = "knight";
             scene.character.setCharacterType(charType);
-            scene.character.initializeSprites("character_asset", "idle", 18);
+            scene.character.animator.importSprites("character_asset", "idle", 18, 6);
             scene.character.setPosX((int)(width * 0.32)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.setCurrentSceneIndex(0);
         } else if (source == btn_priest) {
             charType = "priest";
             scene.character.setCharacterType(charType);
-            scene.character.initializeSprites("character_asset", "idle", 18);
+            scene.character.animator.importSprites("character_asset", "idle", 18, 6);
             scene.character.setPosX((int)(width * 0.349)); // Update position based on width
             scene.character.setPosY((int)(height * 0.49)); // Update position based on height
             scene.setCurrentSceneIndex(0);
         } else if (source == btn_wizard) {
             charType = "wizard";
             scene.character.setCharacterType(charType);
-            scene.character.initializeSprites("character_asset", "idle", 18);
+             scene.character.animator.importSprites("character_asset", "idle", 18, 6);
             scene.character.setPosX((int)(width * 0.34)); // Update position based on width
             scene.character.setPosY((int)(height * 0.51)); // Update position based on height
             scene.setCurrentSceneIndex(0);
