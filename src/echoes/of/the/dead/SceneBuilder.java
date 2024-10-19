@@ -29,7 +29,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
     private Minions minions1; // minions -z
-    private MiniBoss miniBoss1;
+    private MiniBoss1 miniBoss1;
     private Npc yoo;
     private Npc miggins;
     private Npc faithful;
@@ -89,10 +89,10 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             natty.setPosY((int)(screenSize.height * 0.21));
             this.add(natty);
 
-            miniBoss1 = new MiniBoss("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, character);
+            miniBoss1 = new MiniBoss1("MiniBoss", "gorgon", this, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8);
             this.add(miniBoss1);
 
-            minions1 = new Minions("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8, character);
+            minions1 = new Minions("Minions", "slime", this, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)-40), screenSize.width * 0.4, screenSize.width * 0.8);
             this.add(minions1);
             
             this.setComponentZOrder(yoo, 2);
@@ -112,7 +112,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             initializeWorld1Chars();
         }else if (type.equals("chooseCharacter")){
             character = new Protagonist("name", charType, this, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
-            character.initializeSprites("character_asset", "idle", (int)(screenSize.height * 0.017));
+            character.animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
             this.add(character);
         }
         initializeGameLoop();
@@ -171,9 +171,9 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
 
     private void updateGameState() {
         if (character != null) {
-            character.updateAnimation();
-            character.updateMovement();
-            character.updateBounds();
+            character.animator.updateAnimation();
+            character.animator.updateProtagMovement();
+            character.animator.updateBounds();
         }
         if (portal != null && portal.isAnimated()) {
             portal.updateAnimation();
@@ -185,37 +185,37 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             shop.updateAnimation();
         }
         if (minions1 != null) {
-            minions1.updateAnimation(); 
-            minions1.updateMovement();
-            minions1.updateBounds();
+            minions1.animator.updateAnimation(); 
+            minions1.animator.updateNPCMovement();
+            minions1.animator.updateBounds();
         }
         if (miniBoss1 != null){
-            miniBoss1.updateAnimation(); 
-            miniBoss1.updateMovement();
-            miniBoss1.updateBounds();
+            miniBoss1.animator.updateAnimation(); 
+            miniBoss1.animator.updateNPCMovement();
+            miniBoss1.animator.updateBounds();
         }
         if(yoo != null){
-            yoo.updateAnimation(); 
-            yoo.updateMovement();
-            yoo.updateBounds();
+            yoo.animator.updateAnimation(); 
+            yoo.animator.updateNPCMovement();
+            yoo.animator.updateBounds();
         }
 
         if(miggins != null){
-            miggins.updateAnimation();
-            miggins.updateMovement();
-            miggins.updateBounds();
+            miggins.animator.updateAnimation();
+            miggins.animator.updateNPCMovement();
+            miggins.animator.updateBounds();
         }
 
         if (faithful != null) {  // Update Faithful NPC
-            faithful.updateAnimation();
-            faithful.updateMovement();
-            faithful.updateBounds();
+            faithful.animator.updateAnimation();
+            faithful.animator.updateNPCMovement();
+            faithful.animator.updateBounds();
         }
 
         if (natty != null){
-            natty.updateAnimation();
-            natty.updateMovement();
-            natty.updateBounds();
+            natty.animator.updateAnimation();
+            natty.animator.updateNPCMovement();
+            natty.animator.updateBounds();
         }
         // Add any other game state updates here
     }
