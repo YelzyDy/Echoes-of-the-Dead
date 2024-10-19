@@ -143,7 +143,7 @@ public class MiniBoss extends Character implements MouseInteractable {
         character.setPosY(0); // Adjust Y position as needed
         character.scaleSprites("idle", 4);
 
-        if (characterType.equals("natty")){
+        if (characterType.equals("slime")){
             dialogues.displayDialogues(60, 70, 0, 1);
         }
         if (characterType.equals("missC")) {

@@ -8,45 +8,13 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 public class Dialogues extends JFrame {
+    private ActionListener actionA;
+    private ActionListener actionB;
+    private ActionListener actionC;
+    private ActionListener actionD;
+
     StoryLine story = new StoryLine();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-    private JButton createSkillButton(ImageIcon defaultIcon, ImageIcon hoverIcon, ActionListener action) {
-        JButton button = new JButton(defaultIcon);
-        int width = (int) (screenSize.width * 0.15);
-        int height = (int) (screenSize.height * 0.15);
-        button.setPreferredSize(new Dimension(width, height));
-        button.setBackground(Color.BLACK);
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-        button.addActionListener(action);
-        
-        button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                button.setIcon(hoverIcon);
-            }
-    
-            @Override
-            public void mouseExited(MouseEvent e) {
-                button.setIcon(defaultIcon);
-            }
-        });
-    
-        return button;
-    }
-
-    public ImageIcon scaleImageIcon(String path) {
-        int width = (int) (screenSize.width * 0.3);
-        int height = (int) (screenSize.height * 0.3);
-        
-        ImageIcon icon = new ImageIcon(path);
-        Image img = icon.getImage();
-        
-        Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        
-        return new ImageIcon(scaledImg);
-    }
 
     public void displayDialogues(int firstIndex, int finalIndex, int order, int boxType) {
         int width, height, x, y;
@@ -63,7 +31,7 @@ public class Dialogues extends JFrame {
             y = (int)(screenSize.height * 0.44);
         }
 
-        // THE WINDOW
+        // THE WINDOW & DIALOGUES
 
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
         storyDialogue.setUndecorated(true);
@@ -79,8 +47,28 @@ public class Dialogues extends JFrame {
         storyDialogue.add(textBox, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
 
+        if (order == 0) {
+
+            textBox.setText(story.getLine(firstIndex));
+            addMouseListenerForMultipleLines(story, textBox, storyDialogue, firstIndex, finalIndex);
+
+        } else if (order == 1) {
+
+            int randomIndex = new Random().nextInt(finalIndex - firstIndex) + firstIndex;
+            textBox.setText(story.getLine(randomIndex));
+            storyDialogue.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    storyDialogue.dispose();
+                }
+
+            });
+            
+        }
+
         // THE BUTTONS
         // SKIP BUTTON
+
         if (boxType == 0 || boxType == 1) {
             JButton skipButton = new JButton("SKIP");
             skipButton.setFont(new Font("Monospaced", Font.PLAIN, 28));
@@ -104,21 +92,28 @@ public class Dialogues extends JFrame {
             JPanel skillButtonsPanel = new JPanel(new GridLayout(2, 2, 1, 1));
             skillButtonsPanel.setBackground(Color.BLACK);
 
-            ActionListener actionA = e -> {
-                storyDialogue.dispose();
-            };
+            // CALL THE ENEMY OBJ HERE
 
-            ActionListener actionB = e -> {
-                storyDialogue.dispose();
-            };
+            do {
 
-            ActionListener actionC = e -> {
-                storyDialogue.dispose();
-            };
+                actionA = e -> {
+                    textBox.setText(story.getLine(1));
+                    storyDialogue.setVisible(true);
+                };
 
-            ActionListener actionD = e -> {
-                storyDialogue.dispose();
-            };
+                actionB = e -> {
+                    storyDialogue.dispose();
+                };
+
+                actionC = e -> {
+                    storyDialogue.dispose();
+                };
+
+                actionD = e -> {
+                    storyDialogue.dispose();
+                };
+
+            } while (false);
 
             // Load both default and hover images
             ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
@@ -134,42 +129,22 @@ public class Dialogues extends JFrame {
             ImageIcon skillDHoverIcon = scaleImageIcon("src/button_assets/3rdskill1.png");
 
             // Create skill buttons with hover icons
-            skillButtonsPanel.add(createSkillButton(skillAIcon, skillAHoverIcon, actionA));
-            skillButtonsPanel.add(createSkillButton(skillBIcon, skillBHoverIcon, actionB));
-            skillButtonsPanel.add(createSkillButton(skillCIcon, skillCHoverIcon, actionC));
-            skillButtonsPanel.add(createSkillButton(skillDIcon, skillDHoverIcon, actionD));
+            skillButtonsPanel.add(createSkillButton(skillAIcon, skillAHoverIcon, actionA, textBox, firstIndex, 220));
+            skillButtonsPanel.add(createSkillButton(skillBIcon, skillBHoverIcon, actionB, textBox, firstIndex, 220));
+            skillButtonsPanel.add(createSkillButton(skillCIcon, skillCHoverIcon, actionC, textBox, firstIndex, 220));
+            skillButtonsPanel.add(createSkillButton(skillDIcon, skillDHoverIcon, actionD, textBox, firstIndex, 220));
 
-            storyDialogue.add(skillButtonsPanel, BorderLayout.WEST);
+            storyDialogue.add(skillButtonsPanel, BorderLayout.EAST);
 
         }
-
-        if (order == 0) {
-            textBox.setText(story.getLine(firstIndex));
-            addMouseListenerForMultipleLines(story, textBox, storyDialogue, firstIndex, finalIndex);
-        } else if (order == 1) {
-            int randomIndex = new Random().nextInt(finalIndex - firstIndex) + firstIndex;
-            textBox.setText(story.getLine(randomIndex));
-            storyDialogue.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    storyDialogue.dispose();
-                }
-            });
-        }
-
-        storyDialogue.addKeyListener(new java.awt.event.KeyAdapter() {
-            @Override
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
-                    storyDialogue.dispose();
-                }
-            }
-        });
 
         storyDialogue.setFocusable(true);
         storyDialogue.requestFocusInWindow();
         storyDialogue.setVisible(true);
+        
     }
+
+    // THE METHODS
 
     private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue, int firstIndex, int finalIndex) {
         storyDialogue.addMouseListener(new MouseAdapter() {
@@ -186,6 +161,46 @@ public class Dialogues extends JFrame {
             }
         });
     }
+
+    private JButton createSkillButton(ImageIcon defaultIcon, ImageIcon hoverIcon, ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex) {
+        JButton button = new JButton(defaultIcon);
+        int width = (int) (screenSize.width * 0.15);
+        int height = (int) (screenSize.height * 0.15);
+        button.setPreferredSize(new Dimension(width, height));
+        button.setBackground(Color.BLACK);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.addActionListener(action);
+        
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setIcon(hoverIcon);
+                textBox.setText(story.getLine(hoverIndex));
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setIcon(defaultIcon);
+                textBox.setText(story.getLine(defaultIndex));
+            }
+        });
+    
+        return button;
+    }
+
+    public ImageIcon scaleImageIcon(String path) {
+        int width = (int) (screenSize.width * 0.3);
+        int height = (int) (screenSize.height * 0.3);
+        
+        ImageIcon icon = new ImageIcon(path);
+        Image img = icon.getImage();
+        
+        Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        
+        return new ImageIcon(scaledImg);
+    }
+
 }
 
 // Ask me nalang if naa mo questions with the Dialogues, giremove nako ang comments temporarily para easier debugging - Blair

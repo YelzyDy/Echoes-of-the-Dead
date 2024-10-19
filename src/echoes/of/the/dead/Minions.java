@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
 public class Minions extends Character implements MouseInteractable {
+    Dialogues dialogues = new Dialogues();
     private Random random;
     private long lastMovementTime;
     private long lastDirectionChangeTime;
@@ -143,6 +144,11 @@ public class Minions extends Character implements MouseInteractable {
         character.setPosX(100);
         character.setPosY(0); // Adjust Y position as needed
         character.scaleSprites("idle", 4);
+
+        if (characterType.equals("slime")){
+            
+        }
+        
     }
 
       
