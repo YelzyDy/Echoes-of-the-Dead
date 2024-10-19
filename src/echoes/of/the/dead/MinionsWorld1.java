@@ -43,7 +43,7 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     }
 
     @Override
-    public void initializeSprites(String assetPackage, String type, int scale){
+    public void initializeSprites(String assetPackage, String type, double scale){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
         int size = 8;
         String[] spritePaths = new String[size];
@@ -73,7 +73,7 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
                 isPaused = false;
                 lastMovementTime = currentTime;
                 chooseNewDirection();
-                isMoving = true; // Start moving after pause
+                setIsMoving(true); // Start moving after pause
             }
             return;
         }
@@ -81,19 +81,19 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         if (currentTime - lastMovementTime >= moveDuration) {
             isPaused = true;
             lastMovementTime = currentTime;
-            isMoving = false; // Stop moving when paused
+            setIsMoving(false); // Stop moving when paused
             return;
         }
 
         // Move the NPC
-        if (isMovingRight) {
+        if (getIsMovingRight()) {
             setPosX(getPosX() + moveSpeed); 
-            if (getPosX() >= targetX || getPosX() >= maxRange) {
+            if (getPosX() >= getTragetX() || getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
             setPosX(getPosX() - moveSpeed); 
-            if (getPosX() <= targetX || getPosX() <= minRange) {
+            if (getPosX() <= getTragetX() || getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
@@ -109,9 +109,9 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         lastDirectionChangeTime = currentTime;
         int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
         boolean newDirection = random.nextBoolean();
-        if (newDirection != isMovingRight) {
-            isMovingRight = newDirection;
-            currentFrame = 0; 
+        if (newDirection != getIsMovingRight()) {
+            setIsMovingRight(newDirection);
+            restartAnimation();
         }
         moveTo(target, moveSpeed);
     }
@@ -156,12 +156,12 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     @Override
     public void stopMovement() {
         super.stopMovement();
-        isMoving = false;
+        setIsMoving(false);
     }
     @Override
     public void startMovement() {
         super.startMovement();
-        isMoving = true;
+        setIsMoving(false);
         isPaused = false;
         lastMovementTime = System.currentTimeMillis();
     }

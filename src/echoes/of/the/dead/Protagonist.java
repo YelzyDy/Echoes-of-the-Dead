@@ -22,13 +22,13 @@ public class Protagonist extends Character implements MouseInteractable {
     private int money = 0;
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
-        initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
-        initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
+        initializeSprites("character_asset", "walk", screenSize.height * 0.006);
+        initializeSprites("character_asset", "idle", screenSize.height * 0.006);
         updateBounds();
     }
     
     @Override
-    public void initializeSprites(String assetPackage, String type, int scale){
+    public void initializeSprites(String assetPackage, String type, double scale){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
         int size = (type.equals("walk") ? 8 : 6);
         String[] spritePaths = new String[size];
@@ -49,32 +49,33 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public void updateMovement() {
         int maxPanel = panel.getNumOfScenes() - 1;
-        if (!isMoving) return;
+        int currentScene = panel.getCurrentSceneIndex();
+        if (!getIsMoving()) return;
     
         // Assuming deltaX is the distance to move
-        if (isMovingRight) {
+        if (getIsMovingRight()) {
             setPosX(getPosX() + deltaX - 10);
-            if (getPosX() >= targetX) { // Check if it reached the target position
+            if (getPosX() >= getTragetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
-                setPosX(targetX);; // Ensure it doesn't overshoot
-                if (getPosX()  >= (int)(screenSize.width * 0.8) && panel.currentSceneIndex < maxPanel - 1) {
-                    panel.currentSceneIndex++;
+                setPosX(getTragetX());; // Ensure it doesn't overshoot
+                if (getPosX()  >= (int)(screenSize.width * 0.8) && currentScene< maxPanel - 1) {
+                    panel.incCurrentScene();
                     setPosX((int)(screenSize.width * 0.001));
-                } else if (panel.currentSceneIndex > 0 && getPosX() <= (int)(screenSize.width * 0.05)) {
-                    panel.currentSceneIndex--;
+                } else if (currentScene> 0 && getPosX() <= (int)(screenSize.width * 0.05)) {
+                    panel.decCurrentScene();;
                     setPosX((int)(screenSize.width * 0.09));
                 }   
             }
         } else {
             setPosX(getPosX() + deltaX); 
-            if (getPosX() <= targetX) { // Check if it reached the target position
+            if (getPosX() <= getTragetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
-                setPosX(targetX);
-                if (getPosX()>= (int)(screenSize.width * 0.8) && panel.currentSceneIndex < maxPanel - 1) {
-                    panel.currentSceneIndex++;
+                setPosX(getTragetX());
+                if (getPosX()>= (int)(screenSize.width * 0.8) && currentScene<  maxPanel - 1) {
+                    panel.incCurrentScene();
                     setPosX((int)(screenSize.width * 0.001));
-                } else if (panel.currentSceneIndex > 0 && getPosX() <= (int)(screenSize.width * 0.05)) {
-                    panel.currentSceneIndex--;
+                } else if (currentScene > 0 && getPosX() <= (int)(screenSize.width * 0.05)) {
+                    panel.decCurrentScene();
                     setPosX((int)(screenSize.width * 0.9));
                 }   
             }
@@ -84,15 +85,15 @@ public class Protagonist extends Character implements MouseInteractable {
     public void skill1(){
         switch(this.characterType){
             case "knight":
-                System.out.println(name + " used OBJECTION SURGE");
+                System.out.println(getName() + " used OBJECTION SURGE");
                 System.out.println("-15 Soul Shards, +15 Attack");
                 break;
             case "wizard":
-                System.out.println(name + " used OVERCLOCK");
+                System.out.println(getName() + " used OVERCLOCK");
                 System.out.println("-15 Mana, +15 Attack");
                 break;
             case "priest":
-                System.out.println(name + " used VITAL RUSH");
+                System.out.println(getName() + " used VITAL RUSH");
                 System.out.println("-15 Soul Energy, +15 Attack");  
                 break;
         }
@@ -101,15 +102,15 @@ public class Protagonist extends Character implements MouseInteractable {
     public void skill2(){
         switch(this.characterType){
             case "knight":
-                System.out.println(name + " used ETHEREAL SHIELD OF LOGIC");
+                System.out.println(getName() + " used ETHEREAL SHIELD OF LOGIC");
                 System.out.println("Absorbs 40% damage, if damage is greater than 20% Soul Energy left, increase Soul Shards by 10%");
                 break;
             case "wizard":
-                System.out.println(name + " used QUANTUM SHIFT");
+                System.out.println(getName() + " used QUANTUM SHIFT");
                 System.out.println("Has a 60% chance to dodge the attack. Deals 40 damage and regains 50 mana if successful");
                 break;
             case "priest":
-                System.out.println(name + " used LIFE LEECH");
+                System.out.println(getName() + " used LIFE LEECH");
                 System.out.println("Steals 30% of self's Soul Energy from the opponent");
                 break;
         }
@@ -118,15 +119,15 @@ public class Protagonist extends Character implements MouseInteractable {
     public void skill3(){
         switch(this.characterType){
             case "knight":
-                System.out.println(name + " used TRUTHBINDING");
+                System.out.println(getName() + " used TRUTHBINDING");
                 System.out.println("Deal 200% Attack + 40% Soul Shards damage and the opponent can’t attack this turn");
                 break;
             case "wizard":
-                System.out.println(name + " used CODE RAGE QUAKE");
+                System.out.println(getName() + " used CODE RAGE QUAKE");
                 System.out.println("Induce a strong quake dealing 60 + 25% Mana damage");
                 break;
             case "priest":
-                System.out.println(name + " used VENGEFUL VITALITY");
+                System.out.println(getName() + " used VENGEFUL VITALITY");
                 System.out.println("Deal 60% of Soul Energy lost to the opponent and gains 40% Soul Energy");
                 break;
         }

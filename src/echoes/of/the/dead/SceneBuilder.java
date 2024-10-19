@@ -24,7 +24,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
     protected ImageList sceneList;
     protected ImageList spriteList = new ImageList();
     protected Protagonist character;
-    protected int currentSceneIndex = 0;
+    private int currentSceneIndex = 0;
     private EchoesObjects shop;     // shop png -z
     private EchoesObjects portal;   // portal sa minions -z
     private EchoesObjects portalMB; // portal sa mini boss -z
@@ -47,13 +47,28 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         this.type = type;
         this.setBackground(Color.black);
         this.setLayout(null); // Using null layout for absolute positioning
-        this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4));
-        System.out.println(this.getSize());      
+        this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4)); 
     }
    
     
     public int getNumOfScenes(){
         return sceneList.getSize();
+    }
+
+    public int getCurrentSceneIndex(){
+        return currentSceneIndex;
+    }
+
+    public void setCurrentSceneIndex(int value){
+        this.currentSceneIndex = value;
+    }
+
+    public void decCurrentScene(){
+        this.currentSceneIndex--;
+    }
+
+    public void incCurrentScene(){
+        this.currentSceneIndex++;
     }
 
     public void initializeWorld1Chars(){
@@ -113,7 +128,7 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
             
-            sceneList.resizeImageList((int)(screenSize.width), (int) (screenSize.height * 0.4));
+            sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
             shop = new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2);
             this.add(shop);
             portal = new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);

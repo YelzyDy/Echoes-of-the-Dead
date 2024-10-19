@@ -13,10 +13,8 @@ import java.awt.Image;
  */
 public interface Entity {
     public void updateAnimation();
-    
-    public void stopMovement();
 
-    public void startMovement();
+    public void restartAnimation();
     
     public abstract int getPosX();
 
@@ -26,12 +24,12 @@ public interface Entity {
     
     public abstract Image getCurrentSprite();
 
-    public abstract void initializeSprites(String assetPackage, String type, int scale);
+    public abstract void initializeSprites(String assetPackage, String type, double scale);
 
-    public abstract void initializeSprites(String assetPackage, int width, int height);
+    public abstract void initializeSprites(String assetPackage,  double width, double height);
     
     public abstract void draw(Graphics g);
 
-    public abstract void scaleSprites(String spriteType, int scale);
+    public abstract void scaleSprites(String spriteType, double scale);
 
 }

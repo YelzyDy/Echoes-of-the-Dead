@@ -20,6 +20,10 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
+
+    private boolean isInBattle;
+    private boolean isEnlarged;
+    
     public MiniBoss1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
@@ -41,13 +45,13 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     }
 
     @Override
-    public void initializeSprites(String assetPackage, String type, int scale){
+    public void initializeSprites(String assetPackage, String type, double scale){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
         int size = ((type.equals("walk") ? 13 : 7));
         String[] spritePaths = new String[size];
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + characterType + "/" + type + "/sprite" + (i + 1) + ".png";
-            System.out.println(spritePaths[i]);
+            // System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
@@ -59,8 +63,8 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         }
         ((type.equals("walk"))? walkSprites : idleSprites).scaleImageList(scale);
     }
-     public void updateMovement() {
-        if (isInteracting) {
+    public void updateMovement() {
+        if (isInteracting || isInBattle) {
             return; // Don't update movement if interacting with user
         }
 
@@ -71,7 +75,7 @@ public class MiniBoss1 extends Character implements MouseInteractable {
                 isPaused = false;
                 lastMovementTime = currentTime;
                 chooseNewDirection();
-                isMoving = true; // Start moving after pause
+                setIsMoving(true); // Start moving after pause
             }
             return;
         }
@@ -79,23 +83,22 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         if (currentTime - lastMovementTime >= moveDuration) {
             isPaused = true;
             lastMovementTime = currentTime;
-            isMoving = false; // Stop moving when paused
+            setIsMoving(false); // Stop moving when paused
             return;
         }
 
         // Move the NPC
-        if (isMovingRight) {
+        if (getIsMovingRight()) {
             setPosX(getPosX() + moveSpeed); 
-            if (getPosX() >= targetX || getPosX() >= maxRange) {
+            if (getPosX() >= getTragetX() || getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
             setPosX(getPosX() - moveSpeed); 
-            if (getPosX() <= targetX || getPosX() <= minRange) {
+            if (getPosX() <= getTragetX() || getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
-
         updateBounds();
     }
 
@@ -108,9 +111,9 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         lastDirectionChangeTime = currentTime;
         int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
         boolean newDirection = random.nextBoolean();
-        if (newDirection != isMovingRight) {
-            isMovingRight = newDirection;
-            currentFrame = 0; // Reset animation frame when changing direction
+        if (newDirection != getIsMovingRight()) {
+            setIsMovingRight(newDirection);
+            restartAnimation();
         }
         moveTo(target, moveSpeed);
     }
@@ -120,11 +123,21 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         stopMovement();
         isPaused = true;
         isInteracting = true;
+        isInBattle = true;
+        if (isEnlarged){
+            return;
+        }
+        setPosY(0);
+        scaleSprites("idle", 1.4);
+        isEnlarged = true;
     }
 
       
     @Override
     public void onHover(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         stopMovement();
         isPaused = true;
         isInteracting = true;
@@ -132,21 +145,24 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         isInteracting = false;
         startMovement();
         isPaused = false;
+        isInteracting = false;
     }
     
-      // Modify the stopMovement method
     @Override
     public void stopMovement() {
         super.stopMovement();
-        isMoving = false;
+        setIsMoving(false);
     }
     @Override
     public void startMovement() {
         super.startMovement();
-        isMoving = true;
+        setIsMoving(false);
         isPaused = false;
         lastMovementTime = System.currentTimeMillis();
     }

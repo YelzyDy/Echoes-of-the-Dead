@@ -51,12 +51,12 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.addMouseListener(new MouseClickListener(this));
     }   
     
-    
     public boolean isAnimated(){
         return isAnimated;
     }
+
     @Override
-    public void initializeSprites(String assetPackage, int width, int height) {
+    public void initializeSprites(String assetPackage, double width, double height) {
         objSprites.clear();
         int size = numOfSprites;
         String[] spritePaths = new String[size];
@@ -89,7 +89,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
 
     @Override
-    public void initializeSprites(String assetPackage, String type, int scale){
+    public void initializeSprites(String assetPackage, String type, double scale){
         
     }
    
@@ -114,14 +114,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     @Override
     public void onExit(MouseEvent e) {
         if(!isAnimated && isState){
-            currentFrame = 0;  
+            restartAnimation();
             repaint();    
             return;  
         }
     }
     
     @Override
-    public void stopMovement() {
+    public void restartAnimation(){
         currentFrame = 0;
     }
     
@@ -130,7 +130,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         if(isAnimated){
             currentFrame++;
             if(currentFrame >= objSprites.getSize()){
-                currentFrame = 0;
+                restartAnimation();
             }      
         }
     }
@@ -171,7 +171,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
 
     @Override
-    public void scaleSprites(String spriteType, int scale) {
+    public void scaleSprites(String spriteType, double scale) {
        
     }
 }
