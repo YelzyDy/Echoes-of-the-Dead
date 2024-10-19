@@ -20,11 +20,13 @@ public class Protagonist extends Character implements MouseInteractable {
     private int attack = 20;
     private int health = 150;
     private int money = 0;
+    private boolean isInBattle;
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         initializeSprites("character_asset", "walk", (int)(screenSize.height * 0.006));
         initializeSprites("character_asset", "idle",(int)(screenSize.height * 0.006));
         updateBounds();
+        isInBattle =false;
     }
     
     @Override
@@ -134,6 +136,9 @@ public class Protagonist extends Character implements MouseInteractable {
 
     @Override
     public void onClick(MouseEvent e) {
+        if (isInBattle){
+            return;
+        }
         int deltaX = (e.getX() - getPosX()) / 10;
         moveTo(e.getX(), deltaX);
     }
@@ -146,5 +151,9 @@ public class Protagonist extends Character implements MouseInteractable {
     @Override
     public void onExit(MouseEvent e) {
         
+    }
+
+    public void setIsInBattle (boolean isInBattle){
+        this.isInBattle = isInBattle;
     }
 }

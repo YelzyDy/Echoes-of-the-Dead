@@ -7,7 +7,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
-public class MinionsWorld1 extends Character implements MouseInteractable {
+public class Minions extends Character implements MouseInteractable {
     private Random random;
     private long lastMovementTime;
     private long lastDirectionChangeTime;
@@ -19,10 +19,11 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
-    
+    private Protagonist character;
     private boolean isInBattle;
     private boolean isEnlarged;
-    public MinionsWorld1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
+
+    public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
         random = new Random();
@@ -38,7 +39,7 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         this.addMouseListener(new MouseClickListener(this));
         this.minRange = minRange;
         this.maxRange = maxRange;
-
+        this.character = character;
         startMovement();
     }
 
@@ -63,42 +64,47 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
     }
     public void updateMovement() {
         if (isInteracting || isInBattle) {
-            return; // Don't update movement if interacting with user
+            return; // Don't update movement if interacting or in battle
         }
 
-        long currentTime = System.currentTimeMillis();
+    long currentTime = System.currentTimeMillis();
 
-        if (isPaused) {
-            if (currentTime - lastMovementTime >= pauseDuration) {
-                isPaused = false;
-                lastMovementTime = currentTime;
-                chooseNewDirection();
-                isMoving = true; // Start moving after pause
-            }
-            return;
+    if (isPaused || isEnlarged) {
+        if (currentFrame != 1) {
+            currentFrame = 1;  // Stick to the first idle frame
         }
-
-        if (currentTime - lastMovementTime >= moveDuration) {
-            isPaused = true;
+        if (currentTime - lastMovementTime >= pauseDuration) {
+            isPaused = false;
             lastMovementTime = currentTime;
-            isMoving = false; // Stop moving when paused
-            return;
+            chooseNewDirection();
+            isMoving = true; // Start moving after pause
         }
-
-        // Move the NPC
-        if (isMovingRight) {
-            setPosX(getPosX() + moveSpeed); 
-            if (getPosX() >= targetX || getPosX() >= maxRange) {
-                chooseNewDirection();
-            }
-        } else {
-            setPosX(getPosX() - moveSpeed); 
-            if (getPosX() <= targetX || getPosX() <= minRange) {
-                chooseNewDirection();
-            }
-        }
-        updateBounds();
+        return;
     }
+
+    if (currentTime - lastMovementTime >= moveDuration) {
+        isPaused = true;
+        lastMovementTime = currentTime;
+        isMoving = false; // Stop moving when paused
+        return;
+    }
+
+    // Move the NPC if not paused
+    if (isMovingRight) {
+        setPosX(getPosX() + moveSpeed);
+        if (getPosX() >= targetX || getPosX() >= maxRange) {
+            chooseNewDirection();
+        }
+    } else {
+        setPosX(getPosX() - moveSpeed);
+        if (getPosX() <= targetX || getPosX() <= minRange) {
+            chooseNewDirection();
+        }
+    }
+
+    updateBounds();
+}
+
 
     private void chooseNewDirection() {
         long currentTime = System.currentTimeMillis();
@@ -125,10 +131,18 @@ public class MinionsWorld1 extends Character implements MouseInteractable {
         if (isEnlarged){
             return;
         }
-        //setPosX((int)screenSize);
+
         setPosY(10);
         scaleSprites("idle", 2);
         isEnlarged = true;
+        currentFrame = 1;
+
+        // Enlarge the player
+        character.setIsInBattle(true);
+        character.stopMovement();
+        character.setPosX(100);
+        character.setPosY(0); // Adjust Y position as needed
+        character.scaleSprites("idle", 4);
     }
 
       

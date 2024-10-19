@@ -7,7 +7,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 // This class makes NPC move randomly
-public class MiniBoss1 extends Character implements MouseInteractable {
+public class MiniBoss extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
     private Random random;
     private long lastMovementTime;
@@ -20,10 +20,11 @@ public class MiniBoss1 extends Character implements MouseInteractable {
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
+    private Protagonist character;
     private boolean isInBattle;
     private boolean isEnlarged;
 
-    public MiniBoss1(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
+    public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
         random = new Random();
@@ -39,7 +40,10 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         this.addMouseListener(new MouseClickListener(this));
         this.minRange = minRange;
         this.maxRange = maxRange;
-
+        this.character = character;
+        isEnlarged = false;
+        isInBattle = false;
+        isInteracting = false;
         startMovement();
     }
 
@@ -127,9 +131,19 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         if (isEnlarged){
             return;
         }
-        // set pos x and
-        scaleSprites("idle", (int)0.5);
+
+        setPosY(10);
+        scaleSprites("idle", 2);
         isEnlarged = true;
+        currentFrame = 1;
+
+        // Enlarge the player
+        character.setIsInBattle(true);
+        character.stopMovement();
+        character.setPosX(100);
+        character.setPosY(0); // Adjust Y position as needed
+        character.scaleSprites("idle", 4);
+
         if (characterType.equals("natty")){
             dialogues.displayDialogues(60, 70, 0, 1);
         }
