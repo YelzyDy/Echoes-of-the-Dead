@@ -43,6 +43,7 @@ public class Battle{
     // }
 
     public void skillChoosePlayer(){
+        System.out.print("Choose skill: ");
         int choose = scan.nextInt();
         switch(player.getCharacterType()){
             case "knight":
@@ -61,6 +62,7 @@ public class Battle{
                         break;
                     case 3:
                         player.skill3();
+                        enemyHp -= 100;
                     default:
                 }
                 break;

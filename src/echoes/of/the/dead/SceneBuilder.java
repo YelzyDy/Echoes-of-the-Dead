@@ -245,7 +245,6 @@ public class SceneBuilder extends JPanel implements MouseInteractable { // imple
         Object source = e.getSource();
 
         if(source == portal){
-            System.out.println(source);
             currentSceneIndex = 3;
             isTransportedToSwamp = true;
         }else if (source == portalMB) {

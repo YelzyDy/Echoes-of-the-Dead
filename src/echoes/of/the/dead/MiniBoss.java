@@ -25,6 +25,10 @@ public class MiniBoss extends Character implements MouseInteractable {
         this.character = character;
     }
 
+    public int getHp(){
+        return health;
+    }
+
     @Override
     public void onClick(MouseEvent e) {
         animator.stopMovement();
@@ -51,10 +55,6 @@ public class MiniBoss extends Character implements MouseInteractable {
         //start battle
         Battle battle = new Battle(character, this);
         battle.start();
-    }
-
-    public int getHp(){
-        return health;
     }
 
     @Override
