@@ -64,7 +64,7 @@ public class CharacterAnimator {
         String[] spritePaths = new String[size];
 
         for(int i = 0; i < size; i++){
-            spritePaths[i] = "/" + assetPackage + "/" + character.getCharacterType() + "/" + type + "/sprite" + (i + 1) + ".png";
+            spritePaths[i] = "/" + assetPackage + "/" + character.getCharacterType() + "/" + type + "/sprite_" + (i + 1) + ".png";
             System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
