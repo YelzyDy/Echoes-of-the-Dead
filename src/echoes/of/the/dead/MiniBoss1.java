@@ -12,6 +12,8 @@ public class MiniBoss1 extends Character implements MouseInteractable {
         setVisible(true); // Make sure the NPC is visible
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 13);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.006), 7);
+        animator.getSprite("walk").scaleImageListDown(0.58);
+        animator.getSprite("idle").scaleImageListDown(0.58);
         this.addMouseListener(new MouseClickListener(this));
         animator.startMovement();
         animator.chooseNewDirection(); 

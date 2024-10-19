@@ -26,8 +26,6 @@ public class Character extends TransparentPanel implements Entity{
     private String characterType;
    
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    protected ImageList walkSprites = new ImageList();
-    protected ImageList idleSprites = new ImageList();
     protected SceneBuilder panel;
     protected CharacterAnimator animator;
 

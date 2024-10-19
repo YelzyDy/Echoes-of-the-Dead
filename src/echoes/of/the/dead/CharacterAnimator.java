@@ -45,6 +45,14 @@ public class CharacterAnimator {
         this.maxRange = maxRange;
     }
 
+    public ImageList getSprite(String type){
+        if(type.equals("walk")){
+            return walkSprites;
+        }else{
+            return idleSprites;
+        }
+    }
+
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites){
         ((type.equals("walk"))? walkSprites : idleSprites).clear();
         int size = numOfSprites;
