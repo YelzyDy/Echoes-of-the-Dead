@@ -7,12 +7,13 @@ package echoes.of.the.dead;
 import java.awt.Graphics;
 
 public interface Entity {
+    public double getPosX();
     
-    public int getPosX();
+    public double getPosY();
+    
+    public void setPosX(double posX);
 
-    public void setPosY(int posY);
-    
-    public void setPosX(int posX);
+    public void setPosY(double posY);
     
     public void draw(Graphics g);
 

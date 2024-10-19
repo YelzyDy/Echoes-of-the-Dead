@@ -87,7 +87,7 @@ public class Protagonist extends Character implements MouseInteractable {
         if (isInBattle){
             return;
         }
-        int deltaX = (e.getX() - getPosX()) / 10;
+        int deltaX = ((int)e.getX() - (int)getPosX()) / 10;
         animator.moveTo(e.getX(), deltaX);
     }
 

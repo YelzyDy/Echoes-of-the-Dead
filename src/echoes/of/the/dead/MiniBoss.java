@@ -41,15 +41,15 @@ public class MiniBoss extends Character implements MouseInteractable {
             return;
         }
 
-        setPosX((int)(screenSize.width * 0.6));
+        setPosX(screenSize.width * 0.7);
         setPosY(0);
         animator.scaleSprites("idle", 2);
         animator.isEnlarged = true;
         animator.setCurrentFrame(1);
-
+        animator.setMovingRight(false);
         // Enlarge the player
         character.animator.stopMovement();
-        character.setPosX((int)(screenSize.width * 0.1));
+        character.setPosX(screenSize.width * 0.1);
         character.setPosY(0); // Adjust Y position as needed
         character.animator.scaleSprites("idle", 4);
         character.setIsInBattle(true);

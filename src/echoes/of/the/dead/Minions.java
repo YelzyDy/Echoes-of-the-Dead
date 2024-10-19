@@ -39,7 +39,7 @@ public class Minions extends Character implements MouseInteractable {
             return;
         }
 
-        setPosX((int)(screenSize.width * 0.6));
+        setPosX(screenSize.width * 0.6);
         setPosY(0);
         animator.scaleSprites("idle", 2);
         animator.isEnlarged = true;
@@ -47,7 +47,7 @@ public class Minions extends Character implements MouseInteractable {
 
         // Enlarge the player
         character.animator.stopMovement();
-        character.setPosX((int)(screenSize.width * 0.1));
+        character.setPosX(screenSize.width * 0.1);
         character.setPosY(0); // Adjust Y position as needed
         character.animator.scaleSprites("idle", 4);
         character.setIsInBattle(true);

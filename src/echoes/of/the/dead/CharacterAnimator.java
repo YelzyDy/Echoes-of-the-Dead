@@ -175,7 +175,7 @@ public class CharacterAnimator {
 
     public void updateBounds() {
         Image currentSprite = getCurrentSprite();
-        character.setBounds(character.getPosX(), character.getPosY(), currentSprite.getWidth(null), currentSprite.getHeight(null));
+        character.setBounds((int)character.getPosX(), (int)character.getPosY(), currentSprite.getWidth(null), currentSprite.getHeight(null));
         // System.out.println("Character Animator: " + character.getCharacterType() + " " + "X = " + character.getPosX() + "Y = " + character.getPosX());
     }
 
@@ -190,12 +190,12 @@ public class CharacterAnimator {
             if (character.getPosX() >= getTargetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
                 character.setPosX(getTargetX());; // Ensure it doesn't overshoot
-                if (character.getPosX()  >= (int)(character.screenSize.width * 0.8) && currentScene< maxPanel - 1) {
+                if (character.getPosX()  >= (character.screenSize.width * 0.8) && currentScene< maxPanel - 1) {
                     character.panel.incCurrentScene();
-                    character.setPosX((int)(character.screenSize.width * 0.001));
-                } else if (currentScene> 0 && character.getPosX() <= (int)(character.screenSize.width * 0.05)) {
+                    character.setPosX(character.screenSize.width * 0.001);
+                } else if (currentScene> 0 && character.getPosX() <= (character.screenSize.width * 0.05)) {
                     character.panel.decCurrentScene();;
-                    character.setPosX((int)(character.screenSize.width * 0.09));
+                    character.setPosX(character.screenSize.width * 0.09);
                 }   
             }
         } else {
@@ -203,12 +203,12 @@ public class CharacterAnimator {
             if (character.getPosX() <= getTargetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
                 character.setPosX(getTargetX());
-                if (character.getPosX()>= (int)(character.screenSize.width * 0.8) && currentScene<  maxPanel - 1) {
+                if (character.getPosX()>= (character.screenSize.width * 0.8) && currentScene<  maxPanel - 1) {
                     character.panel.incCurrentScene();
-                    character.setPosX((int)(character.screenSize.width * 0.001));
-                } else if (currentScene > 0 && character.getPosX() <= (int)(character.screenSize.width * 0.05)) {
+                    character.setPosX(character.screenSize.width * 0.001);
+                } else if (currentScene > 0 && character.getPosX() <= (character.screenSize.width * 0.05)) {
                     character.panel.decCurrentScene();
-                    character.setPosX((int)(character.screenSize.width * 0.9));
+                    character.setPosX(character.screenSize.width * 0.9);
                 }   
             }
         }
