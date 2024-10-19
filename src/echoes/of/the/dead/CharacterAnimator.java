@@ -27,6 +27,9 @@ public class CharacterAnimator {
     private double minRange;
     private double maxRange;
 
+    protected boolean isInBattle;
+    protected boolean isEnlarged;
+
     public CharacterAnimator(Character character) {
         this.currentFrame = 0;
         this.isMoving = false;
@@ -38,11 +41,21 @@ public class CharacterAnimator {
         isPaused = false; // Start in a moving state
         walkSprites = new ImageList();
         idleSprites = new ImageList();
+        isEnlarged = false;
+        isInBattle = false;
     }
 
     public void setRange(double minRange, double maxRange){
         this.minRange = minRange;
         this.maxRange = maxRange;
+    }
+
+    public ImageList getSprite(String type){
+        if(type.equals("walk")){
+            return walkSprites;
+        }else{
+            return idleSprites;
+        }
     }
 
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites){
@@ -162,7 +175,7 @@ public class CharacterAnimator {
 
     public void updateBounds() {
         Image currentSprite = getCurrentSprite();
-        character.setBounds(character.getPosX(), character.getPosY(), currentSprite.getWidth(null), currentSprite.getHeight(null));
+        character.setBounds((int)character.getPosX(), (int)character.getPosY(), currentSprite.getWidth(null), currentSprite.getHeight(null));
         // System.out.println("Character Animator: " + character.getCharacterType() + " " + "X = " + character.getPosX() + "Y = " + character.getPosX());
     }
 
@@ -177,12 +190,12 @@ public class CharacterAnimator {
             if (character.getPosX() >= getTargetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
                 character.setPosX(getTargetX());; // Ensure it doesn't overshoot
-                if (character.getPosX()  >= (int)(character.screenSize.width * 0.8) && currentScene< maxPanel - 1) {
+                if (character.getPosX()  >= (character.screenSize.width * 0.8) && currentScene< maxPanel - 1) {
                     character.panel.incCurrentScene();
-                    character.setPosX((int)(character.screenSize.width * 0.001));
-                } else if (currentScene> 0 && character.getPosX() <= (int)(character.screenSize.width * 0.05)) {
+                    character.setPosX(character.screenSize.width * 0.001);
+                } else if (currentScene> 0 && character.getPosX() <= (character.screenSize.width * 0.05)) {
                     character.panel.decCurrentScene();;
-                    character.setPosX((int)(character.screenSize.width * 0.09));
+                    character.setPosX(character.screenSize.width * 0.09);
                 }   
             }
         } else {
@@ -190,19 +203,19 @@ public class CharacterAnimator {
             if (character.getPosX() <= getTargetX()) { // Check if it reached the target position
                 stopMovement(); // Stop when the target is reached
                 character.setPosX(getTargetX());
-                if (character.getPosX()>= (int)(character.screenSize.width * 0.8) && currentScene<  maxPanel - 1) {
+                if (character.getPosX()>= (character.screenSize.width * 0.8) && currentScene<  maxPanel - 1) {
                     character.panel.incCurrentScene();
-                    character.setPosX((int)(character.screenSize.width * 0.001));
-                } else if (currentScene > 0 && character.getPosX() <= (int)(character.screenSize.width * 0.05)) {
+                    character.setPosX(character.screenSize.width * 0.001);
+                } else if (currentScene > 0 && character.getPosX() <= (character.screenSize.width * 0.05)) {
                     character.panel.decCurrentScene();
-                    character.setPosX((int)(character.screenSize.width * 0.9));
+                    character.setPosX(character.screenSize.width * 0.9);
                 }   
             }
         }
     }
 
     public void updateNPCMovement() {
-        if (isInteracting) {
+        if (isInteracting || isInBattle) {
             return; // Don't update movement if interacting with user
         }
 
@@ -255,5 +268,4 @@ public class CharacterAnimator {
         }
         moveTo(target, moveSpeed);
     }
-
 }

@@ -21,13 +21,11 @@ import java.awt.Toolkit;
  // This class basically draws/animates the sprite and sets its bounds
 public class Character extends TransparentPanel implements Entity{
     private String name;
-    private int posX;
-    private int posY;
+    private double posX;
+    private double posY;
     private String characterType;
    
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    protected ImageList walkSprites = new ImageList();
-    protected ImageList idleSprites = new ImageList();
     protected SceneBuilder panel;
     protected CharacterAnimator animator;
 
@@ -51,12 +49,12 @@ public class Character extends TransparentPanel implements Entity{
     }
 
     @Override
-    public int getPosX(){
+    public double getPosX(){
         return posX;
     }
 
-    
-    public int getPosY(){
+    @Override
+    public double getPosY(){
         return posY;
     }
 
@@ -65,11 +63,11 @@ public class Character extends TransparentPanel implements Entity{
     }
 
     @Override
-    public void setPosY(int posY){
+    public void setPosY(double posY){
         this.posY = posY;
     }
     @Override
-    public void setPosX(int posX){
+    public void setPosX(double posX){
         this.posX = posX;
     }
 

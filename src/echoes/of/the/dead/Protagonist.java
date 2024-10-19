@@ -28,12 +28,12 @@ public class Protagonist extends Character implements MouseInteractable {
         isInBattle = false;
     }
 // Created the 3 skills for the protagonists but function will be implemented later --jm
-    public int skill1(){
+    public void skill1(){
         switch(getCharacterType()){
             case "knight": 
                 System.out.println(getName() + " used OBJECTION SURGE");
                 System.out.println("-15 Soul Shards, +15 Attack");
-                
+                break;
             case "wizard":
                 System.out.println(getName() + " used OVERCLOCK");
                 System.out.println("-15 Mana, +15 Attack");
@@ -42,8 +42,6 @@ public class Protagonist extends Character implements MouseInteractable {
                 System.out.println(getName() + " used VITAL RUSH");
                 System.out.println("-15 Soul Energy, +15 Attack");  
                 break;
-            default:
-                return 0;
         }
     }
 
@@ -81,20 +79,15 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
-    public int getHp(){
-        return health;
+    public void setIsInBattle (boolean isInBattle){
+        this.isInBattle = isInBattle;
     }
-
-    public int getMana(){
-        return mana;
-    }
- 
     @Override
     public void onClick(MouseEvent e) {
         if (isInBattle){
             return;
         }
-        int deltaX = (e.getX() - getPosX()) / 10;
+        int deltaX = ((int)e.getX() - (int)getPosX()) / 10;
         animator.moveTo(e.getX(), deltaX);
     }
 
@@ -106,9 +99,5 @@ public class Protagonist extends Character implements MouseInteractable {
     @Override
     public void onExit(MouseEvent e) {
         
-    }
-
-    public void setIsInBattle (boolean isInBattle){
-        this.isInBattle = isInBattle;
     }
 }

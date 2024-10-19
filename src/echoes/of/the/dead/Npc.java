@@ -20,7 +20,7 @@ public class Npc extends Character implements MouseInteractable {
         this.addMouseListener(new MouseClickListener(this));
         animator.startMovement();
         animator.chooseNewDirection(); 
-        
+
         System.out.println();
         animator.updateBounds();
         animator.setRange(minRange, maxRange);
@@ -31,6 +31,7 @@ public class Npc extends Character implements MouseInteractable {
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
+        
         if (getCharacterType().equals("natty")){
             if (natty != 0) {
                 dialogues.displayDialogues(70, 80, 1, 1);
