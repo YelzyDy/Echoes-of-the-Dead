@@ -7,11 +7,12 @@ public class Battle{
     private int enemyHp;
     private int playerHp;
     private Protagonist player;
-    private MiniBoss enemy;
-    public Battle(Protagonist player, MiniBoss enemy){
+    private MiniBoss miniboss;
+    private Minions minion;
+    public Battle(Protagonist player, MiniBoss miniboss){
         this.player = player;
-        this.enemy = enemy;
-        enemyHp = enemy.getHp();
+        this.miniboss = miniboss;
+        enemyHp = miniboss.getHp();
         playerHp = player.getHp();
     }
 
