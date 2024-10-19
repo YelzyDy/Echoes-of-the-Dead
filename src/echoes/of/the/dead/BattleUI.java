@@ -22,7 +22,7 @@ public class BattleUI extends JFrame {
 
         // THE WINDOW & DIALOGUES
 
-        story.Exposition();
+        story.skillDetails();
 
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
         storyDialogue.setUndecorated(true);
@@ -44,19 +44,25 @@ public class BattleUI extends JFrame {
         skillButtonsPanel.setBackground(Color.BLACK);
 
         // ACTION LISTENERS
+        textBox.setText(story.getLine(0));
 
         actionA = e -> {
-            textBox.setText(story.getLine(1));
-            storyDialogue.setVisible(true);
+            // Add implementation here
+            storyDialogue.dispose();
+        };
+        actionB = e -> {
+            // Add implementation here
+            storyDialogue.dispose();
+        };
+        actionC = e -> {
+            // Add implementation here
+            storyDialogue.dispose();
+        };
+        actionD = e -> {
+            // Add implementation here
+            storyDialogue.dispose();
         };
 
-        actionB = e -> storyDialogue.dispose();
-
-        actionC = e -> storyDialogue.dispose();
-
-        actionD = e -> storyDialogue.dispose();
-
-        // Load both default and hover images
         ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
         ImageIcon skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
 
@@ -69,11 +75,10 @@ public class BattleUI extends JFrame {
         ImageIcon skillDIcon = scaleImageIcon("src/button_assets/3rdskill0.png");
         ImageIcon skillDHoverIcon = scaleImageIcon("src/button_assets/3rdskill1.png");
 
-        // Create skill buttons with hover icons
-        skillButtonsPanel.add(createSkillButton(skillAIcon, skillAHoverIcon, actionA, textBox, 4, 3, 0));
-        skillButtonsPanel.add(createSkillButton(skillBIcon, skillBHoverIcon, actionB, textBox, 4, 3, 0));
-        skillButtonsPanel.add(createSkillButton(skillCIcon, skillCHoverIcon, actionC, textBox, 4, 3, 0));
-        skillButtonsPanel.add(createSkillButton(skillDIcon, skillDHoverIcon, actionD, textBox, 4, 3, 0));
+        skillButtonsPanel.add(createSkillButton(story, skillAIcon, skillAHoverIcon, actionA, textBox, 0, 1));
+        skillButtonsPanel.add(createSkillButton(story, skillBIcon, skillBHoverIcon, actionB, textBox, 0, 2));
+        skillButtonsPanel.add(createSkillButton(story, skillCIcon, skillCHoverIcon, actionC, textBox, 0, 3));
+        skillButtonsPanel.add(createSkillButton(story, skillDIcon, skillDHoverIcon, actionD, textBox, 0, 4));
 
         storyDialogue.add(skillButtonsPanel, BorderLayout.EAST);
 
@@ -85,7 +90,7 @@ public class BattleUI extends JFrame {
 
     // THE METHODS
 
-    private JButton createSkillButton(ImageIcon defaultIcon, ImageIcon hoverIcon, ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex, int size) {
+    private JButton createSkillButton(StoryLine story, ImageIcon defaultIcon, ImageIcon hoverIcon, ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex) {
         JButton button = new JButton(defaultIcon);
         int width = (int) (screenSize.width * 0.15);
         int height = (int) (screenSize.height * 0.15);

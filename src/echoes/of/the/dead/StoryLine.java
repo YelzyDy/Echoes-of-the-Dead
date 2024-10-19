@@ -10,6 +10,7 @@ public class StoryLine {
         private final String[] yooLines = new String[100];
         private final String[] migginsIntro = new String[100];
         private final String[] migginsLines = new String[100];
+        private final String[] skillDetails = new String[100];
         private String[] arr = new String[100];
         private int size;
 
@@ -208,7 +209,7 @@ public class StoryLine {
                 this.arr = this.migginsIntro;
 
         }
-        
+
         public void migginsLines() {
                 int i = 0;
 
@@ -225,6 +226,19 @@ public class StoryLine {
 
                 this.size = i;
                 this.arr = this.migginsLines;
+        }
+        
+        public void skillDetails() {
+                int i = 0;
+
+                this.skillDetails[i++] = "You have approached an enemy!";
+                this.skillDetails[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
+                this.skillDetails[i++] = "Objection Surge: Sacrifice 15 soul shards to buff attack by 15 for the whole fight";
+                this.skillDetails[i++] = "Ethereal Shield of Logic: Defends against the next damage taken by 40%. If damage taken is greater than 20% of soul energy left, soul shards gain increases by 10% this round.";
+                this.skillDetails[i++] = "Truthbinding: Deal 200% Attack + 20% Soul Shards damage and the enemy can’t attack this turn.";
+
+                this.size = i;
+                this.arr = this.skillDetails;
 
         }
 
