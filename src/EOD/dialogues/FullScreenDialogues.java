@@ -1,4 +1,4 @@
-package echoes.of.the.dead;
+package EOD.dialogues;
 
 import javax.swing.*;
 import java.awt.*;

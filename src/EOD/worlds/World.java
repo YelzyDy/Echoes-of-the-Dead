@@ -1,4 +1,4 @@
-package echoes.of.the.dead;
+package EOD.worlds;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,20 +6,28 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
+import EOD.characters.Protagonist;
+import EOD.characters.MiniBoss;
+import EOD.MouseInteractable;
+import EOD.objects.*;
+import EOD.scenes.*;
+import EOD.characters.*;
+import EOD.listeners.*;
+
 public class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
     private String protagType; // variable for the protagType knight/priest/wizard
     private String playerName; // variable for player name -- jian
     //removed btn_shop. Let's create a class for shop so we can implement it easier. -- jian
 
     private EchoesObjects promptPanel;
-    public EchoesObjects btn_ok;
+    protected EchoesObjects btn_ok;
     private JTextField name;  
+    private JPanel motherPanel;
+    private String worldType;  
 
-    public SceneBuilder scene;
-    public JPanel motherPanel;
-    public Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-    private String worldType;   
+    protected SceneBuilder scene;
+    protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    protected Protagonist protag; 
 
     public Minions minions1; // minions -z
     public MiniBoss miniBoss1; // this is just temporary... this should be a list of enemeies. 
@@ -43,6 +51,10 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         motherPanel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
         motherPanel.setLayout(null); // Set layout for the panel
         this.setContentPane(motherPanel); 
+    }
+
+    public Protagonist getProtag(){
+        return protag;
     }
 
     public String getPlayerName(){

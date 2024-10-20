@@ -1,7 +1,12 @@
-package echoes.of.the.dead;
+package EOD.characters;
 
 import java.awt.event.MouseEvent;
 
+import EOD.MouseInteractable;
+import EOD.listeners.MouseClickListener;
+import EOD.scenes.BattleUI;
+import EOD.scenes.SceneBuilder;
+import EOD.dialogues.*;
 
 // This class makes NPC move randomly
 public class Minions extends Character implements MouseInteractable {

@@ -1,10 +1,12 @@
-package echoes.of.the.dead;
+package EOD.scenes;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import EOD.dialogues.*;
 
 public class BattleUI extends JFrame {
     StoryLine story = new StoryLine();

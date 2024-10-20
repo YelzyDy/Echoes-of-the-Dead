@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package echoes.of.the.dead;
+package EOD.scenes;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,10 +11,15 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer; // -z
+
 import java.awt.event.ActionEvent; // -z
 import java.awt.event.ActionListener; // -z
 import java.util.ArrayList;
 
+import EOD.worlds.*;
+import EOD.utils.*;
+import EOD.characters.*;
+import EOD.objects.*;
 /**
  *
  * @author Joana
@@ -22,7 +27,6 @@ import java.util.ArrayList;
 public class SceneBuilder extends JPanel{ 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private ImageList sceneList;
-    protected Protagonist protag;
     private int currentSceneIndex;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     
@@ -34,6 +38,8 @@ public class SceneBuilder extends JPanel{
     public ArrayList<EchoesObjects> objList;
 
     public ArrayList<Npc> npcList;
+
+    private Protagonist protag;
 
     public SceneBuilder(World world){
         this.world = world;
@@ -52,6 +58,11 @@ public class SceneBuilder extends JPanel{
         currentSceneIndex = 0;
     }
 
+    public Protagonist getProtag(){
+        return protag;
+    }
+
+
     public ImageList getSceneList(){
         return sceneList;
     }
@@ -65,6 +76,9 @@ public class SceneBuilder extends JPanel{
         return currentSceneIndex;
     }
 
+    public void setProtag(Protagonist protag){
+        this.protag = protag;
+    }
     public void setWorld(World world){
         this.world = world;
     }
@@ -113,11 +127,13 @@ public class SceneBuilder extends JPanel{
         gameLoopTimer.start();
     }
 
+    
     private void updateGameState() {
         if (protag != null) {
-            protag.animator.updateAnimation();
-            protag.animator.updateProtagMovement();
-            protag.animator.updateBounds();
+            CharacterAnimator animator = protag.getAnimator();
+            animator.updateAnimation();
+            animator.updateProtagMovement();
+            animator.updateBounds();
         }
 
         if(world != null){
@@ -128,22 +144,25 @@ public class SceneBuilder extends JPanel{
 
 
             for (Npc npc : npcList) {
+                CharacterAnimator animator = npc.getAnimator();
                 if(npc != null){
-                    npc.animator.updateAnimation(); 
-                    npc.animator.updateNPCMovement();
-                    npc.animator.updateBounds();
+                    animator.updateAnimation(); 
+                    animator.updateNPCMovement();
+                    animator.updateBounds();
                 }
             }
 
             if (world.minions1 != null) {
-                world.minions1.animator.updateAnimation(); 
-                world.minions1.animator.updateNPCMovement();
-                world.minions1.animator.updateBounds();
+                CharacterAnimator animator = world.minions1.getAnimator();
+                animator.updateAnimation(); 
+                animator.updateNPCMovement();
+                animator.updateBounds();
             }
             if (world.miniBoss1 != null){
-                world.miniBoss1.animator.updateAnimation(); 
-                world.miniBoss1.animator.updateNPCMovement();
-                world.miniBoss1.animator.updateBounds();
+                CharacterAnimator animator = world.miniBoss1.getAnimator();
+                animator.updateAnimation(); 
+                animator.updateNPCMovement();
+                animator.updateBounds();
             }
         }
     }

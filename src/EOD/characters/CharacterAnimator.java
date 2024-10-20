@@ -1,8 +1,11 @@
-package echoes.of.the.dead;
+package EOD.characters;
 
 import java.awt.Image;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import EOD.utils.ImageList;
+
 import java.util.Random;
 
 public class CharacterAnimator {
