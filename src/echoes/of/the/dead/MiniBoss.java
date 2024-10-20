@@ -28,30 +28,7 @@ public class MiniBoss extends Character implements MouseInteractable {
     public int getHp(){
         return health;
     }
-
-    public void endBattle() {
-        // Remove the miniboss from the panel directly using the stored panel reference
-        if (panel != null) {
-            System.out.println("Removing miniboss using stored panel reference");
-            panel.remove(this);
-            panel.revalidate();
-            panel.repaint();
-        } else {
-            System.out.println("Panel is null; cannot remove miniboss");
-        }
-    
-        // Reset the player's state and move it to the center of the screen
-        character.animator.scaleSprites("idle", 1); // Reset player scale
-        character.setPosX(screenSize.width / 2); // Center the character horizontally
-        character.setPosY(screenSize.height / 2); // Center the character vertically
-        character.setIsInBattle(false);
-        character.setVisible(true); // Ensure the character is visible
-        character.animator.startMovement(); // Resume movement
-        System.out.println("Character position after battle: (" + character.getPosX() + ", " + character.getPosY() + ")");
-        System.out.println("Character visibility: " + character.isVisible());
-    }   
-    
-    
+ 
     @Override
     public void onClick(MouseEvent e) {
         animator.stopMovement();
@@ -68,15 +45,11 @@ public class MiniBoss extends Character implements MouseInteractable {
         animator.isEnlarged = true;
         animator.setCurrentFrame(1);
         animator.setMovingRight(false);
-        // Enlarge the player
-        character.animator.stopMovement();
-        character.setPosX(screenSize.width * 0.1);
-        character.setPosY(0); // Adjust Y position as needed
-        character.animator.scaleSprites("idle", 4);
-        character.setIsInBattle(true);
-
+        
         //start battle
         new Thread(() -> {
+            //gibalhin nakos protagonist dapit sa setisinbattle ang katong modako siya - jm
+            character.setIsInBattle(true);
             Battle battle = new Battle(character, this);
             battle.start();
             
@@ -88,9 +61,8 @@ public class MiniBoss extends Character implements MouseInteractable {
                     Thread.currentThread().interrupt();
                 }
             }
-    
-            // After the battle ends, reset player and miniboss
-            endBattle();
+
+            character.setIsInBattle(false);
         }).start();
         
     }

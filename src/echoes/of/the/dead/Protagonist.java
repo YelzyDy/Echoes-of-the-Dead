@@ -119,6 +119,20 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public void setIsInBattle (boolean isInBattle){
         this.isInBattle = isInBattle;
+        if(this.isInBattle){
+            System.out.println("Entering battle mode. Scaling sprite to size 2.");
+            this.animator.stopMovement();
+            this.setPosX(screenSize.width * 0.1);
+            this.setPosY(0); // Adjust Y position as needed
+            this.animator.scaleSprites("idle", 2);
+        }else{
+            System.out.println("Exiting battle mode. Resetting sprite size to 1.");
+            this.animator.startMovement();
+            this.setPosX(screenSize.width * 0.1);
+            this.setPosY(0); // Adjust Y position as needed
+            this.animator.scaleSprites("idle", 1);
+        }
+        
     }
 
     @Override
