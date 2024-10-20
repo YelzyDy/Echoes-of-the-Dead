@@ -4,7 +4,6 @@
  */
 package echoes.of.the.dead;
 
-
 import java.awt.event.MouseEvent;
 
 /**
@@ -18,6 +17,7 @@ public class Protagonist extends Character implements MouseInteractable {
     private int health = 150;
     private int money = 0;
     private boolean isInBattle;
+
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         System.out.println("test");
