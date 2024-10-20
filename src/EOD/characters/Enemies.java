@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package echoes.of.the.dead;
+package EOD.characters;
 
-import java.awt.event.MouseEvent;
 
 /**
  *
- * @author Joana
+ * @author zendy
  */
-public interface MouseInteractable {
-    void onClick(MouseEvent e);
-    void onHover(MouseEvent e);
-    void onExit(MouseEvent e);
+
+// add logic methods such as skills here
+public class Enemies {
+    
 }

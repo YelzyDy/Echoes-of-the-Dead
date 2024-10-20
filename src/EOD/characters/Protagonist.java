@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package echoes.of.the.dead;
+package EOD.characters;
 
 import java.awt.event.MouseEvent;
+
+import EOD.MouseInteractable;
+import EOD.scenes.SceneBuilder;
 
 /**
  *
@@ -17,7 +20,7 @@ public class Protagonist extends Character implements MouseInteractable {
     private int health = 150;
     private int money = 0;
     private boolean isInBattle;
-
+    
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         System.out.println("test");
@@ -27,6 +30,7 @@ public class Protagonist extends Character implements MouseInteractable {
         System.out.println("Protagonist: " + posX + " " + posY);
         isInBattle = false;
     }
+
 // Created the 3 skills for the protagonists but function will be implemented later --jm
     public void skill1(){
         switch(getCharacterType()){

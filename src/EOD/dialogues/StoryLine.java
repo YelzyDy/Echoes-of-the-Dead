@@ -1,4 +1,4 @@
-package echoes.of.the.dead;
+package EOD.dialogues;
 
 public class StoryLine {
         private String[] arr = new String[50];

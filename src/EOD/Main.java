@@ -1,9 +1,13 @@
-package echoes.of.the.dead;
+package EOD;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+
+import EOD.objects.EchoesObjects;
+import EOD.listeners.MouseClickListener;
+import EOD.dialogues.*;
 
 public class Main extends javax.swing.JFrame implements MouseInteractable {
     FullScreenDialogues dialogues = new FullScreenDialogues();

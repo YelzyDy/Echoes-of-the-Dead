@@ -1,6 +1,12 @@
-package echoes.of.the.dead;
+package EOD.characters;
 
 import java.awt.event.MouseEvent;
+
+import EOD.scenes.Battle;
+import EOD.dialogues.Dialogues;
+import EOD.listeners.MouseClickListener;
+import EOD.MouseInteractable;
+import EOD.scenes.SceneBuilder;
 
 
 // This class makes NPC move randomly

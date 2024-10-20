@@ -1,7 +1,12 @@
-package echoes.of.the.dead;
+package EOD.scenes;
 
 import java.util.Scanner;
 import java.util.Random;
+
+import EOD.characters.MiniBoss;
+import EOD.characters.Minions;
+import EOD.characters.Protagonist;
+
 
 // Used to interact with other "Entity/s"
 public class Battle{

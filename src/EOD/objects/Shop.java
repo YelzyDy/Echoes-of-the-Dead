@@ -1,7 +1,10 @@
-package echoes.of.the.dead;
+package EOD.objects;
 
 import java.awt.*;
-import java.awt.event.MouseEvent; 
+import java.awt.event.MouseEvent;
+
+import EOD.listeners.MouseClickListener;
+import EOD.MouseInteractable; 
 
 public class Shop extends EchoesObjects implements MouseInteractable {
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

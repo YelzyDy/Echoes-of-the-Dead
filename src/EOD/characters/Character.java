@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package echoes.of.the.dead;
+package EOD.characters;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,6 +10,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+
+import EOD.entities.Entity;
+import EOD.scenes.SceneBuilder;
+import EOD.utils.TransparentPanel;
 /**
 
 
@@ -38,6 +42,10 @@ public class Character extends TransparentPanel implements Entity{
         animator = new CharacterAnimator(this);
     }   
 
+    public CharacterAnimator getAnimator(){
+        return animator;
+    }
+    
     public String getName(){
         return name;
     }

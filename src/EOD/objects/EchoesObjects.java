@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package echoes.of.the.dead;
+package EOD.objects;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,6 +13,11 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import EOD.MouseInteractable;
+import EOD.listeners.MouseClickListener;
+import EOD.utils.*;
+import EOD.entities.*;
 
 /**
  *

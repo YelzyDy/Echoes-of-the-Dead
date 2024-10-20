@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package echoes.of.the.dead;
+package EOD;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,26 +11,36 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import EOD.characters.CharacterAnimator;
+import EOD.characters.Protagonist;
+import EOD.objects.EchoesObjects;
+import EOD.worlds.World;
+import EOD.worlds.World1;
+import EOD.listeners.MouseClickListener;
+import EOD.scenes.SceneBuilder;
+import EOD.utils.*;
 /**
  *
  * @author Joana
  */
 public class ChooseChar extends javax.swing.JFrame implements MouseInteractable {
-    SceneBuilder scene;
-    TransparentPanel btn_knight;
-    TransparentPanel btn_wizard;
-    TransparentPanel btn_priest;
-    EchoesObjects btn_select;
-    EchoesObjects btn_ok;
-    EchoesObjects btn_cancel;
-    EchoesObjects promptPanel;
-    String charType;
-    JTextField nameField;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int width = screenSize.width;
-    int height = screenSize.height;
-    boolean selectButtonIsEnable = true;
+    private SceneBuilder scene;
+    private TransparentPanel btn_knight;
+    private TransparentPanel btn_wizard;
+    private TransparentPanel btn_priest;
+    private EchoesObjects btn_select;
+    private EchoesObjects btn_ok;
+    private EchoesObjects btn_cancel;
+    private EchoesObjects promptPanel;
+    private String charType;
+    private JTextField nameField;
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private int width = screenSize.width;
+    private int height = screenSize.height;
+    private boolean selectButtonIsEnable = true;
 
+    private Protagonist protag;
     public ChooseChar() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.setTitle("Choose Character"); 
@@ -59,9 +69,10 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     public void initiializeProtagonist(){
-        scene.protag = new Protagonist("name", charType, scene, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
-        scene.protag.animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
-        scene.add(scene.protag);
+        protag = new Protagonist("name", charType, scene, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
+        scene.setProtag(protag);
+        protag.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
+        scene.add(protag);
         scene.initializeGameLoop();
     }
     public void addScene() {
@@ -160,6 +171,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         // Since we have many EchoesObjects (buttons) that is attached with a MouseListener, we have to listen --jian
         // which of them caused the event using e.getSource() --jian
         Object source = e.getSource();
+        CharacterAnimator animator = protag.getAnimator();
         if (source == btn_select) {
             if(!selectButtonIsEnable){ // this prevents the execution of the following lines of code --jian
                 // when our promptPanel is Visible --jian
@@ -176,24 +188,24 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.setComponentZOrder(promptPanel, 0);
         } else if (source == btn_knight) {
             charType = "knight";
-            scene.protag.setCharacterType(charType);
-            scene.protag.animator.importSprites("character_asset", "idle", 18, 6);
-            scene.protag.setPosX(width * 0.32); // Update position based on width
-            scene.protag.setPosY(height * 0.51); // Update position based on height
+            protag.setCharacterType(charType);
+            animator.importSprites("character_asset", "idle", 18, 6);
+            protag.setPosX(width * 0.32); // Update position based on width
+            protag.setPosY(height * 0.51); // Update position based on height
             scene.setCurrentSceneIndex(0);
         } else if (source == btn_priest) {
             charType = "priest";
-            scene.protag.setCharacterType(charType);
-            scene.protag.animator.importSprites("character_asset", "idle", 18, 6);
-            scene.protag.setPosX(width * 0.349); // Update position based on width
-            scene.protag.setPosY(height * 0.49); // Update position based on height
+            protag.setCharacterType(charType);
+            animator.importSprites("character_asset", "idle", 18, 6);
+            protag.setPosX(width * 0.349); // Update position based on width
+            protag.setPosY(height * 0.49); // Update position based on height
             scene.setCurrentSceneIndex(1);
         } else if (source == btn_wizard) {
             charType = "wizard";
-            scene.protag.setCharacterType(charType);
-            scene.protag.animator.importSprites("character_asset", "idle", 18, 6);
-            scene.protag.setPosX(width * 0.34); // Update position based on width
-            scene.protag.setPosY(height * 0.51); // Update position based on height
+            protag.setCharacterType(charType);
+            animator.importSprites("character_asset", "idle", 18, 6);
+            protag.setPosX(width * 0.34); // Update position based on width
+            protag.setPosY(height * 0.51); // Update position based on height
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian

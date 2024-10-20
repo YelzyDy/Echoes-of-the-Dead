@@ -1,11 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package echoes.of.the.dead;
+package EOD.worlds;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
+import EOD.objects.Shop;
+import EOD.objects.EchoesObjects;
+import EOD.characters.*;
+import EOD.listeners.MouseClickListener;
+import EOD.scenes.SceneBuilder;
 
 /**
  *
@@ -21,11 +23,11 @@ public class World1 extends World{
     
     public void initializeProtagonist(){
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        scene.protag = new Protagonist(getPlayerName(), getProtagType(), scene, 0, (int)(screenSize.height * 0.24));
-        scene.addMouseListener(new MouseClickListener(scene.protag));
-        scene.add(scene.protag);
-        scene.setComponentZOrder(scene.protag, 0);
-        motherPanel.add(scene);
+        protag = new Protagonist(getPlayerName(), getProtagType(), scene, 0, (int)(screenSize.height * 0.24));
+        scene.setProtag(protag);
+        scene.addMouseListener(new MouseClickListener(protag));
+        scene.add(protag);
+        scene.setComponentZOrder(protag, 0);
     }
 
     public void initializeObjects(){
@@ -70,10 +72,10 @@ public class World1 extends World{
                 npc.setIndex(1);
             } 
         }
-        miniBoss1 = new MiniBoss("MiniBoss", "necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, 50, 10, scene.protag);
+        miniBoss1 = new MiniBoss("MiniBoss", "necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, 50, 10, protag);
         scene.add(miniBoss1);
 
-        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8,  scene.protag);
+        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8, protag);
         scene.add(minions1);
 
         scene.setComponentZOrder(miniBoss1, 1);
