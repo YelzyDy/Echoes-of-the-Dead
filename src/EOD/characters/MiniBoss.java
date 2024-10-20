@@ -15,7 +15,6 @@ public class MiniBoss extends Character implements MouseInteractable {
     private SceneBuilder panel;
     Dialogues dialogues = new Dialogues();
     private Protagonist character;
-    private MiniBoss miniboss = this;
     private boolean isItDefeated = false;
 
     public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, int numIdleSprites, int numWalkSprites,  Protagonist character) {

@@ -48,6 +48,16 @@ public class Battle{
 
     }
 
+    public Battle(Protagonist player, Minions minion){
+        this.player = player;
+        this.minion = minion;
+        enemyHp = miniboss.getHp();
+        playerHp = player.getHp();
+        playerAttack = player.getAttack();
+        playerMana = player.getMana();
+        playerMoney = player.getMoney();
+    }
+
     //if the enemy is a minion (to be implemented soon)
     // public Battle(Protagonist player, Minions minion){
     //     this.player = player;

@@ -1,18 +1,19 @@
 package EOD.characters;
 
-import java.awt.event.MouseEvent;
-
 import EOD.MouseInteractable;
+import EOD.dialogues.*;
 import EOD.listeners.MouseClickListener;
+import EOD.scenes.Battle;
 import EOD.scenes.BattleUI;
 import EOD.scenes.SceneBuilder;
-import EOD.dialogues.*;
+import java.awt.event.MouseEvent;
 
 // This class makes NPC move randomly
 public class Minions extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
     BattleUI battleUI = new BattleUI();
     private Protagonist character;
+    private boolean isItDefeated = false;
 
     public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, int numIdleSprites, int numWalkSprites, Protagonist character) {
         super(name, characterType, panel, posX, posY);
@@ -52,14 +53,25 @@ public class Minions extends Character implements MouseInteractable {
         animator.setCurrentFrame(1);
         animator.setMovingRight(false);
         // Enlarge the player
-        character.animator.stopMovement();
-        character.setPosX(screenSize.width * 0.1);
-        character.setPosY(0.); // Adjust Y position as needed
-        character.animator.scaleSprites("idle", 2);
-        character.setIsInBattle(true);
-        // Battle battle = new Battle(character, this);
-        // battle.start();
         battleUI.displayDialogues();
+        new Thread(() -> {
+            //gibalhin nakos protagonist dapit sa setisinbattle ang katong modako siya - jm
+            character.setIsInBattle(true);
+            Battle battle = new Battle(character, this);
+            battle.start();
+            
+            // Wait for the battle to end
+            while (!battle.battleOver) {
+                try {
+                    Thread.sleep(100); // Check every 100ms
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+
+            character.setIsInBattle(false);
+            isItDefeated = true;
+        }).start();
     }
 
     @Override
