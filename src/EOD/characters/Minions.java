@@ -10,8 +10,13 @@ import java.awt.event.MouseEvent;
 
 // This class makes NPC move randomly
 public class Minions extends Character implements MouseInteractable {
+
     Dialogues dialogues = new Dialogues();
     BattleUI battleUI = new BattleUI();
+    private int health = 100;
+    private int attack = 10;
+    //depends on the world
+    private int moneyDrop = 50;
     private Protagonist character;
     private boolean isItDefeated = false;
 
@@ -28,13 +33,20 @@ public class Minions extends Character implements MouseInteractable {
         this.character = character;
     }
 
-    // private int playerHp;
-    // public void Battle(Protagonist player){
-    //     playerHp = player.getHp();
-    //     while(playerHp > 0 || health > 0){
-    //         health -= player.skill1();
-    //     }
-    // }
+    //get hp for battle sequence
+    public int getHp(){
+        return health;
+    }
+ 
+    //get atk for battle sequence
+    public int getAttack(){
+        return attack;
+    }
+
+    //get moneydrop for after battle sequence
+    public int getMoneyDrop(){
+        return moneyDrop;
+    }
 
     @Override
     public void onClick(MouseEvent e) {
@@ -52,6 +64,7 @@ public class Minions extends Character implements MouseInteractable {
         animator.isEnlarged = true;
         animator.setCurrentFrame(1);
         animator.setMovingRight(false);
+
         // Enlarge the player
         battleUI.displayDialogues();
         new Thread(() -> {

@@ -15,10 +15,13 @@ import EOD.scenes.SceneBuilder;
  */
 
 public class Protagonist extends Character implements MouseInteractable {
-    private int mana = 100;
-    private int attack = 20;
-    private int health = 150;
-    private int money = 0;
+
+    private int mana;
+    private int baseMana;
+    private int attack;
+    private int health;
+    private int baseHealth;
+    private int money;
     private boolean isInBattle;
     
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
@@ -29,9 +32,34 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.updateBounds();
         System.out.println("Protagonist: " + posX + " " + posY);
         isInBattle = false;
+
+        //buffs depending on characterType
+        switch(getCharacterType()){
+            case "knight": 
+                health = 150;
+                baseHealth = health;
+                mana = 100;
+                baseMana = mana;
+                money = 40;
+                break;
+            case "wizard":
+                health = 150;
+                baseHealth = health;
+                mana = 130;
+                baseMana = mana;
+                money = 0;
+                break;
+            case "priest":
+                health = 180; 
+                baseHealth = health;
+                mana = 100;
+                baseMana = mana;
+                attack = 20;
+                money = 0;
+                break;
+        }
     }
 
-// Created the 3 skills for the protagonists but function will be implemented later --jm
     public void skill1(){
         switch(getCharacterType()){
             case "knight": 
@@ -86,6 +114,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 return 0;
         }
     }
+
     //get hp for battle sequence
     public int getHp(){
         return health;
@@ -94,6 +123,16 @@ public class Protagonist extends Character implements MouseInteractable {
     //set hp after battle sequence
     public void setHp(int newHealth){
         health = newHealth;
+    }
+
+    //get base hp for battle sequence
+    public int getBaseHp(){
+        return baseHealth;
+    }
+
+    //set basehp after getting potion or item
+    public void setBaseHp(int addHp){
+        baseHealth += addHp;
     }
 
     //get mana for battle sequence
@@ -106,18 +145,33 @@ public class Protagonist extends Character implements MouseInteractable {
         mana = newMana;
     }
 
-    //get hp for battle sequence
+    //get basemana for battle sequence
+    public int getBaseMana(){
+        return baseMana;
+    }
+
+    //set basemana after getting potion or item
+    public void setBaseMana(int addMana){
+        baseMana += addMana;
+    }
+
+    //get money for battle sequence
     public int getMoney(){
         return money;
     }
 
     //set hp after battle sequence
     public void setMoney(int newMoney){
-        money = newMoney;
+        money += newMoney;
     }
 
     //get atk for battle sequence
     public int getAttack(){
+        return attack;
+    }
+
+    //set baseatk after getting potion or item
+    public int setAttack(){
         return attack;
     }
 
