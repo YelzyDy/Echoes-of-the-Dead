@@ -33,8 +33,8 @@ public class World1 extends World{
     public void initializeObjects(){
             scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
             // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
-            scene.objList.add(new Shop());
-            scene.objList.add( new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
+            scene.objList.add(new Shop(this));
+            scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
             for (EchoesObjects obj : scene.objList) {
                 scene.add(obj);

@@ -45,18 +45,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         currentFrame = 0;
         numOfSprites = 0;
         index = 0;
-        // System.out.println("isState: " + isState);
-        if(isState){
-            // System.out.println(type);
-            initializeSprites(assetPackage, width, height);
-        }else if(isAnimated){
-            initializeSprites(assetPackage, width, height);
-            // System.out.println(type);
-        }else if(!isState && !isAnimated){
-            initializeSprites(assetPackage, width, height);
-            // System.out.println(type);
-        }
-        // System.out.println(numOfSprites);
+        initializeSprites(assetPackage, width, height);
         this.addMouseListener(new MouseClickListener(this));
     }   
     
