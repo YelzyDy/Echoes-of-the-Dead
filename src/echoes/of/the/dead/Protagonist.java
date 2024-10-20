@@ -132,7 +132,10 @@ public class Protagonist extends Character implements MouseInteractable {
             this.setPosY(0); // Adjust Y position as needed
             this.animator.scaleSprites("idle", 1);
         }
-        
+    }
+
+    public boolean getInBattle(){
+        return isInBattle;
     }
 
     @Override

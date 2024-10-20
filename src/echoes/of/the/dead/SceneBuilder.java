@@ -160,9 +160,12 @@ public class SceneBuilder extends JPanel{
         if (world.getTitle().equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
             for (EchoesObjects obj : objList) {
-                obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+                if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
+                    obj.setVisible(obj.getIndex() == currentSceneIndex && !protag.getInBattle());
+                }else{
+                    obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+                }
             }
-
             // shop.setVisible(currentSceneIndex == 2 && !isTransportedToShop); // visibility will base sa current sceneIndex if true - j will add other comments later //added if clicked will be transported to shop -sheen
             // portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
             // portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToPillars);  // Hide portal after transport
