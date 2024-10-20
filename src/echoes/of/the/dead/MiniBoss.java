@@ -10,7 +10,7 @@ public class MiniBoss extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
     private Protagonist character;
 
-    public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character, int numIdleSprites, int numWalkSprites) {
+    public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, int numIdleSprites, int numWalkSprites,  Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);

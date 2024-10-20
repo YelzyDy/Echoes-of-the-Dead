@@ -68,11 +68,10 @@ public class World1 extends World{
                 npc.setIndex(1);
             } 
         }
-
-        miniBoss1 = new MiniBoss("MiniBoss", "necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, scene.protag);
+        miniBoss1 = new MiniBoss("MiniBoss", "necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, 50, 10, scene.protag);
         scene.add(miniBoss1);
 
-        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)), screenSize.width * 0.4, screenSize.width * 0.8, scene.protag);
+        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8,  scene.protag);
         scene.add(minions1);
 
         scene.setComponentZOrder(miniBoss1, 1);

@@ -9,7 +9,7 @@ public class Minions extends Character implements MouseInteractable {
     BattleUI battleUI = new BattleUI();
     private Protagonist character;
 
-    public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character, int numIdleSprites, int numWalkSprites) {
+    public Minions(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, int numIdleSprites, int numWalkSprites, Protagonist character) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.008), numWalkSprites);
