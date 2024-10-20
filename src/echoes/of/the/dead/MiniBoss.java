@@ -7,11 +7,13 @@ import java.awt.event.MouseEvent;
 public class MiniBoss extends Character implements MouseInteractable {
     private int health = 200;
     private int attack = 20;
+    private SceneBuilder panel;
     Dialogues dialogues = new Dialogues();
     private Protagonist character;
 
     public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, Protagonist character, int numIdleSprites, int numWalkSprites) {
         super(name, characterType, panel, posX, posY);
+        this.panel = panel;
         setVisible(true); // Make sure the NPC is visible
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), numIdleSprites);
@@ -27,6 +29,29 @@ public class MiniBoss extends Character implements MouseInteractable {
         return health;
     }
 
+    public void endBattle() {
+        // Remove the miniboss from the panel directly using the stored panel reference
+        if (panel != null) {
+            System.out.println("Removing miniboss using stored panel reference");
+            panel.remove(this);
+            panel.revalidate();
+            panel.repaint();
+        } else {
+            System.out.println("Panel is null; cannot remove miniboss");
+        }
+    
+        // Reset the player's state and move it to the center of the screen
+        character.animator.scaleSprites("idle", 1); // Reset player scale
+        character.setPosX(screenSize.width / 2); // Center the character horizontally
+        character.setPosY(screenSize.height / 2); // Center the character vertically
+        character.setIsInBattle(false);
+        character.setVisible(true); // Ensure the character is visible
+        character.animator.startMovement(); // Resume movement
+        System.out.println("Character position after battle: (" + character.getPosX() + ", " + character.getPosY() + ")");
+        System.out.println("Character visibility: " + character.isVisible());
+    }   
+    
+    
     @Override
     public void onClick(MouseEvent e) {
         animator.stopMovement();
@@ -51,8 +76,23 @@ public class MiniBoss extends Character implements MouseInteractable {
         character.setIsInBattle(true);
 
         //start battle
-        Battle battle = new Battle(character, this);
-        battle.start();
+        new Thread(() -> {
+            Battle battle = new Battle(character, this);
+            battle.start();
+            
+            // Wait for the battle to end
+            while (!battle.battleOver) {
+                try {
+                    Thread.sleep(100); // Check every 100ms
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+    
+            // After the battle ends, reset player and miniboss
+            endBattle();
+        }).start();
+        
     }
 
     @Override

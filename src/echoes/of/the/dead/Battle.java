@@ -16,7 +16,7 @@ public class Battle{
     private int playerAttack;
     private int playerMoney;
     private Protagonist player;
-
+    public boolean battleOver = false;
     //enemy attributes
     private int enemyHp;
     private MiniBoss miniboss;
@@ -116,5 +116,6 @@ public class Battle{
         if(playerHp>0){
             player.setHp(playerHp);
         }
+        battleOver = true;
     }
 }
