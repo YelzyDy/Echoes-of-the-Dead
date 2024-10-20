@@ -50,7 +50,7 @@ public class Minions extends Character implements MouseInteractable {
         character.animator.stopMovement();
         character.setPosX(screenSize.width * 0.1);
         character.setPosY(0.); // Adjust Y position as needed
-        character.animator.scaleSprites("idle", 4);
+        character.animator.scaleSprites("idle", 2);
         character.setIsInBattle(true);
         // Battle battle = new Battle(character, this);
         // battle.start();

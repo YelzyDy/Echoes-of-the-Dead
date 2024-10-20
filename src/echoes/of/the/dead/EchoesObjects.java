@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  * @author Joana
  */
 public class EchoesObjects extends TransparentPanel implements MouseInteractable, Entity{
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    public Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private double posX;
     private double posY;
     private int currentFrame;
