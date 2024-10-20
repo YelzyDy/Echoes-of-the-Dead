@@ -1,11 +1,10 @@
 package EOD.scenes;
 
-import java.util.Scanner;
-import java.util.Random;
-
 import EOD.characters.MiniBoss;
 import EOD.characters.Minions;
 import EOD.characters.Protagonist;
+import java.util.Random;
+import java.util.Scanner;
 
 
 // Used to interact with other "Entity/s"
@@ -178,7 +177,7 @@ public class Battle{
            }
         }
         
-        if(playerHp>0){
+        if(playerHp>0 || enemyHp <=0){
             System.out.println("You defeated the enemy!");
             player.setHp(playerHp);
         }else{

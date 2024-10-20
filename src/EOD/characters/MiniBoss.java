@@ -1,12 +1,11 @@
 package EOD.characters;
 
-import java.awt.event.MouseEvent;
-
-import EOD.scenes.Battle;
+import EOD.MouseInteractable;
 import EOD.dialogues.Dialogues;
 import EOD.listeners.MouseClickListener;
-import EOD.MouseInteractable;
+import EOD.scenes.Battle;
 import EOD.scenes.SceneBuilder;
+import java.awt.event.MouseEvent;
 
 
 // This class makes NPC move randomly
@@ -16,6 +15,8 @@ public class MiniBoss extends Character implements MouseInteractable {
     private SceneBuilder panel;
     Dialogues dialogues = new Dialogues();
     private Protagonist character;
+    private MiniBoss miniboss = this;
+    private boolean isItDefeated = false;
 
     public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, int numIdleSprites, int numWalkSprites,  Protagonist character) {
         super(name, characterType, panel, posX, posY);
@@ -45,9 +46,9 @@ public class MiniBoss extends Character implements MouseInteractable {
             return;
         }
 
-        setPosX(screenSize.width * 0.7);
-        setPosY(0);
-        animator.scaleSprites("idle", 2);
+        setPosX(screenSize.width * 0.6);
+        setPosY(screenSize.width * 0.04);
+        animator.scaleSprites("idle", 1.1);
         animator.isEnlarged = true;
         animator.setCurrentFrame(1);
         animator.setMovingRight(false);
@@ -70,6 +71,7 @@ public class MiniBoss extends Character implements MouseInteractable {
             }
 
             character.setIsInBattle(false);
+            isItDefeated = true;
         }).start();
         
     }
@@ -92,5 +94,9 @@ public class MiniBoss extends Character implements MouseInteractable {
         animator.startMovement();
         animator.setPaused(false);
         animator.setInteracting(false);
+    }
+
+    public boolean isDefeated(){
+        return isItDefeated;
     }
 }
