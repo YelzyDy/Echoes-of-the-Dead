@@ -26,9 +26,9 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         EchoesObjects obj = new EchoesObjects("shop", (int)(screenSize.width * 0.1), (int)(screenSize.height* 0.1), (int)(screenSize.width * 0.8), (int)(screenSize.height * 0.8), "shopbg", false, false, 1);
         obj.setVisible(true);
         world.getLayeredPane().add(obj, Integer.valueOf(2));
+        world.getLayeredPane().setComponentZOrder(obj, 0); // Make sure it's on top
         world.getLayeredPane().revalidate();
         world.getLayeredPane().repaint();
-        world.getLayeredPane().setComponentZOrder(obj, 0); // Make sure it's on top
 
     }  
 }
