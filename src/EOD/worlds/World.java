@@ -6,13 +6,12 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
-import EOD.characters.Protagonist;
-import EOD.characters.MiniBoss;
 import EOD.MouseInteractable;
 import EOD.objects.*;
 import EOD.scenes.*;
 import EOD.characters.*;
 import EOD.listeners.*;
+
 
 public class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
     private String protagType; // variable for the protagType knight/priest/wizard
@@ -22,12 +21,12 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private JTextField name;  
-    private JPanel motherPanel;
     private String worldType;  
 
     protected SceneBuilder scene;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected Protagonist protag; 
+    private JLayeredPane layeredPane;
 
     public Minions minions1; // minions -z
     public MiniBoss miniBoss1; // this is just temporary... this should be a list of enemeies. 
@@ -45,12 +44,22 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         this.playerName = playerName;   
         this.worldType = worldType;
 
-        motherPanel = new JPanel();
-        motherPanel.setBackground(Color.BLACK);
-        motherPanel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
-        motherPanel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
-        motherPanel.setLayout(null); // Set layout for the panel
-        this.setContentPane(motherPanel); 
+        layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+        
+        JPanel basePanel = new JPanel();
+        basePanel.setBackground(Color.BLACK);
+        basePanel.setBounds(0, 0, screenSize.width, screenSize.height);
+        
+        // Add the base panel to the bottom layer
+        layeredPane.add(basePanel, Integer.valueOf(0));
+
+        this.setContentPane(layeredPane);
+        
+    }
+
+    public JLayeredPane getPane(){
+        return layeredPane;
     }
 
     public Protagonist getProtag(){
@@ -79,7 +88,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         (int) (screenSize.height * 0.80), 
         "welcomePrompt", false, false, 1);
         promptPanel.setLayout(null);
-        motherPanel.add(promptPanel);
+        layeredPane.add(promptPanel, Integer.valueOf(1));
     }
 
     private void addOkButton(int panelHeight, int panelWidth) {
@@ -128,7 +137,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         Object source = e.getSource();
         if(source == btn_ok){
             promptPanel.setVisible(false);
-            motherPanel.add(scene);
+            layeredPane.add(scene, Integer.valueOf(1));
             scene.setVisible(true);
             scene.createWorldScene();  
         }
