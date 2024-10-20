@@ -46,6 +46,7 @@ public class MiniBoss extends Character implements MouseInteractable {
         animator.setCurrentFrame(1);
         animator.setMovingRight(false);
         
+        //need ko help diri :(
         //start battle
         new Thread(() -> {
             //gibalhin nakos protagonist dapit sa setisinbattle ang katong modako siya - jm
