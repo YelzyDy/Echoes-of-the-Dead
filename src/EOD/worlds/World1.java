@@ -56,6 +56,7 @@ public class World1 extends World{
         scene.npcList.add(new Npc("Miggins", "miggins", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62));
         scene.npcList.add(new Npc("Natty", "natty", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8));
         scene.npcList.add(new Npc("Constance", "missC", scene, (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.25), screenSize.width * 0.6, screenSize.width * 0.8));
+        
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
@@ -75,7 +76,7 @@ public class World1 extends World{
         miniBoss1 = new MiniBoss("MiniBoss", "necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, 50, 10, protag);
         scene.add(miniBoss1);
 
-        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8, protag);
+        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.24), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8, protag);
         scene.add(minions1);
 
         scene.setComponentZOrder(miniBoss1, 1);

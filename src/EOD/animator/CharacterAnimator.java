@@ -1,13 +1,14 @@
-package EOD.characters;
+package EOD.animator;
 
 import java.awt.Image;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import EOD.characters.Character;
 import EOD.utils.ImageList;
 
 import java.util.Random;
-
+// this class is to be discarded but needed if there are any errors in other classes
 public class CharacterAnimator {
     private int currentFrame;
     private boolean isMoving;
@@ -30,8 +31,7 @@ public class CharacterAnimator {
     private double minRange;
     private double maxRange;
 
-    protected boolean isInBattle;
-    protected boolean isEnlarged;
+    private boolean isInBattle;
 
     public CharacterAnimator(Character character) {
         this.currentFrame = 0;
@@ -44,7 +44,6 @@ public class CharacterAnimator {
         isPaused = false; // Start in a moving state
         walkSprites = new ImageList();
         idleSprites = new ImageList();
-        isEnlarged = false;
         isInBattle = false;
     }
 
@@ -122,6 +121,10 @@ public class CharacterAnimator {
         return isMovingRight;
     }
 
+    public boolean getIsInBattle(){
+        return isInBattle;
+    }
+
     public void setMoving(boolean isMoving) {
         this.isMoving = isMoving;
     }
@@ -148,6 +151,10 @@ public class CharacterAnimator {
 
     public void restartAnimation() {
         currentFrame = 0;
+    }
+
+    public void setIsInBattle(boolean value){
+        this.isInBattle = value;
     }
 
     public void startMovement(){

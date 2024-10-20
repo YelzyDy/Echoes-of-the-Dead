@@ -20,6 +20,7 @@ import EOD.worlds.*;
 import EOD.utils.*;
 import EOD.characters.*;
 import EOD.objects.*;
+import EOD.animator.Animator;
 /**
  *
  * @author Joana
@@ -130,9 +131,9 @@ public class SceneBuilder extends JPanel{
     
     private void updateGameState() {
         if (protag != null) {
-            CharacterAnimator animator = protag.getAnimator();
+            Animator animator = protag.getAnimator();
             animator.updateAnimation();
-            animator.updateProtagMovement();
+            animator.updateMovement();
             animator.updateBounds();
         }
 
@@ -144,24 +145,24 @@ public class SceneBuilder extends JPanel{
 
 
             for (Npc npc : npcList) {
-                CharacterAnimator animator = npc.getAnimator();
+                Animator animator = npc.getAnimator();
                 if(npc != null){
                     animator.updateAnimation(); 
-                    animator.updateNPCMovement();
+                    animator.updateMovement();
                     animator.updateBounds();
                 }
             }
 
             if (world.minions1 != null) {
-                CharacterAnimator animator = world.minions1.getAnimator();
+                Animator animator = world.minions1.getAnimator();
                 animator.updateAnimation(); 
-                animator.updateNPCMovement();
+                animator.updateMovement();
                 animator.updateBounds();
             }
             if (world.miniBoss1 != null){
-                CharacterAnimator animator = world.miniBoss1.getAnimator();
+                Animator animator = world.miniBoss1.getAnimator();
                 animator.updateAnimation(); 
-                animator.updateNPCMovement();
+                animator.updateMovement();
                 animator.updateBounds();
             }
         }
@@ -180,7 +181,7 @@ public class SceneBuilder extends JPanel{
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
             for (EchoesObjects obj : objList) {
                 if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
-                    obj.setVisible(obj.getIndex() == currentSceneIndex && !protag.getInBattle());
+                    obj.setVisible(obj.getIndex() == currentSceneIndex && !protag.getAnimator().getIsInBattle());
                 }else{
                     obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
                 }

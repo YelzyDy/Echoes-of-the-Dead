@@ -6,6 +6,7 @@ import EOD.scenes.Battle;
 import EOD.dialogues.Dialogues;
 import EOD.listeners.MouseClickListener;
 import EOD.MouseInteractable;
+import EOD.animator.NpcAnimator;
 import EOD.scenes.SceneBuilder;
 
 
@@ -16,9 +17,13 @@ public class MiniBoss extends Character implements MouseInteractable {
     private SceneBuilder panel;
     Dialogues dialogues = new Dialogues();
     private Protagonist character;
+    private NpcAnimator animator;
 
     public MiniBoss(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange, int numIdleSprites, int numWalkSprites,  Protagonist character) {
         super(name, characterType, panel, posX, posY);
+        animator = new NpcAnimator(this);
+        animator = new NpcAnimator(this);
+        setAnimator(animator);
         this.panel = panel;
         setVisible(true); // Make sure the NPC is visible
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);
@@ -40,23 +45,20 @@ public class MiniBoss extends Character implements MouseInteractable {
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
-        animator.isInBattle = true;
-        if (animator.isEnlarged){
-            return;
-        }
+        animator.setIsInBattle(true);
+       
 
         setPosX(screenSize.width * 0.7);
         setPosY(0);
         animator.scaleSprites("idle", 2);
-        animator.isEnlarged = true;
-        animator.setCurrentFrame(1);
+   
         animator.setMovingRight(false);
         
         //need ko help diri :(
         //start battle
         new Thread(() -> {
             //gibalhin nakos protagonist dapit sa setisinbattle ang katong modako siya - jm
-            character.setIsInBattle(true);
+          
             Battle battle = new Battle(character, this);
             battle.start();
             
@@ -69,14 +71,14 @@ public class MiniBoss extends Character implements MouseInteractable {
                 }
             }
 
-            character.setIsInBattle(false);
+        
         }).start();
         
     }
 
     @Override
     public void onHover(MouseEvent e) {
-        if (animator.isInBattle){
+        if (animator.getIsInBattle()){
             return;
         }
         animator.stopMovement();
@@ -86,7 +88,7 @@ public class MiniBoss extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
-        if (animator.isInBattle){
+        if (animator.getIsInBattle()){
             return;
         }
         animator.startMovement();

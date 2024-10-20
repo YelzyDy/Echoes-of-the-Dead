@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import EOD.characters.*;
 import EOD.dialogues.*;
-
 public class BattleUI extends JFrame {
     StoryLine story = new StoryLine();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -19,11 +19,19 @@ public class BattleUI extends JFrame {
     private ActionListener actionB;
     private ActionListener actionC;
     private ActionListener actionD;
+    private Protagonist protag;
+    private Minions minion;
+    private BattleExperiment battleSample;
 
-    public void displayDialogues() {
+    public BattleUI(Protagonist protag, Minions minion){
+        this.protag = protag;
+        this.minion = minion;
+        battleSample = new BattleExperiment(protag, minion);
+    }
+
+    public void displayDialogues(){
 
         // THE WINDOW & DIALOGUES
-
         story.skillDetails();
 
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
@@ -49,11 +57,14 @@ public class BattleUI extends JFrame {
         textBox.setText(story.getLine(0));
 
         actionA = e -> {
-            // Add implementation here
+            if(battleSample.getIsBattleStopped())
             storyDialogue.dispose();
+            battleSample.skill1();
+            protag.getAnimator().triggerSkillAnimation(1, (int)(screenSize.width * 0.5));
         };
         actionB = e -> {
-            // Add implementation here
+            
+            if(battleSample.getIsBattleStopped())
             storyDialogue.dispose();
         };
         actionC = e -> {
@@ -61,8 +72,10 @@ public class BattleUI extends JFrame {
             storyDialogue.dispose();
         };
         actionD = e -> {
-            // Add implementation here
+            if(battleSample.getIsBattleStopped())
             storyDialogue.dispose();
+            battleSample.skill4();
+            protag.getAnimator().triggerSkillAnimation(4, (int)(screenSize.width * 0.5));
         };
 
         ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");

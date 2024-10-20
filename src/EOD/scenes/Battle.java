@@ -50,12 +50,12 @@ public class Battle{
     }
 
     //if the enemy is a minion (to be implemented soon)
-    // public Battle(Protagonist player, Minions minion){
-    //     this.player = player;
-    //     this.minion = minion;
-    //     enemyHp = minion.getHp();
-    //     playerHp = player.getHp();
-    // }
+    public Battle(Protagonist player, Minions minion){
+        this.player = player;
+        this.minion = minion;
+        enemyHp = minion.getHp();
+        playerHp = player.getHp();
+    }
 
     //testing for enemy attacking
     public int skillChooseEnemy(){
@@ -89,6 +89,7 @@ public class Battle{
                     case 3:
                         if(skill3Cd==0){
                             enemyHp -= (playerAttack * 2) + (int)(playerMoney * player.skill3());
+                            
                             enemyMissTurn++;
                             skill3Cd = 3;
                         }else{

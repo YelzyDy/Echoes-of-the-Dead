@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 import EOD.MouseInteractable;
 import EOD.scenes.SceneBuilder;
-
+import EOD.animator.*;
 /**
  *
  * @author Joana
@@ -19,16 +19,22 @@ public class Protagonist extends Character implements MouseInteractable {
     private int attack = 20;
     private int health = 150;
     private int money = 0;
-    private boolean isInBattle;
-    
+    private ProtagonistAnimator animator;
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
+        animator = new ProtagonistAnimator(this);
+        setAnimator(animator);
         System.out.println("test");
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 8);
         animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 6);
+        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.006), 7);
+        animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), 11);
         animator.updateBounds();
         System.out.println("Protagonist: " + posX + " " + posY);
-        isInBattle = false;
+    }
+
+    public ProtagonistAnimator getAnimator(){
+        return animator;
     }
 
 // Created the 3 skills for the protagonists but function will be implemented later --jm
@@ -121,30 +127,10 @@ public class Protagonist extends Character implements MouseInteractable {
         return attack;
     }
 
-    public void setIsInBattle (boolean isInBattle){
-        this.isInBattle = isInBattle;
-        if(this.isInBattle){
-            System.out.println("Entering battle mode. Scaling sprite to size 2.");
-            this.animator.stopMovement();
-            this.setPosX(screenSize.width * 0.1);
-            this.setPosY(0); // Adjust Y position as needed
-            this.animator.scaleSprites("idle", 2);
-        }else{
-            System.out.println("Exiting battle mode. Resetting sprite size to 1.");
-            this.animator.startMovement();
-            this.setPosX(screenSize.width * 0.1);
-            this.setPosY(0); // Adjust Y position as needed
-            this.animator.scaleSprites("idle", 1);
-        }
-    }
-
-    public boolean getInBattle(){
-        return isInBattle;
-    }
 
     @Override
     public void onClick(MouseEvent e) {
-        if (isInBattle){
+        if (animator.getIsInBattle()){
             return;
         }
         int deltaX = ((int)e.getX() - (int)getPosX()) / 10;

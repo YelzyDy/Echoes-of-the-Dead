@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 
+import EOD.animator.*;
 import EOD.entities.Entity;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.TransparentPanel;
@@ -26,10 +27,13 @@ public class Character extends TransparentPanel implements Entity{
     private double posX;
     private double posY;
     private String characterType;
+    private double originalX;
+    private double originalY;
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected SceneBuilder panel;
-    protected CharacterAnimator animator;
+
+    private Animator animator;
 
     public Character(String name, String characterType, SceneBuilder panel, double  posX, double posY) {
         super(posX, posY, 0, 0);
@@ -39,10 +43,20 @@ public class Character extends TransparentPanel implements Entity{
         this.characterType = characterType;
         this.panel = panel;
         this.setVisible(true);
-        animator = new CharacterAnimator(this);
+        originalX = posX;
+        originalY = posY;
     }   
 
-    public CharacterAnimator getAnimator(){
+    public void setAnimator(Animator animator){
+        this.animator = animator;
+    }
+
+    public void revertPosition(){
+        this.posX = originalX;
+        this.posY = originalY;
+    }
+
+    public Animator getAnimator(){
         return animator;
     }
     
@@ -52,6 +66,10 @@ public class Character extends TransparentPanel implements Entity{
 
     public String getCharacterType(){
         return characterType;
+    }
+
+    public SceneBuilder getPanel(){
+        return panel;
     }
 
 

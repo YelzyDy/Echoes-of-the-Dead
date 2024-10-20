@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import EOD.characters.CharacterAnimator;
 import EOD.characters.Protagonist;
 import EOD.objects.EchoesObjects;
 import EOD.worlds.World;
@@ -20,6 +19,7 @@ import EOD.worlds.World1;
 import EOD.listeners.MouseClickListener;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.*;
+import EOD.animator.Animator;
 /**
  *
  * @author Joana
@@ -171,7 +171,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         // Since we have many EchoesObjects (buttons) that is attached with a MouseListener, we have to listen --jian
         // which of them caused the event using e.getSource() --jian
         Object source = e.getSource();
-        CharacterAnimator animator = protag.getAnimator();
+        Animator animator = protag.getAnimator();
         if (source == btn_select) {
             if(!selectButtonIsEnable){ // this prevents the execution of the following lines of code --jian
                 // when our promptPanel is Visible --jian

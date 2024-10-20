@@ -3,6 +3,7 @@ package EOD.characters;
 import java.awt.event.MouseEvent;
 
 import EOD.MouseInteractable;
+import EOD.animator.NpcAnimator;
 import EOD.scenes.SceneBuilder;
 import EOD.dialogues.*;
 import EOD.listeners.*;
@@ -10,8 +11,11 @@ import EOD.listeners.*;
 public class Npc extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
     private int index;
+    private NpcAnimator animator;
     public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
+        animator = new NpcAnimator(this);
+        setAnimator(animator);
         setVisible(true); // Make sure the NPC is visible
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 4);
         animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 4);
