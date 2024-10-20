@@ -192,9 +192,9 @@ public class SceneBuilder extends JPanel{
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
             
-                world.miniBoss1.setVisible(currentSceneIndex == 4 && !world.miniBoss1.isDefeated());
+            world.miniBoss1.setVisible(currentSceneIndex == 4 && !world.miniBoss1.isDefeated());
             
-            world.minions1.setVisible(currentSceneIndex == 3);
+            world.minions1.setVisible(currentSceneIndex == 3 && !world.minions1.isDefeated());
         }    
     }
 }

@@ -93,4 +93,8 @@ public class Minions extends Character implements MouseInteractable {
         animator.setPaused(false);
         animator.setInteracting(false);
     }
+
+    public boolean isDefeated(){
+        return isItDefeated;
+    }
 }
