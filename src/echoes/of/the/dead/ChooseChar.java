@@ -32,16 +32,16 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     boolean selectButtonIsEnable = true;
 
     public ChooseChar() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //setting the properties for this frame --jian
-        this.setTitle("Choose Character"); // all of these are methods from the parent class JFrame line 36-39 and some other lines below --jian
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // the window is maximized so it covers the whole screen --jian
-        this.setResizable(false); // the frame is set to non-resizable because we cannot support resposnive design --jian
-        this.setLocationRelativeTo(null); // we set its Layout Manager to Absolute Layout. There are multiple Layout Managers but we used AbsoluteLayout --jian
-        // because the components in our game are layered. This Layout Manager is typically not advisable if we wan't a responsive design --jian
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        this.setTitle("Choose Character"); 
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setResizable(false); 
+        this.setLocationRelativeTo(null);
+        scene = new SceneBuilder();
         // but we have no choice unless we want to draw everything in our ui manually using hard code --jian
         charType = "knight"; // the default charType is "knight" as observed when we open this window, the first background Image is the knight / lawyer --jian
         addScene(); // calling the method addScene. addScene is a method we created ourselves for this class line 58 --jian
-
+        initiializeProtagonist();
         // echoesObjects instances explained in Main class --jian
         btn_select = createObj(
                 "button", (int) (width * 0.7),
@@ -58,22 +58,19 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         addTransparentButton();
     }
 
+    public void initiializeProtagonist(){
+        scene.protag = new Protagonist("name", charType, scene, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
+        scene.protag.animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
+        scene.add(scene.protag);
+        scene.initializeGameLoop();
+    }
     public void addScene() {
         //method called in line 43; creating an instance or object from the SceneBuilder. Note that SceneBuilder extends JPanel, so SceneBuilder can access methods from JPanel, we can treat it as JPanel --jian
-        scene = new SceneBuilder("chooseCharacter");
-        scene.createScene(); // calling method from SceneBuilder to createScene which includes displaying background and other objects --jian
-        scene.initializeCharacter("knight", "knight"); // we initalize our character to knight as a default --jian
+        scene.createSelectionScene(); // calling method from SceneBuilder to createScene which includes displaying background and other objects --jian
         this.add(scene); // again, do not forget to add SwingComponents to a parent Container for it to be visible (in this case, the parent Container is this Frame) --jian
-        // to visualize : [parent: JFrame[child: JPanel [child: select_button]]]  --jian
-        // this is just an example, but actually, our JPanel or *scene* has many children which are the buttons that are created  --jian
-        //using the methods below
         this.setVisible(true); 
-        // setting Visibility to true to show our JPanel. without this, we can only see a white background which is jsut the JFrame itself --jian
     }
     public void addTransparentButton() {
-        // Position buttons relative to the screen size
-        // these instances are objects created with TransparentPanel as its blueprint. --jian
-        // unline our EchoesObjects instances, these objects/ custom Swing Panels below are transparent by setting the .setOpaque's boolean/flag to false --jian
         btn_knight = new TransparentPanel((int) (width * 0.03), (int) (height * 0.046), (int) (width * 0.158), (int) (height * 0.28));
         btn_knight.addMouseListener(new MouseClickListener(this));
         btn_knight.setVisible(true);
@@ -179,31 +176,31 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.setComponentZOrder(promptPanel, 0);
         } else if (source == btn_knight) {
             charType = "knight";
-            scene.character.setCharacterType(charType);
-            scene.character.animator.importSprites("character_asset", "idle", 18, 6);
-            scene.character.setPosX(width * 0.32); // Update position based on width
-            scene.character.setPosY(height * 0.51); // Update position based on height
+            scene.protag.setCharacterType(charType);
+            scene.protag.animator.importSprites("character_asset", "idle", 18, 6);
+            scene.protag.setPosX(width * 0.32); // Update position based on width
+            scene.protag.setPosY(height * 0.51); // Update position based on height
             scene.setCurrentSceneIndex(0);
         } else if (source == btn_priest) {
             charType = "priest";
-            scene.character.setCharacterType(charType);
-            scene.character.animator.importSprites("character_asset", "idle", 18, 6);
-            scene.character.setPosX(width * 0.349); // Update position based on width
-            scene.character.setPosY(height * 0.49); // Update position based on height
+            scene.protag.setCharacterType(charType);
+            scene.protag.animator.importSprites("character_asset", "idle", 18, 6);
+            scene.protag.setPosX(width * 0.349); // Update position based on width
+            scene.protag.setPosY(height * 0.49); // Update position based on height
             scene.setCurrentSceneIndex(1);
         } else if (source == btn_wizard) {
             charType = "wizard";
-            scene.character.setCharacterType(charType);
-            scene.character.animator.importSprites("character_asset", "idle", 18, 6);
-            scene.character.setPosX(width * 0.34); // Update position based on width
-            scene.character.setPosY(height * 0.51); // Update position based on height
+            scene.protag.setCharacterType(charType);
+            scene.protag.animator.importSprites("character_asset", "idle", 18, 6);
+            scene.protag.setPosX(width * 0.34); // Update position based on width
+            scene.protag.setPosY(height * 0.51); // Update position based on height
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-                World1 window = new World1(charType, nameField.getText());
+                World window = new World1(charType, nameField.getText());
                 System.out.println(nameField.getText());
                 window.setVisible(true);
                 this.setVisible(false);

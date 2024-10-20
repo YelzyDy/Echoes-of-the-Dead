@@ -47,8 +47,8 @@ public class MiniBoss extends Character implements MouseInteractable {
         character.setIsInBattle(true);
 
         //start battle
-        Battle battle = new Battle(character, this);
-        battle.start();
+        // Battle battle = new Battle(character, this); 
+        // battle.start();
     }
 
     public int getHp(){

@@ -12,6 +12,8 @@ public class Npc extends Character implements MouseInteractable {
     private int faithful;
     private int miggins;
 
+    private int index;
+
     public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
         setVisible(true); // Make sure the NPC is visible
@@ -20,12 +22,27 @@ public class Npc extends Character implements MouseInteractable {
         this.addMouseListener(new MouseClickListener(this));
         animator.startMovement();
         animator.chooseNewDirection(); 
-
+        setName(name);
         System.out.println();
         animator.updateBounds();
         animator.setRange(minRange, maxRange);
     }
 
+    public Npc getNpc(String name){
+        if(this.getName().equals(name)){
+            return this;
+        }else{
+            return null;
+        }
+    }
+    public void setIndex(int index){
+        this.index = index;
+    }
+
+    public int getIndex(){
+        return index;
+    }
+    
     @Override
     public void onClick(MouseEvent e) {
         animator.stopMovement();

@@ -4,120 +4,101 @@
  */
 package echoes.of.the.dead;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author Joana
  */
-public class World1 extends javax.swing.JFrame implements MouseInteractable{
-    private String characterType;
-    private String playerName;
-    private SceneBuilder scene;
-    private TransparentPanel btn_shop;
-    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private JPanel panel;
-    //new variables - sheena
-    //
-    private EchoesObjects promptPanel;
-    private EchoesObjects btn_ok;
-    private JTextField name;
+public class World1 extends World{
 
-    public World1(String characterType, String playerName){
-        panel = new JPanel();
-        panel.setBackground(Color.BLACK);
-        panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
-        panel.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
-        panel.setLayout(null); // Set layout for the panel
-
-        this.add(panel);
-
-        this.characterType = characterType;
-        this.playerName = playerName;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("World 1");
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setContentPane(panel); // Set the panel as the content pane
+    public World1(String protagType, String playerName){
+        super(protagType, playerName, "world1");
+        scene = new SceneBuilder(this);
         Welcome();
     }
     
-    //tried to add welcome message prompt - sheen 
-    private EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
-    String type, boolean isAnimated, boolean isState, int numOfSprites){
-        // a method that will return EchoesObjects... there's not really much difference if we just call EchoesObjects --jian
-        // without this method but it saves us two lines each instantiation :D --jian
-        EchoesObjects object = new EchoesObjects(assetPackage, x, y, (int)width, (int)height, type, isAnimated, isState, numOfSprites);
-        object.setVisible(true);
-        return object;
+    public void initializeProtagonist(){
+        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
+        scene.protag = new Protagonist(getPlayerName(), getProtagType(), scene, 0, (int)(screenSize.height * 0.24));
+        scene.addMouseListener(new MouseClickListener(scene.protag));
+        scene.add(scene.protag);
+        scene.setComponentZOrder(scene.protag, 0);
+        motherPanel.add(scene);
     }
 
-    private void addPromptNamePanel(){
-        promptPanel = createObj("world1",(int) (screenSize.width * 0.1), 
-        (int) (screenSize.height * 0.1), 
-        (int) (screenSize.width * 0.80), 
-        (int) (screenSize.height * 0.80), 
-        "welcomePrompt", false, false, 1);
-        promptPanel.setLayout(null);
-        panel.add(promptPanel);
+    public void initializeObjects(){
+            scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
+            // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
+            scene.objList.add(new EchoesObjects("world1",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop", false, true, 2));
+            scene.objList.add( new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
+            scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
+            for (EchoesObjects obj : scene.objList) {
+                scene.add(obj);
+                if (obj.getName().equals("portal")) {
+                    obj.setIndex(1);
+                } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
+                    obj.setIndex(2);
+                } 
+                obj.addMouseListener(new MouseClickListener(this));;
+            }
+            //sheena add
+            // shopBg = new EchoesObjects("shop_assets",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop0-bg", false, true, 2);
+            // this.add(shopBg);
     }
+    public void initializeWorldChars(){
+        scene.npcList = new ArrayList<>();
+        scene.npcList.add(new Npc("Yoo", "yoo", scene, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.8));
+        scene.npcList.add(new Npc("Faithful", "faithful", scene, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
+        scene.npcList.add(new Npc("Miggins", "miggins", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62));
+        scene.npcList.add(new Npc("Natty", "natty", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8));
 
-    private void addOkButton(int panelHeight, int panelWidth) {
-        btn_ok = createObj(
-            "button", 
-            (int) (panelWidth * 0.82),  // Position relative to promptPanel
-            (int) (panelHeight * 0.35),  // Position relative to promptPanel
-            (int) (panelWidth* 0.2),
-            (int) (panelHeight* 0.058),
-            "ok_button", false, true, 2
-        );
-        promptPanel.add(btn_ok);
-        btn_ok.addMouseListener(new MouseClickListener(this));  // Add mouse listener
-    }
+        for (Npc npc : scene.npcList) {
+            npc.setPosY((int)(screenSize.height * 0.21));
+            scene.add(npc);
+            scene.setComponentZOrder(npc, 2);
+            if (npc.getName().equals("Yoo")) {
+                npc.setIndex(0);
+            } else if (npc.getName().equals("Faithful")) {
+                npc.setIndex(1);
+            } else if (npc.getName().equals("Miggins")) {
+                npc.setIndex(2);
+            } else if (npc.getName().equals("Natty")) {
+                npc.setIndex(1);
+            } 
+        }
 
-    private java.awt.Font createDynamicFont(int baseFontSize) {
-        int dynamicFontSize = (int) (screenSize.height * 0.05); 
-        return new java.awt.Font("SansSerif", java.awt.Font.PLAIN, Math.max(baseFontSize, dynamicFontSize));
+        miniBoss1 = new MiniBoss("MiniBoss", "necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, scene.protag);
+        scene.add(miniBoss1);
+
+        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)((screenSize.height * 0.22)), screenSize.width * 0.4, screenSize.width * 0.8, scene.protag);
+        scene.add(minions1);
+
+        scene.setComponentZOrder(miniBoss1, 1);
+        scene.setComponentZOrder(minions1, 1);  
     }
     
-    public void addPlayerName(int panelHeight, int panelWidth){
-        name = new JTextField(playerName); // Create a JTextField with text
-        name.setFont(createDynamicFont(50));
-        name.setForeground(new Color(238,218,180,255));
-        name.setBackground(new Color(0, 0, 0, 0)); // Set background to transparent
-        name.setEditable(false); // Make it non-editable
-        name.setBorder(null); // Remove the border
-        name.setHorizontalAlignment(JTextField.CENTER); // Center the text horizontally
-        name.setBounds((int) (panelWidth * 0.675), 
-                (int) (panelHeight* 0.24), 
-                (int) (panelWidth * 0.47), 
-                (int) (panelHeight* 0.10));
-        promptPanel.add(name); // Add textField to the panel
-    }
 
-    public void Welcome(){  
-        addPromptNamePanel();
-        int width = promptPanel.getWidth();
-        int height = promptPanel.getHeight();
-        addOkButton(width, height);
-        addPlayerName(width, height);
-        this.setVisible(true);
-    }
 
     @Override
     public void onClick(MouseEvent e) {
+        super.onClick(e);
         Object source = e.getSource();
         if(source == btn_ok){
-            promptPanel.setVisible(false);
-            scene = new SceneBuilder("world1");
-            scene.initializeCharacter(characterType, playerName);
-            panel.add(scene);
-            scene.createScene();  
+            initializeObjects();
+            initializeProtagonist();
+            initializeWorldChars();
+            scene.initializeGameLoop();
         }
+
+        for (EchoesObjects obj : scene.objList) {
+            if (source == obj && obj.getName().equals("portal")){
+                scene.setCurrentSceneIndex(3);
+            } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
+                scene.setCurrentSceneIndex(4);
+            } 
+        }    
     }
 
     @Override

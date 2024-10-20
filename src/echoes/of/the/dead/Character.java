@@ -17,17 +17,12 @@ import java.awt.Toolkit;
  *
  * @author Joana
  */
-
- // This class basically draws/animates the sprite and sets its bounds
 public class Character extends TransparentPanel implements Entity{
     private String name;
     private double posX;
     private double posY;
-    private double width;
-    private double height;
     private String characterType;
 
-   
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected SceneBuilder panel;
     protected CharacterAnimator animator;
@@ -51,9 +46,6 @@ public class Character extends TransparentPanel implements Entity{
         return characterType;
     }
 
-    public double setWidth(){
-        return width;
-    }
 
     @Override
     public double getPosX(){
@@ -81,7 +73,6 @@ public class Character extends TransparentPanel implements Entity{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
-
         draw(g2d);
     }
     

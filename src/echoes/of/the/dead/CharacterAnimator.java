@@ -65,11 +65,9 @@ public class CharacterAnimator {
 
         for(int i = 0; i < size; i++){
             spritePaths[i] = "/" + assetPackage + "/" + character.getCharacterType() + "/" + type + "/sprite_" + (i + 1) + ".png";
-            System.out.println(spritePaths[i]);
         }     
         for (String path : spritePaths) {
             try {
-                System.out.println("Attempting to import " + path);
                 Image image = ImageIO.read(getClass().getResource(path));
                 ((type.equals("walk"))? walkSprites : idleSprites).add(image); 
             } catch (IOException e) {
@@ -180,7 +178,7 @@ public class CharacterAnimator {
     }
 
     public void updateProtagMovement() {
-        int maxPanel = character.panel.getNumOfScenes() - 1;
+        int maxPanel = character.panel.getNumOfScenes() - 3;
         int currentScene = character.panel.getCurrentSceneIndex();
         if (!getIsMoving()) return;
     

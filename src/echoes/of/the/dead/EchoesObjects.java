@@ -22,20 +22,24 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private double posX;
     private double posY;
-    private int currentFrame = 0;
+    private int currentFrame;
     private ImageList objSprites = new ImageList();
-    private String type = null;
     private String assetPackage = null;
     private boolean isAnimated = false;
     private boolean isState = false;
-    private int numOfSprites = 0;
+    private int numOfSprites;
+    private int index;
+
     public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
-        this.type = type;
+        setName(type);
         this.isAnimated = isAnimated;
         this.isState = isState;
         this.numOfSprites = numOfSprites;
         this.assetPackage = assetPackage;
+        currentFrame = 0;
+        numOfSprites = 0;
+        index = 0;
         // System.out.println("isState: " + isState);
         if(isState){
             // System.out.println(type);
@@ -51,6 +55,13 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.addMouseListener(new MouseClickListener(this));
     }   
     
+    public void setIndex(int index){
+        this.index = index;
+    }
+
+    public int getIndex(){
+        return index;
+    }
     public boolean isAnimated(){
         return isAnimated;
     }
@@ -63,15 +74,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // System.out.println("Size: " + size);
         for (int i = 0; i < size; i++) {
             if (isAnimated) {
-                spritePaths[i] = "/" + assetPackage + "_assets/" + type + "/sprite" + i + ".png";
+                spritePaths[i] = "/" + assetPackage + "_assets/" + getName() + "/sprite" + i + ".png";
             } else {
-                spritePaths[i] = "/" + assetPackage + "_assets/" + type + i + ".png";
+                spritePaths[i] = "/" + assetPackage + "_assets/" + getName() + i + ".png";
             }
-            // System.out.println("path: " + spritePaths);
+            System.out.println("path: " + spritePaths[i]);
         }
         for (String path : spritePaths) {
             try {
-                // System.out.println("Attempting to load image from path: " + path);
                 Image image = ImageIO.read(getClass().getResource(path));
                 if (image != null) {
                     objSprites.add(image);
