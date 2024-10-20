@@ -5,6 +5,9 @@ import java.awt.event.MouseEvent;
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
+    
+
+
     private int index;
     public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, panel, posX, posY);
