@@ -16,7 +16,7 @@ public class FullScreenDialogues extends JFrame {
     public void displayDialogue(int ID) {
 
         switch (ID) {
-            case 0: story.Exposition(); 
+            case 0: story.exposition();
                 break;
             default:
                 break;
