@@ -23,8 +23,7 @@ public class SceneBuilder extends JPanel{
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private ImageList sceneList;
     protected Protagonist protag;
-    private int currentSceneIndex = 0;
-
+    private int currentSceneIndex;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
     
     // added shop variables: -sheen
@@ -42,6 +41,7 @@ public class SceneBuilder extends JPanel{
         this.setLayout(null); // Using null layout for absolute positioning
         this.setBounds(0, 0, screenSize.width, (int)(screenSize.height * 0.4)); 
         this.setVisible(false);
+        currentSceneIndex = 0;
     }
 
     public SceneBuilder(){
@@ -49,6 +49,7 @@ public class SceneBuilder extends JPanel{
         this.setLayout(null); // Using null layout for absolute positioning
         this.setBounds(0, 0, screenSize.width, screenSize.height);
         this.setVisible(true);
+        currentSceneIndex = 0;
     }
 
     public ImageList getSceneList(){
