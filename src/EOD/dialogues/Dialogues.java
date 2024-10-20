@@ -15,11 +15,14 @@ public class Dialogues extends JFrame {
     private final int y = (int) (screenSize.height * 0.44);
     private int size;
     private int index;
+    private int ID;
 
     public void displayDialogues(int ID) {
 
         // THE WINDOW
-
+        if (ID % 2 != 0) {
+            this.ID = ID;
+        }
         switch (ID) {
             case 1: story.missConstanceIntro();
                 break;
@@ -55,8 +58,6 @@ public class Dialogues extends JFrame {
         storyDialogue.add(textBox, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
 
-        // SKIP BUTTON
-
         ImageIcon skipButtonIcon = scaleImageIcon("src/button_assets/skipButton.png");
         ImageIcon skipButtonHoverIcon = scaleImageIcon("src/button_assets/skipButtonHover.png");
 
@@ -86,11 +87,41 @@ public class Dialogues extends JFrame {
             }
         });
 
-        JPanel skipButtonPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
-        skipButtonPanel.setBackground(Color.BLACK);
-        skipButtonPanel.add(skipButton);
+        ImageIcon askButtonIcon = scaleImageIcon("src/button_assets/askButton.png");
+        ImageIcon askButtonHoverIcon = scaleImageIcon("src/button_assets/askButtonHover.png");
 
-        storyDialogue.add(skipButtonPanel, BorderLayout.NORTH);
+        JButton askButton = new JButton(askButtonIcon);
+        askButton.setPreferredSize(new Dimension(width, height));
+
+        askButton.setBackground(Color.BLACK);
+        askButton.setFocusPainted(false);
+        askButton.setBorderPainted(false);
+        askButton.setContentAreaFilled(false);
+
+        askButton.addActionListener(e -> {
+            storyDialogue.dispose();
+            int temp = this.ID + 1;
+            displayDialogues(temp);
+        });
+
+        askButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                askButton.setIcon(askButtonHoverIcon);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                askButton.setIcon(askButtonIcon);
+            }
+        });
+
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.add(skipButton, BorderLayout.EAST);
+        buttonPanel.add(askButton, BorderLayout.WEST);
+
+        storyDialogue.add(buttonPanel, BorderLayout.NORTH);
         
         this.size = story.getSize();
         if (ID % 2 != 0) {
@@ -99,7 +130,7 @@ public class Dialogues extends JFrame {
         } else {
             do {
                 this.index = new Random().nextInt(size);
-            } while (this.index % 2 == 0);
+            } while (this.index % 2 != 0);
             textBox.setText(story.getLine(this.index));
             addMouseListenerForMultipleLines(story, textBox, storyDialogue, 1, this.index, this.size);
         }
