@@ -53,14 +53,16 @@ public class World1 extends World{
         scene.npcList.add(new Npc("Faithful", "faithful", scene, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
         scene.npcList.add(new Npc("Miggins", "miggins", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62));
         scene.npcList.add(new Npc("Natty", "natty", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8));
-
+        scene.npcList.add(new Npc("Constance", "missC", scene, (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.25), screenSize.width * 0.6, screenSize.width * 0.8));
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
             scene.setComponentZOrder(npc, 2);
             if (npc.getName().equals("Yoo")) {
                 npc.setIndex(0);
-            } else if (npc.getName().equals("Faithful")) {
+            }else if (npc.getName().equals("Cosntance")) {
+                npc.setIndex(0);
+            }else if (npc.getName().equals("Faithful")) {
                 npc.setIndex(1);
             } else if (npc.getName().equals("Miggins")) {
                 npc.setIndex(2);
