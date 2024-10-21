@@ -1,24 +1,21 @@
 package EOD.scenes;
 
-import EOD.characters.Necromancer;
-import EOD.characters.Skeleton;
+import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
-import EOD.animator.Animator;
+
+
 public class BattleExperiment {
-    private Necromancer miniboss;
-    private Skeleton minion;
+    private Enemy enemy;
     private Protagonist player;
-    private Animator animator;
     private boolean battleStopped;
-    public BattleExperiment(Protagonist player, Skeleton minion){
+    public BattleExperiment(Protagonist player, Enemy enemy){
         this.player = player;
-        this.minion = minion;
-        animator = player.getAnimator();
+        this.enemy = enemy;
         battleStopped = false;
     }
 
     public int getEnemyHp(){
-        return minion.getHp();
+        return enemy.getHp();
     }
 
     public int getPlayerHp(){
@@ -26,20 +23,20 @@ public class BattleExperiment {
     }
 
     public void skill1(){
-        int enemyHp = minion.getHp();
+        int enemyHp = enemy.getHp();
 
         switch(player.getCharacterType()){
             case "knight":
-                minion.setHp(enemyHp - 10);
+                enemy.setHp(enemyHp - 10);
             break;
         }
     }
 
     public void skill4(){
-        int enemyHp = minion.getHp();
+        int enemyHp = enemy.getHp();
         switch(player.getCharacterType()){
             case "knight":
-                minion.setHp(enemyHp - 40);
+                enemy.setHp(enemyHp - 40);
             break;
         }
     }

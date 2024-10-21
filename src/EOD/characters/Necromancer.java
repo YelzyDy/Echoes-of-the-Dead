@@ -8,13 +8,21 @@ public class Necromancer extends Enemy {
                     int numWalkSprites, Protagonist protagonist) {
         super(name, "necromancer", panel, posX, posY, minRange, maxRange, 
               numIdleSprites, numWalkSprites, protagonist);
+              configureSprites();
+
     }
 
+    public void configureSprites(){
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);
+        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), numIdleSprites);
+        animator.startMovement();
+        animator.chooseNewDirection();
+        animator.updateBounds();
+    }
+    
     @Override
     protected void onBattleStart() {
-        // Implement MiniBoss specific battle start logic here
-        // For example:
-        // panel.configureMiniBossBattle(this);
+        panel.configureBattle(this);
         animator.performSpecialAttack();
     }
 }

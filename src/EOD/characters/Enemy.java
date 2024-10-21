@@ -33,19 +33,9 @@ public abstract class Enemy extends Character implements MouseInteractable {
         this.numWalkSprites = numWalkSprites;
 
         this.animator = new EnemyAnimator(this);
-        setupAnimator();
-        
+        setAnimator(animator);
         this.addMouseListener(new MouseClickListener(this));
         setVisible(true);
-    }
-
-    protected void setupAnimator() {
-        setAnimator(animator);
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.008), numWalkSprites);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.008), numIdleSprites);
-        animator.startMovement();
-        animator.chooseNewDirection();
-        animator.updateBounds();
     }
 
     public void setIndex(int index){

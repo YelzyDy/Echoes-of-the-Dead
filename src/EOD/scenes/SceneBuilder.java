@@ -133,7 +133,7 @@ public class SceneBuilder extends JPanel{
         gameLoopTimer.start();
     }
 
-    public void configureBattle(Skeleton enemy){
+    public void configureBattle(Enemy enemy){
         battle = new BattleUI(protag, enemy);
         battle.displayDialogues();
     }
