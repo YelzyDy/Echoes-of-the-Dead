@@ -144,6 +144,8 @@ public class SceneBuilder extends JPanel{
             return 0.3;
         }else if(enemy.getName().equals("Necromancer")){
             return 4;
+        }else if(enemy.getName().equals("Skeleton1")){
+            return 0.7;
         }
         return 0.0;
     }
