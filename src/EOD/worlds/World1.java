@@ -77,11 +77,11 @@ public class World1 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, 50, 10, protag));
-        scene.enemyList.add( new Skeleton2("Skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.24), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8, protag));
+        scene.enemyList.add( new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.18), screenSize.width * 0.4, screenSize.width * 0.8, 7, 8, protag));
         for(Enemy enemy : scene.enemyList){
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
-            if (enemy.getName().equals("Skeleton")) {
+            if (enemy.getName().equals("Skeleton1")) {
                 enemy.setIndex(3);
             }else if(enemy.getName().equals("Necromancer")) {
                 enemy.setIndex(4);
