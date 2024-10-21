@@ -360,4 +360,8 @@ public class StoryLine {
         public int getSize() {
                 return this.size;
         }
+
+        public String[] getArr() {
+                return arr;
+        }
 }
