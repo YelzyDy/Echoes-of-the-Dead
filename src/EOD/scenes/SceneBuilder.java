@@ -145,6 +145,7 @@ public class SceneBuilder extends JPanel{
                 protag.getAnimator().setIsInBattle(false);
                 protag.getAnimator().setMoving(true);
                 protag.revertPosition();
+                battle.getStoryDialog().dispose();
                 battle = null;
                 System.out.println("You won");
             }
