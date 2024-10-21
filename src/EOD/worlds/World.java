@@ -28,8 +28,8 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected Protagonist protag; 
     private JLayeredPane layeredPane;
 
-    public Minions minions1; // minions -z
-    public MiniBoss miniBoss1; // this is just temporary... this should be a list of enemeies. 
+    public Enemy skeleton; // minions -z
+    public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
     // create a class for enemies. Preferrably in different classes. Must have one superclass for polymorphsism
     // so that we will be able to iterate our enemies using the super class for example Enemy minions1 Enemy miniboss2
     // j

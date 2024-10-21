@@ -1,0 +1,101 @@
+package EOD.characters;
+
+import EOD.MouseInteractable;
+import EOD.animator.EnemyAnimator;
+import EOD.listeners.MouseClickListener;
+import EOD.scenes.SceneBuilder;
+import java.awt.event.MouseEvent;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+public abstract class Enemy extends Character implements MouseInteractable {
+    protected Protagonist protagonist;
+    protected int health;
+    protected EnemyAnimator animator;
+    protected SceneBuilder panel;
+    protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    protected double minRange;
+    protected double maxRange;
+    protected int numIdleSprites;
+    protected int numWalkSprites;
+    private int index;
+
+    public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
+                 double minRange, double maxRange, int numIdleSprites, int numWalkSprites, 
+                 Protagonist protagonist) {
+        super(name, characterType, panel, posX, posY);
+        this.protagonist = protagonist;
+        this.panel = panel;
+        this.health = 100;
+        this.minRange = minRange;
+        this.maxRange = maxRange;
+        this.numIdleSprites = numIdleSprites;
+        this.numWalkSprites = numWalkSprites;
+
+        this.animator = new EnemyAnimator(this);
+        setAnimator(animator);
+        this.addMouseListener(new MouseClickListener(this));
+        setVisible(true);
+    }
+
+    public void setIndex(int index){
+        this.index = index;
+    }
+
+    public int getIndex(){
+        return index;
+    }
+
+    public int getHp() {
+        return health;
+    }
+
+    public void setHp(int health) {
+        this.health = health;
+    }
+
+    public EnemyAnimator getAnimator() {
+        return animator;
+    }
+
+    public double getMinRange() {
+        return minRange;
+    }
+
+    public double getMaxRange() {
+        return maxRange;
+    }
+
+    @Override
+    public void onClick(MouseEvent e) {
+        animator.stopMovement();
+        animator.setIsInBattle(true);
+        protagonist.getAnimator().setIsInBattle(true);
+        positionForBattle();
+        onBattleStart();
+    }
+
+    protected void positionForBattle() {
+        if (!protagonist.getAnimator().getIsInBattle()) return;
+        protagonist.getAnimator().stopMovement();
+        protagonist.setPosX(screenSize.width * 0.35);
+        setPosX(screenSize.width * 0.55);
+        protagonist.getAnimator().setMovingRight(true);
+        animator.setMovingRight(false);
+    }
+
+    @Override
+    public void onHover(MouseEvent e) {
+        if (animator.getIsInBattle()) return;
+        animator.stopMovement();
+    }
+
+    @Override
+    public void onExit(MouseEvent e) {
+        if (animator.getIsInBattle()) return;
+        animator.startMovement();
+    }
+
+    // Abstract method to be implemented by subclasses
+    protected abstract void onBattleStart();
+}

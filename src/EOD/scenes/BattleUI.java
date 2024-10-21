@@ -23,7 +23,7 @@ public class BattleUI extends JFrame {
     private BattleExperiment battleSample;
     private JDialog storyDialogue;
 
-    public BattleUI(Protagonist protag, Minions minion){
+    public BattleUI(Protagonist protag, Enemy minion){
         this.protag = protag;
         battleSample = new BattleExperiment(protag, minion);
     }
