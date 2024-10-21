@@ -4,11 +4,12 @@ import EOD.scenes.SceneBuilder;
 
 public class Skeleton1 extends Enemy {
     public Skeleton1(String name, SceneBuilder panel, int posX, int posY, 
-                   double minRange, double maxRange, int numIdleSprites, 
-                   int numWalkSprites, Protagonist protagonist) {
-        super(name, "skeleton1", panel, posX, posY, minRange, maxRange, 
-              numIdleSprites, numWalkSprites, protagonist);
-              configureSprites();
+            double minRange, double maxRange, int numIdleSprites, 
+            int numWalkSprites, Protagonist protagonist) {
+            super(name, "skeleton1", panel, posX, posY, minRange, maxRange, 
+            numIdleSprites, numWalkSprites, protagonist);
+        configureSprites();
+        health = 100;
     }
 
     public void configureSprites(){
