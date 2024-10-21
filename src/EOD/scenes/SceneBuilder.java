@@ -118,6 +118,15 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
+        } else if (world.getTitle().equals("world2")){
+            sceneList = new ImageList();
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 1);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/graveyard.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
+            sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
+            sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
     }
     
@@ -254,6 +263,20 @@ public class SceneBuilder extends JPanel{
             for (Enemy enemy : enemyList) {
                 enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
-        }    
+        } else if (world.getTitle().equals("world2")){
+            for (EchoesObjects obj : objList) {
+                if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
+                    obj.setVisible(obj.getIndex() == currentSceneIndex);
+                }else{
+                    obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+                }
+            }
+            for (Npc npc : npcList) {
+                npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+            }
+            for (Enemy enemy : enemyList) {
+                enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+            }
+        }
     }
 }
