@@ -3,24 +3,14 @@ package EOD.characters;
 import EOD.scenes.SceneBuilder;
 
 public class Necromancer extends Enemy {
-    private int attack = 20;
-    private int health = 200;
-
-    public int getHp() {
-        return health;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-    
     public Necromancer(String name, SceneBuilder panel, int posX, int posY, 
-                    double minRange, double maxRange, int numIdleSprites, 
-                    int numWalkSprites, Protagonist protagonist) {
+        double minRange, double maxRange, int numIdleSprites, 
+        int numWalkSprites, Protagonist protagonist) {
         super(name, "necromancer", panel, posX, posY, minRange, maxRange, 
-              numIdleSprites, numWalkSprites, protagonist);
-              configureSprites();
-            
+        numIdleSprites, numWalkSprites, protagonist);
+        configureSprites();
+        attack = 20;
+        health = 200;
 
     }
 

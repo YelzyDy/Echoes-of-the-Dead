@@ -67,9 +67,11 @@ public class BattleUI extends JFrame {
             protag.getAnimator().triggerSkillAnimation(1, (int)(screenSize.width * 0.5));
         };
         actionB = e -> {
+            battleSample.skill2();
             protag.getAnimator().triggerSkillAnimation(2, (int)(screenSize.width * 0.5));
         };
         actionC = e -> {
+            battleSample.skill3();
             protag.getAnimator().triggerSkillAnimation(3, protag.getX());
         };
         actionD = e -> {

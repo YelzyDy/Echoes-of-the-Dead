@@ -28,6 +28,26 @@ public class BattleExperiment {
         }
     }
 
+    public void skill2(){
+        int enemyHp = enemy.getHp();
+
+        switch(player.getCharacterType()){
+            case "knight":
+                enemy.setHp(enemyHp - 10);
+            break;
+        }
+    }
+
+    public void skill3(){
+        int enemyHp = enemy.getHp();
+
+        switch(player.getCharacterType()){
+            case "knight":
+                enemy.setHp(enemyHp - 10);
+            break;
+        }
+    }
+
     public void skill4(){
         int enemyHp = enemy.getHp();
         switch(player.getCharacterType()){

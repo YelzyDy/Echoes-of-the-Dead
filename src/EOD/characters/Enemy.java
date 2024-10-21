@@ -23,8 +23,9 @@ public abstract class Enemy extends Character implements MouseInteractable {
     private int index;
 
     public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
-                 double minRange, double maxRange, int numIdleSprites, int numWalkSprites, 
-                 Protagonist protagonist) {
+        double minRange, double maxRange, int numIdleSprites, int numWalkSprites, 
+        Protagonist protagonist) {
+            
         super(name, characterType, panel, posX, posY);
         this.protagonist = protagonist;
         this.panel = panel;

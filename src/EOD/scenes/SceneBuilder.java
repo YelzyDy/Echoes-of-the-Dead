@@ -152,7 +152,6 @@ public class SceneBuilder extends JPanel{
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = protag.getHp();
-            System.out.println(enemyHp);
             double enemyDeathY = getEnemyDeathPosY(enemy);
             if(enemyHp <= 0){
                 protag.getAnimator().setIsInBattle(false);
