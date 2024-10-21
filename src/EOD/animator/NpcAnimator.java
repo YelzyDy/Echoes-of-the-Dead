@@ -18,7 +18,7 @@ public class NpcAnimator extends Animator {
     private double maxRange;
 
     public NpcAnimator(Character character) {
-        super(character);
+        super(character, 0);
         this.random = new Random();
         this.lastMovementTime = System.currentTimeMillis();
         this.lastDirectionChangeTime = System.currentTimeMillis();

@@ -13,7 +13,7 @@ public class EnemyAnimator extends Animator {
     private int moveSpeed;
 
     public EnemyAnimator(Enemy enemy) {
-        super(enemy);
+        super(enemy, 3);
         this.enemy = enemy;
         this.random = new Random();
         this.lastMovementTime = System.currentTimeMillis();
