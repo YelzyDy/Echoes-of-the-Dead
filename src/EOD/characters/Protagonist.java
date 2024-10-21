@@ -44,6 +44,7 @@ public class Protagonist extends Character implements MouseInteractable {
         //buffs depending on characterType
         switch(getCharacterType()){
             case "knight": 
+                attack = 20;
                 health = 150;
                 baseHealth = health;
                 mana = 100;
@@ -51,6 +52,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 money = 40;
                 break;
             case "wizard":
+                attack = 20;
                 health = 150;
                 baseHealth = health;
                 mana = 130;
@@ -58,6 +60,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 money = 0;
                 break;
             case "priest":
+                attack = 20;
                 health = 180; 
                 baseHealth = health;
                 mana = 100;

@@ -11,6 +11,8 @@ import java.awt.Toolkit;
 public abstract class Enemy extends Character implements MouseInteractable {
     protected Protagonist protagonist;
     protected int health;
+    protected int attack;
+    protected int moneyDrop;
     protected EnemyAnimator animator;
     protected SceneBuilder panel;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -47,6 +49,14 @@ public abstract class Enemy extends Character implements MouseInteractable {
 
     public int getHp() {
         return health;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getMoneyDrop() {
+        return moneyDrop;
     }
 
     public void setHp(int health) {
