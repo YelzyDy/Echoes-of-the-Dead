@@ -1,13 +1,12 @@
 package EOD.worlds;
 
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import EOD.objects.Shop;
-import EOD.objects.EchoesObjects;
 import EOD.characters.*;
 import EOD.listeners.MouseClickListener;
+import EOD.objects.EchoesObjects;
+import EOD.objects.shop.Shop;
 import EOD.scenes.SceneBuilder;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  *
