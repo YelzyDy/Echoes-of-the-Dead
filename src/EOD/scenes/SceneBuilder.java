@@ -138,12 +138,22 @@ public class SceneBuilder extends JPanel{
         battle.displayDialogues();
     }
 
+    private double getEnemyDeathPosY(Enemy enemy){
+        if(enemy.getName().equals("Skeleton")){
+            return 0.3;
+        }else if(enemy.getName().equals("Necromancer")){
+            return 4;
+        }
+        return 0.0;
+    }
+
     private void updateBattleState(){
         if(battle != null){
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             System.out.println(enemyHp);
             int playerHp = protag.getHp();
+            double enemyDeathY = getEnemyDeathPosY(enemy);
             if(enemyHp <= 0){
                 protag.getAnimator().setIsInBattle(false);
                 protag.getAnimator().setMoving(true);
@@ -154,8 +164,7 @@ public class SceneBuilder extends JPanel{
                 Timer deathAnimationTimer = new Timer(1800, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        enemy.getAnimator().triggerDeathAnimation();
-                        enemy.setPosY(enemy.getPosY() + enemy.getPosY() * 0.3);
+                        enemy.getAnimator().triggerDeathAnimation(enemy.getPosY() + enemy.getPosY() * enemyDeathY);
                     }
                 });
                 deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once

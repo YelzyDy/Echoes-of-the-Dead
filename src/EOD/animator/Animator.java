@@ -9,6 +9,10 @@ import EOD.utils.ImageList;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.Timer;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public abstract class Animator {
     protected int currentFrame;
@@ -24,7 +28,11 @@ public abstract class Animator {
     protected boolean isInBattle;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-
+    protected double targetY;
+    protected double currentY;
+    protected boolean isDeathAnimating;
+    protected Timer deathAnimationTimer;
+    
     protected boolean isDead;
     protected boolean isUsingSkill;
     protected int currentSkill;
@@ -56,6 +64,7 @@ public abstract class Animator {
         this.isReturning = false;
         this.skillCompleted = false;
         this.reachedTarget = false;
+        this.isDeathAnimating = false;
     }
 
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites) {
@@ -160,9 +169,37 @@ public abstract class Animator {
         return (targetX > startX) ? delta : -delta;
     }
 
-    public void triggerDeathAnimation() {
+    public void triggerDeathAnimation(double targetY) {
         isDead = true;
+        isDeathAnimating = true;
         currentFrame = 0;
+        this.targetY = targetY;
+        this.currentY = character.getPosY();
+
+        final double totalDistance = targetY - currentY;
+        final int animationDuration = 1000; // 1 second
+        final int fps = 60;
+        final int totalFrames = animationDuration / (1000 / fps);
+        final double stepSize = totalDistance / totalFrames;
+
+        deathAnimationTimer = new Timer(1000 / fps, new ActionListener() {
+            int frame = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (frame < totalFrames) {
+                    currentY += stepSize;
+                    character.setPosY(currentY);
+                    frame++;
+                    updateBounds();
+                } else {
+                    isDeathAnimating = false;
+                    ((Timer) e.getSource()).stop();
+                }
+            }
+        });
+
+        deathAnimationTimer.start();
     }
 
     public void scaleSprites(String spriteType, double scale) {

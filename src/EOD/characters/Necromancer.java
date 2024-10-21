@@ -15,6 +15,7 @@ public class Necromancer extends Enemy {
     public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), numIdleSprites);
+        animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.007), 52);
         animator.startMovement();
         animator.chooseNewDirection();
         animator.updateBounds();
