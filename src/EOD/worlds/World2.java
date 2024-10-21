@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package EOD.worlds;
 
 import EOD.characters.*;
@@ -10,52 +14,39 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Joana
+ * @author zendy
  */
-public class World1 extends World{
-
-    public World1(String protagType, String playerName){
-        super(protagType, playerName, "world1");
+public class World2 extends World {
+    private Protagonist protag;
+    public World2(String protagType, String playerName, Protagonist protag) {
+        this.protag = protag;
+        super(protagType, playerName, "world2");
         scene = new SceneBuilder(this);
         Welcome();
     }
-    
-    public void initializeProtagonist(){
-        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        protag = new Protagonist(getPlayerName(), getProtagType(), scene, 0, (int)(screenSize.height * 0.24));
+
+    // Implement the necessary methods to initialize the World2 scene
+    public void initializeProtagonist() {
         scene.setProtag(protag);
         scene.addMouseListener(new MouseClickListener(protag));
         scene.add(protag);
         scene.setComponentZOrder(protag, 0);
     }
 
-    public void initializeObjects(){
-            scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
-            // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
-            scene.objList.add(new Shop(this));
-            scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
-            scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
-            for (EchoesObjects obj : scene.objList) {
-                scene.add(obj);
-                if (obj.getName().equals("portal")) {
-                    if(!protag.getAnimator().getIsInBattle()){
-                        obj.setIndex(1);
-                    }else{
-                        obj.setIndex(3);
-                    }
-                } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
-                    obj.setIndex(2);
-                } 
-                obj.addMouseListener(new MouseClickListener(this));;
-            }
-            //sheena add
-            // shopBg = new EchoesObjects("shop_assets",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop0-bg", false, true, 2);
-            // this.add(shopBg);
+    public void initializeObjects() {
+        scene.objList = new ArrayList<>(); 
+        scene.objList.add(new Shop(this));
+        for (EchoesObjects obj : scene.objList) {
+            scene.add(obj);
+            obj.addMouseListener(new MouseClickListener(this));;
+        }
     }
-    public void initializeWorldChars(){
+
+    public void initializeWorldChars() { //ako lay add nila guys, gi check ra nako if mo open ba ang world2
+        // spoiler alert: di mo open ang world2 -z
         scene.npcList = new ArrayList<>();
         scene.npcList.add(new Npc("Yoo", "yoo", scene, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.8));
-        scene.npcList.add(new Npc("Faithful", "faithful", scene, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
+        //scene.npcList.add(new Npc("Faithful", "faithful", scene, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
         scene.npcList.add(new Npc("Miggins", "miggins", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62));
         scene.npcList.add(new Npc("Natty", "natty", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8));
         scene.npcList.add(new Npc("Constance", "missC", scene, (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.25), screenSize.width * 0.6, screenSize.width * 0.8));
@@ -68,9 +59,7 @@ public class World1 extends World{
                 npc.setIndex(0);
             }else if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
-            }else if (npc.getName().equals("Faithful")) {
-                npc.setIndex(1);
-            } else if (npc.getName().equals("Miggins")) {
+            }else if (npc.getName().equals("Miggins")) {
                 npc.setIndex(2);
             } else if (npc.getName().equals("Natty")) {
                 npc.setIndex(1);
@@ -118,13 +107,10 @@ public class World1 extends World{
                     scene.setCurrentSceneIndex(4);
                 } else {
                     // If the miniboss has been defeated, create a new World2 instance and make it visible
-                    scene.setCurrentSceneIndex(2);
-                    isBattleStopped = false;
                     /*World2 world2 = new World2(getProtagType(), getPlayerName(), protag);
                     world2.setVisible(true);
-                    this.setVisible(false);
-                    
-                    System.out.println("clicked portal");*/
+                    this.setVisible(false);*/
+                    isBattleStopped = false;
                 }
             }
             // } else if (source == obj && obj.getName().equals("shop")){
@@ -144,4 +130,6 @@ public class World1 extends World{
         Object source = e.getSource();
        
     }
+
+    // Implement other necessary methods, similar to World1
 }
