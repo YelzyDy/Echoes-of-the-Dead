@@ -40,6 +40,8 @@ public class SceneBuilder extends JPanel{
 
     public ArrayList<Npc> npcList;
 
+    public ArrayList<Enemy> enemyList;
+
     private Protagonist protag;
 
     private BattleUI battle;
@@ -131,7 +133,7 @@ public class SceneBuilder extends JPanel{
         gameLoopTimer.start();
     }
 
-    public void configureBattle(Minions enemy){
+    public void configureBattle(Skeleton enemy){
         battle = new BattleUI(protag, enemy);
         battle.displayDialogues();
     }
@@ -184,18 +186,15 @@ public class SceneBuilder extends JPanel{
                 }
             }
 
-            if (world.minions1 != null) {
-                Animator animator = world.minions1.getAnimator();
-                animator.updateAnimation(); 
-                animator.updateMovement();
-                animator.updateBounds();
+            for (Enemy enemy : enemyList) {
+                Animator animator = enemy.getAnimator();
+                if(enemy != null){
+                    animator.updateAnimation(); 
+                    animator.updateMovement();
+                    animator.updateBounds();
+                }
             }
-            if (world.miniBoss1 != null){
-                Animator animator = world.miniBoss1.getAnimator();
-                animator.updateAnimation(); 
-                animator.updateMovement();
-                animator.updateBounds();
-            }
+
         }
     }
 
@@ -223,10 +222,9 @@ public class SceneBuilder extends JPanel{
             for (Npc npc : npcList) {
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
-            
-            world.miniBoss1.setVisible(currentSceneIndex == 4);
-            
-            world.minions1.setVisible(currentSceneIndex == 3);
+            for (Enemy enemy : enemyList) {
+                enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+            }
         }    
     }
 }

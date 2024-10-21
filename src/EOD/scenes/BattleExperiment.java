@@ -1,16 +1,16 @@
 package EOD.scenes;
 
-import EOD.characters.MiniBoss;
-import EOD.characters.Minions;
+import EOD.characters.Necromancer;
+import EOD.characters.Skeleton;
 import EOD.characters.Protagonist;
 import EOD.animator.Animator;
 public class BattleExperiment {
-    private MiniBoss miniboss;
-    private Minions minion;
+    private Necromancer miniboss;
+    private Skeleton minion;
     private Protagonist player;
     private Animator animator;
     private boolean battleStopped;
-    public BattleExperiment(Protagonist player, Minions minion){
+    public BattleExperiment(Protagonist player, Skeleton minion){
         this.player = player;
         this.minion = minion;
         animator = player.getAnimator();

@@ -73,14 +73,21 @@ public class World1 extends World{
                 npc.setIndex(1);
             } 
         }
-        miniBoss1 = new MiniBoss("MiniBoss", "necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, 50, 10, protag);
-        scene.add(miniBoss1);
+    }
 
-        minions1 = new Minions("Minions", "skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.24), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8, protag);
-        scene.add(minions1);
-
-        scene.setComponentZOrder(miniBoss1, 1);
-        scene.setComponentZOrder(minions1, 1);  
+    public void initializeEnemies(){
+        scene.enemyList = new ArrayList<>();
+        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, 50, 10, protag));
+        scene.enemyList.add( new Skeleton("Skeleton", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.24), screenSize.width * 0.4, screenSize.width * 0.8, 6, 8, protag));
+        for(Enemy enemy : scene.enemyList){
+            scene.add(enemy);
+            scene.setComponentZOrder(enemy, 1);
+            if (enemy.getName().equals("Skeleton")) {
+                enemy.setIndex(3);
+            }else if(enemy.getName().equals("Necromancer")) {
+                enemy.setIndex(4);
+            }
+        }
     }
     
     
@@ -93,6 +100,7 @@ public class World1 extends World{
             initializeObjects();
             initializeProtagonist();
             initializeWorldChars();
+            initializeEnemies();
             scene.initializeGameLoop();
         }
 

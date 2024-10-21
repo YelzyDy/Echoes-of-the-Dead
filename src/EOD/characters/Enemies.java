@@ -10,7 +10,7 @@ package EOD.characters;
  * @author zendy
  */
 
-// add logic methods such as skills here
+
 public class Enemies {
     
 }
