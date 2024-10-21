@@ -1,8 +1,10 @@
 package EOD.scenes;
 
 import EOD.characters.Necromancer;
-import EOD.characters.Skeleton2;
+import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
+import EOD.characters.Skeleton2;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -40,7 +42,7 @@ public class Battle{
     private int enemyMissTurn = 0;
     private int moneyDrop;
 
-    //if the enemy is a miniboss
+    //if the enemy is necromancer
     public Battle(Protagonist player, Necromancer miniboss){
         this.player = player;
         this.miniboss = miniboss;
@@ -55,7 +57,7 @@ public class Battle{
         playerMoney = player.getMoney();
     }
 
-    //if the enemy is a minion
+    //if the enemy is skeleton2
     public Battle(Protagonist player, Skeleton2 minion){
         this.player = player;
         this.minion = minion;
@@ -278,8 +280,8 @@ public class Battle{
 
            int damage = skillChooseEnemy();
            int damageCalculated;
-           //for knight during the turn of using skill2
 
+           //for knight during the turn of using skill2
            if(playerDamageReducer!=0){
                 damageCalculated = (int)(damage * playerDamageReducer);
                 playerHp -= damageCalculated;

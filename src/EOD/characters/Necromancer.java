@@ -9,6 +9,7 @@ public class Necromancer extends Enemy {
         super(name, "necromancer", panel, posX, posY, minRange, maxRange, 
               numIdleSprites, numWalkSprites, protagonist);
               configureSprites();
+            
 
     }
 
