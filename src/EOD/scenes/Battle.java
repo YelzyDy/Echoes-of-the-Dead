@@ -1,7 +1,7 @@
 package EOD.scenes;
 
 import EOD.characters.Necromancer;
-import EOD.characters.Skeleton;
+import EOD.characters.Skeleton2;
 import EOD.characters.Protagonist;
 import java.util.Random;
 import java.util.Scanner;
@@ -36,7 +36,7 @@ public class Battle{
     private int enemyBaseHp = enemyHp;
     private int enemyAttack;
     private Necromancer miniboss;
-    private Skeleton minion;
+    private Skeleton2 minion;
     private int enemyMissTurn = 0;
     private int moneyDrop;
 
@@ -56,7 +56,7 @@ public class Battle{
     }
 
     //if the enemy is a minion
-    public Battle(Protagonist player, Skeleton minion){
+    public Battle(Protagonist player, Skeleton2 minion){
         this.player = player;
         this.minion = minion;
         enemyHp = minion.getHp();
