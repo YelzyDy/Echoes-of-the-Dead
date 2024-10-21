@@ -17,7 +17,8 @@ public class Shop extends EchoesObjects implements MouseInteractable {
     private EchoesObjects item3;
     private EchoesObjects item4;
     private EchoesObjects sidePanel;
-
+    private EchoesObjects buyButton;
+    private double height, width;
 
 
     public Shop(World world) {
@@ -69,9 +70,21 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         shopBg.add(item4);
     }
 
+    public void showBuyButton(double width, double height){
+        buyButton = new EchoesObjects("shop", 
+        (int)(width * 0.618), (int)(height* 0.717), 
+        (int)(width * 0.13), (int)(height * 0.15), 
+        "buy_", false, true, 2);
+
+        buyButton.setVisible(true);
+        buyButton.addMouseListener(new MouseClickListener(this));
+        shopBg.add(buyButton);
+    }
+
     public void showElementsInShop(){
         showShopBg();
-        double width = shopBg.getWidth(), height = shopBg.getHeight();
+        width = shopBg.getWidth();
+        height = shopBg.getHeight();
         showShopItem1(width, height);
         showSidePanelBg(width, height);
     }
@@ -82,6 +95,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         System.out.println("click");
         if(source == item1){
             sidePanel.setCurrentFrame(1);
+            showBuyButton(width, height);
             sidePanel.repaint();
             System.out.println("item1");
         }else if(source == item2){
