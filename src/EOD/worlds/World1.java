@@ -38,7 +38,11 @@ public class World1 extends World{
             for (EchoesObjects obj : scene.objList) {
                 scene.add(obj);
                 if (obj.getName().equals("portal")) {
-                    obj.setIndex(1);
+                    if(!protag.getAnimator().getIsInBattle()){
+                        obj.setIndex(1);
+                    }else{
+                        obj.setIndex(3);
+                    }
                 } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
                     obj.setIndex(2);
                 } 
@@ -88,16 +92,14 @@ public class World1 extends World{
             }
         }
     }
-    
-    
 
     @Override
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();
         if(source == btn_ok){
-            initializeObjects();
             initializeProtagonist();
+            initializeObjects();
             initializeWorldChars();
             initializeEnemies();
             scene.initializeGameLoop();
@@ -105,9 +107,19 @@ public class World1 extends World{
 
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){
-                scene.setCurrentSceneIndex(3);
+                if(!isBattleStopped){
+                    scene.setCurrentSceneIndex(3);
+                }else{
+                    scene.setCurrentSceneIndex(1);
+                    isBattleStopped = false;
+                }
             } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
-                scene.setCurrentSceneIndex(4);
+                if(!isBattleStopped){
+                    scene.setCurrentSceneIndex(4);
+                }else{
+                    scene.setCurrentSceneIndex(2);
+                    isBattleStopped = false;
+                }
             }
             // } else if (source == obj && obj.getName().equals("shop")){
             //     scene.setCurrentSceneIndex(5);

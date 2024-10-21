@@ -5,11 +5,9 @@ import EOD.characters.Character;
 import EOD.scenes.SceneBuilder;
 public class ProtagonistAnimator extends Animator {
     private boolean isTransitioned;
-    
     public ProtagonistAnimator(Character character) {
         super(character, 4);
     }
-
     public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
         String type = "skill" + skillNumber;
         importSprites(assetPackage, type, scale, numOfSprites);

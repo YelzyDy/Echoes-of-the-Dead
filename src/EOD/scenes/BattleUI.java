@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import EOD.characters.*;
 import EOD.dialogues.*;
+import EOD.objects.EchoesObjects;
 public class BattleUI extends JFrame {
     StoryLine story = new StoryLine();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -22,10 +23,18 @@ public class BattleUI extends JFrame {
     private Protagonist protag;
     private BattleExperiment battleSample;
     private JDialog storyDialogue;
-
+    private EchoesObjects portal;
     public BattleUI(Protagonist protag, Enemy minion){
         this.protag = protag;
         battleSample = new BattleExperiment(protag, minion);
+    }
+
+    public void setPortal(EchoesObjects portal){
+        this.portal = portal;
+    }
+
+    public EchoesObjects getPortal(){
+        return portal;
     }
 
     public BattleExperiment getBattleExperiment(){

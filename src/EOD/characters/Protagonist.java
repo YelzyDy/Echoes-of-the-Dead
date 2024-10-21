@@ -23,7 +23,8 @@ public class Protagonist extends Character implements MouseInteractable {
     private int health;
     private int baseHealth;
     private int money;
-    
+
+
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         animator = new ProtagonistAnimator(this);

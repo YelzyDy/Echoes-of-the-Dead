@@ -1,7 +1,7 @@
 package EOD.characters;
 
 import EOD.scenes.SceneBuilder;
-
+import EOD.objects.EchoesObjects;
 public class Skeleton1 extends Enemy {
     public Skeleton1(String name, SceneBuilder panel, int posX, int posY, 
             double minRange, double maxRange, int numIdleSprites, 
@@ -21,8 +21,10 @@ public class Skeleton1 extends Enemy {
         animator.updateBounds();
     }
 
+
     @Override
     protected void onBattleStart() {
-        panel.configureBattle(this);
+        EchoesObjects portal = panel.objList.get(1);
+        panel.configureBattle(this, portal);
     }
 }

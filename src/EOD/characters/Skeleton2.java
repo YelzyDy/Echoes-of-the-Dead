@@ -23,6 +23,6 @@ public class Skeleton2 extends Enemy {
 
     @Override
     protected void onBattleStart() {
-        panel.configureBattle(this);
+        // panel.configureBattle(this,);
     }
 }

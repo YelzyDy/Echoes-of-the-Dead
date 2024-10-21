@@ -7,11 +7,12 @@ import EOD.characters.Protagonist;
 public class BattleExperiment {
     private Enemy enemy;
     private Protagonist player;
-    private boolean battleStopped;
+
+    private boolean isBattleStopped;
     public BattleExperiment(Protagonist player, Enemy enemy){
         this.player = player;
         this.enemy = enemy;
-        battleStopped = false;
+        isBattleStopped = false;
     }
 
     public Enemy getEnemy(){
@@ -37,8 +38,8 @@ public class BattleExperiment {
         }
     }
 
-    public boolean getIsBattleStopped(){
-        return battleStopped;
-    }
+    public void setIsBattleStopped(boolean isBattleStopped){  this.isBattleStopped = isBattleStopped; }
+
+    public boolean getIsBattleStopped(){  return isBattleStopped; }
 
 }

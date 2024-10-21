@@ -1,5 +1,6 @@
 package EOD.characters;
 
+import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
 
 public class Necromancer extends Enemy {    
@@ -25,7 +26,7 @@ public class Necromancer extends Enemy {
     
     @Override
     protected void onBattleStart() {
-        panel.configureBattle(this);
-        animator.performSpecialAttack();
+        EchoesObjects portal = panel.objList.get(2);
+        panel.configureBattle(this, portal);
     }
 }

@@ -133,8 +133,9 @@ public class SceneBuilder extends JPanel{
         gameLoopTimer.start();
     }
 
-    public void configureBattle(Enemy enemy){
+    public void configureBattle(Enemy enemy, EchoesObjects portal){
         battle = new BattleUI(protag, enemy);
+        battle.setPortal(portal);
         battle.displayDialogues();
     }
 
@@ -147,6 +148,15 @@ public class SceneBuilder extends JPanel{
         return 0.0;
     }
 
+    private int getPortalIndex(String name){
+        if(name.equals("portal")){
+            return 3;
+        }else if(name.equals("portalMiniBoss")){
+            return 4;
+        }
+        return -1;
+    }
+
     private void updateBattleState(){
         if(battle != null){
             Enemy enemy = battle.getBattleExperiment().getEnemy();
@@ -154,10 +164,14 @@ public class SceneBuilder extends JPanel{
             int playerHp = protag.getHp();
             System.out.println(enemyHp);   
             double enemyDeathY = getEnemyDeathPosY(enemy);
+            String portalName = battle.getPortal().getName();
+            int portalIndex = getPortalIndex(portalName);
             if(enemyHp <= 0){
                 protag.getAnimator().setIsInBattle(false);
                 protag.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
+                battle.getPortal().setIndex(portalIndex);
+                world.setIsBattleStopped(true);
                 battle = null;
                 System.out.println("You won");
 
@@ -229,14 +243,11 @@ public class SceneBuilder extends JPanel{
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
             for (EchoesObjects obj : objList) {
                 if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
-                    obj.setVisible(obj.getIndex() == currentSceneIndex && !protag.getAnimator().getIsInBattle());
+                    obj.setVisible(obj.getIndex() == currentSceneIndex);
                 }else{
                     obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
                 }
             }
-            // shop.setVisible(currentSceneIndex == 2 && !isTransportedToShop); // visibility will base sa current sceneIndex if true - j will add other comments later //added if clicked will be transported to shop -sheen
-            // portal.setVisible(currentSceneIndex == 1 && !isTransportedToSwamp);  // Hide portal after transport
-            // portalMB.setVisible(currentSceneIndex == 2 && !isTransportedToPillars);  // Hide portal after transport
             for (Npc npc : npcList) {
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }

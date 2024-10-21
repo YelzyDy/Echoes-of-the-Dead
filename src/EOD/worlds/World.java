@@ -26,6 +26,8 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected SceneBuilder scene;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected Protagonist protag; 
+    protected boolean isBattleStopped;
+    
     private JLayeredPane layeredPane;
 
     public Enemy skeleton; // minions -z
@@ -56,6 +58,11 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
 
         this.setContentPane(layeredPane);
         
+        isBattleStopped = false;
+    }
+
+    public void setIsBattleStopped(boolean isBattleStopped){
+        this.isBattleStopped = isBattleStopped;
     }
 
     public JLayeredPane getPane(){
