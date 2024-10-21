@@ -18,7 +18,8 @@ public class Dialogues extends JFrame {
 
     public void displayDialogues(int ID) {
 
-        // THE WINDOW
+        // LOAD NPC
+
         this.ID = ID;
         switch (ID) {
             case 1:
@@ -40,6 +41,8 @@ public class Dialogues extends JFrame {
                 break;
         }
 
+        // TEXT WINDOW
+
         JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
@@ -54,6 +57,8 @@ public class Dialogues extends JFrame {
         storyDialogue.add(textBox, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
 
+        // SKIP BUTTON
+
         ImageIcon skipButtonIcon = scaleImageIcon("src/button_assets/skipButton.png");
         ImageIcon skipButtonHoverIcon = scaleImageIcon("src/button_assets/skipButtonHover.png");
 
@@ -66,6 +71,34 @@ public class Dialogues extends JFrame {
         skipButton.setFocusPainted(false);
         skipButton.setBorderPainted(false);
         skipButton.setContentAreaFilled(false);
+
+        // ASK BUTTON
+
+        ImageIcon askButtonIcon = scaleImageIcon("src/button_assets/askButton.png");
+        ImageIcon askButtonHoverIcon = scaleImageIcon("src/button_assets/askButtonHover.png");
+
+        JButton askButton = new JButton(askButtonIcon);
+        askButton.setPreferredSize(new Dimension(width, height));
+
+        askButton.setBackground(Color.BLACK);
+        askButton.setFocusPainted(false);
+        askButton.setBorderPainted(false);
+        askButton.setContentAreaFilled(false);
+
+        // BUTTON PANEL
+
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.add(skipButton, BorderLayout.EAST);
+        buttonPanel.add(askButton, BorderLayout.WEST);
+
+        storyDialogue.add(buttonPanel, BorderLayout.NORTH);
+        
+        this.size = story.getSize();
+        textBox.setText(story.getLine(0));
+        addMouseListenerForMultipleLines(story, textBox, storyDialogue, this.size);
+
+        // SKIP BUTTON EVENT LISTENERS
 
         skipButton.addActionListener(e -> {
             storyDialogue.dispose();
@@ -83,22 +116,13 @@ public class Dialogues extends JFrame {
             }
         });
 
-        ImageIcon askButtonIcon = scaleImageIcon("src/button_assets/askButton.png");
-        ImageIcon askButtonHoverIcon = scaleImageIcon("src/button_assets/askButtonHover.png");
-
-        JButton askButton = new JButton(askButtonIcon);
-        askButton.setPreferredSize(new Dimension(width, height));
-
-        askButton.setBackground(Color.BLACK);
-        askButton.setFocusPainted(false);
-        askButton.setBorderPainted(false);
-        askButton.setContentAreaFilled(false);
+        // ASK BUTTON EVENT LISTENERS
 
         askButton.addActionListener(e -> {
             storyDialogue.dispose();
             this.ID++;
+            buttonPanel.setVisible(false);
             textBox.setText(null);
-            askButton.setVisible(false);
             askDialogues.openScrollableDialog(this.ID, storyDialogue, textBox);
         });
 
@@ -114,16 +138,7 @@ public class Dialogues extends JFrame {
             }
         });
 
-        JPanel buttonPanel = new JPanel(new BorderLayout());
-        buttonPanel.setBackground(Color.BLACK);
-        buttonPanel.add(skipButton, BorderLayout.EAST);
-        buttonPanel.add(askButton, BorderLayout.WEST);
-
-        storyDialogue.add(buttonPanel, BorderLayout.NORTH);
-        
-        this.size = story.getSize();
-        textBox.setText(story.getLine(0));
-        addMouseListenerForMultipleLines(story, textBox, storyDialogue, this.size);
+        // DISPLAY
 
         storyDialogue.setFocusable(true);
         storyDialogue.requestFocusInWindow();

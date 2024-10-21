@@ -15,6 +15,8 @@ public class AskDialogues extends JFrame {
 
     public void openScrollableDialog(int ID, JDialog dialog, JLabel textBox) {
 
+        // LOAD NPC
+
         switch (ID) {
             case 2:
                 story.missConstanceLines();
@@ -38,6 +40,8 @@ public class AskDialogues extends JFrame {
         dialog.getContentPane().setBackground(Color.BLACK);
         dialog.add(textBox, BorderLayout.CENTER);
 
+        // SCROLL PANEL
+
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBackground(Color.BLACK);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -45,6 +49,8 @@ public class AskDialogues extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         gbc.gridx = 0;
+
+        // SCROLL WINDOW & PANE
 
         JScrollPane scrollPane = new JScrollPane(buttonPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -74,6 +80,8 @@ public class AskDialogues extends JFrame {
                 return button;
             }
         });
+
+        // SET SCROLL BUTTONS
 
         this.size = story.getSize();
         String[] options = new String[this.size];
@@ -108,7 +116,7 @@ public class AskDialogues extends JFrame {
             }
         }
 
-        dialog.add(scrollPane, BorderLayout.CENTER);
+        // SCROLL PANE EVENT LISTENER
 
         dialog.addMouseListener(new MouseAdapter() {
             @Override
@@ -117,6 +125,9 @@ public class AskDialogues extends JFrame {
             }
         });
 
+        // DISPLAY
+
+        dialog.add(scrollPane, BorderLayout.CENTER);
         dialog.getContentPane().setBackground(Color.BLACK);
         dialog.setLocation(x, y);
         dialog.setVisible(true);
