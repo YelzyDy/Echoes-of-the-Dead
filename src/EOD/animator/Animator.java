@@ -63,6 +63,7 @@ public abstract class Animator {
         sprites.clear();
         for (int i = 0; i < numOfSprites; i++) {
             String path = "/" + assetPackage + "/" + character.getCharacterType() + "/" + type + "/sprite_" + (i + 1) + ".png";
+            System.out.println(path);
             try {
                 Image image = ImageIO.read(getClass().getResource(path));
                 sprites.add(image);

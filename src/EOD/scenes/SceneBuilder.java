@@ -140,21 +140,30 @@ public class SceneBuilder extends JPanel{
 
     private void updateBattleState(){
         if(battle != null){
-            int enemyHp = battle.getBattleExperiment().getEnemyHp();
+            Enemy enemy = battle.getBattleExperiment().getEnemy();
+            int enemyHp = enemy.getHp();
             System.out.println(enemyHp);
-            int playerHp = battle.getBattleExperiment().getPlayerHp();
+            int playerHp = protag.getHp();
             if(enemyHp <= 0){
                 protag.getAnimator().setIsInBattle(false);
                 protag.getAnimator().setMoving(true);
-                protag.revertPosition();
                 battle.getStoryDialog().dispose();
                 battle = null;
                 System.out.println("You won");
+
+                Timer deathAnimationTimer = new Timer(1800, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        enemy.getAnimator().triggerDeathAnimation();
+                        enemy.setPosY(enemy.getPosY() + enemy.getPosY() * 0.3);
+                    }
+                });
+                deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
+                deathAnimationTimer.start();
             }
             if(playerHp <= 0){
                 protag.getAnimator().setIsInBattle(false);
                 protag.getAnimator().setMoving(true);
-                protag.revertPosition();
                 battle.getStoryDialog().dispose();
                 battle = null;
                 System.out.println("You lose");

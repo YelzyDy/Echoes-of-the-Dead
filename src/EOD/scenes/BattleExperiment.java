@@ -14,12 +14,8 @@ public class BattleExperiment {
         battleStopped = false;
     }
 
-    public int getEnemyHp(){
-        return enemy.getHp();
-    }
-
-    public int getPlayerHp(){
-        return player.getHp();
+    public Enemy getEnemy(){
+        return enemy;
     }
 
     public void skill1(){
