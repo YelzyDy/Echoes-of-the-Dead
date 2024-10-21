@@ -108,7 +108,10 @@ public class World1 extends World{
                 scene.setCurrentSceneIndex(3);
             } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 scene.setCurrentSceneIndex(4);
-            } 
+            }
+            // } else if (source == obj && obj.getName().equals("shop")){
+            //     scene.setCurrentSceneIndex(5);
+            // }
         }    
     }
 

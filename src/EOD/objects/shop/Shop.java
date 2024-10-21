@@ -42,62 +42,59 @@ public class Shop extends EchoesObjects implements MouseInteractable {
     }
 
     public void showSidePanelBg(double width, double height){
-        sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel", false, false, 1);
+        sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel_", false, false, 5);
         sidePanel.setVisible(true);
         shopBg.add(sidePanel);
     }
-
-    public void showSidePanel1(double width, double height){
-        sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel_1", false, true, 1);
-        sidePanel.setVisible(true);
-        shopBg.add(sidePanel);
-    }
-
-    // public void showSidePanel2(double width, double height){
-    //     sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel_2", false, false, 1);
-    //     sidePanel.setVisible(true);
-    //     shopBg.add(sidePanel);
-    // }
-
-    // public void showSidePanel3(double width, double height){
-    //     sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel_3", false, false, 1);
-    //     sidePanel.setVisible(true);
-    //     shopBg.add(sidePanel);
-    // }
-
-    // public void showSidePanel4(double width, double height){
-    //     sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel_4", false, false, 1);
-    //     sidePanel.setVisible(true);
-    //     shopBg.add(sidePanel);
-    // }
 
     public void showShopItem1(double width, double height){
         item1 = new EchoesObjects("shop", (int)(width * 0.152), (int)(height* 0.2528), (int)(width * 0.1578), (int)(height * 0.3), "item1_", false, true, 2);
         item1.setVisible(true);
+        item1.addMouseListener(new MouseClickListener(this));
         shopBg.add(item1);
 
         item2 = new EchoesObjects("shop", (int)(width * 0.152), (int)(height* 0.5), (int)(width * 0.1578), (int)(height * 0.3), "item2_", false, true, 2);
         item2.setVisible(true);
+        item2.addMouseListener(new MouseClickListener(this));
         shopBg.add(item2);
 
         item3 = new EchoesObjects("shop", (int)(width * 0.294), (int)(height* 0.258), (int)(width * 0.1578), (int)(height * 0.3), "item3_", false, true, 2);
         item3.setVisible(true);
+        item3.addMouseListener(new MouseClickListener(this));
         shopBg.add(item3);
 
         item4 = new EchoesObjects("shop", (int)(width * 0.294), (int)(height* 0.505), (int)(width * 0.1578), (int)(height * 0.3), "item4_", false, true, 2);
         item4.setVisible(true);
+        item4.addMouseListener(new MouseClickListener(this));
         shopBg.add(item4);
     }
 
-    @Override
-    public void onClick(MouseEvent e) {     
-        // sample for showing the shop
+    public void showElementsInShop(){
         showShopBg();
         double width = shopBg.getWidth(), height = shopBg.getHeight();
         showShopItem1(width, height);
         showSidePanelBg(width, height);
-        showSidePanel1(width, height);
+    }
 
-
+    @Override
+    public void onClick(MouseEvent e) {     
+        Object source = e.getSource();
+        System.out.println("click");
+        if(source == item1){
+            sidePanel.setCurrentFrame(1);
+            sidePanel.repaint();
+            System.out.println("item1");
+        }else if(source == item2){
+            sidePanel.setCurrentFrame(2);
+            sidePanel.repaint();
+        }else if(source == item3){
+            sidePanel.setCurrentFrame(3);
+            sidePanel.repaint();
+        }else if(source == item4){
+            sidePanel.setCurrentFrame(4);
+            sidePanel.repaint();
+        }else if(source == this){
+            showElementsInShop();
+        }
     }  
 }
