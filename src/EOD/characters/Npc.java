@@ -57,12 +57,12 @@ public class Npc extends Character implements MouseInteractable {
         } 
         if (getCharacterType().equals("yoo")){
             dialogues.displayDialogues(5);
-        } 
-        if (getCharacterType().equals("faithful")){
-
-        } 
+        }  
         if (getCharacterType().equals("miggins")){
             dialogues.displayDialogues(7);
+        }
+        if (getCharacterType().equals("faithful")){
+            dialogues.displayDialogues(9);
         }
     }
 

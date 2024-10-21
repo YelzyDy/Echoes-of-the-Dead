@@ -40,6 +40,10 @@ public class Dialogues extends JFrame {
                 break;
             case 8: story.migginsLines();
                 break;
+            case 9: story.faithfulIntro();
+                break;
+            case 10: story.faithfulLines();
+                break;
             default:
                 break;
         }
@@ -149,6 +153,8 @@ public class Dialogues extends JFrame {
         storyDialogue.setVisible(true);
 
     }
+
+    // THE METHODS
 
     public ImageIcon scaleImageIcon(String path) {
         int width = (int) (screenSize.width * 0.15);

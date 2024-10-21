@@ -143,7 +143,7 @@ public class StoryLine {
                 this.arr[i++] = "Natty: \"You think I'm crazy? Oh, please! If I were, you wouldn't be here talking to me! You just need something from poor little Natty, don't you? Shame on you.\"";
                                 
                 this.arr[i++] = "You: \"Why are you giggling over there?\"";
-                this.arr[i++] = "Natty: \"Wanna a hear a joke? Who sells fake pie and calls herself Miggins?\" [chuckles to herself]";
+                this.arr[i++] = "Natty: \"Wanna a hear a joke? Who sell fake pies and calls herself Miggins?\" [chuckles to herself]";
                                
                 this.arr[i++] = "You: \"You seem happier than usual. What's up?\"";
                 this.arr[i++] = "Natty: \"Why are asylums full of singles? Because none of them can keep their thoughts together!\" [laughs hysterically]";
@@ -273,14 +273,74 @@ public class StoryLine {
                 this.arr[i++] = "Miggins: \"I used to sell seafood. Unfortunately, most fishes are gobbled up by slimes.\"";
                 
                 this.arr[i++] = "You: \"Where are the customers?\"";
-                this.arr[i++] = "Miggins: \"The weather here recently is terrible. It's scaring away them away!\"";
+                this.arr[i++] = "Miggins: \"The weather here recently is terrible. It's scaring them away!\"";
                 
                 this.arr[i++] = "You: \"You're quite energetic despite having died of old age. I guess death makes you feel younger?\"";
                 this.arr[i++] = "Miggins: \"Oh, sweetie, the grave doesn't stop me from whipping up a batch of pies!\"";
 
                 this.size = i;
         }
-        
+
+        public void faithfulIntro() {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"Hello. Hold on, have we met before?\"";
+                this.arr[i++] = "Faithful: \"Maybe. Or maybe I just have one of those unforgettable faces.\"";
+                this.arr[i++] = "You: \"I don't know, but something about you feels... familiar. Maybe it's just déjà vu.\"";
+                this.arr[i++] = "Faithful: \"Déjà vu? Or maybe you've just run out of interesting things to say.\"";
+                this.arr[i++] = "You: \"Huh? What's your deal?\"";
+                this.arr[i++] = "Faithful: \"Deal? I prefer 'complex.' But sure, we'll go with mysterious for now.\"";
+                this.arr[i++] = "You: \"You don't seem like someone who mingles much. Did I hit a nerve?\"";
+                this.arr[i++] = "Faithful: \"Let's just say, I prefer quality over quantity when it comes to people.\"";
+                this.arr[i++] = "You: \"Well, I mean... you don't exactly look thrilled to be here either.\"";
+                this.arr[i++] = "Faithful: \"Oh, I'm thrilled. Can't you tell? This is my 'thrilled' face.\"";
+                this.arr[i++] = "You: \"There's a whole crowd over there. Don't you want to hang with them?\"";
+                this.arr[i++] = "Faithful: \"Crowds? Not really my thing. Too many opinions, not enough sense.\"";
+                this.arr[i++] = "You: \"Okay, okay, no need to get all defensive. Just asking.\"";
+                this.arr[i++] = "Faithful: \"No harm done. Just don't expect a social butterfly over here.\"";
+                this.arr[i++] = "You: \"Hey, I'm just trying to be friendly here.\"";
+                this.arr[i++] = "Faithful: \"I'll give you credit for effort. Not many stick around this long.\"";
+            
+                this.size = i;
+            }
+            
+        public void faithfulLines() {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"Hey, you seem like the type that knows their way around.\"";
+                this.arr[i++] = "Faithful: \"Depends. What's the second worth to you?\"";
+            
+                this.arr[i++] = "You: \"You've got a familiar look. Have we met before, like in CITU?\"";
+                this.arr[i++] = "Faithful: \"Ah, CITU.. No, I don't think you'd have noticed me there.\"";
+            
+                this.arr[i++] = "You: \"I'm looking for someone, but I can't remember their face. Ever get that feeling?\"";
+                this.arr[i++] = "Faithful: \"All the time. Faces blend together after a while. What's their story?\"";
+            
+                this.arr[i++] = "You: \"Have you been to that little place across the way? The one with the pies?\"";
+                this.arr[i++] = "Faithful: \"Once. Let's just say, I've had better culinary adventures.\"";
+            
+                this.arr[i++] = "You: \"I'm still getting used to the whole being dead thing. My car got rammed out of nowhere.\"";
+                this.arr[i++] = "Faithful: \"Rough way to go. But hey, now you get to join the club.\"";
+            
+                this.arr[i++] = "You: \"Hi there, I was wondering if—\"";
+                this.arr[i++] = "Faithful: \"Careful, wondering tends to lead to trouble. What's on your mind?\"";
+            
+                this.arr[i++] = "You: \"I'm trying to get out of this place. Any idea which way to go?\"";
+                this.arr[i++] = "Faithful: \"Ah, the eternal question. If I had an answer, I wouldn't be standing here.\"";
+            
+                this.arr[i++] = "You: \"You don't look too happy. Something bothering you?\"";
+                this.arr[i++] = "Faithful: \"Not at all. Just my resting face. You get used to it.\"";
+            
+                this.arr[i++] = "You: \"Why does it always seem like it's pouring rain in this forest?\"";
+                this.arr[i++] = "Faithful: \"Could be worse. At least it's not snowing. Yet.\"";
+            
+                this.arr[i++] = "You: \"It's so foggy, it's like walking through a cloud. Is it always like this?\"";
+                this.arr[i++] = "Faithful: \"Fog's the least of your worries around here. Keep your eyes sharp.\"";
+            
+                this.size = i;
+        }
+            
+
         public void skillDetails() {
                 int i = 0;
 
@@ -291,7 +351,7 @@ public class StoryLine {
                 this.arr[i++] = "Truthbinding: Deal 200% Attack + 20% Soul Shards damage and the enemy can't attack this turn.";
 
                 this.size = i;
-        }
+        }       
 
         public String getLine(int i) {
                 return "<html><center>" + this.arr[i] + "</center></html>";
