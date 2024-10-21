@@ -60,7 +60,7 @@ public class StoryLine {
                 this.arr[i++] = "[You enter a misty area of the underworld and spot an ordinary woman sitting on a rock, talking to herself. She looks up and her eyes brighten.]";
                 this.arr[i++] = "Miss Constance: \"Oh! A new face! You must be curious about who's who down here, right? Well, I know everything! Like, have you heard about Faithful? Total creep! He stalked everyone who came down here! I'm Miss Constance, by the way; you can call me Miss C!\"";
                 this.arr[i++] = "You: \"Actually, I—\"";           
-                this.arr[i++] = "Miss C (interrupting): \"And Yoo? Such a drama queen! Acts all mysterious, but it's just a show. And don't get me started on Miggins—he tried to sneak an advertisement into The Grand Mausoleum! Can you believe the nerve?\"";           
+                this.arr[i++] = "Miss C (interrupting): \"And Yoo? Such a drama queen! He's been here for sometime now, I didn't keep track. Acts all mysterious, but it's just a show. And don't get me started on Miggins—he tried to sneak an advertisement into The Grand Mausoleum! Can you believe the nerve?\"";           
                 this.arr[i++] = "You (awkwardly): \"Yeah, well, it was nice to meet you, I might check out the rest of the forest before going to-\"";            
                 this.arr[i++] = "Miss C: \"Leaving so soon? Oh, sure! But come back! I've got loads more to share—wait till you hear about Myself!\"";            
                 this.arr[i++] = "[She's a little to much to take in right now, you slowly back away, the woman's voice trailing after you.]";            
@@ -74,16 +74,35 @@ public class StoryLine {
         public void missConstanceLines() {
                 int i = 0;
 
-                this.arr[i++] = "\"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a spirit would swing by or something. Do you think they're avoiding me? Honestly, I'm starting to take it personally.\"";
-                this.arr[i++] = "\"Do you think the living still remember me? Probably not, right? I wasn't exactly a celebrity. Just your average city girl. But, oh, how I like to imagine there's a statue somewhere with my name on it! A girl can dream, even in the afterlife.\"";
-                this.arr[i++] = "\"I tried to make friends with the other souls, but they're all so… distant. Like, 'Hello! We're stuck here together for eternity, can we at least pretend to like each other?' No one ever laughs at my jokes either. Rude, right?\"";
-                this.arr[i++] = "\"How long have I been dead, you ask? Oh wait, you didn't ask. Well, too bad! Time is a blur down here. I feel like I've been dead for a thousand years… or maybe just ten? You lose track after a century or two. By the way, what year is it?\"";
-                this.arr[i++] = "\"The spirit world, ugh, just as bleak as you'd imagine. No sun, no moon, no stars. Just endless dark skies. And the fog! Don't even get me started on the fog. It's like a wet blanket draped over your soul 24/7.\"";
-                this.arr[i++] = "\"Tried chatting with another soul earlier. They're all so cranky! It's like, 'Hello! We're stuck here for eternity together! Could we at least *pretend* to like each other?' I swear, they all think being moody is a personality trait.\"";
-                this.arr[i++] = "\"Oh, and Yoo? Don't even get me started on that one. Always acting so mysterious, sitting by the river, staring dramatically into the abyss. We get it, Yoo, you're deep. Join the club, honey! We're all brooding down here.\"";
-                this.arr[i++] = "\"You know Miggins, right? Yeah, she's been trying to impress everyone with her so-called 'Homemade Pies.' Please! We all know she just heats up store-bought ones and calls it a day. It's honestly kind of sad.\"";
-                this.arr[i++] = "\"You ever hear that saying, 'Death is peaceful'? Lies! It's boring down here. No one talks. Except me, of course. I keep talking because if I don't, I'll probably go mad. Or maybe I already have. Who's to say?\"";
-                this.arr[i++] = "\"Oh my gosh, like, if the sun emitted Wi-Fi, trees would be like cell towers, you know? I mean, cellphones are basically fruits from those trees or whatever. Don't even get me started on how apples are used to make smartphones, like, it's science, right?";
+                this.arr[i++] = "You: \"WHat are you waiting for? You look impatient.\"";
+                this.arr[i++] = "Miss C: \"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a spirit would swing by or something. Do you think they're avoiding me? Honestly, I'm starting to take it personally.\"";
+                
+                this.arr[i++] = "You: \"Do you know anyone that is still alive?\"";
+                this.arr[i++] = "Miss C: \"Do you think the living still remember me? Probably not, right? I wasn't exactly a celebrity. Just your average city girl. But, oh, how I like to imagine there's a statue somewhere with my name on it! A girl can dream, even in the afterlife.\"";
+                
+                this.arr[i++] = "You: \"Do you have any friends?\"";
+                this.arr[i++] = "Miss C: \"I tried to make friends with the other souls, but they're all so… distant. Like, 'Hello! We're stuck here together for eternity, can we at least pretend to like each other?' No one ever laughs at my jokes either. Rude, right?\"";
+                
+                this.arr[i++] = "You: \"Have you been here for a while?\"";
+                this.arr[i++] = "Miss C: \"How long have I been dead, you ask? Oh wait, you did. Well, too bad! Time is a blur down here. I feel like I've been dead for a thousand years… or maybe just ten? You lose track after a century or two. By the way, what year is it?\"";
+                
+                this.arr[i++] = "You: \"Do you like it here? What do you think of this place?\"";
+                this.arr[i++] = "Miss C: \"The spirit world, ugh, just as bleak as you'd imagine. No sun, no moon, no stars. Just endless dark skies. And the fog! Don't even get me started on the fog. It's like a wet blanket draped over your soul 24/7.\"";
+                
+                this.arr[i++] = "You: \"Everyone is avoiding you, they said-\"";
+                this.arr[i++] = "Miss C: \"I know! Tried chatting with another soul earlier. They're all so cranky! It's like, 'Hello! We're stuck here for eternity together! Could we at least *pretend* to like each other?' I swear, they all think being moody is a personality trait.\"";
+               
+                this.arr[i++] = "You: \"Are you close with Yoo?\"";
+                this.arr[i++] = "Miss C: \"Yoo? Like Yoo the dude over there, not you? Don't even get me started on that guy. Always acting so mysterious, sitting under a tree, staring dramatically into the mist. We get it, Yoo, you're emo. Join the club, honey! We're all brooding down here.\"";
+                
+                this.arr[i++] = "You: \"Have you visited the shop over there?\"";
+                this.arr[i++] = "Miss C: \"Miggins, right? Yeah, she's been trying to impress everyone with her so-called 'Homemade Pies.' Please! We all know she just heats up store-bought ones and calls it a day. It's honestly kind of sad.\"";
+                
+                this.arr[i++] = "You: \"Are you happy here?\"";
+                this.arr[i++] = "Miss C: \"Nope. 'Death is peaceful'? Lies! It's boring down here. No one talks. Except me, of course. I keep talking because if I don't, I'll probably go mad. Or maybe I already have. Who's to say?\"";
+                
+                this.arr[i++] = "You: \"Why are you giggling?\'";
+                this.arr[i++] = "Miss C: \"Oh my gosh, like, if the sun emitted Wi-Fi, trees would be like cell towers, you know? I mean, cellphones are basically fruits from those trees or whatever. Don't even get me started on how apples are used to make smartphones, like, it's science, right?";
 
                 this.size = i;
         }
@@ -93,11 +112,11 @@ public class StoryLine {
             
                 this.arr[i++] = "You wander through a shadowy, eerie part of the underworld. A woman stands alone by the edge of a dark river, her eyes darting nervously. You approach cautiously, sensing the tension in the air.";
                 this.arr[i++] = "Natty: \"Oh... it's you? I-I didn't expect to see you again, I'm Natty. I thought maybe... maybe you'd forgotten me. It's so dark here, and I'm not sure I can do this... I'm scared.\"";
-                this.arr[i++] = "You: \"Have we really met before?. I have my fair share with people like you, I think?\"";
+                this.arr[i++] = "You: \"Have we really met before?. I have my fair share with souls like you, I think?\"";
                 this.arr[i++] = "Natty: \"Before? Ha! Of course you did! Also, I'm pretty new here. This place kind of spooky, right? I've been through worse! They can't hurt me then, and this place won't break me now!\"";
                 this.arr[i++] = "Natty: \"But... what if I'm not strong enough this time? Last time, I barely made it. This place... it's worse than anything we've seen before. I-I don't think I can survive it... I'm too scared.\"";
                 this.arr[i++] = "You: \"Just take a deep breath. You're not exactly alone here, Natty. We can handle this.\"";
-                this.arr[i++] = "Natty: \"Alone? No! No! No! I'm never alone! That won't beat me, not now, not ever! I'm not the fragile person you thought I was. I'm a unstoppable! I can handle anything! HAHAHA!\"";
+                this.arr[i++] = "Natty: \"Alone? No! No! No! I'm never alone! That won't beat me, not now, not ever! I'm not the fragile soul you thought I was. I'm a unstoppable! I can handle anything! HAHAHA!\"";
                 this.arr[i++] = "You: \"Are you... Okay? You're swinging between your moods way too fast.\"";
                 this.arr[i++] = "Natty: \"No... No, I didn't! I... I can't!\"";
                 this.arr[i++] = "You reach out, watching as Natty shifts between defiance and fear, her emotions like a pendulum. She seems caught in an internal struggle, and it might be best to leave her to calm down before speaking further.";
@@ -108,16 +127,38 @@ public class StoryLine {
         public void nattyLines() {
                 int i = 0;
 
-                this.arr[i++] = "\"I've seen worse, but there's something about this place... it whispers to me, you know? Almost like it knows who I am.\"";
-                this.arr[i++] = "\"There's no escape, is there? Feels like I've been walking in circles for hours.\"";
-                this.arr[i++] = "\"They said I wouldn't last a day on my own. But look at me now, still breathing! This place isn't as bad as where I came from.\"";
-                this.arr[i++] = "\"Last Christmas, I remember sitting with my family. They called me the 'good girl.' Too bad Santa didn't agree.\"";
-                this.arr[i++] = "\"You think I'm crazy? Oh, please! If I were, you wouldn't be here talking to me! You just need something from poor little Natty, don't you? Shame on you.\"";
-                this.arr[i++] = "\"Want to hear a joke? Who sells fake pies and calls herself Miggins?\" *[chuckles to herself]*";
-                this.arr[i++] = "\"Pretty people terrify me. I swear, if I see another one, I might just drop dead again!\"";
-                this.arr[i++] = "\"Why are asylums full of singles? Because none of them can keep their thoughts together!\" *[laughs hysterically]*";
-                this.arr[i++] = "\"You think I'm terrified? No. I'm not afraid of you... hehe.\"";
-                this.arr[i++] = "\"I can't do this! The voices—they're everywhere! Crawling under my skin, it tickles! HAHAHAHA!\"";
+                this.arr[i++] = "You: \"This forest looks really spooky. What do you think?\"";
+                this.arr[i++] = "Natty: \"There's something about this place... it whispers to me, you know? Almost like it knows who I am.\"";
+
+                this.arr[i++] = "You: \"Is there a way out of this forest?\"";
+                this.arr[i++] = "Natty: \"I guess... There's no escape, is there? Feels like I've been walking in circles for hours, days, years, oh no.\"";
+                
+                this.arr[i++] = "You: \"You look lonely, why are you avoiding the others?\"";
+                this.arr[i++] = "Natty: \"They said I wouldn't last a day on my own. But look at me now, still breathing! This place isn't as bad as where I came from.\"";
+                
+                this.arr[i++] = "You: \"What was your life like before? Can you tell me about how things used to be?\"";
+                this.arr[i++] = "Natty: \"It was great! I don't remember much, but I'm pretty sure it was full of happiness, I think? Honestly, though, everything feels like a blur now. Hahaha.\"";
+                                
+                this.arr[i++] = "You: \"No offense, but some souls here have mentioned that you're a bit mental. What happened?\"";
+                this.arr[i++] = "Natty: \"You think I'm crazy? Oh, please! If I were, you wouldn't be here talking to me! You just need something from poor little Natty, don't you? Shame on you.\"";
+                                
+                this.arr[i++] = "You: \"Why are you giggling over there?\"";
+                this.arr[i++] = "Natty: \"Wanna a hear a joke? Who sells fake pie and calls herself Miggins?\" [chuckles to herself]";
+                               
+                this.arr[i++] = "You: \"You seem happier than usual. What's up?\"";
+                this.arr[i++] = "Natty: \"Why are asylums full of singles? Because none of them can keep their thoughts together!\" [laughs hysterically]";
+                             
+                this.arr[i++] = "You: \"You look anxious, am I scaring you?\"";
+                this.arr[i++] = "Natty: \"You think I'm afraid of you? No. I'm not afraid of you...\"";
+                               
+                this.arr[i++] = "[Natty appears to panicking] You: \"Hey, is something wrong?\"";
+                this.arr[i++] = "Natty: \"I can't do this! The voices—they're everywhere! Crawling under my skin, it tickles! HAHAHAHA!\"";
+
+                this.arr[i++] = "You: \"Hey, I'm looking for someone. Have you met anyone here who might have died from drowning?\"";
+                this.arr[i++] = "Natty: \"Yeah. I mean, no. I mean, I-I don't know. I don't ask souls about their death.\"";
+
+                this.arr[i++] = "You: \"I died drowning from vehicular homicide. How about you?\"";
+                this.arr[i++] = "Natty: \"I died trying to escape the asylum I'm from. Let's just say that they did an amazing job of keeping me in.\"";
 
                 this.size = i;
         }
@@ -130,12 +171,12 @@ public class StoryLine {
                 this.arr[i++] = "You: \"Um, it's strange. I can't quite place you, but it feels like we've crossed paths before.\"";
                 this.arr[i++] = "Yoo: \"...\"";
                 this.arr[i++] = "You: \"Um, hello? Ah, I see. You're not like others, I guess. Are you the quiet type?\"";
-                this.arr[i++] = "Yoo: \"What'd ya expect? You think people just talk with strangers down here?\"";
+                this.arr[i++] = "Yoo: \"What'd ya expect? You think souls just talk with strangers down here?\"";
                 this.arr[i++] = "You: \"Sorry. It's just, are you...\"";
                 this.arr[i++] = "Yoo: \"Single? Sorry, you're a little too late for that.\"";
                 this.arr[i++] = "You: \"O-oh, I mean. Are you new here?\"";
                 this.arr[i++] = "Yoo: \"I'm just someone passing through. Like everyone else. I'm here for a while now.\"";
-                this.arr[i++] = "You: \"Why are you all the way here, anyway? You don't like the people over there?\"";
+                this.arr[i++] = "You: \"Why are you all the way here, anyway? You don't like the souls over there?\"";
                 this.arr[i++] = "Yoo: \"The reason doesn't matter.\"";
                 this.arr[i++] = "You: \"Sorry for prying, I was just curious.\"";
                 this.arr[i++] = "Yoo: \"You should mind your own business. You seem to be the nosy type, like Constance.\"";
@@ -148,16 +189,35 @@ public class StoryLine {
         public void yooLines() {
                 int i = 0;
 
-                this.arr[i++] = "\"...\"";          
-                this.arr[i++] = "\"Don't look at me.\"";
-                this.arr[i++] = "\"Don't you have better things to do?\"";
-                this.arr[i++] = "\"Miggins' pies taste like medicine.\"";
-                this.arr[i++] = "\"You died unexpectedly? Damn, like everyone else here did? It's not my fault you're a bad driver.\"";
-                this.arr[i++] = "\"Go away.\"";
-                this.arr[i++] = "\"You're so annoying...\"";
-                this.arr[i++] = "\"You reek of seafood.\"";
-                this.arr[i++] = "\"The moment you step foot on this forest, it was raining ever since.\"";
-                this.arr[i++] = "\"Did you know that the weather here corresponds with the emotions of those who live under it?\"";
+                this.arr[i++] = "You: \"Hey, what's up?\"";
+                this.arr[i++] = "Yoo: \"...\"";    
+
+                this.arr[i++] = "You: \"Hey, you look familar. Do you attend CITU?\"";
+                this.arr[i++] = "Yoo: \"Don't look at me, creep.\"";
+
+                this.arr[i++] = "You: \"Look, I'm looking for this soul. I don't exactly remember what they look like, but they might have came by here. They died too, I think?\"";
+                this.arr[i++] = "Yoo: \"I see souls come here and go everyday. I don't care enough to remember faces, go ask somebody else.\"";
+                
+                this.arr[i++] = "You: \"Have you tried out that shop over there?\"";
+                this.arr[i++] = "Yoo: \"I hate it, Miggins' pies taste like medicine.\"";
+                
+                this.arr[i++] = "You: \"I died like hours ago, I think? Some psycho killed me. They rammed my car, it's so unfair.\"";
+                this.arr[i++] = "Yoo: \"You died unexpectedly? Damn, like everyone else here did? It's not my fault you're a bad driver.\"";
+                
+                this.arr[i++] = "You: \"Hi-\"";
+                this.arr[i++] = "Yoo: \"Go away.\"";
+
+                this.arr[i++] = "You: \"Hey, which way leads to the exit of the forest?\"";
+                this.arr[i++] = "Yoo: \"I don't know, why are you asking me? You're so annoying...\"";
+                
+                this.arr[i++] = "You: \"You look disgusted. Is something wrong?\"";
+                this.arr[i++] = "Yoo: \"You reek of seafood. Gross...\"";
+                
+                this.arr[i++] = "You: \"Is it me or is it always raining around this part of the forest?\"";
+                this.arr[i++] = "Yoo: \"Jeez. I wonder why...\" [eye rolls]";
+                
+                this.arr[i++] = "You: \"It's so foggy, there's no way it has to be this THICK. Why is it so foggy?\"";
+                this.arr[i++] = "Yoo: \"The weather here corresponds with the emotions of those who live under it, now shut it and leave me alone.\"";
         
                 this.size = i;
         }
@@ -188,16 +248,35 @@ public class StoryLine {
         public void migginsLines() {
                 int i = 0;
 
-                this.arr[i++] = "\"The red potions are apple flavored, it may taste like medicine since it is one.\"";
-                this.arr[i++] = "\"Some of the denizens here don't like me at all, why is that?\"";
-                this.arr[i++] = "\"Plants grow here without the need for sunlight, the faint glow of the underworld is more than enough.\"";
-                this.arr[i++] = "\"My shop is open for all!\"";
-                this.arr[i++] = "\"It's a shame that you died that way, perhaps I could cheer you up with some of my cookings?\"";
-                this.arr[i++] = "\"Some souls could go months without food, but the hunger is way too unbearable that most wouldn't last a year without it.\"";
-                this.arr[i++] = "\"You'd be surprised by how many souls crave a little comfort food.\"";
-                this.arr[i++] = "\"Do you like seafood? Unfortunately, most of them are gobbled up by slimes.\"";
-                this.arr[i++] = "\"The weather here recently is terrible. It's scaring away the customers!\"";
-                this.arr[i++] = "\"Oh, sweetie, the grave doesn't stop me from whipping up a batch of cookies!\"";
+                this.arr[i++] = "You: \"What are those red bottles near the window of your shop?\"";
+                this.arr[i++] = "Miggins: \"Those red potions are apple flavored, it may taste like medicine since it is one.\"";
+                
+                this.arr[i++] = "You: \"Why do the other souls dislike your pies?\"";
+                this.arr[i++] = "Miggins: \"Some of the denizens here just don't like me at all.\"";
+                
+                this.arr[i++] = "You: \"How can apple trees grow here in total darkness?\"";
+                this.arr[i++] = "Miggins: \"Plants grow here without the need for sunlight, the faint glow of the underworld is more than enough.\"";
+                
+                this.arr[i++] = "You: \"Is it okay if I come in and take a look?\"";
+                this.arr[i++] = "Miggins: \"Of course, my shop is open for all!\"";
+                
+                this.arr[i++] = "You: \"I died an unjust death. I take it that you died peacefully at an old age?\"";
+                this.arr[i++] = "Miggins: \"Yep, 88. It's a shame that you died that way, perhaps I could cheer you up with some of my cookings?\"";
+                
+                this.arr[i++] = "You: \"So, I can't starve to death?\"";
+                this.arr[i++] = "Miggins: \"Of course. Some souls could even go months without food, but the hunger is way too unbearable that most wouldn't last a year without it.\"";
+                
+                this.arr[i++] = "You: \"Do souls visit here often?\"";
+                this.arr[i++] = "Miggins: \"You'd be surprised by how many souls crave a little comfort food.\"";
+                
+                this.arr[i++] = "You: \"Do you sell anything other than pies?\"";
+                this.arr[i++] = "Miggins: \"I used to sell seafood. Unfortunately, most fishes are gobbled up by slimes.\"";
+                
+                this.arr[i++] = "You: \"Where are the customers?\"";
+                this.arr[i++] = "Miggins: \"The weather here recently is terrible. It's scaring away them away!\"";
+                
+                this.arr[i++] = "You: \"You're quite energetic despite having died of old age. I guess death makes you feel younger?\"";
+                this.arr[i++] = "Miggins: \"Oh, sweetie, the grave doesn't stop me from whipping up a batch of pies!\"";
 
                 this.size = i;
         }
