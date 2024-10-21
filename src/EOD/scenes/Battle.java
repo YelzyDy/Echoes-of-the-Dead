@@ -55,18 +55,11 @@ public class Battle{
         playerMoney = player.getMoney();
     }
 
-<<<<<<< HEAD
-    //if the enemy is a minion (to be implemented soon)
-=======
     //if the enemy is a minion
->>>>>>> e663e67cc8fc4cbab04ee391a31e17a8297fd49e
     public Battle(Protagonist player, Minions minion){
         this.player = player;
         this.minion = minion;
         enemyHp = minion.getHp();
-<<<<<<< HEAD
-        playerHp = player.getHp();
-=======
         enemyAttack = minion.getAttack();
         moneyDrop = minion.getMoneyDrop();
         playerHp = player.getHp();
@@ -75,7 +68,6 @@ public class Battle{
         playerMana = player.getMana();
         playerBaseMana = player.getBaseMana();
         playerMoney = player.getMoney();
->>>>>>> e663e67cc8fc4cbab04ee391a31e17a8297fd49e
     }
 
     //testing for enemy attacking
@@ -119,12 +111,6 @@ public class Battle{
                         break;
                     case 3:
                         if(skill3Cd==0){
-<<<<<<< HEAD
-                            enemyHp -= (playerAttack * 2) + (int)(playerMoney * player.skill3());
-                            
-                            enemyMissTurn++;
-                            skill3Cd = 3;
-=======
                             if(playerMana >= 50){
                                 enemyHp -= (playerAttack * 2) + (int)(playerMoney * player.skill3());
                                 enemyMissTurn++;
@@ -134,7 +120,6 @@ public class Battle{
                             }else{
                                 System.out.println("Not enough mana!");
                             }
->>>>>>> e663e67cc8fc4cbab04ee391a31e17a8297fd49e
                         }else{
                             System.out.println("Can't use it yet!");
                         }

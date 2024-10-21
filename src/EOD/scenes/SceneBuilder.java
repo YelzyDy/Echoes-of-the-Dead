@@ -181,13 +181,8 @@ public class SceneBuilder extends JPanel{
                 animator.updateMovement();
                 animator.updateBounds();
             }
-<<<<<<< HEAD
             if (world.miniBoss1 != null){
                 Animator animator = world.miniBoss1.getAnimator();
-=======
-            if (world.miniBoss1 != null && !world.miniBoss1.isDefeated()){
-                CharacterAnimator animator = world.miniBoss1.getAnimator();
->>>>>>> e663e67cc8fc4cbab04ee391a31e17a8297fd49e
                 animator.updateAnimation(); 
                 animator.updateMovement();
                 animator.updateBounds();
@@ -220,9 +215,9 @@ public class SceneBuilder extends JPanel{
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
             
-            world.miniBoss1.setVisible(currentSceneIndex == 4 && !world.miniBoss1.isDefeated());
+            world.miniBoss1.setVisible(currentSceneIndex == 4);
             
-            world.minions1.setVisible(currentSceneIndex == 3 && !world.minions1.isDefeated());
+            world.minions1.setVisible(currentSceneIndex == 3);
         }    
     }
 }
