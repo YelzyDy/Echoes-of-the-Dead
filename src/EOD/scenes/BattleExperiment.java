@@ -1,6 +1,5 @@
 package EOD.scenes;
 
-
 import EOD.characters.MiniBoss;
 import EOD.characters.Minions;
 import EOD.characters.Protagonist;
@@ -18,19 +17,19 @@ public class BattleExperiment {
         battleStopped = false;
     }
 
+    public int getEnemyHp(){
+        return minion.getHp();
+    }
+
+    public int getPlayerHp(){
+        return player.getHp();
+    }
+
     public void skill1(){
         int enemyHp = minion.getHp();
-        if(enemyHp <= 0){
-            battleStopped = true;
-            player.revertPosition();
-            minion.revertPosition();      
-            animator.setIsInBattle(false);
-            return;
-        }
 
         switch(player.getCharacterType()){
             case "knight":
-                System.out.println(enemyHp);
                 minion.setHp(enemyHp - 10);
             break;
         }
@@ -38,18 +37,9 @@ public class BattleExperiment {
 
     public void skill4(){
         int enemyHp = minion.getHp();
-        if(enemyHp <= 0){
-            battleStopped = true;
-            player.revertPosition();
-            minion.revertPosition();      
-            animator.setIsInBattle(false);
-            return;
-        }
-
         switch(player.getCharacterType()){
             case "knight":
-                System.out.println(enemyHp);
-                minion.setHp(enemyHp - 50);
+                minion.setHp(enemyHp - 40);
             break;
         }
     }

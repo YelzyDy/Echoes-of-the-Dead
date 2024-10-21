@@ -20,21 +20,27 @@ public class BattleUI extends JFrame {
     private ActionListener actionC;
     private ActionListener actionD;
     private Protagonist protag;
-    private Minions minion;
     private BattleExperiment battleSample;
+    private JDialog storyDialogue;
 
     public BattleUI(Protagonist protag, Minions minion){
         this.protag = protag;
-        this.minion = minion;
         battleSample = new BattleExperiment(protag, minion);
     }
 
+    public BattleExperiment getBattleExperiment(){
+        return battleSample;
+    }
+
+    public JDialog getStoryDialog(){
+        return storyDialogue;
+    }
     public void displayDialogues(){
 
         // THE WINDOW & DIALOGUES
         story.skillDetails();
 
-        JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
+        storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());
@@ -57,23 +63,16 @@ public class BattleUI extends JFrame {
         textBox.setText(story.getLine(0));
 
         actionA = e -> {
-            if(battleSample.getIsBattleStopped())
-            storyDialogue.dispose();
             battleSample.skill1();
             protag.getAnimator().triggerSkillAnimation(1, (int)(screenSize.width * 0.5));
         };
         actionB = e -> {
-            
-            if(battleSample.getIsBattleStopped())
-            storyDialogue.dispose();
+            protag.getAnimator().triggerSkillAnimation(2, (int)(screenSize.width * 0.5));
         };
         actionC = e -> {
-            // Add implementation here
-            storyDialogue.dispose();
+            protag.getAnimator().triggerSkillAnimation(3, protag.getX());
         };
         actionD = e -> {
-            if(battleSample.getIsBattleStopped())
-            storyDialogue.dispose();
             battleSample.skill4();
             protag.getAnimator().triggerSkillAnimation(4, (int)(screenSize.width * 0.5));
         };

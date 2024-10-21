@@ -42,6 +42,8 @@ public class SceneBuilder extends JPanel{
 
     private Protagonist protag;
 
+    private BattleUI battle;
+
     public SceneBuilder(World world){
         this.world = world;
         this.setBackground(Color.black);
@@ -122,12 +124,32 @@ public class SceneBuilder extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateGameState();
+                updateBattleState();
                 repaint();
             }
         });
         gameLoopTimer.start();
     }
 
+    public void configureBattle(Minions enemy){
+        battle = new BattleUI(protag, enemy);
+        battle.displayDialogues();
+    }
+
+    private void updateBattleState(){
+        if(battle != null){
+            int enemyHp = battle.getBattleExperiment().getEnemyHp();
+            System.out.println(enemyHp);
+            int playerHp = battle.getBattleExperiment().getPlayerHp();
+            if(enemyHp <= 0){
+                protag.getAnimator().setIsInBattle(false);
+                protag.getAnimator().setMoving(true);
+                protag.revertPosition();
+                battle = null;
+                System.out.println("You won");
+            }
+        }
+    }
     
     private void updateGameState() {
         if (protag != null) {

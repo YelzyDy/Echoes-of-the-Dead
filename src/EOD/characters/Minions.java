@@ -5,14 +5,11 @@ import java.awt.event.MouseEvent;
 import EOD.MouseInteractable;
 import EOD.animator.NpcAnimator;
 import EOD.listeners.MouseClickListener;
-import EOD.scenes.BattleUI;
 import EOD.scenes.SceneBuilder;
 import EOD.dialogues.*;
 
 // This class makes NPC move randomly
 public class Minions extends Character implements MouseInteractable {
-    Dialogues dialogues;
-    BattleUI battleUI;
     private Protagonist character;
     private int health;
 
@@ -31,9 +28,6 @@ public class Minions extends Character implements MouseInteractable {
         animator.setRange(minRange, maxRange);
         this.character = character;
         health = 100;
-        dialogues = new Dialogues();
-        battleUI = new BattleUI(character, this);
-
     }
 
     // private int playerHp;
@@ -60,13 +54,10 @@ public class Minions extends Character implements MouseInteractable {
         animator.setIsInBattle(true);
         character.getAnimator().setIsInBattle(true);
         animator.setIsInBattle(true);
-        
         positionForBattle();
-    
-        battleUI.displayDialogues();
+        panel.configureBattle(this);
         // Battle battle = new Battle(character, this);
         // battle.start();
-        
     }
 
     private void positionForBattle() {

@@ -83,7 +83,7 @@ public class World1 extends World{
         scene.setComponentZOrder(minions1, 1);  
     }
     
-
+    
 
     @Override
     public void onClick(MouseEvent e) {

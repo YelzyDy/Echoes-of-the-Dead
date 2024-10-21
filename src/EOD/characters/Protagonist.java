@@ -28,6 +28,8 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 8);
         animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 6);
         animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.006), 7);
+        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.006), 10);
+        animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), 4);
         animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), 11);
         animator.updateBounds();
         System.out.println("Protagonist: " + posX + " " + posY);
