@@ -77,11 +77,7 @@ public abstract class Animator {
                 e.printStackTrace();
             }
         }
-        if (character.getCharacterType().equals("skeleton1")){
-            sprites.scaleImageListDown(0.99);
-        } else {
-            sprites.scaleImageList(scale);
-        }
+        sprites.scaleImageList(scale);
     }
 
     protected ImageList getSpriteList(String type) {

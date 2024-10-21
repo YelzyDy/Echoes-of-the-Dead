@@ -4,14 +4,14 @@ package EOD.animator;
 import EOD.characters.Character;
 import EOD.scenes.SceneBuilder;
 public class ProtagonistAnimator extends Animator {
-    private boolean isTransitioned;
+    //private boolean isTransitioned;
     public ProtagonistAnimator(Character character) {
         super(character, 4);
     }
     public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
         String type = "skill" + skillNumber;
         importSprites(assetPackage, type, scale, numOfSprites);
-        isTransitioned = false;
+        //isTransitioned = false;
     }
 
     @Override
@@ -33,6 +33,10 @@ public class ProtagonistAnimator extends Animator {
                 if (newPosX >= targetX) {
                     character.setPosX(targetX);
                     stopMovement();
+                    if (character.getPosX() >= (screenSize.width * 0.9) && currentScene < maxPanel - 1) {
+                        character.setPosX(screenSize.width * 0.03);
+                        panel.incCurrentScene();
+                    }
                 } else {
                     character.setPosX(newPosX);
                 }
@@ -40,6 +44,10 @@ public class ProtagonistAnimator extends Animator {
                 if (newPosX <= targetX) {
                     character.setPosX(targetX);
                     stopMovement();
+                    if (currentScene > 0 && character.getPosX() <= (screenSize.width * 0.05)) {
+                        character.setPosX(screenSize.width * 0.9);
+                        panel.decCurrentScene();
+                    }
                 } else {
                     character.setPosX(newPosX);
                 }
@@ -47,19 +55,19 @@ public class ProtagonistAnimator extends Animator {
     
             updateBounds();
 
-            if (!isMoving) {
-                if (character.getPosX() >= (screenSize.width * 0.8) && currentScene < maxPanel - 1 && !isTransitioned) {
-                    character.setPosX(screenSize.width * 0.001);
+            /*if (!isMoving) {
+                if (character.getPosX() >= (screenSize.width * 0.3) && currentScene < maxPanel - 1 && !isTransitioned) {
+                    character.setPosX(screenSize.width * 0.03);
                     panel.incCurrentScene();
                     isTransitioned = true;
-                } else if (currentScene > 0 && character.getPosX() <= (screenSize.width * 0.05) && !isTransitioned) {
+                } else if (currentScene > 0 && character.getPosX() <= (screenSize.width * 0.3) && !isTransitioned) {
                     character.setPosX(screenSize.width * 0.9);
                     panel.decCurrentScene();
                     isTransitioned = true;
-                } else if (character.getPosX() > (screenSize.width * 0.08) && character.getPosX() < (screenSize.width * 0.8)) {
+                } else if (isTransitioned) {
                     isTransitioned = false;
                 }
-            }
+            }*/
         }
     }
 

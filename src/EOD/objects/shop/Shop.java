@@ -17,7 +17,8 @@ public class Shop extends EchoesObjects implements MouseInteractable {
     private EchoesObjects item3;
     private EchoesObjects item4;
     private EchoesObjects sidePanel;
-
+    private EchoesObjects buyButton;
+    private double height, width;
 
 
     public Shop(World world) {
@@ -69,21 +70,36 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         shopBg.add(item4);
     }
 
+    public void showBuyButton(double width, double height){
+        buyButton = new EchoesObjects("shop", 
+        (int)(width * 0.618), (int)(height* 0.717), 
+        (int)(width * 0.13), (int)(height * 0.15), 
+        "buy_", false, true, 2);
+        buyButton.addMouseListener(new MouseClickListener(this));
+        shopBg.add(buyButton);
+        shopBg.setComponentZOrder(buyButton, 0);
+    }
+
     public void showElementsInShop(){
         showShopBg();
-        double width = shopBg.getWidth(), height = shopBg.getHeight();
+        width = shopBg.getWidth();
+        height = shopBg.getHeight();
         showShopItem1(width, height);
         showSidePanelBg(width, height);
+        showBuyButton(width, height);
     }
 
     @Override
     public void onClick(MouseEvent e) {     
         Object source = e.getSource();
-        System.out.println("click");
+        if(source == this){
+            showElementsInShop();
+            return;
+        }
+        buyButton.setVisible(true);
         if(source == item1){
             sidePanel.setCurrentFrame(1);
             sidePanel.repaint();
-            System.out.println("item1");
         }else if(source == item2){
             sidePanel.setCurrentFrame(2);
             sidePanel.repaint();
@@ -93,8 +109,12 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         }else if(source == item4){
             sidePanel.setCurrentFrame(4);
             sidePanel.repaint();
-        }else if(source == this){
-            showElementsInShop();
+        }else if (source == buyButton){
+            world.getLayeredPane().remove(shopBg);
+            world.getLayeredPane().revalidate();
+            world.getLayeredPane().repaint();
+            world.revalidate();
+            world.repaint();
         }
     }  
 }

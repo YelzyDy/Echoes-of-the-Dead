@@ -66,7 +66,7 @@ public class World1 extends World{
             scene.setComponentZOrder(npc, 2);
             if (npc.getName().equals("Yoo")) {
                 npc.setIndex(0);
-            }else if (npc.getName().equals("Cosntance")) {
+            }else if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
             }else if (npc.getName().equals("Faithful")) {
                 npc.setIndex(1);
@@ -114,11 +114,17 @@ public class World1 extends World{
                     isBattleStopped = false;
                 }
             } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
-                if(!isBattleStopped){
+                if (!isBattleStopped) {
                     scene.setCurrentSceneIndex(4);
-                }else{
+                } else {
+                    // If the miniboss has been defeated, create a new World2 instance and make it visible
                     scene.setCurrentSceneIndex(2);
                     isBattleStopped = false;
+                    /*World2 world2 = new World2(getProtagType(), getPlayerName(), protag);
+                    world2.setVisible(true);
+                    this.setVisible(false);
+                    
+                    System.out.println("clicked portal");*/
                 }
             }
             // } else if (source == obj && obj.getName().equals("shop")){
