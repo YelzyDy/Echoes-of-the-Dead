@@ -75,10 +75,9 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         (int)(width * 0.618), (int)(height* 0.717), 
         (int)(width * 0.13), (int)(height * 0.15), 
         "buy_", false, true, 2);
-
-        buyButton.setVisible(true);
         buyButton.addMouseListener(new MouseClickListener(this));
         shopBg.add(buyButton);
+        shopBg.setComponentZOrder(buyButton, 0);
     }
 
     public void showElementsInShop(){
@@ -87,17 +86,20 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         height = shopBg.getHeight();
         showShopItem1(width, height);
         showSidePanelBg(width, height);
+        showBuyButton(width, height);
     }
 
     @Override
     public void onClick(MouseEvent e) {     
         Object source = e.getSource();
-        System.out.println("click");
+        if(source == this){
+            showElementsInShop();
+            return;
+        }
+        buyButton.setVisible(true);
         if(source == item1){
             sidePanel.setCurrentFrame(1);
-            showBuyButton(width, height);
             sidePanel.repaint();
-            System.out.println("item1");
         }else if(source == item2){
             sidePanel.setCurrentFrame(2);
             sidePanel.repaint();
@@ -107,8 +109,12 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         }else if(source == item4){
             sidePanel.setCurrentFrame(4);
             sidePanel.repaint();
-        }else if(source == this){
-            showElementsInShop();
+        }else if (source == buyButton){
+            world.getLayeredPane().remove(shopBg);
+            world.getLayeredPane().revalidate();
+            world.getLayeredPane().repaint();
+            world.revalidate();
+            world.repaint();
         }
     }  
 }
