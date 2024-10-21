@@ -26,7 +26,6 @@ public abstract class Enemy extends Character implements MouseInteractable {
         super(name, characterType, panel, posX, posY);
         this.protagonist = protagonist;
         this.panel = panel;
-        this.health = 100;
         this.minRange = minRange;
         this.maxRange = maxRange;
         this.numIdleSprites = numIdleSprites;
