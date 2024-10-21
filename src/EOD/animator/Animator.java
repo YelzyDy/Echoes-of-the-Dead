@@ -207,6 +207,9 @@ public abstract class Animator {
         getSpriteList(spriteType).scaleImageList(scale);
     }
 
+    public void scaleDownSprites(String spriteType, double scale) {
+        getSpriteList(spriteType).scaleImageListDown(scale);
+    }
 
     // Getters and setters
     public boolean getIsMoving() { return isMoving; }

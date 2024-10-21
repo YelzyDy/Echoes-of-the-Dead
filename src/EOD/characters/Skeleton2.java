@@ -8,7 +8,7 @@ public class Skeleton2 extends Enemy {
             int numWalkSprites, Protagonist protagonist) {
             super(name, "skeleton", panel, posX, posY, minRange, maxRange, 
             numIdleSprites, numWalkSprites, protagonist);
-            configureSprites();
+        configureSprites();
         health = 100;
     }
 
