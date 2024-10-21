@@ -93,7 +93,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
     public void onClick(MouseEvent e) {     
         // sample for showing the shop
         showShopBg();
-        double width = shopBg.getWidth(), height = shopBg.getHeight();;
+        double width = shopBg.getWidth(), height = shopBg.getHeight();
         showShopItem1(width, height);
         showSidePanelBg(width, height);
         showSidePanel1(width, height);
