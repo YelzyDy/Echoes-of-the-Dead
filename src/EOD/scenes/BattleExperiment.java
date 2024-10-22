@@ -40,11 +40,22 @@ public class BattleExperiment {
         this.battleUI = battleUI;
     }
 
-    public double getXFactor() {
+    public double getPlayerXFactor() {
         switch(player.getCharacterType()) {
             case "knight":
                 return screenSize.width * 0.5;
             case "wizard":
+                return screenSize.width * 0.1;
+            default:
+                return 0;
+        }
+    }
+
+    public double getEnemyXFactor() {
+        switch(player.getCharacterType()) {
+            case "skeleton1":
+                return screenSize.width * 0.5;
+            case "necromacer":
                 return screenSize.width * 0.1;
             default:
                 return 0;
@@ -58,7 +69,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(1, (int)(getXFactor()));
+            player.getAnimator().triggerSkillAnimation(1, (int)(getPlayerXFactor()));
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer
@@ -75,7 +86,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(2, (int)(getXFactor()));
+            player.getAnimator().triggerSkillAnimation(2, (int)(getPlayerXFactor()));
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer
@@ -90,7 +101,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(3, (int)(getXFactor()));
+            player.getAnimator().triggerSkillAnimation(3, (int)(getPlayerXFactor()));
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer
@@ -105,7 +116,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(4, (int)(getXFactor()));
+            player.getAnimator().triggerSkillAnimation(4, (int)(getPlayerXFactor()));
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer
@@ -121,6 +132,7 @@ public class BattleExperiment {
 
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
+        enemy.getAnimator().triggerSkillAnimation(1, (int)getEnemyXFactor());
         double damage = enemy.skill1();
         player.takeDamage((int) damage);
         battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");

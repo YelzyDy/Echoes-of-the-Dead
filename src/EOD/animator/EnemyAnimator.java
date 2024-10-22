@@ -21,6 +21,12 @@ public class EnemyAnimator extends Animator {
         this.moveSpeed = enemy.getCharacterType().equals("miniboss") ? 1 : 2; // Slower for miniboss
     }
 
+    public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
+        String type = "skill" + skillNumber;
+        importSprites(assetPackage, type, scale, numOfSprites);
+        //isTransitioned = false;
+    }
+
     @Override
     public void startMovement() {
         isMoving = true;
