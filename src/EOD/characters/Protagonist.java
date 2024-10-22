@@ -89,7 +89,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 money = 0;
                 s1num = 9;
                 s2num = 9;
-                s3num = 9;
+                s3num = 6;
                 s4num = 9;
                 break;
         }
