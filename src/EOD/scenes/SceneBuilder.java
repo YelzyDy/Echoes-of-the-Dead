@@ -151,6 +151,7 @@ public class SceneBuilder extends JPanel{
         if(battle != null){
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
+            System.out.println(enemyHp);
             int playerHp = protag.getHp();
             double enemyDeathY = getEnemyDeathPosY(enemy);
             if(enemyHp <= 0){
