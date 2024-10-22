@@ -102,6 +102,8 @@ public class Protagonist extends Character implements MouseInteractable {
     public void takeDamage(int damage){
         health -= damage;
     }
+
+    
     
     public boolean skill1(){
         switch(getCharacterType()){

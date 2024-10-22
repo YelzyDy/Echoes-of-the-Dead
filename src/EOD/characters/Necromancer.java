@@ -12,7 +12,7 @@ public class Necromancer extends Enemy {
             configureSprites();
             health = 200;
             attack = 10;
-
+            turnDuration = 4000;
     }
 
     @Override
