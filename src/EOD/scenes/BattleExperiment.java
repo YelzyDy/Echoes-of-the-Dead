@@ -65,7 +65,6 @@ public class BattleExperiment {
         }
     }
 
-
     public void skill1() { // these are all the buff skills
         if (player.skill1()) {
             // Disable skill buttons
@@ -139,8 +138,15 @@ public class BattleExperiment {
         callRandomEnemySkill(skillNumber);
         double damage = enemy.getDamageDealt();
 
-        System.out.println("Enemy damage: " + damage );
+        if(player.damageReducer != false){
+            damage *= 0.4;
+            player.damageReducer = false;
+        }
+
         player.takeDamage((int) damage);
+        
+
+        System.out.println("Enemy damage: " + damage );
 
         battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
 
@@ -165,16 +171,7 @@ public class BattleExperiment {
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
         // After enemy's turn, enable skill buttons for the player
-        double damage = enemy.getDamageDealt();
-
-        if(player.damageReducer != false){
-            damage *= 0.4;
-            player.damageReducer = false;
-        }
-
-        player.takeDamage((int) damage);
         
-     
         battleUI.setSkillButtonsEnabled(true);
         battleUI.updateTurnIndicator("Your Turn");
     }

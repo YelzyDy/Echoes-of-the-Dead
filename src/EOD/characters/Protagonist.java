@@ -43,7 +43,6 @@ public class Protagonist extends Character implements MouseInteractable {
         configureSprites();
         animator.updateBounds();
         damageDealt = 0;
-        damageReduction = 0;
         System.out.println("Protagonist: " + posX + " " + posY);
     }
 
@@ -117,11 +116,12 @@ public class Protagonist extends Character implements MouseInteractable {
         return damageDealt;
     }
     
-    public boolean skill1(){ // buff type skills
+    public boolean skill1(){ // basic attack type skills
+        damageDealt = attack;
         return true;
     }
 
-    public boolean skill2(){ // damage type
+    public boolean skill2(){ // buff type
         switch(getCharacterType()){
             case "knight": 
                 if(skillIsUseable){
