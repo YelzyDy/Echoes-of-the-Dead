@@ -123,7 +123,7 @@ public class Dialogues extends JFrame {
             this.ID++;
             buttonPanel.setVisible(false);
             textBox.setText(null);
-            askDialogues.openScrollableDialog(this.ID, storyDialogue, textBox);
+            askDialogues.openScrollableOptions(this.ID, storyDialogue, textBox);
         });
 
         askButton.addMouseListener(new MouseAdapter() {
