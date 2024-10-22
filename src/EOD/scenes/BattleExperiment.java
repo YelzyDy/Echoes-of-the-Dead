@@ -42,6 +42,7 @@ public class BattleExperiment {
         this.battleUI = battleUI;
     }
 
+    //this is for chaning the x value of the mc
     public double getPlayerXFactor() {
         switch(player.getCharacterType()) {
             case "knight":
@@ -49,7 +50,7 @@ public class BattleExperiment {
             case "wizard":
                 return screenSize.width * 0.1;
             default:
-                return 0;
+                return screenSize.width * 0.3;
         }
     }
 
@@ -131,7 +132,7 @@ public class BattleExperiment {
         Random random = new Random();
         int skillNumber = random.nextInt(2) + 1;
         battleUI.updateTurnIndicator("Enemy's Turn");
-        
+
         enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
         enemy.getAnimator().setMovingRight(false);
         enemyTurnTimer.start();  // Start enemy turn after player's turn ends
