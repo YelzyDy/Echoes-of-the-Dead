@@ -138,6 +138,7 @@ public class Protagonist extends Character implements MouseInteractable {
         switch(getCharacterType()){
             case "knight":
                 
+                mana -= 30;
                 return 0.4;
             case "wizard":
                 System.out.println(getName() + " used QUANTUM SHIFT");

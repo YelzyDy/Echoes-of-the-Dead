@@ -70,9 +70,20 @@ public class BattleExperiment {
     }
 
     public void skill2() {
+        if (player.skill1()) {
+            // Disable skill buttons
+            battleUI.setSkillButtonsEnabled(false);
 
-        
-        
+            // Trigger skill animation
+            player.getAnimator().triggerSkillAnimation(1, (int)(getXFactor()));
+            player.getAnimator().setMovingRight(true);
+
+            // Start player turn timer
+            battleUI.updateTurnIndicator("Your Turn");
+            playerTurnTimer.start();  // Start timer for player's turn
+
+            // Once the timer ends, enemy's turn will start automatically
+        }
     }
 
     public void skill3() {
