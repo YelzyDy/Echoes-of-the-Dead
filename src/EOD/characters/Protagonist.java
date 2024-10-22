@@ -87,6 +87,10 @@ public class Protagonist extends Character implements MouseInteractable {
                 baseMana = mana;
                 attack = 20;
                 money = 0;
+                s1num = 9;
+                s2num = 9;
+                s3num = 9;
+                s4num = 9;
                 break;
         }
     }
