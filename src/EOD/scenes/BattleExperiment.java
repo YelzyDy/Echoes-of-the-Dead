@@ -1,7 +1,6 @@
 package EOD.scenes;
 
 import EOD.characters.Enemy;
-import EOD.characters.Necromancer;
 import EOD.characters.Protagonist;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -10,32 +9,35 @@ public class BattleExperiment {
     private Enemy enemy;
     private Protagonist player;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private boolean isBattleStopped;
+
+    private boolean isSkillUsable;
     public BattleExperiment(Protagonist player, Enemy enemy){
         this.player = player;
         this.enemy = enemy;
-        isBattleStopped = false;
+        isSkillUsable = true;
     }
 
     public Enemy getEnemy(){
         return enemy;
     }
 
-    public void skill1(){
-        int enemyHp = enemy.getHp();
-        double xFactor = 0;
+    public double getXFactor(){
         switch(player.getCharacterType()){
             case "knight":
-                enemy.setHp(enemyHp - 10);
-                xFactor = screenSize.width * 0.5;
-            break;
+            return screenSize.width * 0.5;
             case "wizard":
-            enemy.setHp(enemyHp - 10);
-            xFactor = screenSize.width * 0.1;
-            break;
+            return screenSize.width * 0.1;
         }
-        player.getAnimator().triggerSkillAnimation(1, (int)(xFactor));
-        player.getAnimator().setMovingRight(true);
+        return 0;
+    }
+
+    public void skill1(){
+        if(player.skill1()) {
+            player.getAnimator().triggerSkillAnimation(1, (int)(getXFactor()));
+            player.getAnimator().setMovingRight(true);
+        } else {
+            isSkillUsable = false;
+        }
     }
 
     public void skill2(){
@@ -91,8 +93,8 @@ public class BattleExperiment {
         player.getAnimator().setMovingRight(true);
     }
 
-    public void setIsBattleStopped(boolean isBattleStopped){  this.isBattleStopped = isBattleStopped; }
+    public void setIsSkillUsable(boolean isSkillUsable){  this.isSkillUsable = isSkillUsable; }
 
-    public boolean getIsBattleStopped(){  return isBattleStopped; }
+    public boolean getIsSkillUsable(){  return isSkillUsable; }
 
 }
