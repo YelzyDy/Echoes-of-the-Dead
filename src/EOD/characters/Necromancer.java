@@ -1,7 +1,9 @@
 package EOD.characters;
 
+import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
 
+<<<<<<< HEAD
 public class Necromancer extends Enemy {
     public Necromancer(String name, SceneBuilder panel, int posX, int posY, 
         double minRange, double maxRange, int numIdleSprites, 
@@ -11,6 +13,17 @@ public class Necromancer extends Enemy {
         configureSprites();
         attack = 20;
         health = 200;
+=======
+public class Necromancer extends Enemy {    
+    public Necromancer(String name, SceneBuilder panel, int posX, int posY, 
+            double minRange, double maxRange, int numIdleSprites, 
+            int numWalkSprites, Protagonist protagonist) {
+            super(name, "necromancer", panel, posX, posY, minRange, maxRange, 
+            numIdleSprites, numWalkSprites, protagonist);
+            configureSprites();
+            health = 200;
+            attack = 10;
+>>>>>>> master
 
     }
 
@@ -25,7 +38,7 @@ public class Necromancer extends Enemy {
     
     @Override
     protected void onBattleStart() {
-        panel.configureBattle(this);
-        animator.performSpecialAttack();
+        EchoesObjects portal = panel.objList.get(2);
+        panel.configureBattle(this, portal);
     }
 }

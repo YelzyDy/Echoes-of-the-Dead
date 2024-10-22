@@ -23,21 +23,29 @@ public class Protagonist extends Character implements MouseInteractable {
     private int health;
     private int baseHealth;
     private int money;
-    
+    private int s1num;
+    private int s2num;
+    private int s3num;
+    private int s4num;
+
+
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         animator = new ProtagonistAnimator(this);
         setAnimator(animator);
-        System.out.println("test");
+        configure();
+        configureSprites();
+        animator.updateBounds();
+        System.out.println("Protagonist: " + posX + " " + posY);
+    }
+
+    public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 8);
         animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 6);
-        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.006), 7);
-        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.006), 10);
-        animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), 4);
-        animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), 11);
-        animator.updateBounds();
-        configure();
-        System.out.println("Protagonist: " + posX + " " + posY);
+        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.006), s1num);
+        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.006), s2num);
+        animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), s3num);
+        animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
     }
 
     public void configure(){
@@ -50,6 +58,10 @@ public class Protagonist extends Character implements MouseInteractable {
                 mana = 100;
                 baseMana = mana;
                 money = 40;
+                s1num = 7;
+                s2num = 10;
+                s3num = 4;
+                s4num = 11;
                 break;
             case "wizard":
                 attack = 20;
@@ -58,6 +70,10 @@ public class Protagonist extends Character implements MouseInteractable {
                 mana = 130;
                 baseMana = mana;
                 money = 0;
+                s1num = 6;
+                s2num = 6;
+                s3num = 6;
+                s4num = 6;
                 break;
             case "priest":
                 attack = 20;
@@ -75,28 +91,40 @@ public class Protagonist extends Character implements MouseInteractable {
         return animator;
     }
 
-    public void skill1(){
+    private double calculateDamage(int baseAttack) {
+        return baseAttack + (int)(Math.random() * 10); // Random bonus damage
+    }
+
+    public boolean skill1(){
         switch(getCharacterType()){
             case "knight": 
-                System.out.println(getName() + " used OBJECTION SURGE");
-                System.out.println("-15 Soul Shards, +15 Attack");
-                break;
+                if(money >= 15){
+                    attack += 15;
+                    money -= 15;
+                    break;
+                }else{
+                    return false;
+                }
             case "wizard":
-                System.out.println(getName() + " used OVERCLOCK");
-                System.out.println("-15 Mana, +15 Attack");
-                break;
+                if(money >= 15){
+                    attack += 15;
+                    money -= 15;
+                    break;
+                }else{
+                    return false;
+                }
             case "priest":
                 System.out.println(getName() + " used VITAL RUSH");
                 System.out.println("-15 Soul Energy, +15 Attack");  
                 break;
         }
+        return false;
     }
 
     public double skill2(){
         switch(getCharacterType()){
             case "knight":
-                System.out.println(getName() + " used ETHEREAL SHIELD OF LOGIC");
-                System.out.println("Absorbs 40% damage, if damage is greater than 20% Soul Energy left, increase Soul Shards by 10%");
+                
                 return 0.4;
             case "wizard":
                 System.out.println(getName() + " used QUANTUM SHIFT");
@@ -114,17 +142,11 @@ public class Protagonist extends Character implements MouseInteractable {
     public double skill3(){
         switch(getCharacterType()){
             case "knight":
-                System.out.println(getName() + " used TRUTHBINDING");
-                System.out.println("Deal 200% Attack + 40% Soul Shards damage and the opponent can’t attack this turn");
-                return 0.4;
+                return calculateDamage(attack);
             case "wizard":
-                System.out.println(getName() + " used CODE RAGE QUAKE");
-                System.out.println("Induce a strong quake dealing 60 + 25% Mana damage");
-                return 0.25;
+            return calculateDamage(attack);
             case "priest":
-                System.out.println(getName() + " used VENGEFUL VITALITY");
-                System.out.println("Deal 60% of Soul Energy lost to the opponent and gains 40% Soul Energy");
-                return 0.6;
+                return calculateDamage(attack);
             default:
                 return 0;
         }

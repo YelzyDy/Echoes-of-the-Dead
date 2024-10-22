@@ -106,6 +106,5 @@ public abstract class Enemy extends Character implements MouseInteractable {
         animator.startMovement();
     }
 
-    // Abstract method to be implemented by subclasses
     protected abstract void onBattleStart();
 }

@@ -3,50 +3,18 @@ package EOD.scenes;
 import EOD.characters.Enemy;
 import EOD.characters.Necromancer;
 import EOD.characters.Protagonist;
-import EOD.characters.Skeleton2;
-
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class BattleExperiment {
     private Enemy enemy;
     private Protagonist player;
-    private boolean battleStopped;
-
-    //player attributes
-    private int playerHp;
-    private int playerBaseHp;
-    private int playerMana;
-    private int playerBaseMana;
-    private int skill2Cd = 0;
-    private int skill3Cd = 0;
-    private int playerAttack;
-    private int playerMoney;
-    private boolean skillIsUseable = true;
-
-    //knight
-    private double playerDamageReducer = 0;
-
-    //priestess
-    private int playerLostHp = 0;
-
-    //enemy attributes
-    private int enemyHp;
-    private int enemyAttack;
-    private int enemyMissTurn = 0;
-    private int moneyDrop;
-
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private boolean isBattleStopped;
     public BattleExperiment(Protagonist player, Enemy enemy){
         this.player = player;
         this.enemy = enemy;
-        enemyHp = enemy.getHp();
-        enemyAttack = enemy.getAttack();
-        moneyDrop = enemy.getMoneyDrop();
-        playerHp = player.getHp();
-        playerBaseHp = player.getBaseHp();
-        playerAttack = player.getAttack();
-        playerMana = player.getMana();
-        playerBaseMana = player.getBaseMana();
-        playerMoney = player.getMoney();
-        battleStopped = false;
+        isBattleStopped = false;
     }
 
     public Enemy getEnemy(){
@@ -54,44 +22,77 @@ public class BattleExperiment {
     }
 
     public void skill1(){
+        int enemyHp = enemy.getHp();
+        double xFactor = 0;
         switch(player.getCharacterType()){
             case "knight":
-                enemy.setHp(enemyHp - playerAttack);
+                enemy.setHp(enemyHp - 10);
+                xFactor = screenSize.width * 0.5;
+            break;
+            case "wizard":
+            enemy.setHp(enemyHp - 10);
+            xFactor = screenSize.width * 0.1;
             break;
         }
+        player.getAnimator().triggerSkillAnimation(1, (int)(xFactor));
+        player.getAnimator().setMovingRight(true);
     }
 
     public void skill2(){
         int enemyHp = enemy.getHp();
-
+        double xFactor = 0;
         switch(player.getCharacterType()){
             case "knight":
                 enemy.setHp(enemyHp - 10);
+                xFactor = screenSize.width * 0.5;
+            break;
+            case "wizard":
+            enemy.setHp(enemyHp - 10);
+            xFactor = screenSize.width * 0.1;
             break;
         }
+        player.getAnimator().triggerSkillAnimation(2, (int)(xFactor));
+        player.getAnimator().setMovingRight(true);
     }
+
 
     public void skill3(){
         int enemyHp = enemy.getHp();
-
+        double xFactor = 0;
         switch(player.getCharacterType()){
             case "knight":
                 enemy.setHp(enemyHp - 10);
+                xFactor = screenSize.width * 0.5;
+            break;
+            case "wizard":
+            enemy.setHp(enemyHp - 10);
+            xFactor = screenSize.width * 0.1;
             break;
         }
+        player.getAnimator().triggerSkillAnimation(3, (int)(xFactor));
+        player.getAnimator().setMovingRight(true);
     }
+
 
     public void skill4(){
         int enemyHp = enemy.getHp();
+        double xFactor = 0;
         switch(player.getCharacterType()){
             case "knight":
-                enemy.setHp(enemyHp - 40);
+                enemy.setHp(enemyHp - 10);
+                xFactor = screenSize.width * 0.5;
+            break;
+            case "wizard":
+            enemy.setHp(enemyHp - 10);
+            xFactor = screenSize.width * 0.1;
             break;
         }
+        player.getAnimator().triggerSkillAnimation(4, (int)(xFactor));
+        player.getAnimator().setMovingRight(true);
     }
 
-    public boolean getIsBattleStopped(){
-        return battleStopped;
-    }
+    public void setIsBattleStopped(boolean isBattleStopped){  this.isBattleStopped = isBattleStopped; }
+
+    public boolean getIsBattleStopped(){  return isBattleStopped; }
 
 }

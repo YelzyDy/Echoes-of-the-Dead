@@ -78,15 +78,6 @@ public class FullScreenDialogues extends JFrame {
         textBox.setText(story.getLine(0));
         addMouseListenerForMultipleLines(story, textBox, storyDialogue);
 
-        storyDialogue.addKeyListener(new java.awt.event.KeyAdapter() {
-            @Override
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
-                    storyDialogue.dispose();
-                }
-            }
-        });
-
         storyDialogue.setFocusable(true);
         storyDialogue.requestFocusInWindow();
         storyDialogue.setVisible(true);

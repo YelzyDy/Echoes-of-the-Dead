@@ -77,11 +77,7 @@ public abstract class Animator {
                 e.printStackTrace();
             }
         }
-        if (character.getCharacterType().equals("skeleton1")){
-            sprites.scaleImageListDown(0.99);
-        } else {
-            sprites.scaleImageList(scale);
-        }
+        sprites.scaleImageList(scale);
     }
 
     protected ImageList getSpriteList(String type) {
@@ -207,6 +203,9 @@ public abstract class Animator {
         getSpriteList(spriteType).scaleImageList(scale);
     }
 
+    public void scaleDownSprites(String spriteType, double scale) {
+        getSpriteList(spriteType).scaleImageListDown(scale);
+    }
 
     // Getters and setters
     public boolean getIsMoving() { return isMoving; }

@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import EOD.characters.*;
 import EOD.dialogues.*;
+import EOD.objects.EchoesObjects;
 public class BattleUI extends JFrame {
     StoryLine story = new StoryLine();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -22,10 +23,18 @@ public class BattleUI extends JFrame {
     private Protagonist protag;
     private BattleExperiment battleSample;
     private JDialog storyDialogue;
-
+    private EchoesObjects portal;
     public BattleUI(Protagonist protag, Enemy minion){
         this.protag = protag;
         battleSample = new BattleExperiment(protag, minion);
+    }
+
+    public void setPortal(EchoesObjects portal){
+        this.portal = portal;
+    }
+
+    public EchoesObjects getPortal(){
+        return portal;
     }
 
     public BattleExperiment getBattleExperiment(){
@@ -64,19 +73,23 @@ public class BattleUI extends JFrame {
 
         actionA = e -> {
             battleSample.skill1();
-            protag.getAnimator().triggerSkillAnimation(1, (int)(screenSize.width * 0.5));
         };
         actionB = e -> {
             battleSample.skill2();
+<<<<<<< HEAD
             protag.getAnimator().triggerSkillAnimation(2, (int)(screenSize.width * 0.5));
         };
         actionC = e -> {
             battleSample.skill3();
             protag.getAnimator().triggerSkillAnimation(3, protag.getX());
+=======
+        };
+        actionC = e -> {
+            battleSample.skill3();
+>>>>>>> master
         };
         actionD = e -> {
             battleSample.skill4();
-            protag.getAnimator().triggerSkillAnimation(4, (int)(screenSize.width * 0.5));
         };
 
         ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
