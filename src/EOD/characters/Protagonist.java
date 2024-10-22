@@ -91,11 +91,17 @@ public class Protagonist extends Character implements MouseInteractable {
         return animator;
     }
 
+    private double calculateDamage(int baseAttack) {
+        return baseAttack + (int)(Math.random() * 10); // Random bonus damage
+    }
+
     public void skill1(){
         switch(getCharacterType()){
             case "knight": 
-                System.out.println(getName() + " used OBJECTION SURGE");
-                System.out.println("-15 Soul Shards, +15 Attack");
+                if(money >= 15){
+                    attack += 15;
+                    money -= 15;
+                }
                 break;
             case "wizard":
                 System.out.println(getName() + " used OVERCLOCK");
@@ -111,8 +117,7 @@ public class Protagonist extends Character implements MouseInteractable {
     public double skill2(){
         switch(getCharacterType()){
             case "knight":
-                System.out.println(getName() + " used ETHEREAL SHIELD OF LOGIC");
-                System.out.println("Absorbs 40% damage, if damage is greater than 20% Soul Energy left, increase Soul Shards by 10%");
+                
                 return 0.4;
             case "wizard":
                 System.out.println(getName() + " used QUANTUM SHIFT");
@@ -130,17 +135,11 @@ public class Protagonist extends Character implements MouseInteractable {
     public double skill3(){
         switch(getCharacterType()){
             case "knight":
-                System.out.println(getName() + " used TRUTHBINDING");
-                System.out.println("Deal 200% Attack + 40% Soul Shards damage and the opponent can’t attack this turn");
-                return 0.4;
+                return calculateDamage(attack);
             case "wizard":
-                System.out.println(getName() + " used CODE RAGE QUAKE");
-                System.out.println("Induce a strong quake dealing 60 + 25% Mana damage");
-                return 0.25;
+            return calculateDamage(attack);
             case "priest":
-                System.out.println(getName() + " used VENGEFUL VITALITY");
-                System.out.println("Deal 60% of Soul Energy lost to the opponent and gains 40% Soul Energy");
-                return 0.6;
+                return calculateDamage(attack);
             default:
                 return 0;
         }
