@@ -11,9 +11,8 @@ public class AskDialogues extends JFrame {
     StoryLine story = new StoryLine();
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.44);
-    private int size;
 
-    public void openScrollableDialog(int ID, JDialog dialog, JLabel textBox) {
+    public void openScrollableOptions(int ID, JDialog dialog, JLabel textBox) {
 
         // LOAD NPC
 
@@ -83,9 +82,7 @@ public class AskDialogues extends JFrame {
 
         // SET SCROLL BUTTONS
 
-        this.size = story.getSize();
-        String[] options = new String[this.size];
-        options = story.getArr();
+        String[] options = story.getArr();
 
         for (int i = 0; i < options.length; i++) {
             if (options[i] != null && i % 2 == 0) {
