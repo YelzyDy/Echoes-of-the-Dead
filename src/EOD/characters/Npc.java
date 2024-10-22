@@ -27,7 +27,7 @@ public class Npc extends Character implements MouseInteractable {
         animator.updateBounds();
         animator.setRange(minRange, maxRange);
     }
-
+    
     public Npc getNpc(String name){
         if(this.getName().equals(name)){
             return this;

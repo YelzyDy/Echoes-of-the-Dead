@@ -65,7 +65,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 10;
                 s3num = 4;
                 s4num = 11;
-                turnDuration = 2000;
+                turnDuration = 4000;
                 break;
             case "wizard":
                 attack = 20;

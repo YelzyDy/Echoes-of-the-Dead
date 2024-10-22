@@ -11,7 +11,7 @@ public class Skeleton1 extends Enemy {
         configureSprites();
         attack = 10;
         health = 100;
-        turnDuration = 5000;
+        turnDuration = 4000;
     }
 
     public void configureSprites(){

@@ -4,6 +4,8 @@ import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Random;
+
 import javax.swing.Timer;
 
 
@@ -52,9 +54,9 @@ public class BattleExperiment {
     }
 
     public double getEnemyXFactor() {
-        switch(player.getCharacterType()) {
+        switch(enemy.getCharacterType()) {
             case "skeleton1":
-                return screenSize.width * 0.5;
+                return screenSize.width * 0.7;
             case "necromacer":
                 return screenSize.width * 0.1;
             default:
@@ -126,13 +128,17 @@ public class BattleExperiment {
     }
 
     private void startEnemyTurn() {
+        Random random = new Random();
+        int skillNumber = random.nextInt(2) + 1;
         battleUI.updateTurnIndicator("Enemy's Turn");
+        
+        enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
+        enemy.getAnimator().setMovingRight(false);
         enemyTurnTimer.start();  // Start enemy turn after player's turn ends
     }
 
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
-        enemy.getAnimator().triggerSkillAnimation(1, (int)getEnemyXFactor());
         double damage = enemy.skill1();
         player.takeDamage((int) damage);
         battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");

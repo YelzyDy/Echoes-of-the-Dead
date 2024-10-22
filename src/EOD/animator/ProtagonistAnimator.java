@@ -55,19 +55,6 @@ public class ProtagonistAnimator extends Animator {
     
             updateBounds();
 
-            /*if (!isMoving) {
-                if (character.getPosX() >= (screenSize.width * 0.3) && currentScene < maxPanel - 1 && !isTransitioned) {
-                    character.setPosX(screenSize.width * 0.03);
-                    panel.incCurrentScene();
-                    isTransitioned = true;
-                } else if (currentScene > 0 && character.getPosX() <= (screenSize.width * 0.3) && !isTransitioned) {
-                    character.setPosX(screenSize.width * 0.9);
-                    panel.decCurrentScene();
-                    isTransitioned = true;
-                } else if (isTransitioned) {
-                    isTransitioned = false;
-                }
-            }*/
         }
     }
 
@@ -108,8 +95,6 @@ public class ProtagonistAnimator extends Animator {
         }
 
         updateBounds();
-
-        // Scene transition logic is now in updateAnimation()
     }
 
 }

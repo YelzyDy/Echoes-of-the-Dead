@@ -15,6 +15,11 @@ public class Necromancer extends Enemy {
 
     }
 
+    @Override
+    public double skill1(){
+        return calculateDamage(attack);
+    }
+    
     public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), numIdleSprites);

@@ -24,7 +24,6 @@ public class EnemyAnimator extends Animator {
     public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
         String type = "skill" + skillNumber;
         importSprites(assetPackage, type, scale, numOfSprites);
-        //isTransitioned = false;
     }
 
     @Override
@@ -42,7 +41,7 @@ public class EnemyAnimator extends Animator {
 
     @Override
     public void updateMovement() {
-        if (isInBattle || !isMoving) return;
+        if (!isMoving) return;
 
         long currentTime = System.currentTimeMillis();
 
