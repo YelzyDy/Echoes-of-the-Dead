@@ -95,10 +95,6 @@ public class Protagonist extends Character implements MouseInteractable {
         return animator;
     }
 
-    private double calculateDamage(int baseAttack) {
-        return baseAttack + (int)(Math.random() * 10); // Random bonus damage
-    }
-
     public void takeDamage(int damage){
         health -= damage;
     }
@@ -107,7 +103,6 @@ public class Protagonist extends Character implements MouseInteractable {
         switch(getCharacterType()){
             case "knight": 
                 if(money >= 15){
-                    System.out.println("Attack: " + attack + "Money: " + money);
                     attack += 15;
                     money -= 15;
                     break;
@@ -134,36 +129,94 @@ public class Protagonist extends Character implements MouseInteractable {
         return true;
     }
 
-    public double skill2(){
+    public boolean skill2(){
         switch(getCharacterType()){
-            case "knight":
-                
-                mana -= 30;
-                return 0.4;
+            case "knight": 
+                if(mana >= 0){
+                    attack += 15;
+                    money -= 15;
+                    break;
+                }else{
+                    return false;
+                }
             case "wizard":
-                System.out.println(getName() + " used QUANTUM SHIFT");
-                System.out.println("Has a 60% chance to dodge the attack. Deals 40 damage and regains 50 mana if successful");
-                return 40.0;
+                if(mana >= 10){
+                    attack += 15;
+                    mana -= 10;
+                    break;
+                }else{
+                    return false;
+                }
             case "priest":
-                System.out.println(getName() + " used LIFE LEECH");
-                System.out.println("Steals 30% of self's Soul Energy from the opponent");
-                return 0.3;
-            default:
-                return 0;
+                if(health >= 40){
+                    attack += 15;
+                    health -= 10;
+                    break;
+                }else{
+                    return false;
+                }
         }
+        return true;
     }
 
-    public double skill3(){
+    public boolean skill3(){
         switch(getCharacterType()){
-            case "knight":
-                return calculateDamage(attack);
+            case "knight": 
+                if(mana >= 30){
+                    //kamoy implement sa damage reducer haha
+                    mana -= 30;
+                    break;
+                }else{
+                    return false;
+                }
             case "wizard":
-            return calculateDamage(attack);
+                if(mana >= 10){
+                    attack += 15;
+                    mana -= 10;
+                    break;
+                }else{
+                    return false;
+                }
             case "priest":
-                return calculateDamage(attack);
-            default:
-                return 0;
+                if(health >= 40){
+                    attack += 15;
+                    health -= 10;
+                    break;
+                }else{
+                    return false;
+                }
         }
+        return true;
+    }
+
+    public boolean skill4(){
+        switch(getCharacterType()){
+            case "knight": 
+                if(money >= 15){
+                    attack += 15;
+                    money -= 15;
+                    break;
+                }else{
+                    return false;
+                }
+            case "wizard":
+                if(mana >= 10){
+                    attack += 15;
+                    mana -= 10;
+                    break;
+                }else{
+                    return false;
+                }
+            case "priest":
+                if(health >= 40){
+                    attack += 15;
+                    health -= 10;
+                    break;
+                }else{
+                    return false;
+                }
+        }
+        return true;
     }
 
     //get hp for battle sequence
