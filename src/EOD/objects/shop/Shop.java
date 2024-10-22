@@ -11,12 +11,8 @@ public class Shop extends EchoesObjects implements MouseInteractable {
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private World world;
     //objects
-    private EchoesObjects shopBg;
-    private EchoesObjects item1;
-    private EchoesObjects item2;
-    private EchoesObjects item3;
-    private EchoesObjects item4;
-    private EchoesObjects sidePanel;
+    private EchoesObjects shopBg, sidePanel;
+    private EchoesObjects item1, item2, item3, item4;
     private EchoesObjects buyButton;
     private double height, width;
 
@@ -100,15 +96,18 @@ public class Shop extends EchoesObjects implements MouseInteractable {
             System.out.println("item1");
         }else if(source == item2){
             sidePanel.setCurrentFrame(2);
+            showBuyButton(width, height);
             sidePanel.repaint();
         }else if(source == item3){
             sidePanel.setCurrentFrame(3);
+            showBuyButton(width, height);
             sidePanel.repaint();
         }else if(source == item4){
             sidePanel.setCurrentFrame(4);
+            showBuyButton(width, height);
             sidePanel.repaint();
         }else if(source == this){
             showElementsInShop();
-        }
+        } 
     }  
 }
