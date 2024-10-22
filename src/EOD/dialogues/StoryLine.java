@@ -74,7 +74,7 @@ public class StoryLine {
         public void missConstanceLines() {
                 int i = 0;
 
-                this.arr[i++] = "You: \"WHat are you waiting for? You look impatient.\"";
+                this.arr[i++] = "You: \"What are you waiting for? You look impatient.\"";
                 this.arr[i++] = "Miss C: \"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a spirit would swing by or something. Do you think they're avoiding me? Honestly, I'm starting to take it personally.\"";
                 
                 this.arr[i++] = "You: \"Do you know anyone that is still alive?\"";
@@ -359,5 +359,9 @@ public class StoryLine {
 
         public int getSize() {
                 return this.size;
+        }
+
+        public String[] getArr() {
+                return arr;
         }
 }

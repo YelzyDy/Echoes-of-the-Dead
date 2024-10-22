@@ -73,17 +73,15 @@ public class BattleUI extends JFrame {
 
         actionA = e -> {
             battleSample.skill1();
-            protag.getAnimator().triggerSkillAnimation(1, (int)(screenSize.width * 0.5));
         };
         actionB = e -> {
-            protag.getAnimator().triggerSkillAnimation(2, (int)(screenSize.width * 0.5));
+            battleSample.skill2();
         };
         actionC = e -> {
-            protag.getAnimator().triggerSkillAnimation(3, protag.getX());
+            battleSample.skill3();
         };
         actionD = e -> {
             battleSample.skill4();
-            protag.getAnimator().triggerSkillAnimation(4, (int)(screenSize.width * 0.5));
         };
 
         ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
