@@ -22,7 +22,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected int numWalkSprites;
     private int index;
     protected int turnDuration;
-
+    protected int damageDealt;
     public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
         double minRange, double maxRange, int numIdleSprites, int numWalkSprites, 
         Protagonist protagonist) {
@@ -40,11 +40,15 @@ public abstract class Enemy extends Character implements MouseInteractable {
         setVisible(true);
     }
 
-    public double calculateDamage(int baseAttack) {
-        return baseAttack + (int)(Math.random() * 10); // Random bonus damage
+    public int getDamageDealt(){
+        return damageDealt;
     }
 
-    public abstract double skill1();
+    public void takeDamage(int damage){
+        health -= damage;
+    }
+
+    public abstract void skill1();
     
     public int getTurnDuration(){
         return turnDuration;

@@ -66,7 +66,7 @@ public class BattleExperiment {
     }
 
 
-    public void skill1() {
+    public void skill1() { // these are all the buff skills
         if (player.skill1()) {
             // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
@@ -83,9 +83,11 @@ public class BattleExperiment {
         }
     }
 
-    public void skill2() {
+    public void skill2() { // attack skill? 
         if (player.skill2()) {
             // Disable skill buttons
+            int damage = player.getDamageDealt();
+            enemy.takeDamage(damage);
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
@@ -99,7 +101,7 @@ public class BattleExperiment {
     }
 
     public void skill3() {
-        if (player.skill2()) {
+        if (player.skill3()) { // damage reduction?? so far para pani sila sa knight i modify lang skill 2 -4
             // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
@@ -114,7 +116,7 @@ public class BattleExperiment {
     }
 
     public void skill4() {
-        if (player.skill2()) {
+        if (player.skill2()) { // burst or unsa?
             // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
@@ -140,7 +142,7 @@ public class BattleExperiment {
 
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
-        double damage = enemy.skill1();
+        double damage = enemy.getDamageDealt() - player.getDamageReduction();
         player.takeDamage((int) damage);
         battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
         

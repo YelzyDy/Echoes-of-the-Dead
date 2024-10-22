@@ -28,6 +28,8 @@ public class Protagonist extends Character implements MouseInteractable {
     private int s3num;
     private int s4num;
     private int turnDuration;
+    private int damageDealt;
+    private int damageReduction;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
@@ -36,6 +38,8 @@ public class Protagonist extends Character implements MouseInteractable {
         configure();
         configureSprites();
         animator.updateBounds();
+        damageDealt = 0;
+        damageReduction = 0;
         System.out.println("Protagonist: " + posX + " " + posY);
     }
 
@@ -65,7 +69,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 10;
                 s3num = 4;
                 s4num = 11;
-                turnDuration = 4000;
+                turnDuration = 2000;
                 break;
             case "wizard":
                 attack = 20;
@@ -78,6 +82,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 6;
                 s3num = 6;
                 s4num = 6;
+                turnDuration = 2000;
                 break;
             case "priest":
                 attack = 20;
@@ -91,6 +96,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 9;
                 s3num = 6;
                 s4num = 9;
+                turnDuration = 2000;
                 break;
         }
     }
@@ -103,7 +109,13 @@ public class Protagonist extends Character implements MouseInteractable {
         health -= damage;
     }
 
-    
+    public int getDamageDealt(){
+        return damageDealt;
+    }
+
+    public int getDamageReduction(){
+        return damageReduction;
+    }
     
     public boolean skill1(){
         switch(getCharacterType()){
@@ -138,25 +150,25 @@ public class Protagonist extends Character implements MouseInteractable {
     public boolean skill2(){
         switch(getCharacterType()){
             case "knight": 
-                if(mana >= 0){
-                    attack += 15;
-                    money -= 15;
+                if(mana >= 30){
+                    damageDealt = 50;
+                    mana-=30;
                     break;
                 }else{
                     return false;
                 }
             case "wizard":
-                if(mana >= 10){
-                    attack += 15;
-                    mana -= 10;
+                if(mana >= 30){
+                    damageDealt = 50;
+                    mana-=30;
                     break;
                 }else{
                     return false;
                 }
             case "priest":
-                if(health >= 40){
-                    attack += 15;
-                    health -= 10;
+                if(mana >= 30){
+                    damageDealt = 50;
+                    mana-=30;
                     break;
                 }else{
                     return false;
@@ -169,24 +181,24 @@ public class Protagonist extends Character implements MouseInteractable {
         switch(getCharacterType()){
             case "knight": 
                 if(mana >= 30){
-                    //kamoy implement sa damage reducer haha
+                    damageReduction = 20;
                     mana -= 30;
                     break;
                 }else{
                     return false;
                 }
             case "wizard":
-                if(mana >= 10){
-                    attack += 15;
-                    mana -= 10;
+                if(mana >= 30){
+                    damageReduction = 20;
+                    mana -= 30;
                     break;
                 }else{
                     return false;
                 }
             case "priest":
-                if(health >= 40){
-                    attack += 15;
-                    health -= 10;
+                if(mana >= 30){
+                    damageReduction = 20;
+                    mana -= 30;
                     break;
                 }else{
                     return false;

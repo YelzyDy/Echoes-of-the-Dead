@@ -11,7 +11,7 @@ public class Skeleton1 extends Enemy {
         configureSprites();
         attack = 10;
         health = 100;
-        turnDuration = 4000;
+        turnDuration = 3000;
     }
 
     public void configureSprites(){
@@ -29,8 +29,8 @@ public class Skeleton1 extends Enemy {
     }
 
     @Override
-    public double skill1(){
-        return calculateDamage(attack);
+    public void skill1(){
+        damageDealt = 10;
     }
 
     @Override

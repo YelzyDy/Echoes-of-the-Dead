@@ -12,12 +12,12 @@ public class Necromancer extends Enemy {
             configureSprites();
             health = 200;
             attack = 10;
-            turnDuration = 4000;
+            turnDuration = 3000;
     }
 
     @Override
-    public double skill1(){
-        return calculateDamage(attack);
+    public void skill1(){
+        
     }
     
     public void configureSprites(){
