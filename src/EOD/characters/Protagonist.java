@@ -33,6 +33,7 @@ public class Protagonist extends Character implements MouseInteractable {
     public boolean damageReducer;
     public int skill3Cd = 0;
     public int skill4Cd = 0;
+    private boolean skillIsUseable = true;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
@@ -115,95 +116,102 @@ public class Protagonist extends Character implements MouseInteractable {
     public int getDamageDealt(){
         return damageDealt;
     }
-
-    public int getDamageReduction(){
-        return damageReduction;
-    }
     
     public boolean skill1(){ // buff type skills
-        switch(getCharacterType()){
-            case "knight": 
-                if(money >= 15){
-                    attack += 15;
-                    money -= 15;
-                    break;
-                }else{
-                    return false;
-                }
-            case "wizard":
-                if(mana >= 10){
-                    attack += 15;
-                    mana -= 10;
-                    break;
-                }else{
-                    return false;
-                }
-            case "priest":
-                if(health >= 40){
-                    attack += 15;
-                    health -= 10;
-                    break;
-                }else{
-                    return false;
-                }
-        }
         return true;
     }
 
     public boolean skill2(){ // damage type
         switch(getCharacterType()){
             case "knight": 
-                if(mana >= 30){
-                    damageDealt = 50;
-                    mana-=30;
-                    break;
+                if(skillIsUseable){
+                    if(money >= 15){
+                        attack += 15;
+                        money -= 15;
+                        skillIsUseable = false;
+                    }else{
+                        System.out.println("Not enough money!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can only be used once per battle!");
                     return false;
                 }
             case "wizard":
-                if(mana >= 30){
-                    damageDealt = 50;
-                    mana-=30;
-                    break;
+                if(skillIsUseable){
+                    if(mana >= 15){
+                        attack += 15;
+                        mana -= 15;
+                        skillIsUseable = false;
+                    }else{
+                        System.out.println("Not enough mana!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can only be used once per battle!");
                     return false;
                 }
             case "priest":
-                if(mana >= 30){
-                    damageDealt = 50;
-                    mana-=30;
-                    break;
+                if(skillIsUseable){
+                    if(health >= 50){
+                       attack += 30;
+                       health -= 15;
+                        skillIsUseable = false;
+                    }else{
+                        System.out.println("Soul Energy too low!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can only be used once per battle!");
                     return false;
                 }
         }
         return true;
     }
 
+    // to be finished ang wizard ug priest
     public boolean skill3(){
         switch(getCharacterType()){
             case "knight": 
-                if(mana >= 30){
-                    damageReduction = 20;
-                    mana -= 30;
-                    break;
+                if(skill3Cd==0){
+                    if(mana >= 25){
+                        damageReducer = true;
+                        mana -= 25;
+                        skill3Cd = 2;
+                    }else{
+                        System.out.println("Not enough mana!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can't use it yet!");
                     return false;
                 }
             case "wizard":
-                if(mana >= 30){
-                    damageReduction = 20;
-                    mana -= 30;
-                    break;
+                if(skill3Cd==0){
+                    if(mana >= 25){
+                        damageReducer = true;
+                        mana -= 25;
+                        skill3Cd = 2;
+                    }else{
+                        System.out.println("Not enough mana!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can't use it yet!");
                     return false;
                 }
             case "priest":
-                if(mana >= 30){
-                    damageReduction = 20;
-                    mana -= 30;
-                    break;
+                if(skill3Cd==0){
+                    if(mana >= 25){
+                        damageReducer = true;
+                        mana -= 25;
+                        skill3Cd = 2;
+                    }else{
+                        System.out.println("Not enough mana!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can't use it yet!");
                     return false;
                 }
         }
