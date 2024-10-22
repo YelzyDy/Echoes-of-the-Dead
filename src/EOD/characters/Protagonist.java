@@ -33,7 +33,7 @@ public class Protagonist extends Character implements MouseInteractable {
     public boolean damageReducer;
     public int skill3Cd = 0;
     public int skill4Cd = 0;
-    private boolean skillIsUseable = true;
+    public boolean skillIsUseable = true;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
@@ -123,7 +123,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public boolean skill2(){ // buff type
         switch(getCharacterType()){
-            case "knight": 
+            case "knight":
                 if(skillIsUseable){
                     if(money >= 15){
                         attack += 15;
@@ -137,6 +137,7 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can only be used once per battle!");
                     return false;
                 }
+                return true;
             case "wizard":
                 if(skillIsUseable){
                     if(mana >= 15){
@@ -151,6 +152,7 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can only be used once per battle!");
                     return false;
                 }
+                return true;
             case "priest":
                 if(skillIsUseable){
                     if(health >= 50){
@@ -165,8 +167,10 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can only be used once per battle!");
                     return false;
                 }
+                return true;
+            default:
+                return true;
         }
-        return true;
     }
 
     // to be finished ang wizard ug priest

@@ -131,6 +131,11 @@ public class BattleExperiment {
     }
 
     private void startEnemyTurn() {
+
+        //doesnt run after enemy death
+        if(enemy.getHp() <= 0){
+            return;
+        }
         Random random = new Random();
         int skillNumber = random.nextInt(2) + 1;
         battleUI.updateTurnIndicator("Enemy's Turn");
