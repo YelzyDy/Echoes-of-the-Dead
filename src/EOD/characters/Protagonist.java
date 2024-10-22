@@ -29,7 +29,10 @@ public class Protagonist extends Character implements MouseInteractable {
     private int s4num;
     private int turnDuration;
     private int damageDealt;
-    private int damageReduction;
+
+    public boolean damageReducer;
+    public int skill3Cd = 0;
+    public int skill4Cd = 0;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
