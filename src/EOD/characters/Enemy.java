@@ -49,6 +49,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     }
 
     public abstract void skill1();
+    public abstract void skill2();
     
     public int getTurnDuration(){
         return turnDuration;

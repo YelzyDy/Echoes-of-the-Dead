@@ -135,17 +135,33 @@ public class BattleExperiment {
         int skillNumber = random.nextInt(2) + 1;
         battleUI.updateTurnIndicator("Enemy's Turn");
 
+        callRandomEnemySkill(skillNumber);
+        double damage = enemy.getDamageDealt() - player.getDamageReduction();
+        System.out.println("Enemy damage: " + damage + "Get damage reduction: " + player.getDamageReduction());
+        player.takeDamage((int) damage);
+
+        battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
+
         enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
         enemy.getAnimator().setMovingRight(false);
         enemyTurnTimer.start();  // Start enemy turn after player's turn ends
     }
 
+    public void callRandomEnemySkill(int skillNumber){
+        switch (skillNumber) {
+            case 1:
+                enemy.skill1();
+                break;
+            case 2:
+                enemy.skill2();
+                break;
+            default:
+                break;
+        }
+    }
+
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
-        double damage = enemy.getDamageDealt() - player.getDamageReduction();
-        player.takeDamage((int) damage);
-        battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
-        
         // After enemy's turn, enable skill buttons for the player
         battleUI.setSkillButtonsEnabled(true);
         battleUI.updateTurnIndicator("Your Turn");

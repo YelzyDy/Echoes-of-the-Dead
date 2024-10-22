@@ -117,7 +117,7 @@ public class Protagonist extends Character implements MouseInteractable {
         return damageReduction;
     }
     
-    public boolean skill1(){
+    public boolean skill1(){ // buff type skills
         switch(getCharacterType()){
             case "knight": 
                 if(money >= 15){
@@ -147,7 +147,7 @@ public class Protagonist extends Character implements MouseInteractable {
         return true;
     }
 
-    public boolean skill2(){
+    public boolean skill2(){ // damage type
         switch(getCharacterType()){
             case "knight": 
                 if(mana >= 30){

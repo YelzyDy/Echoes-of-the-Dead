@@ -11,6 +11,16 @@ public class Skeleton2 extends Enemy {
         configureSprites();
         health = 100;
     }
+    
+    @Override
+    public void skill1(){
+        damageDealt = 10;
+    }
+
+    @Override
+    public void skill2(){
+        damageDealt = 10;
+    }
 
     public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);

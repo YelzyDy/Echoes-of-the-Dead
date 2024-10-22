@@ -173,7 +173,7 @@ public class SceneBuilder extends JPanel{
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = protag.getHp();
-            System.out.println(enemyHp);   
+            System.out.println("Player HP: " + playerHp + " Enemy HP: " + enemyHp);   
             double enemyDeathY = getEnemyDeathPosY(enemy);
             String portalName = battle.getPortal().getName();
             int portalIndex = getPortalIndex(portalName);
