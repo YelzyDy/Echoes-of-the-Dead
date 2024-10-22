@@ -9,7 +9,9 @@ public class Skeleton1 extends Enemy {
             super(name, "skeleton1", panel, posX, posY, minRange, maxRange, 
             numIdleSprites, numWalkSprites, protagonist);
         configureSprites();
+        attack = 10;
         health = 100;
+        turnDuration = 5000;
     }
 
     public void configureSprites(){
@@ -24,6 +26,10 @@ public class Skeleton1 extends Enemy {
         animator.updateBounds();
     }
 
+    @Override
+    public double skill1(){
+        return calculateDamage(attack);
+    }
 
     @Override
     protected void onBattleStart() {

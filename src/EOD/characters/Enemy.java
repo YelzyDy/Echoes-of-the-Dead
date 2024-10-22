@@ -21,6 +21,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected int numIdleSprites;
     protected int numWalkSprites;
     private int index;
+    protected int turnDuration;
 
     public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
         double minRange, double maxRange, int numIdleSprites, int numWalkSprites, 
@@ -33,11 +34,20 @@ public abstract class Enemy extends Character implements MouseInteractable {
         this.maxRange = maxRange;
         this.numIdleSprites = numIdleSprites;
         this.numWalkSprites = numWalkSprites;
-
         this.animator = new EnemyAnimator(this);
         setAnimator(animator);
         this.addMouseListener(new MouseClickListener(this));
         setVisible(true);
+    }
+
+    public double calculateDamage(int baseAttack) {
+        return baseAttack + (int)(Math.random() * 10); // Random bonus damage
+    }
+
+    public abstract double skill1();
+    
+    public int getTurnDuration(){
+        return turnDuration;
     }
 
     public void setIndex(int index){

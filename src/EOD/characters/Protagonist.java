@@ -27,7 +27,7 @@ public class Protagonist extends Character implements MouseInteractable {
     private int s2num;
     private int s3num;
     private int s4num;
-
+    private int turnDuration;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
@@ -48,6 +48,9 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
     }
 
+    public int getTurnDuration(){
+        return turnDuration;
+    }
     public void configure(){
         //buffs depending on characterType
         switch(getCharacterType()){
@@ -62,6 +65,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 10;
                 s3num = 4;
                 s4num = 11;
+                turnDuration = 2000;
                 break;
             case "wizard":
                 attack = 20;
@@ -95,6 +99,9 @@ public class Protagonist extends Character implements MouseInteractable {
         return baseAttack + (int)(Math.random() * 10); // Random bonus damage
     }
 
+    public void takeDamage(int damage){
+        health -= damage;
+    }
     
     public boolean skill1(){
         switch(getCharacterType()){
