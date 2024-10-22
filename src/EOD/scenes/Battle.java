@@ -169,7 +169,7 @@ public class Battle{
                     case 3:
                         if(skill3Cd==0){
                             if(playerMana >= 50){
-                                enemyHp -= 60 + (int)((player.skill3())*playerBaseMana);
+                                enemyHp -= 60 + (int)((player.skill3()) * playerBaseMana);
                                 playerMana -= 50;
                                 skill3Cd = 3;
                             }else{
@@ -217,7 +217,7 @@ public class Battle{
                     case 3:
                         if(skill3Cd==0){
                             if(playerMana >= 70){
-                                enemyHp -= (int)((playerBaseHp - playerHp) * player.skill3());
+                                enemyHp -= (int)((playerBaseHp - playerHp) * );
                                 playerHp += (int)(playerBaseHp * 0.4);
                                 playerMana -= 70;
                                 skill3Cd = 5;
