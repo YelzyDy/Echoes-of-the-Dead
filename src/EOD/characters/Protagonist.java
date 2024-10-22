@@ -95,23 +95,30 @@ public class Protagonist extends Character implements MouseInteractable {
         return baseAttack + (int)(Math.random() * 10); // Random bonus damage
     }
 
-    public void skill1(){
+    public boolean skill1(){
         switch(getCharacterType()){
             case "knight": 
                 if(money >= 15){
                     attack += 15;
                     money -= 15;
+                    break;
+                }else{
+                    return false;
                 }
-                break;
             case "wizard":
-                System.out.println(getName() + " used OVERCLOCK");
-                System.out.println("-15 Mana, +15 Attack");
-                break;
+                if(money >= 15){
+                    attack += 15;
+                    money -= 15;
+                    break;
+                }else{
+                    return false;
+                }
             case "priest":
                 System.out.println(getName() + " used VITAL RUSH");
                 System.out.println("-15 Soul Energy, +15 Attack");  
                 break;
         }
+        return false;
     }
 
     public double skill2(){
