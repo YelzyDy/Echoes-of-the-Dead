@@ -4,6 +4,10 @@
  */
 package EOD.objects;
 
+import EOD.MouseInteractable;
+import EOD.entities.*;
+import EOD.listeners.MouseClickListener;
+import EOD.utils.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,11 +17,6 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-import EOD.MouseInteractable;
-import EOD.listeners.MouseClickListener;
-import EOD.utils.*;
-import EOD.entities.*;
 
 /**
  *
@@ -60,6 +59,10 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         return isAnimated;
     }
 
+    public void setBounds(int posX, int posY){
+        this.setBounds(posX, posY, getWidth(), getHeight());
+    }
+
     public void initializeSprites(String assetPackage, double width, double height) {
         objSprites.clear();
         int size = numOfSprites;
@@ -68,7 +71,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // System.out.println("Size: " + size);
         for (int i = 0; i < size; i++) {
             if (isAnimated) {
-                spritePaths[i] = "/" + assetPackage + "_assets/" + getName() + "/sprite" + i + ".png";
+                spritePaths[i] = "/" + assetPackage + "_assets/" + getName() + "/sprite_" + i + ".png";
             } else {
                 spritePaths[i] = "/" + assetPackage + "_assets/" + getName() + i + ".png";
             }
@@ -80,7 +83,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
                 if (image != null) {
                     objSprites.add(image);
                 } else {
-                    // System.out.println("Error: Failed to load image from " + path);
+                    System.out.println("Error: Failed to load image from " + path);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -90,6 +93,13 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // System.out.println("Number of sprites loaded: " + objSprites.getSize());
     }
 
+    public void scaleSprites(double scale) {
+        objSprites.scaleImageList(scale);
+    }
+
+    public void scaleDownSprites(double scale) {
+        objSprites.scaleImageListDown(scale);
+    }
    
     public void setCurrentFrame(int value){
         currentFrame = value;
@@ -116,6 +126,10 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
             repaint();    
             return;  
         }
+    }
+
+    public String getAssetPackage(){
+        return assetPackage;
     }
     
     public void restartAnimation(){
@@ -150,6 +164,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     @Override
     public void setPosY(double posY) {
         this.posY = posY;
+    }
+
+    public int getCurrentFrame(){
+        return currentFrame;
+    }
+
+    public int getNumOfSprites(){
+        return numOfSprites;
     }
 
     public Image getCurrentSprite() {
