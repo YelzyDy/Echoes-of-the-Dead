@@ -24,8 +24,8 @@ public class Protagonist extends Character implements MouseInteractable {
     private int health;
     private int baseHealth;
     private int money;
-    private int skill3Cd = 0;
-    private int skill4Cd = 0;
+    private int skill3Cd;
+    private int skill4Cd;
     private boolean skillIsUseable = true;
     private Random random = new Random();
 
@@ -46,6 +46,7 @@ public class Protagonist extends Character implements MouseInteractable {
     private Enemy enemy;
 
     private double xFactor = 0;
+
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         animator = new ProtagonistAnimator(this);
@@ -56,6 +57,8 @@ public class Protagonist extends Character implements MouseInteractable {
         damageDealt = 0;
         System.out.println("Protagonist: " + posX + " " + posY);
         xFactor = 0;
+        skill3Cd = 0;
+        skill4Cd = 0;
     }
 
     public void configureSprites(){
@@ -66,6 +69,7 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), s3num);
         animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
     }
+    
 
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;

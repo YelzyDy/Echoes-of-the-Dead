@@ -21,9 +21,14 @@ public class BattleUI extends JFrame {
     private JDialog storyDialogue;
     private EchoesObjects portal;
     private JLabel textBox;
-    public BattleUI(Protagonist protag, Enemy minion){
-        battleSample = new BattleExperiment(protag, minion);
+    private JLabel[] cooldownLabels;
+    private Protagonist player;
+
+    public BattleUI(Protagonist player, Enemy minion){
+        battleSample = new BattleExperiment(player, minion);
         battleSample.setBattleUI(this);
+        cooldownLabels = new JLabel[4];
+        this.player = player;
     }
 
     public void setPortal(EchoesObjects portal){
@@ -68,7 +73,6 @@ public class BattleUI extends JFrame {
         // ACTION LISTENERS
         textBox.setText(story.getLine(0));
 
-
         ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
         ImageIcon skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
 
@@ -110,11 +114,11 @@ public class BattleUI extends JFrame {
 
     // THE METHODS
 
-    public void setSkillButtonsEnabled(boolean enabled){
+    public void setSkillButtonsEnabled(boolean enabled) {
         skillA.setEnabled(enabled);
         skillB.setEnabled(enabled);
-        skillC.setEnabled(enabled);
-        skillD.setEnabled(enabled);
+        skillC.setEnabled(enabled && player.getSkill3CD() == 0);
+        skillD.setEnabled(enabled && player.getSkill4CD() == 0);
     }
 
     public void updateTurnIndicator(String text){
@@ -128,16 +132,27 @@ public class BattleUI extends JFrame {
         clearTimer.start();
     }
 
-    private JButton createSkillButton(StoryLine story, ImageIcon defaultIcon, ImageIcon hoverIcon, ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex) {
-        JButton button = new JButton(defaultIcon);
+    private JButton createSkillButton(StoryLine story, ImageIcon defaultIcon, ImageIcon hoverIcon, 
+        ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex) {
+
+        JLayeredPane layeredPane = new JLayeredPane();
         int width = (int) (screenSize.width * 0.15);
         int height = (int) (screenSize.height * 0.15);
-
-        button.setPreferredSize(new Dimension(width, height));
+        layeredPane.setPreferredSize(new Dimension(width, height));
+            
+        JButton button = new JButton(defaultIcon);
+        button.setBounds(0, 0, width, height);
         button.setBackground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.addActionListener(action);
+        
+        JLabel cooldownLabel = new JLabel("", SwingConstants.CENTER);
+        cooldownLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        cooldownLabel.setForeground(Color.WHITE);
+        cooldownLabel.setBounds(0, 0, width, height);
+
+        cooldownLabels[hoverIndex - 1] = cooldownLabel;
 
         button.addMouseListener(new MouseAdapter() {
             @Override
@@ -153,7 +168,50 @@ public class BattleUI extends JFrame {
             }
         });
 
+        layeredPane.add(button, Integer.valueOf(0));  // Add button at layer 0
+        layeredPane.add(cooldownLabel, Integer.valueOf(1));  // Add label at layer 1 (on top)
+
         return button;
+    }
+
+
+    public void updateCooldowns() {
+        // Update each cooldown label
+        updateSkillCooldown(0, 0);
+        updateSkillCooldown(1, 0);
+        updateSkillCooldown(2, player.getSkill3CD());
+        updateSkillCooldown(3, player.getSkill4CD());
+    }
+
+    private void updateSkillCooldown(int skillIndex, int cooldown) {
+        JLabel cooldownLabel = cooldownLabels[skillIndex];
+        if (cooldownLabel != null) {
+            if (cooldown > 0) {
+                cooldownLabel.setText(String.valueOf(cooldown));
+                // Disable the corresponding button
+                JButton skillButton = getSkillButton(skillIndex);
+                if (skillButton != null) {
+                    skillButton.setEnabled(false);
+                }
+            } else {
+                cooldownLabel.setText("");
+                // Enable the corresponding button if it's the player's turn
+                JButton skillButton = getSkillButton(skillIndex);
+                if (skillButton != null) {
+                    skillButton.setEnabled(true);
+                }
+            }
+        }
+    }
+
+       private JButton getSkillButton(int index) {
+        switch (index) {
+            case 0: return skillA;
+            case 1: return skillB;
+            case 2: return skillC;
+            case 3: return skillD;
+            default: return null;
+        }
     }
 
     public ImageIcon scaleImageIcon(String path) {

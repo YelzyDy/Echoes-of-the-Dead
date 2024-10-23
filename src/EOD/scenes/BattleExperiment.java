@@ -132,7 +132,7 @@ public class BattleExperiment {
         if(enemy.getHp() <= 0){
             return;
         }
-
+        enemy.getAnimator().setMovingRight(false);
         if(enemy.missedTurn == false){
             Random random = new Random();
             int skillNumber = random.nextInt(2) + 1;

@@ -163,6 +163,7 @@ public class SceneBuilder extends JPanel{
 
     private void updateBattleState(){
         if(battle != null){
+            battle.updateCooldowns();
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = player.getHp();
@@ -255,6 +256,9 @@ public class SceneBuilder extends JPanel{
         }
         if (world.getTitle().equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
+
+            if(player.skillEffects3 != null)player.skillEffects3.setVisible(player.getSkill3CD() != 0);
+            if(player.skillEffects4 != null)player.skillEffects4.setVisible(player.getSkill4CD() != 0);
             for (EchoesObjects obj : objList) {
                 if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
                     obj.setVisible(obj.getIndex() == currentSceneIndex);

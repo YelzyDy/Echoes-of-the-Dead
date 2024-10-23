@@ -55,7 +55,6 @@ public class EnemyAnimator extends Animator {
         if (isUsingSkill) {
             SceneBuilder panel = character.getPanel();
             double newPosX = character.getPosX() + deltaX;
-            panel.setComponentZOrder(character, 0);
             if (isMovingRight) {
                 if (newPosX >= targetX) {
                     character.setPosX(targetX);
