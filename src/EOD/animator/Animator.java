@@ -99,7 +99,7 @@ public abstract class Animator {
             currentFrame = Math.min(currentFrame + 1, deadSprites.getSize() - 1);
         } else if (isUsingSkill) {
             updateSkillAnimation();
-            System.out.println("Character: " + character.getName() + "skill frame: " + skillAnimationFrame + "is moving: " + isMoving);
+            // System.out.println("Character: " + character.getName() + "skill frame: " + skillAnimationFrame + "is moving: " + isMoving);
         } else {
             ImageList currentSprites = isMoving ? walkSprites : idleSprites;
             currentFrame = (currentFrame + 1) % currentSprites.getSize();
