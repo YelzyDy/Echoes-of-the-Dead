@@ -120,6 +120,9 @@ public class World1 extends World{
                     isBattleStopped = false;
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    World window = new World2(getProtagType(), getPlayerName(), protag);
+                    window.setVisible(true);
+                    this.setVisible(false);
                 }
             } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (!isBattleStopped) {
