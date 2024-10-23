@@ -32,6 +32,7 @@ public class BattleExperiment {
         // Initialize player turn timer
         playerTurnTimer = new Timer(playerTurnDuration, e -> startEnemyTurn());
         playerTurnTimer.setRepeats(false);
+        player.getSkill3Effect().setIndex(enemy.getIndex());
     }
 
     public Enemy getEnemy() {
@@ -67,9 +68,10 @@ public class BattleExperiment {
 
     public void skill1() { // basic attacks
         if (player.skill1()) {
-            // Disable skill buttons
+            //this is for dealing damage. Apply this code if you want to deal damage to enemy - ji
             int damage = player.getDamageDealt();
             enemy.takeDamage(damage);
+            // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
@@ -113,11 +115,11 @@ public class BattleExperiment {
             }
 
             battleUI.setSkillButtonsEnabled(false);
-
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(3, (int)(getPlayerXFactor()));
+            player.getPanel().setComponentZOrder(player, 0);
+            player.getAnimator().triggerSkillAnimation(3, (int)player.getPosX());
             player.getAnimator().setMovingRight(true);
-
+            player.getPanel().setComponentZOrder(player.getSkill3Effect(), 0);
             // Start player turn timer
             battleUI.updateTurnIndicator("Your Turn");
             playerTurnTimer.start();  

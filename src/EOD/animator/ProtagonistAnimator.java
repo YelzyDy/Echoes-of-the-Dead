@@ -22,7 +22,6 @@ public class ProtagonistAnimator extends Animator {
         // For example, handling scene transitions
             SceneBuilder panel = character.getPanel();
             if(isUsingSkill || isDead){
-                panel.setComponentZOrder(character, 0);
                 return;
             }
             int maxPanel = panel.getNumOfScenes() - 3;

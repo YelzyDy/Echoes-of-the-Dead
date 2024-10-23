@@ -13,6 +13,7 @@ import EOD.animator.*;
  *
  * @author Joana
  */
+import EOD.objects.EchoesObjects;
 
 public class Protagonist extends Character implements MouseInteractable {
     private ProtagonistAnimator animator;
@@ -37,6 +38,7 @@ public class Protagonist extends Character implements MouseInteractable {
     private int s4num;
     private int turnDuration;
     private int damageDealt;
+    private EchoesObjects skill3Effect;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
@@ -58,6 +60,10 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
     }
 
+    public EchoesObjects getSkill3Effect(){
+        return skill3Effect;
+    }
+    
     public int getTurnDuration(){
         return turnDuration;
     }
@@ -72,10 +78,11 @@ public class Protagonist extends Character implements MouseInteractable {
                 baseMana = mana;
                 money = 40;
                 s1num = 7;
-                s2num = 10;
+                s2num = 4;
                 s3num = 4;
                 s4num = 11;
                 turnDuration = 3000;
+                skill3Effect = new EchoesObjects("effects", (int)(screenSize.width * 0.316), (int)(screenSize.width * 0.08), (int)(screenSize.width * 0.15), (int)(screenSize.width * 0.15), "shield", true, false, 13);
                 break;
             case "wizard":
                 attack = 20;
@@ -105,19 +112,22 @@ public class Protagonist extends Character implements MouseInteractable {
                 turnDuration = 3000;
                 break;
         }
+        panel.add(skill3Effect);
     }
 
     public ProtagonistAnimator getAnimator(){
         return animator;
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(int damage){ // this method is for taking damage you can call this in battleExperiment
         health -= damage;
     }
 
-    public int getDamageDealt(){
+    public int getDamageDealt(){ // this method is for acessing damage dealt, call this in battleExperiment
         return damageDealt;
     }
+
+    // getDamageDealt and takeDamage are both methods implemented in this class and in enemy class
     
     public void attributeTurnChecker(){
         if(skill3Cd!=0){
@@ -187,13 +197,15 @@ public class Protagonist extends Character implements MouseInteractable {
     }
 
     public boolean skill3(){
+        panel.objList.add(skill3Effect);
         switch(getCharacterType()){
             case "knight": 
                 if(skill3Cd==0){
                     if(mana >= 25){
-                        damageReducer = true;
+                        damageReducer = true; 
                         mana -= 25;
                         skill3Cd = 3;
+                        return true;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -202,19 +214,18 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can't use it yet!");
                     return false;
                 }
-                return true;
             case "wizard":
                 if(skill3Cd==0){
                     if(mana >= 25){
-                        mana -= 25;
                         if(random.nextInt(100) < 60){
                             damageDealt = 40;
                             mana += 75;
                             System.out.println("Shift Successful!");
+                            return true;
                         }else{
                             System.out.println("Shift Failed!");
+                            return false;
                         }
-                        skill3Cd = 3;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -223,7 +234,6 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can't use it yet!");
                     return false;
                 }
-                return true;
             case "priest":
                 if(skill3Cd==0){
                     if(mana >= 45){
@@ -234,6 +244,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         }
                         mana -= 45;
                         skill3Cd = 3;
+                        return true;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -242,9 +253,8 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can't use it yet!");
                     return false;
                 }
-                return true;
             default:
-                return true;
+                return false;
         }
     }
 
