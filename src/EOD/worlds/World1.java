@@ -21,7 +21,7 @@ public class World1 extends World{
         scene = new SceneBuilder(this);
         Welcome();
         bgmPlayer = new BGMPlayer();
-        bgmPlayer.playBGM("src/audio_assets/cityscape.wav");
+        bgmPlayer.playBGM("src/audio_assets/world1.wav");
     }
     
     public void initializeProtagonist(){
@@ -119,7 +119,7 @@ public class World1 extends World{
                     scene.setCurrentSceneIndex(1);
                     isBattleStopped = false;
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/cityscape.wav");
+                    bgmPlayer.playBGM("src/audio_assets/world1.wav");
                 }
             } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (!isBattleStopped) {
@@ -128,12 +128,10 @@ public class World1 extends World{
                     // If the miniboss has been defeated, create a new World2 instance and make it visible
                     scene.setCurrentSceneIndex(2);
                     isBattleStopped = false;
-                    /*World2 world2 = new World2(getProtagType(), getPlayerName(), protag);
-                    world2.setVisible(true);
-                    this.setVisible(false);
-                    
-                    System.out.println("clicked portal");*/
                     bgmPlayer.stopBGM();
+                    World window = new World2(getProtagType(), getPlayerName(), protag);
+                    window.setVisible(true);
+                    this.setVisible(false);
                 }
             }
             // } else if (source == obj && obj.getName().equals("shop")){

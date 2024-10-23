@@ -4,6 +4,14 @@
  */
 package EOD;
 
+import EOD.animator.Animator;
+import EOD.characters.Protagonist;
+import EOD.listeners.MouseClickListener;
+import EOD.objects.EchoesObjects;
+import EOD.scenes.SceneBuilder;
+import EOD.utils.*;
+import EOD.worlds.World;
+import EOD.worlds.World1;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -11,15 +19,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import EOD.characters.Protagonist;
-import EOD.objects.EchoesObjects;
-import EOD.worlds.World;
-import EOD.worlds.World1;
-import EOD.listeners.MouseClickListener;
-import EOD.scenes.SceneBuilder;
-import EOD.utils.*;
-import EOD.animator.Animator;
 /**
  *
  * @author Joana
@@ -41,7 +40,10 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private boolean selectButtonIsEnable = true;
 
     private Protagonist protag;
+    BGMPlayer bgmPlayer;
     public ChooseChar() {
+        bgmPlayer = new BGMPlayer();
+        bgmPlayer.playBGM("src/audio_assets/selection.wav");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.setTitle("Choose Character"); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -216,6 +218,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 System.out.println(nameField.getText());
                 window.setVisible(true);
                 this.setVisible(false);
+                bgmPlayer.stopBGM();
             
         }else if(source == btn_cancel){ 
             promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian

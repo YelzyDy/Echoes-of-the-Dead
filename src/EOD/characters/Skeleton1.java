@@ -1,7 +1,7 @@
 package EOD.characters;
 
-import EOD.scenes.SceneBuilder;
 import EOD.objects.EchoesObjects;
+import EOD.scenes.SceneBuilder;
 public class Skeleton1 extends Enemy {
     public Skeleton1(String name, SceneBuilder panel, int posX, int posY, 
             double minRange, double maxRange, Protagonist protagonist) {

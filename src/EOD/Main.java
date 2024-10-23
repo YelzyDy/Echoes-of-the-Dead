@@ -1,22 +1,24 @@
 package EOD;
 
+import EOD.dialogues.*;
+import EOD.listeners.MouseClickListener;
+import EOD.objects.EchoesObjects;
+import EOD.utils.BGMPlayer;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
-
-import EOD.objects.EchoesObjects;
-import EOD.listeners.MouseClickListener;
-import EOD.dialogues.*;
 
 public class Main extends javax.swing.JFrame implements MouseInteractable {
     FullScreenDialogues dialogues = new FullScreenDialogues();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = screenSize.width;
     int height = screenSize.height;
-
+    BGMPlayer bgmPlayer;
     public Main() {
         // Configure JFrame
+        bgmPlayer = new BGMPlayer();
+        bgmPlayer.playBGM("src/audio_assets/selection.wav");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -69,8 +71,10 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
 
     @Override  
     public void onClick(MouseEvent e) {
+        bgmPlayer.stopBGM();
+        bgmPlayer.playBGM("src/audio_assets/exposition.wav");
         dialogues.displayDialogue(0);
-
+        bgmPlayer.stopBGM();
         ChooseChar window = new ChooseChar(); // Will invoke the character selection scene
         window.setVisible(true);
         this.setVisible(false);
