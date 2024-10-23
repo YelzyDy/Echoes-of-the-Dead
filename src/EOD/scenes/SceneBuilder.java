@@ -210,6 +210,11 @@ public class SceneBuilder extends JPanel{
 
         if(world != null){
 
+            if(protag.skillEffects1!= null) protag.skillEffects1.updateEffect();
+            if(protag.skillEffects2!= null) protag.skillEffects2.updateEffect();
+            if(protag.skillEffects3!= null) protag.skillEffects3.updateEffect();
+            if(protag.skillEffects4!= null) protag.skillEffects4.updateEffect();
+
             for(EchoesObjects obj : objList){
                 if(obj != null){
                     obj.updateAnimation();

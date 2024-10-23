@@ -34,6 +34,7 @@ public class BattleExperiment {
         // Initialize player turn timer
         playerTurnTimer = new Timer(playerTurnDuration, e -> startEnemyTurn());
         playerTurnTimer.setRepeats(false);
+        player.setEnemy(enemy);
 
     }
 

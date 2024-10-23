@@ -10,6 +10,7 @@ import java.util.Random;
 import EOD.MouseInteractable;
 import EOD.scenes.SceneBuilder;
 import EOD.animator.*;
+import EOD.objects.SkillEffects;
 /**
  *
  * @author Joana
@@ -18,11 +19,10 @@ import EOD.animator.*;
 public class Protagonist extends Character implements MouseInteractable {
     private ProtagonistAnimator animator;
     private int mana;
-    private int baseMana = mana;
+    private int baseMana;
     private int attack;
     private int health;
-    private int baseHealth = health;
-    private int playerLostHp;
+    private int baseHealth;
     private int money;
     private int skill3Cd = 0;
     private int skill4Cd = 0;
@@ -30,7 +30,10 @@ public class Protagonist extends Character implements MouseInteractable {
     private Random random = new Random();
 
     public boolean damageReducer;
-
+    public SkillEffects skillEffects1;
+    public SkillEffects skillEffects2;
+    public SkillEffects skillEffects3;
+    public SkillEffects skillEffects4;
     private int s1num;
     private int s2num;
     private int s3num;
@@ -39,6 +42,8 @@ public class Protagonist extends Character implements MouseInteractable {
     private int damageDealt;
     private double effectX;
     private double effectY;
+
+    private Enemy enemy;
 
     private double xFactor = 0;
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
@@ -60,6 +65,10 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.006), s2num);
         animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), s3num);
         animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
+    }
+
+    public void setEnemy(Enemy enemy){
+        this.enemy = enemy;
     }
 
     public double getEffectX(){
@@ -92,6 +101,18 @@ public class Protagonist extends Character implements MouseInteractable {
                 s3num = 4;
                 s4num = 11;
                 turnDuration = 3000;
+                skillEffects1 = new SkillEffects(
+                    "effects",                           
+                    (int)(getPosX() * 0.9),             
+                    (int)(screenSize.width * 0.08),      
+                        (int)(screenSize.width * 0.15),      
+                    (int)(screenSize.width * 0.15),      
+                    "shield",                           
+                    13,                                 
+                    50,                                 
+                    panel                               
+                );
+                skillEffects1.setLooping(true);  // Make it loop while active
                 break;
             case "wizard":
                 attack = 20;
@@ -105,6 +126,19 @@ public class Protagonist extends Character implements MouseInteractable {
                 s3num = 6;
                 s4num = 6;
                 turnDuration = 3000;
+                skillEffects4 = new SkillEffects(
+                    "effects",                           
+                    (int)(getPosX() * 0.9),             
+                    (int)(screenSize.width * 0.08),      
+                        (int)(screenSize.width * 0.2),      
+                    (int)(screenSize.width * 0.2),      
+                    "explosion",                           
+                    12,                                 
+                    50,                                 
+                    panel                               
+                );
+                skillEffects4.setLooping(false);  // Make it loop while active
+                break;
             case "priest":
                 attack = 20;
                 health = 180; 
@@ -161,7 +195,14 @@ public class Protagonist extends Character implements MouseInteractable {
         if(skill4Cd!=0){
             skill4Cd--;
         }
+        
         mana += 15;
+        if(mana > baseMana){
+            mana = baseMana;
+        }
+        if(health > baseHealth){
+            health = baseHealth;
+        }
     }
 
     public boolean skill1(){ // basic attack type skills
@@ -215,7 +256,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "priest":
                 if(skillIsUseable){
                     if(health >= 50){
-                       attack += 20;
+                       attack += 30;
                        health -= 15;
                         skillIsUseable = false;
                     }else{
@@ -241,6 +282,17 @@ public class Protagonist extends Character implements MouseInteractable {
                         mana -= 25;
                         skill3Cd = 3;
                         xFactor =  getPosX();
+                        skillEffects1.setPosX(getPosX() - skillEffects1.getWidth() * 0.25);
+                        skillEffects1.setPosY(getPosY() - skillEffects1.getHeight() * 0.25);
+                        
+                        // Bind the effect to follow the character
+                        skillEffects1.bindToTarget(this, 
+                            -skillEffects1.getWidth() * 0.25,  // offset X
+                            -skillEffects1.getHeight() * 0.30   // offset Y
+                        );
+
+                        // Play the effect
+                        skillEffects1.play();
                         return true;
                     }else{
                         System.out.println("Not enough mana!");
@@ -273,13 +325,9 @@ public class Protagonist extends Character implements MouseInteractable {
                 }
             case "priest":
                 if(skill3Cd==0){
-                    if(mana >= 45){
-                        damageDealt = (int)(baseHealth * 0.3);
-                        health += damageDealt;
-                        if(health > baseHealth) {  // Add this check
-                            health = baseHealth;
-                        }
-                        mana -= 45;
+                    if(mana >= 25){
+                        damageReducer = true;
+                        mana -= 25;
                         skill3Cd = 3;
                         xFactor =  screenSize.width * 0.3;
                         return true;
@@ -317,10 +365,22 @@ public class Protagonist extends Character implements MouseInteractable {
             case "wizard":
                 if(skill4Cd==0){
                     if(mana >= 50){
-                        damageDealt = attack + (int)(baseMana*0.25);
+                        damageDealt = 60 + (int)(baseMana*0.25);
                         mana -= 50;
                         skill4Cd = 4;
-                        xFactor =  screenSize.width * 0.2;
+                        xFactor =  screenSize.width * 0.18;
+                        skillEffects4.setPosX(enemy.getPosX() - skillEffects4.getWidth() * 0.25);
+                        skillEffects4.setPosY(enemy.getPosX() - skillEffects4.getHeight() * 0.25);
+                        
+                        // Bind the effect to follow the character
+                        skillEffects4.bindToTarget(enemy, 
+                            -skillEffects4.getWidth() * 0.35,  // offset X
+                            -skillEffects4.getHeight() * 0.4   // offset Y
+                        );
+
+                        // Play the effect
+                        skillEffects4.play();
+                        skillEffects4.setStopFrame(12);
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -332,14 +392,9 @@ public class Protagonist extends Character implements MouseInteractable {
                 return true;
             case "priest":
                 if(skill4Cd==0){
-                    if(mana >= 50){
-                        playerLostHp = baseHealth - health;
-                        damageDealt = (int)(playerLostHp * 0.6);
-                        health += (int)(baseHealth * 0.4);
-                        if(health > baseHealth) {  // Add this check
-                            health = baseHealth;
-                        }
-                        mana -= 50;
+                    if(mana >= 25){
+                        damageReducer = true;
+                        mana -= 25;
                         skill4Cd = 4;
                         xFactor =  screenSize.width * 0.3;
                     }else{
