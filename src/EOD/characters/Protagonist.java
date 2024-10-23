@@ -199,6 +199,7 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can't use it yet!");
                     return false;
                 }
+                return true;
             case "wizard":
                 if(skill3Cd==0){
                     if(mana >= 25){
@@ -213,6 +214,7 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can't use it yet!");
                     return false;
                 }
+                return true;
             case "priest":
                 if(skill3Cd==0){
                     if(mana >= 25){
@@ -227,8 +229,10 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can't use it yet!");
                     return false;
                 }
+                return true;
+            default:
+                return true;
         }
-        return true;
     }
 
     public boolean skill4(){
@@ -237,7 +241,6 @@ public class Protagonist extends Character implements MouseInteractable {
                 if(money >= 15){
                     attack += 15;
                     money -= 15;
-                    break;
                 }else{
                     return false;
                 }
@@ -245,7 +248,6 @@ public class Protagonist extends Character implements MouseInteractable {
                 if(mana >= 10){
                     attack += 15;
                     mana -= 10;
-                    break;
                 }else{
                     return false;
                 }
@@ -253,12 +255,13 @@ public class Protagonist extends Character implements MouseInteractable {
                 if(health >= 40){
                     attack += 15;
                     health -= 10;
-                    break;
                 }else{
                     return false;
                 }
+                return true;
+            default:
+                return true;
         }
-        return true;
     }
 
     //get hp for battle sequence
