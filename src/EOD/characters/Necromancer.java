@@ -14,13 +14,13 @@ public class Necromancer extends Enemy {
     }
 
     @Override
-    public void skill1(){
-        damageDealt = 10;
+    public int skill1(){
+        return attack;
     }
 
     @Override
-    public void skill2(){
-        damageDealt = 10;
+    public int skill2(){
+        return attack;
     }
     
     public void configureSprites(){

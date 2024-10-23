@@ -101,7 +101,6 @@ public class Battle{
                     case 2:
                         if(skill2Cd==0){
                             if(playerMana >= 30){
-                                playerDamageReducer = player.skill2();
                                 playerMana -= 30;
                                 skill2Cd = 2;
                             }else{
