@@ -13,6 +13,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
     //objects
     private EchoesObjects shopBg, sidePanel;
     private EchoesObjects item1, item2, item3, item4;
+    private EchoesObjects unavail1, unavail2, unavail3, unavail4;
     private EchoesObjects buyButton, closeButton;
     private double height, width;
 
@@ -38,30 +39,12 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         world.getLayeredPane().repaint();
     }
 
-    // public void hideShop() {
-    //     // Hide all components
-    //     if (shopBg != null) {
-    //         // Remove all components from shopBg
-    //         shopBg.removeAll();
-    //         // Remove shopBg from the layered pane
-    //         world.getLayeredPane().remove(shopBg);
-    //         // Reset all object references
-    //         shopBg = null;
-    //         sidePanel = null;
-    //         item1 = null;
-    //         item2 = null;
-    //         item3 = null;
-    //         item4 = null;
-    //         buyButton = null;
-    //         closeButton = null;
-    //     }
-        
-    //     // Refresh the display
-    //     world.getLayeredPane().revalidate();
-    //     world.getLayeredPane().repaint();
-    //     world.revalidate();
-    //     world.repaint();
-    // }
+    public void hideShop() {
+        shopBg.setVisible(false);
+
+        world.getLayeredPane().revalidate();
+        world.getLayeredPane().repaint();
+    }
 
     public void showSidePanelBg(double width, double height){
         sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel_", false, false, 5);
@@ -125,7 +108,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         closeButton = new EchoesObjects("shop", 
             (int)(width * 0.82), 
             (int)(height * 0.189), 
-            (int)(width * 0.06), 
+            (int)(width * 0.056), 
             (int)(height * 0.1),
             "close_", false, true, 2); 
         closeButton.setVisible(true);
@@ -135,14 +118,30 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         shopBg.repaint(); 
     }
 
+    public void itemUnavail1(double width, double height){
+        unavail1 = new EchoesObjects("shop", 
+        (int)(width * 0.152), (int)(height* 0.2528), 
+        (int)(width * 0.1578), (int)(height * 0.3), 
+        "unavailItem", false, true, 1);
+        unavail1.setVisible(true);
+        shopBg.add(unavail1);
+        shopBg.revalidate();
+        shopBg.repaint(); 
+    }
+
     public void showElementsInShop(){
         showShopBg();
         width = shopBg.getWidth();
         height = shopBg.getHeight();
+        
         showShopItem1(width, height);
         showSidePanelBg(width, height);
+        
+        //buttons
         showBuyButton(width, height);
         showCloseButton(width, height);
+
+        itemUnavail1(width, height);
     }
 
     @Override
@@ -187,62 +186,11 @@ public class Shop extends EchoesObjects implements MouseInteractable {
             // showBuyButton(width, height);
             // sidePanel.repaint();
         }else if (source == closeButton){
-          //  world.getLayeredPane().remove(shopBg);
-            //hideShop();
-            // world.getLayeredPane().revalidate();
-            // world.getLayeredPane().repaint();
-            // world.revalidate();
-            // world.repaint();
-
-            // if (shopBg != null) {
-            //     // shopBg.setVisible(false);
-            //     // world.getLayeredPane().remove(shopBg);
-            //     // shopBg.removeAll();
-                
-            //     // // Null out all references
-            //     // sidePanel = null;
-            //     // item1 = null;
-            //     // item2 = null;
-            //     // item3 = null;
-            //     // item4 = null;
-            //     // buyButton = null;
-            //     // closeButton = null;
-            //     // shopBg = null;
-                
-            //     // // Request garbage collection
-            //     // System.gc();
-                
-            //     if (shopBg != null) shopBg.setVisible(false);
-            //     if (sidePanel != null) sidePanel.setVisible(false);
-            //     if (item1 != null) item1.setVisible(false);
-            //     if (item2 != null) item2.setVisible(false);
-            //     if (item3 != null) item3.setVisible(false);
-            //     if (item4 != null) item4.setVisible(false);
-            //     if (buyButton != null) buyButton.setVisible(false);
-            //     if (closeButton != null) closeButton.setVisible(false);
-        
-            //     // Refresh everything
-            //     world.getLayeredPane().revalidate();
-            //     world.getLayeredPane().repaint();
-            //     //world.revalidate();
-            //    // world.repaint();
-            // }
-
-             shopBg.setVisible(false);
-            // sidePanel.setVisible(false);
-            // item1.setVisible(false);
-            // item2.setVisible(false);
-            // item3.setVisible(false);
-            // item4.setVisible(false);
-            // buyButton.setVisible(false);
-            // closeButton.setVisible(false);          
-
-            world.getLayeredPane().revalidate();
-            world.getLayeredPane().repaint();
+            hideShop();
         }
     }  
 
-    //ifix pa nako ang close button kay ang sidePanel pa ang maclose - sm
+    // for some reason nigana na ang hide shop yehey!!
 
     // -sm on hover show sidePanel
     public void onHover(MouseEvent e) {
