@@ -5,6 +5,7 @@
 package EOD.characters;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Random;
 import EOD.MouseInteractable;
 import EOD.scenes.SceneBuilder;
@@ -13,11 +14,9 @@ import EOD.animator.*;
  *
  * @author Joana
  */
-import EOD.objects.EchoesObjects;
 
 public class Protagonist extends Character implements MouseInteractable {
     private ProtagonistAnimator animator;
-
     private int mana;
     private int baseMana;
     private int attack;
@@ -37,8 +36,10 @@ public class Protagonist extends Character implements MouseInteractable {
     private int s4num;
     private int turnDuration;
     private int damageDealt;
-    private EchoesObjects skill3Effect;
+    private double effectX;
+    private double effectY;
 
+    private double xFactor = 0;
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         animator = new ProtagonistAnimator(this);
@@ -48,6 +49,7 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.updateBounds();
         damageDealt = 0;
         System.out.println("Protagonist: " + posX + " " + posY);
+        xFactor = 0;
     }
 
     public void configureSprites(){
@@ -59,12 +61,20 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
     }
 
-    public EchoesObjects getSkill3Effect(){
-        return skill3Effect;
+    public double getEffectX(){
+        return effectX;
+    }
+
+    public double getEffectY(){
+        return effectY;
     }
     
     public int getTurnDuration(){
         return turnDuration;
+    }
+
+    public double getXFactor(){
+        return xFactor;
     }
     public void configure(){
         //buffs depending on characterType
@@ -81,7 +91,6 @@ public class Protagonist extends Character implements MouseInteractable {
                 s3num = 4;
                 s4num = 11;
                 turnDuration = 3000;
-                skill3Effect = new EchoesObjects("effects", (int)(screenSize.width * 0.316), (int)(screenSize.width * 0.08), (int)(screenSize.width * 0.15), (int)(screenSize.width * 0.15), "shield", true, false, 13);
                 break;
             case "wizard":
                 attack = 20;
@@ -95,7 +104,6 @@ public class Protagonist extends Character implements MouseInteractable {
                 s3num = 6;
                 s4num = 6;
                 turnDuration = 3000;
-                break;
             case "priest":
                 attack = 20;
                 health = 180; 
@@ -111,7 +119,24 @@ public class Protagonist extends Character implements MouseInteractable {
                 turnDuration = 3000;
                 break;
         }
-        panel.add(skill3Effect);
+    }
+
+    public double getEffectY(String effectType){
+        if(effectType.equals("shield")){
+            return getPosX() * 0.8;
+        }else if(effectType.equals("explosion")){
+            return screenSize.width * 0.08;
+        }
+        return 0;
+    }
+
+    public double getEffectX(String effectType){
+        if(effectType.equals("shield")){
+            return getPosX() * 0.9;
+        }else if(effectType.equals("explosion")){
+            return screenSize.width * 0.4;
+        }
+        return 0;
     }
 
     public ProtagonistAnimator getAnimator(){
@@ -147,10 +172,21 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public boolean skill1(){ // basic attack type skills
         damageDealt = attack;
+        switch(getCharacterType()) {
+            case "knight":
+                xFactor =  screenSize.width * 0.5;
+                break;
+            case "wizard":
+                xFactor =  screenSize.width * 0.1;
+                break;
+            default:
+                xFactor =  screenSize.width * 0.3;
+        }
         return true;
     }
 
     public boolean skill2(){ // buff type
+        xFactor =  getPosX();
         switch(getCharacterType()){
             case "knight":
                 if(skillIsUseable){
@@ -203,7 +239,6 @@ public class Protagonist extends Character implements MouseInteractable {
     }
 
     public boolean skill3(){
-        panel.objList.add(skill3Effect);
         switch(getCharacterType()){
             case "knight": 
                 if(skill3Cd==0){
@@ -211,6 +246,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         damageReducer = true; 
                         mana -= 25;
                         skill3Cd = 3;
+                        xFactor =  getPosX();
                         return true;
                     }else{
                         System.out.println("Not enough mana!");
@@ -227,6 +263,7 @@ public class Protagonist extends Character implements MouseInteractable {
                             damageDealt = 40;
                             mana += 75;
                             System.out.println("Shift Successful!");
+                            xFactor =  screenSize.width * 0.2;
                             return true;
                         }else{
                             System.out.println("Shift Failed!");
@@ -246,6 +283,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         damageReducer = true;
                         mana -= 25;
                         skill3Cd = 3;
+                        xFactor =  screenSize.width * 0.3;
                         return true;
                     }else{
                         System.out.println("Not enough mana!");
@@ -268,6 +306,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         damageDealt = 2*attack + (int)(money * 0.2);
                         mana -= 40;
                         skill4Cd = 4;
+                        xFactor =  screenSize.width * 0.5;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -283,6 +322,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         damageDealt = 60 + (int)(baseMana*0.25);
                         mana -= 50;
                         skill4Cd = 4;
+                        xFactor =  screenSize.width * 0.2;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -298,6 +338,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         damageReducer = true;
                         mana -= 25;
                         skill4Cd = 4;
+                        xFactor =  screenSize.width * 0.3;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;

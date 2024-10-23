@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package EOD.scenes;
 
 import java.awt.Color;
@@ -213,9 +209,11 @@ public class SceneBuilder extends JPanel{
         }
 
         if(world != null){
+
             for(EchoesObjects obj : objList){
-                if(obj != null)
-                obj.updateAnimation();;
+                if(obj != null){
+                    obj.updateAnimation();
+                }
             }
 
 
@@ -258,6 +256,7 @@ public class SceneBuilder extends JPanel{
                     obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
                 }
             }
+            
             for (Npc npc : npcList) {
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
@@ -265,12 +264,8 @@ public class SceneBuilder extends JPanel{
                 enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
         } else if (world.getTitle().equals("world2")){
-            for (EchoesObjects obj : objList) {
-                if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
-                    obj.setVisible(obj.getIndex() == currentSceneIndex);
-                }else{
-                    obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
-                }
+            for (EchoesObjects obj : objList) {        
+                obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
             for (Npc npc : npcList) {
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport

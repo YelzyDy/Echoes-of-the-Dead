@@ -34,6 +34,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private boolean isState = false;
     private int numOfSprites;
     private int index;
+    private int cd;
 
     public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
@@ -45,6 +46,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         currentFrame = 0;
         numOfSprites = 0;
         index = 0;
+        cd = 0;
         initializeSprites(assetPackage, width, height);
         this.addMouseListener(new MouseClickListener(this));
     }   
@@ -53,11 +55,23 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.index = index;
     }
 
+    public void setCd(int cd){
+        this.cd = cd;
+    }
+
+    public int getCd(){
+        return cd;
+    }
+
     public int getIndex(){
         return index;
     }
     public boolean isAnimated(){
         return isAnimated;
+    }
+
+    public void setBounds(int posX, int posY){
+        this.setBounds(posX, posY, getWidth(), getHeight());
     }
 
     public void initializeSprites(String assetPackage, double width, double height) {

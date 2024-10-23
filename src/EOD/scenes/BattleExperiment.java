@@ -2,6 +2,8 @@ package EOD.scenes;
 
 import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
+import EOD.objects.EchoesObjects;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Random;
@@ -32,7 +34,7 @@ public class BattleExperiment {
         // Initialize player turn timer
         playerTurnTimer = new Timer(playerTurnDuration, e -> startEnemyTurn());
         playerTurnTimer.setRepeats(false);
-        player.getSkill3Effect().setIndex(enemy.getIndex());
+
     }
 
     public Enemy getEnemy() {
@@ -43,23 +45,11 @@ public class BattleExperiment {
         this.battleUI = battleUI;
     }
 
-    //this is for chaning the x value of the mc
-    public double getPlayerXFactor() {
-        switch(player.getCharacterType()) {
-            case "knight":
-                return screenSize.width * 0.5;
-            case "wizard":
-                return screenSize.width * 0.1;
-            default:
-                return screenSize.width * 0.3;
-        }
-    }
-
     public double getEnemyXFactor() {
         switch(enemy.getCharacterType()) {
             case "skeleton1":
                 return screenSize.width * 0.4;
-            case "necromacer":
+            case "necromancer":
                 return screenSize.width * 0.1;
             default:
                 return 0;
@@ -75,7 +65,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(1, (int)(getPlayerXFactor()));
+            player.getAnimator().triggerSkillAnimation(1, (int)(player.getXFactor()));
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer
@@ -93,7 +83,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(2, (int)player.getPosX());
+            player.getAnimator().triggerSkillAnimation(2, (int)(player.getXFactor()));
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer
@@ -115,11 +105,11 @@ public class BattleExperiment {
             }
 
             battleUI.setSkillButtonsEnabled(false);
+
             // Trigger skill animation
-            player.getPanel().setComponentZOrder(player, 0);
-            player.getAnimator().triggerSkillAnimation(3, (int)player.getPosX());
-            player.getAnimator().setMovingRight(true);
-            player.getPanel().setComponentZOrder(player.getSkill3Effect(), 0);
+           player.getAnimator().triggerSkillAnimation(3, (int)(player.getXFactor()));
+           player.getAnimator().setMovingRight(true);
+
             // Start player turn timer
             battleUI.updateTurnIndicator("Your Turn");
             playerTurnTimer.start();  
@@ -138,7 +128,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(4, (int)(getPlayerXFactor()));
+            player.getAnimator().triggerSkillAnimation(4, (int)(player.getXFactor()));
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer
@@ -201,7 +191,6 @@ public class BattleExperiment {
 
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
-
         //decrease cd everytime it is the enemy turn
         player.attributeTurnChecker();
         
