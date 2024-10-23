@@ -15,6 +15,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     private int index;
     protected int turnDuration;
     protected int damageDealt;
+    public boolean missedTurn = false;
 
     public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
         double minRange, double maxRange,
@@ -36,7 +37,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
         health -= damage;
     }
 
-    public abstract void skill1();
+    public abstract void skill1(); // basic attack
     public abstract void skill2();
     
     public int getTurnDuration(){

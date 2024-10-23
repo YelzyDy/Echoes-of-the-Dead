@@ -9,7 +9,7 @@ public class Skeleton1 extends Enemy {
            protagonist);
         configureSprites();
         attack = 10;
-        health = 100;
+        health = 150;
         turnDuration = 3000;
     }
 
@@ -31,14 +31,13 @@ public class Skeleton1 extends Enemy {
 
     @Override
     public void skill1(){
-        damageDealt = 10;
-        System.out.println("SKill1 " + damageDealt);
+        damageDealt = attack;
     }
 
     @Override
     public void skill2(){
-        damageDealt = 10;
-        System.out.println("SKill2 " + damageDealt);
+        damageDealt = 15;
+        attack += 5;
     }
 
     @Override
