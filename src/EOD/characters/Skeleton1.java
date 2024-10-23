@@ -36,7 +36,7 @@ public class Skeleton1 extends Enemy {
 
     @Override
     public void skill2(){
-        damageDealt = 20;
+        damageDealt = 30;
     }
 
     @Override

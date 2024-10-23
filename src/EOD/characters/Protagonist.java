@@ -5,7 +5,7 @@
 package EOD.characters;
 
 import java.awt.event.MouseEvent;
-
+import java.util.Random;
 import EOD.MouseInteractable;
 import EOD.scenes.SceneBuilder;
 import EOD.animator.*;
@@ -23,17 +23,19 @@ public class Protagonist extends Character implements MouseInteractable {
     private int health;
     private int baseHealth;
     private int money;
+    private int skill3Cd = 0;
+    private int skill4Cd = 0;
+    private boolean skillIsUseable = true;
+    private Random random = new Random();
+
+    public boolean damageReducer;
+
     private int s1num;
     private int s2num;
     private int s3num;
     private int s4num;
     private int turnDuration;
     private int damageDealt;
-
-    public boolean damageReducer;
-    public int skill3Cd = 0;
-    public int skill4Cd = 0;
-    public boolean skillIsUseable = true;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
@@ -116,18 +118,26 @@ public class Protagonist extends Character implements MouseInteractable {
         return damageDealt;
     }
     
-    public boolean skill1(){ // basic attack type skills
-        damageDealt = attack;
-        return true;
-    }
-
-    public void reduceCd(){
+    public void attributeTurnChecker(){
         if(skill3Cd!=0){
             skill3Cd--;
         }
         if(skill4Cd!=0){
             skill4Cd--;
         }
+        
+        mana += 15;
+        if(mana > baseMana){
+            mana = baseMana;
+        }
+        if(health > baseHealth){
+            health = baseHealth;
+        }
+    }
+
+    public boolean skill1(){ // basic attack type skills
+        damageDealt = attack;
+        return true;
     }
 
     public boolean skill2(){ // buff type
@@ -182,7 +192,6 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
-    // to be finished ang wizard ug priest
     public boolean skill3(){
         switch(getCharacterType()){
             case "knight": 
@@ -190,7 +199,7 @@ public class Protagonist extends Character implements MouseInteractable {
                     if(mana >= 25){
                         damageReducer = true;
                         mana -= 25;
-                        skill3Cd = 2;
+                        skill3Cd = 3;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -203,9 +212,15 @@ public class Protagonist extends Character implements MouseInteractable {
             case "wizard":
                 if(skill3Cd==0){
                     if(mana >= 25){
-                        damageReducer = true;
                         mana -= 25;
-                        skill3Cd = 2;
+                        if(random.nextInt(100) < 60){
+                            damageDealt = 40;
+                            mana += 75;
+                            System.out.println("Shift Successful!");
+                        }else{
+                            System.out.println("Shift Failed!");
+                        }
+                        skill3Cd = 3;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -220,7 +235,7 @@ public class Protagonist extends Character implements MouseInteractable {
                     if(mana >= 25){
                         damageReducer = true;
                         mana -= 25;
-                        skill3Cd = 2;
+                        skill3Cd = 3;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -238,24 +253,47 @@ public class Protagonist extends Character implements MouseInteractable {
     public boolean skill4(){
         switch(getCharacterType()){
             case "knight": 
-                if(money >= 15){
-                    attack += 15;
-                    money -= 15;
+                if(skill4Cd==0){
+                    if(mana >= 40){
+                        damageDealt = 2*attack + (int)(money * 0.2);
+                        mana -= 40;
+                        skill4Cd = 4;
+                    }else{
+                        System.out.println("Not enough mana!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can't use it yet!");
                     return false;
                 }
+                return true;
             case "wizard":
-                if(mana >= 10){
-                    attack += 15;
-                    mana -= 10;
+                if(skill4Cd==0){
+                    if(mana >= 50){
+                        damageDealt = 60 + (int)(baseMana*0.25);
+                        mana -= 50;
+                        skill4Cd = 4;
+                    }else{
+                        System.out.println("Not enough mana!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can't use it yet!");
                     return false;
                 }
+                return true;
             case "priest":
-                if(health >= 40){
-                    attack += 15;
-                    health -= 10;
+                if(skill4Cd==0){
+                    if(mana >= 25){
+                        damageReducer = true;
+                        mana -= 25;
+                        skill4Cd = 4;
+                    }else{
+                        System.out.println("Not enough mana!");
+                        return false;
+                    }
                 }else{
+                    System.out.println("Can't use it yet!");
                     return false;
                 }
                 return true;

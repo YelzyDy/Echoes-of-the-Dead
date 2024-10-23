@@ -65,7 +65,7 @@ public class BattleExperiment {
         }
     }
 
-    public void skill1() { // these are all the buff skills
+    public void skill1() { // basic attacks
         if (player.skill1()) {
             // Disable skill buttons
             int damage = player.getDamageDealt();
@@ -84,10 +84,10 @@ public class BattleExperiment {
         }
     }
 
-    public void skill2() { // attack skill? 
+    public void skill2() { // buff skills
         if (player.skill2()) {
-            // Disable skill buttons
             
+            // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
@@ -100,9 +100,18 @@ public class BattleExperiment {
         }
     }
 
-    public void skill3() {
-        if (player.skill3()) { // damage reduction?? so far para pani sila sa knight i modify lang skill 2 -4
+    public void skill3() { // signature skills
+        if (player.skill3()) { 
             // Disable skill buttons
+            if(player.getCharacterType() == "wizard" || player.getCharacterType() == "priest"){
+                int damage = player.getDamageDealt();
+                enemy.takeDamage(damage);
+                if(player.getCharacterType() == "wizard"){
+                    enemy.missedTurn = true;
+                    System.out.println("Enemy missed a turn!");
+                }
+            }
+
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
@@ -116,7 +125,13 @@ public class BattleExperiment {
     }
 
     public void skill4() {
-        if (player.skill2()) { // burst or unsa?
+        if (player.skill4()) { // ultimate
+            if(player.getCharacterType() == "knight"){
+                enemy.missedTurn = true;
+                System.out.println("Enemy missed a turn!");
+            }
+            int damage = player.getDamageDealt();
+            enemy.takeDamage(damage);
             // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
@@ -136,28 +151,36 @@ public class BattleExperiment {
         if(enemy.getHp() <= 0){
             return;
         }
-        Random random = new Random();
-        int skillNumber = random.nextInt(2) + 1;
-        battleUI.updateTurnIndicator("Enemy's Turn");
 
-        callRandomEnemySkill(skillNumber);
-        double damage = enemy.getDamageDealt();
+        if(enemy.missedTurn == false){
+            Random random = new Random();
+            int skillNumber = random.nextInt(2) + 1;
+            battleUI.updateTurnIndicator("Enemy's Turn");
 
-        if(player.damageReducer != false){
-            damage *= 0.4;
-            player.damageReducer = false;
+            callRandomEnemySkill(skillNumber);
+            double damage = enemy.getDamageDealt();
+
+            if(player.damageReducer == true){
+                damage *= 0.4;
+                if(damage > (int)(player.getHp()*0.2)){
+                    // padisplay nya ko blair -jm
+                    System.out.println("Gain 30 Soul Shards");
+                    player.setMoney(30);
+                }
+                player.damageReducer = false;
+            }
+
+            player.takeDamage((int) damage);
+            
+            System.out.println("Enemy damage: " + damage );
+
+            battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
+
+            enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
+        }else{
+            enemy.missedTurn = false;
         }
-
-        player.takeDamage((int) damage);
         
-        System.out.println("Enemy damage: " + damage );
-
-        battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
-
-        //decrease cd everytime it is the enemy turn
-        player.reduceCd();
-
-        enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
         enemyTurnTimer.start();  // Start enemy turn after player's turn ends
     }
 
@@ -176,6 +199,10 @@ public class BattleExperiment {
 
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
+
+        //decrease cd everytime it is the enemy turn
+        player.attributeTurnChecker();
+        
         // After enemy's turn, enable skill buttons for the player
         battleUI.setSkillButtonsEnabled(true);
         enemy.getAnimator().setMovingRight(false);
