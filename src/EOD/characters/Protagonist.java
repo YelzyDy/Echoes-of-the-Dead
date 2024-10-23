@@ -309,7 +309,7 @@ public class Protagonist extends Character implements MouseInteractable {
                             damageDealt = 40;
                             mana += 75;
                             System.out.println("Shift Successful!");
-                            xFactor =  screenSize.width * 0.2;
+                            xFactor =  screenSize.width * 0.1;
                             return true;
                         }else{
                             System.out.println("Shift Failed!");
