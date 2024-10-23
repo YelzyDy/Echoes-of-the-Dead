@@ -37,7 +37,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
         health -= damage;
     }
 
-    public abstract void skill1();
+    public abstract void skill1(); // basic attack
     public abstract void skill2();
     
     public int getTurnDuration(){
