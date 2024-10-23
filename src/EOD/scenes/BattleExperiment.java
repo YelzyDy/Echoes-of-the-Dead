@@ -150,10 +150,13 @@ public class BattleExperiment {
 
         player.takeDamage((int) damage);
         
-
         System.out.println("Enemy damage: " + damage );
 
         battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
+
+        //decrease cd everytime it is the enemy turn
+        player.reduceCd();
+
         enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
         enemyTurnTimer.start();  // Start enemy turn after player's turn ends
     }

@@ -121,6 +121,15 @@ public class Protagonist extends Character implements MouseInteractable {
         return true;
     }
 
+    public void reduceCd(){
+        if(skill3Cd!=0){
+            skill3Cd--;
+        }
+        if(skill4Cd!=0){
+            skill4Cd--;
+        }
+    }
+
     public boolean skill2(){ // buff type
         switch(getCharacterType()){
             case "knight":
