@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package EOD.scenes;
 
 import java.awt.Color;
@@ -170,7 +166,9 @@ public class SceneBuilder extends JPanel{
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = protag.getHp();
-            System.out.println("Player HP: " + playerHp + " Enemy HP: " + enemyHp);   
+
+            System.out.println("Player HP: " + playerHp + " Player Mana: " + protag.getMana() + " Enemy HP: " + enemyHp);  
+             
             double enemyDeathY = getEnemyDeathPosY(enemy);
             String portalName = battle.getPortal().getName();
             int portalIndex = getPortalIndex(portalName);
@@ -211,9 +209,16 @@ public class SceneBuilder extends JPanel{
         }
 
         if(world != null){
+
+            if(protag.skillEffects1!= null) protag.skillEffects1.updateEffect();
+            if(protag.skillEffects2!= null) protag.skillEffects2.updateEffect();
+            if(protag.skillEffects3!= null) protag.skillEffects3.updateEffect();
+            if(protag.skillEffects4!= null) protag.skillEffects4.updateEffect();
+
             for(EchoesObjects obj : objList){
-                if(obj != null)
-                obj.updateAnimation();;
+                if(obj != null){
+                    obj.updateAnimation();
+                }
             }
 
 
@@ -256,6 +261,7 @@ public class SceneBuilder extends JPanel{
                     obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
                 }
             }
+            
             for (Npc npc : npcList) {
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
@@ -263,12 +269,8 @@ public class SceneBuilder extends JPanel{
                 enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
         } else if (world.getTitle().equals("world2")){
-            for (EchoesObjects obj : objList) {
-                if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
-                    obj.setVisible(obj.getIndex() == currentSceneIndex);
-                }else{
-                    obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
-                }
+            for (EchoesObjects obj : objList) {        
+                obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
             for (Npc npc : npcList) {
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
