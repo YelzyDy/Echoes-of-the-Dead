@@ -4,6 +4,10 @@
  */
 package EOD.objects;
 
+import EOD.MouseInteractable;
+import EOD.entities.*;
+import EOD.listeners.MouseClickListener;
+import EOD.utils.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,11 +17,6 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-import EOD.MouseInteractable;
-import EOD.listeners.MouseClickListener;
-import EOD.utils.*;
-import EOD.entities.*;
 
 /**
  *
