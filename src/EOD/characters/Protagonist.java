@@ -18,10 +18,11 @@ public class Protagonist extends Character implements MouseInteractable {
     private ProtagonistAnimator animator;
 
     private int mana;
-    private int baseMana;
+    private int baseMana = mana;
     private int attack;
     private int health;
-    private int baseHealth;
+    private int baseHealth = health;
+    private int playerLostHp;
     private int money;
     private int skill3Cd = 0;
     private int skill4Cd = 0;
@@ -125,14 +126,7 @@ public class Protagonist extends Character implements MouseInteractable {
         if(skill4Cd!=0){
             skill4Cd--;
         }
-        
         mana += 15;
-        if(mana > baseMana){
-            mana = baseMana;
-        }
-        if(health > baseHealth){
-            health = baseHealth;
-        }
     }
 
     public boolean skill1(){ // basic attack type skills
@@ -175,7 +169,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "priest":
                 if(skillIsUseable){
                     if(health >= 50){
-                       attack += 30;
+                       attack += 20;
                        health -= 15;
                         skillIsUseable = false;
                     }else{
@@ -232,9 +226,13 @@ public class Protagonist extends Character implements MouseInteractable {
                 return true;
             case "priest":
                 if(skill3Cd==0){
-                    if(mana >= 25){
-                        damageReducer = true;
-                        mana -= 25;
+                    if(mana >= 45){
+                        damageDealt = (int)(baseHealth * 0.3);
+                        health += damageDealt;
+                        if(health > baseHealth) {  // Add this check
+                            health = baseHealth;
+                        }
+                        mana -= 45;
                         skill3Cd = 3;
                     }else{
                         System.out.println("Not enough mana!");
@@ -270,7 +268,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "wizard":
                 if(skill4Cd==0){
                     if(mana >= 50){
-                        damageDealt = 60 + (int)(baseMana*0.25);
+                        damageDealt = attack + (int)(baseMana*0.25);
                         mana -= 50;
                         skill4Cd = 4;
                     }else{
@@ -284,9 +282,14 @@ public class Protagonist extends Character implements MouseInteractable {
                 return true;
             case "priest":
                 if(skill4Cd==0){
-                    if(mana >= 25){
-                        damageReducer = true;
-                        mana -= 25;
+                    if(mana >= 50){
+                        playerLostHp = baseHealth - health;
+                        damageDealt = (int)(playerLostHp * 0.6);
+                        health += (int)(baseHealth * 0.4);
+                        if(health > baseHealth) {  // Add this check
+                            health = baseHealth;
+                        }
+                        mana -= 50;
                         skill4Cd = 4;
                     }else{
                         System.out.println("Not enough mana!");
