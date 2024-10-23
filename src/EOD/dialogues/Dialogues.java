@@ -6,9 +6,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Dialogues extends JFrame {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    StoryLine story = new StoryLine();
-    AskDialogues askDialogues =  new AskDialogues();
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private StoryLine story = new StoryLine();
+    private AskDialogues askDialogues =  new AskDialogues();
+    private JDialog storyDialogue;
+    private JButton skipButton, askButton;
+    private JLabel textBox;
+    private ImageIcon askButtonIcon, askButtonHoverIcon, skipButtonIcon, skipButtonHoverIcon;
+    private JPanel buttonPanel;
     private final int width = (int) (screenSize.width * 0.99);
     private final int height = (int) (screenSize.height * 0.55);
     private final int x = 6;
@@ -43,12 +48,12 @@ public class Dialogues extends JFrame {
 
         // TEXT WINDOW
 
-        JDialog storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
+        storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());
 
-        JLabel textBox = new JLabel("", SwingConstants.CENTER);
+        textBox = new JLabel("", SwingConstants.CENTER);
         textBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
         textBox.setForeground(Color.WHITE);
         textBox.setVerticalAlignment(SwingConstants.NORTH);
@@ -59,10 +64,10 @@ public class Dialogues extends JFrame {
 
         // SKIP BUTTON
 
-        ImageIcon skipButtonIcon = scaleImageIcon("src/button_assets/skipButton.png");
-        ImageIcon skipButtonHoverIcon = scaleImageIcon("src/button_assets/skipButtonHover.png");
+        skipButtonIcon = scaleImageIcon("src/button_assets/skipButton.png");
+        skipButtonHoverIcon = scaleImageIcon("src/button_assets/skipButtonHover.png");
 
-        JButton skipButton = new JButton(skipButtonIcon);
+        skipButton = new JButton(skipButtonIcon);
         int width = (int) (screenSize.width * 0.15);
         int height = (int) (screenSize.height * 0.15);
         skipButton.setPreferredSize(new Dimension(width, height));
@@ -74,10 +79,10 @@ public class Dialogues extends JFrame {
 
         // ASK BUTTON
 
-        ImageIcon askButtonIcon = scaleImageIcon("src/button_assets/askButton.png");
-        ImageIcon askButtonHoverIcon = scaleImageIcon("src/button_assets/askButtonHover.png");
+        askButtonIcon = scaleImageIcon("src/button_assets/askButton.png");
+        askButtonHoverIcon = scaleImageIcon("src/button_assets/askButtonHover.png");
 
-        JButton askButton = new JButton(askButtonIcon);
+        askButton = new JButton(askButtonIcon);
         askButton.setPreferredSize(new Dimension(width, height));
 
         askButton.setBackground(Color.BLACK);
@@ -87,7 +92,7 @@ public class Dialogues extends JFrame {
 
         // BUTTON PANEL
 
-        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(skipButton, BorderLayout.EAST);
         buttonPanel.add(askButton, BorderLayout.WEST);

@@ -10,17 +10,24 @@ import EOD.characters.*;
 import EOD.dialogues.*;
 import EOD.objects.EchoesObjects;
 public class BattleUI extends JFrame {
-    StoryLine story = new StoryLine();
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private JPanel textPanel = new JPanel(new GridLayout(3, 1));
+    private StoryLine story = new StoryLine();
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int width = (int) (screenSize.width * 0.99);
     private final int height = (int) (screenSize.height * 0.55);
+    private final int topTextHeight = (int) (screenSize.height * 0.1);
+    private final int middleTextHeight = (int) (screenSize.height * 0.2);
+    private final int bottomTextHeight = (int) (screenSize.height * 0.25);
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.44);
     private JButton skillA, skillB, skillC, skillD;
+    private ImageIcon skillAIcon, skillAHoverIcon, skillBIcon, skillBHoverIcon, skillCIcon, skillCHoverIcon, skillDIcon, skillDHoverIcon;
     private BattleExperiment battleSample;
     private JDialog storyDialogue;
     private EchoesObjects portal;
-    private JLabel textBox;
+    private JLabel topTextBox, middleTextBox, bottomTextBox;
+    private int turns;
+
     public BattleUI(Protagonist protag, Enemy minion){
         battleSample = new BattleExperiment(protag, minion);
         battleSample.setBattleUI(this);
@@ -44,6 +51,7 @@ public class BattleUI extends JFrame {
     public void displayDialogues(){
 
         // THE WINDOW & DIALOGUES
+
         story.skillDetails();
 
         storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
@@ -51,48 +59,73 @@ public class BattleUI extends JFrame {
         storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());
 
-        textBox = new JLabel("", SwingConstants.CENTER);
-        textBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
-        textBox.setForeground(Color.WHITE);
-        textBox.setVerticalAlignment(SwingConstants.CENTER);
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setBackground(Color.BLACK);
+
+        topTextBox = new JLabel("", SwingConstants.CENTER);
+        topTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        topTextBox.setForeground(Color.WHITE);
+        topTextBox.setVerticalAlignment(SwingConstants.CENTER);
+        topTextBox.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        topTextBox.setMaximumSize(new Dimension(width, topTextHeight));
+        textPanel.add(topTextBox);
+
+        middleTextBox = new JLabel("", SwingConstants.CENTER);
+        middleTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        middleTextBox.setForeground(Color.WHITE);
+        middleTextBox.setVerticalAlignment(SwingConstants.CENTER);
+        middleTextBox.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        middleTextBox.setMaximumSize(new Dimension(width, middleTextHeight));
+        textPanel.add(middleTextBox);
+
+        bottomTextBox = new JLabel("", SwingConstants.CENTER);
+        bottomTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        bottomTextBox.setForeground(Color.WHITE);
+        bottomTextBox.setVerticalAlignment(SwingConstants.CENTER);
+        bottomTextBox.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        bottomTextBox.setMaximumSize(new Dimension(width, bottomTextHeight));
+        textPanel.add(bottomTextBox);
 
         storyDialogue.getContentPane().setBackground(Color.BLACK);
-        storyDialogue.add(textBox, BorderLayout.CENTER);
+        storyDialogue.add(textPanel, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
+
+        topTextBox.setText("Turn 0");
+        middleTextBox.setText("An enemy has appeared!");
+        bottomTextBox.setText("<html><center>Prepare to use your skills to defeat them in this battle!<html><center>");
 
         // THE BUTTONS
 
-        JPanel skillButtonsPanel = new JPanel(new GridLayout(2, 2, 1, 1));
+        JPanel skillButtonsPanel = new JPanel(new GridLayout(2, 2, 0, 0));
         skillButtonsPanel.setBackground(Color.BLACK);
 
         // ACTION LISTENERS
-        textBox.setText(story.getLine(0));
 
+        skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
+        skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
 
-        ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
-        ImageIcon skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
+        skillBIcon = scaleImageIcon("src/button_assets/1stskill0.png");
+        skillBHoverIcon = scaleImageIcon("src/button_assets/1stskill1.png");
 
-        ImageIcon skillBIcon = scaleImageIcon("src/button_assets/1stskill0.png");
-        ImageIcon skillBHoverIcon = scaleImageIcon("src/button_assets/1stskill1.png");
+        skillCIcon = scaleImageIcon("src/button_assets/2ndskill0.png");
+        skillCHoverIcon = scaleImageIcon("src/button_assets/2ndskill1.png");
 
-        ImageIcon skillCIcon = scaleImageIcon("src/button_assets/2ndskill0.png");
-        ImageIcon skillCHoverIcon = scaleImageIcon("src/button_assets/2ndskill1.png");
-
-        ImageIcon skillDIcon = scaleImageIcon("src/button_assets/3rdskill0.png");
-        ImageIcon skillDHoverIcon = scaleImageIcon("src/button_assets/3rdskill1.png");
+        skillDIcon = scaleImageIcon("src/button_assets/3rdskill0.png");
+        skillDHoverIcon = scaleImageIcon("src/button_assets/3rdskill1.png");
 
         // Create and add skill buttons
+
         skillA = createSkillButton(story, skillAIcon, skillAHoverIcon, 
-            e -> battleSample.skill1(), textBox, 0, 1);
+            e -> battleSample.skill1(), bottomTextBox, 0, 1);
 
         skillB = createSkillButton(story, skillBIcon, skillBHoverIcon, 
-            e -> battleSample.skill2(), textBox, 0, 2);
+            e -> battleSample.skill2(), bottomTextBox, 0, 2);
 
         skillC = createSkillButton(story, skillCIcon, skillCHoverIcon, 
-            e -> battleSample.skill3(), textBox, 0, 3);
+            e -> battleSample.skill3(), bottomTextBox, 0, 3);
 
         skillD = createSkillButton(story, skillDIcon, skillDHoverIcon, 
-            e -> battleSample.skill4(), textBox, 0, 4);
+            e -> battleSample.skill4(), bottomTextBox, 0, 4);
 
 
         skillButtonsPanel.add(skillA);
@@ -118,12 +151,13 @@ public class BattleUI extends JFrame {
     }
 
     public void updateTurnIndicator(String text){
-        textBox.setText(text);
+        middleTextBox.setText(text);
     }
 
+
     public void showEnemyAction(String text) {
-        textBox.setText(text);
-        Timer clearTimer = new Timer(3000, e -> textBox.setText(""));
+        middleTextBox.setText(text);
+        Timer clearTimer = new Timer(3000, e -> topTextBox.setText("Turn " + ++this.turns));
         clearTimer.setRepeats(false);
         clearTimer.start();
     }
@@ -149,7 +183,6 @@ public class BattleUI extends JFrame {
             @Override
             public void mouseExited(MouseEvent e) {
                 button.setIcon(defaultIcon);
-                textBox.setText(story.getLine(defaultIndex));
             }
         });
 
