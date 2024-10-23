@@ -1,29 +1,40 @@
 package EOD.animator;
 
 import EOD.characters.Enemy;
+import EOD.scenes.SceneBuilder;
+
 import java.util.Random;
 
 public class EnemyAnimator extends Animator {
-    private Enemy enemy;
     private Random random;
     private long lastMovementTime;
-    private int moveDuration = 3000; // 3 seconds of movement
-    private int pauseDuration = 1000; // 1 second pause
+    private int moveDuration = 3000;
+    private int pauseDuration = 1000;
     private boolean isPaused;
     private int moveSpeed;
+    private boolean isInteracting;
+    private double minRange;
+    private double maxRange;
+    private long lastDirectionChangeTime;
+    private int directionChangeCooldown = 5000;
 
     public EnemyAnimator(Enemy enemy) {
-        super(enemy, 3);
-        this.enemy = enemy;
+        super(enemy, 2);
         this.random = new Random();
         this.lastMovementTime = System.currentTimeMillis();
+        this.lastDirectionChangeTime = System.currentTimeMillis();
         this.isPaused = false;
-        this.moveSpeed = enemy.getCharacterType().equals("miniboss") ? 1 : 2; // Slower for miniboss
+        moveSpeed = 2;
     }
 
     public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
         String type = "skill" + skillNumber;
         importSprites(assetPackage, type, scale, numOfSprites);
+    }
+
+    public void setRange(double minRange, double maxRange) {
+        this.minRange = minRange;
+        this.maxRange = maxRange;
     }
 
     @Override
@@ -41,7 +52,30 @@ public class EnemyAnimator extends Animator {
 
     @Override
     public void updateMovement() {
-        if (!isMoving) return;
+        if (isUsingSkill) {
+            SceneBuilder panel = character.getPanel();
+            double newPosX = character.getPosX() + deltaX;
+            panel.setComponentZOrder(character, 0);
+            if (isMovingRight) {
+                if (newPosX >= targetX) {
+                    character.setPosX(targetX);
+                    stopMovement();
+                } else {
+                    character.setPosX(newPosX);
+                }
+            } else {
+                if (newPosX <= targetX) {
+                    character.setPosX(targetX);
+                    stopMovement();
+                } else {
+                    character.setPosX(newPosX);
+                }
+            }
+            updateBounds();
+            return;
+        }
+
+        if (isInteracting || isInBattle) return;
 
         long currentTime = System.currentTimeMillis();
 
@@ -50,6 +84,7 @@ public class EnemyAnimator extends Animator {
                 isPaused = false;
                 lastMovementTime = currentTime;
                 chooseNewDirection();
+                setMoving(true);
             }
             return;
         }
@@ -57,18 +92,18 @@ public class EnemyAnimator extends Animator {
         if (currentTime - lastMovementTime >= moveDuration) {
             isPaused = true;
             lastMovementTime = currentTime;
-            isMoving = false;
+            setMoving(false);
             return;
         }
 
         if (isMovingRight) {
-            enemy.setPosX(enemy.getPosX() + moveSpeed);
-            if (enemy.getPosX() >= targetX || enemy.getPosX() >= enemy.getMaxRange()) {
+            character.setPosX(character.getPosX() + moveSpeed);
+            if (character.getPosX() >= targetX || character.getPosX() >= maxRange) {
                 chooseNewDirection();
             }
         } else {
-            enemy.setPosX(enemy.getPosX() - moveSpeed);
-            if (enemy.getPosX() <= targetX || enemy.getPosX() <= enemy.getMinRange()) {
+            character.setPosX(character.getPosX() - moveSpeed);
+            if (character.getPosX() <= targetX || character.getPosX() <= minRange) {
                 chooseNewDirection();
             }
         }
@@ -76,7 +111,13 @@ public class EnemyAnimator extends Animator {
     }
 
     public void chooseNewDirection() {
-        int target = random.nextInt((int)enemy.getMaxRange() - (int)enemy.getMinRange()) + (int)enemy.getMinRange();
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDirectionChangeTime < directionChangeCooldown) {
+            return;
+        }
+
+        lastDirectionChangeTime = currentTime;
+        int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
         boolean newDirection = random.nextBoolean();
         if (newDirection != isMovingRight) {
             setMovingRight(newDirection);
@@ -85,8 +126,27 @@ public class EnemyAnimator extends Animator {
         moveTo(target, moveSpeed);
     }
 
-    public void performSpecialAttack() {
-        // Implement special attack animation logic
-        // This can be overridden in subclasses if needed
+    public void setInteracting(boolean value) {
+        this.isInteracting = value;
+    }
+
+    public int getTargetX(){
+        return targetX;
+    }
+
+    public int getDeltaX(){
+        return deltaX;
+    }
+
+    public void setTargetX(int targetX){
+        this.targetX = targetX;
+    }
+
+    public void setDeltaX(int deltaX){
+        this.deltaX = deltaX;
+    }
+
+    public void setPaused(boolean value){
+        isPaused = value;
     }
 }

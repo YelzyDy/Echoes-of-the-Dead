@@ -29,10 +29,10 @@ public class Character extends TransparentPanel implements Entity{
     private String characterType;
     private double originalX;
     private double originalY;
-
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected SceneBuilder panel;
 
+    protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    
     private Animator animator;
 
     public Character(String name, String characterType, SceneBuilder panel, double  posX, double posY) {

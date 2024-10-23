@@ -5,10 +5,8 @@ import EOD.scenes.SceneBuilder;
 
 public class Necromancer extends Enemy {    
     public Necromancer(String name, SceneBuilder panel, int posX, int posY, 
-            double minRange, double maxRange, int numIdleSprites, 
-            int numWalkSprites, Protagonist protagonist) {
-            super(name, "necromancer", panel, posX, posY, minRange, maxRange, 
-            numIdleSprites, numWalkSprites, protagonist);
+            double minRange, double maxRange, Protagonist protagonist) {
+            super(name, "necromancer", panel, posX, posY, minRange, maxRange, protagonist);
             configureSprites();
             health = 200;
             attack = 10;
@@ -26,8 +24,8 @@ public class Necromancer extends Enemy {
     }
     
     public void configureSprites(){
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), numWalkSprites);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), numIdleSprites);
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), 10);
+        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 50);
         animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.007), 52);
         animator.startMovement();
         animator.chooseNewDirection();

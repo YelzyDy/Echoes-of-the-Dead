@@ -12,7 +12,7 @@ public class NpcAnimator extends Animator {
     private int pauseDuration = 1000;
     private int directionChangeCooldown = 5000;
     private boolean isPaused;
-    private int moveSpeed = 2;
+    private int moveSpeed;
     private boolean isInteracting;
     private double minRange;
     private double maxRange;
@@ -23,6 +23,7 @@ public class NpcAnimator extends Animator {
         this.lastMovementTime = System.currentTimeMillis();
         this.lastDirectionChangeTime = System.currentTimeMillis();
         this.isPaused = false;
+        moveSpeed = 2;
     }
 
     public void setRange(double minRange, double maxRange) {

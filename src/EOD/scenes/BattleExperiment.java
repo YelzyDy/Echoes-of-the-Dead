@@ -57,7 +57,7 @@ public class BattleExperiment {
     public double getEnemyXFactor() {
         switch(enemy.getCharacterType()) {
             case "skeleton1":
-                return screenSize.width * 0.7;
+                return screenSize.width * 0.4;
             case "necromacer":
                 return screenSize.width * 0.1;
             default:
@@ -91,7 +91,7 @@ public class BattleExperiment {
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(2, (int)(getPlayerXFactor()));
+            player.getAnimator().triggerSkillAnimation(2, (int)player.getPosX());
             player.getAnimator().setMovingRight(true);
 
             // Start player turn timer

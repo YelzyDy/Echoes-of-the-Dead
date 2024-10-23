@@ -20,8 +20,11 @@ public class ProtagonistAnimator extends Animator {
 
         // Add any protagonist-specific animation logic here
         // For example, handling scene transitions
-        if (!isUsingSkill && !isDead) {
             SceneBuilder panel = character.getPanel();
+            if(isUsingSkill || isDead){
+                panel.setComponentZOrder(character, 0);
+                return;
+            }
             int maxPanel = panel.getNumOfScenes() - 3;
             int currentScene = panel.getCurrentSceneIndex();
 
@@ -52,10 +55,7 @@ public class ProtagonistAnimator extends Animator {
                     character.setPosX(newPosX);
                 }
             }
-    
             updateBounds();
-
-        }
     }
 
 
@@ -96,5 +96,4 @@ public class ProtagonistAnimator extends Animator {
 
         updateBounds();
     }
-
 }

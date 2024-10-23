@@ -30,9 +30,6 @@ public class SceneBuilder extends JPanel{
     private ImageList sceneList;
     private int currentSceneIndex;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
-    
-    // added shop variables: -sheen
-    private EchoesObjects shopBg; //shop bg image
 
     private World world;
 
@@ -173,7 +170,7 @@ public class SceneBuilder extends JPanel{
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = protag.getHp();
-            System.out.println("Player HP: " + playerHp + " Enemy HP: " + enemyHp);   
+            // System.out.println("Player HP: " + playerHp + " Enemy HP: " + enemyHp);   
             double enemyDeathY = getEnemyDeathPosY(enemy);
             String portalName = battle.getPortal().getName();
             int portalIndex = getPortalIndex(portalName);

@@ -5,8 +5,6 @@ import EOD.animator.EnemyAnimator;
 import EOD.listeners.MouseClickListener;
 import EOD.scenes.SceneBuilder;
 import java.awt.event.MouseEvent;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 public abstract class Enemy extends Character implements MouseInteractable {
     protected Protagonist protagonist;
@@ -14,30 +12,20 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected int attack;
     protected int moneyDrop;
     protected EnemyAnimator animator;
-    protected SceneBuilder panel;
-    protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    protected double minRange;
-    protected double maxRange;
-    protected int numIdleSprites;
-    protected int numWalkSprites;
     private int index;
     protected int turnDuration;
     protected int damageDealt;
+
     public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
-        double minRange, double maxRange, int numIdleSprites, int numWalkSprites, 
-        Protagonist protagonist) {
-            
+        double minRange, double maxRange,
+        Protagonist protagonist) {        
         super(name, characterType, panel, posX, posY);
         this.protagonist = protagonist;
-        this.panel = panel;
-        this.minRange = minRange;
-        this.maxRange = maxRange;
-        this.numIdleSprites = numIdleSprites;
-        this.numWalkSprites = numWalkSprites;
         this.animator = new EnemyAnimator(this);
         setAnimator(animator);
         this.addMouseListener(new MouseClickListener(this));
         setVisible(true);
+        animator.setRange(minRange, maxRange);
     }
 
     public int getDamageDealt(){
@@ -81,14 +69,6 @@ public abstract class Enemy extends Character implements MouseInteractable {
 
     public EnemyAnimator getAnimator() {
         return animator;
-    }
-
-    public double getMinRange() {
-        return minRange;
-    }
-
-    public double getMaxRange() {
-        return maxRange;
     }
 
     @Override
