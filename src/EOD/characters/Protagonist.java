@@ -72,7 +72,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 10;
                 s3num = 4;
                 s4num = 11;
-                turnDuration = 2000;
+                turnDuration = 3000;
                 break;
             case "wizard":
                 attack = 20;
@@ -85,7 +85,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 6;
                 s3num = 6;
                 s4num = 6;
-                turnDuration = 2000;
+                turnDuration = 3000;
                 break;
             case "priest":
                 attack = 20;
@@ -99,7 +99,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 s2num = 9;
                 s3num = 6;
                 s4num = 9;
-                turnDuration = 2000;
+                turnDuration = 3000;
                 break;
         }
     }

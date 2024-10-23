@@ -154,9 +154,7 @@ public class BattleExperiment {
         System.out.println("Enemy damage: " + damage );
 
         battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
-
         enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
-        enemy.getAnimator().setMovingRight(false);
         enemyTurnTimer.start();  // Start enemy turn after player's turn ends
     }
 
@@ -176,8 +174,8 @@ public class BattleExperiment {
     // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
         // After enemy's turn, enable skill buttons for the player
-        
         battleUI.setSkillButtonsEnabled(true);
+        enemy.getAnimator().setMovingRight(false);
         battleUI.updateTurnIndicator("Your Turn");
     }
 }
