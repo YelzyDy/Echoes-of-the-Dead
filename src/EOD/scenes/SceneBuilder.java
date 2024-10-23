@@ -35,7 +35,7 @@ public class SceneBuilder extends JPanel{
 
     public ArrayList<Enemy> enemyList;
 
-    private Protagonist protag;
+    private Protagonist player;
 
     private BattleUI battle;
 
@@ -56,8 +56,8 @@ public class SceneBuilder extends JPanel{
         currentSceneIndex = 0;
     }
 
-    public Protagonist getProtag(){
-        return protag;
+    public Protagonist getplayer(){
+        return player;
     }
 
 
@@ -74,8 +74,8 @@ public class SceneBuilder extends JPanel{
         return currentSceneIndex;
     }
 
-    public void setProtag(Protagonist protag){
-        this.protag = protag;
+    public void setPlayer(Protagonist player){
+        this.player = player;
     }
     public void setWorld(World world){
         this.world = world;
@@ -136,7 +136,7 @@ public class SceneBuilder extends JPanel{
     }
 
     public void configureBattle(Enemy enemy, EchoesObjects portal){
-        battle = new BattleUI(protag, enemy);
+        battle = new BattleUI(player, enemy);
         battle.setPortal(portal);
         battle.displayDialogues();
     }
@@ -165,16 +165,17 @@ public class SceneBuilder extends JPanel{
         if(battle != null){
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
-            int playerHp = protag.getHp();
+            int playerHp = player.getHp();
 
-            System.out.println("Player HP: " + playerHp + " Player Mana: " + protag.getMana() + " Enemy HP: " + enemyHp);  
+            System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getMana() + " Enemy HP: " + enemyHp 
+            + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  
              
             double enemyDeathY = getEnemyDeathPosY(enemy);
             String portalName = battle.getPortal().getName();
             int portalIndex = getPortalIndex(portalName);
             if(enemyHp <= 0){
-                protag.getAnimator().setIsInBattle(false);
-                protag.getAnimator().setMoving(true);
+                player.getAnimator().setIsInBattle(false);
+                player.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
                 battle.getPortal().setIndex(portalIndex);
                 world.setIsBattleStopped(true);
@@ -191,8 +192,8 @@ public class SceneBuilder extends JPanel{
                 deathAnimationTimer.start();
             }
             if(playerHp <= 0){
-                protag.getAnimator().setIsInBattle(false);
-                protag.getAnimator().setMoving(true);
+                player.getAnimator().setIsInBattle(false);
+                player.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
                 battle = null;
                 System.out.println("You lose");
@@ -201,8 +202,8 @@ public class SceneBuilder extends JPanel{
     }
     
     private void updateGameState() {
-        if (protag != null) {
-            Animator animator = protag.getAnimator();
+        if (player != null) {
+            Animator animator = player.getAnimator();
             animator.updateAnimation();
             animator.updateMovement();
             animator.updateBounds();
@@ -210,10 +211,10 @@ public class SceneBuilder extends JPanel{
 
         if(world != null){
 
-            if(protag.skillEffects1!= null) protag.skillEffects1.updateEffect();
-            if(protag.skillEffects2!= null) protag.skillEffects2.updateEffect();
-            if(protag.skillEffects3!= null) protag.skillEffects3.updateEffect();
-            if(protag.skillEffects4!= null) protag.skillEffects4.updateEffect();
+            if(player.skillEffects1!= null) player.skillEffects1.updateEffect();
+            if(player.skillEffects2!= null) player.skillEffects2.updateEffect();
+            if(player.skillEffects3!= null) player.skillEffects3.updateEffect();
+            if(player.skillEffects4!= null) player.skillEffects4.updateEffect();
 
             for(EchoesObjects obj : objList){
                 if(obj != null){

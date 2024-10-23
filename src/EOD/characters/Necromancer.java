@@ -12,6 +12,10 @@ public class Necromancer extends Enemy {
             attack = 10;
             turnDuration = 3000;
     }
+    @Override
+    public double getXFactor(){
+        return screenSize.width * 0.5;
+    }
 
     @Override
     public void skill1(){
@@ -27,6 +31,8 @@ public class Necromancer extends Enemy {
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), 10);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 50);
         animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.007), 52);
+        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.007), 47);
+        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.007), 47);
         animator.startMovement();
         animator.chooseNewDirection();
         animator.updateBounds();

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class World1 extends World{
     BGMPlayer bgmPlayer;
 
-    public World1(String protagType, String playerName){
-        super(protagType, playerName, "world1");
+    public World1(String playerType, String playerName){
+        super(playerType, playerName, "world1");
         scene = new SceneBuilder(this);
         Welcome();
         bgmPlayer = new BGMPlayer();
@@ -26,11 +26,11 @@ public class World1 extends World{
     
     public void initializeProtagonist(){
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        protag = new Protagonist(getPlayerName(), getProtagType(), scene, 0, (int)(screenSize.height * 0.24));
-        scene.setProtag(protag);
-        scene.addMouseListener(new MouseClickListener(protag));
-        scene.add(protag);
-        scene.setComponentZOrder(protag, 0);
+        player = new Protagonist(getPlayerName(), getPlayerType(), scene, 0, (int)(screenSize.height * 0.24));
+        scene.setPlayer(player);
+        scene.addMouseListener(new MouseClickListener(player));
+        scene.add(player);
+        scene.setComponentZOrder(player, 0);
     }
 
     public void initializeObjects(){
@@ -42,7 +42,7 @@ public class World1 extends World{
             for (EchoesObjects obj : scene.objList) {
                 scene.add(obj);
                 if (obj.getName().equals("portal")) {
-                    if(!protag.getAnimator().getIsInBattle()){
+                    if(!player.getAnimator().getIsInBattle()){
                         obj.setIndex(1);
                     }else{
                         obj.setIndex(3);
@@ -84,8 +84,8 @@ public class World1 extends World{
 
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, protag));
-        scene.enemyList.add(new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, protag));
+        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
@@ -129,7 +129,7 @@ public class World1 extends World{
                     scene.setCurrentSceneIndex(2);
                     isBattleStopped = false;
                     bgmPlayer.stopBGM();
-                    World window = new World2(getProtagType(), getPlayerName(), protag);
+                    World window = new World2(getPlayerType(), getPlayerName(), player);
                     window.setVisible(true);
                     this.setVisible(false);
                 }

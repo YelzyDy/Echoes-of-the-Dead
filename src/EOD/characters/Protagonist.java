@@ -86,6 +86,14 @@ public class Protagonist extends Character implements MouseInteractable {
     public double getXFactor(){
         return xFactor;
     }
+
+    public int getSkill3CD(){
+        return skill3Cd;
+    }
+
+    public int getSkill4CD(){
+        return skill4Cd;
+    }
     public void configure(){
         //buffs depending on characterType
         switch(getCharacterType()){

@@ -17,20 +17,20 @@ import java.util.ArrayList;
  * @author zendy
  */
 public class World2 extends World {
-    private Protagonist protag;
-    public World2(String protagType, String playerName, Protagonist protag) {
-        super(protagType, playerName, "world2");
-        this.protag = protag;
+    private Protagonist player;
+    public World2(String playerType, String playerName, Protagonist player) {
+        super(playerType, playerName, "world2");
+        this.player = player;
         scene = new SceneBuilder(this);
         Welcome();
     }
 
     // Implement the necessary methods to initialize the World2 scene
     public void initializeProtagonist() {
-        scene.setProtag(protag);
-        scene.addMouseListener(new MouseClickListener(protag));
-        scene.add(protag);
-        scene.setComponentZOrder(protag, 0);
+        scene.setPlayer(player);
+        scene.addMouseListener(new MouseClickListener(player));
+        scene.add(player);
+        scene.setComponentZOrder(player, 0);
     }
 
     public void initializeObjects() {
@@ -69,8 +69,8 @@ public class World2 extends World {
 
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, protag));
-        scene.enemyList.add(new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, protag));
+        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
@@ -107,7 +107,7 @@ public class World2 extends World {
                     scene.setCurrentSceneIndex(4);
                 } else {
                     // If the miniboss has been defeated, create a new World2 instance and make it visible
-                    /*World2 world2 = new World2(getProtagType(), getPlayerName(), protag);
+                    /*World2 world2 = new World2(getplayerType(), getPlayerName(), player);
                     world2.setVisible(true);
                     this.setVisible(false);*/
                     isBattleStopped = false;

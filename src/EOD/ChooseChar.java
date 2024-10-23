@@ -39,7 +39,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private int height = screenSize.height;
     private boolean selectButtonIsEnable = true;
 
-    private Protagonist protag;
+    private Protagonist player;
     BGMPlayer bgmPlayer;
     public ChooseChar() {
         bgmPlayer = new BGMPlayer();
@@ -71,10 +71,10 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     public void initiializeProtagonist(){
-        protag = new Protagonist("name", charType, scene, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
-        scene.setProtag(protag);
-        protag.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
-        scene.add(protag);
+        player = new Protagonist("name", charType, scene, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
+        scene.setPlayer(player);
+        player.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
+        scene.add(player);
         scene.initializeGameLoop();
     }
     public void addScene() {
@@ -173,7 +173,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         // Since we have many EchoesObjects (buttons) that is attached with a MouseListener, we have to listen --jian
         // which of them caused the event using e.getSource() --jian
         Object source = e.getSource();
-        Animator animator = protag.getAnimator();
+        Animator animator = player.getAnimator();
         if (source == btn_select) {
             if(!selectButtonIsEnable){ // this prevents the execution of the following lines of code --jian
                 // when our promptPanel is Visible --jian
@@ -190,24 +190,24 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.setComponentZOrder(promptPanel, 0);
         } else if (source == btn_knight) {
             charType = "knight";
-            protag.setCharacterType(charType);
+            player.setCharacterType(charType);
             animator.importSprites("character_asset", "idle", 18, 6);
-            protag.setPosX(width * 0.32); // Update position based on width
-            protag.setPosY(height * 0.51); // Update position based on height
+            player.setPosX(width * 0.32); // Update position based on width
+            player.setPosY(height * 0.51); // Update position based on height
             scene.setCurrentSceneIndex(0);
         } else if (source == btn_priest) {
             charType = "priest";
-            protag.setCharacterType(charType);
+            player.setCharacterType(charType);
             animator.importSprites("character_asset", "idle", 18, 6);
-            protag.setPosX(width * 0.349); // Update position based on width
-            protag.setPosY(height * 0.49); // Update position based on height
+            player.setPosX(width * 0.349); // Update position based on width
+            player.setPosY(height * 0.49); // Update position based on height
             scene.setCurrentSceneIndex(1);
         } else if (source == btn_wizard) {
             charType = "wizard";
-            protag.setCharacterType(charType);
+            player.setCharacterType(charType);
             animator.importSprites("character_asset", "idle", 18, 6);
-            protag.setPosX(width * 0.34); // Update position based on width
-            protag.setPosY(height * 0.51); // Update position based on height
+            player.setPosX(width * 0.34); // Update position based on width
+            player.setPosY(height * 0.51); // Update position based on height
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian

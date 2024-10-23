@@ -14,7 +14,7 @@ import EOD.listeners.*;
 
 
 public class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
-    private String protagType; // variable for the protagType knight/priest/wizard
+    private String playerType; // variable for the playerType knight/priest/wizard
     private String playerName; // variable for player name -- jian
     //removed btn_shop. Let's create a class for shop so we can implement it easier. -- jian
 
@@ -25,7 +25,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
 
     protected SceneBuilder scene;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    protected Protagonist protag; 
+    protected Protagonist player; 
     protected boolean isBattleStopped;
 
     private JLayeredPane layeredPane;
@@ -36,13 +36,13 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     // so that we will be able to iterate our enemies using the super class for example Enemy minions1 Enemy miniboss2
     // j
 
-    public World(String protagType, String playerName, String worldType){
+    public World(String playerType, String playerName, String worldType){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(worldType);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.protagType = protagType;
+        this.playerType = playerType;
         this.playerName = playerName;   
         this.worldType = worldType;
 
@@ -70,15 +70,15 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     }
 
     public Protagonist getProtag(){
-        return protag;
+        return player;
     }
 
     public String getPlayerName(){
         return playerName;
     }
 
-    public String getProtagType(){
-        return protagType;
+    public String getPlayerType(){
+        return playerType;
     }
 
     public EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
