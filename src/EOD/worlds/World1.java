@@ -112,10 +112,14 @@ public class World1 extends World{
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){
                 if(!isBattleStopped){
+                    bgmPlayer.stopBGM();
+                    bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
                     scene.setCurrentSceneIndex(3);
                 }else{
                     scene.setCurrentSceneIndex(1);
                     isBattleStopped = false;
+                    bgmPlayer.stopBGM();
+                    bgmPlayer.playBGM("src/audio_assets/cityscape.wav");
                 }
             } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (!isBattleStopped) {
