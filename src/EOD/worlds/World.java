@@ -138,6 +138,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         int dynamicFontSize = (int) (screenSize.height * 0.05); 
         return new java.awt.Font("SansSerif", java.awt.Font.PLAIN, Math.max(baseFontSize, dynamicFontSize));
     }
+
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();

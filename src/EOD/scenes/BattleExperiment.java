@@ -112,6 +112,7 @@ public class BattleExperiment {
                 enemy.missedTurn = true;
                 System.out.println("Enemy missed a turn!");
             }
+            
             int damage = player.getDamageDealt();
             enemy.takeDamage(damage);
             // Disable skill buttons
