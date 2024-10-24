@@ -3,6 +3,7 @@ package EOD;
 import EOD.dialogues.*;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.objects.SettingsWindow;
 import EOD.utils.BGMPlayer;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -94,7 +95,8 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         EchoesObjects clickedButton = (EchoesObjects) e.getSource();
 
         if ("settings".equals(clickedButton.getName())){
-            
+            SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
+            settings.setVisible(true);
         } else if ("play".equals((clickedButton.getName()))){
             bgmPlayer.stopBGM();
             bgmPlayer.playBGM("src/audio_assets/exposition.wav");
