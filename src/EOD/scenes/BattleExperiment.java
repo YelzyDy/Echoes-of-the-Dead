@@ -2,10 +2,7 @@ package EOD.scenes;
 
 import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
-import EOD.objects.EchoesObjects;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -14,7 +11,6 @@ import javax.swing.Timer;
 public class BattleExperiment {
     private Enemy enemy;
     private Protagonist player;
-    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private BattleUI battleUI; // Reference to BattleUI for updating button states
     private Timer enemyTurnTimer;
     private Timer playerTurnTimer;
@@ -35,7 +31,6 @@ public class BattleExperiment {
         playerTurnTimer = new Timer(playerTurnDuration, e -> startEnemyTurn());
         playerTurnTimer.setRepeats(false);
         player.setEnemy(enemy);
-
     }
 
     public Enemy getEnemy() {
@@ -51,6 +46,7 @@ public class BattleExperiment {
             //this is for dealing damage. Apply this code if you want to deal damage to enemy - ji
             int damage = player.getDamageDealt();
             enemy.takeDamage(damage);
+            battleUI.showAction(player.getAction());
             // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
@@ -68,8 +64,8 @@ public class BattleExperiment {
 
     public void skill2() { // buff skills
         if (player.skill2()) {
-            
             // Disable skill buttons
+            battleUI.showAction(player.getAction());
             battleUI.setSkillButtonsEnabled(false);
 
             // Trigger skill animation
@@ -85,12 +81,12 @@ public class BattleExperiment {
     public void skill3() { // signature skills
         if (player.skill3()) { 
             // Disable skill buttons
+            battleUI.showAction(player.getAction());
             if(player.getCharacterType() == "wizard" || player.getCharacterType() == "priest"){
                 int damage = player.getDamageDealt();
                 enemy.takeDamage(damage);
                 if(player.getCharacterType() == "wizard"){
                     enemy.missedTurn = true;
-                    System.out.println("Enemy missed a turn!");
                 }
             }
 
@@ -110,11 +106,11 @@ public class BattleExperiment {
         if (player.skill4()) { // ultimate
             if(player.getCharacterType() == "knight"){
                 enemy.missedTurn = true;
-                System.out.println("Enemy missed a turn!");
             }
-            
+
             int damage = player.getDamageDealt();
             enemy.takeDamage(damage);
+            battleUI.showAction(player.getAction());
             // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
@@ -131,6 +127,7 @@ public class BattleExperiment {
     private void startEnemyTurn() {
         //doesnt run after enemy death
         if(enemy.getHp() <= 0){
+            player.reset();
             return;
         }
         enemy.getAnimator().setMovingRight(false);
@@ -140,7 +137,7 @@ public class BattleExperiment {
             battleUI.updateTurnIndicator("Enemy's Turn");
 
             callRandomEnemySkill(skillNumber);
-            double damage = enemy.getDamageDealt();
+            int damage = enemy.getDamageDealt();
 
             if(player.damageReducer == true){
                 damage *= 0.4;
@@ -156,7 +153,7 @@ public class BattleExperiment {
             
             System.out.println("Enemy damage: " + damage );
 
-            battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
+            battleUI.showAction("Enemy attacks for " + damage + " damage!");
 
             enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)enemy.getXFactor());
         }else{
