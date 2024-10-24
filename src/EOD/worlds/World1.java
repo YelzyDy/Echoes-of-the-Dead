@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class World1 extends World{
     BGMPlayer bgmPlayer;
+    boolean isMiniBossDefeated = false;
 
     public World1(String playerType, String playerName){
         super(playerType, playerName, "world1");
@@ -39,7 +40,12 @@ public class World1 extends World{
             scene.objList.add(new Shop(this));
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
+            scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27));
             for (EchoesObjects obj : scene.objList) {
+                /*if (obj.getName().equals("portalNextWorld") && !isMiniBossDefeated){
+                    obj.setVisible(false);
+                    continue;
+                }*/
                 scene.add(obj);
                 if (obj.getName().equals("portal")) {
                     if(!player.getAnimator().getIsInBattle()){
@@ -49,7 +55,10 @@ public class World1 extends World{
                     }
                 } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
                     obj.setIndex(2);
-                } 
+                } else if (obj.getName().equals("portalNextWorld")){
+                    obj.setIndex(2);
+                    obj.setVisible(isMiniBossDefeated);
+                }
                 obj.addMouseListener(new MouseClickListener(this));;
             }
             //sheena add
@@ -128,13 +137,21 @@ public class World1 extends World{
                 if (!isBattleStopped) {
                     scene.setCurrentSceneIndex(4);
                 } else {
-                    // If the miniboss has been defeated, create a new World2 instance and make it visible
                     scene.setCurrentSceneIndex(2);
                     isBattleStopped = false;
                     bgmPlayer.stopBGM();
-                    World window = new World2(getPlayerType(), getPlayerName(), player);
+                    isMiniBossDefeated = true;
+                    setIsMiniBossDefeated(true);
+                    /*for (EchoesObjects object : scene.objList) {
+                        if (object.getName().equals("portalNextWorld")) {
+                            object.setVisible(true);
+                            object.setIndex(2);  // Ensure it's at index 2
+                        }
+                    }*/
+
+                    /*World window = new World2(getPlayerType(), getPlayerName(), player);
                     window.setVisible(true);
-                    this.setVisible(false);
+                    this.setVisible(false);*/
                 }
             }
             // } else if (source == obj && obj.getName().equals("shop")){

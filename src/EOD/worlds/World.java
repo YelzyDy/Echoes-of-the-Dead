@@ -26,6 +26,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected Protagonist player; 
     protected boolean isBattleStopped;
+    protected boolean isMiniBossDefeated;
 
     private JLayeredPane layeredPane;
 
@@ -160,5 +161,11 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
        
     }
 
+    public void setIsMiniBossDefeated(boolean isMiniBossDefeated){
+        this.isMiniBossDefeated = isMiniBossDefeated;
+    }
 
+    public boolean getIsMiniBossDefeated() {
+        return isMiniBossDefeated;
+    }
 }
