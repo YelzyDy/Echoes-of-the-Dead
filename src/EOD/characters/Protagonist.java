@@ -171,6 +171,12 @@ public class Protagonist extends Character implements MouseInteractable {
                         attributes.money -= 15;
                         skillIsUseable = false;
                         actionString = "Player's attack is increased to " + 15;
+                        attributes.skillEffects2.bindToTarget(this, 
+                        -attributes.skillEffects2.getWidth() * 0.25,  // offset X
+                        -attributes.skillEffects2.getHeight() * 0.30   // offset Y
+                        );
+                        attributes.skillEffects2.play();
+                        attributes.skillEffects2.setStopFrame(15);
                         return true;
                     }else{
                         actionString = "Not enough money!";
@@ -187,6 +193,12 @@ public class Protagonist extends Character implements MouseInteractable {
                         attributes.mana -= 15;
                         skillIsUseable = false;
                         actionString = "Player's attack is increased to " + 15;
+                        attributes.skillEffects2.bindToTarget(this, 
+                        -attributes.skillEffects2.getWidth() * 0.25,  // offset X
+                        -attributes.skillEffects2.getHeight() * 0.30   // offset Y
+                        );
+                        attributes.skillEffects2.play();
+                        attributes.skillEffects2.setStopFrame(14);
                         return true;
                     }else{
                         actionString = "Not enough mana!";
@@ -253,6 +265,12 @@ public class Protagonist extends Character implements MouseInteractable {
                             if(attributes.mana > attributes.baseMana){
                                 attributes.mana = attributes.baseMana;
                             }
+                            attributes.skillEffects3.bindToTarget(enemy, 
+                            -attributes.skillEffects3.getWidth() * 1,  // offset X
+                            -attributes.skillEffects3.getHeight() * 1   // offset Y
+                            );
+                            attributes.skillEffects3.play();
+                            attributes.skillEffects3.setStopFrame(14);
                             actionString = "Shift Successful! " + damageDealt + " damage dealt to enemy!";
                             xFactor =  screenSize.width * 0.1;
                             return true;

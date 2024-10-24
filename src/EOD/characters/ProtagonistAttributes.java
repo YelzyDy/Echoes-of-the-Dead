@@ -42,6 +42,18 @@ public class ProtagonistAttributes {
                 s3num = 4;
                 s4num = 11;
                 turnDuration = 3000;
+                skillEffects2 = new SkillEffects(
+                    "effects",                           
+                    (int)(player.screenSize.width * 0.4),             
+                    (int)(player.screenSize.height * 0.2),      
+                        (int)(player.screenSize.width * 0.15),      
+                    (int)(player.screenSize.width * 0.15),      
+                    "kbuff",                           
+                    15,                                                           
+                    player.panel                               
+                );
+                skillEffects2.setLooping(false);  // Make it loop while active
+
                 skillEffects3 = new SkillEffects(
                     "effects",                           
                     (int)(player.getPosX() * 0.9),             
@@ -66,6 +78,30 @@ public class ProtagonistAttributes {
                 s3num = 6;
                 s4num = 6;
                 turnDuration = 3000;
+                skillEffects2 = new SkillEffects(
+                    "effects",                           
+                    (int)(player.getPosX() * 0.9),             
+                    (int)(player.screenSize.width * 0.08),      
+                        (int)(player.screenSize.width * 0.15),      
+                    (int)(player.screenSize.width * 0.15),      
+                    "wbuff",                           
+                    14,                                                           
+                    player.panel                               
+                );
+                skillEffects2.setLooping(false);  // Make it loop while active
+
+                skillEffects3 = new SkillEffects(
+                    "effects",                           
+                    (int)(player.getPosX() * 0.9),             
+                    (int)(player.screenSize.width * 0.08),      
+                        (int)(player.screenSize.width * 0.1),      
+                    (int)(player.screenSize.width * 0.1),      
+                    "zawardo",                           
+                    14,                                                                  
+                    player.panel                               
+                );
+                skillEffects3.setLooping(false);  // Make it loop while active
+
                 skillEffects4 = new SkillEffects(
                     "effects",                           
                     (int)(player.getPosX() * 0.9),             
@@ -91,6 +127,7 @@ public class ProtagonistAttributes {
                 s3num = 6;
                 s4num = 9;
                 turnDuration = 3000;
+                
                 break;
         }
     }

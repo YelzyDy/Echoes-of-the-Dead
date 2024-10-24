@@ -102,25 +102,24 @@ public class SkillEffects extends EchoesObjects {
         setVisible(true);
         
         if (!panel.isAncestorOf(this)) {
-            // Ensure the panel uses null layout for absolute positioning
             panel.setLayout(null);
-            
-            // Add this component to the top layer of the panel
             panel.add(this, JLayeredPane.DRAG_LAYER);
         }
         
-        // Set bounds for absolute positioning
+        // Check if we have a bound target and update position immediately
+        if (target != null) {
+            double newX = target.getPosX() + offsetX;
+            double newY = target.getPosY() + offsetY;
+            setPosX(newX);
+            setPosY(newY);
+        }
+        
+        // Now set bounds using the potentially updated position
         setBounds((int)getPosX(), (int)getPosY(), getWidth(), getHeight());
         
         restartAnimation();
         panel.revalidate();
         panel.repaint();
-        
-        // Debug info
-        System.out.println("Playing effect: Active=" + isActive + 
-                          " Visible=" + isVisible() + 
-                          " Bounds=" + getBounds() + 
-                          " Current frame=" + getCurrentFrame());
     }
     
     public void stop() {
