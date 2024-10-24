@@ -30,6 +30,24 @@ public class Skeleton1 extends Enemy {
         animator.updateBounds();
     }
 
+    @Override 
+    public double getOffsetX(int skill){
+        if(skill != 4){
+            return 0.25;
+        }else{
+            return 0.35;
+        }
+    }
+
+    @Override 
+    public double getOffsetY(int skill){
+        if(skill != 4){
+            return 0.30;
+        }else{
+            return 0.40;
+        }
+    }
+
     @Override
     public double getXFactor(){
         return screenSize.width * 0.4;

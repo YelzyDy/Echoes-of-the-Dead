@@ -27,8 +27,6 @@ public class Character extends TransparentPanel implements Entity{
     private double posX;
     private double posY;
     private String characterType;
-    private double originalX;
-    private double originalY;
     protected SceneBuilder panel;
 
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -43,8 +41,6 @@ public class Character extends TransparentPanel implements Entity{
         this.characterType = characterType;
         this.panel = panel;
         this.setVisible(true);
-        originalX = posX;
-        originalY = posY;
     }   
 
     @Override

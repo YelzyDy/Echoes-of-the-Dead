@@ -25,8 +25,6 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected SceneBuilder scene;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected Protagonist player; 
-    protected boolean isBattleStopped;
-    protected boolean isMiniBossDefeated;
 
     private JLayeredPane layeredPane;
 
@@ -57,12 +55,6 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         layeredPane.add(basePanel, Integer.valueOf(0));
 
         this.setContentPane(layeredPane);
-        
-        isBattleStopped = false;
-    }
-
-    public void setIsBattleStopped(boolean isBattleStopped){
-        this.isBattleStopped = isBattleStopped;
     }
 
     public JLayeredPane getPane(){
@@ -149,6 +141,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
             layeredPane.add(scene, Integer.valueOf(1));
             scene.setVisible(true);
             scene.createWorldScene();  
+            System.out.println("click");
         }
     }
 
@@ -159,13 +152,5 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     @Override
     public void onExit(MouseEvent e) {
        
-    }
-
-    public void setIsMiniBossDefeated(boolean isMiniBossDefeated){
-        this.isMiniBossDefeated = isMiniBossDefeated;
-    }
-
-    public boolean getIsMiniBossDefeated() {
-        return isMiniBossDefeated;
     }
 }

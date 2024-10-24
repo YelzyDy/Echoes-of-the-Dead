@@ -8,10 +8,29 @@ public class Necromancer extends Enemy {
             double minRange, double maxRange, Protagonist protagonist) {
             super(name, "necromancer", panel, posX, posY, minRange, maxRange, protagonist);
             configureSprites();
-            health = 200;
+            health = 0;
             attack = 10;
             turnDuration = 3000;
             animator.setSpeedMultiplier(2);
+    }
+
+
+    @Override 
+    public double getOffsetX(int skill){
+        if(skill != 4){
+            return 0.25;
+        }else{
+            return 0.35;
+        }
+    }
+
+    @Override 
+    public double getOffsetY(int skill){
+        if(skill != 4){
+            return 0.30;
+        }else{
+            return 0.40;
+        }
     }
     @Override
     public double getXFactor(){

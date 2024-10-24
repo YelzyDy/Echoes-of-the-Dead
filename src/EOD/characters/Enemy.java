@@ -16,6 +16,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected int turnDuration;
     protected int damageDealt;
     public boolean missedTurn = false;
+    private boolean isDefeated;
 
     public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
         double minRange, double maxRange,
@@ -27,10 +28,20 @@ public abstract class Enemy extends Character implements MouseInteractable {
         this.addMouseListener(new MouseClickListener(this));
         setVisible(true);
         animator.setRange(minRange, maxRange);
+        isDefeated = false;
     }
 
     public abstract double getXFactor();
-    
+    public abstract double getOffsetX(int skill);
+    public abstract double getOffsetY(int skill);
+
+    public void setIsDefeated(boolean isDefeated){
+        this.isDefeated = isDefeated;
+    }
+    public boolean getIsDefeated(){
+        return isDefeated;
+    }
+
     public int getDamageDealt(){
         return damageDealt;
     }

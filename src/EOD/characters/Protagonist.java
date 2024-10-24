@@ -128,7 +128,7 @@ public class Protagonist extends Character implements MouseInteractable {
     public void resetDamageReducer() {
         damageReducer = false;
     }
-    
+
     public void attributeTurnChecker() {
         if (attributes.skill3Cd > 0) attributes.skill3Cd--;
         if (attributes.skill4Cd > 0) attributes.skill4Cd--;
@@ -187,7 +187,7 @@ public class Protagonist extends Character implements MouseInteractable {
             return false;
         }
 
-        applySkillEffect(attributes.skillEffects2, this, skillEffectStopFrame, 0.25, 0.30);
+        applySkillEffect(attributes.skillEffects2, this, skillEffectStopFrame, 0.35, 0.3);
 
         if (getCharacterType().equals("knight")) {
             attributes.money -= 15;
@@ -214,7 +214,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "knight" -> {
                 damageReducer = true;
                 attributes.skill3Cd = 3;
-                applySkillEffect(attributes.skillEffects3, this, 14, 0.25, 0.30);
+                applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 actionString = "Enemy's damage reduced by 4%";
                 xFactor = getPosX();
                 return true;
@@ -254,6 +254,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "knight" -> {
                 damageDealt = 2 * attributes.attack + (int) (attributes.money * 0.2);
                 attributes.skill4Cd = 4;
+                applySkillEffect(attributes.skillEffects4, enemy, 19, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 actionString = "Enemy missed a turn! Player dealt " + damageDealt + " damage to the enemy";
                 xFactor = screenSize.width * 0.5;
                 return true;
@@ -261,7 +262,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "wizard" -> {
                 damageDealt = 60 + (int) (attributes.baseMana * 0.25);
                 attributes.skill4Cd = 4;
-                applySkillEffect(attributes.skillEffects4, enemy, 12, 0.35, 0.40);
+                applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 actionString = "Player dealt " + damageDealt + " damage to the enemy";
                 xFactor = screenSize.width * 0.1;
                 return true;

@@ -1,6 +1,7 @@
 package EOD.characters;
 
 import EOD.objects.SkillEffects;
+import java.awt.Dimension;
 
 public class ProtagonistAttributes {
     protected int attack;
@@ -14,212 +15,88 @@ public class ProtagonistAttributes {
     protected int s3num;
     protected int s4num;
     protected int turnDuration;
+    protected Protagonist player;
+    protected int skill3Cd;
+    protected int skill4Cd;
+    
     public SkillEffects skillEffectsRandom;
     public SkillEffects skillEffects2;
     public SkillEffects skillEffects3;
     public SkillEffects skillEffects4;
-    protected Protagonist player;
-    protected int skill3Cd;
-    protected int skill4Cd;
+
+    private final Dimension screenSize;
 
     public ProtagonistAttributes(Protagonist player) {
         this.player = player;
+        this.screenSize = player.screenSize;
         configure(player.getCharacterType());
     }
 
-   public void configure(String characterType){
-        //buffs depending on characterType
-        switch(characterType){
-            case "knight": 
-                attack = 20;
-                health = 150;
-                baseHealth = health;
-                mana = 100;
-                baseMana = mana;
-                money = 40;
-                s1num = 7;
-                s2num = 4;
-                s3num = 4;
-                s4num = 11;
-                turnDuration = 3000;
-                skillEffects2 = new SkillEffects(
-                    "effects",                           
-                    (int)(player.screenSize.width * 0.4),             
-                    (int)(player.screenSize.height * 0.2),      
-                        (int)(player.screenSize.width * 0.15),      
-                    (int)(player.screenSize.width * 0.15),      
-                    "kbuff",                           
-                    15,                                                           
-                    player.panel                               
-                );
-                skillEffects2.setLooping(false);  // Make it loop while active
-
-                skillEffects3 = new SkillEffects(
-                    "effects",                           
-                    (int)(player.getPosX() * 0.9),             
-                    (int)(player.screenSize.width * 0.08),      
-                        (int)(player.screenSize.width * 0.15),      
-                    (int)(player.screenSize.width * 0.15),      
-                    "shield",                           
-                    13,                                                           
-                    player.panel                               
-                );
-                skillEffects3.setLooping(true);  // Make it loop while active
+    private void configure(String characterType) {
+        switch (characterType) {
+            case "knight":
+                setupAttributes(20, 150, 100, 40, 7, 4, 4, 11, 3000);
+                skillEffects2 = createSkillEffect("kbuff", 0.4, 0.2, 0.15, 0.15, 15, false);
+                skillEffects3 = createSkillEffect("shield", player.getPosX() * 0.9, 0.08, 0.15, 0.15, 13, true);
+                skillEffects4 = createSkillEffect("distortedClock", player.getPosX() * 0.9, 0.08, 0.2, 0.2, 19, false);
                 break;
             case "wizard":
-                attack = 20;
-                health = 150;
-                baseHealth = health;
-                mana = 130;
-                baseMana = mana;
-                money = 0;
-                s1num = 6;
-                s2num = 6;
-                s3num = 6;
-                s4num = 6;
-                turnDuration = 3000;
-                skillEffects2 = new SkillEffects(
-                    "effects",                           
-                    (int)(player.getPosX() * 0.9),             
-                    (int)(player.screenSize.width * 0.08),      
-                        (int)(player.screenSize.width * 0.15),      
-                    (int)(player.screenSize.width * 0.15),      
-                    "wbuff",                           
-                    14,                                                           
-                    player.panel                               
-                );
-                skillEffects2.setLooping(false);  // Make it loop while active
-
-                skillEffects3 = new SkillEffects(
-                    "effects",                           
-                    0,             
-                    0,      
-                    (int)(player.screenSize.width * 0.15),      
-                    (int)(player.screenSize.width * 0.15),      
-                    "zawardo",    // Changed from "zawardo" to "wbuff" for testing                       
-                    14,                                                           
-                    player.panel                               
-                );
-                skillEffects3.setLooping(false);
-
-                skillEffects4 = new SkillEffects(
-                    "effects",                           
-                    (int)(player.getPosX() * 0.9),             
-                    (int)(player.screenSize.width * 0.08),      
-                        (int)(player.screenSize.width * 0.2),      
-                    (int)(player.screenSize.width * 0.2),      
-                    "explosion",                           
-                    12,                                                                  
-                    player.panel                               
-                );
-                skillEffects4.setLooping(false);  // Make it loop while active
+                setupAttributes(20, 150, 130, 0, 6, 6, 6, 6, 3000);
+                skillEffects2 = createSkillEffect("wbuff", player.getPosX() * 0.9, 0.08, 0.15, 0.15, 14, false);
+                skillEffects3 = createSkillEffect("zawardo", 0, 0, 0.2, 0.2, 14, false);
+                skillEffects4 = createSkillEffect("explosion", player.getPosX() * 0.9, 0.08, 0.2, 0.2, 12, false);
                 break;
             case "priest":
-                attack = 20;
-                health = 180; 
-                baseHealth = health;
-                mana = 100;
-                baseMana = mana;
-                attack = 20;
-                money = 0;
-                s1num = 9;
-                s2num = 9;
-                s3num = 10;
-                s4num = 6;
-                turnDuration = 3000;
-
-                skillEffectsRandom = new SkillEffects(
-                    "effects",                           
-                    (int)(player.getPosX() * 0.9),             
-                    (int)(player.screenSize.width * 0.08),      
-                        (int)(player.screenSize.width * 0.25),      
-                    (int)(player.screenSize.width * 0.25),      
-                    "heal",                           
-                    4,                                                           
-                    player.panel                               
-                );
-                skillEffectsRandom.setLooping(true);  // Make it loop while active
-
-                skillEffects2 = new SkillEffects(
-                    "effects",                           
-                    (int)(player.getPosX() * 0.9),             
-                    (int)(player.screenSize.width * 0.08),      
-                        (int)(player.screenSize.width * 0.15),      
-                    (int)(player.screenSize.width * 0.15),      
-                    "pbuff",                           
-                    9,                                                           
-                    player.panel                               
-                );
-                skillEffects2.setLooping(false);  // Make it loop while active
-
-                skillEffects4 = new SkillEffects(
-                    "effects",                           
-                    (int)(player.getPosX() * 0.9),             
-                    (int)(player.screenSize.width * 0.08),      
-                        (int)(player.screenSize.width * 0.15),      
-                    (int)(player.screenSize.width * 0.15),      
-                    "lightning",                           
-                    10,                                                           
-                    player.panel                               
-                );
-                skillEffects4.setLooping(false);  // Make it loop while active
-
+                setupAttributes(20, 180, 100, 0, 9, 9, 10, 6, 3000);
+                skillEffectsRandom = createSkillEffect("heal", player.getPosX() * 0.9, 0.08, 0.25, 0.25, 4, true);
+                skillEffects2 = createSkillEffect("pbuff", player.getPosX() * 0.9, 0.08, 0.17, 0.17, 9, false);
+                skillEffects4 = createSkillEffect("lightning", player.getPosX() * 0.9, 0.08, 0.15, 0.15, 10, false);
                 break;
         }
     }
 
-    //get hp for battle sequence
-    public int getHp(){
-        return health;
+    private void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4, int duration) {
+        this.attack = atk;
+        this.health = hp;
+        this.baseHealth = hp;
+        this.mana = mp;
+        this.baseMana = mp;
+        this.money = moneyAmt;
+        this.s1num = s1;
+        this.s2num = s2;
+        this.s3num = s3;
+        this.s4num = s4;
+        this.turnDuration = duration;
     }
 
-    //set hp after battle sequence
-    public void setHp(int newHealth){
-        health = newHealth;
+    private SkillEffects createSkillEffect(String type, double xFactor, double yFactor, double widthFactor, double heightFactor, int numSprites, boolean looping) {
+        SkillEffects effect = new SkillEffects(
+            "effects",
+            (int) (screenSize.width * xFactor),
+            (int) (screenSize.height * yFactor),
+            (int) (screenSize.width * widthFactor),
+            (int) (screenSize.width * heightFactor),
+            type,
+            numSprites,
+            player.panel
+        );
+        effect.setLooping(looping);
+        return effect;
     }
 
-    //get base hp for battle sequence
-    public int getBaseHp(){
-        return baseHealth;
-    }
+    // Getters and Setters for attributes (health, mana, attack, etc.)
+    public int getHp() { return health; }
+    public void setHp(int newHealth) { health = newHealth; }
+    public int getBaseHp() { return baseHealth; }
+    public void setBaseHp(int addHp) { baseHealth += addHp; }
 
-    //set basehp after getting potion or item
-    public void setBaseHp(int addHp){
-        baseHealth += addHp;
-    }
+    public int getMana() { return mana; }
+    public void setMana(int newMana) { mana = newMana; }
+    public int getBaseMana() { return baseMana; }
+    public void setBaseMana(int addMana) { baseMana += addMana; }
 
-    //get mana for battle sequence
-    public int getMana(){
-        return mana;
-    }
+    public int getMoney() { return money; }
+    public void setMoney(int newMoney) { money += newMoney; }
 
-    //set mana after battle sequence
-    public void setMana(int newMana){
-        mana = newMana;
-    }
-
-    //get basemana for battle sequence
-    public int getBaseMana(){
-        return baseMana;
-    }
-
-    //set basemana after getting potion or item
-    public void setBaseMana(int addMana){
-        baseMana += addMana;
-    }
-
-    //get money for battle sequence
-    public int getMoney(){
-        return money;
-    }
-
-    //set hp after battle sequence
-    public void setMoney(int newMoney){
-        money += newMoney;
-    }
-
-    //get atk for battle sequence
-    public int getAttack(){
-        return attack;
-    }
+    public int getAttack() { return attack; }
 }

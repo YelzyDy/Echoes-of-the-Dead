@@ -175,7 +175,7 @@ public class SceneBuilder extends JPanel{
                 player.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
                 battle.getPortal().setIndex(portalIndex);
-                world.setIsBattleStopped(true);
+                enemy.setIsDefeated(true);
                 player.setPosX(screenSize.width * 0.4);
                 battle = null;
                 System.out.println("You won");
@@ -259,7 +259,7 @@ public class SceneBuilder extends JPanel{
             for (EchoesObjects obj : objList) {
                 if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                     obj.setVisible(obj.getIndex() == currentSceneIndex && 
-                        (obj.getName().equals("portalNextWorld") ? world.getIsMiniBossDefeated() : true));
+                        (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
                 }else{
                     obj.setVisible(obj.getIndex() == currentSceneIndex);
                 }

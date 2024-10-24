@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 public class World1 extends World{
     BGMPlayer bgmPlayer;
-    boolean isMiniBossDefeated = false;
 
     public World1(String playerType, String playerName){
         super(playerType, playerName, "world1");
@@ -63,7 +62,7 @@ public class World1 extends World{
                     obj.setIndex(2);
                 } else if (obj.getName().equals("portalNextWorld")){
                     obj.setIndex(2);
-                    obj.setVisible(isMiniBossDefeated);
+                    if(scene.enemyList != null)obj.setVisible(scene.enemyList.get(1).getIsDefeated());
                 }
                 obj.addMouseListener(new MouseClickListener(this));;
             }
@@ -96,8 +95,8 @@ public class World1 extends World{
 
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
@@ -123,28 +122,35 @@ public class World1 extends World{
 
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){
-                if(!isBattleStopped){
+                System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
+                if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
                     scene.setCurrentSceneIndex(3);
+                    System.out.println(scene.getCurrentSceneIndex());
                 }else{
                     scene.setCurrentSceneIndex(1);
-                    isBattleStopped = false;
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
-                    World window = new World2(getPlayerType(), getPlayerName(), player);
-                    window.setVisible(true);
-                    this.setVisible(false);
+                    // isBattleStopped = false;
+                    // bgmPlayer.stopBGM();
+                    // bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    // World window = new World2(getPlayerType(), getPlayerName(), player);
+                    // window.setVisible(true);
+                    // this.setVisible(false);
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
-                if (!isBattleStopped) {
+                if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
                     scene.setCurrentSceneIndex(4);
+                    bgmPlayer.stopBGM();
+                    bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
                 } else {
                     scene.setCurrentSceneIndex(2);
-                    isBattleStopped = false;
                     bgmPlayer.stopBGM();
-                    isMiniBossDefeated = true;
-                    setIsMiniBossDefeated(true);
+                    bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    // isBattleStopped = false;
+                    // isMiniBossDefeated = true;
+                    // setIsMiniBossDefeated(true);
                     /*for (EchoesObjects object : scene.objList) {
                         if (object.getName().equals("portalNextWorld")) {
                             object.setVisible(true);
