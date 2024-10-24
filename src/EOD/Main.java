@@ -63,7 +63,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         // Create settings button
         // Add components in reverse order (background should be added last)
         EchoesObjects btn_settings = new EchoesObjects(
-                "button", 
+                "settings", 
                 (int) (screenSize.width * 0.01),
                 (int) (screenSize.height * 0.01),
                 (int) (screenSize.width * 0.07),
