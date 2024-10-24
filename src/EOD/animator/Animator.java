@@ -94,6 +94,7 @@ public abstract class Animator {
         }
     }
 
+
     public void updateAnimation() {
         if (isDead) {
             currentFrame = Math.min(currentFrame + 1, deadSprites.getSize() - 1);

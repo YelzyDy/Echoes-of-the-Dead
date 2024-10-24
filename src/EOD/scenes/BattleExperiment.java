@@ -46,17 +46,6 @@ public class BattleExperiment {
         this.battleUI = battleUI;
     }
 
-    public double getEnemyXFactor() {
-        switch(enemy.getCharacterType()) {
-            case "skeleton1":
-                return screenSize.width * 0.4;
-            case "necromancer":
-                return screenSize.width * 0.1;
-            default:
-                return 0;
-        }
-    }
-
     public void skill1() { // basic attacks
         if (player.skill1()) {
             //this is for dealing damage. Apply this code if you want to deal damage to enemy - ji
@@ -139,12 +128,11 @@ public class BattleExperiment {
     }
 
     private void startEnemyTurn() {
-
         //doesnt run after enemy death
         if(enemy.getHp() <= 0){
             return;
         }
-
+        enemy.getAnimator().setMovingRight(false);
         if(enemy.missedTurn == false){
             Random random = new Random();
             int skillNumber = random.nextInt(2) + 1;
@@ -169,7 +157,7 @@ public class BattleExperiment {
 
             battleUI.showEnemyAction("Enemy attacks for " + damage + " damage!");
 
-            enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)getEnemyXFactor());
+            enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)enemy.getXFactor());
         }else{
             enemy.missedTurn = false;
         }
@@ -197,7 +185,6 @@ public class BattleExperiment {
         
         // After enemy's turn, enable skill buttons for the player
         battleUI.setSkillButtonsEnabled(true);
-        enemy.getAnimator().setMovingRight(false);
         battleUI.updateTurnIndicator("Your Turn");
     }
 }

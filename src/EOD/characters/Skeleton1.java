@@ -10,7 +10,7 @@ public class Skeleton1 extends Enemy {
         configureSprites();
         attack = 10;
         health = 150;
-        turnDuration = 3000;
+        turnDuration = 2000;
     }
 
     public void configureSprites(){
@@ -28,6 +28,12 @@ public class Skeleton1 extends Enemy {
         animator.chooseNewDirection();
         animator.updateBounds();
     }
+
+    @Override
+    public double getXFactor(){
+        return screenSize.width * 0.4;
+    }
+    
 
     @Override
     public void skill1(){

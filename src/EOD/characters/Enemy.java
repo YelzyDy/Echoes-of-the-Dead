@@ -29,6 +29,8 @@ public abstract class Enemy extends Character implements MouseInteractable {
         animator.setRange(minRange, maxRange);
     }
 
+    public abstract double getXFactor();
+    
     public int getDamageDealt(){
         return damageDealt;
     }

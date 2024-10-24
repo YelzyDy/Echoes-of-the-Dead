@@ -25,12 +25,15 @@ public class BattleUI extends JFrame {
     private BattleExperiment battleSample;
     private JDialog storyDialogue;
     private EchoesObjects portal;
+    private Protagonist player;
+    private JPanel skillButtonsPanel ;
     private JLabel topTextBox, middleTextBox, bottomTextBox;
     private int turns;
 
-    public BattleUI(Protagonist protag, Enemy minion){
-        battleSample = new BattleExperiment(protag, minion);
+    public BattleUI(Protagonist player, Enemy minion){
+        battleSample = new BattleExperiment(player, minion);
         battleSample.setBattleUI(this);
+        this.player = player;
     }
 
     public void setPortal(EchoesObjects portal){
@@ -96,11 +99,13 @@ public class BattleUI extends JFrame {
 
         // THE BUTTONS
 
-        JPanel skillButtonsPanel = new JPanel(new GridLayout(2, 2, 0, 0));
+        skillButtonsPanel = new JPanel(new GridLayout(2, 2, 0, 0));
         skillButtonsPanel.setBackground(Color.BLACK);
 
         // ACTION LISTENERS
 
+        ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
+        ImageIcon skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
         skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
         skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
 
@@ -143,11 +148,11 @@ public class BattleUI extends JFrame {
 
     // THE METHODS
 
-    public void setSkillButtonsEnabled(boolean enabled){
+    public void setSkillButtonsEnabled(boolean enabled) {
         skillA.setEnabled(enabled);
         skillB.setEnabled(enabled);
-        skillC.setEnabled(enabled);
-        skillD.setEnabled(enabled);
+        skillC.setEnabled(enabled && player.getSkill3CD() == 0);
+        skillD.setEnabled(enabled && player.getSkill4CD() == 0);
     }
 
     public void updateTurnIndicator(String text){
@@ -162,16 +167,25 @@ public class BattleUI extends JFrame {
         clearTimer.start();
     }
 
-    private JButton createSkillButton(StoryLine story, ImageIcon defaultIcon, ImageIcon hoverIcon, ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex) {
+    private JButton createSkillButton(StoryLine story, ImageIcon defaultIcon, ImageIcon hoverIcon, 
+        ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex) {
+       
         JButton button = new JButton(defaultIcon);
         int width = (int) (screenSize.width * 0.15);
         int height = (int) (screenSize.height * 0.15);
-
+        
         button.setPreferredSize(new Dimension(width, height));
         button.setBackground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.addActionListener(action);
+
+        // Add cooldown text styling
+        button.setHorizontalTextPosition(JButton.CENTER);
+        button.setVerticalTextPosition(JButton.CENTER);
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Arial", Font.BOLD, 40));
+        
 
         button.addMouseListener(new MouseAdapter() {
             @Override
@@ -189,9 +203,36 @@ public class BattleUI extends JFrame {
         return button;
     }
 
+
+    public void updateCooldowns() {
+        // Update each cooldown label
+        updateSkillCooldown(2, player.getSkill3CD());
+        updateSkillCooldown(3, player.getSkill4CD());
+    }
+
+    private void updateSkillCooldown(int skillIndex, int cooldown) {
+        JButton skillButton = getSkillButton(skillIndex);
+        if (skillButton != null) {
+            if (cooldown > 0){
+                //set cooldown text for buttons
+                skillButton.setText("" + cooldown);
+            } else {
+                skillButton.setText("");;
+            }
+        }
+    }
+
+       private JButton getSkillButton(int index) {
+        switch (index) {
+            case 2: return skillC;
+            case 3: return skillD;
+            default: return null;
+        }
+    }
+
     public ImageIcon scaleImageIcon(String path) {
-        int width = (int) (screenSize.width * 0.3);
-        int height = (int) (screenSize.height * 0.3);
+        int width = (int) (screenSize.width * 0.15);
+        int height = (int) (screenSize.width * 0.15);
 
         ImageIcon icon = new ImageIcon(path);
         Image img = icon.getImage();

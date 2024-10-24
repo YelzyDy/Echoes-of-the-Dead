@@ -46,6 +46,7 @@ public class Character extends TransparentPanel implements Entity{
         originalX = posX;
         originalY = posY;
     }   
+    
 
     public void setAnimator(Animator animator){
         this.animator = animator;

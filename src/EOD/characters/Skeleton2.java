@@ -10,7 +10,14 @@ public class Skeleton2 extends Enemy {
             protagonist);
         configureSprites();
         health = 100;
+        turnDuration = 200;
     }
+
+    @Override
+    public double getXFactor(){
+        return screenSize.width * 0.4;
+    }
+    
     
     @Override
     public void skill1(){
