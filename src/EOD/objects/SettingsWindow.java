@@ -13,15 +13,13 @@ public class SettingsWindow extends JFrame {
 
     public SettingsWindow(BGMPlayer bgmPlayer) {
         this.bgmPlayer = bgmPlayer;
-
-        // Configure JFrame settings
+        
         this.setTitle("Settings");
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Close this window without closing the main app
         this.setLayout(new GridLayout(3, 1));
 
-        // Create a label for instructions
         JLabel label = new JLabel("Enable or disable background music:");
         label.setHorizontalAlignment(JLabel.CENTER);
 
@@ -38,7 +36,6 @@ public class SettingsWindow extends JFrame {
         musicOnButton.addActionListener(new MusicToggleListener());
         musicOffButton.addActionListener(new MusicToggleListener());
 
-        // Add components to the JFrame
         this.add(label);
         this.add(musicOnButton);
         this.add(musicOffButton);
