@@ -334,6 +334,9 @@ public class Protagonist extends Character implements MouseInteractable {
                         if(random.nextInt(100) < 60){
                             damageDealt = 40;
                             mana += 75;
+                            if(mana > baseMana){
+                                mana = baseMana;
+                            }
                             actionString = "Shift Successful! " + damageDealt + " damage dealt to enemy!";
                             xFactor =  screenSize.width * 0.1;
                             return true;
@@ -350,9 +353,13 @@ public class Protagonist extends Character implements MouseInteractable {
                 }
             case "priest":
                 if(skill3Cd==0){
-                    if(mana >= 25){
-                        damageReducer = true;
-                        mana -= 25;
+                    if(mana >= 40){
+                        damageDealt = (int)(baseHealth*0.3);
+                        health += damageDealt;
+                        if(health > baseHealth){
+                            health = baseHealth;
+                        }
+                        mana -= 40;
                         skill3Cd = 3;
                         xFactor =  screenSize.width * 0.3;
                         actionString = "";
@@ -393,7 +400,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         damageDealt = 60 + (int)(baseMana*0.25);
                         mana -= 50;
                         skill4Cd = 4;
-
+                        
                         actionString = "Player dealt " + damageDealt + " damage to the enemy";
                         xFactor =  screenSize.width * 0.18;
                         skillEffects4.setPosX(enemy.getPosX() - skillEffects4.getWidth() * 0.25);
@@ -418,9 +425,13 @@ public class Protagonist extends Character implements MouseInteractable {
                 }
             case "priest":
                 if(skill4Cd==0){
-                    if(mana >= 25){
-                        damageReducer = true;
-                        mana -= 25;
+                    if(mana >= 50){
+                        damageDealt = (int)((baseHealth - health) * 0.6);
+                        health += (int)(baseHealth * 0.4);
+                        if(health > baseHealth){
+                            health = baseHealth;
+                        }
+                        mana -= 50;
                         skill4Cd = 4;
                         xFactor =  screenSize.width * 0.3;
                         actionString = "";
