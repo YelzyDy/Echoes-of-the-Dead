@@ -5,19 +5,20 @@ import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.worlds.*;
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 public class Shop extends EchoesObjects implements MouseInteractable {
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private World world;
     // objects
-    private EchoesObjects shopBg, sidePanel;
+    private EchoesObjects sidePanel;
     private EchoesObjects item1, item2, item3, item4;
     private EchoesObjects buyButton, closeButton;
     private double height, width;
     private int itemToBuy;
     private int item1Stock, item2Stock, item3Stock, item4Stock;
-
+    private int money;
     public Shop(World world) {
         super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 
               (int) (screenSize.width * 0.8), (int) (screenSize.height * 0.8), "shopbg", false, false, 1);
@@ -28,6 +29,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         setLayout(null);
         world.getLayeredPane().add(this, Integer.valueOf(2));
         world.getLayeredPane().setComponentZOrder(this, 0);
+        money = world.getProtag().getAttributes().getMoney();
     }
 
     private void showSidePanelBg(double width, double height) {
@@ -47,6 +49,28 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         add(item2);
         add(item3);
         add(item4);
+    }
+
+    private void showMoney(double width, double height) {
+        // Create a panel for better layout control
+        JPanel moneyPanel = new JPanel();
+        moneyPanel.setLayout(null);
+        moneyPanel.setOpaque(false); // Make panel transparent
+        moneyPanel.setBounds((int)(width * 0.68), (int)(height * 0.19), (int)(width * 0.1), (int)(height * 0.1)); // Position at top
+
+        // Create money label with formatted text
+        JLabel moneyLabel = new JLabel("" + money);
+        moneyLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.03))); // Scaled font size
+        moneyLabel.setForeground(new Color(238,218,180,255)); // Gold color
+        moneyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        // Set the bounds for the label within the panel
+        moneyLabel.setBounds(0, 0, 
+                            (int)(width * 0.1), (int)(height * 0.1));
+
+        moneyPanel.add(moneyLabel);
+        add(moneyPanel);
+        setComponentZOrder(moneyPanel, 0);
     }
 
     private EchoesObjects createItem(String imageName, double x, double y, double width, double height) {
@@ -75,6 +99,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         closeButton.setVisible(true);
         closeButton.addMouseListener(new MouseClickListener(this));
         add(closeButton);
+        setComponentZOrder(closeButton, 0);
     }
 
     public void showElementsInShop() {
@@ -85,6 +110,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
         showSidePanelBg(width, height);
         showBuyButton(width, height);
         showCloseButton(width, height);
+        showMoney(width, height);
     }
 
     @Override
