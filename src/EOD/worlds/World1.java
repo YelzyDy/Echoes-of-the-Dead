@@ -36,7 +36,13 @@ public class World1 extends World{
     public void initializeObjects(){
             scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
             // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
-            scene.objList.add(new Shop(this));
+            scene.objList.add(new EchoesObjects("shop",
+            (int)(screenSize.width * 0.78),
+            (int)(screenSize.height * 0.037),
+            (int)(screenSize.width * 0.22),
+            (int)(screenSize.height * 0.32),
+            "shop", false, true, 2));
+
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
             for (EchoesObjects obj : scene.objList) {
@@ -50,11 +56,8 @@ public class World1 extends World{
                 } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
                     obj.setIndex(2);
                 } 
-                obj.addMouseListener(new MouseClickListener(this));;
+                obj.addMouseListener(new MouseClickListener(this));
             }
-            //sheena add
-            // shopBg = new EchoesObjects("shop_assets",(int)(screenSize.width * 0.78), (int)(screenSize.height * 0.037), (int)(screenSize.width * 0.22),(int)(screenSize.height * 0.32), "shop0-bg", false, true, 2);
-            // this.add(shopBg);
     }
     public void initializeWorldChars(){
         scene.npcList = new ArrayList<>();
@@ -124,7 +127,7 @@ public class World1 extends World{
                     window.setVisible(true);
                     this.setVisible(false);
                 }
-            } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
+            }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (!isBattleStopped) {
                     scene.setCurrentSceneIndex(4);
                 } else {
@@ -136,10 +139,10 @@ public class World1 extends World{
                     window.setVisible(true);
                     this.setVisible(false);
                 }
+            }else if(source == obj && obj.getName().equals("shop")){
+                Shop shop = new Shop(this);
+                shop.showElementsInShop();
             }
-            // } else if (source == obj && obj.getName().equals("shop")){
-            //     scene.setCurrentSceneIndex(5);
-            // }
         }    
     }
 
