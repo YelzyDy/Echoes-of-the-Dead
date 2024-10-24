@@ -176,6 +176,7 @@ public class SceneBuilder extends JPanel{
                 battle.getStoryDialog().dispose();
                 battle.getPortal().setIndex(portalIndex);
                 world.setIsBattleStopped(true);
+                player.setPosX(screenSize.width * 0.4);
                 battle = null;
                 System.out.println("You won");
 

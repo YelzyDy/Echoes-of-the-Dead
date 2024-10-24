@@ -60,11 +60,6 @@ public class Character extends TransparentPanel implements Entity{
         this.animator = animator;
     }
 
-    public void revertPosition(){
-        this.posX = originalX;
-        this.posY = originalY;
-    }
-
     public Animator getAnimator(){
         return animator;
     }

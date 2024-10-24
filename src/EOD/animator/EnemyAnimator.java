@@ -53,7 +53,6 @@ public class EnemyAnimator extends Animator {
     @Override
     public void updateMovement() {
         if (isUsingSkill) {
-            SceneBuilder panel = character.getPanel();
             double newPosX = character.getPosX() + deltaX;
             if (isMovingRight) {
                 if (newPosX >= targetX) {

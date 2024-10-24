@@ -72,13 +72,6 @@ public class Protagonist extends Character implements MouseInteractable {
         this.enemy = enemy;
     }
 
-    public double getEffectX(){
-        return effectX;
-    }
-
-    public double getEffectY(){
-        return effectY;
-    }
     
     public int getTurnDuration(){
         return attributes.turnDuration;
@@ -94,24 +87,6 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public int getSkill4CD(){
         return attributes.skill4Cd;
-    }
-
-    public double getEffectY(String effectType){
-        if(effectType.equals("shield")){
-            return getPosX() * 0.8;
-        }else if(effectType.equals("explosion")){
-            return screenSize.width * 0.08;
-        }
-        return 0;
-    }
-
-    public double getEffectX(String effectType){
-        if(effectType.equals("shield")){
-            return getPosX() * 0.9;
-        }else if(effectType.equals("explosion")){
-            return screenSize.width * 0.4;
-        }
-        return 0;
     }
 
     public ProtagonistAnimator getAnimator(){
