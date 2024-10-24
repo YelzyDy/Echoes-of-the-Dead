@@ -261,10 +261,11 @@ public class SceneBuilder extends JPanel{
             if(player.getAttributes().skillEffects4 != null)player.getAttributes().skillEffects4.setVisible(player.getSkill4CD() != 0);
 
             for (EchoesObjects obj : objList) {
-                if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
-                    obj.setVisible(obj.getIndex() == currentSceneIndex);
+                if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
+                    obj.setVisible(obj.getIndex() == currentSceneIndex && 
+                        (obj.getName().equals("portalNextWorld") ? world.getIsMiniBossDefeated() : true));
                 }else{
-                    obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+                    obj.setVisible(obj.getIndex() == currentSceneIndex);
                 }
             }
             
