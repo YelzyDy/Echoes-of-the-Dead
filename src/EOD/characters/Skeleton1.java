@@ -33,7 +33,11 @@ public class Skeleton1 extends Enemy {
     @Override 
     public double getOffsetX(int skill){
         if(skill != 4){
-            return 0.25;
+            if(protagonist.isWizard() && skill == 3){
+                return 0.1;
+            }else{
+                return 0.25;
+            }
         }else{
             return 0.35;
         }
@@ -44,7 +48,57 @@ public class Skeleton1 extends Enemy {
         if(skill != 4){
             return 0.30;
         }else{
-            return 0.40;
+            return 0.3;
+        }
+    }
+
+    @Override 
+    public double getOffsetW(int skill){
+        if(skill == 2){
+            if(!protagonist.isPriest()){
+                return 0.15;
+            }else{
+                return 0.25;
+            }
+        }else if(skill == 3){
+            if(protagonist.isKnight()){
+                return 0.15;
+            }else if(protagonist.isWizard()){
+                return 0.2;
+            }else{
+                return 0.17;
+            }
+        }else{
+            if(!protagonist.isPriest()){
+                return 0.2;
+            }else{
+                return 0.15;
+            }
+        }
+    }
+
+    @Override 
+    public double getOffsetH(int skill){
+        if(skill == 2){
+            if(!protagonist.isPriest()){
+                return 0.15;
+            }else{
+                return 0.25;
+            }
+        }else if(skill == 3){
+            if(protagonist.isKnight()){
+                return 0.15;
+            }else if(protagonist.isWizard()){
+                return 0.2;
+            }else{
+                return 0.17;
+            }
+        }else{
+            if(!protagonist.isPriest()){
+                return 0.2;
+            }else{
+                return 0.15;
+            }
         }
     }
 

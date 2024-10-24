@@ -63,6 +63,26 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(4, "character_asset", spriteSize, attributes.s4num);
     }
 
+    public void configureSkills(){
+        switch(getCharacterType()){
+            case "knight":
+            attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, enemy.getOffsetW(2),  enemy.getOffsetH(2), 15, false);
+            attributes.skillEffects3 = attributes.createSkillEffect("shield", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 13, true);
+            attributes.skillEffects4 = attributes.createSkillEffect("distortedClock", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 19, false);
+            break;
+            case "wizard":
+            attributes.skillEffects2 = attributes.createSkillEffect("wbuff", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 14, false);
+            attributes.skillEffects3 = attributes.createSkillEffect("zawardo", 0, 0, enemy.getOffsetW(3),  enemy.getOffsetH(3), 14, false);
+            attributes.skillEffects4 = attributes.createSkillEffect("explosion", getPosX() * 0.9, 0.08,enemy.getOffsetW(4),  enemy.getOffsetH(4), 12, false);
+            break;
+            default:
+            attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 4, true);
+            attributes.skillEffects2 = attributes.createSkillEffect("pbuff", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 9, false);
+            attributes.skillEffects4 = attributes.createSkillEffect("lightning", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 10, false);
+            break;
+        }
+    }
+
     public void reset() {
         skillIsUseable = true;
         attributes.skill3Cd = attributes.skill4Cd = 0;
@@ -74,6 +94,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
+        configureSkills();
     }
 
     public int getTurnDuration() {
@@ -105,7 +126,6 @@ public class Protagonist extends Character implements MouseInteractable {
     }
 
     public boolean useSkill(int skillNumber) {
-        // Logic to check if the skill is available (e.g., not on cooldown, sufficient mana, etc.)
         switch (skillNumber) {
             case 1:
                 return skill1();

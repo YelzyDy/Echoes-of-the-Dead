@@ -8,9 +8,9 @@ public class Necromancer extends Enemy {
             double minRange, double maxRange, Protagonist protagonist) {
             super(name, "necromancer", panel, posX, posY, minRange, maxRange, protagonist);
             configureSprites();
-            health = 0;
+            health = 200;
             attack = 10;
-            turnDuration = 3000;
+            turnDuration = 3500;
             animator.setSpeedMultiplier(2);
     }
 
@@ -18,20 +18,83 @@ public class Necromancer extends Enemy {
     @Override 
     public double getOffsetX(int skill){
         if(skill != 4){
-            return 0.25;
+            if(protagonist.isWizard() && skill == 3){
+                return 0.3;
+            }else{
+                return 0.22;
+            }
         }else{
-            return 0.35;
+            return 0.3;
         }
     }
 
     @Override 
     public double getOffsetY(int skill){
         if(skill != 4){
-            return 0.30;
+            if(protagonist.isKnight()){
+                return 0.3;
+            }else{
+                return 0.0;
+            }
         }else{
-            return 0.40;
+            if(protagonist.isKnight()){
+                return 0.15;
+            }else{
+                return 0.0;
+            }
         }
     }
+
+    @Override 
+    public double getOffsetW(int skill){
+        if(skill == 2){
+            if(!protagonist.isPriest()){
+                return 0.15;
+            }else{
+                return 0.25;
+            }
+        }else if(skill == 3){
+            if(protagonist.isKnight()){
+                return 0.15;
+            }else if(protagonist.isWizard()){
+                return 0.3;
+            }else{
+                return 0.17;
+            }
+        }else{
+            if(!protagonist.isPriest()){
+                return 0.3;
+            }else{
+                return 0.28;
+            }
+        }
+    }
+
+    @Override 
+    public double getOffsetH(int skill){
+        if(skill == 2){
+            if(!protagonist.isPriest()){
+                return 0.15;
+            }else{
+                return 0.25;
+            }
+        }else if(skill == 3){
+            if(protagonist.isKnight()){
+                return 0.15;
+            }else if(protagonist.isWizard()){
+                return 0.3;
+            }else{
+                return 0.17;
+            }
+        }else{
+            if(!protagonist.isPriest()){
+                return 0.3;
+            }else{
+                return 0.28;
+            }
+        }
+    }
+
     @Override
     public double getXFactor(){
         return screenSize.width * 0.4;

@@ -29,6 +29,24 @@ public class Skeleton2 extends Enemy {
         damageDealt = 10;
     }
 
+    @Override 
+    public double getOffsetW(int skill){
+        if(skill != 4){
+            return 0.22;
+        }else{
+            return 0.3;
+        }
+    }
+
+    @Override 
+    public double getOffsetH(int skill){
+        if(skill != 4){
+            return 0.00;
+        }else{
+            return 0.00;
+        }
+    }
+
     public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), 8);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 6);

@@ -34,6 +34,8 @@ public abstract class Enemy extends Character implements MouseInteractable {
     public abstract double getXFactor();
     public abstract double getOffsetX(int skill);
     public abstract double getOffsetY(int skill);
+    public abstract double getOffsetW(int skill);
+    public abstract double getOffsetH(int skill);
 
     public void setIsDefeated(boolean isDefeated){
         this.isDefeated = isDefeated;

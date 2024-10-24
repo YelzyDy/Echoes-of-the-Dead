@@ -18,7 +18,6 @@ public class ProtagonistAttributes {
     protected Protagonist player;
     protected int skill3Cd;
     protected int skill4Cd;
-    
     public SkillEffects skillEffectsRandom;
     public SkillEffects skillEffects2;
     public SkillEffects skillEffects3;
@@ -31,26 +30,17 @@ public class ProtagonistAttributes {
         this.screenSize = player.screenSize;
         configure(player.getCharacterType());
     }
-
+    
     private void configure(String characterType) {
         switch (characterType) {
             case "knight":
                 setupAttributes(20, 150, 100, 40, 7, 4, 4, 11, 3000);
-                skillEffects2 = createSkillEffect("kbuff", 0.4, 0.2, 0.15, 0.15, 15, false);
-                skillEffects3 = createSkillEffect("shield", player.getPosX() * 0.9, 0.08, 0.15, 0.15, 13, true);
-                skillEffects4 = createSkillEffect("distortedClock", player.getPosX() * 0.9, 0.08, 0.2, 0.2, 19, false);
                 break;
             case "wizard":
                 setupAttributes(20, 150, 130, 0, 6, 6, 6, 6, 3000);
-                skillEffects2 = createSkillEffect("wbuff", player.getPosX() * 0.9, 0.08, 0.15, 0.15, 14, false);
-                skillEffects3 = createSkillEffect("zawardo", 0, 0, 0.2, 0.2, 14, false);
-                skillEffects4 = createSkillEffect("explosion", player.getPosX() * 0.9, 0.08, 0.2, 0.2, 12, false);
                 break;
             case "priest":
                 setupAttributes(20, 180, 100, 0, 9, 9, 10, 6, 3000);
-                skillEffectsRandom = createSkillEffect("heal", player.getPosX() * 0.9, 0.08, 0.25, 0.25, 4, true);
-                skillEffects2 = createSkillEffect("pbuff", player.getPosX() * 0.9, 0.08, 0.17, 0.17, 9, false);
-                skillEffects4 = createSkillEffect("lightning", player.getPosX() * 0.9, 0.08, 0.15, 0.15, 10, false);
                 break;
         }
     }
@@ -69,7 +59,7 @@ public class ProtagonistAttributes {
         this.turnDuration = duration;
     }
 
-    private SkillEffects createSkillEffect(String type, double xFactor, double yFactor, double widthFactor, double heightFactor, int numSprites, boolean looping) {
+    protected SkillEffects createSkillEffect(String type, double xFactor, double yFactor, double widthFactor, double heightFactor, int numSprites, boolean looping) {
         SkillEffects effect = new SkillEffects(
             "effects",
             (int) (screenSize.width * xFactor),
