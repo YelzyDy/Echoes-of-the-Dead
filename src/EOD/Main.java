@@ -15,6 +15,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     int width = screenSize.width;
     int height = screenSize.height;
     BGMPlayer bgmPlayer;
+
     public Main() {
         // Configure JFrame
         bgmPlayer = new BGMPlayer();
@@ -54,28 +55,30 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         // another difference between the backgroundPanel and the btn_title_play is that btn_title_play has --jian
         // a MouseListener attached which listens to to mouseEvents that will occur within the bouds of btn_title_play --jian
         btn_title_play.addMouseListener(new MouseClickListener(this));
+        btn_title_play.setName("play");
       
         // do not forget to add our custom JPanel objects to our JFrame/Jpanel or whatever parent container it should have --jian
         // in this case, the parent container is the JFrame and the children of JFrame is the objects we instantiated --jian
-        this.add(btn_title_play); 
-        this.add(backgroundPanel); 
-
-        /*EchoesObjects btn_settings = new EchoesObjects(
-            "button", 
-            (int) (screenSize.width * 0.1),
-            (int) (screenSize.height * 0.7),
-            (int) (screenSize.width * 0.13),
-            (int) (screenSize.height * 0.13),
-            "settings", 
-            false, 
-            true, 
-            2
-        );
+        // Create settings button
+        // Add components in reverse order (background should be added last)
+        EchoesObjects btn_settings = new EchoesObjects(
+                "button", 
+                (int) (screenSize.width * 0.01),
+                (int) (screenSize.height * 0.01),
+                (int) (screenSize.width * 0.07),
+                (int) (screenSize.height * 0.11),
+                "settings_button", 
+                false, 
+                true, 
+                2
+            );
         btn_settings.setVisible(true);
         btn_settings.addMouseListener(new MouseClickListener(this));
+        btn_settings.setName(("settings"));
 
-        // Add components in reverse order (background should be added last)
-        this.add(btn_settings);     // Buttons added before background*/
+        this.add(btn_settings);
+        this.add(btn_title_play);
+        this.add(backgroundPanel);    
 
     }
 
@@ -88,13 +91,19 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
 
     @Override  
     public void onClick(MouseEvent e) {
-        bgmPlayer.stopBGM();
-        bgmPlayer.playBGM("src/audio_assets/exposition.wav");
-        dialogues.displayDialogue(0);
-        bgmPlayer.stopBGM();
-        ChooseChar window = new ChooseChar(); // Will invoke the character selection scene
-        window.setVisible(true);
-        this.setVisible(false);
+        EchoesObjects clickedButton = (EchoesObjects) e.getSource();
+
+        if ("settings".equals(clickedButton.getName())){
+            
+        } else if ("play".equals((clickedButton.getName()))){
+            bgmPlayer.stopBGM();
+            bgmPlayer.playBGM("src/audio_assets/exposition.wav");
+            dialogues.displayDialogue(0);
+            bgmPlayer.stopBGM();
+            ChooseChar window = new ChooseChar(); // Will invoke the character selection scene
+            window.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     @Override
