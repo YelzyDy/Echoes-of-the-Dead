@@ -16,6 +16,7 @@ public class Npc extends Character implements MouseInteractable {
         super(name, characterType, panel, posX, posY);
         animator = new NpcAnimator(this);
         setAnimator(animator);
+        animator.setSpeedMultiplier(1);
         setVisible(true); // Make sure the NPC is visible
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 4);
         animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 4);

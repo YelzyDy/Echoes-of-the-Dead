@@ -93,7 +93,7 @@ public class BattleUI extends JFrame {
         storyDialogue.add(textPanel, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
 
-        topTextBox.setText("Turn 0");
+        topTextBox.setText("Your Turn");
         middleTextBox.setText("An enemy has appeared!");
         bottomTextBox.setText("<html><center>Prepare to use your skills to defeat them in this battle!<html><center>");
 
@@ -156,15 +156,12 @@ public class BattleUI extends JFrame {
     }
 
     public void updateTurnIndicator(String text){
-        middleTextBox.setText(text);
+        topTextBox.setText(text);
     }
 
 
-    public void showEnemyAction(String text) {
+    public void showAction(String text) {
         middleTextBox.setText(text);
-        Timer clearTimer = new Timer(3000, e -> topTextBox.setText("Turn " + ++this.turns));
-        clearTimer.setRepeats(false);
-        clearTimer.start();
     }
 
     private JButton createSkillButton(StoryLine story, ImageIcon defaultIcon, ImageIcon hoverIcon, 
@@ -222,7 +219,7 @@ public class BattleUI extends JFrame {
         }
     }
 
-       private JButton getSkillButton(int index) {
+    private JButton getSkillButton(int index) {
         switch (index) {
             case 2: return skillC;
             case 3: return skillD;

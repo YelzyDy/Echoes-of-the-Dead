@@ -8,6 +8,8 @@ public class ProtagonistAnimator extends Animator {
     public ProtagonistAnimator(Character character) {
         super(character, 4);
     }
+
+
     public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
         String type = "skill" + skillNumber;
         importSprites(assetPackage, type, scale, numOfSprites);

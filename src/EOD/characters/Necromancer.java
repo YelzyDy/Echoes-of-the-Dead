@@ -11,10 +11,11 @@ public class Necromancer extends Enemy {
             health = 200;
             attack = 10;
             turnDuration = 3000;
+            animator.setSpeedMultiplier(2);
     }
     @Override
     public double getXFactor(){
-        return screenSize.width * 0.5;
+        return screenSize.width * 0.4;
     }
 
     @Override

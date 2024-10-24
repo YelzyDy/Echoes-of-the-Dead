@@ -45,11 +45,14 @@ public class Protagonist extends Character implements MouseInteractable {
 
     private Enemy enemy;
 
-    private double xFactor = 0;
+    private double xFactor;
+
+    private String actionString;
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         animator = new ProtagonistAnimator(this);
+        animator.setSpeedMultiplier(1);
         setAnimator(animator);
         configure();
         configureSprites();
@@ -59,6 +62,7 @@ public class Protagonist extends Character implements MouseInteractable {
         xFactor = 0;
         skill3Cd = 0;
         skill4Cd = 0;
+        actionString = null;
     }
 
     public void configureSprites(){
@@ -69,7 +73,16 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), s3num);
         animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
     }
+
+    public void reset(){
+        skillIsUseable = true;
+        skill3Cd = 0;
+        skill4Cd = 0;
+    }
     
+    public String getAction(){
+        return actionString;
+    }
 
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;
@@ -98,6 +111,7 @@ public class Protagonist extends Character implements MouseInteractable {
     public int getSkill4CD(){
         return skill4Cd;
     }
+
     public void configure(){
         //buffs depending on characterType
         switch(getCharacterType()){
@@ -217,6 +231,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public boolean skill1(){ // basic attack type skills
         damageDealt = attack;
+        actionString = "Player dealt " + damageDealt + " damage to the enemy!";
         switch(getCharacterType()) {
             case "knight":
                 xFactor =  screenSize.width * 0.5;
@@ -239,45 +254,48 @@ public class Protagonist extends Character implements MouseInteractable {
                         attack += 15;
                         money -= 15;
                         skillIsUseable = false;
+                        actionString = "Player's attack is increased to " + 15;
+                        return true;
                     }else{
-                        System.out.println("Not enough money!");
+                        actionString = "Not enough money!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can only be used once per battle!");
+                    actionString = "Can only be used once per battle!";
                     return false;
                 }
-                return true;
             case "wizard":
                 if(skillIsUseable){
                     if(mana >= 15){
                         attack += 15;
                         mana -= 15;
                         skillIsUseable = false;
+                        actionString = "Player's attack is increased to " + 15;
+                        return true;
                     }else{
-                        System.out.println("Not enough mana!");
+                        actionString = "Not enough mana!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can only be used once per battle!");
+                     actionString = "Can only be used once per battle!";
                     return false;
                 }
-                return true;
             case "priest":
                 if(skillIsUseable){
                     if(health >= 50){
                        attack += 30;
                        health -= 15;
                         skillIsUseable = false;
+                        actionString = "Player's attack is increased to " + 30;
+                        return true;
                     }else{
-                        System.out.println("Soul Energy too low!");
+                        actionString = "Soul Energy too low!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can only be used once per battle!");
+                   actionString = "Can only be used once per battle!";
                     return false;
                 }
-                return true;
             default:
                 return true;
         }
@@ -294,7 +312,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         xFactor =  getPosX();
                         skillEffects3.setPosX(getPosX() - skillEffects3.getWidth() * 0.25);
                         skillEffects3.setPosY(getPosY() - skillEffects3.getHeight() * 0.25);
-                        
+                        actionString = "Enemy's damage is reduced to " + "4%";
                         // Bind the effect to follow the character
                         skillEffects3.bindToTarget(this, 
                             -skillEffects3.getWidth() * 0.25,  // offset X
@@ -304,11 +322,10 @@ public class Protagonist extends Character implements MouseInteractable {
                         skillEffects3.play();
                         return true;
                     }else{
-                        System.out.println("Not enough mana!");
+                        actionString = "Not enough mana!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can't use it yet!");
                     return false;
                 }
             case "wizard":
@@ -317,19 +334,18 @@ public class Protagonist extends Character implements MouseInteractable {
                         if(random.nextInt(100) < 60){
                             damageDealt = 40;
                             mana += 75;
-                            System.out.println("Shift Successful!");
+                            actionString = "Shift Successful! " + damageDealt + " damage dealt to enemy!";
                             xFactor =  screenSize.width * 0.1;
                             return true;
                         }else{
-                            System.out.println("Shift Failed!");
+                            actionString = "Shift Failed!";
                             return false;
                         }
                     }else{
-                        System.out.println("Not enough mana!");
+                        actionString = "Not enough mana!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can't use it yet!");
                     return false;
                 }
             case "priest":
@@ -339,13 +355,13 @@ public class Protagonist extends Character implements MouseInteractable {
                         mana -= 25;
                         skill3Cd = 3;
                         xFactor =  screenSize.width * 0.3;
+                        actionString = "";
                         return true;
                     }else{
-                        System.out.println("Not enough mana!");
+                        actionString = "Not enough mana!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can't use it yet!");
                     return false;
                 }
             default:
@@ -362,21 +378,23 @@ public class Protagonist extends Character implements MouseInteractable {
                         mana -= 40;
                         skill4Cd = 4;
                         xFactor =  screenSize.width * 0.5;
+                        actionString = "Enemy missed a turn! Player dealt " + damageDealt + " damage to the enemy";
+                        return true;
                     }else{
-                        System.out.println("Not enough mana!");
+                        actionString = "Not enough mana!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can't use it yet!");
                     return false;
                 }
-                return true;
             case "wizard":
                 if(skill4Cd==0){
                     if(mana >= 50){
                         damageDealt = 60 + (int)(baseMana*0.25);
                         mana -= 50;
                         skill4Cd = 4;
+
+                        actionString = "Player dealt " + damageDealt + " damage to the enemy";
                         xFactor =  screenSize.width * 0.18;
                         skillEffects4.setPosX(enemy.getPosX() - skillEffects4.getWidth() * 0.25);
                         skillEffects4.setPosY(enemy.getPosX() - skillEffects4.getHeight() * 0.25);
@@ -390,15 +408,14 @@ public class Protagonist extends Character implements MouseInteractable {
                         // Play the effect
                         skillEffects4.play();
                         skillEffects4.setStopFrame(12);
+                        return true;
                     }else{
-                        System.out.println("Not enough mana!");
+                       actionString = "Not enough mana!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can't use it yet!");
                     return false;
                 }
-                return true;
             case "priest":
                 if(skill4Cd==0){
                     if(mana >= 25){
@@ -406,6 +423,8 @@ public class Protagonist extends Character implements MouseInteractable {
                         mana -= 25;
                         skill4Cd = 4;
                         xFactor =  screenSize.width * 0.3;
+                        actionString = "";
+                        return true;
                     }else{
                         System.out.println("Not enough mana!");
                         return false;
@@ -414,9 +433,8 @@ public class Protagonist extends Character implements MouseInteractable {
                     System.out.println("Can't use it yet!");
                     return false;
                 }
-                return true;
             default:
-                return true;
+                return false;
         }
     }
 

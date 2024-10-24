@@ -40,6 +40,9 @@ public abstract class Animator {
     protected boolean skillCompleted;
     protected boolean reachedTarget;
 
+    protected double movementSpeedMultiplier;
+    protected double skillAnimationSpeedMultiplier;
+    protected double deathAnimationSpeedMultiplier;
 
     public Animator(Character character, int numberOfSkills) {
         this.currentFrame = 0;
@@ -62,6 +65,12 @@ public abstract class Animator {
         this.skillCompleted = false;
         this.reachedTarget = false;
         this.isDeathAnimating = false;
+    }
+
+    public void setSpeedMultiplier(int speedMultiplier){
+        movementSpeedMultiplier = speedMultiplier;
+        skillAnimationSpeedMultiplier = speedMultiplier;
+        deathAnimationSpeedMultiplier = speedMultiplier;
     }
 
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites) {
@@ -97,10 +106,10 @@ public abstract class Animator {
 
     public void updateAnimation() {
         if (isDead) {
-            currentFrame = Math.min(currentFrame + 1, deadSprites.getSize() - 1);
+            int frameIncrement = Math.max(1, (int)(1 * deathAnimationSpeedMultiplier));
+            currentFrame = Math.min(currentFrame + frameIncrement, deadSprites.getSize() - 1);
         } else if (isUsingSkill) {
             updateSkillAnimation();
-            // System.out.println("Character: " + character.getName() + "skill frame: " + skillAnimationFrame + "is moving: " + isMoving);
         } else {
             ImageList currentSprites = isMoving ? walkSprites : idleSprites;
             currentFrame = (currentFrame + 1) % currentSprites.getSize();
@@ -114,11 +123,16 @@ public abstract class Animator {
                 reachedTarget = true;
             }
         } else if (!skillCompleted) {
-            skillAnimationFrame++;
+            // Apply skill animation speed multiplier
+            skillAnimationFrame += Math.max(1, (int)(1 * skillAnimationSpeedMultiplier));
+            
             if (skillAnimationFrame >= skillSprites[currentSkill].getSize()) {
                 skillCompleted = true;
                 isReturning = true;
-                moveTo(originalPosX, calculateDeltaX(originalPosX, true));
+                
+                int returnDeltaX = calculateDeltaX(originalPosX, true);
+                returnDeltaX = (int)(returnDeltaX * movementSpeedMultiplier);
+                moveTo(originalPosX, returnDeltaX);
             }
         } else if (isReturning) {
             updateMovement();
@@ -148,14 +162,17 @@ public abstract class Animator {
 
     public void triggerSkillAnimation(int skillNumber, int targetX) {
         isUsingSkill = true;
-        currentSkill = skillNumber - 1;  // Adjust for 0-based index
+        currentSkill = skillNumber - 1;
         skillAnimationFrame = 0;
         originalPosX = (int)character.getPosX();
         skillTargetX = targetX;
         isReturning = false;
         skillCompleted = false;
         reachedTarget = false;
-        moveTo(targetX, calculateDeltaX(targetX, false));
+        
+        int calculatedDeltaX = calculateDeltaX(targetX, false);
+        calculatedDeltaX = (int)(calculatedDeltaX * movementSpeedMultiplier);
+        moveTo(targetX, calculatedDeltaX);
     }
 
     protected int calculateDeltaX(int targetX, boolean returning) {
@@ -175,9 +192,10 @@ public abstract class Animator {
         this.currentY = character.getPosY();
 
         final double totalDistance = targetY - currentY;
-        final int animationDuration = 1000; // 1 second
+        final int baseAnimationDuration = 1000; // Base duration of 1 second
+        final int adjustedDuration = (int)(baseAnimationDuration / deathAnimationSpeedMultiplier);
         final int fps = 60;
-        final int totalFrames = animationDuration / (1000 / fps);
+        final int totalFrames = adjustedDuration / (1000 / fps);
         final double stepSize = totalDistance / totalFrames;
 
         deathAnimationTimer = new Timer(1000 / fps, new ActionListener() {
@@ -188,7 +206,7 @@ public abstract class Animator {
                 if (frame < totalFrames) {
                     currentY += stepSize;
                     character.setPosY(currentY);
-                    frame++;
+                    frame += Math.max(1, (int)(1 * deathAnimationSpeedMultiplier));
                     updateBounds();
                 } else {
                     isDeathAnimating = false;

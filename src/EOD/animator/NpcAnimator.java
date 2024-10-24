@@ -26,6 +26,14 @@ public class NpcAnimator extends Animator {
         moveSpeed = 2;
     }
 
+    @Override
+    public void setSpeedMultiplier(int speedMultiplier){
+        movementSpeedMultiplier = 1;
+        skillAnimationSpeedMultiplier = 1;
+        deathAnimationSpeedMultiplier = 1;
+    }
+
+
     public void setRange(double minRange, double maxRange) {
         this.minRange = minRange;
         this.maxRange = maxRange;
