@@ -11,12 +11,15 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected int health;
     protected int attack;
     protected int moneyDrop;
+    protected int baseHp;
     protected EnemyAnimator animator;
     private int index;
     protected int turnDuration;
     protected int damageDealt;
     public boolean missedTurn = false;
     private boolean isDefeated;
+    protected String actionString;
+    protected int lastUsedSkill;
 
     public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
         double minRange, double maxRange,
@@ -44,8 +47,20 @@ public abstract class Enemy extends Character implements MouseInteractable {
         return isDefeated;
     }
 
+    public abstract void update();
+
+    public abstract int decideSkill();
+
     public int getDamageDealt(){
         return damageDealt;
+    }
+
+    public int getBaseHp(){
+        return baseHp;
+    }
+
+    public int getLastUsedSkill(){
+        return lastUsedSkill;
     }
 
     public void takeDamage(int damage){
@@ -57,6 +72,10 @@ public abstract class Enemy extends Character implements MouseInteractable {
     
     public int getTurnDuration(){
         return turnDuration;
+    }
+
+    public void setTurnDuration(int turnDuration){
+        this.turnDuration = turnDuration;
     }
 
     public void setIndex(int index){
@@ -87,6 +106,10 @@ public abstract class Enemy extends Character implements MouseInteractable {
         return animator;
     }
 
+    public String getAction(){
+        return actionString;
+    }
+
     @Override
     public void onClick(MouseEvent e) {
         animator.stopMovement();
@@ -107,14 +130,16 @@ public abstract class Enemy extends Character implements MouseInteractable {
 
     @Override
     public void onHover(MouseEvent e) {
-        if (animator.getIsInBattle()) return;
         animator.stopMovement();
+        animator.setPaused(true);
+        animator.setInteracting(true);
     }
-
+    
     @Override
     public void onExit(MouseEvent e) {
-        if (animator.getIsInBattle()) return;
         animator.startMovement();
+        animator.setPaused(false);
+        animator.setInteracting(false);
     }
 
     protected abstract void onBattleStart();

@@ -1,6 +1,5 @@
 package EOD.objects.shop;
 
-import EOD.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.worlds.*;
@@ -8,7 +7,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-public class Shop extends EchoesObjects implements MouseInteractable {
+public class Shop extends EchoesObjects {
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private World world;
     // objects
@@ -19,6 +18,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
     private int itemToBuy;
     private int item1Stock, item2Stock, item3Stock, item4Stock;
     private int money;
+
     public Shop(World world) {
         super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 
               (int) (screenSize.width * 0.8), (int) (screenSize.height * 0.8), "shopbg", false, false, 1);
@@ -148,6 +148,7 @@ public class Shop extends EchoesObjects implements MouseInteractable {
             case 3 -> updateStock(item3, --item3Stock);
             case 4 -> updateStock(item4, --item4Stock);
         }
+
     }
 
     private void updateStock(EchoesObjects item, int stock) {

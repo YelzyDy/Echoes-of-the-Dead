@@ -24,7 +24,13 @@ public class Protagonist extends Character implements MouseInteractable {
     private String actionString;
     public ProtagonistAttributes attributes;
 
-    private static final int MANA_REGEN = 15;
+    private static final int MONEY_REGEN = 5; // Knights gain some money per turn
+    private static final int MANA_REGEN = 10; // Reduced from 15
+    private static final int HEALTH_REGEN = 5; // Small health regen for Pr
+
+    private static final int SKILL2_DURATION = 3; // Duration of buff in turns
+    private int skill2BuffRemaining = 0; // Tracks remaining turns of skill 2 buff
+    private int originalAttack; // Stores original attack value
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY) {
         super(name, characterType, panel, posX, posY);
@@ -39,6 +45,7 @@ public class Protagonist extends Character implements MouseInteractable {
         actionString = null;
         this.damageReducer = false;
         this.characterType = characterType;
+        originalAttack = attributes.attack;
     }
 
     public boolean isWizard() {
@@ -105,6 +112,10 @@ public class Protagonist extends Character implements MouseInteractable {
         return xFactor;
     }
 
+    public int getSkill2CD() {
+        return attributes.skill2Cd;
+    }
+
     public int getSkill3CD() {
         return attributes.skill3Cd;
     }
@@ -140,6 +151,16 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
+    private int getSkillEffectStopFrame() {
+        // Returns the appropriate stop frame for skill animations based on character type
+        return switch (getCharacterType()) {
+            case "knight" -> 15;  // Knight's buff animation frames
+            case "wizard" -> 14;  // Wizard's buff animation frames
+            case "priest" -> 9;   // Priest's buff animation frames
+            default -> 0;
+        };
+    }
+
     public boolean isDamageReducerActive() {
         return damageReducer;
     }
@@ -150,11 +171,28 @@ public class Protagonist extends Character implements MouseInteractable {
     }
 
     public void attributeTurnChecker() {
+        if (attributes.skill2Cd > 0) attributes.skill2Cd--;
         if (attributes.skill3Cd > 0) attributes.skill3Cd--;
         if (attributes.skill4Cd > 0) attributes.skill4Cd--;
-
-        attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
-        attributes.health = Math.min(attributes.health, attributes.baseHealth);
+        
+        // Handle skill 2 buff duration
+        if (skill2BuffRemaining > 0) {
+            skill2BuffRemaining--;
+            if (skill2BuffRemaining == 0) {
+                // Reset attack to original value when buff expires
+                attributes.attack = originalAttack;
+            }
+        }
+        
+        if (isKnight()) {
+            attributes.money = Math.min(attributes.money + MONEY_REGEN, attributes.baseMoney);
+        }
+        if (isWizard()) {
+            attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
+        }
+        if (isPriest()) {
+            attributes.health = Math.min(attributes.health + HEALTH_REGEN, attributes.baseHealth);
+        }
     }
 
     private boolean canUseSkill(int manaCost, int cooldown) {
@@ -176,131 +214,151 @@ public class Protagonist extends Character implements MouseInteractable {
     }
 
     public boolean skill1() {
-        damageDealt = attributes.attack;
+        // Basic attack with class-specific mechanics
+        switch(getCharacterType()) {
+            case "knight":
+                damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
+                xFactor = screenSize.width * 0.5;
+                break;
+            case "wizard":
+                damageDealt = attributes.attack;
+                attributes.mana = Math.min(attributes.mana + 5, attributes.baseMana); // Mana return on basic attack
+                xFactor = screenSize.width * 0.1;
+                break;
+            case "priest":
+                damageDealt = attributes.attack;
+                attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
+                xFactor = screenSize.width * 0.3;
+                break;
+        }
+        
         actionString = "Player dealt " + damageDealt + " damage to the enemy!";
-        xFactor = switch (getCharacterType()) {
-            case "knight" -> screenSize.width * 0.5;
-            case "wizard" -> screenSize.width * 0.1;
-            default -> screenSize.width * 0.3;
-        };
         return true;
     }
 
     public boolean skill2() {
         xFactor = getPosX();
-        int skillEffectStopFrame = switch (getCharacterType()) {
-            case "knight" -> 15;
-            case "wizard" -> 14;
-            case "priest" -> 9;
-            default -> 0;
-        };
-
-        if (!skillIsUseable) {
-            actionString = "Can only be used once per battle!";
+        
+        if (attributes.skill2Cd > 0) {
+            actionString = "Skill on cooldown! " + attributes.skill2Cd + " turns remaining!";
             return false;
         }
 
-        if (getCharacterType().equals("knight") && attributes.money < 15 ||
-            getCharacterType().equals("wizard") && attributes.mana < 15 ||
-            getCharacterType().equals("priest") && attributes.health < 50) {
-            actionString = "Not enough resources!";
-            return false;
-        }
-
-        applySkillEffect(attributes.skillEffects2, this, skillEffectStopFrame, 0.35, 0.3);
-
-        if (getCharacterType().equals("knight")) {
-            attributes.money -= 15;
-            attributes.attack += 15;
-            actionString = "Player's attack increased by 15!";
-        } else if (getCharacterType().equals("wizard")) {
-            attributes.mana -= 15;
-            attributes.attack += 15;
-            actionString = "Player's attack increased by 15!";
-        } else if (getCharacterType().equals("priest")) {
-            attributes.health -= 15;
-            attributes.attack += 30;
-            actionString = "Player's attack increased by 30!";
+        switch(getCharacterType()) {
+            case "knight":
+                if (attributes.money < 10) {
+                    actionString = "Not enough money!";
+                    return false;
+                }
+                attributes.money -= 10;
+                originalAttack = attributes.attack; // Store current attack
+                attributes.attack += 15;
+                actionString = "Player's attack increased by 15 for " + SKILL2_DURATION + " turns!";
+                break;
+                
+            case "wizard":
+                if (attributes.mana < 20) {
+                    actionString = "Not enough mana!";
+                    return false;
+                }
+                attributes.mana -= 20;
+                originalAttack = attributes.attack;
+                attributes.attack += 20;
+                actionString = "Player's attack increased by 20 for " + SKILL2_DURATION + " turns!";
+                break;
+                
+            case "priest":
+                if (attributes.health < 25) {
+                    actionString = "Not enough health!";
+                    return false;
+                }
+                attributes.health -= 25;
+                originalAttack = attributes.attack;
+                attributes.attack += 30;
+                actionString = "Player's attack increased by 30 for " + SKILL2_DURATION + " turns!";
+                break;
         }
         
-        skillIsUseable = false;
+        applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
+        skill2BuffRemaining = SKILL2_DURATION;
+        attributes.skill2Cd = 4; // Set cooldown to 4 turns
         return true;
     }
 
-    public boolean skill3() {
+
+     public boolean skill3() {
         if (!canUseSkill(25, attributes.skill3Cd)) return false;
 
-        switch (getCharacterType()) {
-            case "knight" -> {
+        switch(getCharacterType()) {
+            case "knight":
                 damageReducer = true;
                 attributes.skill3Cd = 3;
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
-                actionString = "Enemy's damage reduced by 4%";
+                actionString = "Defense activated! Damage reduced by 60%";
                 xFactor = getPosX();
                 return true;
-            }
-            case "wizard" -> {
-                if (random.nextInt(100) < 60) {
-                    damageDealt = 40;
+
+            case "wizard":
+                if (random.nextInt(100) < 75) { // 75% success rate
+                    damageDealt = 35;
                     attributes.skill3Cd = 3;
-                    attributes.mana = Math.min(attributes.mana + 75, attributes.baseMana);
+                    attributes.mana = Math.min(attributes.mana + 50, attributes.baseMana);
                     applySkillEffect(attributes.skillEffects3, enemy, 14, 0.25, 0.30);
-                    actionString = "Shift Successful! 40 damage dealt to enemy!";
+                    actionString = "Shift Successful! 35 damage dealt to enemy!";
                     xFactor = screenSize.width * 0.1;
                     return true;
                 } else {
                     actionString = "Shift Failed!";
                     return false;
                 }
-            }
-            case "priest" -> {
-                damageDealt = (int) (attributes.baseHealth * 0.3);
-                attributes.health = Math.min(attributes.health + damageDealt, attributes.baseHealth);
+
+            case "priest":
+                int healing = (int)(attributes.baseHealth * 0.3);
+                damageDealt = (int)(attributes.baseHealth * 0.25);
+                attributes.health = Math.min(attributes.health + healing, attributes.baseHealth);
                 attributes.mana -= 40;
                 attributes.skill3Cd = 3;
-                actionString = "Player dealt " + damageDealt + " damage to the enemy!";
+                actionString = "Healed for " + healing + " and dealt " + damageDealt + " damage!";
                 xFactor = screenSize.width * 0.22;
                 return true;
-            }
-            default -> {
-                return false;
-            }
         }
+        return false;
     }
 
     public boolean skill4() {
         if (!canUseSkill(50, attributes.skill4Cd)) return false;
-        switch (getCharacterType()) {
-            case "knight" -> {
-                damageDealt = 2 * attributes.attack + (int) (attributes.money * 0.2);
+
+        switch(getCharacterType()) {
+            case "knight":
+                int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
+                damageDealt = 2 * attributes.attack + moneyBonus;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 19, enemy.getOffsetX(4), enemy.getOffsetY(4));
-                actionString = "Enemy missed a turn! Player dealt " + damageDealt + " damage to the enemy";
+                actionString = "Time Stop! Dealt " + damageDealt + " damage to the enemy";
                 xFactor = screenSize.width * 0.5;
                 return true;
-            }
-            case "wizard" -> {
-                damageDealt = 60 + (int) (attributes.baseMana * 0.25);
+
+            case "wizard":
+                damageDealt = 50 + (int)(attributes.mana * 0.3);
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
-                actionString = "Player dealt " + damageDealt + " damage to the enemy";
+                actionString = "Explosion! Dealt " + damageDealt + " damage to the enemy";
                 xFactor = screenSize.width * 0.1;
                 return true;
-            }
-            case "priest" -> {
-                damageDealt = (int) ((attributes.baseHealth - attributes.health) * 0.6);
-                attributes.health = Math.min(attributes.health + (int) (attributes.baseHealth * 0.4), attributes.baseHealth);
+
+            case "priest":
+                int missingHealth = attributes.baseHealth - attributes.health;
+                damageDealt = (int)(missingHealth * 0.4);
+                int ultimateHeal = (int)(attributes.baseHealth * 0.4);
+                attributes.health = Math.min(attributes.health + ultimateHeal, attributes.baseHealth);
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, 0.35, 0.40);
                 applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.4, 0.30);
-                actionString = "Player dealt " + damageDealt + " damage to the enemy";
+                actionString = "Divine Retribution! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
                 xFactor = screenSize.width * 0.3;
                 return true;
-            }
-            default -> {
-                return false;
-            }
         }
+        return false;
     }
 
     public ProtagonistAttributes getAttributes() {

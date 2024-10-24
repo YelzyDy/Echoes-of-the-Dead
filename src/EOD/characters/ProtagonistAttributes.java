@@ -9,6 +9,7 @@ public class ProtagonistAttributes {
     protected int baseHealth;
     protected int mana;
     protected int baseMana;
+    protected int baseMoney;
     protected int money;
     protected int s1num;
     protected int s2num;
@@ -16,6 +17,7 @@ public class ProtagonistAttributes {
     protected int s4num;
     protected int turnDuration;
     protected Protagonist player;
+    protected int skill2Cd;
     protected int skill3Cd;
     protected int skill4Cd;
     public SkillEffects skillEffectsRandom;
@@ -34,13 +36,13 @@ public class ProtagonistAttributes {
     private void configure(String characterType) {
         switch (characterType) {
             case "knight":
-                setupAttributes(20, 150, 100, 40, 7, 4, 4, 11, 3000);
+                setupAttributes(15, 120, 100, 100, 7, 4, 4, 11, 3000);
                 break;
             case "wizard":
-                setupAttributes(20, 150, 130, 0, 6, 6, 6, 6, 3000);
+                setupAttributes(12, 80, 150, 50, 6, 6, 6, 6, 3000);
                 break;
             case "priest":
-                setupAttributes(20, 180, 100, 0, 9, 9, 10, 6, 3000);
+                setupAttributes(10, 100, 120, 75, 9, 9, 10, 6, 3000);
                 break;
         }
     }
@@ -52,6 +54,7 @@ public class ProtagonistAttributes {
         this.mana = mp;
         this.baseMana = mp;
         this.money = moneyAmt;
+        this.baseMoney = money;
         this.s1num = s1;
         this.s2num = s2;
         this.s3num = s3;

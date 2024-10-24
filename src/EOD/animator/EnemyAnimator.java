@@ -1,8 +1,6 @@
 package EOD.animator;
 
 import EOD.characters.Enemy;
-import EOD.scenes.SceneBuilder;
-
 import java.util.Random;
 
 public class EnemyAnimator extends Animator {
@@ -123,7 +121,7 @@ public class EnemyAnimator extends Animator {
         }
         moveTo(target, moveSpeed);
     }
-
+    
     public void setInteracting(boolean value) {
         this.isInteracting = value;
     }

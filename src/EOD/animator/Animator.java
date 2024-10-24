@@ -124,7 +124,6 @@ public abstract class Animator {
                 reachedTarget = true;
             }
         } else if (!skillCompleted) {
-            // Apply skill animation speed multiplier
             skillAnimationFrame += Math.max(1, (int)(1 * skillAnimationSpeedMultiplier));
             
             if (skillAnimationFrame >= skillSprites[currentSkill].getSize()) {
@@ -140,7 +139,7 @@ public abstract class Animator {
                 isUsingSkill = false;
                 isReturning = false;
                 skillAnimationFrame = 0;
-                setMovingRight(true);
+                setMovingRight(initialDirection); // Restore original direction
             }
         }
     }
@@ -160,6 +159,8 @@ public abstract class Animator {
         }
     }
 
+    protected boolean initialDirection; // Add this as a new class field
+
     public void triggerSkillAnimation(int skillNumber, int targetX) {
         isUsingSkill = true;
         currentSkill = skillNumber - 1;
@@ -169,6 +170,9 @@ public abstract class Animator {
         isReturning = false;
         skillCompleted = false;
         reachedTarget = false;
+        
+        // Store initial direction before moving to target
+        initialDirection = isMovingRight;
         
         int calculatedDeltaX = calculateDeltaX(targetX, false);
         calculatedDeltaX = (int)(calculatedDeltaX * movementSpeedMultiplier);

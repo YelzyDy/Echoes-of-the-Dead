@@ -4,14 +4,57 @@ import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
 
 public class Necromancer extends Enemy {    
+    private static final int BASE_ATTACK = 10;
+    private static final int BASE_HEALTH = 200;
+    private static final int TURN_DURATION = 4000;
+    private static final double SPRITE_SCALE = 0.3;
+    
+    // Skill cooldowns
+    private int skill2Cooldown = 0;
+    private static final int SKILL2_MAX_COOLDOWN = 3;
+
     public Necromancer(String name, SceneBuilder panel, int posX, int posY, 
             double minRange, double maxRange, Protagonist protagonist) {
             super(name, "necromancer", panel, posX, posY, minRange, maxRange, protagonist);
             configureSprites();
-            health = 200;
-            attack = 10;
-            turnDuration = 3500;
+            health = BASE_HEALTH;
+            attack = BASE_ATTACK;
+            turnDuration = TURN_DURATION;
             animator.setSpeedMultiplier(2);
+    }
+
+    public void configureSprites(){
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), 10);
+        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 50);
+        animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.007), 52);
+        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.007), 47);
+        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.007), 47);
+        animator.startMovement();
+        animator.chooseNewDirection();
+        animator.updateBounds();
+    }
+    
+
+    @Override 
+    public void skill1() {
+        damageDealt = attack + (int)(Math.random() * 3);
+        actionString = getName() + " swings its rusty sword for " + damageDealt + " damage!";
+        lastUsedSkill = 1;
+    }
+
+    @Override 
+    public void skill2() {
+        if (skill2Cooldown > 0) {
+            skill1();
+            return;
+        }
+
+        int baseSkill2Damage = (int)(attack * 1.5);
+        damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
+        
+        actionString = getName() + " throws a bone for " + damageDealt + " damage!";
+        lastUsedSkill = 2;
+        skill2Cooldown = SKILL2_MAX_COOLDOWN;
     }
 
 
@@ -100,25 +143,20 @@ public class Necromancer extends Enemy {
         return screenSize.width * 0.4;
     }
 
-    @Override
-    public void skill1(){
-        damageDealt = 10;
-    }
 
     @Override
-    public void skill2(){
-        damageDealt = 10; //this is just a sample... 
+    public void update() {
+        if (skill2Cooldown > 0) {
+            skill2Cooldown--;
+        }
     }
-    
-    public void configureSprites(){
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), 10);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 50);
-        animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.007), 52);
-        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.007), 47);
-        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.007), 47);
-        animator.startMovement();
-        animator.chooseNewDirection();
-        animator.updateBounds();
+
+    // Decision making for skill usage
+    @Override
+    public int decideSkill() {
+        // 70% chance to use basic attack
+        // 30% chance to try skill2 (will fall back to basic if on cooldown)
+        return Math.random() < 0.7 ? 1 : 2;
     }
     
     @Override

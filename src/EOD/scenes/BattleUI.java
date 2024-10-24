@@ -150,7 +150,7 @@ public class BattleUI extends JFrame {
 
     public void setSkillButtonsEnabled(boolean enabled) {
         skillA.setEnabled(enabled);
-        skillB.setEnabled(enabled);
+        skillB.setEnabled(enabled && player.getSkill2CD() == 0);
         skillC.setEnabled(enabled && player.getSkill3CD() == 0);
         skillD.setEnabled(enabled && player.getSkill4CD() == 0);
     }
@@ -203,6 +203,7 @@ public class BattleUI extends JFrame {
 
     public void updateCooldowns() {
         // Update each cooldown label
+        updateSkillCooldown(1, player.getSkill2CD());
         updateSkillCooldown(2, player.getSkill3CD());
         updateSkillCooldown(3, player.getSkill4CD());
     }
@@ -221,6 +222,7 @@ public class BattleUI extends JFrame {
 
     private JButton getSkillButton(int index) {
         switch (index) {
+            case 1: return skillB;
             case 2: return skillC;
             case 3: return skillD;
             default: return null;
