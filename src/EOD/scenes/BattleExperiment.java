@@ -141,10 +141,10 @@ public class BattleExperiment {
 
             if(player.damageReducer == true){
                 damage *= 0.4;
-                if(damage > (int)(player.getHp()*0.2)){
+                if(damage > (int)(player.getAttributes().getHp()*0.2)){
                     // padisplay nya ko blair -jm
                     System.out.println("Gain 30 Soul Shards");
-                    player.setMoney(30);
+                    player.getAttributes().setMoney(30);
                 }
                 player.damageReducer = false;
             }

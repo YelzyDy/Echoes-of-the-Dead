@@ -33,7 +33,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private boolean isState = false;
     private int numOfSprites;
     private int index;
-
+    private boolean allowHover;
     public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
         setName(type);
@@ -44,9 +44,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         currentFrame = 0;
         numOfSprites = 0;
         index = 0;
+        allowHover = true;
         initializeSprites(assetPackage, width, height);
         this.addMouseListener(new MouseClickListener(this));
     }   
+    
+    public void setAllowHover(boolean allowHover){
+        this.allowHover = allowHover;
+    }
     
     public void setIndex(int index){
         this.index = index;
@@ -95,6 +100,8 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         objSprites.scaleImageList(scale);
     }
 
+    
+
     public void scaleDownSprites(double scale) {
         objSprites.scaleImageListDown(scale);
     }
@@ -110,6 +117,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     @Override
     public void onHover(MouseEvent e) {
+        if(!allowHover) return;
         if(!isAnimated && isState){
            currentFrame = 1;
            repaint();

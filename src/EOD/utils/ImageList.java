@@ -193,4 +193,29 @@ public class ImageList {
         imageList.clear();  // Clears the entire list of images
         size = 0;           // Resets the size counter
     }
+
+    public void replaceImageAt(int index, Image newImage) {
+        if (index >= 0 && index < size) {
+            // Preserve the current x position
+            double currentX = (double) imageList.get(index).get(1);
+    
+            // Get the original image details
+            Image originalImage = (Image) imageList.get(index).get(0);
+            int originalHeight = originalImage.getHeight(null); // Store the original height
+            int originalWidth = originalImage.getWidth(null);   // Store the original width
+    
+            // Update the image with the new one
+            imageList.get(index).set(0, newImage);
+    
+            // Resize the new image to match the dimensions of the original image
+            Image resizedImage = newImage.getScaledInstance(originalWidth, originalHeight, Image.SCALE_SMOOTH);
+            imageList.get(index).set(0, resizedImage);
+    
+            // Set back the x position
+            imageList.get(index).set(1, currentX);
+        } else {
+            System.out.println("Index out of bounds. Cannot replace image.");
+        }
+    }
+    
 }

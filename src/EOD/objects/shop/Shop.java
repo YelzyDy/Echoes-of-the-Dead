@@ -5,208 +5,199 @@ import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.worlds.*;
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 public class Shop extends EchoesObjects implements MouseInteractable {
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private World world;
-    //objects
-    private EchoesObjects shopBg, sidePanel;
+    // objects
+    private EchoesObjects sidePanel;
     private EchoesObjects item1, item2, item3, item4;
-    private EchoesObjects unavail1, unavail2, unavail3, unavail4;
     private EchoesObjects buyButton, closeButton;
     private double height, width;
-
-
+    private int itemToBuy;
+    private int item1Stock, item2Stock, item3Stock, item4Stock;
+    private int money;
     public Shop(World world) {
-        super("shop",
-              (int)(screenSize.width * 0.78),
-              (int)(screenSize.height * 0.037),
-              (int)(screenSize.width * 0.22),
-              (int)(screenSize.height * 0.32),
-              "shop", false, true, 2);
-        this.addMouseListener(new MouseClickListener(this));
+        super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 
+              (int) (screenSize.width * 0.8), (int) (screenSize.height * 0.8), "shopbg", false, false, 1);
         this.world = world;
-    }   
-
-    public void showShopBg(){
-        shopBg = new EchoesObjects("shop", (int)(screenSize.width * 0.1), (int)(screenSize.height* 0.1), (int)(screenSize.width * 0.8), (int)(screenSize.height * 0.8), "shopbg", false, false, 1);
-        shopBg.setVisible(true);
-        shopBg.setLayout(null);
-        world.getLayeredPane().add(shopBg, Integer.valueOf(2));
-        world.getLayeredPane().setComponentZOrder(shopBg, 0); // Make sure it's on top
-        world.getLayeredPane().revalidate();
-        world.getLayeredPane().repaint();
+        // Initialize stocks
+        item1Stock = item2Stock = item3Stock = item4Stock = 3;
+        setVisible(true);
+        setLayout(null);
+        world.getLayeredPane().add(this, Integer.valueOf(2));
+        world.getLayeredPane().setComponentZOrder(this, 0);
+        money = world.getProtag().getAttributes().getMoney();
     }
 
-    public void hideShop() {
-        shopBg.setVisible(false);
-
-        world.getLayeredPane().revalidate();
-        world.getLayeredPane().repaint();
-    }
-
-    public void showSidePanelBg(double width, double height){
-        sidePanel = new EchoesObjects("shop", (int)(width * 0.3799), (int)(height* 0.240), (int)(width * 0.58), (int)(height * 0.58), "sidePanel_", false, false, 5);
+    private void showSidePanelBg(double width, double height) {
+        sidePanel = new EchoesObjects("shop", (int) (width * 0.3799), (int) (height * 0.240),
+                                      (int) (width * 0.58), (int) (height * 0.58), "sidePanel_", false, false, 5);
         sidePanel.setVisible(true);
-        shopBg.add(sidePanel);
+        add(sidePanel);
     }
 
-    public void showShopItem1(double width, double height){
-        item1 = new EchoesObjects("shop", (int)(width * 0.152), (int)(height* 0.2528), (int)(width * 0.1578), (int)(height * 0.3), "item1_", false, true, 2);
-        item1.setVisible(true);
-        item1.addMouseListener(new MouseClickListener(this));
-        item1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(MouseEvent e) {
-                onHover(e);
-            }
-        });
-        shopBg.add(item1);
+    private void showShopItems(double width, double height) {
+        item1 = createItem("item1_", width * 0.152, height * 0.2528, width * 0.1578, height * 0.3);
+        item2 = createItem("item2_", width * 0.152, height * 0.5, width * 0.1578, height * 0.3);
+        item3 = createItem("item3_", width * 0.294, height * 0.258, width * 0.1578, height * 0.3);
+        item4 = createItem("item4_", width * 0.294, height * 0.505, width * 0.1578, height * 0.3);
 
-        item2 = new EchoesObjects("shop", (int)(width * 0.152), (int)(height* 0.5), (int)(width * 0.1578), (int)(height * 0.3), "item2_", false, true, 2);
-        item2.setVisible(true);
-        item2.addMouseListener(new MouseClickListener(this));
-        item2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(MouseEvent e) {
-                onHover(e);
-            }
-        });
-        shopBg.add(item2);
-
-        item3 = new EchoesObjects("shop", (int)(width * 0.294), (int)(height* 0.258), (int)(width * 0.1578), (int)(height * 0.3), "item3_", false, true, 2);
-        item3.setVisible(true);
-        item3.addMouseListener(new MouseClickListener(this));
-        item3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(MouseEvent e) {
-                onHover(e);
-            }
-        });
-        shopBg.add(item3);
-
-        item4 = new EchoesObjects("shop", (int)(width * 0.294), (int)(height* 0.505), (int)(width * 0.1578), (int)(height * 0.3), "item4_", false, true, 2);
-        item4.setVisible(true);
-        item4.addMouseListener(new MouseClickListener(this));
-        item4.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(MouseEvent e) {
-                onHover(e);
-            }
-        });
-        shopBg.add(item4);
+        add(item1);
+        add(item2);
+        add(item3);
+        add(item4);
     }
 
-    public void showBuyButton(double width, double height){
-        buyButton = new EchoesObjects("shop", 
-        (int)(width * 0.618), (int)(height* 0.717), 
-        (int)(width * 0.13), (int)(height * 0.15), 
-        "buy_", false, true, 2);
+    private void showMoney(double width, double height) {
+        // Create a panel for better layout control
+        JPanel moneyPanel = new JPanel();
+        moneyPanel.setLayout(null);
+        moneyPanel.setOpaque(false); // Make panel transparent
+        moneyPanel.setBounds((int)(width * 0.68), (int)(height * 0.19), (int)(width * 0.1), (int)(height * 0.1)); // Position at top
+
+        // Create money label with formatted text
+        JLabel moneyLabel = new JLabel("" + money);
+        moneyLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.03))); // Scaled font size
+        moneyLabel.setForeground(new Color(238,218,180,255)); // Gold color
+        moneyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        // Set the bounds for the label within the panel
+        moneyLabel.setBounds(0, 0, 
+                            (int)(width * 0.1), (int)(height * 0.1));
+
+        moneyPanel.add(moneyLabel);
+        add(moneyPanel);
+        setComponentZOrder(moneyPanel, 0);
+    }
+
+    private EchoesObjects createItem(String imageName, double x, double y, double width, double height) {
+        EchoesObjects item = new EchoesObjects("shop", (int) x, (int) y, (int) width, (int) height, imageName, false, true, 3);
+        item.setVisible(true);
+        item.addMouseListener(new MouseClickListener(this));
+        item.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(MouseEvent e) {
+                onHover(e);
+            }
+        });
+        return item;
+    }
+
+    private void showBuyButton(double width, double height) {
+        buyButton = new EchoesObjects("shop", (int) (width * 0.618), (int) (height * 0.717),
+                                      (int) (width * 0.13), (int) (height * 0.15), "buy_", false, true, 2);
         buyButton.addMouseListener(new MouseClickListener(this));
-        shopBg.add(buyButton);
-        shopBg.setComponentZOrder(buyButton, 0);
+        add(buyButton);
+        setComponentZOrder(buyButton, 0);
     }
 
-    public void showCloseButton(double width, double height) {
-        closeButton = new EchoesObjects("shop", 
-            (int)(width * 0.82), 
-            (int)(height * 0.189), 
-            (int)(width * 0.056), 
-            (int)(height * 0.1),
-            "close_", false, true, 2); 
+    private void showCloseButton(double width, double height) {
+        closeButton = new EchoesObjects("shop", (int) (width * 0.82), (int) (height * 0.189),
+                                        (int) (width * 0.056), (int) (height * 0.1), "close_", false, true, 2);
         closeButton.setVisible(true);
         closeButton.addMouseListener(new MouseClickListener(this));
-        shopBg.add(closeButton);
-        shopBg.revalidate();
-        shopBg.repaint(); 
+        add(closeButton);
+        setComponentZOrder(closeButton, 0);
     }
 
-    public void itemUnavail1(double width, double height){
-        unavail1 = new EchoesObjects("shop", 
-        (int)(width * 0.152), (int)(height* 0.2528), 
-        (int)(width * 0.1578), (int)(height * 0.3), 
-        "unavailItem", false, true, 1);
-        unavail1.setVisible(true);
-        shopBg.add(unavail1);
-        shopBg.revalidate();
-        shopBg.repaint(); 
-    }
+    public void showElementsInShop() {
+        width = getWidth();
+        height = getHeight();
 
-    public void showElementsInShop(){
-        showShopBg();
-        width = shopBg.getWidth();
-        height = shopBg.getHeight();
-        
-        showShopItem1(width, height);
+        showShopItems(width, height);
         showSidePanelBg(width, height);
-        
-        //buttons
         showBuyButton(width, height);
         showCloseButton(width, height);
-
-        itemUnavail1(width, height);
+        showMoney(width, height);
     }
 
     @Override
-    public void onClick(MouseEvent e) {     
+    public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        if(source == this){
-            showElementsInShop();
-            return;
-        }
         buyButton.setVisible(true);
 
-        if(source == item1){
-            item1.setCurrentFrame(2);  // Show second image on click
-            item1.repaint();
-            sidePanel.setCurrentFrame(1);
-            sidePanel.repaint();
-            
-            // sidePanel.setCurrentFrame(1);
-            // sidePanel.repaint();
-        }else if(source == item2){
-            item2.setCurrentFrame(2);  // Show second image on click
-            sidePanel.setCurrentFrame(2);
-            sidePanel.repaint();
-            item2.repaint();
-            // sidePanel.setCurrentFrame(2);
-            // showBuyButton(width, height);
-            sidePanel.repaint();
-        }else if(source == item3){
-            item3.setCurrentFrame(2);  // Show second image on click
-            sidePanel.setCurrentFrame(3);
-            sidePanel.repaint();
-            item3.repaint();
-            // sidePanel.setCurrentFrame(3);
-            // showBuyButton(width, height);
-            // sidePanel.repaint();
-        }else if(source == item4){
-            item4.setCurrentFrame(2);  // Show second image on click
-            sidePanel.setCurrentFrame(4);
-            sidePanel.repaint();
-            item4.repaint();
-            // sidePanel.setCurrentFrame(4);
-            // showBuyButton(width, height);
-            // sidePanel.repaint();
-        }else if (source == closeButton){
+        if (source == item1) {
+            handleItemClick(1, item1, item1Stock);
+        } else if (source == item2) {
+            handleItemClick(2, item2, item2Stock);
+        } else if (source == item3) {
+            handleItemClick(3, item3, item3Stock);
+        } else if (source == item4) {
+            handleItemClick(4, item4, item4Stock);
+        } else if (source == buyButton) {
+            buy();
+        } else if (source == closeButton) {
             hideShop();
         }
-    }  
+    }
 
-    // for some reason nigana na ang hide shop yehey!!
-
-    // -sm on hover show sidePanel
-    public void onHover(MouseEvent e) {
-        Object source = e.getSource();
-        if(source == item1) {
-            sidePanel.setCurrentFrame(1);
-            sidePanel.repaint();
-        } else if(source == item2) {
-            sidePanel.setCurrentFrame(2);
-            sidePanel.repaint();
-        } else if(source == item3) {
-            sidePanel.setCurrentFrame(3);
-            sidePanel.repaint();
-        } else if(source == item4) {
-            sidePanel.setCurrentFrame(4);
+    private void handleItemClick(int itemNumber, EchoesObjects item, int stock) {
+        itemToBuy = itemNumber;
+        if (stock > 0) {
+            sidePanel.setCurrentFrame(itemNumber);
             sidePanel.repaint();
         }
+    }
+
+    public void buy() {
+        switch (itemToBuy) {
+            case 1 -> updateStock(item1, --item1Stock);
+            case 2 -> updateStock(item2, --item2Stock);
+            case 3 -> updateStock(item3, --item3Stock);
+            case 4 -> updateStock(item4, --item4Stock);
+        }
+    }
+
+    private void updateStock(EchoesObjects item, int stock) {
+        if (stock == 0) {
+            item.setCurrentFrame(2);  // Show "sold out" frame
+            item.repaint();
+            item.setAllowHover(false);
+        }
+    }
+
+    @Override
+    public void onHover(MouseEvent e) {
+        Object source = e.getSource();
+        if (source == item1 && item1Stock == 0) {
+            updateUnavailableItem(item1);
+        } else if (source == item2 && item2Stock == 0) {
+            updateUnavailableItem(item2);
+        } else if (source == item3 && item3Stock == 0) {
+            updateUnavailableItem(item3);
+        } else if (source == item4 && item4Stock == 0) {
+            updateUnavailableItem(item4);
+        }
+    }
+
+    private void updateUnavailableItem(EchoesObjects item) {
+        item.setCurrentFrame(2);  // Show "unavailable" frame
+        item.revalidate();
+        item.repaint();
+    }
+
+    @Override
+    public void onExit(MouseEvent e) {
+        // Add logic if needed for onExit
+    }
+
+    private void hideShop() {
+        if (isVisible()) {
+            removeAll();
+            setVisible(false);
+            world.getLayeredPane().remove(this);
+            world.getLayeredPane().revalidate();
+            world.getLayeredPane().repaint();
+            resetShopObjects();
+        }
+    }
+
+    private void resetShopObjects() {
+        sidePanel = null;
+        item1 = item2 = item3 = item4 = null;
+        buyButton = null;
+        closeButton = null;
     }
 }

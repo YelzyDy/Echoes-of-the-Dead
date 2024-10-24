@@ -166,9 +166,9 @@ public class SceneBuilder extends JPanel{
             battle.updateCooldowns();
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
-            int playerHp = player.getHp();
+            int playerHp = player.getAttributes().getHp();
 
-            System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getMana() + " Enemy HP: " + enemyHp 
+            System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 
             + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  
              
             double enemyDeathY = getEnemyDeathPosY(enemy);
@@ -212,10 +212,10 @@ public class SceneBuilder extends JPanel{
 
         if(world != null){
 
-            if(player.skillEffects1!= null) player.skillEffects1.updateEffect();
-            if(player.skillEffects2!= null) player.skillEffects2.updateEffect();
-            if(player.skillEffects3!= null) player.skillEffects3.updateEffect();
-            if(player.skillEffects4!= null) player.skillEffects4.updateEffect();
+            if(player.getAttributes().skillEffects1!= null) player.getAttributes().skillEffects1.updateEffect();
+            if(player.getAttributes().skillEffects2!= null) player.getAttributes().skillEffects2.updateEffect();
+            if(player.getAttributes().skillEffects3!= null) player.getAttributes().skillEffects3.updateEffect();
+            if(player.getAttributes().skillEffects4!= null) player.getAttributes().skillEffects4.updateEffect();
 
             for(EchoesObjects obj : objList){
                 if(obj != null){
@@ -257,8 +257,8 @@ public class SceneBuilder extends JPanel{
         if (world.getTitle().equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
 
-            if(player.skillEffects3 != null)player.skillEffects3.setVisible(player.getSkill3CD() != 0);
-            if(player.skillEffects4 != null)player.skillEffects4.setVisible(player.getSkill4CD() != 0);
+            if(player.getAttributes().skillEffects3 != null)player.getAttributes().skillEffects3.setVisible(player.getSkill3CD() != 0);
+            if(player.getAttributes().skillEffects4 != null)player.getAttributes().skillEffects4.setVisible(player.getSkill4CD() != 0);
 
             for (EchoesObjects obj : objList) {
                 if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){

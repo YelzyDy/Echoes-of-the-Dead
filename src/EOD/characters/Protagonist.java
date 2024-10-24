@@ -5,12 +5,10 @@
 package EOD.characters;
 
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Random;
 import EOD.MouseInteractable;
 import EOD.scenes.SceneBuilder;
 import EOD.animator.*;
-import EOD.objects.SkillEffects;
 /**
  *
  * @author Joana
@@ -18,27 +16,11 @@ import EOD.objects.SkillEffects;
 
 public class Protagonist extends Character implements MouseInteractable {
     private ProtagonistAnimator animator;
-    private int mana;
-    private int baseMana;
-    private int attack;
-    private int health;
-    private int baseHealth;
-    private int money;
-    private int skill3Cd;
-    private int skill4Cd;
     private boolean skillIsUseable = true;
     private Random random = new Random();
 
     public boolean damageReducer;
-    public SkillEffects skillEffects1;
-    public SkillEffects skillEffects2;
-    public SkillEffects skillEffects3;
-    public SkillEffects skillEffects4;
-    private int s1num;
-    private int s2num;
-    private int s3num;
-    private int s4num;
-    private int turnDuration;
+
     private int damageDealt;
     private double effectX;
     private double effectY;
@@ -49,35 +31,37 @@ public class Protagonist extends Character implements MouseInteractable {
 
     private String actionString;
 
+    public ProtagonistAttributes attributes;
+
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY){
         super(name, characterType, panel, posX, posY);
         animator = new ProtagonistAnimator(this);
         animator.setSpeedMultiplier(1);
+        attributes = new ProtagonistAttributes(this);
         setAnimator(animator);
-        configure();
         configureSprites();
         animator.updateBounds();
         damageDealt = 0;
         System.out.println("Protagonist: " + posX + " " + posY);
         xFactor = 0;
-        skill3Cd = 0;
-        skill4Cd = 0;
+        attributes.skill3Cd = 0;
+        attributes.skill4Cd = 0;
         actionString = null;
     }
 
     public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 8);
         animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 6);
-        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.006), s1num);
-        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.006), s2num);
-        animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), s3num);
-        animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), s4num);
+        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.006), attributes.s1num);
+        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.006), attributes.s2num);
+        animator.importSkillSprites(3, "character_asset", (int)(screenSize.height * 0.006), attributes.s3num);
+        animator.importSkillSprites(4, "character_asset", (int)(screenSize.height * 0.006), attributes.s4num);
     }
 
     public void reset(){
         skillIsUseable = true;
-        skill3Cd = 0;
-        skill4Cd = 0;
+        attributes.skill3Cd = 0;
+        attributes.skill4Cd = 0;
     }
     
     public String getAction(){
@@ -97,7 +81,7 @@ public class Protagonist extends Character implements MouseInteractable {
     }
     
     public int getTurnDuration(){
-        return turnDuration;
+        return attributes.turnDuration;
     }
 
     public double getXFactor(){
@@ -105,79 +89,11 @@ public class Protagonist extends Character implements MouseInteractable {
     }
 
     public int getSkill3CD(){
-        return skill3Cd;
+        return attributes.skill3Cd;
     }
 
     public int getSkill4CD(){
-        return skill4Cd;
-    }
-
-    public void configure(){
-        //buffs depending on characterType
-        switch(getCharacterType()){
-            case "knight": 
-                attack = 20;
-                health = 150;
-                baseHealth = health;
-                mana = 100;
-                baseMana = mana;
-                money = 40;
-                s1num = 7;
-                s2num = 4;
-                s3num = 4;
-                s4num = 11;
-                turnDuration = 3000;
-                skillEffects3 = new SkillEffects(
-                    "effects",                           
-                    (int)(getPosX() * 0.9),             
-                    (int)(screenSize.width * 0.08),      
-                        (int)(screenSize.width * 0.15),      
-                    (int)(screenSize.width * 0.15),      
-                    "shield",                           
-                    13,                                                           
-                    panel                               
-                );
-                skillEffects3.setLooping(true);  // Make it loop while active
-                break;
-            case "wizard":
-                attack = 20;
-                health = 150;
-                baseHealth = health;
-                mana = 130;
-                baseMana = mana;
-                money = 0;
-                s1num = 6;
-                s2num = 6;
-                s3num = 6;
-                s4num = 6;
-                turnDuration = 3000;
-                skillEffects4 = new SkillEffects(
-                    "effects",                           
-                    (int)(getPosX() * 0.9),             
-                    (int)(screenSize.width * 0.08),      
-                        (int)(screenSize.width * 0.2),      
-                    (int)(screenSize.width * 0.2),      
-                    "explosion",                           
-                    12,                                                                  
-                    panel                               
-                );
-                skillEffects4.setLooping(false);  // Make it loop while active
-                break;
-            case "priest":
-                attack = 20;
-                health = 180; 
-                baseHealth = health;
-                mana = 100;
-                baseMana = mana;
-                attack = 20;
-                money = 0;
-                s1num = 9;
-                s2num = 9;
-                s3num = 6;
-                s4num = 9;
-                turnDuration = 3000;
-                break;
-        }
+        return attributes.skill4Cd;
     }
 
     public double getEffectY(String effectType){
@@ -203,7 +119,7 @@ public class Protagonist extends Character implements MouseInteractable {
     }
 
     public void takeDamage(int damage){ // this method is for taking damage you can call this in battleExperiment
-        health -= damage;
+        attributes.health -= damage;
     }
 
     public int getDamageDealt(){ // this method is for acessing damage dealt, call this in battleExperiment
@@ -213,24 +129,24 @@ public class Protagonist extends Character implements MouseInteractable {
     // getDamageDealt and takeDamage are both methods implemented in this class and in enemy class
     
     public void attributeTurnChecker(){
-        if(skill3Cd!=0){
-            skill3Cd--;
+        if(attributes.skill3Cd!=0){
+            attributes.skill3Cd--;
         }
-        if(skill4Cd!=0){
-            skill4Cd--;
+        if(attributes.skill4Cd!=0){
+            attributes.skill4Cd--;
         }
         
-        mana += 15;
-        if(mana > baseMana){
-            mana = baseMana;
+        attributes.mana += 15;
+        if(attributes.mana > attributes.baseMana){
+            attributes.mana = attributes.baseMana;
         }
-        if(health > baseHealth){
-            health = baseHealth;
+        if(attributes.health > attributes.baseHealth){
+            attributes.health = attributes.baseHealth;
         }
     }
 
     public boolean skill1(){ // basic attack type skills
-        damageDealt = attack;
+        damageDealt = attributes.attack;
         actionString = "Player dealt " + damageDealt + " damage to the enemy!";
         switch(getCharacterType()) {
             case "knight":
@@ -250,9 +166,9 @@ public class Protagonist extends Character implements MouseInteractable {
         switch(getCharacterType()){
             case "knight":
                 if(skillIsUseable){
-                    if(money >= 15){
-                        attack += 15;
-                        money -= 15;
+                    if(attributes.money >= 15){
+                        attributes.attack += 15;
+                        attributes.money -= 15;
                         skillIsUseable = false;
                         actionString = "Player's attack is increased to " + 15;
                         return true;
@@ -266,9 +182,9 @@ public class Protagonist extends Character implements MouseInteractable {
                 }
             case "wizard":
                 if(skillIsUseable){
-                    if(mana >= 15){
-                        attack += 15;
-                        mana -= 15;
+                    if(attributes.mana >= 15){
+                        attributes.attack += 15;
+                        attributes.mana -= 15;
                         skillIsUseable = false;
                         actionString = "Player's attack is increased to " + 15;
                         return true;
@@ -282,9 +198,9 @@ public class Protagonist extends Character implements MouseInteractable {
                 }
             case "priest":
                 if(skillIsUseable){
-                    if(health >= 50){
-                       attack += 30;
-                       health -= 15;
+                    if(attributes.health >= 50){
+                        attributes.attack += 30;
+                        attributes.health -= 15;
                         skillIsUseable = false;
                         actionString = "Player's attack is increased to " + 30;
                         return true;
@@ -304,22 +220,22 @@ public class Protagonist extends Character implements MouseInteractable {
     public boolean skill3(){
         switch(getCharacterType()){
             case "knight": 
-                if(skill3Cd==0){
-                    if(mana >= 25){
+                if(attributes.skill3Cd==0){
+                    if(attributes.mana >= 25){
                         damageReducer = true; 
-                        mana -= 25;
-                        skill3Cd = 3;
+                        attributes.mana -= 25;
+                        attributes.skill3Cd = 3;
                         xFactor =  getPosX();
-                        skillEffects3.setPosX(getPosX() - skillEffects3.getWidth() * 0.25);
-                        skillEffects3.setPosY(getPosY() - skillEffects3.getHeight() * 0.25);
+                        attributes.skillEffects3.setPosX(getPosX() - attributes.skillEffects3.getWidth() * 0.25);
+                        attributes.skillEffects3.setPosY(getPosY() - attributes.skillEffects3.getHeight() * 0.25);
                         actionString = "Enemy's damage is reduced to " + "4%";
                         // Bind the effect to follow the character
-                        skillEffects3.bindToTarget(this, 
-                            -skillEffects3.getWidth() * 0.25,  // offset X
-                            -skillEffects3.getHeight() * 0.30   // offset Y
+                        attributes.skillEffects3.bindToTarget(this, 
+                            -attributes.skillEffects3.getWidth() * 0.25,  // offset X
+                            -attributes.skillEffects3.getHeight() * 0.30   // offset Y
                         );
                         // Play the effect
-                        skillEffects3.play();
+                        attributes.skillEffects3.play();
                         return true;
                     }else{
                         actionString = "Not enough mana!";
@@ -329,11 +245,14 @@ public class Protagonist extends Character implements MouseInteractable {
                     return false;
                 }
             case "wizard":
-                if(skill3Cd==0){
-                    if(mana >= 25){
+                if(attributes.skill3Cd==0){
+                    if(attributes.mana >= 25){
                         if(random.nextInt(100) < 60){
                             damageDealt = 40;
-                            mana += 75;
+                            attributes.mana += 75;
+                            if(attributes.mana > attributes.baseMana){
+                                attributes.mana = attributes.baseMana;
+                            }
                             actionString = "Shift Successful! " + damageDealt + " damage dealt to enemy!";
                             xFactor =  screenSize.width * 0.1;
                             return true;
@@ -349,11 +268,15 @@ public class Protagonist extends Character implements MouseInteractable {
                     return false;
                 }
             case "priest":
-                if(skill3Cd==0){
-                    if(mana >= 25){
-                        damageReducer = true;
-                        mana -= 25;
-                        skill3Cd = 3;
+                if(attributes.skill3Cd==0){
+                    if(attributes.mana >= 40){
+                        damageDealt = (int)(attributes.baseHealth*0.3);
+                        attributes.health += damageDealt;
+                        if(attributes.health > attributes.baseHealth){
+                            attributes.health = attributes.baseHealth;
+                        }
+                        attributes.mana -= 40;
+                        attributes.skill3Cd = 3;
                         xFactor =  screenSize.width * 0.3;
                         actionString = "";
                         return true;
@@ -372,11 +295,11 @@ public class Protagonist extends Character implements MouseInteractable {
     public boolean skill4(){
         switch(getCharacterType()){
             case "knight": 
-                if(skill4Cd==0){
-                    if(mana >= 40){
-                        damageDealt = 2*attack + (int)(money * 0.2);
-                        mana -= 40;
-                        skill4Cd = 4;
+                if(attributes.skill4Cd==0){
+                    if(attributes.mana >= 40){
+                        damageDealt = 2*attributes.attack + (int)(attributes.money * 0.2);
+                        attributes.mana -= 40;
+                        attributes.skill4Cd = 4;
                         xFactor =  screenSize.width * 0.5;
                         actionString = "Enemy missed a turn! Player dealt " + damageDealt + " damage to the enemy";
                         return true;
@@ -388,26 +311,26 @@ public class Protagonist extends Character implements MouseInteractable {
                     return false;
                 }
             case "wizard":
-                if(skill4Cd==0){
-                    if(mana >= 50){
-                        damageDealt = 60 + (int)(baseMana*0.25);
-                        mana -= 50;
-                        skill4Cd = 4;
-
+                if(attributes.skill4Cd==0){
+                    if(attributes.mana >= 50){
+                        damageDealt = 60 + (int)(attributes.baseMana*0.25);
+                        attributes.mana -= 50;
+                        attributes.skill4Cd = 4;
+                        
                         actionString = "Player dealt " + damageDealt + " damage to the enemy";
                         xFactor =  screenSize.width * 0.18;
-                        skillEffects4.setPosX(enemy.getPosX() - skillEffects4.getWidth() * 0.25);
-                        skillEffects4.setPosY(enemy.getPosX() - skillEffects4.getHeight() * 0.25);
+                        attributes.skillEffects4.setPosX(enemy.getPosX() - attributes.skillEffects4.getWidth() * 0.25);
+                        attributes.skillEffects4.setPosY(enemy.getPosX() - attributes.skillEffects4.getHeight() * 0.25);
                         
                         // Bind the effect to follow the character
-                        skillEffects4.bindToTarget(enemy, 
-                            -skillEffects4.getWidth() * 0.35,  // offset X
-                            -skillEffects4.getHeight() * 0.4   // offset Y
+                        attributes.skillEffects4.bindToTarget(enemy, 
+                            -attributes.skillEffects4.getWidth() * 0.35,  // offset X
+                            -attributes.skillEffects4.getHeight() * 0.4   // offset Y
                         );
 
                         // Play the effect
-                        skillEffects4.play();
-                        skillEffects4.setStopFrame(12);
+                        attributes.skillEffects4.play();
+                        attributes.skillEffects4.setStopFrame(12);
                         return true;
                     }else{
                        actionString = "Not enough mana!";
@@ -417,11 +340,15 @@ public class Protagonist extends Character implements MouseInteractable {
                     return false;
                 }
             case "priest":
-                if(skill4Cd==0){
-                    if(mana >= 25){
-                        damageReducer = true;
-                        mana -= 25;
-                        skill4Cd = 4;
+                if(attributes.skill4Cd==0){
+                    if(attributes.mana >= 50){
+                        damageDealt = (int)((attributes.baseHealth - attributes.health) * 0.6);
+                        attributes.health += (int)(attributes.baseHealth * 0.4);
+                        if(attributes.health > attributes.baseHealth){
+                            attributes.health = attributes.baseHealth;
+                        }
+                        attributes.mana -= 50;
+                        attributes.skill4Cd = 4;
                         xFactor =  screenSize.width * 0.3;
                         actionString = "";
                         return true;
@@ -438,59 +365,8 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
-    //get hp for battle sequence
-    public int getHp(){
-        return health;
-    }
-
-    //set hp after battle sequence
-    public void setHp(int newHealth){
-        health = newHealth;
-    }
-
-    //get base hp for battle sequence
-    public int getBaseHp(){
-        return baseHealth;
-    }
-
-    //set basehp after getting potion or item
-    public void setBaseHp(int addHp){
-        baseHealth += addHp;
-    }
-
-    //get mana for battle sequence
-    public int getMana(){
-        return mana;
-    }
-
-    //set mana after battle sequence
-    public void setMana(int newMana){
-        mana = newMana;
-    }
-
-    //get basemana for battle sequence
-    public int getBaseMana(){
-        return baseMana;
-    }
-
-    //set basemana after getting potion or item
-    public void setBaseMana(int addMana){
-        baseMana += addMana;
-    }
-
-    //get money for battle sequence
-    public int getMoney(){
-        return money;
-    }
-
-    //set hp after battle sequence
-    public void setMoney(int newMoney){
-        money += newMoney;
-    }
-
-    //get atk for battle sequence
-    public int getAttack(){
-        return attack;
+    public ProtagonistAttributes getAttributes(){
+        return attributes;
     }
 
 
