@@ -117,6 +117,7 @@ public abstract class Animator {
     }
 
     protected void updateSkillAnimation() {
+        character.getPanel().setComponentZOrder(character, 0);
         if (!reachedTarget) {
             updateMovement();
             if (!isMoving) {
@@ -129,7 +130,6 @@ public abstract class Animator {
             if (skillAnimationFrame >= skillSprites[currentSkill].getSize()) {
                 skillCompleted = true;
                 isReturning = true;
-                
                 int returnDeltaX = calculateDeltaX(originalPosX, true);
                 returnDeltaX = (int)(returnDeltaX * movementSpeedMultiplier);
                 moveTo(originalPosX, returnDeltaX);

@@ -2,11 +2,8 @@ package EOD.scenes;
 
 import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
-
 import java.util.Random;
-
 import javax.swing.Timer;
-
 
 public class BattleExperiment {
     private Enemy enemy;
@@ -15,7 +12,7 @@ public class BattleExperiment {
     private Timer enemyTurnTimer;
     private Timer playerTurnTimer;
     private int enemyTurnDuration; 
-    private int playerTurnDuration; // 2 seconds for enemy turn
+    private int playerTurnDuration; 
 
     public BattleExperiment(Protagonist player, Enemy enemy) {
         this.player = player;
@@ -23,165 +20,93 @@ public class BattleExperiment {
 
         this.enemyTurnDuration = enemy.getTurnDuration();
         this.playerTurnDuration = player.getTurnDuration();
-        // Initialize enemy turn timer
+
         enemyTurnTimer = new Timer(enemyTurnDuration, e -> performEnemyTurn());
         enemyTurnTimer.setRepeats(false);
 
-        // Initialize player turn timer
         playerTurnTimer = new Timer(playerTurnDuration, e -> startEnemyTurn());
         playerTurnTimer.setRepeats(false);
+
         player.setEnemy(enemy);
     }
 
-    public Enemy getEnemy() {
+    public Enemy getEnemy(){
         return enemy;
     }
 
-    public void setBattleUI(BattleUI battleUI){
+    public void setBattleUI(BattleUI battleUI) {
         this.battleUI = battleUI;
     }
 
-    public void skill1() { // basic attacks
-        if (player.skill1()) {
-            //this is for dealing damage. Apply this code if you want to deal damage to enemy - ji
-            int damage = player.getDamageDealt();
-            enemy.takeDamage(damage);
-            battleUI.showAction(player.getAction());
-            // Disable skill buttons
-            battleUI.setSkillButtonsEnabled(false);
-
-            // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(1, (int)(player.getXFactor()));
-            player.getAnimator().setMovingRight(true);
-
-            // Start player turn timer
-            battleUI.updateTurnIndicator("Your Turn");
-            playerTurnTimer.start();  // Start timer for player's turn
-
-            // Once the timer ends, enemy's turn will start automatically
-        }
-    }
-
-    public void skill2() { // buff skills
-        if (player.skill2()) {
-            // Disable skill buttons
-            battleUI.showAction(player.getAction());
-            battleUI.setSkillButtonsEnabled(false);
-
-            // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(2, (int)(player.getXFactor()));
-            player.getAnimator().setMovingRight(true);
-
-            // Start player turn timer
-            battleUI.updateTurnIndicator("Your Turn");
-            playerTurnTimer.start();  
-        }
-    }
-
-    public void skill3() { // signature skills
-        if (player.skill3()) { 
-            // Disable skill buttons
-            battleUI.showAction(player.getAction());
-            if(player.getCharacterType() == "wizard" || player.getCharacterType() == "priest"){
-                int damage = player.getDamageDealt();
+    // Unified method for handling skills
+    private void handleSkill(int skillNumber, boolean damageEnemy) {
+        if (player.useSkill(skillNumber)) {
+            int damage = damageEnemy ? player.getDamageDealt() : 0;
+            if (damage > 0) {
                 enemy.takeDamage(damage);
-                if(player.getCharacterType() == "wizard"){
-                    enemy.missedTurn = true;
-                }
             }
 
-            battleUI.setSkillButtonsEnabled(false);
-
-            // Trigger skill animation
-           player.getAnimator().triggerSkillAnimation(3, (int)(player.getXFactor()));
-           player.getAnimator().setMovingRight(true);
-
-            // Start player turn timer
-            battleUI.updateTurnIndicator("Your Turn");
-            playerTurnTimer.start();  
-        }
-    }
-
-    public void skill4() {
-        if (player.skill4()) { // ultimate
-            if(player.getCharacterType() == "knight"){
+            if (player.isWizard() && skillNumber == 3 || player.isKnight() && skillNumber == 4) {
                 enemy.missedTurn = true;
             }
 
-            int damage = player.getDamageDealt();
-            enemy.takeDamage(damage);
             battleUI.showAction(player.getAction());
-            // Disable skill buttons
             battleUI.setSkillButtonsEnabled(false);
 
-            // Trigger skill animation
-            player.getAnimator().triggerSkillAnimation(4, (int)(player.getXFactor()));
+            player.getAnimator().triggerSkillAnimation(skillNumber, (int) player.getXFactor());
             player.getAnimator().setMovingRight(true);
 
-            // Start player turn timer
             battleUI.updateTurnIndicator("Your Turn");
-            playerTurnTimer.start(); 
+            playerTurnTimer.start();
         }
     }
 
+    // Optimized skill methods using handleSkill
+    public void skill1() { handleSkill(1, true); }  // Basic attack
+    public void skill2() { handleSkill(2, false); } // Buff skill
+    public void skill3() { handleSkill(3, !player.isKnight()); }  // Signature skill
+    public void skill4() { handleSkill(4, true); }  // Ultimate skill
+
     private void startEnemyTurn() {
-        //doesnt run after enemy death
-        if(enemy.getHp() <= 0){
+        if (enemy.getHp() <= 0) {
             player.reset();
             return;
         }
-        enemy.getAnimator().setMovingRight(false);
-        if(enemy.missedTurn == false){
-            Random random = new Random();
-            int skillNumber = random.nextInt(2) + 1;
-            battleUI.updateTurnIndicator("Enemy's Turn");
-
+        if (!enemy.missedTurn) {
+            int skillNumber = new Random().nextInt(2) + 1;
             callRandomEnemySkill(skillNumber);
+
             int damage = enemy.getDamageDealt();
-
-            if(player.damageReducer == true){
+            if (player.isDamageReducerActive()) {
                 damage *= 0.4;
-                if(damage > (int)(player.getAttributes().getHp()*0.2)){
-                    // padisplay nya ko blair -jm
+                if (damage > player.getAttributes().getHp() * 0.2) {
                     System.out.println("Gain 30 Soul Shards");
-                    player.getAttributes().setMoney(30);
+                    player.getAttributes().setMoney(player.getAttributes().getMoney() + 30);
                 }
-                player.damageReducer = false;
+                player.resetDamageReducer();
             }
-
-            player.takeDamage((int) damage);
-            
-            System.out.println("Enemy damage: " + damage );
+            player.takeDamage(damage);
 
             battleUI.showAction("Enemy attacks for " + damage + " damage!");
-
-            enemy.getAnimator().triggerSkillAnimation(skillNumber, (int)enemy.getXFactor());
-        }else{
-            enemy.missedTurn = false;
+            enemy.getAnimator().triggerSkillAnimation(skillNumber, (int) enemy.getXFactor());
+        } else {
+            enemy.missedTurn = false; // Reset after missed turn
         }
-        
-        enemyTurnTimer.start();  // Start enemy turn after player's turn ends
+
+        enemyTurnTimer.start();
     }
 
-    public void callRandomEnemySkill(int skillNumber){
-        switch (skillNumber) {
-            case 1:
-                enemy.skill1();
-                break;
-            case 2:
-                enemy.skill2();
-                break;
-            default:
-                break;
+    private void callRandomEnemySkill(int skillNumber) {
+        if (skillNumber == 1) {
+            enemy.skill1();
+        } else if (skillNumber == 2) {
+            enemy.skill2();
         }
     }
 
-    // Perform enemy's attack and return to player's turn
     private void performEnemyTurn() {
-        //decrease cd everytime it is the enemy turn
-        player.attributeTurnChecker();
-        
-        // After enemy's turn, enable skill buttons for the player
+        enemy.getAnimator().setMovingRight(false); 
+        player.attributeTurnChecker(); // Decrease cooldowns, etc.
         battleUI.setSkillButtonsEnabled(true);
         battleUI.updateTurnIndicator("Your Turn");
     }
