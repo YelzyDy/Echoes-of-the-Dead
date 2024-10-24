@@ -46,8 +46,16 @@ public class Character extends TransparentPanel implements Entity{
         originalX = posX;
         originalY = posY;
     }   
-    
 
+    @Override
+    public double getWidthE(){
+        return getWidth();
+    }
+
+    @Override
+    public double getHeightE(){
+        return getHeight();
+    }
     public void setAnimator(Animator animator){
         this.animator = animator;
     }

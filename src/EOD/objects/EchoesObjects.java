@@ -48,6 +48,16 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         initializeSprites(assetPackage, width, height);
         this.addMouseListener(new MouseClickListener(this));
     }   
+
+    @Override
+    public double getWidthE(){
+        return getWidth();
+    }
+
+    @Override
+    public double getHeightE(){
+        return getHeight();
+    }
     
     public void setAllowHover(boolean allowHover){
         this.allowHover = allowHover;

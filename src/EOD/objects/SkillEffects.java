@@ -20,6 +20,7 @@ public class SkillEffects extends EchoesObjects {
     private double offsetY;
     private Timer gameLoop;
     private SceneBuilder panel;
+
     
     public SkillEffects(String assetPackage, int x, int y, int width, int height, 
                       String type, int numOfSprites, SceneBuilder panel) {

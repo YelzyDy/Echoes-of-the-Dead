@@ -10,6 +10,10 @@ public interface Entity {
     public double getPosX();
     
     public double getPosY();
+
+    public double getWidthE();
+    
+    public double getHeightE();
     
     public void setPosX(double posX);
 

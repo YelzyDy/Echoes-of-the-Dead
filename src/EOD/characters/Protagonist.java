@@ -215,6 +215,12 @@ public class Protagonist extends Character implements MouseInteractable {
                         attributes.health -= 15;
                         skillIsUseable = false;
                         actionString = "Player's attack is increased to " + 30;
+                        attributes.skillEffects2.bindToTarget(this, 
+                        -attributes.skillEffects2.getWidth() * 0.3,  // offset X
+                        -attributes.skillEffects2.getHeight() * 0.25   // offset Y
+                        );
+                        attributes.skillEffects2.play();
+                        attributes.skillEffects2.setStopFrame(9);
                         return true;
                     }else{
                         actionString = "Soul Energy too low!";
@@ -238,8 +244,6 @@ public class Protagonist extends Character implements MouseInteractable {
                         attributes.mana -= 25;
                         attributes.skill3Cd = 3;
                         xFactor =  getPosX();
-                        attributes.skillEffects3.setPosX(getPosX() - attributes.skillEffects3.getWidth() * 0.25);
-                        attributes.skillEffects3.setPosY(getPosY() - attributes.skillEffects3.getHeight() * 0.25);
                         actionString = "Enemy's damage is reduced to " + "4%";
                         // Bind the effect to follow the character
                         attributes.skillEffects3.bindToTarget(this, 
@@ -256,35 +260,41 @@ public class Protagonist extends Character implements MouseInteractable {
                 }else{
                     return false;
                 }
-            case "wizard":
-                if(attributes.skill3Cd==0){
-                    if(attributes.mana >= 25){
-                        if(random.nextInt(100) < 60){
-                            damageDealt = 40;
-                            attributes.mana += 75;
-                            if(attributes.mana > attributes.baseMana){
-                                attributes.mana = attributes.baseMana;
-                            }
-                            attributes.skillEffects3.bindToTarget(enemy, 
-                            -attributes.skillEffects3.getWidth() * 1,  // offset X
-                            -attributes.skillEffects3.getHeight() * 1   // offset Y
-                            );
-                            attributes.skillEffects3.play();
-                            attributes.skillEffects3.setStopFrame(14);
-                            actionString = "Shift Successful! " + damageDealt + " damage dealt to enemy!";
-                            xFactor =  screenSize.width * 0.1;
-                            return true;
-                        }else{
-                            actionString = "Shift Failed!";
-                            return false;
-                        }
-                    }else{
-                        actionString = "Not enough mana!";
-                        return false;
+                // In Protagonist.java, modify the wizard case in skill3():
+
+        case "wizard":
+        if(attributes.skill3Cd==0){
+            if(attributes.mana >= 25){
+                if(random.nextInt(100) < 60){
+                    damageDealt = 40;
+                    attributes.mana += 75;
+                    if(attributes.mana > attributes.baseMana){
+                        attributes.mana = attributes.baseMana;
                     }
-                }else{
+
+                    // Use skillEffects2 instead of skillEffects3
+                    attributes.skillEffects3.bindToTarget(enemy, 
+                        -attributes.skillEffects3.getWidth() * 0.25,  
+                        -attributes.skillEffects3.getHeight() * 0.30   
+                    );
+                    System.out.println(attributes.skillEffects3.getName());
+                    attributes.skillEffects3.play();
+                    attributes.skillEffects3.setStopFrame(14);
+
+                    xFactor = screenSize.width * 0.1;
+                    actionString = "Shift Successful! " + damageDealt + " damage dealt to enemy!";
+                    return true;
+                } else {
+                    actionString = "Shift Failed!";
                     return false;
                 }
+            } else {
+                actionString = "Not enough mana!";
+                return false;
+            }
+        } else {
+            return false;
+        }
             case "priest":
                 if(attributes.skill3Cd==0){
                     if(attributes.mana >= 40){
@@ -294,9 +304,10 @@ public class Protagonist extends Character implements MouseInteractable {
                             attributes.health = attributes.baseHealth;
                         }
                         attributes.mana -= 40;
+
                         attributes.skill3Cd = 3;
-                        xFactor =  screenSize.width * 0.3;
-                        actionString = "";
+                        xFactor =  screenSize.width * 0.22;
+                        actionString = "Player dealt " + damageDealt + "damage to the enemy!";
                         return true;
                     }else{
                         actionString = "Not enough mana!";
@@ -337,8 +348,6 @@ public class Protagonist extends Character implements MouseInteractable {
                         
                         actionString = "Player dealt " + damageDealt + " damage to the enemy";
                         xFactor =  screenSize.width * 0.18;
-                        attributes.skillEffects4.setPosX(enemy.getPosX() - attributes.skillEffects4.getWidth() * 0.25);
-                        attributes.skillEffects4.setPosY(enemy.getPosX() - attributes.skillEffects4.getHeight() * 0.25);
                         
                         // Bind the effect to follow the character
                         attributes.skillEffects4.bindToTarget(enemy, 
@@ -365,17 +374,30 @@ public class Protagonist extends Character implements MouseInteractable {
                         if(attributes.health > attributes.baseHealth){
                             attributes.health = attributes.baseHealth;
                         }
+                        actionString = "Player dealt " + damageDealt + " damage to the enemy";
+                        attributes.skillEffectsRandom.bindToTarget(this, 
+                        -attributes.skillEffectsRandom.getWidth() * 0.4,  
+                        -attributes.skillEffectsRandom.getHeight() * 0.30   
+                        );
+                        attributes.skillEffectsRandom.play();
+
+                        attributes.skillEffects4.bindToTarget(enemy, 
+                        -attributes.skillEffects4.getWidth() * 0.35,  // offset X
+                        -attributes.skillEffects4.getHeight() * 0.4   // offset Y
+                        );
+                        attributes.skillEffects4.play();
+
                         attributes.mana -= 50;
                         attributes.skill4Cd = 4;
                         xFactor =  screenSize.width * 0.3;
                         actionString = "";
                         return true;
                     }else{
-                        System.out.println("Not enough mana!");
+                        actionString = "Not enough mana!";
                         return false;
                     }
                 }else{
-                    System.out.println("Can't use it yet!");
+                    actionString = "Can't use it yet!";
                     return false;
                 }
             default:

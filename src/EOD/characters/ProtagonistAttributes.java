@@ -14,7 +14,7 @@ public class ProtagonistAttributes {
     protected int s3num;
     protected int s4num;
     protected int turnDuration;
-    public SkillEffects skillEffects1;
+    public SkillEffects skillEffectsRandom;
     public SkillEffects skillEffects2;
     public SkillEffects skillEffects3;
     public SkillEffects skillEffects4;
@@ -92,15 +92,15 @@ public class ProtagonistAttributes {
 
                 skillEffects3 = new SkillEffects(
                     "effects",                           
-                    (int)(player.getPosX() * 0.9),             
-                    (int)(player.screenSize.width * 0.08),      
-                        (int)(player.screenSize.width * 0.1),      
-                    (int)(player.screenSize.width * 0.1),      
-                    "zawardo",                           
-                    14,                                                                  
+                    0,             
+                    0,      
+                    (int)(player.screenSize.width * 0.15),      
+                    (int)(player.screenSize.width * 0.15),      
+                    "zawardo",    // Changed from "zawardo" to "wbuff" for testing                       
+                    14,                                                           
                     player.panel                               
                 );
-                skillEffects3.setLooping(false);  // Make it loop while active
+                skillEffects3.setLooping(false);
 
                 skillEffects4 = new SkillEffects(
                     "effects",                           
@@ -124,10 +124,46 @@ public class ProtagonistAttributes {
                 money = 0;
                 s1num = 9;
                 s2num = 9;
-                s3num = 6;
-                s4num = 9;
+                s3num = 10;
+                s4num = 6;
                 turnDuration = 3000;
-                
+
+                skillEffectsRandom = new SkillEffects(
+                    "effects",                           
+                    (int)(player.getPosX() * 0.9),             
+                    (int)(player.screenSize.width * 0.08),      
+                        (int)(player.screenSize.width * 0.25),      
+                    (int)(player.screenSize.width * 0.25),      
+                    "heal",                           
+                    4,                                                           
+                    player.panel                               
+                );
+                skillEffectsRandom.setLooping(true);  // Make it loop while active
+
+                skillEffects2 = new SkillEffects(
+                    "effects",                           
+                    (int)(player.getPosX() * 0.9),             
+                    (int)(player.screenSize.width * 0.08),      
+                        (int)(player.screenSize.width * 0.15),      
+                    (int)(player.screenSize.width * 0.15),      
+                    "pbuff",                           
+                    9,                                                           
+                    player.panel                               
+                );
+                skillEffects2.setLooping(false);  // Make it loop while active
+
+                skillEffects4 = new SkillEffects(
+                    "effects",                           
+                    (int)(player.getPosX() * 0.9),             
+                    (int)(player.screenSize.width * 0.08),      
+                        (int)(player.screenSize.width * 0.15),      
+                    (int)(player.screenSize.width * 0.15),      
+                    "lightning",                           
+                    10,                                                           
+                    player.panel                               
+                );
+                skillEffects4.setLooping(false);  // Make it loop while active
+
                 break;
         }
     }

@@ -212,7 +212,7 @@ public class SceneBuilder extends JPanel{
 
         if(world != null){
 
-            if(player.getAttributes().skillEffects1!= null) player.getAttributes().skillEffects1.updateEffect();
+            if(player.getAttributes().skillEffectsRandom!= null) player.getAttributes().skillEffectsRandom.updateEffect();
             if(player.getAttributes().skillEffects2!= null) player.getAttributes().skillEffects2.updateEffect();
             if(player.getAttributes().skillEffects3!= null) player.getAttributes().skillEffects3.updateEffect();
             if(player.getAttributes().skillEffects4!= null) player.getAttributes().skillEffects4.updateEffect();
@@ -257,9 +257,8 @@ public class SceneBuilder extends JPanel{
         if (world.getTitle().equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
 
-            if(player.getAttributes().skillEffects3 != null)player.getAttributes().skillEffects3.setVisible(player.getSkill3CD() != 0);
-            if(player.getAttributes().skillEffects4 != null)player.getAttributes().skillEffects4.setVisible(player.getSkill4CD() != 0);
-
+            if(player.getAttributes().skillEffects3 != null && player.getCharacterType().equals("knight"))player.getAttributes().skillEffects3.setVisible(player.getSkill3CD() != 0);
+            if(player.getAttributes().skillEffectsRandom != null && player.getCharacterType().equals("priest"))player.getAttributes().skillEffectsRandom.setVisible(player.getSkill4CD() != 0);
             for (EchoesObjects obj : objList) {
                 if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                     obj.setVisible(obj.getIndex() == currentSceneIndex && 
