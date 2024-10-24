@@ -11,6 +11,7 @@ public class Skeleton1 extends Enemy {
         attack = 10;
         health = 150;
         turnDuration = 2000;
+        animator.setSpeedMultiplier(1);
     }
 
     public void configureSprites(){

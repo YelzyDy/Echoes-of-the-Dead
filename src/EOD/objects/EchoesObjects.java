@@ -67,8 +67,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         objSprites.clear();
         int size = numOfSprites;
         String[] spritePaths = new String[size];
-        // System.out.println(isAnimated ? "anim" : "not anim");
-        // System.out.println("Size: " + size);
         for (int i = 0; i < size; i++) {
             if (isAnimated) {
                 spritePaths[i] = "/" + assetPackage + "_assets/" + getName() + "/sprite_" + i + ".png";
