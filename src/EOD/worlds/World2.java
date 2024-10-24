@@ -6,6 +6,7 @@ package EOD.worlds;
 
 import EOD.characters.*;
 import EOD.listeners.MouseClickListener;
+import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -32,7 +33,26 @@ public class World2 extends World {
     }
 
     public void initializeObjects() {
+        scene.objList = new ArrayList<>();
+        scene.objList.add(new EchoesObjects("shop",
+            (int)(screenSize.width * 0.78),
+            (int)(screenSize.height * 0.037),
+            (int)(screenSize.width * 0.22),
+            (int)(screenSize.height * 0.32),
+            "shop", 
+            false, 
+            true, 
+            2));
 
+        for (EchoesObjects obj : scene.objList) {
+                scene.add(obj);
+                if (obj.getName().equals("portal")) {
+                    obj.setIndex(1);
+                } else if (obj.getName().equals("shop")) {
+                    obj.setIndex(2);
+                }
+                obj.addMouseListener(new MouseClickListener(this));
+            }    
     }
 
     public void initializeWorldChars() { 
