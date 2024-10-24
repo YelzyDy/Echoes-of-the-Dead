@@ -6,8 +6,6 @@ package EOD.worlds;
 
 import EOD.characters.*;
 import EOD.listeners.MouseClickListener;
-import EOD.objects.EchoesObjects;
-import EOD.objects.shop.Shop;
 import EOD.scenes.SceneBuilder;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -34,40 +32,37 @@ public class World2 extends World {
     }
 
     public void initializeObjects() {
-        scene.objList = new ArrayList<>(); 
-        scene.objList.add(new Shop(this));
-        for (EchoesObjects obj : scene.objList) {
-            scene.add(obj);
-            obj.addMouseListener(new MouseClickListener(this));;
-        }
+
     }
 
-    public void initializeWorldChars() { //ako lay add nila guys, gi check ra nako if mo open ba ang world2
-        // spoiler alert: di mo open ang world2 -z
+    public void initializeWorldChars() { 
         scene.npcList = new ArrayList<>();
-        scene.npcList.add(new Npc("Yoo", "yoo", scene, (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.8));
-        //scene.npcList.add(new Npc("Faithful", "faithful", scene, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
+        scene.npcList.add(new Npc("Faithful", "faithful", scene, (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
         scene.npcList.add(new Npc("Miggins", "miggins", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62));
-        scene.npcList.add(new Npc("Natty", "natty", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8));
+        scene.npcList.add(new Npc("Ruby", "ruby", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8));
+        scene.npcList.add(new Npc("Renegald", "renegald", scene, (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.2, screenSize.width * 0.6));
         scene.npcList.add(new Npc("Constance", "missC", scene, (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.25), screenSize.width * 0.6, screenSize.width * 0.8));
         
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
             scene.setComponentZOrder(npc, 2);
-            if (npc.getName().equals("Yoo")) {
+            if (npc.getName().equals("Ruby")) {
                 npc.setIndex(0);
             }else if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
             }else if (npc.getName().equals("Miggins")) {
                 npc.setIndex(2);
-            } else if (npc.getName().equals("Natty")) {
+            } else if (npc.getName().equals("Faithful")) {
                 npc.setIndex(1);
-            } 
+            } else if (npc.getName().equals("Renegald")){
+                npc.setIndex(1);
+            }
         }
     }
 
     public void initializeEnemies(){
+<<<<<<< HEAD
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
@@ -80,10 +75,13 @@ public class World2 extends World {
                 enemy.setIndex(4);
             }
         }
+=======
+>>>>>>> master
     }
 
     @Override
     public void onClick(MouseEvent e) {
+<<<<<<< HEAD
         super.onClick(e);
         Object source = e.getSource();
         if(source == btn_ok){
@@ -117,17 +115,18 @@ public class World2 extends World {
             //     scene.setCurrentSceneIndex(5);
             // }
         }    
+=======
+>>>>>>> master
     }
 
     @Override
     public void onHover(MouseEvent e) {
-        Object source = e.getSource();
         
     }
 
     @Override
     public void onExit(MouseEvent e) {
-        Object source = e.getSource();
+
        
     }
 

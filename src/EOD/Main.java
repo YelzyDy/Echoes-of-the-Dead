@@ -59,7 +59,24 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         // in this case, the parent container is the JFrame and the children of JFrame is the objects we instantiated --jian
         this.add(btn_title_play); 
         this.add(backgroundPanel); 
-      
+
+        /*EchoesObjects btn_settings = new EchoesObjects(
+            "button", 
+            (int) (screenSize.width * 0.1),
+            (int) (screenSize.height * 0.7),
+            (int) (screenSize.width * 0.13),
+            (int) (screenSize.height * 0.13),
+            "settings", 
+            false, 
+            true, 
+            2
+        );
+        btn_settings.setVisible(true);
+        btn_settings.addMouseListener(new MouseClickListener(this));
+
+        // Add components in reverse order (background should be added last)
+        this.add(btn_settings);     // Buttons added before background*/
+
     }
 
 

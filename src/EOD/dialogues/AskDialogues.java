@@ -7,8 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AskDialogues extends JFrame {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    StoryLine story = new StoryLine();
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private StoryLine story = new StoryLine();
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.44);
 
@@ -95,8 +95,8 @@ public class AskDialogues extends JFrame {
                 optionButton.setFocusPainted(false);
                 optionButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
-                int preferredHeight = optionButton.getPreferredSize().height * 2;
-                optionButton.setPreferredSize(new Dimension(300, preferredHeight));
+                int preferredHeight = optionButton.getPreferredSize().height * 3;
+                optionButton.setPreferredSize(new Dimension(0, preferredHeight));
                 optionButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, preferredHeight));
 
                 optionButton.addActionListener(e -> {

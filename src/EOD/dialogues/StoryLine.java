@@ -61,7 +61,7 @@ public class StoryLine {
                 this.arr[i++] = "Miss Constance: \"Oh! A new face! You must be curious about who's who down here, right? Well, I know everything! Like, have you heard about Faithful? Total creep! He stalked everyone who came down here! I'm Miss Constance, by the way; you can call me Miss C!\"";
                 this.arr[i++] = "You: \"Actually, I—\"";           
                 this.arr[i++] = "Miss C (interrupting): \"And Yoo? Such a drama queen! He's been here for sometime now, I didn't keep track. Acts all mysterious, but it's just a show. And don't get me started on Miggins—he tried to sneak an advertisement into The Grand Mausoleum! Can you believe the nerve?\"";           
-                this.arr[i++] = "You (awkwardly): \"Yeah, well, it was nice to meet you, I might check out the rest of the forest before going to-\"";            
+                this.arr[i++] = "You (awkwardly): \"Yeah, well, it was nice to meet you, I might check out the rest of the city before going to-\"";            
                 this.arr[i++] = "Miss C: \"Leaving so soon? Oh, sure! But come back! I've got loads more to share—wait till you hear about Myself!\"";            
                 this.arr[i++] = "[She's a little to much to take in right now, you slowly back away, the woman's voice trailing after you.]";            
                 this.arr[i++] = "Miss C (calling out): \"Don't forget to visit! I know everything! Also, don't try to approach some of the monsters roaming around, unless you're prepared!\"";            
@@ -127,10 +127,10 @@ public class StoryLine {
         public void nattyLines() {
                 int i = 0;
 
-                this.arr[i++] = "You: \"This forest looks really spooky. What do you think?\"";
+                this.arr[i++] = "You: \"This city looks really spooky. What do you think?\"";
                 this.arr[i++] = "Natty: \"There's something about this place... it whispers to me, you know? Almost like it knows who I am.\"";
 
-                this.arr[i++] = "You: \"Is there a way out of this forest?\"";
+                this.arr[i++] = "You: \"Is there a way out of this city?\"";
                 this.arr[i++] = "Natty: \"I guess... There's no escape, is there? Feels like I've been walking in circles for hours, days, years, oh no.\"";
                 
                 this.arr[i++] = "You: \"You look lonely, why are you avoiding the others?\"";
@@ -207,13 +207,13 @@ public class StoryLine {
                 this.arr[i++] = "You: \"Hi-\"";
                 this.arr[i++] = "Yoo: \"Go away.\"";
 
-                this.arr[i++] = "You: \"Hey, which way leads to the exit of the forest?\"";
+                this.arr[i++] = "You: \"Hey, which way leads to the exit of the city?\"";
                 this.arr[i++] = "Yoo: \"I don't know, why are you asking me? You're so annoying...\"";
                 
                 this.arr[i++] = "You: \"You look disgusted. Is something wrong?\"";
                 this.arr[i++] = "Yoo: \"You reek of seafood. Gross...\"";
                 
-                this.arr[i++] = "You: \"Is it me or is it always raining around this part of the forest?\"";
+                this.arr[i++] = "You: \"Is it me or is it always raining around this part of the city?\"";
                 this.arr[i++] = "Yoo: \"Jeez. I wonder why...\" [eye rolls]";
                 
                 this.arr[i++] = "You: \"It's so foggy, there's no way it has to be this THICK. Why is it so foggy?\"";
@@ -331,7 +331,7 @@ public class StoryLine {
                 this.arr[i++] = "You: \"You don't look too happy. Something bothering you?\"";
                 this.arr[i++] = "Faithful: \"Not at all. Just my resting face. You get used to it.\"";
             
-                this.arr[i++] = "You: \"Why does it always seem like it's pouring rain in this forest?\"";
+                this.arr[i++] = "You: \"Why does it always seem like it's pouring rain in this city?\"";
                 this.arr[i++] = "Faithful: \"Could be worse. At least it's not snowing. Yet.\"";
             
                 this.arr[i++] = "You: \"It's so foggy, it's like walking through a cloud. Is it always like this?\"";
