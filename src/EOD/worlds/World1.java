@@ -120,7 +120,7 @@ public class World1 extends World{
                     isBattleStopped = false;
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
-                    World window = new World2(getProtagType(), getPlayerName(), protag);
+                    World window = new World2(getPlayerType(), getPlayerName(), player);
                     window.setVisible(true);
                     this.setVisible(false);
                 }

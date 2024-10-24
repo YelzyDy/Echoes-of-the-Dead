@@ -113,18 +113,17 @@ public class Protagonist extends Character implements MouseInteractable {
                 s3num = 4;
                 s4num = 11;
                 turnDuration = 3000;
-                skillEffects1 = new SkillEffects(
+                skillEffects3 = new SkillEffects(
                     "effects",                           
                     (int)(getPosX() * 0.9),             
                     (int)(screenSize.width * 0.08),      
                         (int)(screenSize.width * 0.15),      
                     (int)(screenSize.width * 0.15),      
                     "shield",                           
-                    13,                                 
-                    50,                                 
+                    13,                                                           
                     panel                               
                 );
-                skillEffects1.setLooping(true);  // Make it loop while active
+                skillEffects3.setLooping(true);  // Make it loop while active
                 break;
             case "wizard":
                 attack = 20;
@@ -145,8 +144,7 @@ public class Protagonist extends Character implements MouseInteractable {
                         (int)(screenSize.width * 0.2),      
                     (int)(screenSize.width * 0.2),      
                     "explosion",                           
-                    12,                                 
-                    50,                                 
+                    12,                                                                  
                     panel                               
                 );
                 skillEffects4.setLooping(false);  // Make it loop while active
@@ -294,17 +292,16 @@ public class Protagonist extends Character implements MouseInteractable {
                         mana -= 25;
                         skill3Cd = 3;
                         xFactor =  getPosX();
-                        skillEffects1.setPosX(getPosX() - skillEffects1.getWidth() * 0.25);
-                        skillEffects1.setPosY(getPosY() - skillEffects1.getHeight() * 0.25);
+                        skillEffects3.setPosX(getPosX() - skillEffects3.getWidth() * 0.25);
+                        skillEffects3.setPosY(getPosY() - skillEffects3.getHeight() * 0.25);
                         
                         // Bind the effect to follow the character
-                        skillEffects1.bindToTarget(this, 
-                            -skillEffects1.getWidth() * 0.25,  // offset X
-                            -skillEffects1.getHeight() * 0.30   // offset Y
+                        skillEffects3.bindToTarget(this, 
+                            -skillEffects3.getWidth() * 0.25,  // offset X
+                            -skillEffects3.getHeight() * 0.30   // offset Y
                         );
-
                         // Play the effect
-                        skillEffects1.play();
+                        skillEffects3.play();
                         return true;
                     }else{
                         System.out.println("Not enough mana!");

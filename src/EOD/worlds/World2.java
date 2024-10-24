@@ -62,61 +62,10 @@ public class World2 extends World {
     }
 
     public void initializeEnemies(){
-<<<<<<< HEAD
-        scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Necromancer("Necromancer", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Skeleton1("Skeleton1", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        for(Enemy enemy : scene.enemyList){
-            scene.add(enemy);
-            scene.setComponentZOrder(enemy, 1);
-            if (enemy.getName().equals("Skeleton1")) {
-                enemy.setIndex(3);
-            }else if(enemy.getName().equals("Necromancer")) {
-                enemy.setIndex(4);
-            }
-        }
-=======
->>>>>>> master
     }
 
     @Override
     public void onClick(MouseEvent e) {
-<<<<<<< HEAD
-        super.onClick(e);
-        Object source = e.getSource();
-        if(source == btn_ok){
-            initializeProtagonist();
-            initializeObjects();
-            initializeWorldChars();
-            initializeEnemies();
-            scene.initializeGameLoop();
-        }
-
-        for (EchoesObjects obj : scene.objList) {
-            if (source == obj && obj.getName().equals("portal")){
-                if(!isBattleStopped){
-                    scene.setCurrentSceneIndex(3);
-                }else{
-                    scene.setCurrentSceneIndex(1);
-                    isBattleStopped = false;
-                }
-            } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
-                if (!isBattleStopped) {
-                    scene.setCurrentSceneIndex(4);
-                } else {
-                    // If the miniboss has been defeated, create a new World2 instance and make it visible
-                    /*World2 world2 = new World2(getplayerType(), getPlayerName(), player);
-                    world2.setVisible(true);
-                    this.setVisible(false);*/
-                    isBattleStopped = false;
-                }
-            }
-            // } else if (source == obj && obj.getName().equals("shop")){
-            //     scene.setCurrentSceneIndex(5);
-            // }
-        }    
-=======
->>>>>>> master
     }
 
     @Override

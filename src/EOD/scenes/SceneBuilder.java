@@ -259,6 +259,7 @@ public class SceneBuilder extends JPanel{
 
             if(player.skillEffects3 != null)player.skillEffects3.setVisible(player.getSkill3CD() != 0);
             if(player.skillEffects4 != null)player.skillEffects4.setVisible(player.getSkill4CD() != 0);
+
             for (EchoesObjects obj : objList) {
                 if( obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
                     obj.setVisible(obj.getIndex() == currentSceneIndex);

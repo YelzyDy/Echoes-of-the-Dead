@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JLayeredPane;
 import java.awt.Image;
@@ -20,24 +19,15 @@ public class SkillEffects extends EchoesObjects {
     private double offsetX;
     private double offsetY;
     private Timer gameLoop;
-    private int frameDelay;
-    private long cooldownDuration;
-    private long lastUsedTime;
-    private boolean isCooldown;
     private SceneBuilder panel;
     
     public SkillEffects(String assetPackage, int x, int y, int width, int height, 
-                      String type, int numOfSprites, int frameDelay, SceneBuilder panel) {
+                      String type, int numOfSprites, SceneBuilder panel) {
         super(assetPackage, x, y, width, height, type, true, false, numOfSprites);
         this.isLooping = true;
         this.stopFrame = numOfSprites - 1;
         this.isActive = false;
-        this.frameDelay = frameDelay;
-        this.cooldownDuration = 0;
-        this.lastUsedTime = 0;
-        this.isCooldown = false;
         this.panel = panel;
-        
         setOpaque(false);
         setVisible(true);
     }
@@ -104,23 +94,9 @@ public class SkillEffects extends EchoesObjects {
         this.target = null;
     }
 
-    public void setCooldown(long milliseconds) {
-        this.cooldownDuration = milliseconds;
-    }
-
-    public boolean isOnCooldown() {
-        if (cooldownDuration == 0) return false;
-        return System.currentTimeMillis() - lastUsedTime < cooldownDuration;
-    }
-
-    public long getRemainingCooldown() {
-        if (!isOnCooldown()) return 0;
-        return cooldownDuration - (System.currentTimeMillis() - lastUsedTime);
-    }
-    
       
     public void play() {
-        if (isOnCooldown() || isActive) return;
+        if (isActive) return;
         
         isActive = true;
         setVisible(true);
@@ -137,7 +113,6 @@ public class SkillEffects extends EchoesObjects {
         setBounds((int)getPosX(), (int)getPosY(), getWidth(), getHeight());
         
         restartAnimation();
-        lastUsedTime = System.currentTimeMillis();
         panel.revalidate();
         panel.repaint();
         
@@ -168,9 +143,7 @@ public class SkillEffects extends EchoesObjects {
     }
     
     public void resume() {
-        if (!isOnCooldown()) {
             isActive = true;
-        }
     }
     
     public boolean isActive() {
