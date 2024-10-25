@@ -140,7 +140,7 @@ public class Necromancer extends Enemy {
 
     @Override
     public double getXFactor(){
-        return screenSize.width * 0.4;
+        return screenSize.width * 0.6;
     }
 
 

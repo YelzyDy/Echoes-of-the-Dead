@@ -80,7 +80,6 @@ public class BattleExperiment {
             enemy.missedTurn = false;
             battleUI.showAction("Enemy's turn was skipped!");
         }
-
         enemyTurnTimer.start();
     }
 
@@ -122,6 +121,7 @@ public class BattleExperiment {
             enemy.getLastUsedSkill(), 
             (int)enemy.getXFactor()
         );
+        enemy.getAnimator().setMovingRight(false);
     }
 
     private void performEnemyTurn() {

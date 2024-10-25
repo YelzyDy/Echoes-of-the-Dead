@@ -5,6 +5,8 @@ import EOD.characters.*;
 import EOD.listeners.*;
 import EOD.objects.*;
 import EOD.scenes.*;
+import EOD.utils.BGMPlayer;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -26,7 +28,9 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected Protagonist player; 
 
+    private EchoesObjects btn_settings;
     private JLayeredPane layeredPane;
+    private BGMPlayer bgmPlayer;
 
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
@@ -53,8 +57,13 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         
         // Add the base panel to the bottom layer
         layeredPane.add(basePanel, Integer.valueOf(0));
+        addSettingsButton();
 
         this.setContentPane(layeredPane);
+    }
+
+    public void setBGMPlayer(BGMPlayer bgmPlayer){
+        this.bgmPlayer = bgmPlayer;
     }
 
     public JLayeredPane getPane(){
@@ -88,6 +97,24 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         "welcomePrompt", false, false, 1);
         promptPanel.setLayout(null);
         layeredPane.add(promptPanel, Integer.valueOf(1));
+    }
+
+    public void addSettingsButton(){
+        btn_settings = new EchoesObjects(
+                "settings", 
+                (int) (screenSize.width * 0.01),
+                (int) (screenSize.height * 0.01),
+                (int) (screenSize.width * 0.07),
+                (int) (screenSize.height * 0.11),
+                "settings_button", 
+                false, 
+                true, 
+                2
+            );
+        btn_settings.setVisible(true);
+        btn_settings.addMouseListener(new MouseClickListener(this));
+        btn_settings.setName(("settings"));
+        layeredPane.add(btn_settings, Integer.valueOf(1));
     }
 
     private void addOkButton(int panelHeight, int panelWidth) {
@@ -142,6 +169,9 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
             scene.setVisible(true);
             scene.createWorldScene();  
             System.out.println("click");
+        }else if(source == btn_settings){
+            SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
+            settings.setVisible(true);
         }
     }
 

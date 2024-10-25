@@ -217,6 +217,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 World window = new World1(charType, nameField.getText());
                 System.out.println(nameField.getText());
                 window.setVisible(true);
+                window.setBGMPlayer(bgmPlayer);
                 this.setVisible(false);
                 bgmPlayer.stopBGM();
             

@@ -29,7 +29,9 @@ public class Protagonist extends Character implements MouseInteractable {
     private static final int HEALTH_REGEN = 5; // Small health regen for Pr
 
     private static final int SKILL2_DURATION = 3; // Duration of buff in turns
+    private static final int SHIELD_DURATION = 1; // Duration of shield in turns
     private int skill2BuffRemaining = 0; // Tracks remaining turns of skill 2 buff
+    private int shieldBuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int originalAttack; // Stores original attack value
 
     public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY) {
@@ -92,7 +94,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public void reset() {
         skillIsUseable = true;
-        attributes.skill3Cd = attributes.skill4Cd = 0;
+        attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
     }
 
     public String getAction() {
@@ -122,6 +124,10 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public int getSkill4CD() {
         return attributes.skill4Cd;
+    }
+
+    public int getShieldBuffRemaining() {
+        return shieldBuffRemaining;
     }
 
     public ProtagonistAnimator getAnimator() {
@@ -182,6 +188,11 @@ public class Protagonist extends Character implements MouseInteractable {
                 // Reset attack to original value when buff expires
                 attributes.attack = originalAttack;
             }
+        }
+
+        // Handle shield buff duration
+        if (shieldBuffRemaining > 0) {
+            shieldBuffRemaining--;
         }
         
         if (isKnight()) {
@@ -296,6 +307,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 actionString = "Defense activated! Damage reduced by 60%";
                 xFactor = getPosX();
+                shieldBuffRemaining = SHIELD_DURATION;
                 return true;
 
             case "wizard":
