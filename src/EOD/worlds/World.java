@@ -29,6 +29,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected Protagonist player; 
 
     private EchoesObjects btn_settings;
+    private EchoesObjects bag;
     private JLayeredPane layeredPane;
     private BGMPlayer bgmPlayer;
 
@@ -58,6 +59,8 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         // Add the base panel to the bottom layer
         layeredPane.add(basePanel, Integer.valueOf(0));
         addSettingsButton();
+        System.out.println("Hello!");
+        // addBagIcon();
 
         this.setContentPane(layeredPane);
     }
@@ -114,6 +117,22 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         btn_settings.addMouseListener(new MouseClickListener(this));
         btn_settings.setName(("settings"));
         layeredPane.add(btn_settings, Integer.valueOf(1));
+    }
+
+    public void addBagIcon() {
+        bag = new EchoesObjects(
+                "inventory_assets",
+                (int) (screenSize.width * 0.09), // Positioned right after settings button
+                (int) (screenSize.height * 0.01),
+                (int) (screenSize.width * 0.07),
+                (int) (screenSize.height * 0.11),
+                "bag",
+                false,
+                true,
+                2
+            );
+        bag.setName("bag");
+        layeredPane.add(bag, Integer.valueOf(1));
     }
 
     private void addOkButton(int panelHeight, int panelWidth) {
