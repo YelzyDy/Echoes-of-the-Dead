@@ -83,7 +83,7 @@ public class World2 extends World {
 
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Skeleton1("Skeleton2", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        //scene.enemyList.add(new Skeleton1("Skeleton2", scene, (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
     }
 
     @Override

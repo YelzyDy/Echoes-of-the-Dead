@@ -116,7 +116,7 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 1);
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 2);
-            sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
+            sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 3); // added shop pop up - sheen
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
     }
