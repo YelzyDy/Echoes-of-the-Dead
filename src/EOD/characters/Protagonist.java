@@ -82,7 +82,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "wizard":
             attributes.skillEffects2 = attributes.createSkillEffect("wbuff", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 14, false);
             attributes.skillEffects3 = attributes.createSkillEffect("zawardo", 0, 0, enemy.getOffsetW(3),  enemy.getOffsetH(3), 14, false);
-            attributes.skillEffects4 = attributes.createSkillEffect("explosion", getPosX() * 0.9, 0.08,enemy.getOffsetW(4),  enemy.getOffsetH(4), 12, false);
+            attributes.skillEffects4 = attributes.createSkillEffect("fancyExplosion", getPosX() * 0.9, 0.08,enemy.getOffsetW(4),  enemy.getOffsetH(4), 16, false);
             break;
             default:
             attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 4, true);
@@ -315,7 +315,7 @@ public class Protagonist extends Character implements MouseInteractable {
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
                     attributes.mana = Math.min(attributes.mana + 50, attributes.baseMana);
-                    applySkillEffect(attributes.skillEffects3, enemy, 14, 0.25, 0.30);
+                    applySkillEffect(attributes.skillEffects3, enemy, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                     actionString = "Shift Successful! 35 damage dealt to enemy!";
                     xFactor = screenSize.width * 0.1;
                     return true;
