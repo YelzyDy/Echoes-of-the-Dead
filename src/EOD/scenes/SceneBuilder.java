@@ -116,6 +116,8 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 1);
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 2);
+            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/cemetary.png")).getImage(), 3);
+            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/cemetary.png")).getImage(), 4);
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 3); // added shop pop up - sheen
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
@@ -210,7 +212,30 @@ public class SceneBuilder extends JPanel{
         }
 
         if(world != null){
-
+            if (world.getTitle().equals("world2")){
+                for (EchoesObjects obj : objList) {        
+                    // Add null and bounds check
+                    if (obj != null && obj.getIndex() >= 0 && obj.getIndex() < sceneList.getSize()) {
+                        obj.setVisible(obj.getIndex() == currentSceneIndex);
+                    } else {
+                        obj.setVisible(false);
+                    }
+                }
+                for (Npc npc : npcList) {
+                    if (npc != null && npc.getIndex() >= 0 && npc.getIndex() < sceneList.getSize()) {
+                        npc.setVisible(npc.getIndex() == currentSceneIndex);
+                    } else {
+                        npc.setVisible(false);
+                    }
+                }
+                for (Enemy enemy : enemyList) {
+                    if (enemy != null && enemy.getIndex() >= 0 && enemy.getIndex() < sceneList.getSize()) {
+                        enemy.setVisible(enemy.getIndex() == currentSceneIndex);
+                    } else {
+                        enemy.setVisible(false);
+                    }
+                }
+            }else {
             if(player.getAttributes().skillEffectsRandom!= null) player.getAttributes().skillEffectsRandom.updateEffect();
             if(player.getAttributes().skillEffects1!= null) player.getAttributes().skillEffects1.updateEffect();
             if(player.getAttributes().skillEffects2!= null) player.getAttributes().skillEffects2.updateEffect();
@@ -241,7 +266,7 @@ public class SceneBuilder extends JPanel{
                     animator.updateBounds();
                 }
             }
-
+        }
         }
     }
 
