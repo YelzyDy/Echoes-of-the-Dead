@@ -104,9 +104,9 @@ public class SceneBuilder extends JPanel{
     public void createWorldScene() {
         if (world.getTitle().equals("world1")) {
             sceneList = new ImageList();
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 0);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 1);
-            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/forest.png")).getImage(), 2);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/city1.jpg")).getImage(), 0);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/city2.jpg")).getImage(), 1);
+            sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/city3.jpg")).getImage(), 2);
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/graveyard.jpg")).getImage(), 3); // added scene for inside the minion portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/world1_assets/pillars.png")).getImage(), 4); // added scene for inside the mini boss portal background :> -z
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
