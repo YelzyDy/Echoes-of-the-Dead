@@ -111,7 +111,6 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
                 true, 
                 2
             );
-        btn_settings.setVisible(true);
         btn_settings.addMouseListener(new MouseClickListener(this));
         btn_settings.setName(("settings"));
         layeredPane.add(btn_settings, Integer.valueOf(1));
@@ -168,6 +167,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
             layeredPane.add(scene, Integer.valueOf(1));
             scene.setVisible(true);
             scene.createWorldScene();  
+            btn_settings.setVisible(true);
             System.out.println("click");
         }else if(source == btn_settings){
             SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
