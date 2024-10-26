@@ -114,7 +114,9 @@ public class SceneBuilder extends JPanel{
         } else if (world.getTitle().equals("world2")){
             sceneList = new ImageList();
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 0);
-            sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 1); // added shop pop up - sheen
+            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 1);
+            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 2);
+            sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 5); // added shop pop up - sheen
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
     }
