@@ -141,6 +141,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     @Override
     public void onExit(MouseEvent e) {
+        if(!allowHover) return;
         if(!isAnimated && isState){
             restartAnimation();
             repaint();    
