@@ -20,7 +20,7 @@ public class SkillEffects extends EchoesObjects {
     private double offsetY;
     private Timer gameLoop;
     private SceneBuilder panel;
-
+    private int loopStartFrame; 
     
     public SkillEffects(String assetPackage, int x, int y, int width, int height, 
                       String type, int numOfSprites, SceneBuilder panel) {
@@ -29,10 +29,11 @@ public class SkillEffects extends EchoesObjects {
         this.stopFrame = numOfSprites - 1;
         this.isActive = false;
         this.panel = panel;
+        this.loopStartFrame = 0; 
         setOpaque(false);
         setVisible(true);
     }
-
+    
     public void updateEffect() {
         if (!isActive) return;
         panel.setComponentZOrder(this, 0);
@@ -64,9 +65,9 @@ public class SkillEffects extends EchoesObjects {
         
         setCurrentFrame(getCurrentFrame() + 1);
         
-        // If we're looping, reset the frame counter when we reach the end
+        // If we're looping, reset to the loop start frame when we reach the end
         if (isLooping && getCurrentFrame() >= getNumOfSprites()) {
-            setCurrentFrame(0);
+            setCurrentFrame(loopStartFrame);
         }
         // If we're not looping, ensure we don't exceed the number of sprites
         else if (!isLooping) {
@@ -76,7 +77,26 @@ public class SkillEffects extends EchoesObjects {
         }
     }
 
+    /**
+     * Sets the frame to start looping from after completing the full animation once.
+     * @param startFrame The frame index to start looping from (0-based index)
+     * @throws IllegalArgumentException if startFrame is negative or >= number of sprites
+     */
+    public void setLoopStartFrame(int startFrame) {
+        if (startFrame < 0 || startFrame >= getNumOfSprites()) {
+            throw new IllegalArgumentException("Loop start frame must be between 0 and " + (getNumOfSprites() - 1));
+        }
+        this.loopStartFrame = startFrame;
+    }
 
+    /**
+     * Gets the current loop start frame
+     * @return The frame index where looping begins
+     */
+    public int getLoopStartFrame() {
+        return loopStartFrame;
+    }
+    
     public void setLooping(boolean isLooping) {
         this.isLooping = isLooping;
     }

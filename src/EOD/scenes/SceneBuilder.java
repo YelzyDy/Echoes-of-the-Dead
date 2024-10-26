@@ -141,7 +141,7 @@ public class SceneBuilder extends JPanel{
         if(enemy.getName().equals("Skeleton")){
             return 0.3;
         }else if(enemy.getName().equals("Necromancer")){
-            return 7;
+            return 20;
         }else if(enemy.getName().equals("Skeleton1")){
             return 0.5;
         }
@@ -210,6 +210,7 @@ public class SceneBuilder extends JPanel{
         if(world != null){
 
             if(player.getAttributes().skillEffectsRandom!= null) player.getAttributes().skillEffectsRandom.updateEffect();
+            if(player.getAttributes().skillEffects1!= null) player.getAttributes().skillEffects1.updateEffect();
             if(player.getAttributes().skillEffects2!= null) player.getAttributes().skillEffects2.updateEffect();
             if(player.getAttributes().skillEffects3!= null) player.getAttributes().skillEffects3.updateEffect();
             if(player.getAttributes().skillEffects4!= null) player.getAttributes().skillEffects4.updateEffect();
@@ -253,7 +254,7 @@ public class SceneBuilder extends JPanel{
         }
         if (world.getTitle().equals("world1")) {
             // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
-
+            // if(player.getAttributes().skillEffects2 != null && player.isKnight())player.getAttributes().skillEffects2.setVisible(player.getSkill2BuffRemaining() != 0);
             if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
             if(player.getAttributes().skillEffectsRandom != null && player.isPriest())player.getAttributes().skillEffectsRandom.setVisible(player.getSkill4CD() != 0);
             for (EchoesObjects obj : objList) {
