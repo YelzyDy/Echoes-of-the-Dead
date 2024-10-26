@@ -60,7 +60,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         layeredPane.add(basePanel, Integer.valueOf(0));
         addSettingsButton();
         System.out.println("Hello!");
-        // addBagIcon();
+        addBagIcon();
 
         this.setContentPane(layeredPane);
     }
@@ -121,7 +121,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
 
     public void addBagIcon() {
         bag = new EchoesObjects(
-                "inventory_assets",
+                "inventory",
                 (int) (screenSize.width * 0.09), // Positioned right after settings button
                 (int) (screenSize.height * 0.01),
                 (int) (screenSize.width * 0.07),
@@ -129,7 +129,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
                 "bag",
                 false,
                 true,
-                2
+                1
             );
         bag.setName("bag");
         layeredPane.add(bag, Integer.valueOf(1));
@@ -187,6 +187,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
             scene.setVisible(true);
             scene.createWorldScene();  
             btn_settings.setVisible(true);
+            bag.setVisible(true);
             System.out.println("click");
         }else if(source == btn_settings){
             SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
