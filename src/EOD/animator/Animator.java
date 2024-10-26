@@ -73,6 +73,14 @@ public abstract class Animator {
         deathAnimationSpeedMultiplier = speedMultiplier;
     }
 
+    public void setDeathAnimationSpeedMultiplier(int deathAnimationSpeedMultiplier){
+        this.deathAnimationSpeedMultiplier = deathAnimationSpeedMultiplier;
+    }
+
+    public void setSkillAnimationSpeedMultiplier(int skillAnimationSpeedMultiplier){
+        this.skillAnimationSpeedMultiplier = skillAnimationSpeedMultiplier;
+    }
+
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites) {
         ImageList sprites = getSpriteList(type);
         sprites.clear();

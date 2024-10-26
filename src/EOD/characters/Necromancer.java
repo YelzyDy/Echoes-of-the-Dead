@@ -21,6 +21,8 @@ public class Necromancer extends Enemy {
             attack = BASE_ATTACK;
             turnDuration = TURN_DURATION;
             animator.setSpeedMultiplier(2);
+            animator.setDeathAnimationSpeedMultiplier(5);
+            animator.setSkillAnimationSpeedMultiplier(3);
     }
 
     public void configureSprites(){
@@ -77,11 +79,11 @@ public class Necromancer extends Enemy {
             if(protagonist.isKnight()){
                 return 0.3;
             }else{
-                return 0.0;
+                return 0.2;
             }
         }else{
             if(protagonist.isKnight()){
-                return 0.15;
+                return 0.1;
             }else{
                 return 0.0;
             }
@@ -105,10 +107,12 @@ public class Necromancer extends Enemy {
                 return 0.17;
             }
         }else{
-            if(!protagonist.isPriest()){
-                return 0.3;
-            }else{
+            if(protagonist.isWizard()){
                 return 0.28;
+            }else if(protagonist.isKnight()){
+                return 0.28;
+            }else{
+                return 0.3;
             }
         }
     }
@@ -130,7 +134,10 @@ public class Necromancer extends Enemy {
                 return 0.17;
             }
         }else{
-            if(!protagonist.isPriest()){
+            if(protagonist.isKnight()){
+                return 0.22;
+            }
+            if(protagonist.isWizard()){
                 return 0.3;
             }else{
                 return 0.28;

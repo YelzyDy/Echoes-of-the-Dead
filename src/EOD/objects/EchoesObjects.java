@@ -27,7 +27,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private double posX;
     private double posY;
     private int currentFrame;
-    private ImageList objSprites = new ImageList();
+    protected ImageList objSprites = new ImageList();
     private String assetPackage = null;
     private boolean isAnimated = false;
     private boolean isState = false;
@@ -48,6 +48,10 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         initializeSprites(assetPackage, width, height);
         this.addMouseListener(new MouseClickListener(this));
     }   
+
+    public void removeBackground(int threshold){
+        objSprites.removeWhiteBackground(threshold);
+    }
 
     @Override
     public double getWidthE(){

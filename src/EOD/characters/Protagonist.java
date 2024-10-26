@@ -75,13 +75,17 @@ public class Protagonist extends Character implements MouseInteractable {
     public void configureSkills(){
         switch(getCharacterType()){
             case "knight":
+            attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, enemy.getOffsetW(1),  enemy.getOffsetH(1), 11, false);
+            attributes.skillEffects1.removeBackground(100);
             attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, enemy.getOffsetW(2),  enemy.getOffsetH(2), 15, false);
+            attributes.skillEffects2.removeBackground(100);
             attributes.skillEffects3 = attributes.createSkillEffect("shield", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 13, true);
-            attributes.skillEffects4 = attributes.createSkillEffect("distortedClock", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 19, false);
+            attributes.skillEffects4 = attributes.createSkillEffect("knightss", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 23, false);
+            attributes.skillEffects4.removeBackground(100);
             break;
             case "wizard":
             attributes.skillEffects2 = attributes.createSkillEffect("wbuff", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 14, false);
-            attributes.skillEffects3 = attributes.createSkillEffect("zawardo", 0, 0, enemy.getOffsetW(3),  enemy.getOffsetH(3), 14, false);
+            attributes.skillEffects3 = attributes.createSkillEffect("distortedClock", 0, 0, enemy.getOffsetW(3),  enemy.getOffsetH(3), 19, false);
             attributes.skillEffects4 = attributes.createSkillEffect("fancyExplosion", getPosX() * 0.9, 0.08,enemy.getOffsetW(4),  enemy.getOffsetH(4), 16, false);
             break;
             default:
@@ -128,6 +132,11 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public int getShieldBuffRemaining() {
         return shieldBuffRemaining;
+    }
+
+    public int getSkill2BuffRemaining() {
+        System.out.println(skill2BuffRemaining + "            asdfsadfasfsadf");
+        return skill2BuffRemaining;
     }
 
     public ProtagonistAnimator getAnimator() {
@@ -230,6 +239,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "knight":
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
                 xFactor = screenSize.width * 0.5;
+                applySkillEffect(attributes.skillEffects1, enemy, 11, enemy.getOffsetX(1), enemy.getOffsetY(1));
                 break;
             case "wizard":
                 damageDealt = attributes.attack;
@@ -265,6 +275,8 @@ public class Protagonist extends Character implements MouseInteractable {
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
                 actionString = "Player's attack increased by 15 for " + SKILL2_DURATION + " turns!";
+                applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), enemy.getOffsetX(2), enemy.getOffsetY(2));
+                attributes.skillEffects2.setLoopStartFrame(10);
                 break;
                 
             case "wizard":
@@ -276,6 +288,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 originalAttack = attributes.attack;
                 attributes.attack += 20;
                 actionString = "Player's attack increased by 20 for " + SKILL2_DURATION + " turns!";
+                applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
                 
             case "priest":
@@ -287,10 +300,10 @@ public class Protagonist extends Character implements MouseInteractable {
                 originalAttack = attributes.attack;
                 attributes.attack += 30;
                 actionString = "Player's attack increased by 30 for " + SKILL2_DURATION + " turns!";
+                applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
         }
         
-        applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
         skill2BuffRemaining = SKILL2_DURATION;
         attributes.skill2Cd = 4; // Set cooldown to 4 turns
         return true;

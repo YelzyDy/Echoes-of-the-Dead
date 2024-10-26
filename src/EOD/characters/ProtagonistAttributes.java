@@ -21,6 +21,7 @@ public class ProtagonistAttributes {
     protected int skill3Cd;
     protected int skill4Cd;
     public SkillEffects skillEffectsRandom;
+    public SkillEffects skillEffects1;
     public SkillEffects skillEffects2;
     public SkillEffects skillEffects3;
     public SkillEffects skillEffects4;
