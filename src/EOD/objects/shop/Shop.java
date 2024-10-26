@@ -18,6 +18,7 @@ public class Shop extends EchoesObjects {
     private int itemToBuy;
     private int item1Stock, item2Stock, item3Stock, item4Stock;
     private int money;
+    private JLabel moneyLabel;
 
     public Shop(World world) {
         super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 
@@ -59,7 +60,7 @@ public class Shop extends EchoesObjects {
         moneyPanel.setBounds((int)(width * 0.68), (int)(height * 0.19), (int)(width * 0.1), (int)(height * 0.1)); // Position at top
 
         // Create money label with formatted text
-        JLabel moneyLabel = new JLabel("" + money);
+        moneyLabel = new JLabel("" + money);
         moneyLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.03))); // Scaled font size
         moneyLabel.setForeground(new Color(238,218,180,255)); // Gold color
         moneyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -143,19 +144,48 @@ public class Shop extends EchoesObjects {
 
     public void buy() {
         switch (itemToBuy) {
-            case 1 -> updateStock(item1, --item1Stock);
-            case 2 -> updateStock(item2, --item2Stock);
-            case 3 -> updateStock(item3, --item3Stock);
-            case 4 -> updateStock(item4, --item4Stock);
+            case 1 -> {
+                if (item1Stock != 0) {
+                    updateStock(item1, --item1Stock);
+                    updateMoney(1); // Deduct money for item 1
+                }
+            }
+            case 2 -> {
+                if (item2Stock != 0) {
+                    updateStock(item2, --item2Stock);
+                    updateMoney(2); // Deduct money for item 2
+                }
+            }
+            case 3 -> {
+                if (item3Stock != 0) {
+                    updateStock(item3, --item3Stock);
+                    updateMoney(3); // Deduct money for item 3
+                }
+            }
+            case 4 -> {
+                if (item4Stock != 0) {
+                    updateStock(item4, --item4Stock);
+                    updateMoney(4); // Deduct money for item 4
+                }
+            }
         }
-
-    }
+        moneyLabel.setText(money + ""); // Update money display
+    }    
 
     private void updateStock(EchoesObjects item, int stock) {
         if (stock == 0) {
             item.setCurrentFrame(2);  // Show "sold out" frame
             item.repaint();
             item.setAllowHover(false);
+        }
+    }
+
+    private void updateMoney(int item){
+        switch(item){
+            case 1 -> {if(money >= 10) money -= 10;}
+            case 2 -> {if(money >= 10) money -= 10;}
+            case 3 -> {if(money >= 10) money -= 10;}
+            case 4 -> {if(money >= 10) money -= 10;}
         }
     }
 
