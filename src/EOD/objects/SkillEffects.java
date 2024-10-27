@@ -100,6 +100,7 @@ public class SkillEffects extends EchoesObjects {
     public void setLooping(boolean isLooping) {
         this.isLooping = isLooping;
     }
+    
     public void setStopFrame(int frame) {
         this.stopFrame = Math.min(frame, getNumOfSprites() - 1);
     }
@@ -114,7 +115,6 @@ public class SkillEffects extends EchoesObjects {
     public void unbindTarget() {
         this.target = null;
     }
-
       
     public void play() {
         if (isActive) return;
@@ -163,7 +163,7 @@ public class SkillEffects extends EchoesObjects {
     }
     
     public void resume() {
-            isActive = true;
+        isActive = true;
     }
     
     public boolean isActive() {

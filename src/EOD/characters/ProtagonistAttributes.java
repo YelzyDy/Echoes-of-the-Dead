@@ -65,13 +65,13 @@ public class ProtagonistAttributes {
         this.turnDuration = duration;
     }
 
-    protected SkillEffects createSkillEffect(String type, double xFactor, double yFactor, double widthFactor, double heightFactor, int numSprites, boolean looping) {
+    protected SkillEffects createSkillEffect(String type, double xFactor, double yFactor, int numSprites, boolean looping) {
         SkillEffects effect = new SkillEffects(
             "effects",
             (int) (screenSize.width * xFactor),
             (int) (screenSize.height * yFactor),
-            (int) (screenSize.width * widthFactor),
-            (int) (screenSize.width * heightFactor),
+            (int) (screenSize.width * 1),
+            (int) (screenSize.width * 1),
             type,
             numSprites,
             player.getPanel()

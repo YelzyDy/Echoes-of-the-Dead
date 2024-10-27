@@ -74,23 +74,47 @@ public class Protagonist extends Character implements MouseInteractable {
     public void configureSkills(){
         switch(getCharacterType()){
             case "knight":
-            attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, enemy.getOffsetW(1),  enemy.getOffsetH(1), 9, false);
-            attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, enemy.getOffsetW(2),  enemy.getOffsetH(2), 8, false);
-            attributes.skillEffects3 = attributes.createSkillEffect("shield", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 13, true);
-            attributes.skillEffects4 = attributes.createSkillEffect("knightss", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 25, false);
+            attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, 9, false);
+            attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, 8, false);
+            attributes.skillEffects3 = attributes.createSkillEffect("shield", getPosX() * 0.9, 0.08, 13, true);
+            attributes.skillEffects4 = attributes.createSkillEffect("knightss", getPosX() * 0.9, 0.08,  25, false);
             break;
             case "wizard":
-            attributes.skillEffects2 = attributes.createSkillEffect("wbuff", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 14, false);
-            attributes.skillEffects3 = attributes.createSkillEffect("distortedClock", 0, 0, enemy.getOffsetW(3),  enemy.getOffsetH(3), 19, false);
-            attributes.skillEffects4 = attributes.createSkillEffect("wizardss", getPosX() * 0.9, 0.08,enemy.getOffsetW(4),  enemy.getOffsetH(4), 8, false);
+            attributes.skillEffects2 = attributes.createSkillEffect("wbuff", getPosX() * 0.9, 0.08, 14, false);
+            attributes.skillEffects3 = attributes.createSkillEffect("distortedClock", 0, 0, 19, false);
+            attributes.skillEffects4 = attributes.createSkillEffect("wizardss", getPosX() * 0.9, 0.08, 8, false);
             break;
             default:
-            attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 4, true);
-            attributes.skillEffects2 = attributes.createSkillEffect("pbuff", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 9, false);
-            attributes.skillEffects4 = attributes.createSkillEffect("lightning", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 10, false);
+            attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08, 4, true);
+            attributes.skillEffects2 = attributes.createSkillEffect("pbuff", getPosX() * 0.9, 0.08, 9, false);
+            attributes.skillEffects4 = attributes.createSkillEffect("lightning", getPosX() * 0.9, 0.08, 10, false);
             break;
         }
     }
+
+    public void configureSkillDimension() {
+        switch(getCharacterType()) {
+            case "knight":
+                attributes.skillEffects1.setDimensions((int)(screenSize.width * enemy.getOffsetW(1)), (int)(screenSize.width * enemy.getOffsetH(1)));
+                attributes.skillEffects2.setDimensions((int)(screenSize.width * enemy.getOffsetW(2)), (int)(screenSize.width * enemy.getOffsetH(2)));
+                attributes.skillEffects3.setDimensions((int)(screenSize.width * enemy.getOffsetW(3)), (int)(screenSize.width * enemy.getOffsetH(3)));
+                attributes.skillEffects4.setDimensions((int)(screenSize.width * enemy.getOffsetW(4)), (int)(screenSize.width * enemy.getOffsetH(4)));
+                break;
+    
+            case "wizard":
+                attributes.skillEffects2.setDimensions((int)(screenSize.width * enemy.getOffsetW(2)), (int)(screenSize.width * enemy.getOffsetH(2)));
+                attributes.skillEffects3.setDimensions((int)(screenSize.width * enemy.getOffsetW(3)), (int)(screenSize.width * enemy.getOffsetH(3)));
+                attributes.skillEffects4.setDimensions((int)(screenSize.width * enemy.getOffsetW(4)), (int)(screenSize.width * enemy.getOffsetH(4)));
+                break;
+    
+            default:
+                attributes.skillEffectsRandom.setDimensions((int)(screenSize.width * enemy.getOffsetW(2)), (int)(screenSize.width * enemy.getOffsetH(2)));
+                attributes.skillEffects2.setDimensions((int)(screenSize.width * enemy.getOffsetW(3)), (int)(screenSize.width * enemy.getOffsetH(3)));  
+                attributes.skillEffects4.setDimensions((int)(screenSize.width * enemy.getOffsetW(4)), (int)(screenSize.width * enemy.getOffsetH(4)));
+                break;
+        }
+    }
+    
 
     public void reset() {
         skillIsUseable = true;
@@ -103,7 +127,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
-        configureSkills();
+        configureSkillDimension();
     }
 
     public int getTurnDuration() {
@@ -238,6 +262,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
                 xFactor = screenSize.width * 0.5;
                 applySkillEffect(attributes.skillEffects1, enemy, 13, enemy.getOffsetX(1), enemy.getOffsetY(1));
+                attributes.skillEffects1.setOpaque(true);
                 break;
             case "wizard":
                 damageDealt = attributes.attack;

@@ -26,7 +26,9 @@ public class World1 extends World{
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
         player = new Protagonist(getPlayerName(), getPlayerType(), 0, (int)(screenSize.height * 0.24));
         player.setWorld(this);
+        player.configureSkills();
         scene.setPlayer(player);
+        player.configureSkills();
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);
         scene.setComponentZOrder(player, 0);
