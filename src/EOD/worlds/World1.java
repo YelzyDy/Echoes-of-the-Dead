@@ -14,8 +14,6 @@ import java.util.ArrayList;
  * @author Joana
  */
 public class World1 extends World{
-    BGMPlayer bgmPlayer;
-
     public World1(String playerType, String playerName){
         super(playerType, playerName, "world1");
         scene = new SceneBuilder(this);
@@ -32,6 +30,7 @@ public class World1 extends World{
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);
         scene.setComponentZOrder(player, 0);
+        configureShopAndInventory();
     }
 
     public void initializeObjects(){
@@ -164,8 +163,7 @@ public class World1 extends World{
                     this.setVisible(false);*/
                 }
             }else if(source == obj && obj.getName().equals("shop")){
-                Shop shop = new Shop(this);
-                shop.showElementsInShop();
+                shop.makeElementsVisible();
             }else if (source == obj && obj.getName().equals("portalNextWorld")){
                 World window = new World2(getPlayerType(), getPlayerName(), player);
                 window.setVisible(true);
