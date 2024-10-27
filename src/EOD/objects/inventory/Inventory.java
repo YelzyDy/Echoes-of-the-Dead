@@ -1,6 +1,8 @@
 package EOD.objects.inventory;
 
 import EOD.MouseInteractable;
+import EOD.characters.Protagonist;
+import EOD.characters.ProtagonistAttributes;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import java.awt.*;
@@ -16,7 +18,7 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
     private double incrementValue;
     private JLabel item1Label, item2Label, item3Label, item4Label;
     private int item1Quantity = 0, item2Quantity = 0, item3Quantity = 0, item4Quantity = 0;
-
+    private ProtagonistAttributes attributes;
     public Inventory(World world) {
         super("inventory",
                 (int) (screenSize.width * 0.09),
@@ -28,7 +30,7 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
                 false,
                 1);
         world.getLayeredPane().add(this, Integer.valueOf(1));
-
+        attributes = world.getProtag().getAttributes();
         // Set width and height after calling the super constructor
         width = getWidth();
         height = getHeight();
@@ -60,6 +62,7 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
         (int) (height * 0.28),
         (int) (width * 0.085),
         (int) (height * 0.45), "items_",false, true, 4);
+        sideIcon.setAllowHover(false);
         add(sideIcon);
     }
     
@@ -144,6 +147,112 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
         item4Label.setVisible(true);
         item4Label.setText("x" + item4Quantity);
         item4Label.repaint();
+    }
+
+    private String applyItemEffect(String itemName) {
+        String effectMessage = null;
+    
+        switch (itemName) {
+            case "Item 1":
+                if (item1Quantity > 0) {
+                    attributes.setHp(attributes.getHp() + 20); // Increase health
+                    item1Quantity--;
+                    updateLabel(item1Label, item1Quantity);
+                    if (item1Quantity == 0) {
+                        item1Icon.setVisible(false); // Hide the item icon if quantity is 0
+                    }
+                    effectMessage = "Health increased by 20";
+                }
+                break;
+            case "Item 2":
+                if (item2Quantity > 0) {
+                    attributes.setAttack(attributes.getAttack() + 20); // Increase attack
+                    item2Quantity--;
+                    updateLabel(item2Label, item2Quantity);
+                    if (item2Quantity == 0) {
+                        item2Icon.setVisible(false); // Hide the item icon if quantity is 0
+                    }
+                    effectMessage = "Attack increased by 20";
+                }
+                break;
+            case "Item 3":
+                if (item3Quantity > 0) {
+                    attributes.setMana(attributes.getMana() + 20); // Increase mana
+                    item3Quantity--;
+                    updateLabel(item3Label, item3Quantity);
+                    if (item3Quantity == 0) {
+                        item3Icon.setVisible(false); // Hide the item icon if quantity is 0
+                    }
+                    effectMessage = "Mana increased by 20";
+                }
+                break;
+            case "Item 4":
+                if (item4Quantity > 0) {
+                    attributes.setHp(attributes.getHp() + 10); // Increase health
+                    attributes.setAttack(attributes.getAttack() + 5); // Increase attack
+                    attributes.setMana(attributes.getMana() + 10); // Increase mana
+                    item4Quantity--;
+                    updateLabel(item4Label, item4Quantity);
+                    if (item4Quantity == 0) {
+                        item4Icon.setVisible(false); // Hide the item icon if quantity is 0
+                    }
+                    effectMessage = "Health and Mana increased by 10, Attack increased by 5!";
+                }
+                break;
+        }  
+
+         // Check if all items are used up
+        if (item1Quantity == 0 && item2Quantity == 0 && item3Quantity == 0 && item4Quantity == 0) {
+            sideIcon.setVisible(false); // Hide sideIcon if all items are used up
+        }
+    
+        return effectMessage;
+    }
+    
+    
+    // Helper method to update the label based on item quantity
+    private void updateLabel(JLabel label, int quantity) {
+        if (quantity > 0) {
+            label.setText("x" + quantity);
+            label.setVisible(true);
+        } else {
+            label.setVisible(false);
+        }
+    }
+    
+    @Override 
+    public void onClick(MouseEvent e) {
+        Object source = e.getSource();
+        String itemName = "";
+    
+        if (source == item1Icon) {
+            itemName = "Item 1";
+        } else if (source == item2Icon) {
+            itemName = "Item 2";
+        } else if (source == item3Icon) {
+            itemName = "Item 3";
+        } else if (source == item4Icon) {
+            itemName = "Item 4";
+        }
+    
+        if (!itemName.isEmpty()) {
+            int choice = JOptionPane.showOptionDialog(
+                this,
+                "Do you want to use " + itemName + "?",
+                "Item Use Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"Use", "Cancel"},
+                "Use"
+            );
+    
+            if (choice == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(this, applyItemEffect(itemName));
+            } else {
+                JOptionPane.showMessageDialog(this, itemName + " was not used.");
+            }
+        }
     }
 
     @Override

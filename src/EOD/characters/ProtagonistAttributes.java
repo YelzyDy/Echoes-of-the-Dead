@@ -4,6 +4,7 @@ import EOD.objects.SkillEffects;
 import java.awt.Dimension;
 
 public class ProtagonistAttributes {
+    protected int baseAttack;
     protected int attack;
     protected int health;
     protected int baseHealth;
@@ -50,6 +51,7 @@ public class ProtagonistAttributes {
 
     private void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4, int duration) {
         this.attack = atk;
+        this.baseAttack = attack;
         this.health = hp;
         this.baseHealth = hp;
         this.mana = mp;
@@ -93,4 +95,7 @@ public class ProtagonistAttributes {
     public void setMoney(int newMoney) { money += newMoney; }
 
     public int getAttack() { return attack; }
+    public void setAttack(int newAttack) { attack = newAttack; }
+    public int getBaseAttack() { return baseAttack; }
+    public void setBaseAttack(int addAttack) { baseAttack += addAttack; }
 }
