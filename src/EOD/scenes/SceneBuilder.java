@@ -230,7 +230,7 @@ public class SceneBuilder extends JPanel{
         }
 
         if(world != null){
-            // ako lang ni gi remove guys.. d mn ata kailangan?? since if mubalhin tas world 2 ga initialzie nmn pd tag bag ong characters and objects also d pd mo update ag animation if naa ni
+            // ako lang ni gi remove guys.. d mn ata kailangan?? since if mubalhin tas world 2 ga initialzie nmn pd tag bag ong characters and objects also d pd mo update ag animation if naa ni -- ji
             // if (world.getTitle().equals("world2")){
                 // for (EchoesObjects obj : objList) {        
                 //     // Add null and bounds check
@@ -261,46 +261,45 @@ public class SceneBuilder extends JPanel{
             if(player.getAttributes().skillEffects3!= null) player.getAttributes().skillEffects3.updateEffect();
             if(player.getAttributes().skillEffects4!= null) player.getAttributes().skillEffects4.updateEffect();
 
+            if(objList == null) return; // added guard clauses aron way samok na nested if statements
+
             for(EchoesObjects obj : objList){
-                if(obj != null){
-                    boolean isInBattleScene = (currentSceneIndex == 3 || currentSceneIndex == 4);
-                        boolean isObjectForCurrentScene = obj.getIndex() == currentSceneIndex;
-                        boolean isPortalObject = obj.getName().equals("portal") || 
-                                               obj.getName().equals("portalMiniBoss") ||
-                                               obj.getName().equals("portalNextWorld");
-                    if(isPortalObject) {
-                            obj.setVisible(isObjectForCurrentScene && !isInBattleScene);
-                    }else{
-                            obj.setVisible(isObjectForCurrentScene);
-                    }
-                    obj.updateAnimation();
+                boolean isInBattleScene = (currentSceneIndex == 3 || currentSceneIndex == 4);
+                    boolean isObjectForCurrentScene = obj.getIndex() == currentSceneIndex;
+                    boolean isPortalObject = obj.getName().equals("portal") || 
+                                           obj.getName().equals("portalMiniBoss") ||
+                                           obj.getName().equals("portalNextWorld");
+                if(isPortalObject) {
+                        obj.setVisible(isObjectForCurrentScene && !isInBattleScene);
+                }else{
+                        obj.setVisible(isObjectForCurrentScene);
                 }
+                obj.updateAnimation();
+                
             }
 
+            if(npcList == null) return;
 
             for (Npc npc : npcList) {
                 boolean isInBattleScene = (currentSceneIndex == 3 || currentSceneIndex == 4);
                 npc.setVisible(npc.getIndex() == currentSceneIndex && !isInBattleScene);
                 Animator animator = npc.getAnimator();
-                if(npc != null){
-                    animator.updateAnimation(); 
-                    animator.updateMovement();
-                    animator.updateBounds();
-                }
+                animator.updateAnimation(); 
+                animator.updateMovement();
+                animator.updateBounds();
             }
+            if(enemyList == null) return;
 
             for (Enemy enemy : enemyList) {
                 Animator animator = enemy.getAnimator();
-                if(enemy != null){
-                    boolean isInCorrectBattleScene = 
-                            (currentSceneIndex == 3 && enemy.getName().equals("Skeleton")) ||
-                            (currentSceneIndex == 4 && enemy.getName().equals("Necromancer"));
-                        
-                    enemy.setVisible(isInCorrectBattleScene || enemy.getIndex() == currentSceneIndex);
-                    animator.updateAnimation(); 
-                    animator.updateMovement();
-                    animator.updateBounds();
-                }
+                boolean isInCorrectBattleScene = 
+                        (currentSceneIndex == 3 && enemy.getName().equals("Skeleton")) ||
+                        (currentSceneIndex == 4 && enemy.getName().equals("Necromancer"));
+                    
+                enemy.setVisible(isInCorrectBattleScene || enemy.getIndex() == currentSceneIndex);
+                animator.updateAnimation(); 
+                animator.updateMovement();
+                animator.updateBounds();
             }
         // }
         }
