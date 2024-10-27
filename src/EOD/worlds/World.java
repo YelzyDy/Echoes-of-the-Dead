@@ -8,7 +8,6 @@ import EOD.objects.inventory.Inventory;
 import EOD.objects.shop.Shop;
 import EOD.scenes.*;
 import EOD.utils.BGMPlayer;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
