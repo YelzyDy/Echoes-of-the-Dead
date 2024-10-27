@@ -38,13 +38,13 @@ public class ProtagonistAttributes {
     private void configure(String characterType) {
         switch (characterType) {
             case "knight":
-                setupAttributes(15, 120, 100, 100, 7, 4, 4, 11, 3000);
+                setupAttributes(15, 100, 100, 100, 7, 4, 4, 11, 3000);
                 break;
             case "wizard":
-                setupAttributes(12, 80, 150, 50, 6, 6, 6, 6, 3000);
+                setupAttributes(15, 100, 130, 50, 6, 6, 6, 6, 3000);
                 break;
             case "priest":
-                setupAttributes(10, 100, 120, 75, 9, 9, 10, 6, 3000);
+                setupAttributes(10, 130, 100, 75, 9, 9, 10, 6, 3000);
                 break;
         }
     }

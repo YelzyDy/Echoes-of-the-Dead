@@ -203,12 +203,14 @@ public class Protagonist extends Character implements MouseInteractable {
         
         if (isKnight()) {
             attributes.money = Math.min(attributes.money + MONEY_REGEN, attributes.baseMoney);
+            attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
         }
         if (isWizard()) {
             attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
         }
         if (isPriest()) {
             attributes.health = Math.min(attributes.health + HEALTH_REGEN, attributes.baseHealth);
+            attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
         }
     }
 
@@ -264,13 +266,13 @@ public class Protagonist extends Character implements MouseInteractable {
 
         switch(getCharacterType()) {
             case "knight":
-                if (attributes.money < 10) {
-                    actionString = "Not enough money!";
+                if (attributes.money < 25) {
+                    actionString = "Not enough Soul Shards!";
                     return false;
                 }
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
-                attributes.attack += 15;
+                attributes.attack += 25;
                 actionString = "Player's attack increased by 15 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), enemy.getOffsetX(2), enemy.getOffsetY(2));
                 break;
@@ -289,7 +291,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 
             case "priest":
                 if (attributes.health < 25) {
-                    actionString = "Not enough health!";
+                    actionString = "Not enough Soul Energy!";
                     return false;
                 }
                 attributes.health -= 25;
@@ -307,12 +309,13 @@ public class Protagonist extends Character implements MouseInteractable {
 
 
      public boolean skill3() {
-        if (!canUseSkill(25, attributes.skill3Cd)) return false;
+        if (!canUseSkill(40, attributes.skill3Cd)) return false;
 
         switch(getCharacterType()) {
             case "knight":
                 damageReducer = true;
                 attributes.skill3Cd = 3;
+                attributes.mana -= 40;
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 actionString = "Defense activated! Damage reduced by 60%";
                 xFactor = getPosX();
@@ -320,10 +323,11 @@ public class Protagonist extends Character implements MouseInteractable {
                 return true;
 
             case "wizard":
-                if (random.nextInt(100) < 75) { // 75% success rate
+                attributes.mana -= 30;
+                if (random.nextInt(100) < 55) { // 55% success rate
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
-                    attributes.mana = Math.min(attributes.mana + 50, attributes.baseMana);
+                    attributes.mana = Math.min(attributes.mana + 90, attributes.baseMana);
                     applySkillEffect(attributes.skillEffects3, enemy, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                     actionString = "Shift Successful! 35 damage dealt to enemy!";
                     xFactor = screenSize.width * 0.1;
@@ -335,7 +339,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
             case "priest":
                 int healing = (int)(attributes.baseHealth * 0.3);
-                damageDealt = (int)(attributes.baseHealth * 0.25);
+                damageDealt = (int)(attributes.baseHealth * 0.4);
                 attributes.health = Math.min(attributes.health + healing, attributes.baseHealth);
                 attributes.mana -= 40;
                 attributes.skill3Cd = 3;
@@ -354,6 +358,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
                 damageDealt = 2 * attributes.attack + moneyBonus;
                 attributes.skill4Cd = 4;
+                attributes.mana -= 50;
                 applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 actionString = "Time Stop! Dealt " + damageDealt + " damage to the enemy";
                 xFactor = screenSize.width * 0.5;
@@ -361,6 +366,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
             case "wizard":
                 damageDealt = 50 + (int)(attributes.mana * 0.3);
+                attributes.mana -= 50;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 actionString = "Explosion! Dealt " + damageDealt + " damage to the enemy";
@@ -369,9 +375,10 @@ public class Protagonist extends Character implements MouseInteractable {
 
             case "priest":
                 int missingHealth = attributes.baseHealth - attributes.health;
-                damageDealt = (int)(missingHealth * 0.4);
+                damageDealt = (int)(missingHealth * 0.6);
                 int ultimateHeal = (int)(attributes.baseHealth * 0.4);
                 attributes.health = Math.min(attributes.health + ultimateHeal, attributes.baseHealth);
+                attributes.mana -= 50;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, 0.35, 0.40);
                 applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.4, 0.30);
