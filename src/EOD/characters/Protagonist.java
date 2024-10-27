@@ -76,11 +76,9 @@ public class Protagonist extends Character implements MouseInteractable {
         switch(getCharacterType()){
             case "knight":
             attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, enemy.getOffsetW(1),  enemy.getOffsetH(1), 9, false);
-            attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, enemy.getOffsetW(2),  enemy.getOffsetH(2), 15, false);
-            attributes.skillEffects2.removeBackground(100);
+            attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, enemy.getOffsetW(2),  enemy.getOffsetH(2), 8, false);
             attributes.skillEffects3 = attributes.createSkillEffect("shield", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 13, true);
             attributes.skillEffects4 = attributes.createSkillEffect("knightss", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 25, false);
-            attributes.skillEffects4.removeBackground(100);
             break;
             case "wizard":
             attributes.skillEffects2 = attributes.createSkillEffect("wbuff", getPosX() * 0.9, 0.08, enemy.getOffsetW(2),  enemy.getOffsetH(2), 14, false);
@@ -168,7 +166,7 @@ public class Protagonist extends Character implements MouseInteractable {
     private int getSkillEffectStopFrame() {
         // Returns the appropriate stop frame for skill animations based on character type
         return switch (getCharacterType()) {
-            case "knight" -> 15;  // Knight's buff animation frames
+            case "knight" -> 8;  // Knight's buff animation frames
             case "wizard" -> 14;  // Wizard's buff animation frames
             case "priest" -> 9;   // Priest's buff animation frames
             default -> 0;
