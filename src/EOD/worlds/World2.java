@@ -67,6 +67,7 @@ public class World2 extends World {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
             scene.setComponentZOrder(npc, 2);
+            npc.setWorld(this);
             if (npc.getName().equals("Ruby")) {
                 npc.setIndex(0);
             }else if (npc.getName().equals("Constance")) {

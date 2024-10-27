@@ -230,30 +230,31 @@ public class SceneBuilder extends JPanel{
         }
 
         if(world != null){
-            if (world.getTitle().equals("world2")){
-                for (EchoesObjects obj : objList) {        
-                    // Add null and bounds check
-                    if (obj != null && obj.getIndex() >= 0 && obj.getIndex() < sceneList.getSize()) {
-                        obj.setVisible(obj.getIndex() == currentSceneIndex);
-                    } else {
-                        obj.setVisible(false);
-                    }
-                }
-                for (Npc npc : npcList) {
-                    if (npc != null && npc.getIndex() >= 0 && npc.getIndex() < sceneList.getSize()) {
-                        npc.setVisible(npc.getIndex() == currentSceneIndex);
-                    } else {
-                        npc.setVisible(false);
-                    }
-                }
-                for (Enemy enemy : enemyList) {
-                    if (enemy != null && enemy.getIndex() >= 0 && enemy.getIndex() < sceneList.getSize()) {
-                        enemy.setVisible(enemy.getIndex() == currentSceneIndex);
-                    } else {
-                        enemy.setVisible(false);
-                    }
-                }
-            }else {
+            // ako lang ni gi remove guys.. d mn ata kailangan?? since if mubalhin tas world 2 ga initialzie nmn pd tag bag ong characters and objects also d pd mo update ag animation if naa ni
+            // if (world.getTitle().equals("world2")){
+                // for (EchoesObjects obj : objList) {        
+                //     // Add null and bounds check
+                //     if (obj != null && obj.getIndex() >= 0 && obj.getIndex() < sceneList.getSize()) {
+                //         obj.setVisible(obj.getIndex() == currentSceneIndex);
+                //     } else {
+                //         obj.setVisible(false);
+                //     }
+                // }
+                // for (Npc npc : npcList) {
+                //     if (npc != null && npc.getIndex() >= 0 && npc.getIndex() < sceneList.getSize()) {
+                //         npc.setVisible(npc.getIndex() == currentSceneIndex);
+                //     } else {
+                //         npc.setVisible(false);
+                //     }
+                // }
+                // for (Enemy enemy : enemyList) {
+                //     if (enemy != null && enemy.getIndex() >= 0 && enemy.getIndex() < sceneList.getSize()) {
+                //         enemy.setVisible(enemy.getIndex() == currentSceneIndex);
+                //     } else {
+                //         enemy.setVisible(false);
+                //     }
+                // }
+            // }else {
             if(player.getAttributes().skillEffectsRandom!= null) player.getAttributes().skillEffectsRandom.updateEffect();
             if(player.getAttributes().skillEffects1!= null) player.getAttributes().skillEffects1.updateEffect();
             if(player.getAttributes().skillEffects2!= null) player.getAttributes().skillEffects2.updateEffect();
@@ -301,7 +302,7 @@ public class SceneBuilder extends JPanel{
                     animator.updateBounds();
                 }
             }
-        }
+        // }
         }
     }
 
