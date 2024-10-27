@@ -81,6 +81,10 @@ public abstract class Animator {
         this.skillAnimationSpeedMultiplier = skillAnimationSpeedMultiplier;
     }
 
+    public void setMovementMultiplier(int movementSpeedMultiplier){
+        this.movementSpeedMultiplier = movementSpeedMultiplier;
+    }
+
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites) {
         ImageList sprites = getSpriteList(type);
         sprites.clear();
@@ -128,6 +132,7 @@ public abstract class Animator {
         character.getPanel().setComponentZOrder(character, 0);
         if (!reachedTarget) {
             updateMovement();
+            currentFrame = (currentFrame + 1) % walkSprites.getSize();  // Add this line
             if (!isMoving) {
                 reachedTarget = true;
             }
@@ -143,21 +148,22 @@ public abstract class Animator {
             }
         } else if (isReturning) {
             updateMovement();
+            currentFrame = (currentFrame + 1) % walkSprites.getSize();  // Add this line
             if (!isMoving) {
                 isUsingSkill = false;
                 isReturning = false;
                 skillAnimationFrame = 0;
-                setMovingRight(initialDirection); // Restore original direction
+                setMovingRight(initialDirection);
             }
         }
     }
-
+    
     public Image getCurrentSprite() {
         if (isDead) {
             return deadSprites.get(Math.min(currentFrame, deadSprites.getSize() - 1));
         } else if (isUsingSkill) {
             if (!reachedTarget || isReturning) {
-                return walkSprites.get(currentFrame % walkSprites.getSize());
+                return walkSprites.get(currentFrame % walkSprites.getSize());  // Here's the problem!
             } else {
                 return skillSprites[currentSkill].get(Math.min(skillAnimationFrame, skillSprites[currentSkill].getSize() - 1));
             }

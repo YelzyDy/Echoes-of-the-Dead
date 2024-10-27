@@ -19,7 +19,7 @@ public class Necromancer extends Enemy {
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
             turnDuration = TURN_DURATION;
-            animator.setSpeedMultiplier(2);
+            animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(5);
             animator.setSkillAnimationSpeedMultiplier(3);
     }
