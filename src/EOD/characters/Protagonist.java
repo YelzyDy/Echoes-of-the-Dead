@@ -75,11 +75,11 @@ public class Protagonist extends Character implements MouseInteractable {
     public void configureSkills(){
         switch(getCharacterType()){
             case "knight":
-            attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, enemy.getOffsetW(1),  enemy.getOffsetH(1), 13, false);
+            attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, enemy.getOffsetW(1),  enemy.getOffsetH(1), 9, false);
             attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, enemy.getOffsetW(2),  enemy.getOffsetH(2), 15, false);
             attributes.skillEffects2.removeBackground(100);
             attributes.skillEffects3 = attributes.createSkillEffect("shield", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 13, true);
-            attributes.skillEffects4 = attributes.createSkillEffect("knightss", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 23, false);
+            attributes.skillEffects4 = attributes.createSkillEffect("knightss", getPosX() * 0.9, 0.08, enemy.getOffsetW(4),  enemy.getOffsetH(4), 25, false);
             attributes.skillEffects4.removeBackground(100);
             break;
             case "wizard":
@@ -357,7 +357,7 @@ public class Protagonist extends Character implements MouseInteractable {
                 int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
                 damageDealt = 2 * attributes.attack + moneyBonus;
                 attributes.skill4Cd = 4;
-                applySkillEffect(attributes.skillEffects4, enemy, 19, enemy.getOffsetX(4), enemy.getOffsetY(4));
+                applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 actionString = "Time Stop! Dealt " + damageDealt + " damage to the enemy";
                 xFactor = screenSize.width * 0.5;
                 return true;
