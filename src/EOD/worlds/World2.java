@@ -28,6 +28,7 @@ public class World2 extends World{
         player.setLocation(0, (int)(screenSize.height * 0.24));
         player.setWorld(this);
         scene.setPlayer(player);
+        player.setWorld(this);
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);
         scene.setComponentZOrder(player, 0);

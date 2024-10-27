@@ -212,4 +212,83 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         g2d.drawImage(getCurrentSprite(), (int)posX, (int)posY, null);
     }
 
+    /**
+     * Sets the width of the object and updates sprite dimensions accordingly
+     * @param width The new width value
+     * @throws IllegalArgumentException if width is negative
+     */
+    public void setWidth(int width) {
+        if (width < 0) {
+            throw new IllegalArgumentException("Width must be positive");
+        }
+        
+        // Store current height to maintain aspect ratio when resizing sprites
+        int currentHeight = getHeight();
+        
+        // Set the panel size
+        setPreferredSize(new Dimension(width, currentHeight));
+        setSize(width, currentHeight);
+        
+        // Resize all sprites to match new dimensions
+        objSprites.resizeImageList(width, currentHeight);
+        
+        // Update bounds while maintaining position
+        setBounds((int)posX, (int)posY, width, currentHeight);
+        
+        // Request a repaint to reflect changes
+        repaint();
+    }
+    
+    /**
+     * Sets the height of the object and updates sprite dimensions accordingly
+     * @param height The new height value
+     * @throws IllegalArgumentException if height is negative
+     */
+    public void setHeight(int height) {
+        if (height < 0) {
+            throw new IllegalArgumentException("Height must be positive");
+        }
+        
+        // Store current width to maintain aspect ratio when resizing sprites
+        int currentWidth = getWidth();
+        
+        // Set the panel size
+        setPreferredSize(new Dimension(currentWidth, height));
+        setSize(currentWidth, height);
+        
+        // Resize all sprites to match new dimensions
+        objSprites.resizeImageList(currentWidth, height);
+        
+        // Update bounds while maintaining position
+        setBounds((int)posX, (int)posY, currentWidth, height);
+        
+        // Request a repaint to reflect changes
+        repaint();
+    }
+    
+    /**
+     * Sets both width and height simultaneously to avoid multiple sprite resizes
+     * @param width The new width value
+     * @param height The new height value
+     * @throws IllegalArgumentException if either dimension is negative
+     */
+    public void setDimensions(int width, int height) {
+        if (width < 0 || height < 0) {
+            throw new IllegalArgumentException("Dimensions must be positive");
+        }
+        
+        // Set the panel size
+        setPreferredSize(new Dimension(width, height));
+        setSize(width, height);
+        
+        // Resize all sprites to match new dimensions
+        objSprites.resizeImageList(width, height);
+        
+        // Update bounds while maintaining position
+        setBounds((int)posX, (int)posY, width, height);
+        
+        // Request a repaint to reflect changes
+        repaint();
+    }
+
 }

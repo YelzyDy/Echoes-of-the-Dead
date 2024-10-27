@@ -13,7 +13,6 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected int baseHp;
     protected EnemyAnimator animator;
     private int index;
-    protected int turnDuration;
     protected int damageDealt;
     public boolean missedTurn = false;
     private boolean isDefeated;
@@ -68,14 +67,6 @@ public abstract class Enemy extends Character implements MouseInteractable {
 
     public abstract void skill1(); // basic attack
     public abstract void skill2();
-    
-    public int getTurnDuration(){
-        return turnDuration;
-    }
-
-    public void setTurnDuration(int turnDuration){
-        this.turnDuration = turnDuration;
-    }
 
     public void setIndex(int index){
         this.index = index;

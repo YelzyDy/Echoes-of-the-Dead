@@ -5,8 +5,6 @@ import EOD.objects.EchoesObjects;
 public class Necromancer extends Enemy {    
     private static final int BASE_ATTACK = 15;
     private static final int BASE_HEALTH = 200;
-    private static final int TURN_DURATION = 4000;
-    private static final double SPRITE_SCALE = 0.3;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -18,8 +16,7 @@ public class Necromancer extends Enemy {
             configureSprites();
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
-            turnDuration = TURN_DURATION;
-            animator.setSpeedMultiplier(2);
+            animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(5);
             animator.setSkillAnimationSpeedMultiplier(3);
     }

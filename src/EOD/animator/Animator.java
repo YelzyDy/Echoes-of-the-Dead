@@ -24,6 +24,7 @@ public abstract class Animator {
     protected int deltaX;
     protected boolean isInBattle;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    protected Runnable onAnimationComplete;
 
     protected double targetY;
     protected double currentY;
@@ -67,6 +68,10 @@ public abstract class Animator {
         this.isDeathAnimating = false;
     }
 
+    public void setOnAnimationComplete(Runnable callback) {
+        this.onAnimationComplete = callback;
+    }
+
     public void setSpeedMultiplier(int speedMultiplier){
         movementSpeedMultiplier = speedMultiplier;
         skillAnimationSpeedMultiplier = speedMultiplier;
@@ -79,6 +84,10 @@ public abstract class Animator {
 
     public void setSkillAnimationSpeedMultiplier(int skillAnimationSpeedMultiplier){
         this.skillAnimationSpeedMultiplier = skillAnimationSpeedMultiplier;
+    }
+
+    public void setMovementMultiplier(int movementSpeedMultiplier){
+        this.movementSpeedMultiplier = movementSpeedMultiplier;
     }
 
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites) {
@@ -128,6 +137,7 @@ public abstract class Animator {
         character.getPanel().setComponentZOrder(character, 0);
         if (!reachedTarget) {
             updateMovement();
+            currentFrame = (currentFrame + 1) % walkSprites.getSize();
             if (!isMoving) {
                 reachedTarget = true;
             }
@@ -143,11 +153,19 @@ public abstract class Animator {
             }
         } else if (isReturning) {
             updateMovement();
+            currentFrame = (currentFrame + 1) % walkSprites.getSize();
             if (!isMoving) {
                 isUsingSkill = false;
                 isReturning = false;
                 skillAnimationFrame = 0;
-                setMovingRight(initialDirection); // Restore original direction
+                setMovingRight(initialDirection);
+                
+                // Animation is complete, trigger callback if set
+                if (onAnimationComplete != null) {
+                    Runnable callback = onAnimationComplete;
+                    onAnimationComplete = null;  // Clear callback
+                    callback.run();
+                }
             }
         }
     }
@@ -157,7 +175,7 @@ public abstract class Animator {
             return deadSprites.get(Math.min(currentFrame, deadSprites.getSize() - 1));
         } else if (isUsingSkill) {
             if (!reachedTarget || isReturning) {
-                return walkSprites.get(currentFrame % walkSprites.getSize());
+                return walkSprites.get(currentFrame % walkSprites.getSize());  // Here's the problem!
             } else {
                 return skillSprites[currentSkill].get(Math.min(skillAnimationFrame, skillSprites[currentSkill].getSize() - 1));
             }

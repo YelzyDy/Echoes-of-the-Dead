@@ -9,21 +9,13 @@ public class BattleExperiment {
     private Enemy enemy;
     private Protagonist player;
     private BattleUI battleUI;
-    private Timer enemyTurnTimer;
-    private Timer playerTurnTimer;
     private Random random = new Random();
     private int turnCount = 0;
+    private boolean isProcessingTurn = false;
 
     public BattleExperiment(Protagonist player, Enemy enemy) {
         this.player = player;
         this.enemy = enemy;
-        
-        enemyTurnTimer = new Timer(enemy.getTurnDuration(), e -> performEnemyTurn());
-        enemyTurnTimer.setRepeats(false);
-        
-        playerTurnTimer = new Timer(player.getTurnDuration(), e -> startEnemyTurn());
-        playerTurnTimer.setRepeats(false);
-        
         player.setEnemy(enemy);
     }
 
@@ -36,14 +28,16 @@ public class BattleExperiment {
     }
 
     private void handleSkill(int skillNumber, boolean damageEnemy) {
+        if (isProcessingTurn) return;  // Prevent multiple skill uses while animation is playing
+        
         if (player.useSkill(skillNumber)) {
+            isProcessingTurn = true;
             turnCount++;
             
             if (damageEnemy) {
                 int damage = player.getDamageDealt();
                 enemy.takeDamage(damage);
                 
-                // Special effects for wizard and knight
                 if ((player.isWizard() && skillNumber == 3) || 
                     (player.isKnight() && skillNumber == 4)) {
                     enemy.missedTurn = true;
@@ -52,15 +46,23 @@ public class BattleExperiment {
 
             battleUI.showAction(player.getAction());
             battleUI.setSkillButtonsEnabled(false);
-            player.getAnimator().triggerSkillAnimation(skillNumber, (int)player.getXFactor());
             
-            battleUI.updateTurnIndicator("Your Turn");
+            // Set callback for player's animation completion
+            player.getAnimator().setOnAnimationComplete(() -> {
+                if (enemy.getHp() <= 0) {
+                    handleBattleEnd(true);
+                    return;
+                }
+                startEnemyTurn();
+            });
+            
+            player.getAnimator().triggerSkillAnimation(skillNumber, (int)player.getXFactor());
             player.getAnimator().setMovingRight(true);
             battleUI.updateCooldowns();
-            
-            playerTurnTimer.start();
+            battleUI.updateTurnIndicator("Your Turn");
         }
     }
+
 
     // Skill methods remain unchanged
     public void skill1() { handleSkill(1, true); }
@@ -69,25 +71,19 @@ public class BattleExperiment {
     public void skill4() { handleSkill(4, true); }
 
     private void startEnemyTurn() {
-        if (enemy.getHp() <= 0) {
-            handleBattleEnd(true);
-            return;
-        }
-
         if (!enemy.missedTurn) {
             determineAndExecuteEnemyAction();
         } else {
             enemy.missedTurn = false;
             battleUI.showAction("Enemy's turn was skipped!");
+            finishEnemyTurn();
         }
-        enemyTurnTimer.start();
     }
 
+
     private void determineAndExecuteEnemyAction() {
-        // Use the enemy's built-in decision making
         int chosenSkill = enemy.decideSkill();
         
-        // Execute the chosen skill
         switch (chosenSkill) {
             case 1:
                 enemy.skill1();
@@ -97,13 +93,10 @@ public class BattleExperiment {
                 break;
         }
 
-        // Calculate and apply damage
         int damage = enemy.getDamageDealt();
         
-        // Handle damage reduction if player has active defense
         if (player.isDamageReducerActive()) {
             damage = (int)(damage * 0.4);
-            // Bonus money for successful defensive play against strong attacks
             if (damage > player.getAttributes().getHp() * 0.2) {
                 player.getAttributes().setMoney(
                     player.getAttributes().getMoney() + 30
@@ -112,11 +105,12 @@ public class BattleExperiment {
             player.resetDamageReducer();
         }
         
-        // Apply the damage and update UI
         player.takeDamage(damage);
         battleUI.showAction(enemy.getAction());
         
-        // Trigger animation with appropriate range
+        // Set callback for enemy's animation completion
+        enemy.getAnimator().setOnAnimationComplete(this::finishEnemyTurn);
+        
         enemy.getAnimator().triggerSkillAnimation(
             enemy.getLastUsedSkill(), 
             (int)enemy.getXFactor()
@@ -124,27 +118,24 @@ public class BattleExperiment {
         enemy.getAnimator().setMovingRight(false);
     }
 
-    private void performEnemyTurn() {
-        // Update player status
+    private void finishEnemyTurn() {
         player.attributeTurnChecker();
-        
-        // Update UI elements
         battleUI.setSkillButtonsEnabled(true);
         battleUI.updateTurnIndicator("Your Turn");
         battleUI.updateCooldowns();
         
-        // Check for player defeat
         if (player.attributes.getHp() <= 0) {
             handleBattleEnd(false);
+            return;
         }
         
-        // Update enemy (includes cooldown management)
         enemy.update();
+        isProcessingTurn = false;  // Turn is complete, allow next action
     }
 
     private void handleBattleEnd(boolean playerWon) {
+        isProcessingTurn = false;
         player.reset();
         // Add any additional end-game logic here
     }
-
 }
