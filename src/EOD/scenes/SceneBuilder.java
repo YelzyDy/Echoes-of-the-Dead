@@ -39,15 +39,6 @@ public class SceneBuilder extends JPanel{
 
     private BattleUI battle;
 
-    private int portalSourceScene = -1;
-    
-    public void setPortalSourceScene(int scene) {
-        this.portalSourceScene = scene;
-    }
-    
-    public int getPortalSourceScene() {
-        return this.portalSourceScene;
-    }
 
     public SceneBuilder(World world){
         this.world = world;
@@ -209,10 +200,11 @@ public class SceneBuilder extends JPanel{
                 player.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
 
+                //respawn at portal if defeated
                 if(portalName.equals("portal")) {
-                    currentSceneIndex = 0;  // Or whichever scene index the portal was in
+                    currentSceneIndex = 1;  // Or whichever scene index the portal was in
                 } else if(portalName.equals("portalMiniBoss")) {
-                    currentSceneIndex = 1;  // Or whichever scene index the miniboss portal was in
+                    currentSceneIndex = 2;  // Or whichever scene index the miniboss portal was in
                 }
 
                 for(EchoesObjects obj : objList) {

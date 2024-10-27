@@ -4,7 +4,7 @@ import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
 
 public class Necromancer extends Enemy {    
-    private static final int BASE_ATTACK = 10;
+    private static final int BASE_ATTACK = 1000;
     private static final int BASE_HEALTH = 200;
     private static final int TURN_DURATION = 4000;
     private static final double SPRITE_SCALE = 0.3;
