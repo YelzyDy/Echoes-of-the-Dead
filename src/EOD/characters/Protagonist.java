@@ -75,8 +75,7 @@ public class Protagonist extends Character implements MouseInteractable {
     public void configureSkills(){
         switch(getCharacterType()){
             case "knight":
-            attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, enemy.getOffsetW(1),  enemy.getOffsetH(1), 11, false);
-            attributes.skillEffects1.removeBackground(100);
+            attributes.skillEffects1 = attributes.createSkillEffect("kskill1", 0.4, 0.2, enemy.getOffsetW(1),  enemy.getOffsetH(1), 13, false);
             attributes.skillEffects2 = attributes.createSkillEffect("kbuff", 0.4, 0.2, enemy.getOffsetW(2),  enemy.getOffsetH(2), 15, false);
             attributes.skillEffects2.removeBackground(100);
             attributes.skillEffects3 = attributes.createSkillEffect("shield", getPosX() * 0.9, 0.08, enemy.getOffsetW(3),  enemy.getOffsetH(3), 13, true);
@@ -239,7 +238,7 @@ public class Protagonist extends Character implements MouseInteractable {
             case "knight":
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
                 xFactor = screenSize.width * 0.5;
-                applySkillEffect(attributes.skillEffects1, enemy, 11, enemy.getOffsetX(1), enemy.getOffsetY(1));
+                applySkillEffect(attributes.skillEffects1, enemy, 13, enemy.getOffsetX(1), enemy.getOffsetY(1));
                 break;
             case "wizard":
                 damageDealt = attributes.attack;
