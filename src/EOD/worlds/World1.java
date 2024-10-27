@@ -15,9 +15,6 @@ import java.util.ArrayList;
  */
 public class World1 extends World{
     BGMPlayer bgmPlayer;
-    private int lastPortalX; // Store portal X position
-    private int lastPortalY; // Store portal Y position
-    private int previousSceneIndex = 0;
 
     public World1(String playerType, String playerName){
         super(playerType, playerName, "world1");
@@ -26,22 +23,7 @@ public class World1 extends World{
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
     }
-    
-    private void updateLastPortalPosition(String portalType) {
-        for (EchoesObjects obj : scene.objList) {
-            if (obj.getName().equals(portalType)) {
-                lastPortalX = obj.getX();
-                lastPortalY = obj.getY() + (int)(obj.getHeight() * 0.8); // Adjust Y to place character at bottom of portal
-                break;
-            }
-        }
-    }
 
-    private void respawnPlayerAtPortal() {
-        if (player != null) {
-            player.setLocation(lastPortalX, lastPortalY);
-        }
-    }
 
     public void initializeProtagonist(){
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
@@ -143,16 +125,12 @@ public class World1 extends World{
             if (source == obj && obj.getName().equals("portal")){
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
                 if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
-                    previousSceneIndex = scene.getCurrentSceneIndex();
-                    updateLastPortalPosition("portal");
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
                     scene.setCurrentSceneIndex(3);
-                    scene.setPortalSourceScene(previousSceneIndex);
                     System.out.println(scene.getCurrentSceneIndex());
                 }else{
                     scene.setCurrentSceneIndex(1);
-                    respawnPlayerAtPortal();
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     // isBattleStopped = false;
@@ -164,15 +142,11 @@ public class World1 extends World{
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
-                    previousSceneIndex = scene.getCurrentSceneIndex();
-                    updateLastPortalPosition("portalMiniBoss");
                     scene.setCurrentSceneIndex(4);
-                    scene.setPortalSourceScene(previousSceneIndex);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
                 } else {
                     scene.setCurrentSceneIndex(2);
-                    respawnPlayerAtPortal();
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     // isBattleStopped = false;
