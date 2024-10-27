@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * @author zendy
  */
 public class World2 extends World {
-    private Protagonist player;
     public World2(String playerType, String playerName, Protagonist player) {
         super(playerType, playerName, "world2");
         this.player = player;
@@ -27,9 +26,11 @@ public class World2 extends World {
     // Implement the necessary methods to initialize the World2 scene
     public void initializeProtagonist() {
         scene.setPlayer(player);
+        player.setWorld(this);
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);
         scene.setComponentZOrder(player, 0);
+        configureShopAndInventory();
     }
 
     public void initializeObjects() {
