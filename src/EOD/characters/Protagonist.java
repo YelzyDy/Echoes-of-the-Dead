@@ -113,10 +113,8 @@ public class Protagonist extends Character implements MouseInteractable {
                 break;
         }
     }
-    
 
     public void reset() {
-        skillIsUseable = true;
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
     }
 
