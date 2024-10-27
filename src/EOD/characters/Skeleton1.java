@@ -149,8 +149,8 @@ public class Skeleton1 extends Enemy {
         }else{
             if(protagonist.isKnight()){
                 return 0.4;
-            }else if(protagonist.isWizard() && skill == 3){
-                return 0.3;
+            }else if(protagonist.isWizard()){
+                return 0.4;
             }else{
                 return 0.3;
             }
@@ -204,7 +204,7 @@ public class Skeleton1 extends Enemy {
             if(protagonist.isKnight()) {
                 return 0.15;
             } else {
-                return 0.07;
+                return 0.15;
             }
         } else if(skill == 3) {
             if(protagonist.isKnight()) {

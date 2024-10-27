@@ -81,7 +81,11 @@ public class Necromancer extends Enemy {
                 return 0.22;
             }
         }else{
-            return 0.3;
+            if(protagonist.isWizard()){
+                return 0.2;
+            }else{
+                return 0.3;
+            }
         }
     }
 
@@ -110,8 +114,10 @@ public class Necromancer extends Enemy {
         }else{
             if(protagonist.isKnight()){
                 return 0.1;
+            }else if(protagonist.isWizard()){
+                return 0.2;
             }else{
-                return 0.0;
+                return 0.1;
             }
         }
     }
@@ -136,7 +142,7 @@ public class Necromancer extends Enemy {
             }
         }else{
             if(protagonist.isWizard()){
-                return 0.28;
+                return 0.2;
             }else if(protagonist.isKnight()){
                 return 0.28;
             }else{
@@ -150,7 +156,9 @@ public class Necromancer extends Enemy {
         if(skill == 2) {
             if(protagonist.isKnight()) {
                 return 0.15;
-            } else {
+            } else if(protagonist.isWizard()){
+                return 0.15;
+            }else{
                 return 0.07;
             }
         }else if(skill == 3){
@@ -166,7 +174,7 @@ public class Necromancer extends Enemy {
                 return 0.22;
             }
             if(protagonist.isWizard()){
-                return 0.3;
+                return 0.25;
             }else{
                 return 0.28;
             }
