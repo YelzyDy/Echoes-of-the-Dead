@@ -4,6 +4,8 @@ import EOD.MouseInteractable;
 import EOD.characters.*;
 import EOD.listeners.*;
 import EOD.objects.*;
+import EOD.objects.inventory.Inventory;
+import EOD.objects.shop.Shop;
 import EOD.scenes.*;
 import EOD.utils.BGMPlayer;
 
@@ -31,8 +33,9 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     private EchoesObjects btn_settings;
     private EchoesObjects bag;
     private JLayeredPane layeredPane;
-    private BGMPlayer bgmPlayer;
-
+    protected BGMPlayer bgmPlayer;
+    private Inventory inventory;
+    protected Shop shop;
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
     // create a class for enemies. Preferrably in different classes. Must have one superclass for polymorphsism
@@ -61,8 +64,13 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         addSettingsButton();
         System.out.println("Hello!");
         addBagIcon();
-
         this.setContentPane(layeredPane);
+    }
+
+    public void configureShopAndInventory(){
+        inventory = new Inventory(this);
+        shop = new Shop(this);
+        shop.setInventory(inventory);
     }
 
     public void setBGMPlayer(BGMPlayer bgmPlayer){
@@ -129,10 +137,10 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
                 "bag",
                 false,
                 true,
-                1
+                2
             );
-        bag.setName("bag");
         layeredPane.add(bag, Integer.valueOf(1));
+        bag.addMouseListener(new MouseClickListener(this));
     }
 
     private void addOkButton(int panelHeight, int panelWidth) {
@@ -192,6 +200,12 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         }else if(source == btn_settings){
             SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
             settings.setVisible(true);
+        }else if(source == bag){
+            if (inventory.isVisible()) {
+                inventory.setVisible(false);
+            } else {
+                inventory.setVisible(true);
+            }
         }
     }
 

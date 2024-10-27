@@ -2,6 +2,7 @@ package EOD.objects.shop;
 
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.objects.inventory.Inventory;
 import EOD.worlds.*;
 import java.awt.*;
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class Shop extends EchoesObjects {
     private int item1Stock, item2Stock, item3Stock, item4Stock;
     private int money;
     private JLabel moneyLabel;
+    private Inventory inventory;
 
     public Shop(World world) {
         super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 
@@ -26,11 +28,16 @@ public class Shop extends EchoesObjects {
         this.world = world;
         // Initialize stocks
         item1Stock = item2Stock = item3Stock = item4Stock = 3;
-        setVisible(true);
+        setVisible(false);
         setLayout(null);
         world.getLayeredPane().add(this, Integer.valueOf(2));
         world.getLayeredPane().setComponentZOrder(this, 0);
         money = world.getProtag().getAttributes().getMoney();
+        showElementsInShop();
+    }
+
+    public void setInventory(Inventory inventory){
+        this.inventory = inventory;
     }
 
     private void showSidePanelBg(double width, double height) {
@@ -50,6 +57,17 @@ public class Shop extends EchoesObjects {
         add(item2);
         add(item3);
         add(item4);
+    }
+
+    public void makeElementsVisible(){
+        setVisible(true);
+        moneyLabel.setVisible(true);
+        sidePanel.setVisible(true);
+        item1.setVisible(true);
+        item2.setVisible(true);
+        item3.setVisible(true);
+        item4.setVisible(true);
+
     }
 
     private void showMoney(double width, double height) {
@@ -76,7 +94,6 @@ public class Shop extends EchoesObjects {
 
     private EchoesObjects createItem(String imageName, double x, double y, double width, double height) {
         EchoesObjects item = new EchoesObjects("shop", (int) x, (int) y, (int) width, (int) height, imageName, false, true, 3);
-        item.setVisible(true);
         item.addMouseListener(new MouseClickListener(this));
         item.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(MouseEvent e) {
@@ -182,10 +199,10 @@ public class Shop extends EchoesObjects {
 
     private void updateMoney(int item){
         switch(item){
-            case 1 -> {if(money >= 10) money -= 10;}
-            case 2 -> {if(money >= 10) money -= 10;}
-            case 3 -> {if(money >= 10) money -= 10;}
-            case 4 -> {if(money >= 10) money -= 10;}
+            case 1 -> {if(money >= 10) money -= 10; inventory.addItem1();}
+            case 2 -> {if(money >= 10) money -= 10; inventory.addItem2();}
+            case 3 -> {if(money >= 10) money -= 10; inventory.addItem3();}
+            case 4 -> {if(money >= 10) money -= 10; inventory.addItem4();}
         }
     }
 
@@ -215,20 +232,9 @@ public class Shop extends EchoesObjects {
     }
 
     private void hideShop() {
-        if (isVisible()) {
-            removeAll();
+        if (isVisible()) {;
             setVisible(false);
-            world.getLayeredPane().remove(this);
-            world.getLayeredPane().revalidate();
-            world.getLayeredPane().repaint();
-            resetShopObjects();
-        }
-    }
 
-    private void resetShopObjects() {
-        sidePanel = null;
-        item1 = item2 = item3 = item4 = null;
-        buyButton = null;
-        closeButton = null;
+        }
     }
 }
