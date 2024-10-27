@@ -26,7 +26,7 @@ public class SceneBuilder extends JPanel{
     private ImageList sceneList;
     private int currentSceneIndex;
     private Timer gameLoopTimer ;           // Timer for animating the portal -z
-
+    
     private World world;
 
     public ArrayList<EchoesObjects> objList;
@@ -38,6 +38,16 @@ public class SceneBuilder extends JPanel{
     private Protagonist player;
 
     private BattleUI battle;
+
+    private int portalSourceScene = -1;
+    
+    public void setPortalSourceScene(int scene) {
+        this.portalSourceScene = scene;
+    }
+    
+    public int getPortalSourceScene() {
+        return this.portalSourceScene;
+    }
 
     public SceneBuilder(World world){
         this.world = world;
@@ -116,6 +126,8 @@ public class SceneBuilder extends JPanel{
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 0);
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 1);
             sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/city1.png")).getImage(), 2);
+            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/cemetary.png")).getImage(), 3);
+            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/cemetary.png")).getImage(), 4);
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 3); // added shop pop up - sheen
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
@@ -172,6 +184,7 @@ public class SceneBuilder extends JPanel{
             double enemyDeathY = getEnemyDeathPosY(enemy);
             String portalName = battle.getPortal().getName();
             int portalIndex = getPortalIndex(portalName);
+
             if(enemyHp <= 0){
                 player.getAnimator().setIsInBattle(false);
                 player.getAnimator().setMoving(true);
@@ -195,6 +208,20 @@ public class SceneBuilder extends JPanel{
                 player.getAnimator().setIsInBattle(false);
                 player.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
+
+                if(portalName.equals("portal")) {
+                    currentSceneIndex = 0;  // Or whichever scene index the portal was in
+                } else if(portalName.equals("portalMiniBoss")) {
+                    currentSceneIndex = 1;  // Or whichever scene index the miniboss portal was in
+                }
+
+                for(EchoesObjects obj : objList) {
+                    if(obj.getName().equals(portalName)) {
+                        player.setLocation(obj.getX(), obj.getY() + (int)(obj.getHeight() * 0.8));
+                        break;
+                    }
+                }
+
                 battle = null;
                 System.out.println("You lose");
             }
@@ -210,7 +237,30 @@ public class SceneBuilder extends JPanel{
         }
 
         if(world != null){
-
+            if (world.getTitle().equals("world2")){
+                for (EchoesObjects obj : objList) {        
+                    // Add null and bounds check
+                    if (obj != null && obj.getIndex() >= 0 && obj.getIndex() < sceneList.getSize()) {
+                        obj.setVisible(obj.getIndex() == currentSceneIndex);
+                    } else {
+                        obj.setVisible(false);
+                    }
+                }
+                for (Npc npc : npcList) {
+                    if (npc != null && npc.getIndex() >= 0 && npc.getIndex() < sceneList.getSize()) {
+                        npc.setVisible(npc.getIndex() == currentSceneIndex);
+                    } else {
+                        npc.setVisible(false);
+                    }
+                }
+                for (Enemy enemy : enemyList) {
+                    if (enemy != null && enemy.getIndex() >= 0 && enemy.getIndex() < sceneList.getSize()) {
+                        enemy.setVisible(enemy.getIndex() == currentSceneIndex);
+                    } else {
+                        enemy.setVisible(false);
+                    }
+                }
+            }else {
             if(player.getAttributes().skillEffectsRandom!= null) player.getAttributes().skillEffectsRandom.updateEffect();
             if(player.getAttributes().skillEffects1!= null) player.getAttributes().skillEffects1.updateEffect();
             if(player.getAttributes().skillEffects2!= null) player.getAttributes().skillEffects2.updateEffect();
@@ -219,12 +269,24 @@ public class SceneBuilder extends JPanel{
 
             for(EchoesObjects obj : objList){
                 if(obj != null){
+                    boolean isInBattleScene = (currentSceneIndex == 3 || currentSceneIndex == 4);
+                        boolean isObjectForCurrentScene = obj.getIndex() == currentSceneIndex;
+                        boolean isPortalObject = obj.getName().equals("portal") || 
+                                               obj.getName().equals("portalMiniBoss") ||
+                                               obj.getName().equals("portalNextWorld");
+                    if(isPortalObject) {
+                            obj.setVisible(isObjectForCurrentScene && !isInBattleScene);
+                    }else{
+                            obj.setVisible(isObjectForCurrentScene);
+                    }
                     obj.updateAnimation();
                 }
             }
 
 
             for (Npc npc : npcList) {
+                boolean isInBattleScene = (currentSceneIndex == 3 || currentSceneIndex == 4);
+                npc.setVisible(npc.getIndex() == currentSceneIndex && !isInBattleScene);
                 Animator animator = npc.getAnimator();
                 if(npc != null){
                     animator.updateAnimation(); 
@@ -236,12 +298,17 @@ public class SceneBuilder extends JPanel{
             for (Enemy enemy : enemyList) {
                 Animator animator = enemy.getAnimator();
                 if(enemy != null){
+                    boolean isInCorrectBattleScene = 
+                            (currentSceneIndex == 3 && enemy.getName().equals("Skeleton")) ||
+                            (currentSceneIndex == 4 && enemy.getName().equals("Necromancer"));
+                        
+                    enemy.setVisible(isInCorrectBattleScene || enemy.getIndex() == currentSceneIndex);
                     animator.updateAnimation(); 
                     animator.updateMovement();
                     animator.updateBounds();
                 }
             }
-
+        }
         }
     }
 
