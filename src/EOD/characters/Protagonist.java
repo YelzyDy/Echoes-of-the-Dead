@@ -13,7 +13,6 @@ import EOD.entities.*;
 
 public class Protagonist extends Character implements MouseInteractable {
     private ProtagonistAnimator animator;
-    private boolean skillIsUseable = true;
     private Random random = new Random();
     private String characterType;
     public boolean damageReducer;
@@ -128,10 +127,6 @@ public class Protagonist extends Character implements MouseInteractable {
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
         configureSkillDimension();
-    }
-
-    public int getTurnDuration() {
-        return attributes.turnDuration;
     }
 
     public double getXFactor() {

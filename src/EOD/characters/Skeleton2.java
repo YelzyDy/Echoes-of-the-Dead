@@ -2,7 +2,6 @@ package EOD.characters;
 public class Skeleton2 extends Enemy {
     private static final int BASE_ATTACK = 8;
     private static final int BASE_HEALTH = 100;
-    private static final int TURN_DURATION = 2500; // Slightly slower than protagonist
     private static final double SPRITE_SCALE = 0.3; // Keep the smaller scale for minion appearance
     
     // Skill cooldowns
@@ -15,7 +14,6 @@ public class Skeleton2 extends Enemy {
             protagonist);
         configureSprites();
         health = 100;
-        turnDuration = 200;
     }
 
     @Override

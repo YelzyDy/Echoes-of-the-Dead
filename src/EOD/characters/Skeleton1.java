@@ -5,7 +5,6 @@ public class Skeleton1 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 8;
     private static final int BASE_HEALTH = 100;
-    private static final int TURN_DURATION = 2500; // Slightly slower than protagonist
     private static final double SPRITE_SCALE = 0.3; // Keep the smaller scale for minion appearance
     
     // Skill cooldowns
@@ -21,7 +20,6 @@ public class Skeleton1 extends Enemy {
         // Base stats - weaker than protagonist but not trivial
         attack = BASE_ATTACK;
         health = BASE_HEALTH;
-        turnDuration = TURN_DURATION;
         animator.setSpeedMultiplier(1);
     }
 

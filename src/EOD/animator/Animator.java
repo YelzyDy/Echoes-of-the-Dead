@@ -24,6 +24,7 @@ public abstract class Animator {
     protected int deltaX;
     protected boolean isInBattle;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    protected Runnable onAnimationComplete;
 
     protected double targetY;
     protected double currentY;
@@ -65,6 +66,10 @@ public abstract class Animator {
         this.skillCompleted = false;
         this.reachedTarget = false;
         this.isDeathAnimating = false;
+    }
+
+    public void setOnAnimationComplete(Runnable callback) {
+        this.onAnimationComplete = callback;
     }
 
     public void setSpeedMultiplier(int speedMultiplier){
@@ -132,7 +137,7 @@ public abstract class Animator {
         character.getPanel().setComponentZOrder(character, 0);
         if (!reachedTarget) {
             updateMovement();
-            currentFrame = (currentFrame + 1) % walkSprites.getSize();  // Add this line
+            currentFrame = (currentFrame + 1) % walkSprites.getSize();
             if (!isMoving) {
                 reachedTarget = true;
             }
@@ -148,16 +153,23 @@ public abstract class Animator {
             }
         } else if (isReturning) {
             updateMovement();
-            currentFrame = (currentFrame + 1) % walkSprites.getSize();  // Add this line
+            currentFrame = (currentFrame + 1) % walkSprites.getSize();
             if (!isMoving) {
                 isUsingSkill = false;
                 isReturning = false;
                 skillAnimationFrame = 0;
                 setMovingRight(initialDirection);
+                
+                // Animation is complete, trigger callback if set
+                if (onAnimationComplete != null) {
+                    Runnable callback = onAnimationComplete;
+                    onAnimationComplete = null;  // Clear callback
+                    callback.run();
+                }
             }
         }
     }
-    
+
     public Image getCurrentSprite() {
         if (isDead) {
             return deadSprites.get(Math.min(currentFrame, deadSprites.getSize() - 1));
