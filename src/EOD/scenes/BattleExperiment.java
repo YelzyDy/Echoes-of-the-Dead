@@ -2,6 +2,8 @@ package EOD.scenes;
 
 import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
+import EOD.characters.ProtagonistAttributes;
+
 import java.util.Random;
 import javax.swing.Timer;
 
@@ -23,6 +25,10 @@ public class BattleExperiment {
         return enemy;
     }
 
+    public Protagonist getPlayer(){
+        return player;
+    }
+
     public void setBattleUI(BattleUI battle){
         this.battleUI = battle;
     }
@@ -37,6 +43,8 @@ public class BattleExperiment {
             if (damageEnemy) {
                 int damage = player.getDamageDealt();
                 enemy.takeDamage(damage);
+                battleUI.setEnemyHealth(enemy.getHp());
+                battleUI.setPlayerMana(player.getAttributes().getMana());
                 
                 if ((player.isWizard() && skillNumber == 3) || 
                     (player.isKnight() && skillNumber == 4)) {
@@ -107,6 +115,7 @@ public class BattleExperiment {
         
         player.takeDamage(damage);
         battleUI.showAction(enemy.getAction());
+        battleUI.setPlayerHealth(player.getAttributes().getHp());
         
         // Set callback for enemy's animation completion
         enemy.getAnimator().setOnAnimationComplete(this::finishEnemyTurn);
