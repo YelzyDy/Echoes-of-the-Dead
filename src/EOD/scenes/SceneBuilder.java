@@ -199,20 +199,21 @@ public class SceneBuilder extends JPanel{
                 player.getAnimator().setIsInBattle(false);
                 player.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
-
+                player.setPosX(screenSize.width * 0.4);
                 //respawn at portal if defeated
-                if(portalName.equals("portal")) {
-                    currentSceneIndex = 1;  // Or whichever scene index the portal was in
-                } else if(portalName.equals("portalMiniBoss")) {
-                    currentSceneIndex = 2;  // Or whichever scene index the miniboss portal was in
-                }
+                currentSceneIndex = battle.getPortal().getIndex();
+                // if(portalName.equals("portal")) {
+                //     currentSceneIndex = 1;  // Or whichever scene index the portal was in
+                // } else if(portalName.equals("portalMiniBoss")) {
+                //     currentSceneIndex = 2;  // Or whichever scene index the miniboss portal was in
+                // }
 
-                for(EchoesObjects obj : objList) {
-                    if(obj.getName().equals(portalName)) {
-                        player.setLocation(obj.getX(), obj.getY() + (int)(obj.getHeight() * 0.8));
-                        break;
-                    }
-                }
+                // for(EchoesObjects obj : objList) {
+                //     if(obj.getName().equals(portalName)) {
+                //         player.setLocation(obj.getX(), obj.getY() + (int)(obj.getHeight() * 0.8));
+                //         break;
+                //     }
+                // }
 
                 battle = null;
                 System.out.println("You lose");
