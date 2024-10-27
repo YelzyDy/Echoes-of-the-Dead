@@ -1,7 +1,4 @@
 package EOD.characters;
-
-import EOD.scenes.SceneBuilder;
-
 public class Skeleton2 extends Enemy {
     private static final int BASE_ATTACK = 8;
     private static final int BASE_HEALTH = 100;
@@ -11,10 +8,10 @@ public class Skeleton2 extends Enemy {
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
-    public Skeleton2(String name, SceneBuilder panel, int posX, int posY, 
+    public Skeleton2(String name, int posX, int posY, 
             double minRange, double maxRange, int numIdleSprites, 
             int numWalkSprites, Protagonist protagonist) {
-            super(name, "skeleton", panel, posX, posY, minRange, maxRange, 
+            super(name, "skeleton", posX, posY, minRange, maxRange, 
             protagonist);
         configureSprites();
         health = 100;

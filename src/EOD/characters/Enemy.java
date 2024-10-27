@@ -3,7 +3,6 @@ package EOD.characters;
 import EOD.MouseInteractable;
 import EOD.animator.EnemyAnimator;
 import EOD.listeners.MouseClickListener;
-import EOD.scenes.SceneBuilder;
 import java.awt.event.MouseEvent;
 
 public abstract class Enemy extends Character implements MouseInteractable {
@@ -21,10 +20,10 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected String actionString;
     protected int lastUsedSkill;
 
-    public Enemy(String name, String characterType, SceneBuilder panel, int posX, int posY, 
+    public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,
         Protagonist protagonist) {        
-        super(name, characterType, panel, posX, posY);
+        super(name, characterType, posX, posY);
         this.protagonist = protagonist;
         this.animator = new EnemyAnimator(this);
         setAnimator(animator);

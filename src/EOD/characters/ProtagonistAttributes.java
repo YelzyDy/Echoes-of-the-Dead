@@ -74,7 +74,7 @@ public class ProtagonistAttributes {
             (int) (screenSize.width * heightFactor),
             type,
             numSprites,
-            player.panel
+            player.getPanel()
         );
         effect.setLooping(looping);
         return effect;

@@ -20,7 +20,6 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     private String playerType; // variable for the playerType knight/priest/wizard
     private String playerName; // variable for player name -- jian
     //removed btn_shop. Let's create a class for shop so we can implement it easier. -- jian
-
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private JTextField name;  
@@ -36,6 +35,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected BGMPlayer bgmPlayer;
     private Inventory inventory;
     protected Shop shop;
+
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
     // create a class for enemies. Preferrably in different classes. Must have one superclass for polymorphsism
@@ -154,6 +154,10 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         );
         promptPanel.add(btn_ok);
         btn_ok.addMouseListener(new MouseClickListener(this));  
+    }
+
+    public SceneBuilder getScene(){
+        return scene;
     }
 
     public void addPlayerName(int panelHeight, int panelWidth){

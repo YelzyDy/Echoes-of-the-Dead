@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 
 import EOD.MouseInteractable;
 import EOD.animator.NpcAnimator;
-import EOD.scenes.SceneBuilder;
 import EOD.dialogues.*;
 import EOD.listeners.*;
 // This class makes NPC move randomly
@@ -12,8 +11,8 @@ public class Npc extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
     private int index;
     private NpcAnimator animator;
-    public Npc(String name, String characterType, SceneBuilder panel, int posX, int posY, double minRange, double maxRange) {
-        super(name, characterType, panel, posX, posY);
+    public Npc(String name, String characterType, int posX, int posY, double minRange, double maxRange) {
+        super(name, characterType, posX, posY);
         animator = new NpcAnimator(this);
         setAnimator(animator);
         animator.setSpeedMultiplier(1);
@@ -51,19 +50,19 @@ public class Npc extends Character implements MouseInteractable {
         animator.setInteracting(true);
         
         if (getCharacterType().equals("natty")){
-            dialogues.displayDialogues(3);
+            dialogues.displayDialogues(3, world);
         }
         if (getCharacterType().equals("missC")){
-            dialogues.displayDialogues(1);
+            dialogues.displayDialogues(1, world);
         } 
         if (getCharacterType().equals("yoo")){
-            dialogues.displayDialogues(5);
+            dialogues.displayDialogues(5, world);
         }  
         if (getCharacterType().equals("miggins")){
-            dialogues.displayDialogues(7);
+            dialogues.displayDialogues(7, world);
         }
         if (getCharacterType().equals("faithful")){
-            dialogues.displayDialogues(9);
+            dialogues.displayDialogues(9, world);
         }
     }
 

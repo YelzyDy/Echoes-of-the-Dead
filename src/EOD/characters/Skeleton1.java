@@ -1,8 +1,6 @@
 package EOD.characters;
 
 import EOD.objects.EchoesObjects;
-import EOD.scenes.SceneBuilder;
-
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 8;
@@ -14,9 +12,9 @@ public class Skeleton1 extends Enemy {
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
 
-    public Skeleton1(String name, SceneBuilder panel, int posX, int posY, 
+    public Skeleton1(String name, int posX, int posY, 
             double minRange, double maxRange, Protagonist protagonist) {
-            super(name, "skeleton1", panel, posX, posY, minRange, maxRange, 
+            super(name, "skeleton1", posX, posY, minRange, maxRange, 
            protagonist);
         configureSprites();
         
@@ -228,7 +226,7 @@ public class Skeleton1 extends Enemy {
 
     @Override
     protected void onBattleStart() {
-        EchoesObjects portal = panel.objList.get(1);
-        panel.configureBattle(this, portal);
+        EchoesObjects portal = getPanel().objList.get(1);
+        getPanel().configureBattle(this, portal);
     }
 }

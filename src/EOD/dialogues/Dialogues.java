@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import EOD.worlds.World;
 
-public class Dialogues extends JFrame {
+public class Dialogues{
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private AskDialogues askDialogues =  new AskDialogues();
@@ -21,7 +22,7 @@ public class Dialogues extends JFrame {
     private int size;
     private int ID;
 
-    public void displayDialogues(int ID) {
+    public void displayDialogues(int ID, World world) {
 
         // LOAD NPC
 
@@ -48,7 +49,7 @@ public class Dialogues extends JFrame {
 
         // TEXT WINDOW
 
-        storyDialogue = new JDialog(this, "ECHOES OF THE DEAD", Dialog.ModalityType.APPLICATION_MODAL);
+        storyDialogue = new JDialog(world, "ECHOES OF THE DEAD", Dialog.ModalityType.MODELESS);
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());

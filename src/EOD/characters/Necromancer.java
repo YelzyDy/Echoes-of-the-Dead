@@ -1,7 +1,6 @@
 package EOD.characters;
 
 import EOD.objects.EchoesObjects;
-import EOD.scenes.SceneBuilder;
 
 public class Necromancer extends Enemy {    
     private static final int BASE_ATTACK = 15;
@@ -13,9 +12,9 @@ public class Necromancer extends Enemy {
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
 
-    public Necromancer(String name, SceneBuilder panel, int posX, int posY, 
+    public Necromancer(String name, int posX, int posY, 
             double minRange, double maxRange, Protagonist protagonist) {
-            super(name, "necromancer", panel, posX, posY, minRange, maxRange, protagonist);
+            super(name, "necromancer", posX, posY, minRange, maxRange, protagonist);
             configureSprites();
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
@@ -204,7 +203,7 @@ public class Necromancer extends Enemy {
     
     @Override
     protected void onBattleStart() {
-        EchoesObjects portal = panel.objList.get(2);
-        panel.configureBattle(this, portal);
+        EchoesObjects portal = getPanel().objList.get(2);
+        getPanel().configureBattle(this, portal);
     }
 }

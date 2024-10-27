@@ -51,7 +51,7 @@ public class SceneBuilder extends JPanel{
 
     public SceneBuilder(){
         this.setBackground(Color.black);
-        this.setLayout(null); // Using null layout for absolute positioning
+        this.setLayout(null); 
         this.setBounds(0, 0, screenSize.width, screenSize.height);
         this.setVisible(true);
         currentSceneIndex = 0;

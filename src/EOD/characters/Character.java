@@ -13,8 +13,9 @@ import java.awt.Toolkit;
 
 import EOD.animator.*;
 import EOD.entities.Entity;
-import EOD.scenes.SceneBuilder;
 import EOD.utils.TransparentPanel;
+import EOD.worlds.World;
+import EOD.scenes.SceneBuilder;
 /**
 
 
@@ -27,21 +28,24 @@ public class Character extends TransparentPanel implements Entity{
     private double posX;
     private double posY;
     private String characterType;
-    protected SceneBuilder panel;
-
+    protected World world;
+    private SceneBuilder panel;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     
     private Animator animator;
 
-    public Character(String name, String characterType, SceneBuilder panel, double  posX, double posY) {
+    public Character(String name, String characterType, double  posX, double posY) {
         super(posX, posY, 0, 0);
         this.posY = posY;
         this.posX = posX;
         this.name = name;
         this.characterType = characterType;
-        this.panel = panel;
         this.setVisible(true);
     }   
+
+    public void setWorld(World world){
+        this.world = world;
+    }
 
     @Override
     public double getWidthE(){
@@ -68,8 +72,16 @@ public class Character extends TransparentPanel implements Entity{
         return characterType;
     }
 
+    public void setpanel(SceneBuilder panel){
+        this.panel = panel;
+    }
+
     public SceneBuilder getPanel(){
-        return panel;
+        if(world != null){
+            return world.getScene();
+        }else{
+            return panel;
+        }
     }
 
 

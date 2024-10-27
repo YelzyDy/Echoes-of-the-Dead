@@ -1,7 +1,6 @@
 package EOD.objects.inventory;
 
 import EOD.MouseInteractable;
-import EOD.characters.Protagonist;
 import EOD.characters.ProtagonistAttributes;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;

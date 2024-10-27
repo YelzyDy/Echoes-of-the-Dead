@@ -7,7 +7,6 @@ package EOD.characters;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 import EOD.MouseInteractable;
-import EOD.scenes.SceneBuilder;
 import EOD.animator.*;
 import EOD.objects.*;
 import EOD.entities.*;
@@ -34,8 +33,8 @@ public class Protagonist extends Character implements MouseInteractable {
     private int shieldBuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int originalAttack; // Stores original attack value
 
-    public Protagonist(String name, String characterType, SceneBuilder panel, int posX, int posY) {
-        super(name, characterType, panel, posX, posY);
+    public Protagonist(String name, String characterType, int posX, int posY) {
+        super(name, characterType, posX, posY);
         animator = new ProtagonistAnimator(this);
         animator.setSpeedMultiplier(1);
         attributes = new ProtagonistAttributes(this);
