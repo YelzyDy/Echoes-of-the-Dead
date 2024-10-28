@@ -3,15 +3,12 @@ package EOD.animator;
 
 import EOD.characters.Character;
 import EOD.scenes.SceneBuilder;
-import EOD.utils.SceneTransitionHandler;
 
 public class ProtagonistAnimator extends Animator {
     //private boolean isTransitioned;
-    private SceneTransitionHandler transitionHandler;
 
     public ProtagonistAnimator(Character character) {
         super(character, 4);
-        this.transitionHandler = new SceneTransitionHandler(screenSize);
     }
 
 
@@ -49,17 +46,6 @@ public class ProtagonistAnimator extends Animator {
             } else {
                 character.setPosX(newPosX);
             }
-        }
-        
-        // Check if we're at a transition point
-        if (transitionHandler.isAtTransitionPoint(character.getPosX(), 
-                                               panel.getCurrentSceneIndex(), 
-                                               panel.getNumOfScenes() - 3)) {
-            stopMovement(); // Stop movement when reaching transition point
-        }
-        
-        if (transitionHandler.isAtNonTransitionPoint(character.getPosX())) {
-            transitionHandler.setIsInTransition(false);
         }
         
         updateBounds();

@@ -229,11 +229,18 @@ public class SceneBuilder extends JPanel{
             animator.updateAnimation();
             animator.updateMovement();
             animator.updateBounds();
+
             if(transitionHandler == null) return;
-            boolean transitionOccurred = transitionHandler.handleSceneTransition(this, player, objList, npcList, enemyList);
-            if (transitionOccurred) {
-                player.getAnimator().stopMovement(); // Ensure movement stops after transition            
+                 // Check if we're at a transition point
+                transitionHandler.handleSceneTransition(this, player, objList, npcList, enemyList);
+            if (transitionHandler.isAtTransitionPoint(player.getPosX(),  getCurrentSceneIndex(), getNumOfScenes() - 3)) {
+                animator.stopMovement(); // Stop movement when reaching transition point
             }
+
+            if (transitionHandler.isAtNonTransitionPoint(player.getPosX())) {
+                transitionHandler.setIsInTransition(false);
+            }
+
         }
 
         if (world != null) {

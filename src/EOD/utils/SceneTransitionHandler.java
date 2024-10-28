@@ -32,13 +32,13 @@ public class SceneTransitionHandler {
      * Handles scene transitions and returns whether a transition occurred
      * @return true if a scene transition occurred
      */
-    public boolean handleSceneTransition(SceneBuilder panel, Protagonist player, 
+    public void handleSceneTransition(SceneBuilder panel, Protagonist player, 
                                     ArrayList<EchoesObjects> objList,
                                     ArrayList<Npc> npcList,
                                     ArrayList<Enemy> enemyList) {
                                         System.out.println("In Transition? " + isInTransition);
         if (isInTransition) {
-            return false;
+            return;
         }
         
         int currentScene = panel.getCurrentSceneIndex();
@@ -52,7 +52,7 @@ public class SceneTransitionHandler {
             player.setPosX(screenSize.width * SPAWN_LEFT_POSITION);
             player.getAnimator().stopMovement();
             updateObjectVisibility(panel, objList, npcList, enemyList);
-            return true;
+            return;
         } 
         // Check for left boundary transition
         else if (currentScene > 0 && currentPosX <= (screenSize.width * LEFT_BOUNDARY_THRESHOLD)) {
@@ -61,10 +61,10 @@ public class SceneTransitionHandler {
             player.setPosX(screenSize.width * SPAWN_RIGHT_POSITION);
             player.getAnimator().stopMovement();
             updateObjectVisibility(panel, objList, npcList, enemyList);
-            return true;
+            return;
         }
         
-        return false;
+        return;
     }
 
      /**
@@ -75,7 +75,7 @@ public class SceneTransitionHandler {
         double leftBoundary = screenSize.width * LEFT_BOUNDARY_THRESHOLD;
         double rightBoundary = screenSize.width * RIGHT_BOUNDARY_THRESHOLD;
         // Check if posX is within the range where no transition is triggered
-        return posX > leftBoundary && posX < rightBoundary;
+        return posX > leftBoundary && posX < rightBoundary; // returns true if player is not at the end of the panel/screen
     }
     
     
