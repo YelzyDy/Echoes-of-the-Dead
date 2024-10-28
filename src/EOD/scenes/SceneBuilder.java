@@ -170,59 +170,9 @@ public class SceneBuilder extends JPanel{
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = player.getAttributes().getHp();
-
+            // for debugging
             System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 
             + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  
-             
-            double enemyDeathY = getEnemyDeathPosY(enemy);
-            String portalName = battle.getPortal().getName();
-            int portalIndex = getPortalIndex(portalName);
-
-            if(enemyHp <= 0){
-                player.getAnimator().setIsInBattle(false);
-                player.getAnimator().setMoving(true);
-                battle.getStoryDialog().dispose();
-                battle.getPortal().setIndex(portalIndex);
-                enemy.setIsDefeated(true);
-                player.setPosX(screenSize.width * 0.4);
-                battle = null;
-                System.out.println("You won");
-
-                Timer deathAnimationTimer = new Timer(1800, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        enemy.getAnimator().triggerDeathAnimation(enemy.getPosY() + enemy.getPosY() * enemyDeathY);
-                    }
-                });
-                deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
-                deathAnimationTimer.start();
-            }
-            if(playerHp <= 0){
-                player.getAnimator().setIsInBattle(false);
-                battle.getStoryDialog().dispose();
-                player.setPosX(screenSize.width * 0.4);
-                player.getAnimator().setMoving(false);
-                enemy.getAnimator().setIsInBattle(false);
-                enemy.getAnimator().setMoving(true);
-                enemy.setPosX((int) (screenSize.width * 0.65));
-                //respawn at portal if defeated
-                currentSceneIndex = battle.getPortal().getIndex();
-                // if(portalName.equals("portal")) {
-                //     currentSceneIndex = 1;  // Or whichever scene index the portal was in
-                // } else if(portalName.equals("portalMiniBoss")) {
-                //     currentSceneIndex = 2;  // Or whichever scene index the miniboss portal was in
-                // }
-
-                // for(EchoesObjects obj : objList) {
-                //     if(obj.getName().equals(portalName)) {
-                //         player.setLocation(obj.getX(), obj.getY() + (int)(obj.getHeight() * 0.8));
-                //         break;
-                //     }
-                // }
-
-                battle = null;
-                System.out.println("You lose");
-            }
         }
     }
     

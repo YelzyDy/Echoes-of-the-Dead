@@ -1,8 +1,14 @@
 package EOD.scenes;
 
+import javax.swing.Timer;
+
 import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
 import EOD.worlds.World;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent; // -z
+import java.awt.event.ActionListener; // -z
 
 public class BattleExperiment {
     private Enemy enemy;
@@ -10,6 +16,7 @@ public class BattleExperiment {
     private BattleUI battleUI;
     private int turnCount = 0;
     private boolean isProcessingTurn = false;
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public BattleExperiment(Protagonist player, Enemy enemy) {
         this.player = player;
@@ -144,11 +151,70 @@ public class BattleExperiment {
         isProcessingTurn = false;
         player.reset(playerWon);
         World world = player.getWorld();
-        if(playerWon)
+        if(playerWon){
             world.callVictory();
-        else{
+            handleWin();
+        }else{
             world.callDefeat();
+            handleLose();;
         }
         // Add any additional end-game logic here
+    }
+
+    private double getEnemyDeathPosY(Enemy enemy){
+        if(enemy.getName().equals("Skeleton2")){
+            return 0.3;
+        }else if(enemy.getName().equals("Necromancer")){
+            return 20;
+        }else if(enemy.getName().equals("Skeleton1")){
+            return 0.5;
+        }
+        return 0.0;
+    }
+
+    private int getPortalIndex(String name){
+        if(name.equals("portal")){
+            return 3;
+        }else if(name.equals("portalMiniBoss")){
+            return 4;
+        }
+        return -1;
+    }
+
+    private void handleWin(){
+        double enemyDeathY = getEnemyDeathPosY(enemy);
+        String portalName = battleUI.getPortal().getName();
+        int portalIndex = getPortalIndex(portalName);
+        player.getAnimator().setIsInBattle(false);
+        player.getAnimator().setMoving(true);
+        battleUI.getStoryDialog().dispose();
+        battleUI.getPortal().setIndex(portalIndex);
+        enemy.setIsDefeated(true);
+        player.setPosX(screenSize.width * 0.4);
+        battleUI = null;
+        System.out.println("You won");
+        Timer deathAnimationTimer = new Timer(1800, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                enemy.getAnimator().triggerDeathAnimation(enemy.getPosY() + enemy.getPosY() * enemyDeathY);
+            }
+        });
+        deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
+        deathAnimationTimer.start();
+    }
+
+    private void handleLose(){
+        player.getAnimator().setIsInBattle(false);
+        battleUI.getStoryDialog().dispose();
+        player.setPosX(screenSize.width * 0.4);
+        player.getAnimator().setMoving(false);
+        enemy.getAnimator().setIsInBattle(false);
+        enemy.getAnimator().setMoving(true);
+        enemy.setPosX((int) (screenSize.width * 0.65));
+        //respawn at portal if defeated
+        player.getPanel().setCurrentSceneIndex(battleUI.getPortal().getIndex());
+        battleUI = null;
+        System.out.println("You lose");
+        
     }
 }

@@ -37,7 +37,7 @@ public class ProtagonistAttributes {
     private void configure(String characterType) {
         switch (characterType) {
             case "knight":
-                setupAttributes(15, 100, 100, 100, 7, 4, 4, 11);
+                setupAttributes(15, 30, 100, 100, 7, 4, 4, 11);
                 break;
             case "wizard":
                 setupAttributes(15, 100, 130, 50, 6, 6, 6, 6);

@@ -75,8 +75,8 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     }
 
     public void configureBanners(){
-        victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.25), "win", false, false, 1);
-        defeatBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.25), "lose", false, false, 1);
+        victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "win", false, false, 1);
+        defeatBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "lose", false, false, 1);
         layeredPane.add(victoryBanner, Integer.valueOf(1));
         layeredPane.add(defeatBanner, Integer.valueOf(1));
 
