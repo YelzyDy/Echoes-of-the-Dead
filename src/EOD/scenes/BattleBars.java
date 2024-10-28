@@ -51,7 +51,7 @@ public class BattleBars {
         this.maxEnemyHealth = enemyHP;
         enemyBarFrame.animateEnemyHealth(enemyHP);
     }
-
+    
     private class PlayerBarFrame extends JFrame {
         private PlayerPanel playerPanel;
 

@@ -144,32 +144,14 @@ public class SceneBuilder extends JPanel{
         battle.displayDialogues();
     }
 
-    private double getEnemyDeathPosY(Enemy enemy){
-        if(enemy.getName().equals("Skeleton2")){
-            return 0.3;
-        }else if(enemy.getName().equals("Necromancer")){
-            return 20;
-        }else if(enemy.getName().equals("Skeleton1")){
-            return 0.5;
-        }
-        return 0.0;
-    }
-
-    private int getPortalIndex(String name){
-        if(name.equals("portal")){
-            return 3;
-        }else if(name.equals("portalMiniBoss")){
-            return 4;
-        }
-        return -1;
-    }
-
     private void updateBattleState(){
         if(battle != null){
             battle.updateCooldowns();
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = player.getAttributes().getHp();
+            int playerMana = player.getAttributes().getBaseMana();
+            battle.updateBars(playerHp, playerMana, enemyHp);
             // for debugging
             System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 
             + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  

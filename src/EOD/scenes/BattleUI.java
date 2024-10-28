@@ -30,11 +30,12 @@ public class BattleUI extends JFrame {
     private JLabel topTextBox, middleTextBox, bottomTextBox;
     private BattleBars battleBars = new BattleBars();
     private int turns;
-
-    public BattleUI(Protagonist player, Enemy minion){
-        battleSample = new BattleExperiment(player, minion);
+    private Enemy enemy;
+    public BattleUI(Protagonist player, Enemy enemy){
+        battleSample = new BattleExperiment(player, enemy);
         battleSample.setBattleUI(this);
         this.player = player;
+        this.enemy = enemy;
     }
 
     public void setPortal(EchoesObjects portal){
@@ -100,7 +101,11 @@ public class BattleUI extends JFrame {
 
         // BATTLE BARS
 
-        battleBars.setStats(battleSample.getPlayer().getAttributes().getBaseHp(), battleSample.getPlayer().getAttributes().getBaseMana(), battleSample.getEnemy().getHp());
+        battleBars.setStats(
+            battleSample.getPlayer().getAttributes().getBaseHp(),
+            battleSample.getPlayer().getAttributes().getBaseMana(),
+            battleSample.getEnemy().getHp()
+        );
 
         // THE BUTTONS
 
@@ -151,19 +156,13 @@ public class BattleUI extends JFrame {
 
     }
 
+    public void updateBars(int hp, int mp, int enemyHp){
+        battleBars.setPlayerHealth(hp);
+        battleBars.setPlayerMana(mp);
+        battleBars.setEnemyHealth(enemyHp);
+    }
+
     // THE METHODS
-
-    public void setPlayerHealth(int HP) {
-        battleBars.setPlayerHealth(HP);
-    }
-
-    public void setPlayerMana(int MP) {
-        battleBars.setPlayerMana(MP);
-    }
-
-    public void setEnemyHealth(int HP) {
-        battleBars.setEnemyHealth(HP);
-    }
 
     public void setSkillButtonsEnabled(boolean enabled) {
         skillA.setEnabled(enabled);

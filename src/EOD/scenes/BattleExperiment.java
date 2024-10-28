@@ -46,8 +46,6 @@ public class BattleExperiment {
             if (damageEnemy) {
                 int damage = player.getDamageDealt();
                 enemy.takeDamage(damage);
-                battleUI.setEnemyHealth(enemy.getHp());
-                battleUI.setPlayerMana(player.getAttributes().getMana());
                 
                 if ((player.isWizard() && skillNumber == 3) || 
                     (player.isKnight() && skillNumber == 4)) {
@@ -119,7 +117,6 @@ public class BattleExperiment {
         
         player.takeDamage(damage);
         battleUI.showAction(enemy.getAction());
-        battleUI.setPlayerHealth(player.getAttributes().getHp());
         
         // Set callback for enemy's animation completion
         enemy.getAnimator().setOnAnimationComplete(this::finishEnemyTurn);
