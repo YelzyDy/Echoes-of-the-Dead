@@ -36,8 +36,8 @@ public class SceneTransitionHandler {
                                     ArrayList<EchoesObjects> objList,
                                     ArrayList<Npc> npcList,
                                     ArrayList<Enemy> enemyList) {
-                                        System.out.println("In Transition? " + isInTransition);
-        if (isInTransition) {
+
+        if (isInTransition || IsInEnemyIndex(panel, enemyList)) {
             return;
         }
         
@@ -67,6 +67,7 @@ public class SceneTransitionHandler {
         return;
     }
 
+
      /**
      * Checks if player is at a position that would toggle isInTransition to false so we can transition again
      */
@@ -90,6 +91,16 @@ public class SceneTransitionHandler {
         
         return (posX >= (screenSize.width * RIGHT_BOUNDARY_THRESHOLD) && currentScene < maxPanel - 1) ||
                (currentScene > 0 && posX <= (screenSize.width * LEFT_BOUNDARY_THRESHOLD));
+    }
+
+    private boolean IsInEnemyIndex(SceneBuilder panel, ArrayList<Enemy> enemyList){
+        if(enemyList == null) return false;
+        for(Enemy enemy : enemyList){
+            if(panel.getCurrentSceneIndex() == enemy.getIndex()){
+                return true;
+            }
+        }
+        return false;
     }
     
     private void updateObjectVisibility(SceneBuilder panel,
