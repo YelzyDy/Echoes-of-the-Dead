@@ -145,7 +145,7 @@ public class SceneBuilder extends JPanel{
     }
 
     private double getEnemyDeathPosY(Enemy enemy){
-        if(enemy.getName().equals("Skeleton")){
+        if(enemy.getName().equals("Skeleton2")){
             return 0.3;
         }else if(enemy.getName().equals("Necromancer")){
             return 20;
