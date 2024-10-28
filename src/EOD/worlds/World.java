@@ -13,6 +13,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Font;
 
 
 public class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
@@ -21,6 +24,8 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     //removed btn_shop. Let's create a class for shop so we can implement it easier. -- jian
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
+    private EchoesObjects victoryBanner;
+    private EchoesObjects defeatBanner;
     private JTextField name;  
     private String worldType;  
 
@@ -34,6 +39,8 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected BGMPlayer bgmPlayer;
     private Inventory inventory;
     protected Shop shop;
+    private Timer bannerTimer;
+    private JLabel counterLabel;
 
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
@@ -50,7 +57,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         this.playerType = playerType;
         this.playerName = playerName;   
         this.worldType = worldType;
-
+        this.addMouseListener(new MouseClickListener(this));
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
         
@@ -63,8 +70,82 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         addSettingsButton();
         System.out.println("Hello!");
         addBagIcon();
+        configureBanners();
         this.setContentPane(layeredPane);
     }
+
+    public void configureBanners(){
+        victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.25), "win", false, false, 1);
+        defeatBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.25), "lose", false, false, 1);
+        layeredPane.add(victoryBanner, Integer.valueOf(1));
+        layeredPane.add(defeatBanner, Integer.valueOf(1));
+
+        counterLabel = new JLabel("Closes in 5 seconds"); // Starting with 5 seconds
+        counterLabel.setForeground(Color.WHITE); // Set text color
+        counterLabel.setBounds((int)(screenSize.width * 0.1), (int)(screenSize.width * 0.26), (int)(screenSize.width * 0.8), 30); // Position below the banner
+        counterLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
+        counterLabel.setFont(new Font("SansSerif", Font.PLAIN, 30));
+        counterLabel.setVisible(false); // Initially hidden
+        layeredPane.add(counterLabel, Integer.valueOf(1)); // Add to the layered pane
+    }
+
+    public void callVictory() {
+        victoryBanner.setVisible(true); // Show the banner immediately
+        counterLabel.setVisible(true); // Show the counter label
+    
+        int countdownTime = 5; // 5 seconds countdown
+        counterLabel.setText("Closes in " + countdownTime + " seconds"); // Display initial counter
+    
+        // Create a Timer to update the counter and hide the banner after 5 seconds
+        bannerTimer = new Timer(1000, new ActionListener() {
+            private int remainingTime = countdownTime; // Keep track of remaining time
+    
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remainingTime--;
+                counterLabel.setText("Closes in " + remainingTime + " seconds");  // Update the counter display
+    
+                if (remainingTime <= 0) {
+                    victoryBanner.setVisible(false); // Hide the banner
+                    counterLabel.setVisible(false); // Hide the counter label
+                    ((Timer) e.getSource()).stop(); // Stop the timer
+                }
+            }
+        });
+    
+        bannerTimer.setInitialDelay(0); // Start immediately
+        bannerTimer.start(); // Start the timer
+    }
+    
+
+    public void callDefeat() {
+        defeatBanner.setVisible(true);
+        counterLabel.setVisible(true); // Show the counter label
+    
+        int countdownTime = 5; // 5 seconds countdown
+        counterLabel.setText("Closes in " + countdownTime + " seconds"); // Display initial counter
+    
+        // Create a Timer to update the counter and hide the banner after 5 seconds
+        bannerTimer = new Timer(1000, new ActionListener() {
+            private int remainingTime = countdownTime; // Keep track of remaining time
+    
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remainingTime--;
+                counterLabel.setText("Closes in " + remainingTime + " seconds"); // Update the counter display
+    
+                if (remainingTime <= 0) {
+                    defeatBanner.setVisible(false); // Hide the banner
+                    counterLabel.setVisible(false); // Hide the counter label
+                    ((Timer) e.getSource()).stop(); // Stop the timer
+                }
+            }
+        });
+    
+        bannerTimer.setInitialDelay(0); // Start immediately
+        bannerTimer.start(); // Start the timer
+    }
+    
 
     public void configureShopAndInventory(){
         inventory = new Inventory(this);
@@ -209,6 +290,23 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
             } else {
                 inventory.setVisible(true);
             }
+        }else if(source == this){
+            if (bannerTimer != null && bannerTimer.isRunning()) {
+                bannerTimer.stop(); // Stop the timer if it's running
+            }
+            
+            // Hide victory banner if it's visible
+            if (victoryBanner.isVisible()) {
+                victoryBanner.setVisible(false);
+                System.out.println("victoryBanner hidden");
+            }
+            
+            // Hide defeat banner if it's visible
+            if (defeatBanner.isVisible()) {
+                defeatBanner.setVisible(false);
+                System.out.println("defeatBanner hidden");
+            }
+            counterLabel.setVisible(false);
         }
     }
 

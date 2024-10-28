@@ -148,7 +148,7 @@ public class Skeleton1 extends Enemy {
             }else if(protagonist.isWizard()){
                 return 0.4;
             }else{
-                return 0.3;
+                return 0.6;
             }
         }
     }

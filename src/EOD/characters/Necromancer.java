@@ -113,7 +113,7 @@ public class Necromancer extends Enemy {
             }else if(protagonist.isWizard()){
                 return 0.2;
             }else{
-                return 0.1;
+                return 0.32;
             }
         }
     }

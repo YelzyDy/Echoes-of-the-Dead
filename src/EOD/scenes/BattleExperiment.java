@@ -2,16 +2,12 @@ package EOD.scenes;
 
 import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
-import EOD.characters.ProtagonistAttributes;
-
-import java.util.Random;
-import javax.swing.Timer;
+import EOD.worlds.World;
 
 public class BattleExperiment {
     private Enemy enemy;
     private Protagonist player;
     private BattleUI battleUI;
-    private Random random = new Random();
     private int turnCount = 0;
     private boolean isProcessingTurn = false;
 
@@ -134,6 +130,7 @@ public class BattleExperiment {
         battleUI.updateCooldowns();
         
         if (player.attributes.getHp() <= 0) {
+            System.out.println("handle on battle end");
             handleBattleEnd(false);
             return;
         }
@@ -144,7 +141,13 @@ public class BattleExperiment {
 
     private void handleBattleEnd(boolean playerWon) {
         isProcessingTurn = false;
-        player.reset();
+        player.reset(playerWon);
+        World world = player.getWorld();
+        if(playerWon)
+            world.callVictory();
+        else{
+            world.callDefeat();
+        }
         // Add any additional end-game logic here
     }
 }

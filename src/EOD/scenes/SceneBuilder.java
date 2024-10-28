@@ -199,9 +199,12 @@ public class SceneBuilder extends JPanel{
             }
             if(playerHp <= 0){
                 player.getAnimator().setIsInBattle(false);
-                player.getAnimator().setMoving(true);
                 battle.getStoryDialog().dispose();
                 player.setPosX(screenSize.width * 0.4);
+                player.getAnimator().setMoving(false);
+                enemy.getAnimator().setIsInBattle(false);
+                enemy.getAnimator().setMoving(true);
+                enemy.setPosX((int) (screenSize.width * 0.65));
                 //respawn at portal if defeated
                 currentSceneIndex = battle.getPortal().getIndex();
                 // if(portalName.equals("portal")) {

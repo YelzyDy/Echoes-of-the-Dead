@@ -47,6 +47,10 @@ public class Character extends TransparentPanel implements Entity{
         this.world = world;
     }
 
+    public World getWorld(){
+        return world;
+    }
+
     @Override
     public double getWidthE(){
         return getWidth();

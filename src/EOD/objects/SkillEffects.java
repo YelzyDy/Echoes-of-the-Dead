@@ -3,7 +3,6 @@ package EOD.objects;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.Timer;
 
 import javax.swing.JLayeredPane;
 import java.awt.Image;
@@ -18,7 +17,6 @@ public class SkillEffects extends EchoesObjects {
     private Entity target;
     private double offsetX;
     private double offsetY;
-    private Timer gameLoop;
     private SceneBuilder panel;
     private int loopStartFrame; 
     
@@ -199,9 +197,5 @@ public class SkillEffects extends EchoesObjects {
     // Clean up resources when no longer needed
     public void dispose() {
         stop();
-        if (gameLoop != null) {
-            gameLoop.cancel();
-            gameLoop.purge();
-        }
     }
 }

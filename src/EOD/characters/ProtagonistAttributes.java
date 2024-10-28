@@ -16,7 +16,6 @@ public class ProtagonistAttributes {
     protected int s2num;
     protected int s3num;
     protected int s4num;
-    protected int turnDuration;
     protected Protagonist player;
     protected int skill2Cd;
     protected int skill3Cd;
@@ -38,18 +37,18 @@ public class ProtagonistAttributes {
     private void configure(String characterType) {
         switch (characterType) {
             case "knight":
-                setupAttributes(15, 100, 100, 100, 7, 4, 4, 11, 3000);
+                setupAttributes(15, 100, 100, 100, 7, 4, 4, 11);
                 break;
             case "wizard":
-                setupAttributes(15, 100, 130, 50, 6, 6, 6, 6, 3000);
+                setupAttributes(15, 100, 130, 50, 6, 6, 6, 6);
                 break;
             case "priest":
-                setupAttributes(10, 130, 100, 75, 9, 9, 10, 6, 3000);
+                setupAttributes(10, 130, 100, 75, 9, 9, 10, 6);
                 break;
         }
     }
 
-    private void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4, int duration) {
+    private void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
         this.attack = atk;
         this.baseAttack = attack;
         this.health = hp;
@@ -62,7 +61,6 @@ public class ProtagonistAttributes {
         this.s2num = s2;
         this.s3num = s3;
         this.s4num = s4;
-        this.turnDuration = duration;
     }
 
     protected SkillEffects createSkillEffect(String type, double xFactor, double yFactor, int numSprites, boolean looping) {

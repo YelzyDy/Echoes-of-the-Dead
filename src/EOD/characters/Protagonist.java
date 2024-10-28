@@ -107,15 +107,18 @@ public class Protagonist extends Character implements MouseInteractable {
                 break;
     
             default:
-                attributes.skillEffectsRandom.setDimensions((int)(screenSize.width * enemy.getOffsetW(2)), (int)(screenSize.width * enemy.getOffsetH(2)));
+                attributes.skillEffectsRandom.setDimensions((int)(screenSize.width * 0.25), (int)(screenSize.width * 0.15));
                 attributes.skillEffects2.setDimensions((int)(screenSize.width * enemy.getOffsetW(3)), (int)(screenSize.width * enemy.getOffsetH(3)));  
                 attributes.skillEffects4.setDimensions((int)(screenSize.width * enemy.getOffsetW(4)), (int)(screenSize.width * enemy.getOffsetH(4)));
                 break;
         }
     }
 
-    public void reset() {
+    public void reset(boolean playerWon) {
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
+        if(playerWon){attributes.setHp((int)(attributes.getBaseHp()));}
+        else{attributes.setHp((int)(attributes.getBaseHp() * 0.75));}
+        System.out.println("Player won? " + playerWon);
     }
 
     public String getAction() {
@@ -397,8 +400,8 @@ public class Protagonist extends Character implements MouseInteractable {
                 attributes.health = Math.min(attributes.health + ultimateHeal, attributes.baseHealth);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
-                applySkillEffect(attributes.skillEffects4, enemy, 12, 0.35, 0.40);
-                applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.4, 0.30);
+                applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
+                applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.42, 0.15);
                 actionString = "Divine Retribution! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
                 xFactor = screenSize.width * 0.3;
                 return true;
