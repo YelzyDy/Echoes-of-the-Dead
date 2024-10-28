@@ -28,6 +28,7 @@ public class BattleUI extends JFrame {
     private Protagonist player;
     private JPanel skillButtonsPanel ;
     private JLabel topTextBox, middleTextBox, bottomTextBox;
+    private BattleBars battleBars = new BattleBars();
     private int turns;
 
     public BattleUI(Protagonist player, Enemy minion){
@@ -97,6 +98,10 @@ public class BattleUI extends JFrame {
         middleTextBox.setText("An enemy has appeared!");
         bottomTextBox.setText("<html><center>Prepare to use your skills to defeat them in this battle!<html><center>");
 
+        // BATTLE BARS
+
+        battleBars.setStats(battleSample.getPlayer().getAttributes().getBaseHp(), battleSample.getPlayer().getAttributes().getBaseMana(), battleSample.getEnemy().getHp());
+
         // THE BUTTONS
 
         skillButtonsPanel = new JPanel(new GridLayout(2, 2, 0, 0));
@@ -147,6 +152,18 @@ public class BattleUI extends JFrame {
     }
 
     // THE METHODS
+
+    public void setPlayerHealth(int HP) {
+        battleBars.setPlayerHealth(HP);
+    }
+
+    public void setPlayerMana(int MP) {
+        battleBars.setPlayerMana(MP);
+    }
+
+    public void setEnemyHealth(int HP) {
+        battleBars.setEnemyHealth(HP);
+    }
 
     public void setSkillButtonsEnabled(boolean enabled) {
         skillA.setEnabled(enabled);
