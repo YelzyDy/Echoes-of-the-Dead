@@ -225,7 +225,7 @@ public class Protagonist extends Character implements MouseInteractable {
             attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
         }
         if (isWizard()) {
-            attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
+            attributes.mana = Math.min(attributes.mana + MANA_REGEN + 10, attributes.baseMana);
         }
         if (isPriest()) {
             attributes.health = Math.min(attributes.health + HEALTH_REGEN, attributes.baseHealth);

@@ -1,5 +1,8 @@
 package EOD.characters;
+
+import EOD.objects.EchoesObjects;
 public class Skeleton2 extends Enemy {
+    // Constants for better maintainability
     private static final int BASE_ATTACK = 8;
     private static final int BASE_HEALTH = 100;
     private static final double SPRITE_SCALE = 0.3; // Keep the smaller scale for minion appearance
@@ -7,21 +10,40 @@ public class Skeleton2 extends Enemy {
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
+
     public Skeleton2(String name, int posX, int posY, 
-            double minRange, double maxRange, int numIdleSprites, 
-            int numWalkSprites, Protagonist protagonist) {
-            super(name, "skeleton", posX, posY, minRange, maxRange, 
-            protagonist);
+            double minRange, double maxRange, Protagonist protagonist) {
+            super(name, "skeleton2", posX, posY, minRange, maxRange, 
+           protagonist);
         configureSprites();
-        health = 100;
+        
+        // Base stats - weaker than protagonist but not trivial
+        attack = BASE_ATTACK;
+        health = BASE_HEALTH;
+        animator.setSpeedMultiplier(1);
     }
 
-    @Override
-    public double getXFactor(){
-        return screenSize.width * 0.4;
+    public void configureSprites() {
+        int baseSize = (int)(screenSize.height * 0.007);
+        
+        // Import all sprite sets
+        animator.importSprites("character_asset", "walk", baseSize, 8);
+        animator.importSprites("character_asset", "idle", baseSize, 6);
+        animator.importSprites("character_asset", "dead", baseSize, 4);
+        animator.importSkillSprites(1, "character_asset", baseSize, 7);
+        animator.importSkillSprites(2, "character_asset", baseSize, 7);
+        
+        // Scale all sprites uniformly
+        String[] spriteTypes = {"walk", "idle", "dead", "skill1", "skill2"};
+        for (String type : spriteTypes) {
+            animator.scaleDownSprites(type, SPRITE_SCALE);
+        }
+        
+        animator.startMovement();
+        animator.chooseNewDirection();
+        animator.updateBounds();
     }
-    
-    
+
     @Override 
     public void skill1() {
         // Basic attack - consistent but low damage
@@ -48,7 +70,6 @@ public class Skeleton2 extends Enemy {
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
     }
 
-
     @Override
     public void update() {
         if (skill2Cooldown > 0) {
@@ -64,90 +85,146 @@ public class Skeleton2 extends Enemy {
         return Math.random() < 0.7 ? 1 : 2;
     }
 
-     @Override 
-    public double getOffsetX(int skill){
-        if(skill != 4){
-            if(protagonist.isWizard() && skill == 3){
-                return 0.1;
-            }else{
-                return 0.25;
-            }
-        }else{
-            return 0.35;
-        }
+    @Override
+    public double getXFactor() {
+        return screenSize.width * 0.4;
     }
 
+    // Keep the existing offset methods as they handle skill effect positioning
     @Override 
-    public double getOffsetY(int skill){
-        if(skill != 4){
-            return 0.30;
-        }else{
-            return 0.3;
-        }
-    }
-
-    @Override 
-    public double getOffsetW(int skill){
-        if(skill == 2){
-            if(!protagonist.isPriest()){
-                return 0.15;
-            }else{
-                return 0.25;
-            }
-        }else if(skill == 3){
+    public double getOffsetX(int skill) {
+        if(skill == 1){
             if(protagonist.isKnight()){
-                return 0.15;
-            }else if(protagonist.isWizard()){
                 return 0.2;
             }else{
+                return 0.1;
+            }
+        }else if(skill == 2){
+            if(protagonist.isKnight()){
+                return 0.35;
+            }else{
+                return 0.15;
+            }
+        }else if(skill != 4) {
+            if(protagonist.isWizard() && skill == 3) {
+                return 0.3;
+            } else {
+                return 0.25;
+            }
+        } else {
+            if(protagonist.isKnight()){
+                return 0.35;
+            }else{
+                return 0.35;
+            }
+        }
+    }
+
+    @Override 
+    public double getOffsetY(int skill) {
+        if(skill == 1){
+            if(protagonist.isKnight()){
+                return 0.6;
+            }else{
+                return 0.1;
+            }
+        }else if(skill == 2){
+            if(protagonist.isKnight()){
+                return 0.4;
+            }else if(protagonist.isWizard()){
+                return 0.4;
+            }else{
+                return 0.3;
+            }
+        } else if(skill == 3){
+            if(protagonist.isKnight()){
+                return 0.3;
+            }else{
+                return 0.3;
+            }  
+        }else{
+            if(protagonist.isKnight()){
+                return 0.4;
+            }else if(protagonist.isWizard()){
+                return 0.4;
+            }else{
+                return 0.3;
+            }
+        }
+    }
+
+    @Override 
+    public double getOffsetW(int skill) {
+        if(skill == 1){
+            if(protagonist.isKnight()){
+                return 0.3;
+            }else{
+                return 0.2;
+            }
+        }else if(skill == 2) {
+            if(protagonist.isKnight()){
+                return 0.2;
+            }else if(protagonist.isWizard()){
+                return 0.15;
+            } else {
+                return 0.25;
+            }
+        } else if(skill == 3) {
+            if(protagonist.isKnight()) {
+                return 0.15;
+            } else if(protagonist.isWizard()) {
+                return 0.2;
+            } else {
                 return 0.17;
             }
-        }else{
-            if(!protagonist.isPriest()){
+        } else {
+            if(protagonist.isKnight()) {
                 return 0.2;
-            }else{
+            } else if(protagonist.isWizard()){
                 return 0.15;
+            }else{
+                return 0.2;
             }
         }
     }
 
     @Override 
     public double getOffsetH(int skill){
-        if(skill == 2){
-            if(!protagonist.isPriest()){
-                return 0.15;
-            }else{
-                return 0.25;
-            }
-        }else if(skill == 3){
+        if(skill == 1){
             if(protagonist.isKnight()){
-                return 0.15;
-            }else if(protagonist.isWizard()){
-                return 0.2;
+                return 0.3;
             }else{
+                return 0.2;
+            }
+        }else if(skill == 2) {
+            if(protagonist.isKnight()) {
+                return 0.15;
+            } else {
+                return 0.15;
+            }
+        } else if(skill == 3) {
+            if(protagonist.isKnight()) {
+                return 0.15;
+            } else if(protagonist.isWizard()) {
+                return 0.2;
+            } else {
                 return 0.17;
             }
-        }else{
-            if(!protagonist.isPriest()){
+        }else {
+            if(protagonist.isKnight()) {
                 return 0.2;
-            }else{
+            } else if(protagonist.isWizard()){
                 return 0.15;
+            }else{
+                return 0.2;
             }
         }
-    }
-
-
-    public void configureSprites(){
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), 8);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 6);
-        animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.007), 4);
-        animator.startMovement();
-        animator.chooseNewDirection();
-        animator.updateBounds();
+        
     }
 
     @Override
     protected void onBattleStart() {
-        // panel.configureBattle(this,);
+        EchoesObjects portal = getPanel().objList.get(1);
+        getPanel().configureBattle(this, portal);
     }
 }
