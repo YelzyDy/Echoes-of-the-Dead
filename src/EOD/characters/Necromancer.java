@@ -36,7 +36,7 @@ public class Necromancer extends Enemy {
     @Override 
     public void skill1() {
         damageDealt = attack + (int)(Math.random() * 3);
-        actionString = getName() + " swings its rusty sword for " + damageDealt + " damage!";
+        actionString = getName() + " used Mutilate, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
 
@@ -50,7 +50,7 @@ public class Necromancer extends Enemy {
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
         
-        actionString = getName() + " throws a bone for " + damageDealt + " damage!";
+        actionString = getName() + " a basic damage spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
     }
