@@ -30,15 +30,10 @@ public class Skeleton2 extends Enemy {
         animator.importSprites("character_asset", "walk", baseSize, 8);
         animator.importSprites("character_asset", "idle", baseSize, 6);
         animator.importSprites("character_asset", "dead", baseSize, 4);
-        animator.importSkillSprites(1, "character_asset", baseSize, 7);
-        animator.importSkillSprites(2, "character_asset", baseSize, 7);
-        
-        // Scale all sprites uniformly
-        String[] spriteTypes = {"walk", "idle", "dead", "skill1", "skill2"};
-        for (String type : spriteTypes) {
-            animator.scaleDownSprites(type, SPRITE_SCALE);
-        }
-        
+        animator.importSkillSprites(1, "character_asset", baseSize, 6);
+        animator.importSkillSprites(2, "character_asset", baseSize, 6);
+        animator.cropSprites();
+
         animator.startMovement();
         animator.chooseNewDirection();
         animator.updateBounds();

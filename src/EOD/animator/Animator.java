@@ -170,6 +170,16 @@ public abstract class Animator {
         }
     }
 
+    public void cropSprites(){
+        walkSprites.cropImageList();
+        idleSprites.cropImageList();
+        deadSprites.cropImageList();
+          // Crop each skill sprite
+        for (ImageList skillSprite : skillSprites) {
+            skillSprite.cropImageList();
+        }
+    }
+
     public Image getCurrentSprite() {
         if (isDead) {
             return deadSprites.get(Math.min(currentFrame, deadSprites.getSize() - 1));
