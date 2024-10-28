@@ -109,6 +109,7 @@ public class BattleExperiment {
                 player.getAttributes().setMoney(
                     player.getAttributes().getMoney() + 30
                 );
+                battleUI.showAction("Effect activated! Get 30 Soul Shards");
             }
             player.resetDamageReducer();
         }
