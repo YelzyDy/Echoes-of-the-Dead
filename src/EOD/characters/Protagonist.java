@@ -116,6 +116,7 @@ public class Protagonist extends Character implements MouseInteractable {
 
     public void reset(boolean playerWon) {
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
+        skill2BuffRemaining = shieldBuffRemaining = 0;
         if(playerWon){attributes.setHp((int)(attributes.getBaseHp()));}
         else{attributes.setHp((int)(attributes.getBaseHp() * 0.75));}
         System.out.println("Player won? " + playerWon);

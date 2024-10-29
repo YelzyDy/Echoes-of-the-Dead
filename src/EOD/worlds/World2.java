@@ -7,6 +7,7 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.*;
 
 /**
  *
@@ -22,19 +23,7 @@ public class World2 extends World{
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
     }
 
-
-    public void initializeProtagonist(){
-        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        player.setLocation(0, (int)(screenSize.height * 0.24));
-        player.setWorld(this);
-        scene.setPlayer(player);
-        player.setWorld(this);
-        scene.addMouseListener(new MouseClickListener(player));
-        scene.add(player);
-        scene.setComponentZOrder(player, 0);
-        //configureShopAndInventory();
-    }
-
+    @Override
     public void initializeObjects(){
             scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
             // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
@@ -69,6 +58,8 @@ public class World2 extends World{
                 obj.addMouseListener(new MouseClickListener(this));;
             }
     }
+
+    @Override
     public void initializeWorldChars(){
         scene.npcList = new ArrayList<>();
         scene.npcList.add(new Npc("Faithful", "faithful", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
@@ -96,6 +87,7 @@ public class World2 extends World{
         }
     }
 
+    @Override
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
@@ -116,14 +108,6 @@ public class World2 extends World{
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();
-        if(source == btn_ok){
-            initializeProtagonist();
-            initializeObjects();
-            initializeWorldChars();
-            initializeEnemies();
-            scene.createWorldScene();
-            scene.initializeGameLoop();
-        }
 
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){

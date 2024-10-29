@@ -22,19 +22,7 @@ public class World1 extends World{
     }
 
 
-    public void initializeProtagonist(){
-        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        player = new Protagonist(getPlayerName(), getPlayerType(), 0, (int)(screenSize.height * 0.24));
-        player.setWorld(this);
-        player.configureSkills();
-        scene.setPlayer(player);
-        player.configureSkills();
-        scene.addMouseListener(new MouseClickListener(player));
-        scene.add(player);
-        scene.setComponentZOrder(player, 0);
-        configureShopAndInventory();
-    }
-
+    @Override
     public void initializeObjects(){
             scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
             // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
@@ -69,6 +57,8 @@ public class World1 extends World{
                 obj.addMouseListener(new MouseClickListener(this));;
             }
     }
+
+
     public void initializeWorldChars(){
         scene.npcList = new ArrayList<>();
         scene.npcList.add(new Npc("Yoo", "yoo", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.8));
@@ -112,54 +102,13 @@ public class World1 extends World{
         }
     }
 
-    private class InitializationWorker extends SwingWorker<Void, Integer> {
-        @Override
-        protected Void doInBackground() {
-            // Loading steps, with progress bar updates
-            publish(0);
-            initializeProtagonist();
-            publish(25);
-
-            initializeObjects();
-            publish(50);
-
-            initializeWorldChars();
-            publish(75);
-
-            initializeEnemies();
-            publish(100);
-            
-            scene.createWorldScene();
-            return null;
-        }
-
-        @Override
-        protected void process(java.util.List<Integer> chunks) {
-            for (int value : chunks) {
-                progressBar.setValue(value);
-            }
-        }
-
-        @Override
-        protected void done() {
-            progressBar.setString("Loading Complete");
-            removeWelcome();
-            scene.initializeGameLoop();
-        }
-    }
+    
 
     @Override
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();
-        if (source == btn_ok) {
-            progressBar.setVisible(true);
-            progressBar.setValue(0);
-            // Start the initialization in a background thread
-            InitializationWorker worker = new InitializationWorker();
-            worker.execute();
-        }
-
+        
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());

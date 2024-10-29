@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.Font;
 
 
-public class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
+public abstract class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
     private String playerType; // variable for the playerType knight/priest/wizard
     private String playerName; // variable for player name -- jian
     //removed btn_shop. Let's create a class for shop so we can implement it easier. -- jian
@@ -86,7 +86,18 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         layeredPane.add(progressBar, Integer.valueOf(1));
     }
 
-    
+    public void initializeProtagonist(){
+        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
+        player = new Protagonist(getPlayerName(), getPlayerType(), 0, (int)(screenSize.height * 0.24));
+        player.setWorld(this);
+        player.configureSkills();
+        scene.setPlayer(player);
+        player.configureSkills();
+        scene.addMouseListener(new MouseClickListener(player));
+        scene.add(player);
+        scene.setComponentZOrder(player, 0);
+        configureShopAndInventory();
+    }
 
     public void configureBanners(){
         victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "win", false, false, 1);
@@ -185,6 +196,49 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
 
     public String getPlayerType(){
         return playerType;
+    }
+
+
+    public abstract void initializeObjects();
+
+    public abstract void initializeWorldChars();
+
+    public abstract void initializeEnemies();
+
+    private class InitializationWorker extends SwingWorker<Void, Integer> {
+        @Override
+        protected Void doInBackground() {
+            // Loading steps, with progress bar updates
+            publish(0);
+            initializeProtagonist();
+            publish(25);
+
+            initializeObjects();
+            publish(50);
+
+            initializeWorldChars();
+            publish(75);
+
+            initializeEnemies();
+            publish(100);
+            
+            scene.createWorldScene();
+            return null;
+        }
+
+        @Override
+        protected void process(java.util.List<Integer> chunks) {
+            for (int value : chunks) {
+                progressBar.setValue(value);
+            }
+        }
+
+        @Override
+        protected void done() {
+            progressBar.setString("Loading Complete");
+            removeWelcome();
+            scene.initializeGameLoop();
+        }
     }
 
     public EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
@@ -296,6 +350,14 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
+        if (source == btn_ok) {
+            progressBar.setVisible(true);
+            progressBar.setValue(0);
+            // Start the initialization in a background thread
+            InitializationWorker worker = new InitializationWorker();
+            worker.execute();
+        }
+
         if(source == btn_settings){
             SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
             settings.setVisible(true);
