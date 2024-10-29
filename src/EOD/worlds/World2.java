@@ -121,6 +121,7 @@ public class World2 extends World{
             initializeObjects();
             initializeWorldChars();
             initializeEnemies();
+            scene.createWorldScene();
             scene.initializeGameLoop();
         }
 

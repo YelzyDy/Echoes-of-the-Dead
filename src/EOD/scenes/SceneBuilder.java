@@ -150,7 +150,7 @@ public class SceneBuilder extends JPanel{
             Enemy enemy = battle.getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = player.getAttributes().getHp();
-            int playerMana = player.getAttributes().getBaseMana();
+            int playerMana = player.getAttributes().getMana();
             battle.updateBars(playerHp, playerMana, enemyHp);
             // for debugging
             System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 

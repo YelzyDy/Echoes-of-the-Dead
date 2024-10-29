@@ -39,6 +39,7 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
     protected BGMPlayer bgmPlayer;
     private Inventory inventory;
     protected Shop shop;
+    protected JProgressBar progressBar;
     private Timer bannerTimer;
     private JLabel counterLabel;
 
@@ -72,7 +73,20 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         addBagIcon();
         configureBanners();
         this.setContentPane(layeredPane);
+
+        progressBar = new JProgressBar(0, 100); // range from 0 to 100
+        progressBar.setStringPainted(true); // Shows progress as a percentage
+        progressBar.setVisible(false); // Hide initially
+        progressBar.setBounds((int)(screenSize.width * 0.27), (int)(screenSize.height * 0.85), (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.05));
+        progressBar.setBackground(new Color(238,218,180,255));
+        progressBar.setForeground(new Color(6,57,112));
+        progressBar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5)); // Border for aesthetics
+        progressBar.setFont(new Font("SansSerif", Font.BOLD, 16)); 
+        // Add progress bar to the UI (e.g., at the bottom of your frame)
+        layeredPane.add(progressBar, Integer.valueOf(1));
     }
+
+    
 
     public void configureBanners(){
         victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "win", false, false, 1);
@@ -269,19 +283,20 @@ public class World extends javax.swing.JFrame implements MouseInteractable{ // t
         return new java.awt.Font("SansSerif", java.awt.Font.PLAIN, Math.max(baseFontSize, dynamicFontSize));
     }
 
+    public void removeWelcome(){
+        progressBar.setVisible(false);
+        promptPanel.setVisible(false);
+        layeredPane.remove(promptPanel);
+        layeredPane.add(scene, Integer.valueOf(1));
+        scene.setVisible(true);
+        btn_settings.setVisible(true);
+        bag.setVisible(true);
+    }
+
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        if(source == btn_ok){
-            promptPanel.setVisible(false);
-            layeredPane.remove(promptPanel);
-            layeredPane.add(scene, Integer.valueOf(1));
-            scene.setVisible(true);
-            scene.createWorldScene();  
-            btn_settings.setVisible(true);
-            bag.setVisible(true);
-            System.out.println("click");
-        }else if(source == btn_settings){
+        if(source == btn_settings){
             SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
             settings.setVisible(true);
         }else if(source == bag){

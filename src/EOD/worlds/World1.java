@@ -7,7 +7,7 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
+import javax.swing.*;
 /**
  *
  * @author Joana
@@ -112,16 +112,52 @@ public class World1 extends World{
         }
     }
 
+    private class InitializationWorker extends SwingWorker<Void, Integer> {
+        @Override
+        protected Void doInBackground() {
+            // Loading steps, with progress bar updates
+            publish(0);
+            initializeProtagonist();
+            publish(25);
+
+            initializeObjects();
+            publish(50);
+
+            initializeWorldChars();
+            publish(75);
+
+            initializeEnemies();
+            publish(100);
+            
+            scene.createWorldScene();
+            return null;
+        }
+
+        @Override
+        protected void process(java.util.List<Integer> chunks) {
+            for (int value : chunks) {
+                progressBar.setValue(value);
+            }
+        }
+
+        @Override
+        protected void done() {
+            progressBar.setString("Loading Complete");
+            removeWelcome();
+            scene.initializeGameLoop();
+        }
+    }
+
     @Override
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();
-        if(source == btn_ok){
-            initializeProtagonist();
-            initializeObjects();
-            initializeWorldChars();
-            initializeEnemies();
-            scene.initializeGameLoop();
+        if (source == btn_ok) {
+            progressBar.setVisible(true);
+            progressBar.setValue(0);
+            // Start the initialization in a background thread
+            InitializationWorker worker = new InitializationWorker();
+            worker.execute();
         }
 
         for (EchoesObjects obj : scene.objList) {
