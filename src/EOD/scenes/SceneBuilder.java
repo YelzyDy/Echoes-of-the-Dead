@@ -218,31 +218,6 @@ public class SceneBuilder extends JPanel{
                 animator.updateBounds();
             }
         }
-         // ako lang ni gi remove guys.. d mn ata kailangan?? since if mubalhin tas world 2 ga initialzie nmn pd tag bag ong characters and objects also d pd mo update ag animation if naa ni -- ji
-            // if (world.getTitle().equals("world2")){
-                // for (EchoesObjects obj : objList) {        
-                //     // Add null and bounds check
-                //     if (obj != null && obj.getIndex() >= 0 && obj.getIndex() < sceneList.getSize()) {
-                //         obj.setVisible(obj.getIndex() == currentSceneIndex);
-                //     } else {
-                //         obj.setVisible(false);
-                //     }
-                // }
-                // for (Npc npc : npcList) {
-                //     if (npc != null && npc.getIndex() >= 0 && npc.getIndex() < sceneList.getSize()) {
-                //         npc.setVisible(npc.getIndex() == currentSceneIndex);
-                //     } else {
-                //         npc.setVisible(false);
-                //     }
-                // }
-                // for (Enemy enemy : enemyList) {
-                //     if (enemy != null && enemy.getIndex() >= 0 && enemy.getIndex() < sceneList.getSize()) {
-                //         enemy.setVisible(enemy.getIndex() == currentSceneIndex);
-                //     } else {
-                //         enemy.setVisible(false);
-                //     }
-                // }
-            // }else {
     }
 
     @Override
@@ -275,8 +250,13 @@ public class SceneBuilder extends JPanel{
                 enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
         } else if (world.getTitle().equals("world2")){
-            for (EchoesObjects obj : objList) {        
-                obj.setVisible(obj.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+            for (EchoesObjects obj : objList) {
+                if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
+                    obj.setVisible(obj.getIndex() == currentSceneIndex && 
+                        (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
+                }else{
+                    obj.setVisible(obj.getIndex() == currentSceneIndex);
+                }
             }
             for (Npc npc : npcList) {
                 npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
