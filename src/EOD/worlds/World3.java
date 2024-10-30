@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package EOD.worlds;
 
 import EOD.characters.*;
@@ -7,14 +11,13 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 /**
  *
- * @author Joana
+ * @author zendy
  */
-public class World2 extends World{
-    public World2(String playerType, String playerName, Protagonist player){
-        super(playerType, playerName, "world2");
+public class World3 extends World{
+    public World3(String playerType, String playerName, Protagonist player){
+        super(playerType, playerName, "world3");
         this.player = player;
         scene = new SceneBuilder(this);
         Welcome();
@@ -33,9 +36,9 @@ public class World2 extends World{
             (int)(screenSize.height * 0.32),
             "shop", false, true, 2));
 
-            scene.objList.add(new EchoesObjects("world2", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
-            scene.objList.add(new EchoesObjects("world2", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
-            scene.objList.add(new EchoesObjects("world2", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27));
+            scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
+            scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
+            scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27));
             for (EchoesObjects obj : scene.objList) {
                 /*if (obj.getName().equals("portalNextWorld") && !isMiniBossDefeated){
                     obj.setVisible(false);
@@ -134,11 +137,7 @@ public class World2 extends World{
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
-            } else if (source == obj && obj.getName().equals("portalNextWorld")){
-                World window = new World3(getPlayerType(), getPlayerName(), player);
-                window.setVisible(true);
-                this.setVisible(false);
-            }
+            } 
         }    
     }
 
