@@ -37,8 +37,6 @@ public class SceneBuilder extends JPanel{
 
     private Protagonist player;
 
-    private BattleUI battle;
-
     private SceneTransitionHandler transitionHandler;
 
     public SceneBuilder(World world){
@@ -139,22 +137,22 @@ public class SceneBuilder extends JPanel{
     }
 
     public void configureBattle(Enemy enemy, EchoesObjects portal){
-        battle = new BattleUI(player, enemy);
-        battle.setPortal(portal);
-        battle.displayDialogues();
+        world.getBattle().setEnemy(enemy);
+        world.getBattle().startBattle();
+        world.getBattle().setPortal(portal);
     }
 
     private void updateBattleState(){
-        if(battle != null){
-            battle.updateCooldowns();
-            Enemy enemy = battle.getBattleExperiment().getEnemy();
+        if(player.getAnimator().getIsInBattle()){
+            world.getBattle().updateCooldowns();
+            Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             int playerHp = player.getAttributes().getHp();
             int playerMana = player.getAttributes().getMana();
-            battle.updateBars(playerHp, playerMana, enemyHp);
+            world.getBattle().updateBars(playerHp, playerMana, enemyHp);
             // for debugging
-            System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 
-            + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  
+            // System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 
+            // + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  
         }
     }
     
@@ -206,7 +204,7 @@ public class SceneBuilder extends JPanel{
 
             for (Enemy enemy : enemyList) {
                 Animator animator = enemy.getAnimator();
-                animator.updateAnimation(); 
+                animator.updateAnimation();
                 animator.updateMovement();
                 animator.updateBounds();
             }

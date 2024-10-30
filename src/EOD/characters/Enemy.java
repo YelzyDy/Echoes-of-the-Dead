@@ -116,6 +116,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
         setPosX(screenSize.width * 0.55);
         protagonist.getAnimator().setMovingRight(true);
         animator.setMovingRight(false);
+        animator.stopMovement();
     }
 
     @Override
@@ -127,6 +128,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
+        if(animator.getIsInBattle()) return;
         animator.startMovement();
         animator.setPaused(false);
         animator.setInteracting(false);

@@ -28,6 +28,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private EchoesObjects defeatBanner;
     private JTextField name;  
     private String worldType;  
+    protected BattleUI battle;
 
     protected SceneBuilder scene;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -82,8 +83,13 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         progressBar.setForeground(new Color(6,57,112));
         progressBar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5)); // Border for aesthetics
         progressBar.setFont(new Font("SansSerif", Font.BOLD, 16)); 
+
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
+    }
+
+    public BattleUI getBattle(){
+        return battle;
     }
 
     public void initializeProtagonist(){
@@ -97,6 +103,12 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         scene.add(player);
         scene.setComponentZOrder(player, 0);
         configureShopAndInventory();
+    }
+
+    public void initializeBattleUI(){
+        System.out.println("called>");
+        battle = new BattleUI(player);
+        layeredPane.add(battle, Integer.valueOf(1));
     }
 
     public void configureBanners(){
@@ -238,6 +250,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             progressBar.setString("Loading Complete");
             removeWelcome();
             scene.initializeGameLoop();
+            initializeBattleUI();
         }
     }
 
@@ -261,8 +274,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void addSettingsButton(){
         btn_settings = new EchoesObjects(
                 "settings", 
-                (int) (screenSize.width * 0.01),
-                (int) (screenSize.height * 0.01),
+                (int) (screenSize.width * 0.27),
+                (int) (screenSize.height * 0.85),
                 (int) (screenSize.width * 0.07),
                 (int) (screenSize.height * 0.11),
                 "settings_button", 
@@ -278,8 +291,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void addBagIcon() {
         bag = new EchoesObjects(
                 "inventory",
-                (int) (screenSize.width * 0.09), // Positioned right after settings button
-                (int) (screenSize.height * 0.01),
+                (int) (screenSize.width * 0.66), // Positioned right after settings button
+                (int) (screenSize.height * 0.85),
                 (int) (screenSize.width * 0.07),
                 (int) (screenSize.height * 0.11),
                 "bag",

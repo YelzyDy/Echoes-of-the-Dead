@@ -58,7 +58,7 @@ public class World1 extends World{
             }
     }
 
-
+    @Override
     public void initializeWorldChars(){
         scene.npcList = new ArrayList<>();
         scene.npcList.add(new Npc("Yoo", "yoo", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.8));
@@ -85,7 +85,7 @@ public class World1 extends World{
             } 
         }
     }
-
+    @Override
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton1("Skeleton1",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.22), screenSize.width * 0.4, screenSize.width * 0.8, player));
@@ -108,7 +108,7 @@ public class World1 extends World{
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();
-        
+        if(scene.objList == null) return;
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
@@ -121,6 +121,7 @@ public class World1 extends World{
                     scene.setCurrentSceneIndex(1);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    battle.getEnemyWrapper().setVisible(false);
                     // isBattleStopped = false;
                     // bgmPlayer.stopBGM();
                     // bgmPlayer.playBGM("src/audio_assets/world1.wav");
@@ -137,6 +138,7 @@ public class World1 extends World{
                     scene.setCurrentSceneIndex(2);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    battle.getEnemyWrapper().setVisible(false);
                     // isBattleStopped = false;
                     // isMiniBossDefeated = true;
                     // setIsMiniBossDefeated(true);

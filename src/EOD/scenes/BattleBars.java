@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BattleBars {
-    private PlayerBarFrame playerBarFrame;
-    private EnemyBarFrame enemyBarFrame;
     private int playerHealth;
     private int playerMana;
     private int maxPlayerHealth;
@@ -15,57 +13,52 @@ public class BattleBars {
     private int enemyHealth;
     private int maxEnemyHealth;
     private Timer enemyHealthTimer;
+    private PlayerPanel playerPanel;
+    private EnemyPanel enemyPanel;
+    private double screenWidth;
+    private double screenHeight;
 
-    public BattleBars() {
-        playerBarFrame = new PlayerBarFrame();
-        enemyBarFrame = new EnemyBarFrame();
-
-        playerBarFrame.setLocation(50, 50);
-
+    public BattleBars(){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int frameWidth = enemyBarFrame.getWidth();
-        enemyBarFrame.setLocation(screenWidth - frameWidth - 50, 50);
+        screenWidth = screenSize.width;
+        screenHeight = screenSize.height;
+        playerPanel = new PlayerPanel();
+        enemyPanel = new EnemyPanel();
+    }
 
-        playerBarFrame.setVisible(true);
-        enemyBarFrame.setVisible(true);
+    public PlayerPanel getPlayerStats(){
+        return playerPanel;
+    }
+
+    public EnemyPanel getEnemyStats(){
+        return enemyPanel;
     }
 
     public void setPlayerHealth(int playerHealth) {
-        playerBarFrame.animatePlayerHealth(playerHealth);
+        animatePlayerHealth(playerHealth);
     }
 
     public void setPlayerMana(int playerMana) {
-        playerBarFrame.animatePlayerMana(playerMana);
+        animatePlayerMana(playerMana);
     }
 
     public void setEnemyHealth(int enemyHealth) {
-        enemyBarFrame.animateEnemyHealth(enemyHealth);
+        animateEnemyHealth(enemyHealth);
     }
 
-    public void setStats(int playerHP, int playerMP, int enemyHP) {
+    public void setPlayerStats(int playerHP, int playerMP){
         this.maxPlayerHealth = playerHP;
-        playerBarFrame.animatePlayerHealth(playerHP);
+        animatePlayerHealth(playerHP);
         this.maxPlayerMana = playerMP;
-        playerBarFrame.animatePlayerMana(playerMP);
+        animatePlayerMana(playerMP);
+    }
+
+    public void setEnemyStats(int enemyHP) {
         this.maxEnemyHealth = enemyHP;
-        enemyBarFrame.animateEnemyHealth(enemyHP);
+        this.enemyHealth = 0; // Reset enemy health to 0
+        animateEnemyHealth(enemyHP);
     }
     
-    private class PlayerBarFrame extends JFrame {
-        private PlayerPanel playerPanel;
-
-        public PlayerBarFrame() {
-            setTitle("Player HP/MP Bars");
-            setUndecorated(true);
-            setSize(300, 75);
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
-            setBackground(new Color(0, 0, 0, 0));
-            playerPanel = new PlayerPanel();
-            add(playerPanel);
-            setOpacity(0.9f);
-        }
-
         public void animatePlayerHealth(int targetHealth) {
             if (healthTimer != null && healthTimer.isRunning()) {
                 healthTimer.stop();
@@ -101,49 +94,43 @@ public class BattleBars {
         }
 
         private class PlayerPanel extends JPanel {
+            
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+        
+                int arcWidth = 20; // Rounded corner radius
+                int arcHeight = 20;
+        
+                // Draw player health bar with rounded corners
                 g2d.setColor(Color.DARK_GRAY);
-                g2d.fillRect(2, 5, 296, 28);
+                g2d.fillRoundRect(2, 5, 296, 28, arcWidth, arcHeight);
                 g2d.setColor(Color.GREEN);
                 int playerHealthWidth = (int) ((playerHealth / (double) maxPlayerHealth) * 296);
-                g2d.fillRect(2, 5, playerHealthWidth, 28);
+                g2d.fillRoundRect(2, 5, playerHealthWidth, 28, arcWidth, arcHeight);
                 g2d.setColor(Color.WHITE);
                 g2d.drawString("Player HP: " + playerHealth + " / " + maxPlayerHealth, 90, 23);
-
+        
+                // Draw player mana bar with rounded corners
                 g2d.setColor(Color.DARK_GRAY);
-                g2d.fillRect(2, 40, 296, 28);
+                g2d.fillRoundRect(2, 40, 296, 28, arcWidth, arcHeight);
                 g2d.setColor(Color.BLUE);
                 int playerManaWidth = (int) ((playerMana / (double) maxPlayerMana) * 296);
-                g2d.fillRect(2, 40, playerManaWidth, 28);
+                g2d.fillRoundRect(2, 40, playerManaWidth, 28, arcWidth, arcHeight);
                 g2d.setColor(Color.WHITE);
                 g2d.drawString("Player MP: " + playerMana + " / " + maxPlayerMana, 90, 58);
             }
 
             @Override
             public Dimension getPreferredSize() {
-                return new Dimension(300, 70);
+                return new Dimension((int)(screenWidth * 0.05), (int)(screenHeight * 0.1));
             }
         }
-    }
+    
 
-    private class EnemyBarFrame extends JFrame {
-        private EnemyPanel enemyPanel;
 
-        public EnemyBarFrame() {
-            setTitle("Enemy HP Bar");
-            setUndecorated(true);
-            setSize(300, 40);
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
-            setBackground(new Color(0, 0, 0, 0));
-            enemyPanel = new EnemyPanel();
-            add(enemyPanel);
-            setOpacity(0.9f);
-        }
 
         public void animateEnemyHealth(int targetHealth) {
             if (enemyHealthTimer != null && enemyHealthTimer.isRunning()) {
@@ -169,19 +156,23 @@ public class BattleBars {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+                int arcWidth = 20; // Rounded corner radius
+                int arcHeight = 20;
+
+                // Draw enemy health bar with rounded corners
                 g2d.setColor(Color.DARK_GRAY);
-                g2d.fillRect(2, 5, 296, 28);
+                g2d.fillRoundRect(2, 5, 296, 28, arcWidth, arcHeight);
                 g2d.setColor(Color.RED);
                 int enemyHealthWidth = (int) ((enemyHealth / (double) maxEnemyHealth) * 296);
-                g2d.fillRect(2, 5, enemyHealthWidth, 28);
+                g2d.fillRoundRect(2, 5, enemyHealthWidth, 28, arcWidth, arcHeight);
                 g2d.setColor(Color.WHITE);
                 g2d.drawString("Enemy HP: " + enemyHealth + " / " + maxEnemyHealth, 90, 23);
             }
 
             @Override
             public Dimension getPreferredSize() {
-                return new Dimension(300, 50);
+                return new Dimension((int)(screenWidth * 0.05), (int)(screenHeight * 0.2));
             }
         }
-    }
+    
 }

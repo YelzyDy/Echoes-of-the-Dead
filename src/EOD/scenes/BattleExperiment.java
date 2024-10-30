@@ -18,10 +18,12 @@ public class BattleExperiment {
     private boolean isProcessingTurn = false;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public BattleExperiment(Protagonist player, Enemy enemy) {
-        this.player = player;
+    public void setEnemy(Enemy enemy){
         this.enemy = enemy;
-        player.setEnemy(enemy);
+    }
+
+    public void setPlayer(Protagonist player){
+        this.player = player;
     }
 
     public Enemy getEnemy(){
@@ -53,7 +55,7 @@ public class BattleExperiment {
                 }
             }
 
-            battleUI.showAction(player.getAction());
+            battleUI.showAction("Turn " + turnCount + ": " + player.getAction());
             battleUI.setSkillButtonsEnabled(false);
             
             // Set callback for player's animation completion
@@ -68,7 +70,7 @@ public class BattleExperiment {
             player.getAnimator().triggerSkillAnimation(skillNumber, (int)player.getXFactor());
             player.getAnimator().setMovingRight(true);
             battleUI.updateCooldowns();
-            battleUI.updateTurnIndicator("Your Turn");
+            battleUI.updateTurnIndicator("Turn " + turnCount + " - Enemy Turn");
         }
     }
 
@@ -84,7 +86,7 @@ public class BattleExperiment {
             determineAndExecuteEnemyAction();
         } else {
             enemy.missedTurn = false;
-            battleUI.showAction("Enemy's turn was skipped!");
+            battleUI.showAction("Turn " + turnCount + ": Enemy's turn was skipped!");
             finishEnemyTurn();
         }
     }
@@ -110,13 +112,13 @@ public class BattleExperiment {
                 player.getAttributes().setMoney(
                     player.getAttributes().getMoney() + 30
                 );
-                battleUI.showAction("Effect activated! Get 30 Soul Shards");
+                battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
             }
             player.resetDamageReducer();
         }
         
         player.takeDamage(damage);
-        battleUI.showAction(enemy.getAction());
+        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
         
         // Set callback for enemy's animation completion
         enemy.getAnimator().setOnAnimationComplete(this::finishEnemyTurn);
@@ -131,7 +133,7 @@ public class BattleExperiment {
     private void finishEnemyTurn() {
         player.attributeTurnChecker();
         battleUI.setSkillButtonsEnabled(true);
-        battleUI.updateTurnIndicator("Your Turn");
+        battleUI.updateTurnIndicator("Turn " + turnCount + " - Your turn");
         battleUI.updateCooldowns();
         
         if (player.attributes.getHp() <= 0) {
@@ -155,6 +157,7 @@ public class BattleExperiment {
             world.callDefeat();
             handleLose();;
         }
+        // battleUI.getEnemyWrapper().setVisible(false);
         // Add any additional end-game logic here
     }
 
@@ -184,11 +187,9 @@ public class BattleExperiment {
         int portalIndex = getPortalIndex(portalName);
         player.getAnimator().setIsInBattle(false);
         player.getAnimator().setMoving(true);
-        battleUI.getStoryDialog().dispose();
         battleUI.getPortal().setIndex(portalIndex);
         enemy.setIsDefeated(true);
         player.setPosX(screenSize.width * 0.4);
-        battleUI = null;
         System.out.println("You won");
         Timer deathAnimationTimer = new Timer(1800, new ActionListener() {
             @Override
@@ -202,7 +203,6 @@ public class BattleExperiment {
 
     private void handleLose(){
         player.getAnimator().setIsInBattle(false);
-        battleUI.getStoryDialog().dispose();
         player.setPosX(screenSize.width * 0.4);
         player.getAnimator().setMoving(false);
         enemy.getAnimator().setIsInBattle(false);
@@ -210,7 +210,6 @@ public class BattleExperiment {
         enemy.setPosX((int) (screenSize.width * 0.65));
         //respawn at portal if defeated
         player.getPanel().setCurrentSceneIndex(battleUI.getPortal().getIndex());
-        battleUI = null;
         System.out.println("You lose");
         
     }

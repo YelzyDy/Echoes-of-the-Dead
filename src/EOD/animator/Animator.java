@@ -290,6 +290,7 @@ public abstract class Animator {
         this.deltaX = deltaX;
         this.isMoving = true;
         this.isMovingRight = (targetX > character.getPosX());
+        System.out.println("moveTo called, isMoving set to: " + isMoving + character.getName());
     }
 
     // Abstract methods to be implemented by subclasses

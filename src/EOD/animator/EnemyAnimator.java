@@ -45,6 +45,7 @@ public class EnemyAnimator extends Animator {
     @Override
     public void stopMovement() {
         isMoving = false;
+        deltaX = 0;
         restartAnimation();
     }
 
@@ -70,7 +71,6 @@ public class EnemyAnimator extends Animator {
             updateBounds();
             return;
         }
-
         if (isInteracting || isInBattle) return;
 
         long currentTime = System.currentTimeMillis();
