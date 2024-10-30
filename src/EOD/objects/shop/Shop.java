@@ -5,7 +5,6 @@ import EOD.objects.EchoesObjects;
 import EOD.objects.inventory.Inventory;
 import EOD.worlds.*;
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 public class Shop extends EchoesObjects {
@@ -18,8 +17,6 @@ public class Shop extends EchoesObjects {
     private double height, width;
     private int itemToBuy;
     private int item1Stock, item2Stock, item3Stock, item4Stock;
-    private int money;
-    private JLabel moneyLabel;
     private Inventory inventory;
 
     public Shop(World world) {
@@ -32,7 +29,6 @@ public class Shop extends EchoesObjects {
         setLayout(null);
         world.getLayeredPane().add(this, Integer.valueOf(2));
         world.getLayeredPane().setComponentZOrder(this, 0);
-        money = world.getProtag().getAttributes().getMoney();
         showElementsInShop();
     }
 
@@ -61,35 +57,12 @@ public class Shop extends EchoesObjects {
 
     public void makeElementsVisible(){
         setVisible(true);
-        moneyLabel.setVisible(true);
         sidePanel.setVisible(true);
         item1.setVisible(true);
         item2.setVisible(true);
         item3.setVisible(true);
         item4.setVisible(true);
 
-    }
-
-    private void showMoney(double width, double height) {
-        // Create a panel for better layout control
-        JPanel moneyPanel = new JPanel();
-        moneyPanel.setLayout(null);
-        moneyPanel.setOpaque(false); // Make panel transparent
-        moneyPanel.setBounds((int)(width * 0.68), (int)(height * 0.19), (int)(width * 0.1), (int)(height * 0.1)); // Position at top
-
-        // Create money label with formatted text
-        moneyLabel = new JLabel("" + money);
-        moneyLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.03))); // Scaled font size
-        moneyLabel.setForeground(new Color(238,218,180,255)); // Gold color
-        moneyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        
-        // Set the bounds for the label within the panel
-        moneyLabel.setBounds(0, 0, 
-                            (int)(width * 0.1), (int)(height * 0.1));
-
-        moneyPanel.add(moneyLabel);
-        add(moneyPanel);
-        setComponentZOrder(moneyPanel, 0);
     }
 
     private EchoesObjects createItem(String imageName, double x, double y, double width, double height) {
@@ -128,7 +101,6 @@ public class Shop extends EchoesObjects {
         showSidePanelBg(width, height);
         showBuyButton(width, height);
         showCloseButton(width, height);
-        showMoney(width, height);
     }
 
     @Override
@@ -160,34 +132,43 @@ public class Shop extends EchoesObjects {
     }
 
     public void buy() {
+        int itemCost = 0;
+        int itemStock = 0;
         switch (itemToBuy) {
             case 1 -> {
-                if (item1Stock != 0) {
+                if (item1Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
                     updateStock(item1, --item1Stock);
-                    updateMoney(1); // Deduct money for item 1
+                    itemCost = updateMoney(1); // Set cost for item 1
+                    itemStock = item1Stock;
                 }
             }
             case 2 -> {
-                if (item2Stock != 0) {
+                if (item2Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
                     updateStock(item2, --item2Stock);
-                    updateMoney(2); // Deduct money for item 2
+                    itemCost = updateMoney(2);
+                    itemStock = item2Stock;
                 }
             }
             case 3 -> {
-                if (item3Stock != 0) {
+                if (item3Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
                     updateStock(item3, --item3Stock);
-                    updateMoney(3); // Deduct money for item 3
+                    itemCost = updateMoney(3);
+                    itemStock = item3Stock;
                 }
             }
             case 4 -> {
-                if (item4Stock != 0) {
+                if (item4Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
                     updateStock(item4, --item4Stock);
-                    updateMoney(4); // Deduct money for item 4
+                    itemCost = updateMoney(4);
+                    itemStock = item4Stock;
                 }
             }
         }
-        moneyLabel.setText(money + ""); // Update money display
-    }    
+        int money = world.getMoney() - 10;
+        if(money >= itemCost && itemStock > 0)
+        world.setMoney(money);
+    }
+    
 
     private void updateStock(EchoesObjects item, int stock) {
         if (stock == 0) {
@@ -197,14 +178,18 @@ public class Shop extends EchoesObjects {
         }
     }
 
-    private void updateMoney(int item){
-        switch(item){
-            case 1 -> {if(money >= 10) money -= 10; inventory.addItem1();}
-            case 2 -> {if(money >= 10) money -= 10; inventory.addItem2();}
-            case 3 -> {if(money >= 10) money -= 10; inventory.addItem3();}
-            case 4 -> {if(money >= 10) money -= 10; inventory.addItem4();}
+    private int updateMoney(int item) {
+        int money = world.getProtag().getAttributes().getMoney();
+        int cost = 0; // Set item cost here
+
+        switch (item) {
+            case 1 -> { cost = 15; if(money > cost) inventory.addItem1(); }
+            case 2 -> { cost = 15; if(money > cost) inventory.addItem2(); }
+            case 3 -> { cost = 15; if(money > cost) inventory.addItem3(); }
+            case 4 -> { cost = 15; if(money > cost) inventory.addItem4(); }
         }
-    }
+        return cost; // Return the cost if purchase is successful
+    }    
 
     @Override
     public void onHover(MouseEvent e) {

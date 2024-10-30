@@ -130,10 +130,23 @@ public class SceneBuilder extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 updateGameState();
                 updateBattleState();
+                updateStats();
                 repaint();
             }
         });
         gameLoopTimer.start();
+    }
+
+    public void updateStats(){
+        int playerHp = player.getAttributes().getHp();
+        int playerMana = player.getAttributes().getMana();
+        if(player.getAnimator().getIsInBattle()){
+        Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
+            int enemyHp = enemy.getHp();
+            world.getBattle().updateBars(playerHp, playerMana, enemyHp);
+        };
+
+        if(world != null) world.getBattle().updatePlayerBars(playerHp, playerMana);
     }
 
     public void configureBattle(Enemy enemy, EchoesObjects portal){
@@ -145,11 +158,6 @@ public class SceneBuilder extends JPanel{
     private void updateBattleState(){
         if(player.getAnimator().getIsInBattle()){
             world.getBattle().updateCooldowns();
-            Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
-            int enemyHp = enemy.getHp();
-            int playerHp = player.getAttributes().getHp();
-            int playerMana = player.getAttributes().getMana();
-            world.getBattle().updateBars(playerHp, playerMana, enemyHp);
             // for debugging
             // System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 
             // + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  
@@ -162,6 +170,7 @@ public class SceneBuilder extends JPanel{
             animator.updateAnimation();
             animator.updateMovement();
             animator.updateBounds();
+            if(world != null )world.updatePlayerMoneyLabel();
 
             if(transitionHandler == null) return;
                  // Check if we're at a transition point

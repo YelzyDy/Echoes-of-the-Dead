@@ -26,6 +26,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected EchoesObjects btn_ok;
     private EchoesObjects victoryBanner;
     private EchoesObjects defeatBanner;
+    private EchoesObjects soulShard;
     private JTextField name;  
     private String worldType;  
     protected BattleUI battle;
@@ -43,6 +44,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected JProgressBar progressBar;
     private Timer bannerTimer;
     private JLabel counterLabel;
+    private JLabel moneyLabel;
+    private int money;
+    private JPanel moneyPanel;
 
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
@@ -72,9 +76,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         addSettingsButton();
         System.out.println("Hello!");
         addBagIcon();
+        addMoneyPanel();
+        addSoulShard();
         configureBanners();
         this.setContentPane(layeredPane);
-
         progressBar = new JProgressBar(0, 100); // range from 0 to 100
         progressBar.setStringPainted(true); // Shows progress as a percentage
         progressBar.setVisible(false); // Hide initially
@@ -86,6 +91,19 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
 
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
+    }
+
+    public void setMoneyLabel(String moneyLabel){
+        this.moneyLabel.setText(moneyLabel);
+    }
+
+    public void setMoney(int money){
+        player.getAttributes().setMoney(money);
+    }
+
+    public int getMoney(){
+        money = player.getAttributes().getMoney();
+        return money;
     }
 
     public BattleUI getBattle(){
@@ -103,6 +121,12 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         scene.add(player);
         scene.setComponentZOrder(player, 0);
         configureShopAndInventory();
+        money = player.getAttributes().getMoney();
+        moneyLabel.setText(money + "");
+    }
+
+    public void updatePlayerMoneyLabel(){
+        moneyLabel.setText(player.getAttributes().getMoney() + "");
     }
 
     public void initializeBattleUI(){
@@ -288,10 +312,46 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(btn_settings, Integer.valueOf(1));
     }
 
+    public void addSoulShard(){
+        soulShard = new EchoesObjects(
+                "shop",
+                (int) (screenSize.width * 0.02),
+                (int) (screenSize.height * 0.0),
+                (int) (screenSize.width * 0.1),
+                (int) (screenSize.height * 0.15),
+                "soulShard",
+                false,
+                false,
+                1
+            );
+        layeredPane.add(soulShard, Integer.valueOf(1));
+    }
+
+    private void addMoneyPanel() {
+        // Create a panel for better layout control
+        moneyPanel = new JPanel();
+        moneyPanel.setLayout(null);
+        moneyPanel.setOpaque(false); // Make panel transparent
+        moneyPanel.setBounds((int)(screenSize.width * 0.02), (int)(screenSize.height * 0.05), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.05)); // Position at top
+
+        // Create money label with formatted text
+        moneyLabel = new JLabel("" + money);
+        moneyLabel.setFont(new Font("Arial", Font.BOLD, (int)(screenSize.height * 0.02))); // Scaled font size
+        moneyLabel.setForeground(new Color(238,218,180,255)); // Gold color
+        moneyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        // Set the bounds for the label within the panel
+        moneyLabel.setBounds(-2, 0, (int)(screenSize.width * 0.08), (int)(screenSize.height * 0.05));
+        moneyPanel.setVisible(false);
+        moneyPanel.add(moneyLabel);
+        layeredPane.add(moneyPanel, Integer.valueOf(1));
+    }
+
+
     public void addBagIcon() {
         bag = new EchoesObjects(
                 "inventory",
-                (int) (screenSize.width * 0.66), // Positioned right after settings button
+                (int) (screenSize.width * 0.66), 
                 (int) (screenSize.height * 0.85),
                 (int) (screenSize.width * 0.07),
                 (int) (screenSize.height * 0.11),
@@ -358,17 +418,21 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         scene.setVisible(true);
         btn_settings.setVisible(true);
         bag.setVisible(true);
+        soulShard.setVisible(true);
+        moneyPanel.setVisible(true);
     }
+    private int btn_okCount = 0;
 
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        if (source == btn_ok) {
+        if (source == btn_ok && btn_okCount == 0) {
             progressBar.setVisible(true);
             progressBar.setValue(0);
             // Start the initialization in a background thread
             InitializationWorker worker = new InitializationWorker();
             worker.execute();
+            btn_okCount += 1;
         }
 
         if(source == btn_settings){

@@ -223,6 +223,11 @@ public class BattleUI extends JPanel{
 
     }
 
+    public void updatePlayerBars(int hp, int mp){
+        battleBars.setPlayerHealth(hp);
+        battleBars.setPlayerMana(mp);
+    }
+
     public void updateBars(int hp, int mp, int enemyHp){
         battleBars.setPlayerHealth(hp);
         battleBars.setPlayerMana(mp);

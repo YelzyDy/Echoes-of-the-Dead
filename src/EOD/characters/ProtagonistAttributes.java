@@ -90,7 +90,8 @@ public class ProtagonistAttributes {
     public void setBaseMana(int addMana) { baseMana += addMana; }
 
     public int getMoney() { return money; }
-    public void setMoney(int newMoney) { money += newMoney; }
+    public void addMoney(int newMoney) { money += newMoney; }
+    public void setMoney(int newMoney) { money = newMoney; }
 
     public int getAttack() { return attack; }
     public void setAttack(int newAttack) { attack = newAttack; }

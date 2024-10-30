@@ -109,7 +109,7 @@ public class BattleExperiment {
         if (player.isDamageReducerActive()) {
             damage = (int)(damage * 0.4);
             if (damage > player.getAttributes().getHp() * 0.2) {
-                player.getAttributes().setMoney(
+                player.getAttributes().addMoney(
                     player.getAttributes().getMoney() + 30
                 );
                 battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
