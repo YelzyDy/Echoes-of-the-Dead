@@ -7,7 +7,6 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.*;
 
 /**
  *
@@ -91,14 +90,14 @@ public class World2 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Necromancer("Necromancer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
             if (enemy.getName().equals("Skeleton")) {
                 enemy.setIndex(3);
-            }else if(enemy.getName().equals("Necromancer")) {
+            }else if(enemy.getName().equals("Gorgon")) {
                 enemy.setIndex(4);
             }
         }
