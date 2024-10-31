@@ -127,6 +127,7 @@ public class BattleExperiment {
             enemy.getLastUsedSkill(), 
             (int)enemy.getXFactor()
         );
+
         enemy.getAnimator().setMovingRight(false);
     }
 

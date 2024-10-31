@@ -39,6 +39,7 @@ public class Death extends Enemy{
         actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
         xFactor = screenSize.width * 0.4;
+        yFactor = 0;
     }
 
     @Override 
@@ -55,6 +56,7 @@ public class Death extends Enemy{
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
         xFactor = screenSize.width * 0.6;
+        yFactor = 0;
     }
 
 
@@ -178,12 +180,6 @@ public class Death extends Enemy{
             }
         }
     }
-
-    @Override
-    public double getXFactor(){
-        return xFactor;
-    }
-
 
     @Override
     public void update() {

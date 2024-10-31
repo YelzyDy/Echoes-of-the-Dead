@@ -35,7 +35,6 @@ public class Gorgon extends Enemy {
         animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.0035), 3);
         animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.0035), 16);
         animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.0035), 10);
-        animator.cropSprites();
         animator.startMovement();
         animator.chooseNewDirection();
         animator.updateBounds();

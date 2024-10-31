@@ -19,6 +19,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     protected String actionString;
     protected int lastUsedSkill;
     protected double xFactor;
+    protected double yFactor;
 
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,
@@ -33,7 +34,15 @@ public abstract class Enemy extends Character implements MouseInteractable {
         isDefeated = false;
     }
 
-    public abstract double getXFactor();
+    public double getXFactor(){
+        return xFactor;
+    }
+    
+    public double getYFactor(){
+        return yFactor;
+    }
+
+    
     public abstract double getOffsetX(int skill);
     public abstract double getOffsetY(int skill);
     public abstract double getOffsetW(int skill);
@@ -49,6 +58,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     public abstract void update();
 
     public abstract int decideSkill();
+
 
     public int getDamageDealt(){
         return damageDealt;
