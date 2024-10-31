@@ -24,17 +24,18 @@ public class Gorgon extends Enemy {
             configureSprites();
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
-            animator.setMovementMultiplier(2);
-            animator.setDeathAnimationSpeedMultiplier(5);
+            animator.setMovementMultiplier(3);
+            animator.setDeathAnimationSpeedMultiplier(1);
             animator.setSkillAnimationSpeedMultiplier(3);
     }
 
     public void configureSprites(){
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.004), 13);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.004), 7);
-        animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.004), 3);
-        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.004), 16);
-        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.004), 10);
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.0035), 13);
+        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.0035), 7);
+        animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.0035), 3);
+        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.0035), 16);
+        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.0035), 10);
+        animator.cropSprites();
         animator.startMovement();
         animator.chooseNewDirection();
         animator.updateBounds();

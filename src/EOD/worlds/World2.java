@@ -25,6 +25,7 @@ public class World2 extends World{
         scene.add(player);
         scene.setPlayer(player);
         scene.setComponentZOrder(player, 0);
+        player.configureSkills();
         this.playerName = player.getName();
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
@@ -105,14 +106,15 @@ public class World2 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        // scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Death("Death",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.09), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
             if (enemy.getName().equals("Skeleton")) {
                 enemy.setIndex(3);
-            }else if(enemy.getName().equals("Gorgon")) {
+            }else if(enemy.getName().equals("Death")) {
                 enemy.setIndex(4);
             }
         }

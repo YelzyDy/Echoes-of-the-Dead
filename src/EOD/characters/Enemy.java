@@ -18,6 +18,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
     private boolean isDefeated;
     protected String actionString;
     protected int lastUsedSkill;
+    protected double xFactor;
 
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,

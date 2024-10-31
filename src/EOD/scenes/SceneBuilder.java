@@ -121,11 +121,11 @@ public class SceneBuilder extends JPanel{
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         } else if (world.getTitle().equals("world3")){
             sceneList = new ImageList();
-            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/forest.png")).getImage(), 0);
-            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/forest.png")).getImage(), 1);
-            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/forest.png")).getImage(), 2);
-            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/cemetary.png")).getImage(), 3);
-            sceneList.add(new ImageIcon(getClass().getResource("/world2_assets/cemetary.png")).getImage(), 4);
+            sceneList.add(new ImageIcon(getClass().getResource("/world3_assets/forest.png")).getImage(), 0);
+            sceneList.add(new ImageIcon(getClass().getResource("/world3_assets/forest.png")).getImage(), 1);
+            sceneList.add(new ImageIcon(getClass().getResource("/world3_assets/forest.png")).getImage(), 2);
+            sceneList.add(new ImageIcon(getClass().getResource("/world3_assets/cemetary.png")).getImage(), 3);
+            sceneList.add(new ImageIcon(getClass().getResource("/world3_assets/cemetary.png")).getImage(), 4);
             sceneList.add(new ImageIcon(getClass().getResource("/shop_assets/shopbg.png")).getImage(), 3); // added shop pop up - sheen
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
@@ -239,8 +239,7 @@ public class SceneBuilder extends JPanel{
         if(world == null){
             return;
         }
-
-        if (world.getTitle().equals("world1")) {
+    
             if(player == null) return;
             if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
             if(player.getAttributes().skillEffectsRandom != null && player.isPriest())player.getAttributes().skillEffectsRandom.setVisible(player.getSkill4CD() != 0);
@@ -259,36 +258,5 @@ public class SceneBuilder extends JPanel{
             for (Enemy enemy : enemyList) {
                 enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
             }
-        } else if (world.getTitle().equals("world2")){
-            for (EchoesObjects obj : objList) {
-                if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
-                    obj.setVisible(obj.getIndex() == currentSceneIndex && 
-                        (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
-                }else{
-                    obj.setVisible(obj.getIndex() == currentSceneIndex);
-                }
-            }
-            for (Npc npc : npcList) {
-                npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
-            }
-            for (Enemy enemy : enemyList) {
-                enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
-            }
-        } else if (world.getTitle().equals("world3")){
-            for (EchoesObjects obj : objList) {
-                if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
-                    obj.setVisible(obj.getIndex() == currentSceneIndex && 
-                        (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
-                }else{
-                    obj.setVisible(obj.getIndex() == currentSceneIndex);
-                }
-            }
-            for (Npc npc : npcList) {
-                npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
-            }
-            for (Enemy enemy : enemyList) {
-                enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
-            }
-        }
     }
 }
