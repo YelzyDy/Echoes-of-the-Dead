@@ -25,7 +25,7 @@ public class SceneBuilder extends JPanel{
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private ImageList sceneList;
     private int currentSceneIndex;
-    private Timer gameLoopTimer ;           // Timer for animating the portal -z
+    public Timer gameLoopTimer ;           // Timer for animating the portal -z
     
     private World world;
 

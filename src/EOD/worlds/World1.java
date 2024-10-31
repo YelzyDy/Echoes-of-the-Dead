@@ -177,6 +177,7 @@ public class World1 extends World{
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
             }else if (source == obj && obj.getName().equals("portalNextWorld")){
+                scene.gameLoopTimer.stop();
                 World window = new World2(player);
                 window.setVisible(true);
                 this.setVisible(false);
