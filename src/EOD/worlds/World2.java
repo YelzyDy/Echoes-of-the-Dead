@@ -104,14 +104,14 @@ public class World2 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Necromancer("Necromancer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
             if (enemy.getName().equals("Skeleton")) {
                 enemy.setIndex(3);
-            }else if(enemy.getName().equals("Necromancer")) {
+            }else if(enemy.getName().equals("Gorgon")) {
                 enemy.setIndex(4);
             }
         }
@@ -134,12 +134,7 @@ public class World2 extends World{
                     scene.setCurrentSceneIndex(1);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
-                    // isBattleStopped = false;
-                    // bgmPlayer.stopBGM();
-                    // bgmPlayer.playBGM("src/audio_assets/world1.wav");
-                    // World window = new World2(getPlayerType(), getPlayerName(), player);
-                    // window.setVisible(true);
-                    // this.setVisible(false);
+
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
@@ -150,22 +145,13 @@ public class World2 extends World{
                     scene.setCurrentSceneIndex(2);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
-                    // isBattleStopped = false;
-                    // isMiniBossDefeated = true;
-                    // setIsMiniBossDefeated(true);
-                    /*for (EchoesObjects object : scene.objList) {
-                        if (object.getName().equals("portalNextWorld")) {
-                            object.setVisible(true);
-                            object.setIndex(2);  // Ensure it's at index 2
-                        }
-                    }*/
-
-                    /*World window = new World2(getPlayerType(), getPlayerName(), player);
-                    window.setVisible(true);
-                    this.setVisible(false);*/
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
+            } else if (source == obj && obj.getName().equals("portalNextWorld")){
+                World window = new World3(getPlayerType(), getPlayerName(), player);
+                window.setVisible(true);
+                this.setVisible(false);
             }
         }    
     }
