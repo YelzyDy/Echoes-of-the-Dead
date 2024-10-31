@@ -47,6 +47,7 @@ public class SceneBuilder extends JPanel{
         this.setVisible(false);
         this.transitionHandler = new SceneTransitionHandler(screenSize);
         currentSceneIndex = 0;
+        createWorldScene();
     }
 
     public SceneBuilder(){
@@ -77,9 +78,6 @@ public class SceneBuilder extends JPanel{
 
     public void setPlayer(Protagonist player){
         this.player = player;
-    }
-    public void setWorld(World world){
-        this.world = world;
     }
 
     public void setCurrentSceneIndex(int value){
@@ -223,15 +221,18 @@ public class SceneBuilder extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        
         if (currentSceneIndex < sceneList.getSize()) { 
             g.drawImage(sceneList.get(currentSceneIndex), (int) (sceneList.getX(currentSceneIndex)), 0, this);
         }
+
         if(world == null){
             return;
         }
+
         if (world.getTitle().equals("world1")) {
-            // fixed nga if mo balik siya sa index 0, naa gihapon ang shop and portals when dapat wala -z
-            // if(player.getAttributes().skillEffects2 != null && player.isKnight())player.getAttributes().skillEffects2.setVisible(player.getSkill2BuffRemaining() != 0);
+            if(player == null) return;
             if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
             if(player.getAttributes().skillEffectsRandom != null && player.isPriest())player.getAttributes().skillEffectsRandom.setVisible(player.getSkill4CD() != 0);
             for (EchoesObjects obj : objList) {

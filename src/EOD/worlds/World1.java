@@ -7,20 +7,43 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.*;
 /**
  *
  * @author Joana
  */
+
 public class World1 extends World{
-    public World1(String playerType, String playerName){
-        super(playerType, playerName, "world1");
-        scene = new SceneBuilder(this);
-        Welcome();
+    private String characterType;
+    public World1(String characterType, String playerName){
+        super("world1");
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        this.playerName = playerName;
+        this.characterType = characterType;
+        Welcome();
     }
-
+    
+    @Override
+    public void initializeProtagonist(){
+        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
+        Protagonist player = new Protagonist(characterType, 0, (int)(screenSize.height * 0.24));
+        scene = new SceneBuilder(this);
+        player.getAnimator().getSpriteList("idle").resetToOriginalSize();
+        player.getAnimator().scaleSprites("idle", (int) (screenSize.height * 0.006));
+        player.getAnimator().importSprites("character_asset", "walk", (int) (screenSize.height * 0.006), 8);
+        player.setWorld(this);
+        player.configureSkills();
+        player.setName(playerName);
+        setPlayer(player);
+        System.out.println("iPlayer name: " + player.getName());
+        scene.addMouseListener(new MouseClickListener(player));
+        scene.add(player);
+        scene.setPlayer(player);
+        scene.setComponentZOrder(player, 0);
+        configureShopAndInventory();
+        setMoney(player.getAttributes().getMoney());
+        setMoneyLabel(player.getAttributes().getMoney() + "");
+    }
 
     @Override
     public void initializeObjects(){
@@ -102,8 +125,6 @@ public class World1 extends World{
         }
     }
 
-    
-
     @Override
     public void onClick(MouseEvent e) {
         super.onClick(e);
@@ -156,7 +177,7 @@ public class World1 extends World{
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
             }else if (source == obj && obj.getName().equals("portalNextWorld")){
-                World window = new World2(getPlayerType(), getPlayerName(), player);
+                World window = new World2(player);
                 window.setVisible(true);
                 this.setVisible(false);
             }

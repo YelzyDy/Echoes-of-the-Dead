@@ -7,20 +7,33 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.*;
 
 /**
  *
  * @author Joana
  */
 public class World2 extends World{
-    public World2(String playerType, String playerName, Protagonist player){
-        super(playerType, playerName, "world2");
-        this.player = player;
+    public World2(Protagonist player){
+        super("world2");
+        System.out.println("Name: " + player.getName());
         scene = new SceneBuilder(this);
-        Welcome();
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        setPlayer(player);
+        scene.setPlayer(player);
+        scene.add(player);
+        scene.addMouseListener(new MouseClickListener(player));
+        player.setPosX(0);
+        this.playerName = player.getName();
+        configureShopAndInventory();
+        setMoney(player.getAttributes().getMoney());
+        setMoneyLabel(player.getAttributes().getMoney() + "");
+        Welcome();
+    }
+
+    @Override
+    public void initializeProtagonist(){
+        //nothing
     }
 
     @Override

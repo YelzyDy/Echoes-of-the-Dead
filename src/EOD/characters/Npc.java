@@ -22,7 +22,6 @@ public class Npc extends Character implements MouseInteractable {
         this.addMouseListener(new MouseClickListener(this));
         animator.startMovement();
         animator.chooseNewDirection(); 
-        setName(name);
         System.out.println();
         animator.updateBounds();
         animator.setRange(minRange, maxRange);

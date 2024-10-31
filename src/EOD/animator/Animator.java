@@ -106,7 +106,7 @@ public abstract class Animator {
         sprites.scaleImageList(scale);
     }
 
-    protected ImageList getSpriteList(String type) {
+    public ImageList getSpriteList(String type) {
         switch (type) {
             case "walk": return walkSprites;
             case "idle": return idleSprites;

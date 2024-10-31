@@ -9,7 +9,9 @@ import java.util.Random;
 import EOD.MouseInteractable;
 import EOD.animator.*;
 import EOD.objects.*;
+import EOD.objects.inventory.Inventory;
 import EOD.entities.*;
+import EOD.worlds.World;
 
 public class Protagonist extends Character implements MouseInteractable {
     private ProtagonistAnimator animator;
@@ -31,9 +33,10 @@ public class Protagonist extends Character implements MouseInteractable {
     private int skill2BuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int shieldBuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int originalAttack; // Stores original attack value
-
-    public Protagonist(String name, String characterType, int posX, int posY) {
-        super(name, characterType, posX, posY);
+    private Inventory inventory;
+    
+    public Protagonist(String characterType, int posX, int posY) {
+        super("name", characterType, posX, posY);
         animator = new ProtagonistAnimator(this);
         animator.setSpeedMultiplier(1);
         attributes = new ProtagonistAttributes(this);
@@ -46,6 +49,11 @@ public class Protagonist extends Character implements MouseInteractable {
         this.damageReducer = false;
         this.characterType = characterType;
         originalAttack = attributes.attack;
+        inventory = new Inventory();
+    }
+
+    public Inventory getInventory(){
+        return inventory;
     }
 
     public boolean isWizard() {
@@ -60,7 +68,7 @@ public class Protagonist extends Character implements MouseInteractable {
         return "priest".equals(characterType);
     }
 
-    private void configureSprites() {
+    public void configureSprites() {
         int spriteSize = (int) (screenSize.height * 0.006);
         animator.importSprites("character_asset", "walk", spriteSize, 8);
         animator.importSprites("character_asset", "idle", spriteSize, 6);

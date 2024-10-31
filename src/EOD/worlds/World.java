@@ -4,7 +4,6 @@ import EOD.MouseInteractable;
 import EOD.characters.*;
 import EOD.listeners.*;
 import EOD.objects.*;
-import EOD.objects.inventory.Inventory;
 import EOD.objects.shop.Shop;
 import EOD.scenes.*;
 import EOD.utils.BGMPlayer;
@@ -19,15 +18,12 @@ import java.awt.Font;
 
 
 public abstract class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
-    private String playerType; // variable for the playerType knight/priest/wizard
-    private String playerName; // variable for player name -- jian
-    //removed btn_shop. Let's create a class for shop so we can implement it easier. -- jian
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private EchoesObjects victoryBanner;
     private EchoesObjects defeatBanner;
     private EchoesObjects soulShard;
-    private JTextField name;  
+    private JLabel name;  
     private String worldType;  
     protected BattleUI battle;
 
@@ -39,7 +35,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private EchoesObjects bag;
     private JLayeredPane layeredPane;
     protected BGMPlayer bgmPlayer;
-    private Inventory inventory;
     protected Shop shop;
     protected JProgressBar progressBar;
     private Timer bannerTimer;
@@ -47,21 +42,20 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private JLabel moneyLabel;
     private int money;
     private JPanel moneyPanel;
-
+    protected String playerName;
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
     // create a class for enemies. Preferrably in different classes. Must have one superclass for polymorphsism
     // so that we will be able to iterate our enemies using the super class for example Enemy minions1 Enemy miniboss2
     // j
 
-    public World(String playerType, String playerName, String worldType){
+    
+    public World(String worldType){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(worldType);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.playerType = playerType;
-        this.playerName = playerName;   
         this.worldType = worldType;
         this.addMouseListener(new MouseClickListener(this));
         layeredPane = new JLayeredPane();
@@ -74,7 +68,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         // Add the base panel to the bottom layer
         layeredPane.add(basePanel, Integer.valueOf(0));
         addSettingsButton();
-        System.out.println("Hello!");
         addBagIcon();
         addMoneyPanel();
         addSoulShard();
@@ -91,6 +84,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
 
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
+    }
+
+    public void setPlayer(Protagonist player){
+        this.player = player;
     }
 
     public void setMoneyLabel(String moneyLabel){
@@ -110,20 +107,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         return battle;
     }
 
-    public void initializeProtagonist(){
-        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        player = new Protagonist(getPlayerName(), getPlayerType(), 0, (int)(screenSize.height * 0.24));
-        player.setWorld(this);
-        player.configureSkills();
-        scene.setPlayer(player);
-        player.configureSkills();
-        scene.addMouseListener(new MouseClickListener(player));
-        scene.add(player);
-        scene.setComponentZOrder(player, 0);
-        configureShopAndInventory();
-        money = player.getAttributes().getMoney();
-        moneyLabel.setText(money + "");
-    }
+    public abstract void initializeProtagonist();
 
     public void updatePlayerMoneyLabel(){
         moneyLabel.setText(player.getAttributes().getMoney() + "");
@@ -209,9 +193,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     
 
     public void configureShopAndInventory(){
-        inventory = new Inventory(this);
         shop = new Shop(this);
-        shop.setInventory(inventory);
+        player.getInventory().setWorld(this);
+        shop.setInventory(player.getInventory());
     }
 
     public void setBGMPlayer(BGMPlayer bgmPlayer){
@@ -222,16 +206,13 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         return layeredPane;
     }
 
-    public Protagonist getProtag(){
+    public Protagonist getPlayer(){
         return player;
     }
 
-    public String getPlayerName(){
-        return playerName;
-    }
 
     public String getPlayerType(){
-        return playerType;
+        return player.getCharacterType();
     }
 
 
@@ -244,21 +225,37 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private class InitializationWorker extends SwingWorker<Void, Integer> {
         @Override
         protected Void doInBackground() {
-            // Loading steps, with progress bar updates
-            publish(0);
-            initializeProtagonist();
-            publish(25);
-
-            initializeObjects();
-            publish(50);
-
-            initializeWorldChars();
-            publish(75);
-
-            initializeEnemies();
-            publish(100);
-            
-            scene.createWorldScene();
+            try {
+                System.out.println("Starting Initialization");
+                publish(0); // Start progress
+                initializeProtagonist();
+                publish(25);
+                System.out.println("Protagonist initialized");
+    
+                // Check if protagonist was initialized properly
+                assert player != null : "Protagonist not initialized!";
+    
+                initializeObjects();
+                publish(50);
+                System.out.println("Objects initialized");
+    
+                initializeWorldChars();
+                publish(75);
+                System.out.println("World characters initialized");
+    
+                initializeEnemies();
+                publish(100);
+                System.out.println("Enemies initialized");
+    
+                // Check if all initialization steps were successful
+                assert scene != null : "Scene was not initialized!";
+                assert battle != null : "BattleUI was not initialized!";
+                
+                scene.createWorldScene();
+            } catch (Exception e) {
+                System.err.println("Error during initialization: " + e.getMessage());
+                e.printStackTrace();
+            }
             return null;
         }
 
@@ -284,6 +281,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         object.setVisible(true);
         return object;
     }
+
 
     private void addPromptNamePanel(){
         promptPanel = createObj(worldType,(int) (screenSize.width * 0.1), 
@@ -382,11 +380,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     }
 
     public void addPlayerName(int panelHeight, int panelWidth){
-        name = new JTextField(playerName); // Create a JTextField with text
+        name = new JLabel(playerName); // Create a JTextField with text
         name.setFont(createDynamicFont(50));
         name.setForeground(new Color(238,218,180,255));
         name.setBackground(new Color(0, 0, 0, 0)); // Set background to transparent
-        name.setEditable(false); // Make it non-editable
         name.setBorder(null); // Remove the border
         name.setHorizontalAlignment(JTextField.CENTER); // Center the text horizontally
         name.setBounds((int) (panelWidth * 0.675), 
@@ -439,10 +436,12 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
             settings.setVisible(true);
         }else if(source == bag){
-            if (inventory.isVisible()) {
-                inventory.setVisible(false);
+            if (player.getInventory().isVisible()) {
+                player.getInventory().setVisible(false);
+                battle.toggleTextListOn();
             } else {
-                inventory.setVisible(true);
+                player.getInventory().setVisible(true);
+                battle.toggleTextListOff();
             }
         }else if(source == this){
             if (bannerTimer != null && bannerTimer.isRunning()) {

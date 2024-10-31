@@ -7,7 +7,6 @@ package EOD.utils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.awt.image.BufferedImage;
 
 /**
  *
@@ -88,6 +87,13 @@ public class ImageList {
         }
     }
 
+    public void resetToOriginalSize(){
+        for (int i = 0; i < size; i++) {
+            Image originalImage = (Image)imageList.get(i).get(0);
+            Image scaledImage = originalImage.getScaledInstance((int)origWidth, (int)origHeight, Image.SCALE_SMOOTH);
+            imageList.get(i).set(0, scaledImage);
+        }
+    }
     
     public void resizeImageList(double width, double height){
         for (int i = 0; i < size; i++) {

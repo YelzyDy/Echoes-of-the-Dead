@@ -24,7 +24,6 @@ import EOD.scenes.SceneBuilder;
  * @author Joana
  */
 public class Character extends TransparentPanel implements Entity{
-    private String name;
     private double posX;
     private double posY;
     private String characterType;
@@ -38,9 +37,9 @@ public class Character extends TransparentPanel implements Entity{
         super(posX, posY, 0, 0);
         this.posY = posY;
         this.posX = posX;
-        this.name = name;
         this.characterType = characterType;
         this.setVisible(true);
+        this.setName(name);
     }   
 
     public void setWorld(World world){
@@ -66,10 +65,6 @@ public class Character extends TransparentPanel implements Entity{
 
     public Animator getAnimator(){
         return animator;
-    }
-    
-    public String getName(){
-        return name;
     }
 
     public String getCharacterType(){

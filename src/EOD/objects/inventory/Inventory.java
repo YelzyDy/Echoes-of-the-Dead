@@ -18,29 +18,35 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
     private JLabel item1Label, item2Label, item3Label, item4Label;
     private int item1Quantity = 0, item2Quantity = 0, item3Quantity = 0, item4Quantity = 0;
     private ProtagonistAttributes attributes;
-    public Inventory(World world) {
+    private World world;
+    public Inventory() {
         super("inventory",
-                (int) (screenSize.width * 0.09),
-                (int) (screenSize.height * 0.3),
-                (int) (screenSize.width * 0.25),
-                (int) (screenSize.height * 0.11),
+            (int) (screenSize.width * 0.3),
+            (int) (screenSize.height * 0.55),
+            (int) (screenSize.width * 0.4),
+            (int) (screenSize.height * 0.15),
                 "slots",
                 false,
                 false,
                 1);
-        world.getLayeredPane().add(this, Integer.valueOf(1));
-        attributes = world.getProtag().getAttributes();
+
         // Set width and height after calling the super constructor
         width = getWidth();
         height = getHeight();
-
+        
         // Now initialize incrementValue after width is defined
         incrementValue = width * 0.16;
         incrementingX = width * 0.35;
-
+    
         this.setLayout(null);
         initializeItems();
         initializeLabels();
+    }
+
+    public void setWorld(World world){
+        this.world = world;
+        world.getLayeredPane().add(this, Integer.valueOf(1));
+        attributes = world.getPlayer().getAttributes();
     }
 
     public void initializeItems() {
@@ -218,6 +224,7 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
             label.setVisible(false);
         }
     }
+
     
     @Override 
     public void onClick(MouseEvent e) {
@@ -254,17 +261,23 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
         }
     }
 
+
     @Override
     public void onHover(MouseEvent e){
         Object source = e.getSource();
         if(source == item1Icon){
             sideIcon.setCurrentFrame(0);
+            world.getBattle().updateTextDetail("Restores 20 Soul Energy. Essential for sustaining power in battles.");
         }else if(source == item2Icon){
             sideIcon.setCurrentFrame(1);
+           world.getBattle().updateTextDetail("Amplify your combat power temporarily. A stackable one time use item.");
         }else if(source == item3Icon){
             sideIcon.setCurrentFrame(2);
+            world.getBattle().updateTextDetail("Recovers 20 Mana. Replenish your magic reserves quickly.");
         }if(source == item4Icon){
             sideIcon.setCurrentFrame(3);
+            world.getBattle().updateTextDetail("Increase Attack, Soul Energy, and Mana. A balanced boost for all abilities.");
         }
+        sideIcon.repaint();
     }
 }

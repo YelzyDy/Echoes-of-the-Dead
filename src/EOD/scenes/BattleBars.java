@@ -67,7 +67,7 @@ public class BattleBars {
                 if (playerHealth < targetHealth) {
                     playerHealth = Math.min(playerHealth + 1, targetHealth);
                 } else if (playerHealth > targetHealth) {
-                    playerHealth = Math.max(playerHealth - 1, targetHealth);
+                    playerHealth = Math.max(playerHealth - 1,  Math.max(targetHealth, 0));
                 } else {
                     ((Timer) e.getSource()).stop();
                 }
@@ -84,7 +84,7 @@ public class BattleBars {
                 if (playerMana < targetMana) {
                     playerMana = Math.min(playerMana + 1, targetMana);
                 } else if (playerMana > targetMana) {
-                    playerMana = Math.max(playerMana - 1, targetMana);
+                    playerMana = Math.max(playerMana - 1, Math.max(targetMana, 0));
                 } else {
                     ((Timer) e.getSource()).stop();
                 }
@@ -103,22 +103,30 @@ public class BattleBars {
         
                 int arcWidth = 20; // Rounded corner radius
                 int arcHeight = 20;
-        
-                // Draw player health bar with rounded corners
+                
+                // Draw player health bar background with rounded corners
                 g2d.setColor(Color.DARK_GRAY);
                 g2d.fillRoundRect(2, 5, 296, 28, arcWidth, arcHeight);
-                g2d.setColor(Color.GREEN);
-                int playerHealthWidth = (int) ((playerHealth / (double) maxPlayerHealth) * 296);
+                
+                // Draw player health bar with capped width at max if health exceeds max
+                g2d.setColor(new Color(124,140,156,255));
+                int playerHealthWidth = (int) ((Math.min(playerHealth, maxPlayerHealth) / (double) maxPlayerHealth) * 296);
                 g2d.fillRoundRect(2, 5, playerHealthWidth, 28, arcWidth, arcHeight);
+                
+                // Display actual health value even if it exceeds max
                 g2d.setColor(Color.WHITE);
                 g2d.drawString("Player HP: " + playerHealth + " / " + maxPlayerHealth, 90, 23);
         
-                // Draw player mana bar with rounded corners
+                // Draw player mana bar background with rounded corners
                 g2d.setColor(Color.DARK_GRAY);
                 g2d.fillRoundRect(2, 40, 296, 28, arcWidth, arcHeight);
-                g2d.setColor(Color.BLUE);
-                int playerManaWidth = (int) ((playerMana / (double) maxPlayerMana) * 296);
+        
+                // Draw player mana bar with capped width at max if mana exceeds max
+                g2d.setColor(new Color(200,47,60));
+                int playerManaWidth = (int) ((Math.min(playerMana, maxPlayerMana) / (double) maxPlayerMana) * 296);
                 g2d.fillRoundRect(2, 40, playerManaWidth, 28, arcWidth, arcHeight);
+        
+                // Display actual mana value even if it exceeds max
                 g2d.setColor(Color.WHITE);
                 g2d.drawString("Player MP: " + playerMana + " / " + maxPlayerMana, 90, 58);
             }
@@ -140,7 +148,7 @@ public class BattleBars {
                 if (enemyHealth < targetHealth) {
                     enemyHealth = Math.min(enemyHealth + 1, targetHealth);
                 } else if (enemyHealth > targetHealth) {
-                    enemyHealth = Math.max(enemyHealth - 1, targetHealth);
+                    enemyHealth = Math.max(enemyHealth - 1, Math.max(targetHealth, 0));
                 } else {
                     ((Timer) e.getSource()).stop();
                 }
@@ -153,20 +161,25 @@ public class BattleBars {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                int arcWidth = 20; // Rounded corner radius
-                int arcHeight = 20;
+            int arcWidth = 20; // Rounded corner radius
+            int arcHeight = 20;
+                
+            // Draw player health bar background with rounded corners
+            g2d.setColor(Color.DARK_GRAY);
+            g2d.fillRoundRect(2, 5, 296, 28, arcWidth, arcHeight);
+                
+            // Draw player health bar with capped width at max if health exceeds max
+            g2d.setColor(new Color(124,140,156,255));
+            int playerHealthWidth = (int) ((Math.min(playerHealth, maxPlayerHealth) / (double) maxPlayerHealth) * 296);
+            g2d.fillRoundRect(2, 5, playerHealthWidth, 28, arcWidth, arcHeight);
+                
+            // Display actual health value even if it exceeds max
+            g2d.setColor(Color.WHITE);
+            g2d.drawString("Player HP: " + playerHealth + " / " + maxPlayerHealth, 90, 23);
 
-                // Draw enemy health bar with rounded corners
-                g2d.setColor(Color.DARK_GRAY);
-                g2d.fillRoundRect(2, 5, 296, 28, arcWidth, arcHeight);
-                g2d.setColor(Color.RED);
-                int enemyHealthWidth = (int) ((enemyHealth / (double) maxEnemyHealth) * 296);
-                g2d.fillRoundRect(2, 5, enemyHealthWidth, 28, arcWidth, arcHeight);
-                g2d.setColor(Color.WHITE);
-                g2d.drawString("Enemy HP: " + enemyHealth + " / " + maxEnemyHealth, 90, 23);
             }
 
             @Override

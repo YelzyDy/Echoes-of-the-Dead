@@ -71,7 +71,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     public void initiializeProtagonist(){
-        player = new Protagonist("name", charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
+        player = new Protagonist(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
         player.setpanel(scene);
         scene.setPlayer(player);
         player.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
@@ -216,7 +216,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 return;
             }
                 World window = new World1(charType, nameField.getText());
-                System.out.println(nameField.getText());
                 window.setVisible(true);
                 window.setBGMPlayer(bgmPlayer);
                 this.setVisible(false);

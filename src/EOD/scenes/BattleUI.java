@@ -25,27 +25,22 @@ public class BattleUI extends JPanel{
     private JPanel skillButtonsPanel ;
     private JLabel topTextBox, bottomTextBox;
     private BattleBars battleBars = new BattleBars();
-    private int turns;
     private JList<String> textList;
     private DefaultListModel<String> textListModel;
     private Protagonist player;
     private Enemy enemy;
     private JPanel enemyWrapper;
-    private EchoesObjects btn_settings;
-    private EchoesObjects inventory;
+    private String temp;
 
     public BattleUI(Protagonist player){
         this.player = player;
-        displayDialogues();
+        System.out.println(this.player.getName() + "adfasdf");
+        displayContainerPanel();
+        displayTitleLabel();
+        displayGamePanel();
+        displaySkillButtons();
+        displayBottomPanel();
         setSkillButtonsEnabled(false);
-    }
-
-    public void setBtnSettings(EchoesObjects btn_settings){
-        this.btn_settings = btn_settings;
-    }
-
-    public void setInventory(EchoesObjects inventory){
-        this.inventory = inventory;
     }
 
     public void setEnemy(Enemy enemy){
@@ -64,6 +59,8 @@ public class BattleUI extends JPanel{
         );
         enemyWrapper.setVisible(true);
         setSkillButtonsEnabled(true);
+        topTextBox.setText("Turn 1: Your Turn");
+        textList.setVisible(true);
     }
 
     public JPanel getEnemyWrapper(){
@@ -82,7 +79,48 @@ public class BattleUI extends JPanel{
         return battleSample;
     }
 
-    public void displayDialogues(){
+    public void displayContainerPanel(){
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setBackground(Color.BLACK);
+        textPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder((int)(screenSize.height * 0.05), (int)(screenSize.width * 0.05), 0, (int)(screenSize.width * 0.05)), 
+            BorderFactory.createLineBorder(Color.WHITE, 2)  // Existing white border
+        ));
+        textPanel.setPreferredSize(new Dimension(width, (int) (screenSize.height * 0.3)));
+
+    }
+
+    public void displayTitleLabel(){
+        topTextBox = new JLabel("", SwingConstants.CENTER);
+        topTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        topTextBox.setForeground(Color.WHITE);
+        topTextBox.setVerticalAlignment(SwingConstants.CENTER);
+        topTextBox.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+        topTextBox.setMaximumSize(new Dimension(width, topTextHeight));
+        topTextBox.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        topTextBox.setHorizontalAlignment(SwingConstants.CENTER);
+        topTextBox.setText("Echoes Of The Dead");
+        textPanel.add(topTextBox);
+    }
+
+    public void toggleTextListOff(){
+        if(player.getAnimator().getIsInBattle()) temp = topTextBox.getText();
+        else temp = "Echoes Of The Dead";
+        topTextBox.setText("Inventory");
+        textList.setVisible(false);
+    }
+
+    public void toggleTextListOn(){
+        topTextBox.setText(temp);
+        if(player.getAnimator().getIsInBattle()) textList.setVisible(true);
+        else textList.setVisible(false);
+    }
+
+    public void updateTextDetail(String detail){
+        bottomTextBox.setText(detail);
+    }
+
+    public void displayGamePanel(){
 
         // THE WINDOW & DIALOGUESs
         System.out.println("battle called");
@@ -93,26 +131,6 @@ public class BattleUI extends JPanel{
         this.setBackground(Color.BLACK);
         this.setLayout(new BorderLayout());
 
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        textPanel.setBackground(Color.BLACK);
-        textPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder((int)(screenSize.height * 0.05), (int)(screenSize.width * 0.05), 0, (int)(screenSize.width * 0.05)), 
-            BorderFactory.createLineBorder(Color.WHITE, 2)  // Existing white border
-        ));
-        textPanel.setPreferredSize(new Dimension(width, (int) (screenSize.height * 0.3)));
-
-
-        topTextBox = new JLabel("", SwingConstants.CENTER);
-        topTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
-        topTextBox.setForeground(Color.WHITE);
-        topTextBox.setVerticalAlignment(SwingConstants.CENTER);
-        topTextBox.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-        topTextBox.setMaximumSize(new Dimension(width, topTextHeight));
-        topTextBox.setAlignmentX(Component.CENTER_ALIGNMENT); // Centers the component in BoxLayout
-        topTextBox.setHorizontalAlignment(SwingConstants.CENTER); // Centers the text in the label
-
-        textPanel.add(topTextBox);
-
         textListModel = new DefaultListModel<>();
         textList = new JList<>(textListModel);
         textList.setBackground(Color.BLACK);
@@ -122,9 +140,11 @@ public class BattleUI extends JPanel{
         textList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         textList.setVisibleRowCount(3); // Show 3 rows at a time
         textList.setFixedCellHeight((int) (screenSize.height * 0.07)); // Set fixed cell height
-
+        textList.setVisible(false);
             // Add a scroll pane for the list
         JScrollPane scrollPane = new JScrollPane(textList);
+        scrollPane.getViewport().setBackground(Color.BLACK);
+        scrollPane.setVisible(true);
 
         textPanel.add(scrollPane); 
 
@@ -139,42 +159,14 @@ public class BattleUI extends JPanel{
         bottomTextBox.setHorizontalAlignment(SwingConstants.CENTER);
 
         this.add(textPanel, BorderLayout.CENTER);
-
-        topTextBox.setText("Turn 1: Your Turn");
-        // middleTextBox.setText("An enemy has appeared!");
-        // bottomTextBox.setText("<html><center>Prepare to use your skills to defeat them in this battle!<html><center>");
-
-        // BATTLE BARS
-
-        battleBars.setPlayerStats(
-            player.getAttributes().getBaseHp(),
-            player.getAttributes().getBaseMana()
-        );
-
-        // THE BUTTONS
-
-        JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
-        bottomPanel.setBackground(Color.BLACK);
-        bottomPanel.setPreferredSize(new Dimension((int) (screenSize.width), (int) (screenSize.height * 0.2)));
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        this.setVisible(true);
         
-        JPanel playerWrapper = new JPanel(new BorderLayout());  // GridBagLayout will center its contents
-        playerWrapper.setBackground(Color.BLACK);
-        enemyWrapper = new JPanel(new BorderLayout());   // GridBagLayout will center its contents
-        enemyWrapper.setBackground(Color.BLACK);
 
-        JPanel playerPanel = battleBars.getPlayerStats();
-        playerPanel.setBackground(Color.BLACK);
-        JPanel enemyPanel = battleBars.getEnemyStats();
-        enemyPanel.setBackground(Color.BLACK);
+    }
 
-        int verticalPadding = (int)(screenSize.height * 0.07);
-        playerWrapper.setBorder(BorderFactory.createEmptyBorder(verticalPadding, (int)(screenSize.width * 0.1), verticalPadding, 0));
-        enemyWrapper.setBorder(BorderFactory.createEmptyBorder(verticalPadding, (int)(screenSize.width * 0.06), verticalPadding, 0));
-        enemyWrapper.setVisible(false);
-
-        playerWrapper.add(playerPanel, BorderLayout.CENTER);
-        enemyWrapper.add(enemyPanel,  BorderLayout.CENTER);
-
+    public void displaySkillButtons(){
         skillButtonsPanel = new JPanel(new GridLayout(1, 4, 0, 0));
         skillButtonsPanel.setBackground(Color.BLACK);
         // ACTION LISTENERS
@@ -212,15 +204,40 @@ public class BattleUI extends JPanel{
         skillButtonsPanel.add(skillB);
         skillButtonsPanel.add(skillC);
         skillButtonsPanel.add(skillD);
+    }
+
+    public void displayBottomPanel(){
+        JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
+        bottomPanel.setBackground(Color.BLACK);
+        bottomPanel.setPreferredSize(new Dimension((int) (screenSize.width), (int) (screenSize.height * 0.2)));
+        
+        JPanel playerWrapper = new JPanel(new BorderLayout());  // GridBagLayout will center its contents
+        playerWrapper.setBackground(Color.BLACK);
+        enemyWrapper = new JPanel(new BorderLayout());   // GridBagLayout will center its contents
+        enemyWrapper.setBackground(Color.BLACK);
+
+        JPanel playerPanel = battleBars.getPlayerStats();
+        playerPanel.setBackground(Color.BLACK);
+        JPanel enemyPanel = battleBars.getEnemyStats();
+        enemyPanel.setBackground(Color.BLACK);
+
+        int verticalPadding = (int)(screenSize.height * 0.07);
+        playerWrapper.setBorder(BorderFactory.createEmptyBorder(verticalPadding, (int)(screenSize.width * 0.1), verticalPadding, 0));
+        enemyWrapper.setBorder(BorderFactory.createEmptyBorder(verticalPadding, (int)(screenSize.width * 0.06), verticalPadding, 0));
+        enemyWrapper.setVisible(false);
+
+        playerWrapper.add(playerPanel, BorderLayout.CENTER);
+        enemyWrapper.add(enemyPanel,  BorderLayout.CENTER);
+
+        battleBars.setPlayerStats(
+            player.getAttributes().getBaseHp(),
+            player.getAttributes().getBaseMana()
+        );
+
         bottomPanel.add(playerWrapper);
         bottomPanel.add(skillButtonsPanel);
         bottomPanel.add(enemyWrapper);
         this.add(bottomPanel, BorderLayout.SOUTH);
-
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.setVisible(true);
-
     }
 
     public void updatePlayerBars(int hp, int mp){

@@ -136,28 +136,28 @@ public class Shop extends EchoesObjects {
         int itemStock = 0;
         switch (itemToBuy) {
             case 1 -> {
-                if (item1Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
+                if (item1Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
                     updateStock(item1, --item1Stock);
                     itemCost = updateMoney(1); // Set cost for item 1
                     itemStock = item1Stock;
                 }
             }
             case 2 -> {
-                if (item2Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
+                if (item2Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
                     updateStock(item2, --item2Stock);
                     itemCost = updateMoney(2);
                     itemStock = item2Stock;
                 }
             }
             case 3 -> {
-                if (item3Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
+                if (item3Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
                     updateStock(item3, --item3Stock);
                     itemCost = updateMoney(3);
                     itemStock = item3Stock;
                 }
             }
             case 4 -> {
-                if (item4Stock > 0 && world.getProtag().getAttributes().getMoney() >= 10) {
+                if (item4Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
                     updateStock(item4, --item4Stock);
                     itemCost = updateMoney(4);
                     itemStock = item4Stock;
@@ -179,7 +179,7 @@ public class Shop extends EchoesObjects {
     }
 
     private int updateMoney(int item) {
-        int money = world.getProtag().getAttributes().getMoney();
+        int money = world.getPlayer().getAttributes().getMoney();
         int cost = 0; // Set item cost here
 
         switch (item) {

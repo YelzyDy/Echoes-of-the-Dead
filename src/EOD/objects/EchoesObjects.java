@@ -49,10 +49,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.addMouseListener(new MouseClickListener(this));
     }   
 
-    public void removeBackground(int threshold){
-        objSprites.removeWhiteBackground(threshold);
-    }
-
     @Override
     public double getWidthE(){
         return getWidth();
