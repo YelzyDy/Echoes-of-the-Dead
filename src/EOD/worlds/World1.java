@@ -35,7 +35,6 @@ public class World1 extends World{
         player.configureSkills();
         player.setName(playerName);
         setPlayer(player);
-        System.out.println("iPlayer name: " + player.getName());
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);
         scene.setPlayer(player);

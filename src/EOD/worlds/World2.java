@@ -19,11 +19,12 @@ public class World2 extends World{
         scene = new SceneBuilder(this);
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        player.setWorld(this);
         setPlayer(player);
-        scene.setPlayer(player);
-        scene.add(player);
         scene.addMouseListener(new MouseClickListener(player));
-        player.setPosX(0);
+        scene.add(player);
+        scene.setPlayer(player);
+        scene.setComponentZOrder(player, 0);
         this.playerName = player.getName();
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
