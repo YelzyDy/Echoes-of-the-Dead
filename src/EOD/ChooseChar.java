@@ -215,6 +215,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+                scene.gameLoopTimer.stop();
                 World window = new World1(charType, nameField.getText());
                 window.setVisible(true);
                 window.setBGMPlayer(bgmPlayer);
