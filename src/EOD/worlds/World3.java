@@ -16,13 +16,26 @@ import java.util.ArrayList;
  * @author zendy
  */
 public class World3 extends World{
-    public World3(String playerType, String playerName, Protagonist player){
-        super(playerType, playerName, "world3");
+    public World3(Protagonist player){
+        super("world3");
         this.player = player;
         scene = new SceneBuilder(this);
-        Welcome();
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        setPlayer(player);
+        scene.setPlayer(player);
+        scene.add(player);
+        scene.addMouseListener(new MouseClickListener(player));
+        player.setPosX(0);
+        this.playerName = player.getName();
+        configureShopAndInventory();
+        setMoney(player.getAttributes().getMoney());
+        setMoneyLabel(player.getAttributes().getMoney() + "");
+        Welcome();
+    }
+    @Override
+    public void initializeProtagonist(){
+        //nothing
     }
 
     @Override

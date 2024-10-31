@@ -149,7 +149,7 @@ public class World2 extends World{
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
             } else if (source == obj && obj.getName().equals("portalNextWorld")){
-                World window = new World3(getPlayerType(), getPlayerName(), player);
+                World window = new World3(player);
                 window.setVisible(true);
                 this.setVisible(false);
             }
