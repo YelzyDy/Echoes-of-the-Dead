@@ -192,7 +192,7 @@ public class BattleExperiment {
         enemy.setIsDefeated(true);
         player.setPosX(screenSize.width * 0.4);
         System.out.println("You won");
-        Timer deathAnimationTimer = new Timer(1800, new ActionListener() {
+        Timer deathAnimationTimer = new Timer(800, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 enemy.getAnimator().triggerDeathAnimation(enemy.getPosY() + enemy.getPosY() * enemyDeathY);

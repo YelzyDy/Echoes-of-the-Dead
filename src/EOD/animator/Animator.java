@@ -134,7 +134,7 @@ public abstract class Animator {
     }
 
     protected void updateSkillAnimation() {
-        character.getPanel().setComponentZOrder(character, 0);
+        character.getPanel().setComponentZOrder(character, 1);
         if (!reachedTarget) {
             updateMovement();
             currentFrame = (currentFrame + 1) % walkSprites.getSize();

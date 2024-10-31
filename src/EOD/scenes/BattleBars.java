@@ -173,12 +173,12 @@ public class BattleBars {
                 
             // Draw player health bar with capped width at max if health exceeds max
             g2d.setColor(new Color(124,140,156,255));
-            int playerHealthWidth = (int) ((Math.min(playerHealth, maxPlayerHealth) / (double) maxPlayerHealth) * 296);
-            g2d.fillRoundRect(2, 5, playerHealthWidth, 28, arcWidth, arcHeight);
+            int enemyHealthWidth = (int) ((Math.min(enemyHealth, maxEnemyHealth) / (double) maxEnemyHealth) * 296);
+            g2d.fillRoundRect(2, 5, enemyHealthWidth, 28, arcWidth, arcHeight);
                 
             // Display actual health value even if it exceeds max
             g2d.setColor(Color.WHITE);
-            g2d.drawString("Player HP: " + playerHealth + " / " + maxPlayerHealth, 90, 23);
+            g2d.drawString("Player HP: " + enemyHealth + " / " + maxEnemyHealth, 90, 23);
 
             }
 

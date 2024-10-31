@@ -5,7 +5,6 @@ public class Skeleton2 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 8;
     private static final int BASE_HEALTH = 100;
-    private static final double SPRITE_SCALE = 0.3; // Keep the smaller scale for minion appearance
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
