@@ -29,7 +29,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
 
     protected SceneBuilder scene;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    protected Protagonist player; 
+    protected Player player; 
 
     private EchoesObjects btn_settings;
     private EchoesObjects bag;
@@ -86,7 +86,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(progressBar, Integer.valueOf(1));
     }
 
-    public void setPlayer(Protagonist player){
+    public void setPlayer(Player player){
         this.player = player;
     }
 
@@ -206,7 +206,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         return layeredPane;
     }
 
-    public Protagonist getPlayer(){
+    public Player getPlayer(){
         return player;
     }
 

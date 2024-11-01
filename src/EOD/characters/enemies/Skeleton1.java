@@ -1,5 +1,6 @@
-package EOD.characters;
+package EOD.characters.enemies;
 
+import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
@@ -12,7 +13,7 @@ public class Skeleton1 extends Enemy {
     private static final int SKILL2_MAX_COOLDOWN = 3;
 
     public Skeleton1(String name, int posX, int posY, 
-            double minRange, double maxRange, Protagonist protagonist) {
+            double minRange, double maxRange, Player protagonist) {
             super(name, "skeleton1", posX, posY, minRange, maxRange, 
            protagonist);
         configureSprites();
@@ -23,6 +24,7 @@ public class Skeleton1 extends Enemy {
         animator.setSpeedMultiplier(1);
     }
 
+    @Override
     public void configureSprites() {
         int baseSize = (int)(screenSize.height * 0.007);
         

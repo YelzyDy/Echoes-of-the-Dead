@@ -4,10 +4,12 @@
  */
 package EOD.objects;
 
-import EOD.entities.*;
 import EOD.gameInterfaces.MouseInteractable;
+import EOD.gameInterfaces.ObjectBlueprint;
 import EOD.listeners.MouseClickListener;
+
 import EOD.utils.*;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,7 +24,7 @@ import javax.imageio.ImageIO;
  *
  * @author Joana
  */
-public class EchoesObjects extends TransparentPanel implements MouseInteractable, Entity{
+public class EchoesObjects extends TransparentPanel implements MouseInteractable, ObjectBlueprint{
     public Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private double posX;
     private double posY;
@@ -34,6 +36,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private int numOfSprites;
     private int index;
     private boolean allowHover;
+
     public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
         setName(type);
@@ -59,25 +62,32 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         return getHeight();
     }
     
+    @Override
     public void setAllowHover(boolean allowHover){
         this.allowHover = allowHover;
     }
     
+    @Override
     public void setIndex(int index){
         this.index = index;
     }
 
+    @Override
     public int getIndex(){
         return index;
     }
+
+    @Override
     public boolean isAnimated(){
         return isAnimated;
     }
 
+    @Override
     public void setBounds(int posX, int posY){
         this.setBounds(posX, posY, getWidth(), getHeight());
     }
 
+    @Override
     public void initializeSprites(String assetPackage, double width, double height) {
         objSprites.clear();
         int size = numOfSprites;
@@ -106,16 +116,17 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // System.out.println("Number of sprites loaded: " + objSprites.getSize());
     }
 
+    @Override
     public void scaleSprites(double scale) {
         objSprites.scaleImageList(scale);
     }
 
-    
-
+    @Override
     public void scaleDownSprites(double scale) {
         objSprites.scaleImageListDown(scale);
     }
-   
+
+    @Override
     public void setCurrentFrame(int value){
         currentFrame = value;
     }
@@ -145,15 +156,17 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         }
     }
 
+    @Override
     public String getAssetPackage(){
         return assetPackage;
     }
     
+    @Override
     public void restartAnimation(){
         currentFrame = 0;
     }
     
-
+    @Override
     public void updateAnimation(){
         if(isAnimated){
             currentFrame++;
@@ -183,14 +196,17 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.posY = posY;
     }
 
+    @Override
     public int getCurrentFrame(){
         return currentFrame;
     }
 
+    @Override
     public int getNumOfSprites(){
         return numOfSprites;
     }
 
+    @Override
     public Image getCurrentSprite() {
         return objSprites.get(currentFrame);      
     }
@@ -286,5 +302,4 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // Request a repaint to reflect changes
         repaint();
     }
-
 }

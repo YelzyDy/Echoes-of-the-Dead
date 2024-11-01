@@ -1,9 +1,10 @@
 package EOD.characters;
 
+import EOD.gameInterfaces.PlayerAttributesBlueprint;
 import EOD.objects.SkillEffects;
 import java.awt.Dimension;
 
-public class ProtagonistAttributes {
+public class PlayerAttributes implements PlayerAttributesBlueprint{
     protected int baseAttack;
     protected int attack;
     protected int health;
@@ -16,7 +17,7 @@ public class ProtagonistAttributes {
     protected int s2num;
     protected int s3num;
     protected int s4num;
-    protected Protagonist player;
+    protected Player player;
     protected int skill2Cd;
     protected int skill3Cd;
     protected int skill4Cd;
@@ -28,13 +29,14 @@ public class ProtagonistAttributes {
 
     private final Dimension screenSize;
 
-    public ProtagonistAttributes(Protagonist player) {
+    public PlayerAttributes(Player player) {
         this.player = player;
         this.screenSize = player.screenSize;
         configure(player.getCharacterType());
     }
-    
-    private void configure(String characterType) {
+
+    @Override
+    public void configure(String characterType) {
         switch (characterType) {
             case "knight":
                 setupAttributes(15, 100, 100, 100, 7, 4, 4, 11);
@@ -48,7 +50,8 @@ public class ProtagonistAttributes {
         }
     }
 
-    private void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
+    @Override
+    public void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
         this.attack = atk;
         this.baseAttack = attack;
         this.health = hp;
@@ -63,7 +66,8 @@ public class ProtagonistAttributes {
         this.s4num = s4;
     }
 
-    protected SkillEffects createSkillEffect(String type, double xFactor, double yFactor, int numSprites, boolean looping) {
+    @Override
+    public SkillEffects createSkillEffect(String type, double xFactor, double yFactor, int numSprites, boolean looping) {
         SkillEffects effect = new SkillEffects(
             "effects",
             (int) (screenSize.width * xFactor),
@@ -79,22 +83,22 @@ public class ProtagonistAttributes {
     }
 
     // Getters and Setters for attributes (health, mana, attack, etc.)
-    public int getHp() { return health; }
-    public void setHp(int newHealth) { health = newHealth; }
-    public int getBaseHp() { return baseHealth; }
-    public void setBaseHp(int addHp) { baseHealth += addHp; }
+    @Override public int getHp() { return health; }
+    @Override public void setHp(int newHealth) { health = newHealth; }
+    @Override public int getBaseHp() { return baseHealth; }
+    @Override public void setBaseHp(int newBaseHp) { baseHealth = newBaseHp; }
 
-    public int getMana() { return mana; }
-    public void setMana(int newMana) { mana = newMana; }
-    public int getBaseMana() { return baseMana; }
-    public void setBaseMana(int addMana) { baseMana += addMana; }
+    @Override public int getMana() { return mana; }
+    @Override public void setMana(int newMana) { mana = newMana; }
+    @Override public int getBaseMana() { return baseMana; }
+    @Override public void setBaseMana(int newBaseMana) { baseMana = newBaseMana; }
 
-    public int getMoney() { return money; }
-    public void addMoney(int newMoney) { money += newMoney; }
-    public void setMoney(int newMoney) { money = newMoney; }
+    @Override public int getMoney() { return money; }
+    @Override public void addMoney(int newMoney) { money += newMoney; }
+    @Override public void setMoney(int newMoney) { money = newMoney; }
 
-    public int getAttack() { return attack; }
-    public void setAttack(int newAttack) { attack = newAttack; }
-    public int getBaseAttack() { return baseAttack; }
-    public void setBaseAttack(int addAttack) { baseAttack += addAttack; }
+    @Override public int getAttack() { return attack; }
+    @Override public void setAttack(int newAttack) { attack = newAttack; }
+    @Override public int getBaseAttack() { return baseAttack; }
+    @Override public void setBaseAttack(int newBaseAttack) { baseAttack = newBaseAttack; }
 }

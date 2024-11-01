@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import EOD.worlds.*;
 import EOD.utils.*;
 import EOD.characters.*;
+import EOD.characters.enemies.Enemy;
 import EOD.objects.*;
 import EOD.animator.Animator;
 /**
@@ -35,7 +36,7 @@ public class SceneBuilder extends JPanel{
 
     public ArrayList<Enemy> enemyList;
 
-    private Protagonist player;
+    private Player player;
 
     private SceneTransitionHandler transitionHandler;
 
@@ -58,7 +59,7 @@ public class SceneBuilder extends JPanel{
         currentSceneIndex = 0;
     }
 
-    public Protagonist getplayer(){
+    public Player getplayer(){
         return player;
     }
 
@@ -76,7 +77,7 @@ public class SceneBuilder extends JPanel{
         return currentSceneIndex;
     }
 
-    public void setPlayer(Protagonist player){
+    public void setPlayer(Player player){
         this.player = player;
     }
 

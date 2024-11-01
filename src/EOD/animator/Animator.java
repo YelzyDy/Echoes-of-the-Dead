@@ -102,7 +102,7 @@ public abstract class Animator implements Animation{
         String type = "skill" + skillNumber;
         importSprites(assetPackage, type, scale, numOfSprites);
     }
-    
+
     @Override
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites) {
         ImageList sprites = getSpriteList(type);
@@ -233,8 +233,7 @@ public abstract class Animator implements Animation{
         moveTo(targetX, calculatedDeltaX);
     }
 
-    @Override
-    public int calculateDeltaX(int targetX, boolean returning) {
+    private int calculateDeltaX(int targetX, boolean returning) {
         int startX = returning ? skillTargetX : (int)character.getPosX();
         int distance = Math.abs(targetX - startX);
         ImageList currentSkillSprites = skillSprites[currentSkill];

@@ -6,8 +6,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import EOD.characters.*;
+import EOD.characters.enemies.Enemy;
 import EOD.dialogues.*;
 import EOD.objects.EchoesObjects;
+import EOD.objects.bars.BattleBars;
 public class BattleUI extends JPanel{
     private JPanel textPanel = new JPanel(new GridLayout(3, 1));
     private StoryLine story = new StoryLine();
@@ -27,12 +29,12 @@ public class BattleUI extends JPanel{
     private BattleBars battleBars = new BattleBars();
     private JList<String> textList;
     private DefaultListModel<String> textListModel;
-    private Protagonist player;
+    private Player player;
     private Enemy enemy;
     private JPanel enemyWrapper;
     private String temp;
 
-    public BattleUI(Protagonist player){
+    public BattleUI(Player player){
         this.player = player;
         System.out.println(this.player.getName() + "adfasdf");
         displayContainerPanel();

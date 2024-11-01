@@ -2,8 +2,8 @@ package EOD.scenes;
 
 import javax.swing.Timer;
 
-import EOD.characters.Enemy;
-import EOD.characters.Protagonist;
+import EOD.characters.Player;
+import EOD.characters.enemies.Enemy;
 import EOD.worlds.World;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener; // -z
 
 public class BattleExperiment {
     private Enemy enemy;
-    private Protagonist player;
+    private Player player;
     private BattleUI battleUI;
     private int turnCount = 0;
     private boolean isProcessingTurn = false;
@@ -22,7 +22,7 @@ public class BattleExperiment {
         this.enemy = enemy;
     }
 
-    public void setPlayer(Protagonist player){
+    public void setPlayer(Player player){
         this.player = player;
     }
 
@@ -30,7 +30,7 @@ public class BattleExperiment {
         return enemy;
     }
 
-    public Protagonist getPlayer(){
+    public Player getPlayer(){
         return player;
     }
 

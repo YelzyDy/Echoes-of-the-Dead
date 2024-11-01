@@ -5,7 +5,7 @@
 package EOD;
 
 import EOD.animator.Animator;
-import EOD.characters.Protagonist;
+import EOD.characters.Player;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
@@ -40,7 +40,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private int height = screenSize.height;
     private boolean selectButtonIsEnable = true;
 
-    private Protagonist player;
+    private Player player;
     BGMPlayer bgmPlayer;
     public ChooseChar() {
         bgmPlayer = new BGMPlayer();
@@ -72,7 +72,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     public void initiializeProtagonist(){
-        player = new Protagonist(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
+        player = new Player(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
         player.setpanel(scene);
         scene.setPlayer(player);
         player.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);

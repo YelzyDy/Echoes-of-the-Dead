@@ -1,6 +1,9 @@
 package EOD.worlds;
 
 import EOD.characters.*;
+import EOD.characters.enemies.Enemy;
+import EOD.characters.enemies.Necromancer;
+import EOD.characters.enemies.Skeleton1;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -26,7 +29,7 @@ public class World1 extends World{
     @Override
     public void initializeProtagonist(){
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        Protagonist player = new Protagonist(characterType, 0, (int)(screenSize.height * 0.24));
+        Player player = new Player(characterType, 0, (int)(screenSize.height * 0.24));
         scene = new SceneBuilder(this);
         player.getAnimator().getSpriteList("idle").resetToOriginalSize();
         player.getAnimator().scaleSprites("idle", (int) (screenSize.height * 0.006));

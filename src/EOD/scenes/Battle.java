@@ -1,9 +1,9 @@
 package EOD.scenes;
 
-import EOD.characters.Necromancer;
-import EOD.characters.Enemy;
 import EOD.characters.Protagonist;
-import EOD.characters.Skeleton2;
+import EOD.characters.enemies.Enemy;
+import EOD.characters.enemies.Necromancer;
+import EOD.characters.enemies.Skeleton2;
 
 import java.util.Random;
 import java.util.Scanner;

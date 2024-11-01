@@ -1,7 +1,7 @@
 package EOD.objects.inventory;
 
-import EOD.characters.ProtagonistAttributes;
-import EOD.gameInterfaces.MouseInteractable;
+import EOD.characters.PlayerAttributes;
+import EOD.gameInterfaces.InventoryBlueprint;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import java.awt.*;
@@ -9,7 +9,7 @@ import EOD.worlds.World;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-public class Inventory extends EchoesObjects implements MouseInteractable{
+public class Inventory extends EchoesObjects implements InventoryBlueprint{
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private EchoesObjects item1Icon, item2Icon, item3Icon, item4Icon, sideIcon;
     private double width, height;
@@ -17,7 +17,7 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
     private double incrementValue;
     private JLabel item1Label, item2Label, item3Label, item4Label;
     private int item1Quantity = 0, item2Quantity = 0, item3Quantity = 0, item4Quantity = 0;
-    private ProtagonistAttributes attributes;
+    private PlayerAttributes attributes;
     private World world;
     public Inventory() {
         super("inventory",
@@ -49,7 +49,7 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
         attributes = world.getPlayer().getAttributes();
     }
 
-    public void initializeItems() {
+    private void initializeItems() {
         // Initial x-position for the first item
         incrementingX = width * 0.35;
     
@@ -279,5 +279,10 @@ public class Inventory extends EchoesObjects implements MouseInteractable{
             world.getBattle().updateTextDetail("Increase Attack, Soul Energy, and Mana. A balanced boost for all abilities.");
         }
         sideIcon.repaint();
+    }
+
+    @Override
+    public World getWorld() {
+        return world;
     }
 }

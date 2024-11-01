@@ -1,6 +1,6 @@
 package EOD.animator;
 
-import EOD.characters.Enemy;
+import EOD.characters.enemies.Enemy;
 
 public class EnemyAnimator extends RandomAnimator {
 

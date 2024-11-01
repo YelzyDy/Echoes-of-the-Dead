@@ -7,7 +7,7 @@ import java.awt.RenderingHints;
 import javax.swing.JLayeredPane;
 import java.awt.Image;
 
-import EOD.entities.Entity;
+import EOD.gameInterfaces.Entity;
 import EOD.scenes.SceneBuilder;
 
 public class SkillEffects extends EchoesObjects {

@@ -28,8 +28,6 @@ public interface Animation {
 
     public void triggerSkillAnimation(int skillNumber, int targetX);
 
-    public int calculateDeltaX(int targetX, boolean returning);
-
     public void triggerDeathAnimation(double targetY);
 
     public void scaleSprites(String spriteType, double scale);
@@ -44,6 +42,7 @@ public interface Animation {
     public boolean getIsInBattle();
     public boolean getIsDead();
     public boolean getIsUsingSkill();
+    
     public void setMoving(boolean isMoving);
     public void setMovingRight(boolean isMovingRight);
     public void setIsInBattle(boolean value);
@@ -52,6 +51,5 @@ public interface Animation {
 
     public void updateBounds();
 
-    
     public void moveTo(int targetX, int deltaX);
 }

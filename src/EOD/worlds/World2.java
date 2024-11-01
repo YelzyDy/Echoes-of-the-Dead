@@ -1,6 +1,9 @@
 package EOD.worlds;
 
 import EOD.characters.*;
+import EOD.characters.enemies.Death;
+import EOD.characters.enemies.Enemy;
+import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
  * @author Joana
  */
 public class World2 extends World{
-    public World2(Protagonist player){
+    public World2(Player player){
         super("world2");
         System.out.println("Name: " + player.getName());
         scene = new SceneBuilder(this);

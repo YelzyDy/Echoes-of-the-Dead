@@ -12,7 +12,7 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 
 import EOD.animator.*;
-import EOD.entities.Entity;
+import EOD.gameInterfaces.CharacterBlueprint;
 import EOD.utils.TransparentPanel;
 import EOD.worlds.World;
 import EOD.scenes.SceneBuilder;
@@ -23,14 +23,14 @@ import EOD.scenes.SceneBuilder;
  *
  * @author Joana
  */
-public class Character extends TransparentPanel implements Entity{
+public class Character extends TransparentPanel implements CharacterBlueprint{
     private double posX;
     private double posY;
     private String characterType;
     protected World world;
     private SceneBuilder panel;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    
+    private int index;
     private Animator animator;
 
     public Character(String name, String characterType, double  posX, double posY) {
@@ -42,10 +42,12 @@ public class Character extends TransparentPanel implements Entity{
         this.setName(name);
     }   
 
+    @Override
     public void setWorld(World world){
         this.world = world;
     }
 
+    @Override
     public World getWorld(){
         return world;
     }
@@ -59,22 +61,28 @@ public class Character extends TransparentPanel implements Entity{
     public double getHeightE(){
         return getHeight();
     }
+
+    @Override
     public void setAnimator(Animator animator){
         this.animator = animator;
     }
 
+    @Override
     public Animator getAnimator(){
         return animator;
     }
 
+    @Override
     public String getCharacterType(){
         return characterType;
     }
 
+    @Override
     public void setpanel(SceneBuilder panel){
         this.panel = panel;
     }
 
+    @Override
     public SceneBuilder getPanel(){
         if(world != null){
             return world.getScene();
@@ -83,6 +91,15 @@ public class Character extends TransparentPanel implements Entity{
         }
     }
 
+    @Override
+    public void setIndex(int index){
+        this.index = index;
+    }
+
+    @Override
+    public int getIndex(){
+        return index;
+    }
 
     @Override
     public double getPosX(){
@@ -94,6 +111,7 @@ public class Character extends TransparentPanel implements Entity{
         return posY;
     }
 
+    @Override
     public void setCharacterType(String characterType){
         this.characterType = characterType;
     }
@@ -106,7 +124,8 @@ public class Character extends TransparentPanel implements Entity{
     public void setPosX(double posX){
         this.posX = posX;
     }
-
+    
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();

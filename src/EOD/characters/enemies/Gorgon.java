@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package EOD.characters;
+package EOD.characters.enemies;
 
+import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
 
 /**
@@ -18,7 +19,7 @@ public class Gorgon extends Enemy {
     private static final int SKILL2_MAX_COOLDOWN = 3;
 
     public Gorgon(String name, int posX, int posY, 
-            double minRange, double maxRange, Protagonist protagonist) {
+            double minRange, double maxRange, Player protagonist) {
             super(name, "gorgon", posX, posY, minRange, maxRange, protagonist);
             configureSprites();
             health = BASE_HEALTH;
@@ -28,6 +29,7 @@ public class Gorgon extends Enemy {
             animator.setSkillAnimationSpeedMultiplier(3);
     }
 
+    @Override
     public void configureSprites(){
         double spriteScale = screenSize.height * 0.0045;
         animator.importSprites("character_asset", "walk", spriteScale, 13);

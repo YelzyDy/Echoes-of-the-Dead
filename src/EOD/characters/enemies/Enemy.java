@@ -1,18 +1,21 @@
-package EOD.characters;
+package EOD.characters.enemies;
 
 import EOD.animator.EnemyAnimator;
+import EOD.characters.Character;
+import EOD.characters.Player;
+import EOD.gameInterfaces.EnemyBlueprint;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import java.awt.event.MouseEvent;
 
-public abstract class Enemy extends Character implements MouseInteractable {
-    protected Protagonist protagonist;
+public abstract class Enemy extends Character implements MouseInteractable, EnemyBlueprint{
+    protected Player protagonist;
     protected int health;
     protected int attack;
     protected int moneyDrop;
     protected int baseHp;
+    protected int baseAttack;
     protected EnemyAnimator animator;
-    private int index;
     protected int damageDealt;
     public boolean missedTurn = false;
     private boolean isDefeated;
@@ -23,7 +26,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
 
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,
-        Protagonist protagonist) {        
+        Player protagonist) {        
         super(name, characterType, posX, posY);
         this.protagonist = protagonist;
         this.animator = new EnemyAnimator(this, 2);
@@ -34,23 +37,28 @@ public abstract class Enemy extends Character implements MouseInteractable {
         isDefeated = false;
     }
 
+    
+    @Override
     public double getXFactor(){
         return xFactor;
     }
-    
+
+    @Override
     public double getYFactor(){
         return yFactor;
     }
 
-    
     public abstract double getOffsetX(int skill);
     public abstract double getOffsetY(int skill);
     public abstract double getOffsetW(int skill);
     public abstract double getOffsetH(int skill);
 
+    @Override
     public void setIsDefeated(boolean isDefeated){
         this.isDefeated = isDefeated;
     }
+
+    @Override
     public boolean getIsDefeated(){
         return isDefeated;
     }
@@ -59,54 +67,87 @@ public abstract class Enemy extends Character implements MouseInteractable {
 
     public abstract int decideSkill();
 
-
+    @Override
     public int getDamageDealt(){
         return damageDealt;
     }
 
+    @Override
+    public void setBaseHp(int newHp) {
+        health = newHp;
+    }
+
+    @Override
+    public void setAttack(int newAttack) {
+        attack = newAttack;
+    }
+
+    @Override
+    public int getBaseAttack() {
+        return baseAttack;
+    }
+
+    @Override
+    public void setBaseAttack(int newBaseAttack) {
+        baseAttack = newBaseAttack;
+    }
+
+    @Override
     public int getBaseHp(){
         return baseHp;
     }
 
+    @Override
     public int getLastUsedSkill(){
         return lastUsedSkill;
     }
 
+    @Override
     public void takeDamage(int damage){
         health -= damage;
     }
 
-    public abstract void skill1(); // basic attack
-    public abstract void skill2();
+    @Override
+    public void skill1(){
 
-    public void setIndex(int index){
-        this.index = index;
+    } 
+    
+    @Override
+    public void skill2(){
+
     }
 
-    public int getIndex(){
-        return index;
+    @Override
+    public void skill3(){
+
     }
 
+    @Override
     public int getHp() {
         return health;
     }
 
+    @Override
     public int getAttack() {
         return attack;
     }
 
+    @Override
     public int getMoneyDrop() {
         return moneyDrop;
     }
 
+    @Override
     public void setHp(int health) {
         this.health = health;
     }
 
+    @Override
     public EnemyAnimator getAnimator() {
         return animator;
     }
 
+    @Override
     public String getAction(){
         return actionString;
     }
@@ -121,7 +162,8 @@ public abstract class Enemy extends Character implements MouseInteractable {
         onBattleStart();
     }
 
-    protected void positionForBattle() {
+    @Override
+    public void positionForBattle() {
         protagonist.getAnimator().stopMovement();
         protagonist.setPosX(screenSize.width * 0.35);
         setPosX(screenSize.width * 0.55);

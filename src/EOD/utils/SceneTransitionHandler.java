@@ -1,10 +1,11 @@
 package EOD.utils;
 
 import java.awt.Dimension;
-import EOD.characters.Protagonist;
+import EOD.characters.Player;
+import EOD.characters.enemies.Enemy;
 import EOD.objects.EchoesObjects;
 import EOD.characters.Npc;
-import EOD.characters.Enemy;
+
 import java.util.ArrayList;
 import EOD.scenes.SceneBuilder;
 public class SceneTransitionHandler {
@@ -32,7 +33,7 @@ public class SceneTransitionHandler {
      * Handles scene transitions and returns whether a transition occurred
      * @return true if a scene transition occurred
      */
-    public void handleSceneTransition(SceneBuilder panel, Protagonist player, 
+    public void handleSceneTransition(SceneBuilder panel, Player player, 
                                     ArrayList<EchoesObjects> objList,
                                     ArrayList<Npc> npcList,
                                     ArrayList<Enemy> enemyList) {

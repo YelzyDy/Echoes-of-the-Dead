@@ -9,7 +9,6 @@ import EOD.listeners.*;
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
-    private int index;
     private NpcAnimator animator;
     public Npc(String name, String characterType, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, posX, posY);
@@ -25,21 +24,6 @@ public class Npc extends Character implements MouseInteractable {
         System.out.println();
         animator.updateBounds();
         animator.setRange(minRange, maxRange);
-    }
-    
-    public Npc getNpc(String name){
-        if(this.getName().equals(name)){
-            return this;
-        }else{
-            return null;
-        }
-    }
-    public void setIndex(int index){
-        this.index = index;
-    }
-
-    public int getIndex(){
-        return index;
     }
     
     @Override

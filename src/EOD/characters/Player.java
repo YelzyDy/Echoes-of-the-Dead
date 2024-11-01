@@ -8,13 +8,14 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import EOD.animator.*;
+import EOD.characters.enemies.Enemy;
 import EOD.objects.*;
 import EOD.objects.inventory.Inventory;
-import EOD.entities.*;
+import EOD.gameInterfaces.Entity;
 import EOD.gameInterfaces.MouseInteractable;
-import EOD.worlds.World;
+import EOD.gameInterfaces.PlayerBlueprint;
 
-public class Protagonist extends Character implements MouseInteractable {
+public class Player extends Character implements MouseInteractable, PlayerBlueprint {
     private ProtagonistAnimator animator;
     private Random random = new Random();
     private String characterType;
@@ -23,7 +24,7 @@ public class Protagonist extends Character implements MouseInteractable {
     private double xFactor;
     private Enemy enemy;
     private String actionString;
-    public ProtagonistAttributes attributes;
+    public PlayerAttributes attributes;
 
     private static final int MONEY_REGEN = 5; // Knights gain some money per turn
     private static final int MANA_REGEN = 10; // Reduced from 15
@@ -36,11 +37,11 @@ public class Protagonist extends Character implements MouseInteractable {
     private int originalAttack; // Stores original attack value
     private Inventory inventory;
     
-    public Protagonist(String characterType, int posX, int posY) {
+    public Player(String characterType, int posX, int posY) {
         super("name", characterType, posX, posY);
         animator = new ProtagonistAnimator(this);
         animator.setSpeedMultiplier(1);
-        attributes = new ProtagonistAttributes(this);
+        attributes = new PlayerAttributes(this);
         setAnimator(animator);
         configureSprites();
         animator.updateBounds();
@@ -53,22 +54,27 @@ public class Protagonist extends Character implements MouseInteractable {
         inventory = new Inventory();
     }
 
+    @Override
     public Inventory getInventory(){
         return inventory;
     }
 
+    @Override
     public boolean isWizard() {
         return "wizard".equals(characterType);
     }
 
+    @Override
     public boolean isKnight() {
         return "knight".equals(characterType);
     }
 
+    @Override
     public boolean isPriest() {
         return "priest".equals(characterType);
     }
 
+    @Override
     public void configureSprites() {
         int spriteSize = (int) (screenSize.height * 0.006);
         animator.importSprites("character_asset", "walk", spriteSize, 8);
@@ -79,6 +85,7 @@ public class Protagonist extends Character implements MouseInteractable {
         animator.importSkillSprites(4, "character_asset", spriteSize, attributes.s4num);
     }
 
+    @Override
     public void configureSkills(){
         switch(getCharacterType()){
             case "knight":
@@ -100,6 +107,7 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
+    @Override
     public void configureSkillDimension() {
         switch(getCharacterType()) {
             case "knight":
@@ -123,6 +131,7 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
+    @Override
     public void reset(boolean playerWon) {
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
         skill2BuffRemaining = shieldBuffRemaining = 0;
@@ -131,52 +140,64 @@ public class Protagonist extends Character implements MouseInteractable {
         System.out.println("Player won? " + playerWon);
     }
 
+    @Override
     public String getAction() {
         return actionString;
     }
 
+    @Override
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
         configureSkillDimension();
     }
 
+    @Override
     public double getXFactor() {
         return xFactor;
     }
 
+    @Override
     public int getSkill2CD() {
         return attributes.skill2Cd;
     }
 
+    @Override
     public int getSkill3CD() {
         return attributes.skill3Cd;
     }
 
+    @Override
     public int getSkill4CD() {
         return attributes.skill4Cd;
     }
 
+    @Override
     public int getShieldBuffRemaining() {
         return shieldBuffRemaining;
     }
 
+    @Override
     public int getSkill2BuffRemaining() {
         System.out.println(skill2BuffRemaining + "            asdfsadfasfsadf");
         return skill2BuffRemaining;
     }
 
+    @Override
     public ProtagonistAnimator getAnimator() {
         return animator;
     }
 
+    @Override
     public void takeDamage(int damage) {
         attributes.health -= damage;
     }
 
+    @Override
     public int getDamageDealt() {
         return damageDealt;
     }
 
+    @Override
     public boolean useSkill(int skillNumber) {
         switch (skillNumber) {
             case 1:
@@ -192,7 +213,8 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
-    private int getSkillEffectStopFrame() {
+    @Override
+    public int getSkillEffectStopFrame() {
         // Returns the appropriate stop frame for skill animations based on character type
         return switch (getCharacterType()) {
             case "knight" -> 8;  // Knight's buff animation frames
@@ -202,15 +224,17 @@ public class Protagonist extends Character implements MouseInteractable {
         };
     }
 
+    @Override
     public boolean isDamageReducerActive() {
         return damageReducer;
     }
 
-    // Reset the damage reducer flag
+    @Override
     public void resetDamageReducer() {
         damageReducer = false;
     }
 
+    @Override
     public void attributeTurnChecker() {
         if (attributes.skill2Cd > 0) attributes.skill2Cd--;
         if (attributes.skill3Cd > 0) attributes.skill3Cd--;
@@ -243,7 +267,8 @@ public class Protagonist extends Character implements MouseInteractable {
         }
     }
 
-    private boolean canUseSkill(int manaCost, int cooldown) {
+    @Override
+    public boolean canUseSkill(int manaCost, int cooldown) {
         if (attributes.mana < manaCost) {
             actionString = "Not enough mana!";
             return false;
@@ -255,12 +280,14 @@ public class Protagonist extends Character implements MouseInteractable {
         return true;
     }
 
-    private void applySkillEffect(SkillEffects effect, Entity target, int stopFrame, double offsetX, double offsetY) {
+    @Override
+    public void applySkillEffect(SkillEffects effect, Entity target, int stopFrame, double offsetX, double offsetY) {
         effect.bindToTarget(target, -effect.getWidth() * offsetX, -effect.getHeight() * offsetY);
         effect.play();
         effect.setStopFrame(stopFrame);
     }
 
+    @Override
     public boolean skill1() {
         // Basic attack with class-specific mechanics
         switch(getCharacterType()) {
@@ -286,6 +313,7 @@ public class Protagonist extends Character implements MouseInteractable {
         return true;
     }
 
+    @Override
     public boolean skill2() {
         xFactor = getPosX();
         
@@ -337,8 +365,8 @@ public class Protagonist extends Character implements MouseInteractable {
         return true;
     }
 
-
-     public boolean skill3() {
+    @Override
+    public boolean skill3() {
         if (!canUseSkill(40, attributes.skill3Cd)) return false;
 
         switch(getCharacterType()) {
@@ -380,6 +408,7 @@ public class Protagonist extends Character implements MouseInteractable {
         return false;
     }
 
+    @Override
     public boolean skill4() {
         if (!canUseSkill(50, attributes.skill4Cd)) return false;
 
@@ -419,7 +448,8 @@ public class Protagonist extends Character implements MouseInteractable {
         return false;
     }
 
-    public ProtagonistAttributes getAttributes() {
+    @Override
+    public PlayerAttributes getAttributes() {
         return attributes;
     }
 

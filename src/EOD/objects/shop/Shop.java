@@ -1,5 +1,6 @@
 package EOD.objects.shop;
 
+import EOD.gameInterfaces.ShopBlueprint;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.objects.inventory.Inventory;
@@ -7,7 +8,7 @@ import EOD.worlds.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class Shop extends EchoesObjects {
+public class Shop extends EchoesObjects implements ShopBlueprint {
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private World world;
     // objects
@@ -32,6 +33,7 @@ public class Shop extends EchoesObjects {
         showElementsInShop();
     }
 
+    @Override
     public void setInventory(Inventory inventory){
         this.inventory = inventory;
     }
@@ -55,6 +57,7 @@ public class Shop extends EchoesObjects {
         add(item4);
     }
 
+    @Override
     public void makeElementsVisible(){
         setVisible(true);
         sidePanel.setVisible(true);
@@ -93,6 +96,7 @@ public class Shop extends EchoesObjects {
         setComponentZOrder(closeButton, 0);
     }
 
+    @Override
     public void showElementsInShop() {
         width = getWidth();
         height = getHeight();
@@ -131,6 +135,7 @@ public class Shop extends EchoesObjects {
         }
     }
 
+    @Override
     public void buy() {
         int itemCost = 0;
         int itemStock = 0;
