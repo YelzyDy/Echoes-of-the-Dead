@@ -213,4 +213,9 @@ public class Gorgon extends Enemy {
         EchoesObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
     }
+
+    @Override
+    public void skill4() {
+        
+    }
 }

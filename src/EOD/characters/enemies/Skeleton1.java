@@ -229,4 +229,9 @@ public class Skeleton1 extends Enemy {
         EchoesObjects portal = getPanel().objList.get(1);
         getPanel().configureBattle(this, portal);
     }
+
+    @Override
+    public void skill4() {
+        
+    }
 }

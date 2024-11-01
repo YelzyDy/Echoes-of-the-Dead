@@ -4,13 +4,14 @@ import javax.swing.Timer;
 
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
+import EOD.gameInterfaces.BattleExperimentBlueprint;
 import EOD.worlds.World;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent; // -z
 import java.awt.event.ActionListener; // -z
 
-public class BattleExperiment {
+public class BattleExperiment implements BattleExperimentBlueprint{
     private Enemy enemy;
     private Player player;
     private BattleUI battleUI;
@@ -76,10 +77,10 @@ public class BattleExperiment {
 
 
     // Skill methods remain unchanged
-    public void skill1() { handleSkill(1, true); }
-    public void skill2() { handleSkill(2, false); }
-    public void skill3() { handleSkill(3, !player.isKnight()); }
-    public void skill4() { handleSkill(4, true); }
+    @Override public void skill1() { handleSkill(1, true); }
+    @Override public void skill2() { handleSkill(2, false); }
+    @Override public void skill3() { handleSkill(3, !player.isKnight()); }
+    @Override public void skill4() { handleSkill(4, true); }
 
     private void startEnemyTurn() {
         if (!enemy.missedTurn) {
@@ -90,7 +91,6 @@ public class BattleExperiment {
             finishEnemyTurn();
         }
     }
-
 
     private void determineAndExecuteEnemyAction() {
         int chosenSkill = enemy.decideSkill();

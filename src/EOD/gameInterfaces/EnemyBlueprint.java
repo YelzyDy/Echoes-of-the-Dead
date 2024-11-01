@@ -2,7 +2,7 @@ package EOD.gameInterfaces;
 
 import EOD.animator.EnemyAnimator;
 
-public interface EnemyBlueprint extends Attributes {
+public interface EnemyBlueprint extends Attributes, Skills{
     public double getXFactor();
     public double getYFactor();
 
@@ -23,10 +23,6 @@ public interface EnemyBlueprint extends Attributes {
     public int getLastUsedSkill();
 
     public void takeDamage(int damage);
-
-    public abstract void skill1(); // basic attack
-    public abstract void skill2();
-    public abstract void skill3();
 
     public void setIndex(int index);
 

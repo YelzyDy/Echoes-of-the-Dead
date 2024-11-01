@@ -4,7 +4,7 @@ import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
 
 public class Death extends Enemy{
-     private static final int BASE_ATTACK = 15;
+    private static final int BASE_ATTACK = 15;
     private static final int BASE_HEALTH = 100;
     
     // Skill cooldowns
@@ -202,5 +202,10 @@ public class Death extends Enemy{
     protected void onBattleStart() {
         EchoesObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
+    }
+
+    @Override
+    public void skill4() {
+        
     }
 }
