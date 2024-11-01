@@ -122,12 +122,10 @@ public class BattleExperiment {
         
         // Set callback for enemy's animation completion
         enemy.getAnimator().setOnAnimationComplete(this::finishEnemyTurn);
-        
         enemy.getAnimator().triggerSkillAnimation(
             enemy.getLastUsedSkill(), 
             (int)enemy.getXFactor()
         );
-
         enemy.getAnimator().setMovingRight(false);
     }
 

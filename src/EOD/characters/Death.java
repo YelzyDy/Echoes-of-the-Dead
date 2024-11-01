@@ -38,7 +38,7 @@ public class Death extends Enemy{
         damageDealt = attack + (int)(Math.random() * 3);
         actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
-        xFactor = screenSize.width * 0.4;
+        xFactor = screenSize.width * 0.3;
         yFactor = 0;
     }
 
