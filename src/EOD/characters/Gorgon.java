@@ -13,7 +13,6 @@ import EOD.objects.EchoesObjects;
 public class Gorgon extends Enemy {
     private static final int BASE_ATTACK = 15;
     private static final int BASE_HEALTH = 2;
-    
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
@@ -30,11 +29,12 @@ public class Gorgon extends Enemy {
     }
 
     public void configureSprites(){
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.0035), 13);
-        animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.0035), 7);
-        animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.0035), 3);
-        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.0035), 16);
-        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.0035), 10);
+        double spriteScale = screenSize.height * 0.0045;
+        animator.importSprites("character_asset", "walk", spriteScale, 13);
+        animator.importSprites("character_asset", "idle", spriteScale, 7);
+        animator.importSprites("character_asset", "dead", spriteScale, 3);
+        animator.importSkillSprites(1, "character_asset", spriteScale, 16);
+        animator.importSkillSprites(2, "character_asset", spriteScale, 10);
         animator.startMovement();
         animator.chooseNewDirection();
         animator.updateBounds();

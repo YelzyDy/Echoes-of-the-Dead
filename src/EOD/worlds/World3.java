@@ -28,6 +28,7 @@ public class World3 extends World{
         scene.add(player);
         scene.setPlayer(player);
         scene.setComponentZOrder(player, 0);
+        player.configureSkills();
         this.playerName = player.getName();
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
