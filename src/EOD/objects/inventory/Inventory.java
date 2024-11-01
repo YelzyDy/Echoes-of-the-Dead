@@ -1,7 +1,7 @@
 package EOD.objects.inventory;
 
-import EOD.MouseInteractable;
 import EOD.characters.ProtagonistAttributes;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import java.awt.*;

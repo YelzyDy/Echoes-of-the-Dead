@@ -1,55 +1,13 @@
 package EOD.animator;
 
-import java.util.Random;
 import EOD.animator.NpcAnimator;
 import EOD.characters.Character;
 
-public class NpcAnimator extends Animator {
-    private Random random;
-    private long lastMovementTime;
-    private long lastDirectionChangeTime;
-    private int moveDuration = 5000;
-    private int pauseDuration = 1000;
-    private int directionChangeCooldown = 5000;
-    private boolean isPaused;
-    private int moveSpeed;
-    private boolean isInteracting;
-    private double minRange;
-    private double maxRange;
+public class NpcAnimator extends RandomAnimator {
 
     public NpcAnimator(Character character) {
         super(character, 0);
-        this.random = new Random();
-        this.lastMovementTime = System.currentTimeMillis();
-        this.lastDirectionChangeTime = System.currentTimeMillis();
-        this.isPaused = false;
-        moveSpeed = 2;
-    }
 
-    @Override
-    public void setSpeedMultiplier(int speedMultiplier){
-        movementSpeedMultiplier = 1;
-        skillAnimationSpeedMultiplier = 1;
-        deathAnimationSpeedMultiplier = 1;
-    }
-
-
-    public void setRange(double minRange, double maxRange) {
-        this.minRange = minRange;
-        this.maxRange = maxRange;
-    }
-
-    @Override
-    public void startMovement() {
-        isMoving = true;
-        isPaused = false;
-        lastMovementTime = System.currentTimeMillis();
-    }
-
-    @Override
-    public void stopMovement() {
-        isMoving = false;
-        restartAnimation();
     }
 
     @Override
@@ -87,45 +45,5 @@ public class NpcAnimator extends Animator {
             }
         }
         updateBounds();
-    }
-
-    public void chooseNewDirection() {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastDirectionChangeTime < directionChangeCooldown) {
-            return;
-        }
-
-        lastDirectionChangeTime = currentTime;
-        int target = random.nextInt((int)maxRange - (int)minRange) + (int)minRange;
-        boolean newDirection = random.nextBoolean();
-        if (newDirection != isMovingRight) {
-            setMovingRight(newDirection);
-            restartAnimation();
-        }
-        moveTo(target, moveSpeed);
-    }
-
-    public void setInteracting(boolean value) {
-        this.isInteracting = value;
-    }
-
-    public int getTargetX(){
-        return targetX;
-    }
-
-    public int getDeltaX(){
-        return deltaX;
-    }
-
-    public void setTargetX(int targetX){
-        this.targetX = targetX;
-    }
-
-    public void setDeltaX(int deltaX){
-        this.deltaX = deltaX;
-    }
-
-    public void setPaused(boolean value){
-        isPaused = value;
     }
 }

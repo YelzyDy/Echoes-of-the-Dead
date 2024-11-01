@@ -6,11 +6,12 @@ package EOD.characters;
 
 import java.awt.event.MouseEvent;
 import java.util.Random;
-import EOD.MouseInteractable;
+
 import EOD.animator.*;
 import EOD.objects.*;
 import EOD.objects.inventory.Inventory;
 import EOD.entities.*;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.worlds.World;
 
 public class Protagonist extends Character implements MouseInteractable {

@@ -4,8 +4,8 @@
  */
 package EOD.objects;
 
-import EOD.MouseInteractable;
 import EOD.entities.*;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.utils.*;
 import java.awt.Dimension;

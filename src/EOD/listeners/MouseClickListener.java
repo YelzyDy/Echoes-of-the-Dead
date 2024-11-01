@@ -7,7 +7,7 @@ package EOD.listeners;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import EOD.MouseInteractable;
+import EOD.gameInterfaces.MouseInteractable;
 
 /**
  *

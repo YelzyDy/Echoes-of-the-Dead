@@ -12,12 +12,6 @@ public class ProtagonistAnimator extends Animator {
     }
 
 
-    public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
-        String type = "skill" + skillNumber;
-        importSprites(assetPackage, type, scale, numOfSprites);
-        //isTransitioned = false;
-    }
-
     @Override
     public void updateAnimation() {
         super.updateAnimation();

@@ -6,6 +6,7 @@ package EOD;
 
 import EOD.animator.Animator;
 import EOD.characters.Protagonist;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;

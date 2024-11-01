@@ -1,7 +1,7 @@
 package EOD.worlds;
 
-import EOD.MouseInteractable;
 import EOD.characters.*;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 import EOD.objects.*;
 import EOD.objects.shop.Shop;

@@ -2,9 +2,9 @@ package EOD.characters;
 
 import java.awt.event.MouseEvent;
 
-import EOD.MouseInteractable;
 import EOD.animator.NpcAnimator;
 import EOD.dialogues.*;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable {

@@ -1,6 +1,7 @@
 package EOD;
 
 import EOD.dialogues.*;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.objects.SettingsWindow;

@@ -1,7 +1,7 @@
 package EOD.characters;
 
-import EOD.MouseInteractable;
 import EOD.animator.EnemyAnimator;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import java.awt.event.MouseEvent;
 
@@ -26,7 +26,7 @@ public abstract class Enemy extends Character implements MouseInteractable {
         Protagonist protagonist) {        
         super(name, characterType, posX, posY);
         this.protagonist = protagonist;
-        this.animator = new EnemyAnimator(this);
+        this.animator = new EnemyAnimator(this, 2);
         setAnimator(animator);
         this.addMouseListener(new MouseClickListener(this));
         setVisible(true);
