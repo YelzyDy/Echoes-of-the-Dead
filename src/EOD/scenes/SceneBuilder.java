@@ -69,18 +69,6 @@ public class SceneBuilder extends JPanel{
         currentSceneIndex = 0;
     }
 
-    public Player getKnight(){
-        return knight;
-    }
-
-    public Player getWizard(){
-        return wizard;
-    }
-
-    public Player getPriest(){
-        return priest;
-    }
-
     public ImageList getSceneList(){
         return sceneList;
     }

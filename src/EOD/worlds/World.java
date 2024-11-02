@@ -43,6 +43,11 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private int money;
     private JPanel moneyPanel;
     protected String playerName;
+    protected Player knight;
+    protected Player priest;
+    protected Player wizard;
+
+
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
     // create a class for enemies. Preferrably in different classes. Must have one superclass for polymorphsism
@@ -228,7 +233,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             try {
                 System.out.println("Starting Initialization");
                 publish(0); // Start progress
-                initializeProtagonist();
+                initializeWorldChars();
                 publish(25);
                 System.out.println("Protagonist initialized");
     
@@ -238,8 +243,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
                 initializeObjects();
                 publish(50);
                 System.out.println("Objects initialized");
-    
-                initializeWorldChars();
+                
+                initializeProtagonist();
                 publish(75);
                 System.out.println("World characters initialized");
     

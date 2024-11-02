@@ -20,6 +20,7 @@ public class World1 extends World{
     public World1(String characterType, String playerName){
         super("world1");
         bgmPlayer = new BGMPlayer();
+        scene = new SceneBuilder(this);
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
         this.playerName = playerName;
         this.characterType = characterType;
@@ -29,22 +30,72 @@ public class World1 extends World{
     @Override
     public void initializeProtagonist(){
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        Player player = new Player(characterType, 0, (int)(screenSize.height * 0.24));
-        scene = new SceneBuilder(this);
-        player.getAnimator().getSpriteList("idle").resetToOriginalSize();
-        player.getAnimator().scaleSprites("idle", (int) (screenSize.height * 0.006));
-        player.getAnimator().importSprites("character_asset", "walk", (int) (screenSize.height * 0.006), 8);
+        initializePlayer();
         player.setWorld(this);
-        player.configureSkills();
         player.setName(playerName);
-        setPlayer(player);
         scene.addMouseListener(new MouseClickListener(player));
-        scene.add(player);
         scene.setPlayer(player);
-        scene.setComponentZOrder(player, 0);
+        player.setVisible(true);
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
         setMoneyLabel(player.getAttributes().getMoney() + "");
+    }
+
+    private void initializePlayer(){
+        if(characterType.equals("knight")){
+            initializeKnight();
+            player = knight;
+        }else if(characterType.equals("wizard")){
+            initializeWizard();
+            player = wizard;
+        }else{
+            initializePriest();
+            player = priest;
+        }
+        initializeAllies();
+    }
+
+    private void initializeAllies(){
+        if(characterType.equals("knight")){
+            initializePriest();
+            initializeWizard();
+        }else if(characterType.equals("wizard")){
+           initializeKnight();
+           initializePriest();
+        }else{
+            initializeKnight();
+            initializeWizard();;
+        }
+    }
+
+    private void initializeKnight(){
+        knight = new Player("knight", 0, (int)(screenSize.height * 0.24));
+        knight.setpanel(scene);
+        knight.setVisible(false);
+        knight.setWorld(this);
+        knight.configureSkills();
+        scene.add(knight);
+        scene.setComponentZOrder(knight, 0);
+    }
+
+    private void initializeWizard(){
+        wizard = new Player("wizard", 0, (int)(screenSize.height * 0.24));
+        wizard.setpanel(scene);
+        wizard.setVisible(false);
+        wizard.setWorld(this);
+        wizard.configureSkills();
+        scene.add(wizard);
+        scene.setComponentZOrder(wizard, 0);
+    }
+
+    private void initializePriest(){
+        priest = new Player("priest", 0, (int)(screenSize.height * 0.24));
+        priest.setpanel(scene);
+        priest.setVisible(false);
+        priest.setWorld(this);
+        priest.configureSkills();
+        scene.add(priest);
+        scene.setComponentZOrder(priest, 0);
     }
 
     @Override
@@ -90,7 +141,7 @@ public class World1 extends World{
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
-            scene.setComponentZOrder(npc, 2);
+            scene.setComponentZOrder(npc, 0);
             npc.setWorld(this);
             if (npc.getName().equals("Yoo")) {
                 npc.setIndex(0);
