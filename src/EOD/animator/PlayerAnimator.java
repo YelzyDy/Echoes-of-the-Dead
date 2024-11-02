@@ -4,10 +4,10 @@ package EOD.animator;
 import EOD.characters.Character;
 import EOD.scenes.SceneBuilder;
 
-public class ProtagonistAnimator extends Animator {
+public class PlayerAnimator extends Animator {
     //private boolean isTransitioned;
 
-    public ProtagonistAnimator(Character character) {
+    public PlayerAnimator(Character character) {
         super(character, 4);
     }
 

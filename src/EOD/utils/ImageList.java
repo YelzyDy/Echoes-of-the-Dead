@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package EOD.utils;
 
 import java.awt.*;
@@ -9,8 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- *
- * @author Joana
+ * BufferedImageList class manages a list of BufferedImages and provides methods to manipulate them.
  */
 public class ImageList {
     protected final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -19,42 +14,41 @@ public class ImageList {
     private int origHeight = 0;
     private int origWidth = 0;
    
-    
-    public void add(Image icon, double x){
+    public void add(BufferedImage icon, double x){
         ArrayList<Object> imageDetails = new ArrayList<>();
-            
         imageDetails.add(icon);
         imageDetails.add(x);
-        origHeight = icon.getHeight(null);
-        origWidth = icon.getWidth(null);
+        origHeight = icon.getHeight();
+        origWidth = icon.getWidth();
         imageList.add(imageDetails);
         size++;
     }
     
-    public void add(Image icon){
+    public void add(BufferedImage icon){
         ArrayList<Object> imageDetails = new ArrayList<>();
         imageDetails.add(icon);
-        origHeight = icon.getHeight(null);
-        origWidth = icon.getWidth(null);
+        origHeight = icon.getHeight();
+        origWidth = icon.getWidth();
         imageList.add(imageDetails);
         size++;
     }
     
     public double getX(int pos){
-        for(int i = 0; i < size; i++){
-            if(i == pos){
-                return (double) imageList.get(i).get(1);
-            }
+        if (pos >= 0 && pos < size) {
+            return (double) imageList.get(pos).get(1);
         }
         return 0.0;
     }
+
     public void removeLast(){
-        imageList.remove(size - 1);
-        size--;
+        if (size > 0) {
+            imageList.remove(size - 1);
+            size--;
+        }
     }
     
-    public Image get(int i){
-        return (Image) imageList.get(i).get(0);
+    public BufferedImage get(int i){
+        return (BufferedImage) imageList.get(i).get(0);
     }
     
     public int getSize(){
@@ -63,10 +57,10 @@ public class ImageList {
     
     public void scaleImageList(double scaleFactor) {
         for (int i = 0; i < size; i++) {
-            Image originalImage = (Image)imageList.get(i).get(0);
-            int newWidth = (int)(originalImage.getWidth(null) * scaleFactor);
-            int newHeight = (int)(originalImage.getHeight(null) * scaleFactor);
-            Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            BufferedImage originalImage = (BufferedImage) imageList.get(i).get(0);
+            int newWidth = (int) (originalImage.getWidth() * scaleFactor);
+            int newHeight = (int) (originalImage.getHeight() * scaleFactor);
+            BufferedImage scaledImage = resizeBufferedImage(originalImage, newWidth, newHeight);
             imageList.get(i).set(0, scaledImage);         
         }
     }
@@ -76,59 +70,38 @@ public class ImageList {
             System.out.println("Invalid scale factor. It must be between 0 and 1.");
             return;
         }
-    
-        for (int i = 0; i < size; i++) {
-            Image originalImage = (Image) imageList.get(i).get(0);
-            int newWidth = (int) (originalImage.getWidth(null) * scaleFactor);
-            int newHeight = (int) (originalImage.getHeight(null) * scaleFactor);
-            
-            Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-            imageList.get(i).set(0, scaledImage);
-        }
+        scaleImageList(scaleFactor);
     }
 
-    public void resetToOriginalSize(){
+    public void resetToOriginalSize() {
         for (int i = 0; i < size; i++) {
-            Image originalImage = (Image)imageList.get(i).get(0);
-            Image scaledImage = originalImage.getScaledInstance((int)origWidth, (int)origHeight, Image.SCALE_SMOOTH);
-            imageList.get(i).set(0, scaledImage);
+            BufferedImage originalImage = (BufferedImage) imageList.get(i).get(0);
+            BufferedImage resizedImage = resizeBufferedImage(originalImage, origWidth, origHeight);
+            imageList.get(i).set(0, resizedImage);
         }
     }
     
     public void resizeImageList(double width, double height){
         for (int i = 0; i < size; i++) {
-            Image originalImage = (Image)imageList.get(i).get(0);
-            Image scaledImage = originalImage.getScaledInstance((int)width, (int)height, Image.SCALE_SMOOTH);
-            imageList.get(i).set(0, scaledImage);
+            BufferedImage originalImage = (BufferedImage) imageList.get(i).get(0);
+            BufferedImage resizedImage = resizeBufferedImage(originalImage, (int) width, (int) height);
+            imageList.get(i).set(0, resizedImage);
         }
     }
     
     public void resizeImageAtIndex(int index, int width, int height) {
         if (index >= 0 && index < size) {
-            Image originalImage = (Image) imageList.get(index).get(0);
-            Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            BufferedImage originalImage = (BufferedImage) imageList.get(index).get(0);
+            BufferedImage scaledImage = resizeBufferedImage(originalImage, width, height);
             imageList.get(index).set(0, scaledImage);
         }
     }
     
-    public void replaceImageAtIndex(int index, Image newImage) {
+    public void replaceImageAtIndex(int index, BufferedImage newImage) {
         if (index >= 0 && index < size) {
-            // Preserve the current x position
             double currentX = (double) imageList.get(index).get(1);
-
-            // Get the original image details
-            Image originalImage = (Image) imageList.get(index).get(0);
-            int originalHeight = originalImage.getHeight(null); // Store the original height
-            int originalWidth = originalImage.getWidth(null);   // Store the original width
-
-            // Update the image with the new one
-            imageList.get(index).set(0, newImage);
-
-            // Resize the new image to match the dimensions of the original image
-            Image resizedImage = newImage.getScaledInstance(originalWidth, originalHeight, Image.SCALE_SMOOTH);
+            BufferedImage resizedImage = resizeBufferedImage(newImage, origWidth, origHeight);
             imageList.get(index).set(0, resizedImage);
-
-            // Set back the x position
             imageList.get(index).set(1, currentX);
         } else {
             System.out.println("Index out of bounds. Cannot replace image.");
@@ -137,29 +110,12 @@ public class ImageList {
 
     public void cropImageList() {
         for (int i = 0; i < size; i++) {
-            Image originalImage = (Image) imageList.get(i).get(0);
-
-            // Convert the image to a BufferedImage for pixel manipulation
-            BufferedImage bufferedImage = new BufferedImage(
-                originalImage.getWidth(null),
-                originalImage.getHeight(null),
-                BufferedImage.TYPE_INT_ARGB
-            );
-
-            Graphics g = bufferedImage.getGraphics();
-            g.drawImage(originalImage, 0, 0, null);
-            g.dispose();
-
-            // Find the bounding box of non-transparent pixels
-            Rectangle boundingBox = findBoundingBox(bufferedImage);
-
+            BufferedImage originalImage = (BufferedImage) imageList.get(i).get(0);
+            Rectangle boundingBox = findBoundingBox(originalImage);
             if (boundingBox != null) {
-                // Crop the image using the bounding box
-                BufferedImage croppedImage = bufferedImage.getSubimage(
+                BufferedImage croppedImage = originalImage.getSubimage(
                     boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height
                 );
-
-                // Update the image in the list with the cropped image
                 imageList.get(i).set(0, croppedImage);
             } else {
                 System.out.println("No pixels found to crop for image at index: " + i);
@@ -167,18 +123,15 @@ public class ImageList {
         }
     }
 
-    // Method to find the bounding box of non-transparent pixels
     private Rectangle findBoundingBox(BufferedImage image) {
         int minX = image.getWidth();
         int minY = image.getHeight();
         int maxX = 0;
         int maxY = 0;
-
         boolean foundPixel = false;
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                // Check if the pixel is not transparent
                 if ((image.getRGB(x, y) >> 24) != 0x00) {
                     foundPixel = true;
                     if (x < minX) minX = x;
@@ -188,18 +141,19 @@ public class ImageList {
                 }
             }
         }
-
-        if (foundPixel) {
-            return new Rectangle(minX, minY, maxX - minX + 1, maxY - minY + 1);
-        } else {
-            return null; // No pixels found
-        }
+        return foundPixel ? new Rectangle(minX, minY, maxX - minX + 1, maxY - minY + 1) : null;
     }
 
+    private BufferedImage resizeBufferedImage(BufferedImage originalImage, int width, int height) {
+        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resizedImage.createGraphics();
+        g2d.drawImage(originalImage, 0, 0, width, height, null);
+        g2d.dispose();
+        return resizedImage;
+    }
 
     public void clear() {
-        imageList.clear();  // Clears the entire list of images
-        size = 0;           // Resets the size counter
+        imageList.clear();
+        size = 0;
     }
-    
 }

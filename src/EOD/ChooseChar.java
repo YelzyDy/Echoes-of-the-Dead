@@ -40,7 +40,9 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private int height = screenSize.height;
     private boolean selectButtonIsEnable = true;
 
-    private Player player;
+    private Player knight;
+    private Player wizard;
+    private Player priest;
     BGMPlayer bgmPlayer;
     public ChooseChar() {
         bgmPlayer = new BGMPlayer();
@@ -54,7 +56,9 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         // but we have no choice unless we want to draw everything in our ui manually using hard code --jian
         charType = "knight"; // the default charType is "knight" as observed when we open this window, the first background Image is the knight / lawyer --jian
         addScene(); // calling the method addScene. addScene is a method we created ourselves for this class line 58 --jian
-        initiializeProtagonist();
+        initiializeKnight();
+        initiializePriest();
+        initiializeWizard();
         // echoesObjects instances explained in Main class --jian
         btn_select = createObj(
                 "button", (int) (width * 0.7),
@@ -67,18 +71,35 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         btn_select.addMouseListener(new MouseClickListener(this)); // attaching a mouseListener to our btn_select --jian
         // the MouseClickListener class's parameter is a class that implements MouseInteractable, which is this class  --jian
         scene.add(btn_select);
-
+        scene.initializeGameLoop();
         addTransparentButton();
     }
 
-    public void initiializeProtagonist(){
-        player = new Player(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
-        player.setpanel(scene);
-        scene.setPlayer(player);
-        player.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
-        scene.add(player);
-        scene.initializeGameLoop();
+    public void initiializeKnight(){
+        knight = new Player(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
+        knight.setpanel(scene);
+        scene.setPlayer(knight);
+        knight.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
+        scene.add(knight);
+        knight.setVisible(true);
     }
+
+    public void initiializeWizard(){
+        wizard = new Player("wizard", (int)(screenSize.width * 0.34), (int)(screenSize.height * 0.51));
+        wizard.setpanel(scene);
+        wizard.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
+        scene.add(wizard);
+        wizard.setVisible(false);
+    }
+
+    public void initiializePriest(){
+        priest = new Player("priest", (int)(screenSize.width * 0.349), (int)(screenSize.height * 0.49));
+        priest.setpanel(scene);
+        priest.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
+        scene.add(priest);
+        priest.setVisible(false);
+    }
+
     public void addScene() {
         //method called in line 43; creating an instance or object from the SceneBuilder. Note that SceneBuilder extends JPanel, so SceneBuilder can access methods from JPanel, we can treat it as JPanel --jian
         scene.createSelectionScene(); // calling method from SceneBuilder to createScene which includes displaying background and other objects --jian
@@ -170,12 +191,34 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             btn_cancel.addMouseListener(new MouseClickListener(this));
             promptPanel.add(btn_cancel);
     }
+
+    public void setPlayerVisible(String type){
+        knight.setVisible(false);
+        wizard.setVisible(false);
+        priest.setVisible(false);
+
+        switch(type){
+            case "knight":
+            knight.setVisible(true);
+            scene.setPlayer(knight);
+            break;
+            case "wizard":
+            wizard.setVisible(true);
+            scene.setPlayer(wizard);
+            break;
+            case "priest":
+            priest.setVisible(true);
+            scene.setPlayer(priest);
+            default:
+        }
+        scene.repaint();  
+    }
+
     @Override
     public void onClick(MouseEvent e) {
         // Since we have many EchoesObjects (buttons) that is attached with a MouseListener, we have to listen --jian
         // which of them caused the event using e.getSource() --jian
         Object source = e.getSource();
-        Animator animator = player.getAnimator();
         if (source == btn_select) {
             if(!selectButtonIsEnable){ // this prevents the execution of the following lines of code --jian
                 // when our promptPanel is Visible --jian
@@ -192,24 +235,15 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.setComponentZOrder(promptPanel, 0);
         } else if (source == btn_knight) {
             charType = "knight";
-            player.setCharacterType(charType);
-            animator.importSprites("character_asset", "idle", 18, 6);
-            player.setPosX(width * 0.32); // Update position based on width
-            player.setPosY(height * 0.51); // Update position based on height
+            setPlayerVisible(charType);
             scene.setCurrentSceneIndex(0);
         } else if (source == btn_priest) {
             charType = "priest";
-            player.setCharacterType(charType);
-            animator.importSprites("character_asset", "idle", 18, 6);
-            player.setPosX(width * 0.349); // Update position based on width
-            player.setPosY(height * 0.49); // Update position based on height
+            setPlayerVisible(charType);
             scene.setCurrentSceneIndex(1);
         } else if (source == btn_wizard) {
             charType = "wizard";
-            player.setCharacterType(charType);
-            animator.importSprites("character_asset", "idle", 18, 6);
-            player.setPosX(width * 0.34); // Update position based on width
-            player.setPosY(height * 0.51); // Update position based on height
+            setPlayerVisible(charType);
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian

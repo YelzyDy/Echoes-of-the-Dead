@@ -156,7 +156,6 @@ public class BattleExperiment implements BattleExperimentBlueprint{
             world.callDefeat();
             handleLose();;
         }
-        battleUI.toggleTextListOff();
         // battleUI.getEnemyWrapper().setVisible(false);
         // Add any additional end-game logic here
     }

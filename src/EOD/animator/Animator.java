@@ -3,7 +3,7 @@ package EOD.animator;
 import EOD.characters.Character;
 import EOD.utils.ImageList;
 import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -111,7 +111,7 @@ public abstract class Animator implements Animation{
             String path = "/" + assetPackage + "/" + character.getCharacterType() + "/" + type + "/sprite_" + (i + 1) + ".png";
             System.out.println(path);
             try {
-                Image image = ImageIO.read(getClass().getResource(path));
+                BufferedImage image = ImageIO.read(getClass().getResource(path));
                 sprites.add(image);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -198,7 +198,7 @@ public abstract class Animator implements Animation{
     }
 
     @Override
-    public Image getCurrentSprite() {
+    public BufferedImage getCurrentSprite() {
         if (isDead) {
             return deadSprites.get(Math.min(currentFrame, deadSprites.getSize() - 1));
         } else if (isUsingSkill) {
@@ -309,7 +309,7 @@ public abstract class Animator implements Animation{
 
     @Override
     public void updateBounds() {
-        Image currentSprite = getCurrentSprite();
+        BufferedImage currentSprite = getCurrentSprite();
         character.setBounds((int)character.getPosX(), (int)character.getPosY(), 
                             currentSprite.getWidth(null), currentSprite.getHeight(null));
     }

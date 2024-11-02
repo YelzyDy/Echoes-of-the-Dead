@@ -1,6 +1,6 @@
 package EOD.gameInterfaces;
 
-import EOD.animator.ProtagonistAnimator;
+import EOD.animator.PlayerAnimator;
 import EOD.characters.PlayerAttributes;
 import EOD.characters.enemies.Enemy;
 import EOD.objects.SkillEffects;
@@ -40,7 +40,7 @@ public interface PlayerBlueprint {
 
     public int getSkill2BuffRemaining();
 
-    public ProtagonistAnimator getAnimator();
+    public PlayerAnimator getAnimator();
 
     public void takeDamage(int damage);
 

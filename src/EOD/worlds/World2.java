@@ -62,16 +62,11 @@ public class World2 extends World{
                 }*/
                 scene.add(obj);
                 if (obj.getName().equals("portal")) {
-                    if(!player.getAnimator().getIsInBattle()){
-                        obj.setIndex(1);
-                    }else{
-                        obj.setIndex(3);
-                    }
+                    obj.setIndex(1); 
                 } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
                     obj.setIndex(2);
                 } else if (obj.getName().equals("portalNextWorld")){
                     obj.setIndex(2);
-                    if(scene.enemyList != null)obj.setVisible(scene.enemyList.get(1).getIsDefeated());
                 }
                 obj.addMouseListener(new MouseClickListener(this));;
             }
@@ -140,7 +135,7 @@ public class World2 extends World{
                     scene.setCurrentSceneIndex(1);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
-
+                    battle.toggleTextListOff();
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
@@ -151,6 +146,7 @@ public class World2 extends World{
                     scene.setCurrentSceneIndex(2);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    battle.toggleTextListOff();
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
@@ -165,13 +161,11 @@ public class World2 extends World{
 
     @Override
     public void onHover(MouseEvent e) {
-        Object source = e.getSource();
         
     }
 
     @Override
     public void onExit(MouseEvent e) {
-        Object source = e.getSource();
        
     }
 }

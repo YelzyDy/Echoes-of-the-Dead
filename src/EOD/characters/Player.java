@@ -16,7 +16,7 @@ import EOD.gameInterfaces.MouseInteractable;
 import EOD.gameInterfaces.PlayerBlueprint;
 
 public class Player extends Character implements MouseInteractable, PlayerBlueprint {
-    private ProtagonistAnimator animator;
+    private PlayerAnimator animator;
     private Random random = new Random();
     private String characterType;
     public boolean damageReducer;
@@ -39,7 +39,7 @@ public class Player extends Character implements MouseInteractable, PlayerBluepr
     
     public Player(String characterType, int posX, int posY) {
         super("name", characterType, posX, posY);
-        animator = new ProtagonistAnimator(this);
+        animator = new PlayerAnimator(this);
         animator.setSpeedMultiplier(1);
         attributes = new PlayerAttributes(this);
         setAnimator(animator);
@@ -135,6 +135,7 @@ public class Player extends Character implements MouseInteractable, PlayerBluepr
     public void reset(boolean playerWon) {
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
         skill2BuffRemaining = shieldBuffRemaining = 0;
+        attributes.setMana(attributes.getBaseMana());
         if(playerWon){attributes.setHp((int)(attributes.getBaseHp()));}
         else{attributes.setHp((int)(attributes.getBaseHp() * 0.75));}
         System.out.println("Player won? " + playerWon);
@@ -183,7 +184,7 @@ public class Player extends Character implements MouseInteractable, PlayerBluepr
     }
 
     @Override
-    public ProtagonistAnimator getAnimator() {
+    public PlayerAnimator getAnimator() {
         return animator;
     }
 

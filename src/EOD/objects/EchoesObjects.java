@@ -13,7 +13,7 @@ import EOD.utils.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -102,7 +102,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         }
         for (String path : spritePaths) {
             try {
-                Image image = ImageIO.read(getClass().getResource(path));
+                BufferedImage image = ImageIO.read(getClass().getResource(path));
                 if (image != null) {
                     objSprites.add(image);
                 } else {
@@ -207,7 +207,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     }
 
     @Override
-    public Image getCurrentSprite() {
+    public BufferedImage getCurrentSprite() {
         return objSprites.get(currentFrame);      
     }
     

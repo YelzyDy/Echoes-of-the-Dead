@@ -15,11 +15,8 @@ public class BattleUI extends JPanel{
     private StoryLine story = new StoryLine();
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int width = (int) (screenSize.width * 0.99);
-    private final int height = (int) (screenSize.height * 0.55);
     private final int topTextHeight = (int) (screenSize.height * 0.07);
     private final int bottomTextHeight = (int) (screenSize.height * 0.06);
-    private final int x = 6;
-    private final int y = (int) (screenSize.height * 0.44);
     private JButton skillA, skillB, skillC, skillD;
     private ImageIcon skillAIcon, skillAHoverIcon, skillBIcon, skillBHoverIcon, skillCIcon, skillCHoverIcon, skillDIcon, skillDHoverIcon;
     private BattleExperiment battleSample;
@@ -173,8 +170,8 @@ public class BattleUI extends JPanel{
         skillButtonsPanel.setBackground(Color.BLACK);
         // ACTION LISTENERS
 
-        ImageIcon skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
-        ImageIcon skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
+        skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
+        skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
         skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
         skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
 
