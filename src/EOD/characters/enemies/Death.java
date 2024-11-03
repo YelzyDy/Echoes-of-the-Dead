@@ -117,7 +117,7 @@ public class Death extends Enemy{
             }else if(player.isWizard()){
                 return 0.2;
             }else{
-                return 0.32;
+                return 0.1;
             }
         }
     }

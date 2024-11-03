@@ -107,14 +107,16 @@ public class Skeleton1 extends Enemy {
             }else{
                 return 0.15;
             }
-        }else if(skill != 4) {
-            if(player.isWizard() && skill == 3) {
+        }else if(skill == 3) {
+            if(player.isWizard()) {
                 return 0.3;
-            } else {
+            } else{
                 return 0.25;
             }
         } else {
             if(player.isKnight()){
+                return 0.35;
+            }else if(player.isWizard()){
                 return 0.35;
             }else{
                 return 0.35;
