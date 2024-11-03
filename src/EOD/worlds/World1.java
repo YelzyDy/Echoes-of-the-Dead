@@ -6,6 +6,7 @@ import EOD.characters.enemies.Necromancer;
 import EOD.characters.enemies.Skeleton1;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.objects.profiles.AllyProfiles;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
@@ -37,11 +38,12 @@ public class World1 extends World{
         
         player.setVisible(true);
         scene.add(player);
+        scene.setComponentZOrder(player, 0);
         scene.setPlayer(player);
         playerList.add(knight);
         playerList.add(priest);
         playerList.add(wizard);
-        System.out.println("Player type in world1: " + characterType);
+        System.out.println("Player type in world2: " + characterType);
     }
 
     private void initializePlayer(){
@@ -184,6 +186,13 @@ public class World1 extends World{
                 enemy.setIndex(4);
             }
         }
+    }
+
+    @Override
+    public void initializeAllyProfiles(){
+        AllyProfiles allyProfiles = new AllyProfiles(this);
+        allyProfiles.setPlayer(playerList);
+        player.setAllyProfiles(allyProfiles);
     }
 
     @Override

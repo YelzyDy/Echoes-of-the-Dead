@@ -16,21 +16,31 @@ import java.util.ArrayList;
  * @author Joana
  */
 public class World2 extends World{
-    public World2(Player player, ArrayList<Player> playerList){
+    public World2(Player player, ArrayList<Player> playerList) {
         super("world2");
         scene = new SceneBuilder(this);
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        
+        // Set up main player
         this.player = player;
         this.playerList = playerList;
+        
+        // Configure player position and visibility
+        player.setPosX(0);
+        player.setPosY((int)(screenSize.height * 0.24));
+        player.setVisible(true);
+        player.setpanel(scene);
         player.setWorld(this);
         player.configureSkills();
+        
         System.out.println("Player type in world2: " + player.getCharacterType());
-        // Configure player in scene
-        scene.addMouseListener(new MouseClickListener(player));
+        
+        // Add player to scene
         scene.add(player);
         scene.setPlayer(player);
         scene.setComponentZOrder(player, 0);
+        scene.addMouseListener(new MouseClickListener(player));
         
         // Set up player attributes
         this.playerName = player.getName();
@@ -42,18 +52,24 @@ public class World2 extends World{
     }
 
     @Override
+    public void initializeAllyProfiles() {
+        player.getAllyProfiles().setWorld(this);
+        player.getAllyProfiles().setPlayer(playerList);
+    }
+
+    @Override
     public void initializeProtagonist(){
         for (Player p : playerList) {
-            scene.add(p);
-            p.setWorld(this);
-            scene.add(p);
-            scene.addMouseListener(new MouseClickListener(p));
-            scene.setComponentZOrder(p, 0);
-            scene.setPlayer(p);
-            p.setpanel(scene);
-            p.setWorld(this);
-            p.setWorld(this);
-            p.configureSkills();
+            if (p != player) {  // Skip the main player
+                p.setpanel(scene);
+                p.setVisible(false);
+                p.setWorld(this);
+                p.configureSkills();
+                p.setPosY((int)(screenSize.height * 0.24));
+                scene.add(p);
+                scene.addMouseListener(new MouseClickListener(p));
+                scene.setComponentZOrder(p, 0);
+            }
         }
     }
 

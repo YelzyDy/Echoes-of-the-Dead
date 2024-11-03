@@ -11,6 +11,7 @@ import EOD.animator.*;
 import EOD.characters.enemies.Enemy;
 import EOD.objects.*;
 import EOD.objects.inventory.Inventory;
+import EOD.objects.profiles.AllyProfiles;
 import EOD.gameInterfaces.Entity;
 import EOD.gameInterfaces.MouseInteractable;
 
@@ -35,8 +36,8 @@ public class Player extends Character implements MouseInteractable, Entity {
     private int shieldBuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int originalAttack; // Stores original attack value
     private Inventory inventory;
-    
-    
+    private AllyProfiles allyProfiles;
+
     public Player(String characterType, int posX, int posY) {
         super("name", characterType, posX, posY);
         animator = new PlayerAnimator(this);
@@ -52,6 +53,14 @@ public class Player extends Character implements MouseInteractable, Entity {
         this.characterType = characterType;
         originalAttack = attributes.attack;
         inventory = new Inventory();
+    }
+
+    public void setAllyProfiles(AllyProfiles allyProfiles){
+        this.allyProfiles = allyProfiles;
+    }
+
+    public AllyProfiles getAllyProfiles(){
+        return allyProfiles;
     }
 
     public Inventory getInventory(){

@@ -11,6 +11,7 @@ import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.dialogues.*;
 import EOD.objects.EchoesObjects;
+import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
 import EOD.objects.profiles.AllyProfiles;
 
@@ -48,7 +49,6 @@ public class BattleUI extends JPanel{
     private BattleExperiment battleSample;
     private EchoesObjects portal;
     private String temp;
-    private AllyProfiles allyProfiles;
 
     public BattleUI(Player player){
         this.player = player;
@@ -57,18 +57,6 @@ public class BattleUI extends JPanel{
         this.textPanel = new JPanel(new GridLayout(3, 1));
         this.battleBars = new BattleBars();
         initializeUI();
-    }
-
-    public void setAllyProfiles(AllyProfiles allyProfiles){
-        this.allyProfiles = allyProfiles;
-    }
-
-    public void setAllyProfilesEnabled(boolean isEnabled){
-        this.allyProfiles.setAllProfileEnabled(isEnabled);
-    }
-
-    public ArrayList <Player> getPlayerList(){
-        return allyProfiles.getPlayerList();
     }
 
     public void setEnemy(Enemy enemy){
@@ -84,6 +72,7 @@ public class BattleUI extends JPanel{
         battleBars.setEnemyStats(
            enemy.getHp()
         );
+        battleSample.setRewards(new Rewards(battleSample));
         enemyWrapper.setVisible(true);
         setSkillButtonsEnabled(true);
         topTextBox.setText("Turn 1: Your Turn");

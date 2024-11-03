@@ -24,13 +24,22 @@ public class AllyProfiles implements MouseInteractable{
 
     public AllyProfiles(World world){
         this.battle = world.getBattle();
-        this.battle.setAllyProfiles(this);
         this.panel = battle.getSidePanel();
         this.scene = world.getScene();
         this.world = world;
         addKnightProf();;
         addWizardProf();
         addPriestProf();
+    }
+
+    public void setWorld(World world){
+        this.battle = world.getBattle();
+        this.panel = battle.getSidePanel();
+        this.scene = world.getScene();
+        this.world = world;
+        panel.add(knightProfile);
+        panel.add(wizardProfile);
+        panel.add(priestProfile);
     }
 
     public void setPlayer(ArrayList<Player> player){
@@ -63,9 +72,9 @@ public class AllyProfiles implements MouseInteractable{
     }
 
     public void ShowAllProfiles(){
-        knightProfile.setVisible(true);
-        wizardProfile.setVisible(true);
-        priestProfile.setVisible(true);
+        if(world.getPlayer().isKnight()) showKnightProfile();
+        if(world.getPlayer().isWizard()) showWizardProfile();
+        if(world.getPlayer().isPriest()) showPriestProfile();
     }
 
     public void showKnightProfile(){
@@ -94,15 +103,12 @@ public class AllyProfiles implements MouseInteractable{
         if(source == knightProfile){
             battle.setPlayer(player.get(0));
             scene.setPlayer(player, 0);
-            world.setPlayer(player.get(0));
         }else if(source == wizardProfile){
             battle.setPlayer(player.get(2));
             scene.setPlayer(player, 2);
-            world.setPlayer(player.get(2));
         }else{
             battle.setPlayer(player.get(1));
             scene.setPlayer(player, 1);
-            world.setPlayer(player.get(1));
         }
     }
     @Override
