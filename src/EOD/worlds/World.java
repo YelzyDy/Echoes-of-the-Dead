@@ -4,7 +4,6 @@ import EOD.characters.*;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 import EOD.objects.*;
-import EOD.objects.profiles.AllyProfiles;
 import EOD.objects.shop.Shop;
 import EOD.scenes.*;
 import EOD.utils.BGMPlayer;
