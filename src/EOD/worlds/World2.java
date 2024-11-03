@@ -24,7 +24,8 @@ public class World2 extends World{
         this.player = player;
         this.playerList = playerList;
         player.setWorld(this);
-        
+        player.configureSkills();
+        System.out.println("Player type in world2: " + player.getCharacterType());
         // Configure player in scene
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);

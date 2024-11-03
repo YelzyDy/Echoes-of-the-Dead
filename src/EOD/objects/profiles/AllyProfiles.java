@@ -20,12 +20,14 @@ public class AllyProfiles implements MouseInteractable{
     private BattleUI battle;
     private SceneBuilder scene;
     private ArrayList <Player> player;
+    private World world;
 
     public AllyProfiles(World world){
         this.battle = world.getBattle();
         this.battle.setAllyProfiles(this);
         this.panel = battle.getSidePanel();
         this.scene = world.getScene();
+        this.world = world;
         addKnightProf();;
         addWizardProf();
         addPriestProf();
@@ -92,12 +94,15 @@ public class AllyProfiles implements MouseInteractable{
         if(source == knightProfile){
             battle.setPlayer(player.get(0));
             scene.setPlayer(player, 0);
+            world.setPlayer(player.get(0));
         }else if(source == wizardProfile){
             battle.setPlayer(player.get(2));
             scene.setPlayer(player, 2);
+            world.setPlayer(player.get(2));
         }else{
             battle.setPlayer(player.get(1));
             scene.setPlayer(player, 1);
+            world.setPlayer(player.get(1));
         }
     }
     @Override

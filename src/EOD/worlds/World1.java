@@ -41,6 +41,7 @@ public class World1 extends World{
         playerList.add(knight);
         playerList.add(priest);
         playerList.add(wizard);
+        System.out.println("Player type in world1: " + characterType);
     }
 
     private void initializePlayer(){

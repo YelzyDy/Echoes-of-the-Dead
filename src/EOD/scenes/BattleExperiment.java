@@ -172,6 +172,8 @@ public class BattleExperiment implements Skillable{
             player.getAnimator().setIsInBattle(false);
             player.setPosX(screenSize.width * 0.4);
         }
+        battleUI.setAllyProfilesEnabled(true);
+        battleUI.setSkillButtonsEnabled(false);
         // battleUI.getEnemyWrapper().setVisible(false);
         // Add any additional end-game logic here
     }

@@ -98,10 +98,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         return playerList;
     }
 
-    public void setPlayer(Player player){
-        this.player = player;
-    }
-
     public void setMoneyLabel(String moneyLabel){
         this.moneyLabel.setText(moneyLabel);
     }
@@ -228,6 +224,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         return player;
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+    }
 
     public String getPlayerType(){
         return player.getCharacterType();

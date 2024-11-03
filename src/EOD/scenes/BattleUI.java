@@ -303,13 +303,6 @@ public class BattleUI extends JPanel{
 
     // THE METHODS
 
-    public void setSkillButtonsEnabled(boolean enabled) {
-        skillA.setEnabled(enabled);
-        skillB.setEnabled(enabled &&  battleSample.getPlayer().getSkill2CD() == 0);
-        skillC.setEnabled(enabled &&  battleSample.getPlayer().getSkill3CD() == 0);
-        skillD.setEnabled(enabled &&  battleSample.getPlayer().getSkill4CD() == 0);
-    }
-
     public void updateTurnIndicator(String text){
         topTextBox.setText(text);
     }
@@ -377,6 +370,16 @@ public class BattleUI extends JPanel{
                 skillButton.setText("");;
             }
         }
+        skillB.setEnabled(battleSample.getPlayer().getSkill2CD() == 0);
+        skillC.setEnabled(battleSample.getPlayer().getSkill3CD() == 0);
+        skillD.setEnabled(battleSample.getPlayer().getSkill4CD() == 0);
+    }
+
+    public void setSkillButtonsEnabled(boolean enabled) {
+        skillA.setEnabled(enabled);
+        skillB.setEnabled(enabled &&  battleSample.getPlayer().getSkill2CD() == 0);
+        skillC.setEnabled(enabled &&  battleSample.getPlayer().getSkill3CD() == 0);
+        skillD.setEnabled(enabled &&  battleSample.getPlayer().getSkill4CD() == 0);
     }
 
     private JButton getSkillButton(int index) {
