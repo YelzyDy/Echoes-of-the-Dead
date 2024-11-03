@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
@@ -13,7 +12,6 @@ import EOD.dialogues.*;
 import EOD.objects.EchoesObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
-import EOD.objects.profiles.AllyProfiles;
 
 public class BattleUI extends JPanel{
     // Constants
@@ -49,6 +47,7 @@ public class BattleUI extends JPanel{
     private BattleExperiment battleSample;
     private EchoesObjects portal;
     private String temp;
+    private JPanel bottomPanel;
 
     public BattleUI(Player player){
         this.player = player;
@@ -197,7 +196,7 @@ public class BattleUI extends JPanel{
     }
 
     private void initializeBottomPanel() {
-        JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
+        bottomPanel = new JPanel(new GridLayout(1, 3));
         bottomPanel.setBackground(Color.BLACK);
         
         // Player stats panel
@@ -276,6 +275,20 @@ public class BattleUI extends JPanel{
     public void setPlayer(Player player){
         this.player = player;
         if (battleSample != null)battleSample.setPlayer(player);
+        handleSkillVisibility();
+
+    }
+
+    public void handleSkillVisibility(){
+        Player protagonist = player.getWorld().getPlayer();
+        skillA.setVisible(true);
+        skillB.setVisible(true);
+        skillC.setVisible(true);
+        skillD.setVisible(true);
+        if(player != protagonist){
+            skillA.setVisible(false);
+            skillD.setVisible(false);
+        }
     }
 
 

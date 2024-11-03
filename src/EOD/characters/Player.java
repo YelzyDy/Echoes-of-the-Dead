@@ -26,9 +26,9 @@ public class Player extends Character implements MouseInteractable, Entity {
     private String actionString;
     public PlayerAttributes attributes;
 
-    private static final int MONEY_REGEN = 5; // Knights gain some money per turn
+    // private static final int MONEY_REGEN = 5; // Knights gain some money per turn
     private static final int MANA_REGEN = 10; // Reduced from 15
-    private static final int HEALTH_REGEN = 5; // Small health regen for Pr
+    // private static final int HEALTH_REGEN = 5; // Small health regen for Pr
 
     private static final int SKILL2_DURATION = 3; // Duration of buff in turns
     private static final int SHIELD_DURATION = 1; // Duration of shield in turns
