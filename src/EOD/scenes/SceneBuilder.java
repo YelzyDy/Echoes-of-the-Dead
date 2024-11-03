@@ -204,9 +204,9 @@ public void createWorldScene() {
             player.getAnimator().stopMovement();
             player.setPosX(screenSize.width * 0.35);
             player.getAnimator().setMovingRight(true);
-            enemy.setPlayer(player);
-            player.setEnemy(enemy);
         }
+        enemy.setPlayer(player);
+        player.setEnemy(enemy);
         world.getBattle().setEnemy(enemy);
         world.getBattle().startBattle();
         world.getBattle().setPortal(portal);
