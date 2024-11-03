@@ -19,28 +19,43 @@ import java.util.ArrayList;
  * @author zendy
  */
 public class World3 extends World{
-    public World3(Player player){
+    public World3(Player player, ArrayList<Player> playerList){
         super("world3");
-        this.player = player;
         scene = new SceneBuilder(this);
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        this.player = player;
+
+        this.playerList = playerList;
         player.setWorld(this);
-        setPlayer(player);
+        
+        // Configure player in scene
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);
         scene.setPlayer(player);
         scene.setComponentZOrder(player, 0);
-        player.configureSkills();
+        
+        // Set up player attributes
         this.playerName = player.getName();
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
         setMoneyLabel(player.getAttributes().getMoney() + "");
+        
         Welcome();
     }
     @Override
     public void initializeProtagonist(){
-        //nothing
+        for (Player p : playerList) {
+            scene.add(p);
+            p.setWorld(this);
+            scene.add(p);
+            scene.addMouseListener(new MouseClickListener(p));
+            scene.setComponentZOrder(p, 0);
+            p.setpanel(scene);
+            p.setWorld(this);
+            p.setWorld(this);
+            p.configureSkills();
+        }
     }
 
     @Override
@@ -86,7 +101,7 @@ public class World3 extends World{
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
-            scene.setComponentZOrder(npc, 2);
+            scene.setComponentZOrder(npc, 0);
             npc.setWorld(this);
             if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
