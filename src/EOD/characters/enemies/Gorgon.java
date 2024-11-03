@@ -24,6 +24,7 @@ public class Gorgon extends Enemy {
             configureSprites();
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
+            moneyDrop = 50;
             animator.setMovementMultiplier(3);
             animator.setDeathAnimationSpeedMultiplier(1);
             animator.setSkillAnimationSpeedMultiplier(3);

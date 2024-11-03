@@ -256,14 +256,12 @@ public class Player extends Character implements MouseInteractable, PlayerBluepr
         }
         
         if (isKnight()) {
-            attributes.money = Math.min(attributes.money + MONEY_REGEN, attributes.baseMoney);
             attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
         }
         if (isWizard()) {
             attributes.mana = Math.min(attributes.mana + MANA_REGEN + 10, attributes.baseMana);
         }
         if (isPriest()) {
-            attributes.health = Math.min(attributes.health + HEALTH_REGEN, attributes.baseHealth);
             attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
         }
     }

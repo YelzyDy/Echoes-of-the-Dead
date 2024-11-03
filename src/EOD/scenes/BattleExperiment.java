@@ -154,8 +154,10 @@ public class BattleExperiment implements BattleExperimentBlueprint{
     private void handleBattleEnd(boolean playerWon) {
         isProcessingTurn = false;
         World world = player.getWorld();
+        
         if(playerWon){
             world.callVictory();
+            player.getAttributes().addMoney(enemy.getMoneyDrop());
             handleWin();
         }else{
             world.callDefeat();
