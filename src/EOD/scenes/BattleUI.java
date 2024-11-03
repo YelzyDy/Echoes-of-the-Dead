@@ -280,13 +280,27 @@ public class BattleUI extends JPanel{
 
     public void handleSkillVisibility(){
         Player protagonist = player.getWorld().getPlayer();
-        skillA.setVisible(true);
-        skillB.setVisible(true);
-        skillC.setVisible(true);
-        skillD.setVisible(true);
+        skillButtonsPanel.remove(skillA);
+        skillButtonsPanel.remove(skillB);
+        skillButtonsPanel.remove(skillC);
+        skillButtonsPanel.remove(skillD);
         if(player != protagonist){
+            skillButtonsPanel.add(skillB);
+            skillButtonsPanel.add(skillA);
+            skillButtonsPanel.add(skillD);
+            skillButtonsPanel.add(skillC);
             skillB.setVisible(false);
             skillC.setVisible(false);
+        }else{
+            skillButtonsPanel.add(skillA);
+            skillButtonsPanel.add(skillB);
+            skillButtonsPanel.add(skillC);
+            skillButtonsPanel.add(skillD);
+
+            skillA.setVisible(true);
+            skillB.setVisible(true);
+            skillC.setVisible(true);
+            skillD.setVisible(true);
         }
         this.revalidate();
         this.repaint();
