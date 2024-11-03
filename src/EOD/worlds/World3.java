@@ -51,6 +51,7 @@ public class World3 extends World{
             scene.add(p);
             scene.addMouseListener(new MouseClickListener(p));
             scene.setComponentZOrder(p, 0);
+            scene.setPlayer(p);
             p.setpanel(scene);
             p.setWorld(this);
             p.setWorld(this);

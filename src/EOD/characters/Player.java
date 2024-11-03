@@ -36,6 +36,7 @@ public class Player extends Character implements MouseInteractable, Entity {
     private int originalAttack; // Stores original attack value
     private Inventory inventory;
     
+    
     public Player(String characterType, int posX, int posY) {
         super("name", characterType, posX, posY);
         animator = new PlayerAnimator(this);

@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.dialogues.*;
@@ -63,6 +65,10 @@ public class BattleUI extends JPanel{
 
     public void setAllyProfilesEnabled(boolean isEnabled){
         this.allyProfiles.setAllProfileEnabled(isEnabled);
+    }
+
+    public ArrayList <Player> getPlayerList(){
+        return allyProfiles.getPlayerList();
     }
 
     public void setEnemy(Enemy enemy){

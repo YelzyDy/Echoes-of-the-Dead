@@ -79,6 +79,7 @@ public class World1 extends World{
         knight.configureSkills();
         knight.setWorld(this);
         knight.setName(playerName);
+        knight.setCharacterType("knight");
         scene.add(knight);
         scene.addMouseListener(new MouseClickListener(knight));
     }
@@ -91,6 +92,7 @@ public class World1 extends World{
         wizard.configureSkills();
         wizard.setWorld(this);
         wizard.setName(playerName);
+        wizard.setCharacterType("wizard");
         scene.add(wizard);
         scene.addMouseListener(new MouseClickListener(wizard));
     }
@@ -103,6 +105,7 @@ public class World1 extends World{
         priest.configureSkills();
         priest.setWorld(this);
         priest.setName(playerName);
+        priest.setCharacterType("priest");
         scene.add(priest);
         scene.addMouseListener(new MouseClickListener(priest));
     }

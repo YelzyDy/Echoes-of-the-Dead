@@ -35,6 +35,10 @@ public class AllyProfiles implements MouseInteractable{
         this.player = player;
     }
 
+    public ArrayList<Player> getPlayerList(){
+        return player;
+    }
+
     private void addKnightProf(){
         knightProfile = new EchoesObjects("profile", (int)(panel.getWidth() * 0.28), (int)(panel.getWidth() * 0.1), (int)(panel.getWidth() * 0.45), (int)(panel.getWidth() * 0.45), "profKnight", false, true, 2);
         knightProfile.setVisible(false);

@@ -242,7 +242,22 @@ public void createWorldScene() {
 
         if (world != null) {
             // Update skill effects
-            if (player.getAttributes().skillEffectsRandom != null) player.getAttributes().skillEffectsRandom.updateEffect();
+            if (world.getPlayerList().get(1).getAttributes().skillEffectsRandom != null){
+                world.getPlayerList().get(1).getAttributes().skillEffectsRandom.updateEffect();
+                double offsetX = 0, offsetY = 0;
+                if(player.getCharacterType().equals("priest")){
+                   offsetX =  0.42;
+                   offsetY =  0.15;
+                }else if(player.getCharacterType().equals("wizard")){
+                    offsetX =  0.42;
+                    offsetY =  0.15;
+                }else{
+                    offsetX =  0.4;
+                    offsetY =  0.15;
+                }
+                SkillEffects effect = world.getPlayerList().get(1).getAttributes().skillEffectsRandom;
+                effect.bindToTarget(player, -effect.getWidth() * offsetX, -effect.getHeight() * offsetY);
+            }
             if (player.getAttributes().skillEffects1 != null) player.getAttributes().skillEffects1.updateEffect();
             if (player.getAttributes().skillEffects2 != null) player.getAttributes().skillEffects2.updateEffect();
             if (player.getAttributes().skillEffects3 != null) player.getAttributes().skillEffects3.updateEffect();
@@ -290,7 +305,7 @@ public void createWorldScene() {
     
         if(player == null) return;
         if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
-        if(player.getAttributes().skillEffectsRandom != null && player.isPriest())player.getAttributes().skillEffectsRandom.setVisible(player.getSkill4CD() != 0);
+        if(world.getPlayerList().get(1).getAttributes().skillEffectsRandom != null)  world.getPlayerList().get(1).getAttributes().skillEffectsRandom.setVisible(  world.getPlayerList().get(1).getSkill4CD() != 0);
         for (EchoesObjects obj : objList) {
             if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && 

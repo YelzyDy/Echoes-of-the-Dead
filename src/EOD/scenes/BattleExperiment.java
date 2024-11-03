@@ -135,7 +135,9 @@ public class BattleExperiment implements Skillable{
     }
 
     private void finishEnemyTurn() {
-        player.attributeTurnChecker();
+        for(Player player : battleUI.getPlayerList()){
+            player.attributeTurnChecker();
+        }
         battleUI.setSkillButtonsEnabled(true);
         battleUI.setAllyProfilesEnabled(true);
         battleUI.updateTurnIndicator("Turn " + turnCount + " - Your turn");
