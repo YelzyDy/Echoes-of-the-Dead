@@ -5,7 +5,7 @@
 package EOD.objects;
 
 import EOD.gameInterfaces.MouseInteractable;
-import EOD.gameInterfaces.ObjectBlueprint;
+import EOD.gameInterfaces.Entity;
 import EOD.listeners.MouseClickListener;
 
 import EOD.utils.*;
@@ -25,7 +25,7 @@ import java.awt.Color;
  *
  * @author Joana
  */
-public class EchoesObjects extends TransparentPanel implements MouseInteractable, ObjectBlueprint{
+public class EchoesObjects extends TransparentPanel implements MouseInteractable, Entity{
     public Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private double posX;
     private double posY;
@@ -74,7 +74,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         return getHeight();
     }
     
-    @Override
     public void setAllowHover(boolean allowHover){
         this.allowHover = allowHover;
     }
@@ -89,17 +88,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         return index;
     }
 
-    @Override
     public boolean isAnimated(){
         return isAnimated;
     }
 
-    @Override
     public void setBounds(int posX, int posY){
         this.setBounds(posX, posY, getWidth(), getHeight());
     }
 
-    @Override
     public void initializeSprites(String assetPackage, double width, double height) {
         objSprites.clear();
         int size = numOfSprites;
@@ -128,27 +124,22 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         // System.out.println("Number of sprites loaded: " + objSprites.getSize());
     }
 
-    @Override
     public void scaleSprites(double scale) {
         objSprites.scaleImageList(scale);
     }
 
-    @Override
     public void scaleDownSprites(double scale) {
         objSprites.scaleImageListDown(scale);
     }
 
-    @Override
     public void setCurrentFrame(int value){
         currentFrame = value;
     }
 
-    @Override
     public void onClick(MouseEvent e) {     
           if(!isEnabled) return;
     }
 
-    @Override
     public void onHover(MouseEvent e) {
         if(!allowHover) return;
         if(!isAnimated && isState){
@@ -158,7 +149,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         }
     }
 
-    @Override
     public void onExit(MouseEvent e) {
         if(!allowHover) return;
         if(!isAnimated && isState){
@@ -168,17 +158,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         }
     }
 
-    @Override
     public String getAssetPackage(){
         return assetPackage;
     }
     
-    @Override
     public void restartAnimation(){
         currentFrame = 0;
     }
     
-    @Override
     public void updateAnimation(){
         if(isAnimated){
             currentFrame++;
@@ -208,17 +195,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.posY = posY;
     }
 
-    @Override
     public int getCurrentFrame(){
         return currentFrame;
     }
 
-    @Override
     public int getNumOfSprites(){
         return numOfSprites;
     }
 
-    @Override
     public BufferedImage getCurrentSprite() {
         return objSprites.get(currentFrame);      
     }

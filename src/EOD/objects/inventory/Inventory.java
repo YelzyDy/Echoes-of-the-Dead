@@ -1,7 +1,6 @@
 package EOD.objects.inventory;
 
 import EOD.characters.PlayerAttributes;
-import EOD.gameInterfaces.InventoryBlueprint;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import java.awt.*;
@@ -9,7 +8,7 @@ import EOD.worlds.World;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-public class Inventory extends EchoesObjects implements InventoryBlueprint{
+public class Inventory extends EchoesObjects{
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private EchoesObjects item1Icon, item2Icon, item3Icon, item4Icon, sideIcon;
     private double width, height;
@@ -281,7 +280,6 @@ public class Inventory extends EchoesObjects implements InventoryBlueprint{
         sideIcon.repaint();
     }
 
-    @Override
     public World getWorld() {
         return world;
     }

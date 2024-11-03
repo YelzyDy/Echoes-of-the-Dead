@@ -3,12 +3,13 @@ package EOD.characters.enemies;
 import EOD.animator.EnemyAnimator;
 import EOD.characters.Character;
 import EOD.characters.Player;
-import EOD.gameInterfaces.EnemyBlueprint;
 import EOD.gameInterfaces.MouseInteractable;
+import EOD.gameInterfaces.Skillable;
+import EOD.gameInterfaces.Entity;
 import EOD.listeners.MouseClickListener;
 import java.awt.event.MouseEvent;
 
-public abstract class Enemy extends Character implements MouseInteractable, EnemyBlueprint{
+public abstract class Enemy extends Character implements MouseInteractable, Skillable, Entity{
     protected Player player;
     protected int health;
     protected int attack;
@@ -41,12 +42,10 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
         this.player = player;
     }
 
-    @Override
     public double getXFactor(){
         return xFactor;
     }
 
-    @Override
     public double getYFactor(){
         return yFactor;
     }
@@ -56,12 +55,10 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
     public abstract double getOffsetW(int skill);
     public abstract double getOffsetH(int skill);
 
-    @Override
     public void setIsDefeated(boolean isDefeated){
         this.isDefeated = isDefeated;
     }
 
-    @Override
     public boolean getIsDefeated(){
         return isDefeated;
     }
@@ -70,77 +67,55 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
 
     public abstract int decideSkill();
 
-    @Override
     public int getDamageDealt(){
         return damageDealt;
     }
 
-    @Override
     public void setBaseHp(int newHp) {
         health = newHp;
     }
 
-    @Override
     public void setAttack(int newAttack) {
         attack = newAttack;
     }
 
-    @Override
     public int getBaseAttack() {
         return baseAttack;
     }
 
-    @Override
     public void setBaseAttack(int newBaseAttack) {
         baseAttack = newBaseAttack;
     }
 
-    @Override
     public int getBaseHp(){
         return baseHp;
     }
 
-    @Override
     public int getLastUsedSkill(){
         return lastUsedSkill;
     }
 
-    @Override
     public void takeDamage(int damage){
         health -= damage;
     }
 
-    @Override
-    public void skill1(){
+    @Override public void skill1(){}
+    @Override public void skill2(){}
+    @Override public void skill3(){}
+    @Override public void skill4(){}
 
-    } 
-    
-    @Override
-    public void skill2(){
-
-    }
-
-    @Override
-    public void skill3(){
-
-    }
-
-    @Override
     public int getHp() {
         return health;
     }
 
-    @Override
     public int getAttack() {
         return attack;
     }
 
-    @Override
     public int getMoneyDrop() {
         return moneyDrop;
     }
 
-    @Override
     public void setHp(int health) {
         this.health = health;
     }
@@ -150,7 +125,6 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
         return animator;
     }
 
-    @Override
     public String getAction(){
         return actionString;
     }
@@ -165,7 +139,6 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
         onBattleStart();
     }
 
-    @Override
     public void positionForBattle() {
         setPosX(screenSize.width * 0.55);
         animator.setMovingRight(false);

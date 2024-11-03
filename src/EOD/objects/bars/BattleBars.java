@@ -2,8 +2,7 @@ package EOD.objects.bars;
 
 import javax.swing.*;
 
-import EOD.gameInterfaces.BattleBarsBlueprint;
-public class BattleBars implements BattleBarsBlueprint{
+public class BattleBars {
     private Timer healthTimer;
     private Timer manaTimer;
     private PlayerBar playerBar;
@@ -14,32 +13,32 @@ public class BattleBars implements BattleBarsBlueprint{
         enemyBar = new EnemyBar();
     }
 
-    @Override
+
     public PlayerBar getPlayerStats(){
         return playerBar;
     }
 
-    @Override
+
     public EnemyBar getEnemyStats(){
         return enemyBar;
     }
 
-    @Override
+
     public void setPlayerHealth(int playerHealth) {
         animatePlayerHealth(playerHealth);
     }
 
-    @Override
+
     public void setPlayerMana(int playerMana) {
         animatePlayerMana(playerMana);
     }
 
-    @Override
+
     public void setEnemyHealth(int enemyHealth) {
         animateEnemyHealth(enemyHealth);
     }
 
-    @Override
+
     public void setPlayerStats(int playerHP, int playerMP){
         playerBar.maxPlayerHealth = playerHP;
         animatePlayerHealth(playerHP);
@@ -47,14 +46,13 @@ public class BattleBars implements BattleBarsBlueprint{
         animatePlayerMana(playerMP);
     }
 
-    @Override
+
     public void setEnemyStats(int enemyHP) {
         enemyBar.maxEnemyHealth = enemyHP;
         enemyBar.enemyHealth = 0; // Reset enemy health to 0
         animateEnemyHealth(enemyHP);
     }
-    
-    @Override
+
     public void animatePlayerHealth(int targetHealth) {
         if (healthTimer != null && healthTimer.isRunning()) {
             healthTimer.stop();
@@ -72,7 +70,6 @@ public class BattleBars implements BattleBarsBlueprint{
         healthTimer.start();
     }
 
-    @Override
     public void animatePlayerMana(int targetMana) {
         if (manaTimer != null && manaTimer.isRunning()) {
             manaTimer.stop();
@@ -90,7 +87,6 @@ public class BattleBars implements BattleBarsBlueprint{
         manaTimer.start();
     }
 
-    @Override
     public void animateEnemyHealth(int targetHealth) {
         if (this.enemyHealthTimer != null && this.enemyHealthTimer.isRunning()) {
             this.enemyHealthTimer.stop();
