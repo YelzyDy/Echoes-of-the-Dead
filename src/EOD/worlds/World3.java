@@ -53,6 +53,12 @@ public class World3 extends World{
         
         Welcome();
     }
+
+    @Override
+    public void initializeAllyProfiles() {
+        player.getAllyProfiles().setWorld(this);
+    }
+    
     @Override
     public void initializeProtagonist(){
         for (Player p : playerList) {

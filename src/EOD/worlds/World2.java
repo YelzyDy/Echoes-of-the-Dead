@@ -52,6 +52,12 @@ public class World2 extends World{
     }
 
     @Override
+    public void initializeAllyProfiles() {
+        player.getAllyProfiles().setWorld(this);
+        player.getAllyProfiles().setPlayer(playerList);
+    }
+
+    @Override
     public void initializeProtagonist(){
         for (Player p : playerList) {
             if (p != player) {  // Skip the main player

@@ -49,8 +49,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected Player wizard;
     protected ArrayList<Player> playerList;
 
-    private AllyProfiles allyProfiles;
-
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
     // create a class for enemies. Preferrably in different classes. Must have one superclass for polymorphsism
@@ -128,10 +126,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(battle, Integer.valueOf(1));
     }
 
-    private void initializeAllyProfiles(){
-        allyProfiles = new AllyProfiles(this);
-        allyProfiles.setPlayer(playerList);
-    }
+    
+    public abstract void initializeAllyProfiles();
 
     public void configureBanners(){
         victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "win", false, false, 1);
@@ -281,7 +277,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             removeWelcome();
             initializeBattleUI();
             initializeAllyProfiles();
-            allyProfiles.ShowAllProfiles();
+            player.getAllyProfiles().ShowAllProfiles();
             scene.initializeGameLoop();
         }
     }

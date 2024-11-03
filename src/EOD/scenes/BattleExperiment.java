@@ -10,10 +10,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent; // -z
 import java.awt.event.ActionListener; // -z
 import EOD.gameInterfaces.Skillable;
+import EOD.objects.Rewards;;
 
 public class BattleExperiment implements Skillable{
     private Enemy enemy;
     private Player player;
+    private Rewards rewards;
     private BattleUI battleUI;
     private int turnCount = 0;
     private boolean isProcessingTurn = false;
@@ -43,6 +45,10 @@ public class BattleExperiment implements Skillable{
         this.battleUI = battle;
     }
 
+    public void setRewards(Rewards rewards){
+        this.rewards = rewards;
+    }
+
     private void handleSkill(int skillNumber, boolean damageEnemy) {
         if (isProcessingTurn) return;  // Prevent multiple skill uses while animation is playing
         
@@ -62,7 +68,7 @@ public class BattleExperiment implements Skillable{
 
             battleUI.showAction("Turn " + turnCount + ": " + player.getAction());
             battleUI.setSkillButtonsEnabled(false);
-            battleUI.setAllyProfilesEnabled(false);
+            player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(false);
             
             // Set callback for player's animation completion
             player.getAnimator().setOnAnimationComplete(() -> {
@@ -135,11 +141,11 @@ public class BattleExperiment implements Skillable{
     }
 
     private void finishEnemyTurn() {
-        for(Player player : battleUI.getPlayerList()){
+        for(Player player : player.getWorld().getPlayer().getAllyProfiles().getPlayerList()){
             player.attributeTurnChecker();
         }
         battleUI.setSkillButtonsEnabled(true);
-        battleUI.setAllyProfilesEnabled(true);
+        player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.updateTurnIndicator("Turn " + turnCount + " - Your turn");
         battleUI.updateCooldowns();
         
@@ -172,7 +178,7 @@ public class BattleExperiment implements Skillable{
             player.getAnimator().setIsInBattle(false);
             player.setPosX(screenSize.width * 0.4);
         }
-        battleUI.setAllyProfilesEnabled(true);
+        player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.setSkillButtonsEnabled(false);
         // battleUI.getEnemyWrapper().setVisible(false);
         // Add any additional end-game logic here
@@ -213,6 +219,7 @@ public class BattleExperiment implements Skillable{
         });
         deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
         deathAnimationTimer.start();
+        handleRewards();
     }
 
     private void handleLose(){
@@ -224,5 +231,9 @@ public class BattleExperiment implements Skillable{
         player.getPanel().setCurrentSceneIndex(battleUI.getPortal().getIndex());
         System.out.println("You lose");
         
+    }
+
+    private void handleRewards(){
+        rewards.getAllyRewards();
     }
 }
