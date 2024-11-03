@@ -276,7 +276,6 @@ public class BattleUI extends JPanel{
         this.player = player;
         if (battleSample != null)battleSample.setPlayer(player);
         handleSkillVisibility();
-
     }
 
     public void handleSkillVisibility(){
@@ -286,9 +285,11 @@ public class BattleUI extends JPanel{
         skillC.setVisible(true);
         skillD.setVisible(true);
         if(player != protagonist){
-            skillA.setVisible(false);
-            skillD.setVisible(false);
+            skillB.setVisible(false);
+            skillC.setVisible(false);
         }
+        this.revalidate();
+        this.repaint();
     }
 
 

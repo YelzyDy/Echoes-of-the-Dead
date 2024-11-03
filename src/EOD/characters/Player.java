@@ -111,6 +111,7 @@ public class Player extends Character implements MouseInteractable, Entity {
     }
 
     public void configureSkillDimension() {
+        System.out.println("configure Skill dimension called: ");
         switch(getCharacterType()) {
             case "knight":
                 attributes.skillEffects1.setDimensions((int)(screenSize.width * enemy.getOffsetW(1)), (int)(screenSize.width * enemy.getOffsetH(1)));
