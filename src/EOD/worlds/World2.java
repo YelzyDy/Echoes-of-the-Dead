@@ -27,6 +27,7 @@ public class World2 extends World{
         this.playerList = playerList;
         
         // Configure player position and visibility
+        player.setPosX(0);
         player.setPosY((int)(screenSize.height * 0.24));
         player.setVisible(true);
         player.setpanel(scene);
