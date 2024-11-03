@@ -145,6 +145,15 @@ public abstract class Animator implements Animation{
         } else {
             ImageList currentSprites = isMoving ? walkSprites : idleSprites;
             currentFrame = (currentFrame + 1) % currentSprites.getSize();
+            // logCurrentSpritePath(currentSprites);
+        }
+        // if(character.getCharacterType().equals("knight") || character.getCharacterType().equals("wizard")  || character.getCharacterType().equals("priest") )System.out.println("Character type to animate: " + character.getCharacterType());
+    }
+
+    private void logCurrentSpritePath(ImageList sprites) {
+        if (sprites.getSize() > 0) {
+            BufferedImage currentSprite = sprites.get(currentFrame);
+            if(character.getCharacterType().equals("knight") || character.getCharacterType().equals("wizard")  || character.getCharacterType().equals("priest") )System.out.println("Current Sprite Path: " + currentSprite); // You can modify this line to reflect the actual path if needed
         }
     }
 

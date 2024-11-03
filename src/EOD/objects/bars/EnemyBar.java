@@ -38,7 +38,7 @@ public class EnemyBar extends JPanel{
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension((int)(screenWidth * 0.05), (int)(screenHeight * 0.2));
+        return new Dimension((int)(screenWidth * 0.05), (int)(screenHeight * 0.1));
     }
     
 }

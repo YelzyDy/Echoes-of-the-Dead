@@ -33,7 +33,7 @@ public class SceneTransitionHandler {
      * Handles scene transitions and returns whether a transition occurred
      * @return true if a scene transition occurred
      */
-    public void handleSceneTransition(SceneBuilder panel, Player player, 
+    public void handleSceneTransition(SceneBuilder panel, double currentPosX, ArrayList<Player> playerList, 
                                     ArrayList<EchoesObjects> objList,
                                     ArrayList<Npc> npcList,
                                     ArrayList<Enemy> enemyList) {
@@ -44,14 +44,15 @@ public class SceneTransitionHandler {
         
         int currentScene = panel.getCurrentSceneIndex();
         int maxPanel = panel.getNumOfScenes() - 3;
-        double currentPosX = player.getPosX();
         
         // Check for right boundary transition
         if (currentPosX >= (screenSize.width * RIGHT_BOUNDARY_THRESHOLD) && currentScene < maxPanel - 1) {
             isInTransition = true;
             panel.incCurrentScene();
-            player.setPosX(screenSize.width * SPAWN_LEFT_POSITION);
-            player.getAnimator().stopMovement();
+            for(Player player : playerList){
+                player.setPosX(screenSize.width * SPAWN_LEFT_POSITION);
+                player.getAnimator().stopMovement();
+            }
             updateObjectVisibility(panel, objList, npcList, enemyList);
             return;
         } 
@@ -59,8 +60,10 @@ public class SceneTransitionHandler {
         else if (currentScene > 0 && currentPosX <= (screenSize.width * LEFT_BOUNDARY_THRESHOLD)) {
             isInTransition = true;
             panel.decCurrentScene();
-            player.setPosX(screenSize.width * SPAWN_RIGHT_POSITION);
-            player.getAnimator().stopMovement();
+            for(Player player : playerList){
+                player.setPosX(screenSize.width * SPAWN_RIGHT_POSITION);
+                player.getAnimator().stopMovement();
+            }
             updateObjectVisibility(panel, objList, npcList, enemyList);
             return;
         }

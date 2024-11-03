@@ -16,29 +16,42 @@ import java.util.ArrayList;
  * @author Joana
  */
 public class World2 extends World{
-    public World2(Player player){
+    public World2(Player player, ArrayList<Player> playerList){
         super("world2");
-        System.out.println("Name: " + player.getName());
         scene = new SceneBuilder(this);
         bgmPlayer = new BGMPlayer();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        this.player = player;
+        this.playerList = playerList;
         player.setWorld(this);
-        setPlayer(player);
+        
+        // Configure player in scene
         scene.addMouseListener(new MouseClickListener(player));
         scene.add(player);
         scene.setPlayer(player);
         scene.setComponentZOrder(player, 0);
-        player.configureSkills();
+        
+        // Set up player attributes
         this.playerName = player.getName();
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
         setMoneyLabel(player.getAttributes().getMoney() + "");
+        
         Welcome();
     }
 
     @Override
     public void initializeProtagonist(){
-        //nothing
+        for (Player p : playerList) {
+            scene.add(p);
+            p.setWorld(this);
+            scene.add(p);
+            scene.addMouseListener(new MouseClickListener(p));
+            scene.setComponentZOrder(p, 0);
+            p.setpanel(scene);
+            p.setWorld(this);
+            p.setWorld(this);
+        }
     }
 
     @Override
@@ -84,7 +97,7 @@ public class World2 extends World{
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
-            scene.setComponentZOrder(npc, 2);
+            scene.setComponentZOrder(npc, 0);
             npc.setWorld(this);
             if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
@@ -109,7 +122,7 @@ public class World2 extends World{
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
-            scene.setComponentZOrder(enemy, 1);
+            scene.setComponentZOrder(enemy, 0);
             if (enemy.getName().equals("Skeleton")) {
                 enemy.setIndex(3);
             }else if(enemy.getName().equals("Death")) {
@@ -122,7 +135,7 @@ public class World2 extends World{
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();
-
+        if(scene.objList == null) return;
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());

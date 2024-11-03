@@ -90,25 +90,25 @@ public class Skeleton2 extends Enemy {
     @Override 
     public double getOffsetX(int skill) {
         if(skill == 1){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.2;
             }else{
                 return 0.1;
             }
         }else if(skill == 2){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.35;
             }else{
                 return 0.15;
             }
         }else if(skill != 4) {
-            if(protagonist.isWizard() && skill == 3) {
+            if(player.isWizard() && skill == 3) {
                 return 0.3;
             } else {
                 return 0.25;
             }
         } else {
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.35;
             }else{
                 return 0.35;
@@ -119,29 +119,29 @@ public class Skeleton2 extends Enemy {
     @Override 
     public double getOffsetY(int skill) {
         if(skill == 1){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.6;
             }else{
                 return 0.1;
             }
         }else if(skill == 2){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.4;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.4;
             }else{
                 return 0.3;
             }
         } else if(skill == 3){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.3;
             }else{
                 return 0.3;
             }  
         }else{
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.4;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.4;
             }else{
                 return 0.3;
@@ -152,31 +152,31 @@ public class Skeleton2 extends Enemy {
     @Override 
     public double getOffsetW(int skill) {
         if(skill == 1){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.3;
             }else{
                 return 0.2;
             }
         }else if(skill == 2) {
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.2;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.15;
             } else {
                 return 0.25;
             }
         } else if(skill == 3) {
-            if(protagonist.isKnight()) {
+            if(player.isKnight()) {
                 return 0.15;
-            } else if(protagonist.isWizard()) {
+            } else if(player.isWizard()) {
                 return 0.2;
             } else {
                 return 0.17;
             }
         } else {
-            if(protagonist.isKnight()) {
+            if(player.isKnight()) {
                 return 0.2;
-            } else if(protagonist.isWizard()){
+            } else if(player.isWizard()){
                 return 0.15;
             }else{
                 return 0.2;
@@ -187,29 +187,29 @@ public class Skeleton2 extends Enemy {
     @Override 
     public double getOffsetH(int skill){
         if(skill == 1){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.3;
             }else{
                 return 0.2;
             }
         }else if(skill == 2) {
-            if(protagonist.isKnight()) {
+            if(player.isKnight()) {
                 return 0.15;
             } else {
                 return 0.15;
             }
         } else if(skill == 3) {
-            if(protagonist.isKnight()) {
+            if(player.isKnight()) {
                 return 0.15;
-            } else if(protagonist.isWizard()) {
+            } else if(player.isWizard()) {
                 return 0.2;
             } else {
                 return 0.17;
             }
         }else {
-            if(protagonist.isKnight()) {
+            if(player.isKnight()) {
                 return 0.2;
-            } else if(protagonist.isWizard()){
+            } else if(player.isWizard()){
                 return 0.15;
             }else{
                 return 0.2;

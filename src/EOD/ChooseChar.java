@@ -74,9 +74,9 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     public void initiializeProtagonist(){
         player = new Player(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
         player.setpanel(scene);
+        scene.add(player);
         scene.setPlayer(player);
         player.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
-        scene.add(player);
         scene.initializeGameLoop();
     }
     public void addScene() {

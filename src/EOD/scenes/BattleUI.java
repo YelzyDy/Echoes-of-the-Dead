@@ -10,36 +10,59 @@ import EOD.characters.enemies.Enemy;
 import EOD.dialogues.*;
 import EOD.objects.EchoesObjects;
 import EOD.objects.bars.BattleBars;
+import EOD.objects.profiles.AllyProfiles;
+
 public class BattleUI extends JPanel{
-    private JPanel textPanel = new JPanel(new GridLayout(3, 1));
-    private StoryLine story = new StoryLine();
-    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    // Constants
+    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int width = (int) (screenSize.width * 0.99);
     private final int topTextHeight = (int) (screenSize.height * 0.07);
     private final int bottomTextHeight = (int) (screenSize.height * 0.06);
-    private JButton skillA, skillB, skillC, skillD;
-    private ImageIcon skillAIcon, skillAHoverIcon, skillBIcon, skillBHoverIcon, skillCIcon, skillCHoverIcon, skillDIcon, skillDHoverIcon;
-    private BattleExperiment battleSample;
-    private EchoesObjects portal;
-    private JPanel skillButtonsPanel ;
-    private JLabel topTextBox, bottomTextBox;
-    private BattleBars battleBars = new BattleBars();
+
+    // Core Components
+    private final JPanel textPanel;
+    private final StoryLine story;
+    private final BattleBars battleBars;
+    
+    // UI Components
+    private JLabel topTextBox;
+    private JLabel bottomTextBox;
     private JList<String> textList;
     private DefaultListModel<String> textListModel;
+    private JPanel skillButtonsPanel;
+    private JPanel sidePanel;
+    private JPanel enemyWrapper;
+    
+    // Buttons and Icons
+    private JButton skillA, skillB, skillC, skillD;
+    private ImageIcon skillAIcon, skillAHoverIcon;
+    private ImageIcon skillBIcon, skillBHoverIcon;
+    private ImageIcon skillCIcon, skillCHoverIcon;
+    private ImageIcon skillDIcon, skillDHoverIcon;
+    
+    // Game State
     private Player player;
     private Enemy enemy;
-    private JPanel enemyWrapper;
+    private BattleExperiment battleSample;
+    private EchoesObjects portal;
     private String temp;
+    private AllyProfiles allyProfiles;
 
     public BattleUI(Player player){
         this.player = player;
-        System.out.println(this.player.getName() + "adfasdf");
-        displayContainerPanel();
-        displayTitleLabel();
-        displayGamePanel();
-        displaySkillButtons();
-        displayBottomPanel();
-        setSkillButtonsEnabled(false);
+        this.story = new StoryLine();
+        story.skillDetails();
+        this.textPanel = new JPanel(new GridLayout(3, 1));
+        this.battleBars = new BattleBars();
+        initializeUI();
+    }
+
+    public void setAllyProfiles(AllyProfiles allyProfiles){
+        this.allyProfiles = allyProfiles;
+    }
+
+    public void setAllyProfilesEnabled(boolean isEnabled){
+        this.allyProfiles.setAllProfileEnabled(isEnabled);
     }
 
     public void setEnemy(Enemy enemy){
@@ -52,7 +75,6 @@ public class BattleUI extends JPanel{
         battleSample.setPlayer(player);
         battleSample.setEnemy(enemy);
         battleSample.setBattleUI(this);
-        player.setEnemy(enemy);
         battleBars.setEnemyStats(
            enemy.getHp()
         );
@@ -60,6 +82,161 @@ public class BattleUI extends JPanel{
         setSkillButtonsEnabled(true);
         topTextBox.setText("Turn 1: Your Turn");
         textList.setVisible(true);
+    }
+
+    private void initializeUI() {
+        // Basic panel setup
+        setLayout(new BorderLayout());
+        setBackground(Color.BLACK);
+        setBounds(0, (int)(screenSize.height * 0.4), 
+                 (int)(screenSize.width), (int)(screenSize.height * 0.6));
+
+        // Initialize all panels and components
+        initializeTextPanel();
+        initializeTopTextBox();
+        initializeTextList();
+        initializeBottomTextBox();
+        initializeSidePanel();
+        initializeSkillButtons();
+        initializeBottomPanel();
+
+        // Final setup
+        setFocusable(true);
+        requestFocusInWindow();
+        setVisible(true);
+        setSkillButtonsEnabled(false);
+    }
+
+    private void initializeTextPanel() {
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setBackground(Color.BLACK);
+        textPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createEmptyBorder(10, (int)(screenSize.width * 0.01), 
+                                         0, (int)(screenSize.width * 0.05)),
+            BorderFactory.createLineBorder(Color.WHITE, 2)
+        ));
+        textPanel.setPreferredSize(new Dimension(width, (int)(getHeight() * 0.5)));
+        add(textPanel, BorderLayout.CENTER);
+    }
+
+    private void initializeTopTextBox() {
+        topTextBox = new JLabel("Echoes Of The Dead", SwingConstants.CENTER);
+        topTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        topTextBox.setForeground(Color.WHITE);
+        topTextBox.setVerticalAlignment(SwingConstants.CENTER);
+        topTextBox.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+        topTextBox.setMaximumSize(new Dimension(width, topTextHeight));
+        topTextBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        topTextBox.setHorizontalAlignment(SwingConstants.CENTER);
+        textPanel.add(topTextBox);
+    }
+
+    private void initializeTextList() {
+        textListModel = new DefaultListModel<>();
+        textList = new JList<>(textListModel);
+        textList.setBackground(Color.BLACK);
+        textList.setForeground(Color.WHITE);
+        textList.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        textList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        textList.setVisibleRowCount(3);
+        textList.setFixedCellHeight((int)(screenSize.height * 0.07));
+        textList.setVisible(false);
+
+        JScrollPane scrollPane = new JScrollPane(textList);
+        scrollPane.getViewport().setBackground(Color.BLACK);
+        textPanel.add(scrollPane);
+    }
+
+    private void initializeBottomTextBox() {
+        bottomTextBox = new JLabel("", SwingConstants.CENTER);
+        bottomTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        bottomTextBox.setForeground(Color.WHITE);
+        bottomTextBox.setVerticalAlignment(SwingConstants.CENTER);
+        bottomTextBox.setMaximumSize(new Dimension(width, bottomTextHeight));
+        bottomTextBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        bottomTextBox.setHorizontalAlignment(SwingConstants.CENTER);
+        textPanel.add(bottomTextBox);
+    }
+
+    private void initializeSidePanel() {
+        sidePanel = new JPanel();
+        sidePanel.setLayout(null);
+        sidePanel.setBackground(Color.BLACK);
+        sidePanel.setPreferredSize(new Dimension(width/8, (int)(getHeight() * 0.5)));
+        add(sidePanel, BorderLayout.WEST);
+    }
+
+    private void initializeSkillButtons() {
+        skillButtonsPanel = new JPanel(new GridLayout(1, 4, 0, 0));
+        skillButtonsPanel.setBackground(Color.BLACK);
+        
+        // Load all icons
+        loadSkillIcons();
+        
+        // Create all buttons
+        skillA = createSkillButton(story, skillAIcon, skillAHoverIcon, 
+            e -> battleSample.skill1(), bottomTextBox, 0, 1);
+        skillB = createSkillButton(story, skillBIcon, skillBHoverIcon, 
+            e -> battleSample.skill2(), bottomTextBox, 0, 2);
+        skillC = createSkillButton(story, skillCIcon, skillCHoverIcon, 
+            e -> battleSample.skill3(), bottomTextBox, 0, 3);
+        skillD = createSkillButton(story, skillDIcon, skillDHoverIcon, 
+            e -> battleSample.skill4(), bottomTextBox, 0, 4);
+
+        // Add buttons to panel
+        skillButtonsPanel.add(skillA);
+        skillButtonsPanel.add(skillB);
+        skillButtonsPanel.add(skillC);
+        skillButtonsPanel.add(skillD);
+    }
+
+    private void loadSkillIcons() {
+        skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
+        skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
+        skillBIcon = scaleImageIcon("src/button_assets/1stskill0.png");
+        skillBHoverIcon = scaleImageIcon("src/button_assets/1stskill1.png");
+        skillCIcon = scaleImageIcon("src/button_assets/2ndskill0.png");
+        skillCHoverIcon = scaleImageIcon("src/button_assets/2ndskill1.png");
+        skillDIcon = scaleImageIcon("src/button_assets/3rdskill0.png");
+        skillDHoverIcon = scaleImageIcon("src/button_assets/3rdskill1.png");
+    }
+
+    private void initializeBottomPanel() {
+        JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
+        bottomPanel.setBackground(Color.BLACK);
+        
+        // Player stats panel
+        JPanel playerWrapper = createStatsWrapper(true);
+        JPanel playerPanel = battleBars.getPlayerStats();
+        playerPanel.setBackground(Color.BLACK);
+        playerWrapper.add(playerPanel, BorderLayout.CENTER);
+        
+        // Enemy stats panel
+        enemyWrapper = createStatsWrapper(false);
+        JPanel enemyPanel = battleBars.getEnemyStats();
+        enemyPanel.setBackground(Color.BLACK);
+        enemyWrapper.add(enemyPanel, BorderLayout.CENTER);
+        
+        // Initialize player stats
+        battleBars.setPlayerStats(
+            player.getAttributes().getBaseHp(),
+            player.getAttributes().getBaseMana()
+        );
+        
+        // Add all panels
+        bottomPanel.add(playerWrapper);
+        bottomPanel.add(skillButtonsPanel);
+        bottomPanel.add(enemyWrapper);
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    private JPanel createStatsWrapper(boolean isPlayer) {
+        JPanel wrapper = new JPanel(new BorderLayout());
+        wrapper.setBackground(Color.BLACK);
+        int verticalPadding = (int)(screenSize.height * 0.05);
+        int horizontalPadding = isPlayer ? (int)(screenSize.width * 0.1) : (int)(screenSize.width * 0.06);
+        wrapper.setBorder(BorderFactory.createEmptyBorder(verticalPadding, horizontalPadding, verticalPadding, 0));
+        return wrapper;
     }
 
     public JPanel getEnemyWrapper(){
@@ -78,29 +255,11 @@ public class BattleUI extends JPanel{
         return battleSample;
     }
 
-    public void displayContainerPanel(){
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        textPanel.setBackground(Color.BLACK);
-        textPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder((int)(screenSize.height * 0.05), (int)(screenSize.width * 0.05), 0, (int)(screenSize.width * 0.05)), 
-            BorderFactory.createLineBorder(Color.WHITE, 2)  // Existing white border
-        ));
-        textPanel.setPreferredSize(new Dimension(width, (int) (screenSize.height * 0.3)));
 
+    public JPanel getSidePanel(){
+        return sidePanel;
     }
 
-    public void displayTitleLabel(){
-        topTextBox = new JLabel("", SwingConstants.CENTER);
-        topTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
-        topTextBox.setForeground(Color.WHITE);
-        topTextBox.setVerticalAlignment(SwingConstants.CENTER);
-        topTextBox.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-        topTextBox.setMaximumSize(new Dimension(width, topTextHeight));
-        topTextBox.setAlignmentX(Component.CENTER_ALIGNMENT); 
-        topTextBox.setHorizontalAlignment(SwingConstants.CENTER);
-        topTextBox.setText("Echoes Of The Dead");
-        textPanel.add(topTextBox);
-    }
 
     public void toggleTextListOff(){
         if(player.getAnimator().getIsInBattle()) temp = topTextBox.getText();
@@ -119,125 +278,11 @@ public class BattleUI extends JPanel{
         bottomTextBox.setText(detail);
     }
 
-    public void displayGamePanel(){
-
-        // THE WINDOW & DIALOGUESs
-        System.out.println("battle called");
-
-        story.skillDetails();
-
-        this.setBounds(0, (int)(screenSize.height * 0.4), (int)(screenSize.width), (int)(screenSize.height * 0.6));
-        this.setBackground(Color.BLACK);
-        this.setLayout(new BorderLayout());
-
-        textListModel = new DefaultListModel<>();
-        textList = new JList<>(textListModel);
-        textList.setBackground(Color.BLACK);
-        textList.setForeground(Color.WHITE);
-        textList.setFont(new Font("Monospaced", Font.PLAIN, 28));
-        // Set up the JList properties
-        textList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        textList.setVisibleRowCount(3); // Show 3 rows at a time
-        textList.setFixedCellHeight((int) (screenSize.height * 0.07)); // Set fixed cell height
-        textList.setVisible(false);
-            // Add a scroll pane for the list
-        JScrollPane scrollPane = new JScrollPane(textList);
-        scrollPane.getViewport().setBackground(Color.BLACK);
-        scrollPane.setVisible(true);
-
-        textPanel.add(scrollPane); 
-
-        bottomTextBox = new JLabel("", SwingConstants.CENTER);
-        bottomTextBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
-        bottomTextBox.setForeground(Color.WHITE);
-        bottomTextBox.setVerticalAlignment(SwingConstants.CENTER);
-        bottomTextBox.setMaximumSize(new Dimension(width, bottomTextHeight));
-        textPanel.add(bottomTextBox);
-
-        bottomTextBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        bottomTextBox.setHorizontalAlignment(SwingConstants.CENTER);
-
-        this.add(textPanel, BorderLayout.CENTER);
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.setVisible(true);
-        
-
+    public void setPlayer(Player player){
+        this.player = player;
+        if (battleSample != null)battleSample.setPlayer(player);
     }
 
-    public void displaySkillButtons(){
-        skillButtonsPanel = new JPanel(new GridLayout(1, 4, 0, 0));
-        skillButtonsPanel.setBackground(Color.BLACK);
-        // ACTION LISTENERS
-
-        skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
-        skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
-        skillAIcon = scaleImageIcon("src/button_assets/basicSkill0.png");
-        skillAHoverIcon = scaleImageIcon("src/button_assets/basicSkill1.png");
-
-        skillBIcon = scaleImageIcon("src/button_assets/1stskill0.png");
-        skillBHoverIcon = scaleImageIcon("src/button_assets/1stskill1.png");
-
-        skillCIcon = scaleImageIcon("src/button_assets/2ndskill0.png");
-        skillCHoverIcon = scaleImageIcon("src/button_assets/2ndskill1.png");
-
-        skillDIcon = scaleImageIcon("src/button_assets/3rdskill0.png");
-        skillDHoverIcon = scaleImageIcon("src/button_assets/3rdskill1.png");
-
-        // Create and add skill buttons
-
-        skillA = createSkillButton(story, skillAIcon, skillAHoverIcon, 
-            e -> battleSample.skill1(), bottomTextBox, 0, 1);
-
-        skillB = createSkillButton(story, skillBIcon, skillBHoverIcon, 
-            e -> battleSample.skill2(), bottomTextBox, 0, 2);
-
-        skillC = createSkillButton(story, skillCIcon, skillCHoverIcon, 
-            e -> battleSample.skill3(), bottomTextBox, 0, 3);
-
-        skillD = createSkillButton(story, skillDIcon, skillDHoverIcon, 
-            e -> battleSample.skill4(), bottomTextBox, 0, 4);
-
-
-        skillButtonsPanel.add(skillA);
-        skillButtonsPanel.add(skillB);
-        skillButtonsPanel.add(skillC);
-        skillButtonsPanel.add(skillD);
-    }
-
-    public void displayBottomPanel(){
-        JPanel bottomPanel = new JPanel(new GridLayout(1, 3));
-        bottomPanel.setBackground(Color.BLACK);
-        bottomPanel.setPreferredSize(new Dimension((int) (screenSize.width), (int) (screenSize.height * 0.2)));
-        
-        JPanel playerWrapper = new JPanel(new BorderLayout());  // GridBagLayout will center its contents
-        playerWrapper.setBackground(Color.BLACK);
-        enemyWrapper = new JPanel(new BorderLayout());   // GridBagLayout will center its contents
-        enemyWrapper.setBackground(Color.BLACK);
-
-        JPanel playerPanel = battleBars.getPlayerStats();
-        playerPanel.setBackground(Color.BLACK);
-        JPanel enemyPanel = battleBars.getEnemyStats();
-        enemyPanel.setBackground(Color.BLACK);
-
-        int verticalPadding = (int)(screenSize.height * 0.07);
-        playerWrapper.setBorder(BorderFactory.createEmptyBorder(verticalPadding, (int)(screenSize.width * 0.1), verticalPadding, 0));
-        enemyWrapper.setBorder(BorderFactory.createEmptyBorder(verticalPadding, (int)(screenSize.width * 0.06), verticalPadding, 0));
-        enemyWrapper.setVisible(false);
-
-        playerWrapper.add(playerPanel, BorderLayout.CENTER);
-        enemyWrapper.add(enemyPanel,  BorderLayout.CENTER);
-
-        battleBars.setPlayerStats(
-            player.getAttributes().getBaseHp(),
-            player.getAttributes().getBaseMana()
-        );
-
-        bottomPanel.add(playerWrapper);
-        bottomPanel.add(skillButtonsPanel);
-        bottomPanel.add(enemyWrapper);
-        this.add(bottomPanel, BorderLayout.SOUTH);
-    }
 
     public void updatePlayerBars(int hp, int mp){
         battleBars.setPlayerHealth(hp);
@@ -289,6 +334,10 @@ public class BattleUI extends JPanel{
         
 
         button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
             @Override
             public void mouseEntered(MouseEvent e) {
                 button.setIcon(hoverIcon);

@@ -19,6 +19,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.awt.Color;
 
 /**
  *
@@ -36,6 +37,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private int numOfSprites;
     private int index;
     private boolean allowHover;
+    private boolean isEnabled;
 
     public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
@@ -48,9 +50,19 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         numOfSprites = 0;
         index = 0;
         allowHover = true;
+        isEnabled = true;
         initializeSprites(assetPackage, width, height);
         this.addMouseListener(new MouseClickListener(this));
     }   
+
+    public void setEnabled(boolean isEnabled){
+        this.isEnabled = isEnabled;
+        repaint();
+    }
+
+    public boolean getEnabled(){
+        return isEnabled;
+    }
 
     @Override
     public double getWidthE(){
@@ -133,7 +145,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     @Override
     public void onClick(MouseEvent e) {     
-          
+          if(!isEnabled) return;
     }
 
     @Override
@@ -215,12 +227,30 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
+    
+        // If disabled, add a semi-transparent gray overlay
+        if (!isEnabled) {
+            Graphics2D g2d = (Graphics2D) g;
+            
+            // Store the original composite
+            java.awt.Composite originalComposite = g2d.getComposite();
+            
+            // Create a semi-transparent overlay
+            g2d.setComposite(java.awt.AlphaComposite.getInstance(
+                java.awt.AlphaComposite.SRC_OVER, 0.5f));
+            g2d.setColor(Color.GRAY);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            
+            // Restore the original composite
+            g2d.setComposite(originalComposite);
+        }
     }
 
     @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+        RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.drawImage(getCurrentSprite(), (int)posX, (int)posY, null);
     }
 

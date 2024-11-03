@@ -19,6 +19,10 @@ public class BattleExperiment implements BattleExperimentBlueprint{
     private boolean isProcessingTurn = false;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+    public boolean isProcessingTurn(){
+        return isProcessingTurn;
+    }
+
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;
     }
@@ -58,6 +62,7 @@ public class BattleExperiment implements BattleExperimentBlueprint{
 
             battleUI.showAction("Turn " + turnCount + ": " + player.getAction());
             battleUI.setSkillButtonsEnabled(false);
+            battleUI.setAllyProfilesEnabled(false);
             
             // Set callback for player's animation completion
             player.getAnimator().setOnAnimationComplete(() -> {
@@ -132,6 +137,7 @@ public class BattleExperiment implements BattleExperimentBlueprint{
     private void finishEnemyTurn() {
         player.attributeTurnChecker();
         battleUI.setSkillButtonsEnabled(true);
+        battleUI.setAllyProfilesEnabled(true);
         battleUI.updateTurnIndicator("Turn " + turnCount + " - Your turn");
         battleUI.updateCooldowns();
         
@@ -147,7 +153,6 @@ public class BattleExperiment implements BattleExperimentBlueprint{
 
     private void handleBattleEnd(boolean playerWon) {
         isProcessingTurn = false;
-        player.reset(playerWon);
         World world = player.getWorld();
         if(playerWon){
             world.callVictory();
@@ -155,6 +160,13 @@ public class BattleExperiment implements BattleExperimentBlueprint{
         }else{
             world.callDefeat();
             handleLose();;
+        }
+        
+        for(Player player : world.getPlayerList()){
+            player.getAnimator().setMoving(true);
+            player.reset(playerWon);
+            player.getAnimator().setIsInBattle(false);
+            player.setPosX(screenSize.width * 0.4);
         }
         // battleUI.getEnemyWrapper().setVisible(false);
         // Add any additional end-game logic here
@@ -184,11 +196,8 @@ public class BattleExperiment implements BattleExperimentBlueprint{
         double enemyDeathY = getEnemyDeathPosY(enemy);
         String portalName = battleUI.getPortal().getName();
         int portalIndex = getPortalIndex(portalName);
-        player.getAnimator().setIsInBattle(false);
-        player.getAnimator().setMoving(true);
         battleUI.getPortal().setIndex(portalIndex);
         enemy.setIsDefeated(true);
-        player.setPosX(screenSize.width * 0.4);
         System.out.println("You won");
         Timer deathAnimationTimer = new Timer(800, new ActionListener() {
             @Override
@@ -201,8 +210,6 @@ public class BattleExperiment implements BattleExperimentBlueprint{
     }
 
     private void handleLose(){
-        player.getAnimator().setIsInBattle(false);
-        player.setPosX(screenSize.width * 0.4);
         player.getAnimator().setMoving(false);
         enemy.getAnimator().setIsInBattle(false);
         enemy.getAnimator().setMoving(true);

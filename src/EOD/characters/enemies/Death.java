@@ -65,25 +65,25 @@ public class Death extends Enemy{
     @Override 
     public double getOffsetX(int skill){
         if(skill == 1){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.3;
             }else{
                 return 0.3;
             }
         }else if(skill == 2){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.35;
             }else{
                 return 0.15;
             }
         }else if(skill == 3){
-            if(protagonist.isWizard()){
+            if(player.isWizard()){
                 return 0.3;
             }else{
                 return 0.22;
             }
         }else{
-            if(protagonist.isWizard()){
+            if(player.isWizard()){
                 return 0.2;
             }else{
                 return 0.3;
@@ -94,29 +94,29 @@ public class Death extends Enemy{
     @Override 
     public double getOffsetY(int skill){
         if(skill == 1){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.18;
             }else{
                 return 0.2;
             }
         }else if(skill == 2){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.4;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.4;
             }else{
                 return 0.3;
             }
         }else if(skill == 3){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.3;
             }else{
                 return 0.2;
             }
         }else{
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.1;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.2;
             }else{
                 return 0.32;
@@ -127,25 +127,25 @@ public class Death extends Enemy{
     @Override 
     public double getOffsetW(int skill){
         if(skill == 2) {
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.2;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.15;
             } else {
                 return 0.25;
             }
         }else if(skill == 3){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.15;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.3;
             }else{
                 return 0.17;
             }
         }else{
-            if(protagonist.isWizard()){
+            if(player.isWizard()){
                 return 0.2;
-            }else if(protagonist.isKnight()){
+            }else if(player.isKnight()){
                 return 0.28;
             }else{
                 return 0.3;
@@ -156,26 +156,26 @@ public class Death extends Enemy{
     @Override 
     public double getOffsetH(int skill){
         if(skill == 2) {
-            if(protagonist.isKnight()) {
+            if(player.isKnight()) {
                 return 0.15;
-            } else if(protagonist.isWizard()){
+            } else if(player.isWizard()){
                 return 0.15;
             }else{
                 return 0.07;
             }
         }else if(skill == 3){
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.15;
-            }else if(protagonist.isWizard()){
+            }else if(player.isWizard()){
                 return 0.3;
             }else{
                 return 0.17;
             }
         }else{
-            if(protagonist.isKnight()){
+            if(player.isKnight()){
                 return 0.22;
             }
-            if(protagonist.isWizard()){
+            if(player.isWizard()){
                 return 0.25;
             }else{
                 return 0.28;

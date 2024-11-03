@@ -41,7 +41,7 @@ public class PlayerAnimator extends Animator {
                 character.setPosX(newPosX);
             }
         }
-        
+        character.repaint();
         updateBounds();
     }
 

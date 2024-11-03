@@ -40,12 +40,6 @@ public class SceneBuilder extends JPanel{
 
     public ArrayList<Enemy> enemyList;
 
-    private Player knight;
-
-    private Player priest;
-
-    private Player wizard;
-
     private Player player;
 
     private SceneTransitionHandler transitionHandler;
@@ -84,6 +78,34 @@ public class SceneBuilder extends JPanel{
 
     public void setPlayer(Player player){
         this.player = player;
+    }
+
+    public void setPlayer(ArrayList<Player> playerList, int index) {
+        System.out.println(this.player.getPosX());
+        if (this.player != null) {
+            int previousX = (int)this.player.getPosX();
+            
+            // First set positions for all players while they're hidden
+            for(Player player : playerList) {
+                player.setVisible(false);
+                player.setPosX(previousX);  
+                player.getAnimator().updateBounds(); // Update bounds before showing
+                setComponentZOrder(player, 0); // Set Z-order for all players
+            }
+            
+            // Setup the new active player
+            Player newPlayer = playerList.get(index);
+            newPlayer.getAnimator().updateBounds(); // Ensure bounds are up to date
+            newPlayer.setVisible(true);
+            
+            this.player = newPlayer;
+        } else {
+            // First time initialization
+            this.player = playerList.get(index);
+            this.player.getAnimator().updateBounds(); // Initial bounds update
+            setComponentZOrder(this.player, 0);
+            this.player.setVisible(true);
+        }
     }
 
     public void setCurrentSceneIndex(int value){
@@ -177,6 +199,13 @@ public void createWorldScene() {
     }
 
     public void configureBattle(Enemy enemy, EchoesObjects portal){
+        for(Player player : world.getPlayerList()){
+            player.getAnimator().setIsInBattle(true);
+            player.getAnimator().stopMovement();
+            player.setPosX(screenSize.width * 0.35);
+            player.getAnimator().setMovingRight(true);
+            player.setEnemy(enemy);
+        }
         world.getBattle().setEnemy(enemy);
         world.getBattle().startBattle();
         world.getBattle().setPortal(portal);
@@ -185,9 +214,6 @@ public void createWorldScene() {
     private void updateBattleState(){
         if(player.getAnimator().getIsInBattle()){
             world.getBattle().updateCooldowns();
-            // for debugging
-            // System.out.println("Player HP: " + playerHp + " Player Mana: " + player.getAttributes().getMana() + " Enemy HP: " + enemyHp 
-            // + "Skill3 cd: " + player.getSkill3CD() + "Skill4 cd: " + player.getSkill4CD());  
         }
     }
     
@@ -197,11 +223,13 @@ public void createWorldScene() {
             animator.updateAnimation();
             animator.updateMovement();
             animator.updateBounds();
+            // System.out.println("Player to update: " + player.getCharacterType());
+            
             if(world != null )world.updatePlayerMoneyLabel();
 
             if(transitionHandler == null) return;
                  // Check if we're at a transition point
-                transitionHandler.handleSceneTransition(this, player, objList, npcList, enemyList);
+                transitionHandler.handleSceneTransition(this, player.getPosX(), world.getPlayerList(), objList, npcList, enemyList);
             if (transitionHandler.isAtTransitionPoint(player.getPosX(),  getCurrentSceneIndex(), getNumOfScenes() - 3)) {
                 animator.stopMovement(); // Stop movement when reaching transition point
             }

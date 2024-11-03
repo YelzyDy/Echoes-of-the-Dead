@@ -31,14 +31,16 @@ public class World1 extends World{
     public void initializeProtagonist(){
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
         initializePlayer();
-        player.setWorld(this);
-        player.setName(playerName);
-        scene.addMouseListener(new MouseClickListener(player));
-        scene.setPlayer(player);
-        player.setVisible(true);
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
         setMoneyLabel(player.getAttributes().getMoney() + "");
+        
+        player.setVisible(true);
+        scene.add(player);
+        scene.setPlayer(player);
+        playerList.add(knight);
+        playerList.add(priest);
+        playerList.add(wizard);
     }
 
     private void initializePlayer(){
@@ -55,6 +57,7 @@ public class World1 extends World{
         initializeAllies();
     }
 
+    
     private void initializeAllies(){
         if(characterType.equals("knight")){
             initializePriest();
@@ -74,8 +77,10 @@ public class World1 extends World{
         knight.setVisible(false);
         knight.setWorld(this);
         knight.configureSkills();
+        knight.setWorld(this);
+        knight.setName(playerName);
         scene.add(knight);
-        scene.setComponentZOrder(knight, 0);
+        scene.addMouseListener(new MouseClickListener(knight));
     }
 
     private void initializeWizard(){
@@ -84,8 +89,10 @@ public class World1 extends World{
         wizard.setVisible(false);
         wizard.setWorld(this);
         wizard.configureSkills();
+        wizard.setWorld(this);
+        wizard.setName(playerName);
         scene.add(wizard);
-        scene.setComponentZOrder(wizard, 0);
+        scene.addMouseListener(new MouseClickListener(wizard));
     }
 
     private void initializePriest(){
@@ -94,8 +101,10 @@ public class World1 extends World{
         priest.setVisible(false);
         priest.setWorld(this);
         priest.configureSkills();
+        priest.setWorld(this);
+        priest.setName(playerName);
         scene.add(priest);
-        scene.setComponentZOrder(priest, 0);
+        scene.addMouseListener(new MouseClickListener(priest));
     }
 
     @Override
@@ -228,7 +237,7 @@ public class World1 extends World{
                 shop.makeElementsVisible();
             }else if (source == obj && obj.getName().equals("portalNextWorld")){
                 scene.gameLoopTimer.stop();
-                World window = new World2(player);
+                World window = new World2(player, playerList);
                 window.setVisible(true);
                 this.setVisible(false);
             }

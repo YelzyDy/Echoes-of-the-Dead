@@ -4,6 +4,7 @@ import EOD.characters.*;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 import EOD.objects.*;
+import EOD.objects.profiles.AllyProfiles;
 import EOD.objects.shop.Shop;
 import EOD.scenes.*;
 import EOD.utils.BGMPlayer;
@@ -15,7 +16,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
-
+import java.util.ArrayList;;
 
 public abstract class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
     private EchoesObjects promptPanel;
@@ -46,7 +47,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected Player knight;
     protected Player priest;
     protected Player wizard;
+    protected ArrayList<Player> playerList;
 
+    private AllyProfiles allyProfiles;
 
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
@@ -86,9 +89,13 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         progressBar.setForeground(new Color(6,57,112));
         progressBar.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5)); // Border for aesthetics
         progressBar.setFont(new Font("SansSerif", Font.BOLD, 16)); 
-
+        playerList = new ArrayList<>();
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
+    }
+
+    public ArrayList<Player> getPlayerList(){
+        return playerList;
     }
 
     public void setPlayer(Player player){
@@ -114,6 +121,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
 
     public abstract void initializeProtagonist();
 
+    
     public void updatePlayerMoneyLabel(){
         moneyLabel.setText(player.getAttributes().getMoney() + "");
     }
@@ -122,6 +130,11 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         System.out.println("called>");
         battle = new BattleUI(player);
         layeredPane.add(battle, Integer.valueOf(1));
+    }
+
+    private void initializeAllyProfiles(){
+        allyProfiles = new AllyProfiles(this);
+        allyProfiles.setPlayer(playerList);
     }
 
     public void configureBanners(){
@@ -235,11 +248,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
                 publish(0); // Start progress
                 initializeWorldChars();
                 publish(25);
-                System.out.println("Protagonist initialized");
-    
-                // Check if protagonist was initialized properly
-                assert player != null : "Protagonist not initialized!";
-    
+
                 initializeObjects();
                 publish(50);
                 System.out.println("Objects initialized");
@@ -275,8 +284,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         protected void done() {
             progressBar.setString("Loading Complete");
             removeWelcome();
-            scene.initializeGameLoop();
             initializeBattleUI();
+            initializeAllyProfiles();
+            allyProfiles.ShowAllProfiles();
+            scene.initializeGameLoop();
         }
     }
 

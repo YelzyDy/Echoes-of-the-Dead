@@ -9,7 +9,7 @@ import EOD.listeners.MouseClickListener;
 import java.awt.event.MouseEvent;
 
 public abstract class Enemy extends Character implements MouseInteractable, EnemyBlueprint{
-    protected Player protagonist;
+    protected Player player;
     protected int health;
     protected int attack;
     protected int moneyDrop;
@@ -26,9 +26,9 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
 
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,
-        Player protagonist) {        
+        Player player) {        
         super(name, characterType, posX, posY);
-        this.protagonist = protagonist;
+        this.player = player;
         this.animator = new EnemyAnimator(this, 2);
         setAnimator(animator);
         this.addMouseListener(new MouseClickListener(this));
@@ -37,7 +37,10 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
         isDefeated = false;
     }
 
-    
+    public void setPlayer(Player player){
+        this.player = player;
+    }
+
     @Override
     public double getXFactor(){
         return xFactor;
@@ -156,7 +159,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
     public void onClick(MouseEvent e) {
         animator.stopMovement();
         if (animator.getIsInBattle()) return;
-        protagonist.getAnimator().setIsInBattle(true);
+        player.getAnimator().setIsInBattle(true);
         animator.setIsInBattle(true);
         positionForBattle();
         onBattleStart();
@@ -164,10 +167,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Enem
 
     @Override
     public void positionForBattle() {
-        protagonist.getAnimator().stopMovement();
-        protagonist.setPosX(screenSize.width * 0.35);
         setPosX(screenSize.width * 0.55);
-        protagonist.getAnimator().setMovingRight(true);
         animator.setMovingRight(false);
         animator.stopMovement();
     }
