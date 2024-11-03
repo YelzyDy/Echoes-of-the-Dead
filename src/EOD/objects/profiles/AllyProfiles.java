@@ -30,9 +30,6 @@ public class AllyProfiles implements MouseInteractable{
         addKnightProf();;
         addWizardProf();
         addPriestProf();
-        showKnightProfile();
-        showWizardProfile();
-        showPriestProfile();
     }
 
     public void setWorld(World world){

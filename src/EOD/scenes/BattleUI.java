@@ -275,11 +275,11 @@ public class BattleUI extends JPanel{
     public void setPlayer(Player player){
         this.player = player;
         if (battleSample != null)battleSample.setPlayer(player);
-        // handleSkillVisibility();
         if(player.getAnimator().getIsInBattle()){
             enemy.setPlayer(player);
             player.setEnemy(enemy);
         }
+        handleSkillVisibility();
     }
 
     public void handleSkillVisibility(){
