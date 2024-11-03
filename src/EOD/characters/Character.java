@@ -12,7 +12,6 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 
 import EOD.animator.*;
-import EOD.gameInterfaces.CharacterBlueprint;
 import EOD.utils.TransparentPanel;
 import EOD.worlds.World;
 import EOD.scenes.SceneBuilder;
@@ -23,7 +22,7 @@ import EOD.scenes.SceneBuilder;
  *
  * @author Joana
  */
-public class Character extends TransparentPanel implements CharacterBlueprint{
+public class Character extends TransparentPanel{
     private double posX;
     private double posY;
     private String characterType;
@@ -42,47 +41,38 @@ public class Character extends TransparentPanel implements CharacterBlueprint{
         this.setName(name);
     }   
 
-    @Override
     public void setWorld(World world){
         this.world = world;
     }
 
-    @Override
     public World getWorld(){
         return world;
     }
 
-    @Override
     public double getWidthE(){
         return getWidth();
     }
 
-    @Override
     public double getHeightE(){
         return getHeight();
     }
 
-    @Override
     public void setAnimator(Animator animator){
         this.animator = animator;
     }
 
-    @Override
     public Animator getAnimator(){
         return animator;
     }
 
-    @Override
     public String getCharacterType(){
         return characterType;
     }
 
-    @Override
     public void setpanel(SceneBuilder panel){
         this.panel = panel;
     }
 
-    @Override
     public SceneBuilder getPanel(){
         if(world != null){
             return world.getScene();
@@ -91,36 +81,29 @@ public class Character extends TransparentPanel implements CharacterBlueprint{
         }
     }
 
-    @Override
     public void setIndex(int index){
         this.index = index;
     }
 
-    @Override
     public int getIndex(){
         return index;
     }
 
-    @Override
     public double getPosX(){
         return posX;
     }
 
-    @Override
     public double getPosY(){
         return posY;
     }
 
-    @Override
     public void setCharacterType(String characterType){
         this.characterType = characterType;
     }
 
-    @Override
     public void setPosY(double posY){
         this.posY = posY;
     }
-    @Override
     public void setPosX(double posX){
         this.posX = posX;
     }
@@ -132,7 +115,6 @@ public class Character extends TransparentPanel implements CharacterBlueprint{
         draw(g2d);
     }
     
-    @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);

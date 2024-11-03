@@ -10,9 +10,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
-import EOD.gameInterfaces.Animation;;
 
-public abstract class Animator implements Animation{
+public abstract class Animator{
     protected int currentFrame;
     protected boolean isMoving;
     protected boolean isMovingRight;
@@ -70,40 +69,35 @@ public abstract class Animator implements Animation{
         this.isDeathAnimating = false;
     }
 
-    @Override
+
     public void setOnAnimationComplete(Runnable callback) {
         this.onAnimationComplete = callback;
     }
 
-    @Override
     public void setSpeedMultiplier(int speedMultiplier){
         movementSpeedMultiplier = speedMultiplier;
         skillAnimationSpeedMultiplier = speedMultiplier;
         deathAnimationSpeedMultiplier = speedMultiplier;
     }
 
-    @Override
     public void setDeathAnimationSpeedMultiplier(int deathAnimationSpeedMultiplier){
         this.deathAnimationSpeedMultiplier = deathAnimationSpeedMultiplier;
     }
 
-    @Override
     public void setSkillAnimationSpeedMultiplier(int skillAnimationSpeedMultiplier){
         this.skillAnimationSpeedMultiplier = skillAnimationSpeedMultiplier;
     }
 
-    @Override
+
     public void setMovementMultiplier(int movementSpeedMultiplier){
         this.movementSpeedMultiplier = movementSpeedMultiplier;
     }
 
-    @Override
     public void importSkillSprites(int skillNumber, String assetPackage, double scale, int numOfSprites) {
         String type = "skill" + skillNumber;
         importSprites(assetPackage, type, scale, numOfSprites);
     }
 
-    @Override
     public void importSprites(String assetPackage, String type, double scale, int numOfSprites) {
         ImageList sprites = getSpriteList(type);
         sprites.clear();
@@ -120,7 +114,6 @@ public abstract class Animator implements Animation{
         sprites.scaleImageList(scale);
     }
 
-    @Override
     public ImageList getSpriteList(String type) {
         switch (type) {
             case "walk": return walkSprites;
@@ -135,7 +128,6 @@ public abstract class Animator implements Animation{
         }
     }
 
-    @Override
     public void updateAnimation() {
         if (isDead) {
             int frameIncrement = Math.max(1, (int)(1 * deathAnimationSpeedMultiplier));
@@ -157,7 +149,6 @@ public abstract class Animator implements Animation{
         }
     }
 
-    @Override
     public void updateSkillAnimation() {
         character.getPanel().setComponentZOrder(character, 1);
         if (!reachedTarget) {
@@ -195,7 +186,6 @@ public abstract class Animator implements Animation{
         }
     }
 
-    @Override
     public void cropSprites(){
         walkSprites.cropImageList();
         idleSprites.cropImageList();
@@ -206,7 +196,6 @@ public abstract class Animator implements Animation{
         }
     }
 
-    @Override
     public BufferedImage getCurrentSprite() {
         if (isDead) {
             return deadSprites.get(Math.min(currentFrame, deadSprites.getSize() - 1));
@@ -223,7 +212,6 @@ public abstract class Animator implements Animation{
     }
 
 
-    @Override
     public void triggerSkillAnimation(int skillNumber, int targetX) {
         isUsingSkill = true;
         currentSkill = skillNumber - 1;
@@ -251,7 +239,6 @@ public abstract class Animator implements Animation{
         return (targetX > startX) ? delta : -delta;
     }
 
-    @Override
     public void triggerDeathAnimation(double targetY) {
         isDead = true;
         isDeathAnimating = true;
@@ -286,44 +273,30 @@ public abstract class Animator implements Animation{
         deathAnimationTimer.start();
     }
 
-    @Override
     public void scaleSprites(String spriteType, double scale) {
         getSpriteList(spriteType).scaleImageList(scale);
     }
 
-    @Override
     public void scaleDownSprites(String spriteType, double scale) {
         getSpriteList(spriteType).scaleImageListDown(scale);
     }
 
     // Getters and setters
-    @Override
     public boolean getIsMoving() { return isMoving; }
-    @Override
     public boolean getIsMovingRight() { return isMovingRight; }
-    @Override
     public boolean getIsInBattle() { return isInBattle; }
-    @Override
     public boolean getIsDead() { return isDead; }
-    @Override
     public boolean getIsUsingSkill() { return isUsingSkill; }
-    @Override
     public void setMoving(boolean isMoving) { this.isMoving = isMoving; }
-    @Override
     public void setMovingRight(boolean isMovingRight) { this.isMovingRight = isMovingRight; }
-    @Override
     public void setIsInBattle(boolean value) { this.isInBattle = value; }
-    @Override
     public void restartAnimation() { currentFrame = 0; }
-
-    @Override
     public void updateBounds() {
         BufferedImage currentSprite = getCurrentSprite();
         character.setBounds((int)character.getPosX(), (int)character.getPosY(), 
                             currentSprite.getWidth(null), currentSprite.getHeight(null));
     }
 
-    @Override
     public void moveTo(int targetX, int deltaX) {
         this.targetX = targetX;
         this.deltaX = deltaX;

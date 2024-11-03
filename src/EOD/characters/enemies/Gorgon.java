@@ -30,7 +30,6 @@ public class Gorgon extends Enemy {
             animator.setSkillAnimationSpeedMultiplier(3);
     }
 
-    @Override
     public void configureSprites(){
         double spriteScale = screenSize.height * 0.0045;
         animator.importSprites("character_asset", "walk", spriteScale, 13);
@@ -65,7 +64,6 @@ public class Gorgon extends Enemy {
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
     }
-
 
     @Override 
     public double getOffsetX(int skill){
@@ -213,10 +211,5 @@ public class Gorgon extends Enemy {
     protected void onBattleStart() {
         EchoesObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
-    }
-
-    @Override
-    public void skill4() {
-        
     }
 }

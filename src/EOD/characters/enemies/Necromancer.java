@@ -22,7 +22,6 @@ public class Necromancer extends Enemy {
             animator.setSkillAnimationSpeedMultiplier(3);
     }
 
-    @Override
     public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.007), 10);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 50);
@@ -203,10 +202,5 @@ public class Necromancer extends Enemy {
     protected void onBattleStart() {
         EchoesObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
-    }
-
-    @Override
-    public void skill4() {
-        
     }
 }

@@ -24,7 +24,6 @@ public class Skeleton2 extends Enemy {
         animator.setSpeedMultiplier(1);
     }
 
-    @Override
     public void configureSprites() {
         int baseSize = (int)(screenSize.height * 0.007);
         
@@ -225,8 +224,4 @@ public class Skeleton2 extends Enemy {
         getPanel().configureBattle(this, portal);
     }
 
-    @Override
-    public void skill4() {
-        
-    }
 }

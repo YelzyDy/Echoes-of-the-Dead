@@ -19,7 +19,6 @@ public interface Entity {
     public void setPosX(double posX);
 
     public void setPosY(double posY);
-    
 
     public void setIndex(int index);
 

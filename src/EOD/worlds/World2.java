@@ -51,6 +51,7 @@ public class World2 extends World{
             p.setpanel(scene);
             p.setWorld(this);
             p.setWorld(this);
+            p.configureSkills();
         }
     }
 
@@ -165,7 +166,7 @@ public class World2 extends World{
                 shop.makeElementsVisible();
             } else if (source == obj && obj.getName().equals("portalNextWorld")){
                 scene.gameLoopTimer.stop();
-                World window = new World3(player);
+                World window = new World3(player, playerList);
                 window.setVisible(true);
                 this.setVisible(false);
             }

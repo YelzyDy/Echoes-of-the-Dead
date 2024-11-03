@@ -1,10 +1,9 @@
 package EOD.characters;
 
-import EOD.gameInterfaces.PlayerAttributesBlueprint;
 import EOD.objects.SkillEffects;
 import java.awt.Dimension;
 
-public class PlayerAttributes implements PlayerAttributesBlueprint{
+public class PlayerAttributes{
     protected int baseAttack;
     protected int attack;
     protected int health;
@@ -35,7 +34,6 @@ public class PlayerAttributes implements PlayerAttributesBlueprint{
         configure(player.getCharacterType());
     }
 
-    @Override
     public void configure(String characterType) {
         switch (characterType) {
             case "knight":
@@ -50,7 +48,6 @@ public class PlayerAttributes implements PlayerAttributesBlueprint{
         }
     }
 
-    @Override
     public void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
         this.attack = atk;
         this.baseAttack = attack;
@@ -66,7 +63,6 @@ public class PlayerAttributes implements PlayerAttributesBlueprint{
         this.s4num = s4;
     }
 
-    @Override
     public SkillEffects createSkillEffect(String type, double xFactor, double yFactor, int numSprites, boolean looping) {
         SkillEffects effect = new SkillEffects(
             "effects",
@@ -83,22 +79,22 @@ public class PlayerAttributes implements PlayerAttributesBlueprint{
     }
 
     // Getters and Setters for attributes (health, mana, attack, etc.)
-    @Override public int getHp() { return health; }
-    @Override public void setHp(int newHealth) { health = newHealth; }
-    @Override public int getBaseHp() { return baseHealth; }
-    @Override public void setBaseHp(int newBaseHp) { baseHealth = newBaseHp; }
+    public int getHp() { return health; }
+    public void setHp(int newHealth) { health = newHealth; }
+    public int getBaseHp() { return baseHealth; }
+    public void setBaseHp(int newBaseHp) { baseHealth = newBaseHp; }
 
-    @Override public int getMana() { return mana; }
-    @Override public void setMana(int newMana) { mana = newMana; }
-    @Override public int getBaseMana() { return baseMana; }
-    @Override public void setBaseMana(int newBaseMana) { baseMana = newBaseMana; }
+    public int getMana() { return mana; }
+    public void setMana(int newMana) { mana = newMana; }
+    public int getBaseMana() { return baseMana; }
+    public void setBaseMana(int newBaseMana) { baseMana = newBaseMana; }
 
-    @Override public int getMoney() { return money; }
-    @Override public void addMoney(int newMoney) { money += newMoney; }
-    @Override public void setMoney(int newMoney) { money = newMoney; }
+    public int getMoney() { return money; }
+    public void addMoney(int newMoney) { money += newMoney; }
+    public void setMoney(int newMoney) { money = newMoney; }
 
-    @Override public int getAttack() { return attack; }
-    @Override public void setAttack(int newAttack) { attack = newAttack; }
-    @Override public int getBaseAttack() { return baseAttack; }
-    @Override public void setBaseAttack(int newBaseAttack) { baseAttack = newBaseAttack; }
+    public int getAttack() { return attack; }
+    public void setAttack(int newAttack) { attack = newAttack; }
+    public int getBaseAttack() { return baseAttack; }
+    public void setBaseAttack(int newBaseAttack) { baseAttack = newBaseAttack; }
 }

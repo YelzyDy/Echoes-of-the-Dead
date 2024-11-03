@@ -22,7 +22,6 @@ public class Death extends Enemy{
             animator.setSkillAnimationSpeedMultiplier(1);
     }
 
-    @Override
     public void configureSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.0055), 7);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.0055), 7);
@@ -35,7 +34,6 @@ public class Death extends Enemy{
     }
     
 
-    @Override 
     public void skill1() {
         damageDealt = attack + (int)(Math.random() * 3);
         actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
@@ -202,10 +200,5 @@ public class Death extends Enemy{
     protected void onBattleStart() {
         EchoesObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
-    }
-
-    @Override
-    public void skill4() {
-        
     }
 }
