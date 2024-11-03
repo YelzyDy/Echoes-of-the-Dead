@@ -109,27 +109,30 @@ public class World3 extends World{
     @Override
     public void initializeWorldChars(){
         scene.npcList = new ArrayList<>();
-        scene.npcList.add(new Npc("Faithful", "faithful", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
+        scene.npcList.add(new Npc("Asriel", "asriel", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
         scene.npcList.add(new Npc("Miggins", "miggins",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62));
-        scene.npcList.add(new Npc("Chea", "chea",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.4, screenSize.width * 0.8));
-        scene.npcList.add(new Npc("Renegald", "renegald", (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.2, screenSize.width * 0.6));
-        scene.npcList.add(new Npc("Constance", "missC", (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.25), screenSize.width * 0.6, screenSize.width * 0.8));
+        scene.npcList.add(new Npc("Chea", "chea",  (int)(screenSize.width * 0.55), (int)((screenSize.height * 0.25)-75), screenSize.width * 0.2, screenSize.width * 0.55));
+        scene.npcList.add(new Npc("Akefay", "akefay", (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.2, screenSize.width * 0.6));
+        scene.npcList.add(new Npc("Yoo", "yoo", (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.25), screenSize.width * 0.6, screenSize.width * 0.8));
+        scene.npcList.add(new Npc("Natty", "natty", (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.55));
         
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
             scene.add(npc);
             scene.setComponentZOrder(npc, 0);
             npc.setWorld(this);
-            if (npc.getName().equals("Constance")) {
+            if (npc.getName().equals("Yoo")) {
                 npc.setIndex(0);
-            }else if (npc.getName().equals("Faithful")) {
+            }else if (npc.getName().equals("Akefay")) {
                 npc.setIndex(1);
             } else if (npc.getName().equals("Miggins")) {
                 npc.setIndex(2);
-            } else if (npc.getName().equals("Renegald")){
+            } else if (npc.getName().equals("Asriel")){
                 npc.setIndex(1);
-            } else if (npc.getName().equals("Ruby")){
-                npc.setIndex(0);
+            } else if (npc.getName().equals("Chea")){
+                npc.setIndex(2);
+            } else if (npc.getName().equals("Natty")){
+                npc.setIndex(2);
             }
         }
     }
