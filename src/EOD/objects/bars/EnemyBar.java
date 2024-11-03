@@ -10,7 +10,7 @@ public class EnemyBar extends JPanel {
     
     public EnemyBar() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        barWidth = (int) (screenSize.width * 0.17); // Width is 20% of screen width
+        barWidth = (int) (screenSize.width * 0.16); // Width is 20% of screen width
         barHeight = (int) (screenSize.height * 0.03); // Height is 5% of screen height
     }
 

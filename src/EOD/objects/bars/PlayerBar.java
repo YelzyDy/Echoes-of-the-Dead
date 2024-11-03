@@ -15,7 +15,7 @@ public class PlayerBar extends JPanel {
 
     public PlayerBar() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        barWidth = (int) (screenSize.width * 0.17);   // Width is 20% of the screen width
+        barWidth = (int) (screenSize.width * 0.16);   // Width is 20% of the screen width
         barHeight = (int) (screenSize.height * 0.03); // Height is 3% of the screen height
         barHeightSpacing = (int) (barHeight * 1.4);   // Spacing between health and mana bars
     }
