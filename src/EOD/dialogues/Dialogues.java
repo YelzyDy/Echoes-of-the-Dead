@@ -130,6 +130,10 @@ public class Dialogues{
         skipButton.addActionListener(e -> {
             System.out.println("click");
             storyDialogue.dispose();
+            if(ID == 11 || ID == 13 || ID == 15){
+                world.getScene().remove(world.getScene().ally);
+                world.getScene().ally = null;
+            }
         });
 
         skipButton.addMouseListener(new MouseAdapter() {

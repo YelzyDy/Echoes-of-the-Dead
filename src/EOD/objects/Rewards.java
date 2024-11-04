@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import EOD.characters.Npc;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
+import EOD.worlds.World;
 public class Rewards implements MouseInteractable{
     private static final String KNIGHT = "knight";
     private static final String PRIEST = "priest";
@@ -19,12 +20,14 @@ public class Rewards implements MouseInteractable{
     private String enemyType;
     private AllyProfiles allyProfiles;
     private SceneBuilder panel;
+    private World world;
 
     public Rewards(BattleExperiment battle) {
         this.playerType = battle.getPlayer().getWorld().getPlayer().getCharacterType();
         this.enemyType = battle.getEnemy().getCharacterType();
         this.allyProfiles = battle.getPlayer().getWorld().getPlayer().getAllyProfiles();
         this.panel = battle.getPlayer().getPanel();
+        this.world = battle.getPlayer().getWorld();
     }
 
 
@@ -96,6 +99,7 @@ public class Rewards implements MouseInteractable{
         panel.ally.getAnimator().setMovingRight(false);
         panel.ally.getAnimator().stopMovement();
         panel.ally.setStatic(true);
+        panel.ally.setWorld(world);
         panel.ally.addMouseListener(new MouseClickListener(this));
         panel.add(panel.ally);
     }
