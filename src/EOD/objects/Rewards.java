@@ -7,6 +7,7 @@ import EOD.scenes.SceneBuilder;
 import java.awt.event.MouseEvent;
 
 import EOD.characters.Npc;
+import EOD.characters.Player;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.worlds.World;
