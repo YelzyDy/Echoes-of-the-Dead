@@ -407,7 +407,7 @@ public class StoryLine {
                 
                 this.arr[i++] = "You: \"Another trapped soul? Who are you?\"";
                 
-                this.arr[i++] = "Knight: \"*straightens tie* Former law student. Top of my class at Harvard, if that still means anything in purgatory. Though I suppose my mock trial experience didn't help much against that... thing.\"";
+                this.arr[i++] = "Knight: \"*straightens tie* Former law student. Top of my class at CITU, if that still means anything in purgatory. Though I suppose my mock trial experience didn't help much against that... thing.\"";
             
                 if (playerType.equals("wizard")) {
                     this.arr[i++] = "You: \"A law student? Must be quite a change from debugging code to interpreting laws.\"";
