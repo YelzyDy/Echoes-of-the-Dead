@@ -21,15 +21,20 @@ public class Dialogues{
     private final int y = (int) (screenSize.height * 0.44);
     private int size;
     private int ID;
-
+    private int i = 0;
+    private World world;
     private String playerType;
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
     }
 
-    public void displayDialogues(int ID, World world) {
+    public void resetI(){
+        i = 0;
+    }
 
+    public void displayDialogues(int ID, World world) {
+        this.world = world;
         // LOAD NPC
 
         this.ID = ID;
@@ -111,6 +116,7 @@ public class Dialogues{
         buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(skipButton, BorderLayout.EAST);
+        if(!(ID == 11 || ID == 13 || ID == 15))
         buttonPanel.add(askButton, BorderLayout.WEST);
 
         storyDialogue.add(buttonPanel, BorderLayout.NORTH);
@@ -122,6 +128,7 @@ public class Dialogues{
         // SKIP BUTTON EVENT LISTENERS
 
         skipButton.addActionListener(e -> {
+            System.out.println("click");
             storyDialogue.dispose();
         });
 
@@ -144,6 +151,7 @@ public class Dialogues{
             this.ID++;
             buttonPanel.setVisible(false);
             textBox.setText(null);
+            askDialogues.setPlayerType(playerType);
             askDialogues.openScrollableOptions(this.ID, storyDialogue, textBox);
         });
 
@@ -182,19 +190,26 @@ public class Dialogues{
 
     private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue, int size) {
         storyDialogue.addMouseListener(new MouseAdapter() {
-            int i = 0;
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (i < size) {
                     textBox.setText(story.getLine(i));
+                    System.out.println("story i = " + i);
                     i++;
                 } else {
                     storyDialogue.dispose();
+                    if(ID == 11 || ID == 13 || ID == 15){
+                        world.getScene().remove(world.getScene().ally);
+                        world.getScene().ally = null;
+                    }
                 }
             }
         });
     }  
 
+    public JDialog getStoryJDialog(){
+        return storyDialogue;
+    }
 }
 
 // Ask me nalang if naa mo questions with the Dialogues, giremove nako ang comments temporarily para easier debugging - Blair

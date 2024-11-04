@@ -36,6 +36,15 @@ public class AskDialogues extends JFrame {
             case 10:
                 story.faithfulLines();
                 break;
+            case 11: 
+                story.knightLines(playerType);
+                break;
+            case 12:
+                story.wizardLines(playerType);
+                break;
+            case 13:
+                story.priestLines(playerType);
+                break;
             default:
                 break;
         }

@@ -396,6 +396,13 @@ public class StoryLine {
                 }
             
                 this.arr[i++] = "Wizard: \"Together, we might actually have a shot at finding peace... and revenge. What do you say, partner?\"";
+
+                this.size = i;
+        }
+
+        public void wizardLines(String playerType) {
+                int i = 0;
+            
                 
                 this.size = i;
         }
@@ -457,6 +464,13 @@ public class StoryLine {
                 this.size = i;
         }
 
+        public void knightLines(String playerType) {
+                int i = 0;
+                
+                
+                this.size = i;
+        }
+
         public void priestIntro(String playerType) {
                 int i = 0;
                 
@@ -514,7 +528,43 @@ public class StoryLine {
                 this.arr[i++] = "You: \"What now?\"";
                 
                 this.arr[i++] = "Priest: \"*straightens up* Well, I hear you're hunting down your own tragic backstory. Could use a hand? I promise my bedside manner is way better than my death-side manner.\"";
-                
+                System.out.println("size = " + i);
+                this.size = i;
+        }
+
+        public void priestLines(String playerType) {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"Hey, you seem like the type that knows their way around.\"";
+                this.arr[i++] = "Faithful: \"Depends. What's the second worth to you?\"";
+            
+                this.arr[i++] = "You: \"You've got a familiar look. Have we met before, like in CITU?\"";
+                this.arr[i++] = "Faithful: \"Ah, CITU.. No, I don't think you'd have noticed me there.\"";
+            
+                this.arr[i++] = "You: \"I'm looking for someone, but I can't remember their face. Ever get that feeling?\"";
+                this.arr[i++] = "Faithful: \"All the time. Faces blend together after a while. What's their story?\"";
+            
+                this.arr[i++] = "You: \"Have you been to that little place across the way? The one with the pies?\"";
+                this.arr[i++] = "Faithful: \"Once. Let's just say, I've had better culinary adventures.\"";
+            
+                this.arr[i++] = "You: \"I'm still getting used to the whole being dead thing. My car got rammed out of nowhere.\"";
+                this.arr[i++] = "Faithful: \"Rough way to go. But hey, now you get to join the club.\"";
+            
+                this.arr[i++] = "You: \"Hi there, I was wondering if—\"";
+                this.arr[i++] = "Faithful: \"Careful, wondering tends to lead to trouble. What's on your mind?\"";
+            
+                this.arr[i++] = "You: \"I'm trying to get out of this place. Any idea which way to go?\"";
+                this.arr[i++] = "Faithful: \"Ah, the eternal question. If I had an answer, I wouldn't be standing here.\"";
+            
+                this.arr[i++] = "You: \"You don't look too happy. Something bothering you?\"";
+                this.arr[i++] = "Faithful: \"Not at all. Just my resting face. You get used to it.\"";
+            
+                this.arr[i++] = "You: \"Why does it always seem like it's pouring rain in this city?\"";
+                this.arr[i++] = "Faithful: \"Could be worse. At least it's not snowing. Yet.\"";
+            
+                this.arr[i++] = "You: \"It's so foggy, it's like walking through a cloud. Is it always like this?\"";
+                this.arr[i++] = "Faithful: \"Fog's the least of your worries around here. Keep your eyes sharp.\"";
+            
                 this.size = i;
         }
 

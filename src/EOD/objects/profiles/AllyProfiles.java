@@ -103,9 +103,9 @@ public class AllyProfiles implements MouseInteractable {
             addProfile("wizard", 1);
             for(String allies : allyList){
                 if(allies.equals("knight")){
-                    addProfile(allies, 0);
-                }else if(allies.equals("priest")){
                     addProfile(allies, 2);
+                }else if(allies.equals("priest")){
+                    addProfile(allies, 0);
                 }
             }
         }

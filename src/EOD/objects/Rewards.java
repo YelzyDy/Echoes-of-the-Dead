@@ -7,31 +7,24 @@ import EOD.scenes.SceneBuilder;
 import java.awt.event.MouseEvent;
 
 import EOD.characters.Npc;
-import EOD.dialogues.Dialogues;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
-import EOD.worlds.World;
 public class Rewards implements MouseInteractable{
     private static final String KNIGHT = "knight";
     private static final String PRIEST = "priest";
     private static final String WIZARD = "wizard";
     private static final String NECROMANCER = "necromancer";
     private static final String DEATH = "death";
-    Dialogues dialogues;
     private String playerType;
     private String enemyType;
     private AllyProfiles allyProfiles;
     private SceneBuilder panel;
-    private World world;
 
     public Rewards(BattleExperiment battle) {
-        dialogues = new Dialogues();
         this.playerType = battle.getPlayer().getWorld().getPlayer().getCharacterType();
-        dialogues.setPlayerType(playerType);
         this.enemyType = battle.getEnemy().getCharacterType();
         this.allyProfiles = battle.getPlayer().getWorld().getPlayer().getAllyProfiles();
         this.panel = battle.getPlayer().getPanel();
-        this.world = battle.getPlayer().getWorld();
     }
 
 
@@ -109,11 +102,9 @@ public class Rewards implements MouseInteractable{
 
     private void handleKnightRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            dialogues.displayDialogues(15, world);
             allyProfiles.addProfile(PRIEST, 0);
             allyProfiles.addAlly(PRIEST);
         } else if (DEATH.equals(enemyType)) {
-            dialogues.displayDialogues(12, world);
             allyProfiles.addProfile(WIZARD, 2);
             allyProfiles.addAlly(WIZARD);
         } else {
@@ -123,11 +114,9 @@ public class Rewards implements MouseInteractable{
 
     private void handlePriestRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            dialogues.displayDialogues(11, world);
             allyProfiles.addProfile(KNIGHT, 0);
             allyProfiles.addAlly(KNIGHT);
         } else if (DEATH.equals(enemyType)) {
-            dialogues.displayDialogues(13, world);
             allyProfiles.addProfile(WIZARD, 2);
             allyProfiles.addAlly(WIZARD);
         } else {
@@ -137,11 +126,9 @@ public class Rewards implements MouseInteractable{
 
     private void handleWizardRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            dialogues.displayDialogues(15, world);
             allyProfiles.addProfile(PRIEST, 0);
             allyProfiles.addAlly(PRIEST);
         } else if (DEATH.equals(enemyType)) {
-            dialogues.displayDialogues(11, world);
             allyProfiles.addProfile(KNIGHT, 2);
             allyProfiles.addAlly(KNIGHT);
         } else {

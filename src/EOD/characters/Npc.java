@@ -39,7 +39,7 @@ public class Npc extends Character implements MouseInteractable {
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
-        
+        dialogues.resetI();
         if (getCharacterType().equals("natty")){
             dialogues.displayDialogues(3, world);
         }
@@ -54,6 +54,18 @@ public class Npc extends Character implements MouseInteractable {
         }
         if (getCharacterType().equals("faithful")){
             dialogues.displayDialogues(9, world);
+        }
+        if(getCharacterType().equals("knight")){
+            dialogues.setPlayerType(getCharacterType());
+            dialogues.displayDialogues(11, world);
+        }
+        if(getCharacterType().equals("wizard")){
+            dialogues.setPlayerType(getCharacterType());
+            dialogues.displayDialogues(13, world);
+        }
+        if(getCharacterType().equals("priest")){
+            dialogues.setPlayerType(getCharacterType());
+            dialogues.displayDialogues(15, world);
         }
     }
 
