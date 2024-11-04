@@ -82,7 +82,8 @@ public class SceneBuilder extends JPanel{
     }
 
     public void setPlayer(ArrayList<Player> playerList, int index) {
-        System.out.println(this.player.getPosX());
+        player.setPosX(player.getPosX());
+        player.getAnimator().updateBounds();
         if (this.player != null) {
             int previousX = (int)this.player.getPosX();
             
@@ -92,12 +93,14 @@ public class SceneBuilder extends JPanel{
                 player.setPosX(previousX);  
                 player.getAnimator().updateBounds(); // Update bounds before showing
                 setComponentZOrder(player, 0); // Set Z-order for all players
+                System.out.println(player.getCharacterType() + " new pos: " + player.getPosX());
             }
             
             // Setup the new active player
             Player newPlayer = playerList.get(index);
             newPlayer.getAnimator().updateBounds(); // Ensure bounds are up to date
             newPlayer.setVisible(true);
+            System.out.println(newPlayer.getCharacterType() + " new pos: " + newPlayer.getPosX());
             
             this.player = newPlayer;
         } else {

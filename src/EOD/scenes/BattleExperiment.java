@@ -169,11 +169,10 @@ public class BattleExperiment implements Skillable{
             handleWin();
         }else{
             world.callDefeat();
-            handleLose();;
+            handleLose();
         }
         
         for(Player player : world.getPlayerList()){
-            player.getAnimator().setMoving(true);
             player.reset(playerWon);
             player.getAnimator().setIsInBattle(false);
             player.setPosX(screenSize.width * 0.4);
