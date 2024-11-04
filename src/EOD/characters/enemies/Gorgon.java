@@ -31,7 +31,7 @@ public class Gorgon extends Enemy {
     }
 
     public void configureSprites(){
-        double spriteScale = screenSize.height * 0.0045;
+        double spriteScale = screenSize.height * 0.004;
         animator.importSprites("character_asset", "walk", spriteScale, 13);
         animator.importSprites("character_asset", "idle", spriteScale, 7);
         animator.importSprites("character_asset", "dead", spriteScale, 3);
