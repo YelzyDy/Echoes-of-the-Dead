@@ -170,6 +170,15 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/cemetary.png")), 4);
             sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
+        } else if (world.getTitle().equals("worldEnding")) {
+            // Load images for worldEnding
+            sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 0);
+            sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 1);
+            sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 2);
+            sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 3);
+            sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 4);
+            sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
+            sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
     } catch (IOException e) {
         e.printStackTrace();

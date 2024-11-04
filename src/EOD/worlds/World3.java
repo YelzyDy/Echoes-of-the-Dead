@@ -117,10 +117,10 @@ public class World3 extends World{
         scene.npcList = new ArrayList<>();
         scene.npcList.add(new Npc("Asriel", "asriel", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.4));
         scene.npcList.add(new Npc("Miggins", "miggins",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.5, screenSize.width * 0.62));
-        scene.npcList.add(new Npc("Chea", "chea",  (int)(screenSize.width * 0.55), (int)((screenSize.height * 0.25)-75), screenSize.width * 0.2, screenSize.width * 0.55));
+        scene.npcList.add(new Npc("Chea", "chea",  (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25), screenSize.width * 0.1, screenSize.width * 0.55));
         scene.npcList.add(new Npc("Akefay", "akefay", (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.4), screenSize.width * 0.2, screenSize.width * 0.6));
         scene.npcList.add(new Npc("Yoo", "yoo", (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.25), screenSize.width * 0.6, screenSize.width * 0.8));
-        scene.npcList.add(new Npc("Natty", "natty", (int)(screenSize.width * 0.5), (int)(screenSize.height * 0.25), screenSize.width * 0.2, screenSize.width * 0.55));
+        scene.npcList.add(new Npc("Natty", "natty", (int)(screenSize.width * 0.45), (int)(screenSize.height * 0.25), screenSize.width * 0.1, screenSize.width * 0.55));
         
         for (Npc npc : scene.npcList) {
             npc.setPosY((int)(screenSize.height * 0.21));
@@ -148,13 +148,14 @@ public class World3 extends World{
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
             if (enemy.getName().equals("Skeleton")) {
                 enemy.setIndex(3);
-            }else if(enemy.getName().equals("Gorgon")) {
+            } else if(enemy.getName().equals("Gorgon")) {
                 enemy.setIndex(4);
             }
         }
@@ -192,7 +193,12 @@ public class World3 extends World{
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
-            } 
+            } else if (source == obj && obj.getName().equals("portalNextWorld")){
+                scene.gameLoopTimer.stop();
+                World window = new WorldEnding(player, playerList);
+                window.setVisible(true);
+                this.setVisible(false);
+            }
         }    
     }
 
