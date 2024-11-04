@@ -10,6 +10,8 @@ import EOD.listeners.*;
 public class Npc extends Character implements MouseInteractable {
     Dialogues dialogues = new Dialogues();
     private NpcAnimator animator;
+    private boolean isStatic;
+    
     public Npc(String name, String characterType, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, posX, posY);
         animator = new NpcAnimator(this);
@@ -24,10 +26,16 @@ public class Npc extends Character implements MouseInteractable {
         System.out.println();
         animator.updateBounds();
         animator.setRange(minRange, maxRange);
+        isStatic = false;
+    }
+
+    public void setStatic(boolean isStatic){
+        this.isStatic = isStatic;
     }
     
     @Override
     public void onClick(MouseEvent e) {
+        System.out.println("clickclick");
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
@@ -51,6 +59,7 @@ public class Npc extends Character implements MouseInteractable {
 
     @Override
     public void onHover(MouseEvent e) {
+        System.out.println("hoverhover");
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
@@ -58,7 +67,7 @@ public class Npc extends Character implements MouseInteractable {
     
     @Override
     public void onExit(MouseEvent e) {
-        animator.startMovement();
+        if(!isStatic) animator.startMovement();
         animator.setPaused(false);
         animator.setInteracting(false);
     }

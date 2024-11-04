@@ -6,12 +6,13 @@ package EOD.characters;
 
 import java.awt.event.MouseEvent;
 import java.util.Random;
-
+import javax.swing.JLayeredPane;
 import EOD.animator.*;
 import EOD.characters.enemies.Enemy;
 import EOD.objects.*;
 import EOD.objects.inventory.Inventory;
 import EOD.objects.profiles.AllyProfiles;
+import EOD.objects.profiles.PlayerProfile;
 import EOD.gameInterfaces.Entity;
 import EOD.gameInterfaces.MouseInteractable;
 
@@ -37,6 +38,7 @@ public class Player extends Character implements MouseInteractable, Entity {
     private int originalAttack; // Stores original attack value
     private Inventory inventory;
     private AllyProfiles allyProfiles;
+    private PlayerProfile playerProfile;
 
     public Player(String characterType, int posX, int posY) {
         super("name", characterType, posX, posY);
@@ -59,9 +61,18 @@ public class Player extends Character implements MouseInteractable, Entity {
         this.allyProfiles = allyProfiles;
     }
 
+    public void setPlayerProfile(JLayeredPane panel){
+        playerProfile = new PlayerProfile(panel);
+    }
+
     public AllyProfiles getAllyProfiles(){
         return allyProfiles;
     }
+
+    public PlayerProfile getPlayerProfile(){
+        return playerProfile;
+    }
+
 
     public Inventory getInventory(){
         return inventory;

@@ -254,6 +254,10 @@ public class BattleUI extends JPanel{
         return sidePanel;
     }
 
+    public JPanel getBottomPanel(){
+        return bottomPanel;
+    }
+
 
     public void toggleTextListOff(){
         if(player.getAnimator().getIsInBattle()) temp = topTextBox.getText();

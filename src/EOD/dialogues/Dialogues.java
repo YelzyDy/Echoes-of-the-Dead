@@ -22,6 +22,12 @@ public class Dialogues{
     private int size;
     private int ID;
 
+    private String playerType;
+
+    public void setPlayerType(String playerType){
+        this.playerType = playerType;
+    }
+
     public void displayDialogues(int ID, World world) {
 
         // LOAD NPC
@@ -42,6 +48,15 @@ public class Dialogues{
                 break;
             case 9:
                 story.faithfulIntro();
+                break;
+            case 11:
+                story.knightIntro(playerType);
+                break;
+            case 13:
+                story.wizardIntro(playerType);
+                break;
+            case 15:
+                story.priestIntro(playerType);
                 break;
             default:
                 break;

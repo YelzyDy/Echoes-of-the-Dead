@@ -31,6 +31,7 @@ public class SceneBuilder extends JPanel{
     private ImageList sceneList;
     private int currentSceneIndex;
     public Timer gameLoopTimer ;           // Timer for animating the portal -z
+    public Npc ally;
     
     private World world;
 
@@ -239,6 +240,10 @@ public void createWorldScene() {
                 transitionHandler.setIsInTransition(false);
             }
 
+        }
+
+        if(ally != null){
+            ally.getAnimator().updateAnimation();
         }
 
         if (world != null) {

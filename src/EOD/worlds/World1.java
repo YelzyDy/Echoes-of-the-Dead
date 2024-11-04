@@ -196,6 +196,11 @@ public class World1 extends World{
     }
 
     @Override
+    public void initializePlayerProfile(){
+        player.setPlayerProfile(getLayeredPane());
+    }
+
+    @Override
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();

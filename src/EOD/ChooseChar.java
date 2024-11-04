@@ -72,11 +72,11 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     }
 
     public void initiializeProtagonist(){
-        player = new Player(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.51));
+        player = new Player(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.45));
         player.setpanel(scene);
         scene.add(player);
         scene.setPlayer(player);
-        player.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.017), 6);
+        player.getAnimator().importSprites("character_asset", "idle", (int)(screenSize.height * 0.02), 6);
         scene.initializeGameLoop();
     }
     public void addScene() {
@@ -193,23 +193,23 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         } else if (source == btn_knight) {
             charType = "knight";
             player.setCharacterType(charType);
-            animator.importSprites("character_asset", "idle", 18, 6);
+            animator.importSprites("character_asset", "idle",  (int)(screenSize.height * 0.02), 6);
             player.setPosX(width * 0.32); // Update position based on width
-            player.setPosY(height * 0.51); // Update position based on height
+            player.setPosY(height * 0.45); // Update position based on height
             scene.setCurrentSceneIndex(0);
         } else if (source == btn_priest) {
             charType = "priest";
             player.setCharacterType(charType);
-            animator.importSprites("character_asset", "idle", 18, 6);
+            animator.importSprites("character_asset", "idle",  (int)(screenSize.height * 0.02), 6);
             player.setPosX(width * 0.349); // Update position based on width
-            player.setPosY(height * 0.49); // Update position based on height
+            player.setPosY(height * 0.43); // Update position based on height
             scene.setCurrentSceneIndex(1);
         } else if (source == btn_wizard) {
             charType = "wizard";
             player.setCharacterType(charType);
-            animator.importSprites("character_asset", "idle", 18, 6);
+            animator.importSprites("character_asset", "idle",   (int)(screenSize.height * 0.02), 6);
             player.setPosX(width * 0.34); // Update position based on width
-            player.setPosY(height * 0.51); // Update position based on height
+            player.setPosY(height * 0.45); // Update position based on height
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian

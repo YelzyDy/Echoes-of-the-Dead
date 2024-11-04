@@ -60,6 +60,12 @@ public class World3 extends World{
     }
     
     @Override
+    public void initializePlayerProfile(){
+        player.getPlayerProfile().setPanel(getLayeredPane());
+    }
+
+    
+    @Override
     public void initializeProtagonist(){
         for (Player p : playerList) {
             if (p != player) {  // Skip the main player

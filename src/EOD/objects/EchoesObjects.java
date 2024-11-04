@@ -19,7 +19,6 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.awt.Color;
 
 /**
  *
@@ -55,9 +54,16 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.addMouseListener(new MouseClickListener(this));
     }   
 
-    public void setEnabled(boolean isEnabled){
-        this.isEnabled = isEnabled;
-        repaint();
+    public void setEnabled(boolean enabled) {
+        if (this.isEnabled != enabled) {  // Only process if state actually changes
+            if (enabled) {
+                currentFrame = 0;
+            } else {
+                currentFrame = 1;
+            }
+            this.isEnabled = enabled;
+            repaint();
+        }
     }
 
     public boolean getEnabled(){
@@ -141,7 +147,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     }
 
     public void onHover(MouseEvent e) {
-        if(!allowHover) return;
+        if(!allowHover || (!isEnabled)) return;
         if(!isAnimated && isState){
            currentFrame = 1;
            repaint();
@@ -150,7 +156,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     }
 
     public void onExit(MouseEvent e) {
-        if(!allowHover) return;
+        if(!allowHover || (!isEnabled)) return;
         if(!isAnimated && isState){
             restartAnimation();
             repaint();    
@@ -211,23 +217,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
-    
-        // If disabled, add a semi-transparent gray overlay
-        if (!isEnabled) {
-            Graphics2D g2d = (Graphics2D) g;
-            
-            // Store the original composite
-            java.awt.Composite originalComposite = g2d.getComposite();
-            
-            // Create a semi-transparent overlay
-            g2d.setComposite(java.awt.AlphaComposite.getInstance(
-                java.awt.AlphaComposite.SRC_OVER, 0.5f));
-            g2d.setColor(Color.GRAY);
-            g2d.fillRect(0, 0, getWidth(), getHeight());
-            
-            // Restore the original composite
-            g2d.setComposite(originalComposite);
-        }
     }
 
     @Override

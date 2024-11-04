@@ -341,6 +341,183 @@ public class StoryLine {
         }
             
 
+        public void wizardIntro(String playerType) {
+                int i = 0;
+                
+                this.arr[i++] = "Wizard: \"*coughing* Freedom... finally! Thank you, fellow wanderer. That void-spawn had me trapped in its pocket dimension for what felt like eternities.\"";
+                
+                this.arr[i++] = "You: \"Another soul in this purgatory? Who are you?\"";
+                
+                this.arr[i++] = "Wizard: \"*adjusts crooked glasses* They used to call me the Lord of Leaky Abstractions back at CITU. Ironic, considering I couldn't debug my way out of that prison.\"";
+                
+
+                if (playerType.equals("priest")) {
+                        this.arr[i++] = "You: \"Computer science? I was in nursing before... all this happened.\"";
+                        
+                        this.arr[i++] = "Wizard: \"*genuine interest* A nursing student! Finally, someone who might understand what I mean when I say my code needs healing. Though I guess we're both dealing with a different kind of debugging now.\"";
+                        
+                        this.arr[i++] = "You: \"Different field, same destination, huh? How did you end up here?\"";
+                        
+                        this.arr[i++] = "Wizard: \"*smile fades slightly* Funny how life works. There I was, stressed about a memory leak in my code, then suddenly dealing with a much more literal version of that problem. One distracted driver later, and... well, you know how that story ends.\"";
+                } 
+
+                else if (playerType.equals("knight")) {
+                    this.arr[i++] = "You: \"Computer science? Quite different from the law books I used to study.\"";
+                    
+                    this.arr[i++] = "Wizard: \"*perks up* A law student! Well, I guess we both got a crash course in mortality laws, huh? No objection there, your honor. *adjusts glasses awkwardly*\"";
+                    
+                    this.arr[i++] = "You: \"I'll let that pun slide. But what brought you to this place?\"";
+                    
+                    this.arr[i++] = "Wizard: \"Same case as yours, different verdict. One distracted driver later, and suddenly a future lawyer and a budding programmer find themselves in the ultimate court of appeals.\"";
+                }
+            
+                this.arr[i++] = "Wizard: \"*becomes serious* That entity that imprisoned me... It feeds on the memories of the deceased, leaving them hollow.\"";
+                
+                this.arr[i++] = "You: \"Is that why you couldn't escape?\"";
+                
+                this.arr[i++] = "Wizard: \"*nods grimly* It kept consuming my memories, bit by bit. I almost forgot who I was. The only thing it couldn't take was my terrible puns. Even it had standards.\"";
+                
+                if (playerType.equals("priest")) {
+                    this.arr[i++] = "Wizard: \"It probably thought my jokes would cause terminal errors in its system. Get it? Terminal? Because... oh nevermind.\"";
+                } else if (playerType.equals("knight")) {
+                    this.arr[i++] = "Wizard: \"It probably found my jokes in contempt of court. That one was for you, future lawyer.\"";
+                }
+                
+                this.arr[i++] = "You: \"And now you're free...\"";
+                
+                this.arr[i++] = "Wizard: \"Thanks to you. I heard you're hunting for your killer too. Two heads are better than one, especially when one of them can code... albeit with questionable quality.\"";
+                
+                if (playerType.equals("priest")) {
+                    this.arr[i++] = "You: \"I suppose having someone who can 'debug' our situation couldn't hurt.\"";
+                    this.arr[i++] = "Wizard: \"That's the spirit! Though I warn you, my debugging usually creates more bugs than it fixes.\"";
+                } else if (playerType.equals("knight")) {
+                    this.arr[i++] = "You: \"I suppose having a tech expert as a witness couldn't hurt our case.\"";
+                    this.arr[i++] = "Wizard: \"Exactly! Though I should warn you, my testimony tends to crash and burn... much like my code.\"";
+                }
+            
+                this.arr[i++] = "Wizard: \"Together, we might actually have a shot at finding peace... and revenge. What do you say, partner?\"";
+                
+                this.size = i;
+        }
+
+        public void knightIntro(String playerType) {
+                int i = 0;
+                
+                this.arr[i++] = "Knight: \"*stretches stiff muscles* By the scales of justice... I'm free! Your timing is impeccable, stranger.\"";
+                
+                this.arr[i++] = "You: \"Another trapped soul? Who are you?\"";
+                
+                this.arr[i++] = "Knight: \"*straightens tie* Former law student. Top of my class at Harvard, if that still means anything in purgatory. Though I suppose my mock trial experience didn't help much against that... thing.\"";
+            
+                if (playerType.equals("wizard")) {
+                    this.arr[i++] = "You: \"A law student? Must be quite a change from debugging code to interpreting laws.\"";
+                    
+                    this.arr[i++] = "Knight: \"*chuckles* And here I thought I'd seen every type of syntax error. Turns out supernatural law is a whole different jurisdiction. You're a CS student then?\"";
+                    
+                    this.arr[i++] = "You: \"Was. Until a crash that had nothing to do with computers.\"";
+                    
+                    this.arr[i++] = "Knight: \"*grimly* Seems we both got force-quit from life's program, didn't we? At least you've kept your sense of humor about it.\"";
+                } 
+                else if (playerType.equals("priest")) {
+                    this.arr[i++] = "You: \"From law school to purgatory. Quite a career change.\"";
+                    
+                    this.arr[i++] = "Knight: \"*wry smile* Well, I went from studying cases to becoming one. Though I suspect your nursing background might be more useful here than my knowledge of tort law.\"";
+                    
+                    this.arr[i++] = "You: \"Healing the living is one thing. This place... it's something else entirely.\"";
+                    
+                    this.arr[i++] = "Knight: \"*thoughtfully* At least we both dedicated our studies to helping others. Fat lot of good that did us in the end.\"";
+                }
+            
+                this.arr[i++] = "You: \"What was holding you prisoner?\"";
+                
+                this.arr[i++] = "Knight: \"*expression darkens* That entity that imprisoned me... It traps them in endless trials of their worst regrets. It... it made me relive my final case over and over.\"";
+                
+                this.arr[i++] = "You: \"Your final case?\"";
+                
+                this.arr[i++] = "Knight: \"*adjusts collar* I was heading to the courthouse for my first real trial. Pro bono case, defending someone who couldn't afford representation. Never made it there. The driver had other plans.\"";
+            
+                if (playerType.equals("wizard")) {
+                    this.arr[i++] = "Knight: \"Now that's what I call a fatal exception. *sees your expression* Sorry, picked that up from my CS roommate.\"";
+                } else if (playerType.equals("priest")) {
+                    this.arr[i++] = "Knight: \"The ultimate mistrial, you could say. Though I doubt any amount of healthcare could've helped at that point.\"";
+                }
+            
+                this.arr[i++] = "You: \"And the Verdict Reaper kept you reliving that moment?\"";
+                
+                this.arr[i++] = "Knight: \"*nods* Every time I'd try to change the outcome, find a different route, prepare earlier... but the verdict was always the same. Until you showed up.\"";
+                
+                if (playerType.equals("wizard")) {
+                    this.arr[i++] = "Knight: \"I don't suppose you could debug this whole afterlife situation? *small smile* No? Well, I still owe you one. And a good lawyer always pays their debts.\"";
+                } else if (playerType.equals("priest")) {
+                    this.arr[i++] = "Knight: \"I may not be able to heal like you, but I know how to build a case. And right now, we've got a pretty strong one for getting out of here together.\"";
+                }
+            
+                this.arr[i++] = "Knight: \"I hear you're searching for answers too. Perhaps we can help each other appeal this... situation we've found ourselves in. What do you say?\"";
+                
+                this.size = i;
+        }
+
+        public void priestIntro(String playerType) {
+                int i = 0;
+                
+                this.arr[i++] = "Priest: \"*stretching* Oh thank god, real company! The last conversation I had was with a wall. The wall won.\"";
+                
+                this.arr[i++] = "You: \"Another trapped soul?\"";
+                
+                this.arr[i++] = "Priest: \"*brushing off spectral dust* Nursing student. Well, was. Got the 'eternal rest' part of the job description a bit early.\"";
+            
+                if (playerType.equals("wizard")) {
+                    this.arr[i++] = "You: \"Computer science here. Or was, until...\"";
+                    
+                    this.arr[i++] = "Priest: \"Until life threw a blue screen of death at you? Yeah, same boat. Different crash.\"";
+                    
+                    this.arr[i++] = "You: \"That was actually... pretty good.\"";
+                    
+                    this.arr[i++] = "Priest: \"*grins* Three years of dealing with my CS roommate's tech jokes. Now I'm stuck with them forever. Talk about eternal punishment.\"";
+                } 
+                else if (playerType.equals("knight")) {
+                    this.arr[i++] = "You: \"Law student. Before all this.\"";
+                    
+                    this.arr[i++] = "Priest: \"*amused* A lawyer and a nurse walk into purgatory... sounds like the start of a really bad joke.\"";
+                    
+                    this.arr[i++] = "You: \"And here we are at the punchline.\"";
+                    
+                    this.arr[i++] = "Priest: \"At least we're killing it with the gallows humor. Too soon?\"";
+                }
+            
+                this.arr[i++] = "You: \"What was keeping you here?\"";
+                
+                this.arr[i++] = "Priest: \"*expression darkens*  That entity that imprisoned me... Nasty piece of work. Trapped me in an endless shift of worst-case scenarios. And I thought night rotation was bad.\"";
+                
+                this.arr[i++] = "You: \"How did you end up here?\"";
+                
+                this.arr[i++] = "Priest: \"Rushing to cover an emergency shift. Plot twist - became the emergency instead. Universe has a weird sense of humor, doesn't it?\"";
+            
+                if (playerType.equals("wizard")) {
+                    this.arr[i++] = "You: \"No respawns in this game, huh?\"";
+                    
+                    this.arr[i++] = "Priest: \"*laughs* Nope. And the graphics here are terrible. Though the ghost effects are pretty realistic.\"";
+                } else if (playerType.equals("knight")) {
+                    this.arr[i++] = "You: \"Talk about a mistrial of fate.\"";
+                    
+                    this.arr[i++] = "Priest: \"*smirks* Objection! Actually, no, that's fair.\"";
+                }
+            
+                this.arr[i++] = "Priest: \"That thing kept me trapped in there for... well, time's weird here. Long enough to memorize every ceiling tile in my phantom hospital.\"";
+                
+                if (playerType.equals("wizard")) {
+                    this.arr[i++] = "Priest: \"Thanks for the rescue. Your debug skills just saved my afterlife.\"";
+                } else if (playerType.equals("knight")) {
+                    this.arr[i++] = "Priest: \"Thanks for the jailbreak. First time being happy to see a lawyer show up.\"";
+                }
+            
+                this.arr[i++] = "You: \"What now?\"";
+                
+                this.arr[i++] = "Priest: \"*straightens up* Well, I hear you're hunting down your own tragic backstory. Could use a hand? I promise my bedside manner is way better than my death-side manner.\"";
+                
+                this.size = i;
+        }
+
         public void skillDetails() {
                 int i = 0;
 

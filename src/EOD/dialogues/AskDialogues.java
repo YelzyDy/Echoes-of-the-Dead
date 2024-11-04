@@ -11,7 +11,11 @@ public class AskDialogues extends JFrame {
     private StoryLine story = new StoryLine();
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.44);
+    private String playerType;
 
+    public void setPlayerType(String playerType){
+        this.playerType = playerType;
+    }
     public void openScrollableOptions(int ID, JDialog dialog, JLabel textBox) {
 
         // LOAD NPC
