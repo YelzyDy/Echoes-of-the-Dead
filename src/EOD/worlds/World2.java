@@ -140,14 +140,14 @@ public class World2 extends World{
     @Override
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Skeleton2("Skeleton2",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
         // scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Death("Death",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.0), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 0);
-            if (enemy.getName().equals("Skeleton")) {
+            if (enemy.getName().equals("Skeleton2")) {
                 enemy.setIndex(3);
             }else if(enemy.getName().equals("Death")) {
                 enemy.setIndex(4);

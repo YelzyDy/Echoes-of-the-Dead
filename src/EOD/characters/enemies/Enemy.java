@@ -8,6 +8,11 @@ import EOD.gameInterfaces.Skillable;
 import EOD.gameInterfaces.Entity;
 import EOD.listeners.MouseClickListener;
 import java.awt.event.MouseEvent;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import EOD.dialogues.*;
 
 public abstract class Enemy extends Character implements MouseInteractable, Skillable, Entity{
     protected Player player;
@@ -24,6 +29,11 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     protected int lastUsedSkill;
     protected double xFactor;
     protected double yFactor;
+    protected Dialogues dialogues = new Dialogues();
+    protected boolean isClicked;
+    protected int i = 0;
+    protected Timer autoCloseTimer; // Timer to auto-close the dialogue
+    protected int autoCloseDelay = 0; // Delay in milliseconds (e.g., 3 seconds)
 
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,
@@ -36,6 +46,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
         setVisible(true);
         animator.setRange(minRange, maxRange);
         isDefeated = false;
+        isClicked = false;
     }
 
     public void setPlayer(Player player){
@@ -129,9 +140,37 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
         return actionString;
     }
 
+    public void resetAndStartTimer() {
+        // Stop existing timer if running
+        if (autoCloseTimer != null && autoCloseTimer.isRunning()) {
+            autoCloseTimer.stop();
+        }
+    
+        // Create or update the timer
+        if (autoCloseTimer == null) {
+            autoCloseTimer = new Timer(autoCloseDelay, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dialogues.setVisible(false);
+                    ((Timer)e.getSource()).stop();
+                    System.out.println("auto close delay inside super class: " + autoCloseDelay);
+                }
+            });
+            autoCloseTimer.setRepeats(false);
+        } else {
+            // Update the delay if the timer already exists
+            autoCloseTimer.setInitialDelay(autoCloseDelay);
+        }
+    
+        // Start the timer
+        autoCloseTimer.restart();
+    }
+    
+
     @Override
     public void onClick(MouseEvent e) {
         animator.stopMovement();
+
         if (animator.getIsInBattle()) return;
         player.getAnimator().setIsInBattle(true);
         animator.setIsInBattle(true);
@@ -147,6 +186,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
 
     @Override
     public void onHover(MouseEvent e) {
+        if(animator.getIsDead()) return;
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
@@ -154,7 +194,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     
     @Override
     public void onExit(MouseEvent e) {
-        if(animator.getIsInBattle()) return;
+        if(animator.getIsInBattle() || animator.getIsDead()) return;
         animator.startMovement();
         animator.setPaused(false);
         animator.setInteracting(false);

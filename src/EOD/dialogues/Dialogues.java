@@ -16,21 +16,30 @@ public class Dialogues{
     private ImageIcon askButtonIcon, askButtonHoverIcon, skipButtonIcon, skipButtonHoverIcon;
     private JPanel buttonPanel;
     private final int width = (int) (screenSize.width * 0.99);
-    private final int height = (int) (screenSize.height * 0.55);
+    private final int height = (int) (screenSize.height * 0.6);
     private final int x = 6;
-    private final int y = (int) (screenSize.height * 0.44);
+    private final int y = (int) (screenSize.height * 0.4);
     private int size;
     private int ID;
     private int i = 0;
     private World world;
     private String playerType;
+    private boolean isClickableDialogue = true;
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
     }
 
-    public void resetI(){
-        i = 0;
+    public void setCoordinates(double x, double y){
+        storyDialogue.setLocation((int)x, (int)y);
+    }
+
+    public void setDimension(double width, double height){
+        storyDialogue.setSize((int)width, (int)height);
+    }
+
+    public void setFontSize(double size){
+        textBox.setFont(new Font("Monospaced", Font.PLAIN, (int)size));
     }
 
     public void displayDialogues(int ID, World world) {
@@ -62,6 +71,18 @@ public class Dialogues{
                 break;
             case 15:
                 story.priestIntro(playerType);
+                break;
+            case 17:
+                story.skeleton1Corpse();
+                isClickableDialogue = false;
+                break;
+            case 19:
+            story.necromancerCorpse();
+                isClickableDialogue = false;
+                break;
+            case 21:
+            story.skeleton2Corpse();
+                isClickableDialogue = false;
                 break;
             default:
                 break;
@@ -115,8 +136,9 @@ public class Dialogues{
 
         buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.setBackground(Color.BLACK);
+        if(!(ID == 17 || ID == 19 || ID == 21))
         buttonPanel.add(skipButton, BorderLayout.EAST);
-        if(!(ID == 11 || ID == 13 || ID == 15))
+        if(!(ID == 11 || ID == 13 || ID == 15 || ID == 17 || ID == 19 || ID == 21))
         buttonPanel.add(askButton, BorderLayout.WEST);
 
         storyDialogue.add(buttonPanel, BorderLayout.NORTH);
@@ -193,23 +215,37 @@ public class Dialogues{
     }
 
     private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue, int size) {
+        i = 0;
         storyDialogue.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (i < size) {
-                    textBox.setText(story.getLine(i));
-                    System.out.println("story i = " + i);
-                    i++;
-                } else {
-                    storyDialogue.dispose();
-                    if(ID == 11 || ID == 13 || ID == 15){
-                        world.getScene().remove(world.getScene().ally);
-                        world.getScene().ally = null;
-                    }
-                }
+                if(isClickableDialogue)
+                handleSetText();
             }
         });
     }  
+
+    public void handleSetText(){
+        if (i < size){
+            textBox.setText(story.getLine(i));
+            i++;
+        }else{
+            storyDialogue.dispose();
+                    if(ID == 11 || ID == 13 || ID == 15){
+                        world.getScene().remove(world.getScene().ally);
+                        world.getScene().ally = null;
+            }
+        }
+    }
+
+    public String getText(){
+        return textBox.getText();
+    }
+
+    public void setVisible(boolean isVisible){
+        storyDialogue.setVisible(isVisible);
+    }
+
 
     public JDialog getStoryJDialog(){
         return storyDialogue;

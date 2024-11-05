@@ -1,7 +1,9 @@
 package EOD.characters.enemies;
 
+import java.awt.event.MouseEvent;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 8;
@@ -224,6 +226,69 @@ public class Skeleton2 extends Enemy {
     protected void onBattleStart() {
         EchoesObjects portal = getPanel().objList.get(1);
         getPanel().configureBattle(this, portal);
+    }
+
+    @Override
+    public void onClick(MouseEvent e) {
+        super.onClick(e);
+        if (animator.getIsDead()) {
+
+            // First click initialization
+            if (!isClicked) {
+                handleFirstClick();
+            }
+
+            // Make dialogue visible
+            dialogues.setVisible(true);
+
+            // Adjust dimensions based on click count or specific dialogue requirements
+            if (i == 14) {
+               handleI14();
+            } else if (i == 15) {
+                handleI15();
+            }else if (i != 4 && i != 9){
+                handleDots();
+            }else{
+                dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
+                                     (int)(getPanel().getHeight() * 0.1));
+                autoCloseDelay = 3000;
+            }
+            dialogues.handleSetText();
+            resetAndStartTimer();
+            i++;
+        }
+    }
+
+    private void handleFirstClick(){
+        dialogues.displayDialogues(21, world);
+        dialogues.setFontSize(getWidth() * 0.18);
+        // Set initial dimensions and coordinates
+        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
+                             (int)(getPanel().getHeight() * 0.1));
+        dialogues.setCoordinates(getPosX(), 
+                               getPosY() - getPanel().getHeight() * 0.2);
+        isClicked = true;
+    }
+
+    private void handleDots(){
+        dialogues.setDimension((int)(getPanel().getWidth() * 0.15), 
+        (int)(getPanel().getHeight() * 0.1));
+        autoCloseDelay = 1500;
+    }
+
+    private void handleI14(){
+        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
+                                     (int)(getPanel().getHeight() * 0.21));
+        autoCloseDelay = 5000;
+    }
+
+    private void handleI15(){
+        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
+        (int)(getPanel().getHeight() * 0.35));
+        autoCloseDelay = 10000;
+        System.out.println("auto close delay " + autoCloseDelay);
+        world.getPlayer().getAttributes().setBaseHp(world.getPlayer().getAttributes().getBaseHp() + 10);
+        world.getBattle().updatePlayerBars(world.getPlayer().getAttributes().getBaseHp(), world.getPlayer().getAttributes().getBaseHp());
     }
 
 }

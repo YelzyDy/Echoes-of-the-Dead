@@ -35,11 +35,10 @@ public class Npc extends Character implements MouseInteractable {
     
     @Override
     public void onClick(MouseEvent e) {
-        System.out.println("clickclick");
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
-        dialogues.resetI();
+        if(dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
         if (getCharacterType().equals("natty")){
             dialogues.displayDialogues(3, world);
         }

@@ -198,7 +198,7 @@ public void createWorldScene() {
             int enemyHp = enemy.getHp();
             world.getBattle().updateBars(playerHp, playerMana, enemyHp);
         };
-
+        
         if(world != null) world.getBattle().updatePlayerBars(playerHp, playerMana);
     }
 

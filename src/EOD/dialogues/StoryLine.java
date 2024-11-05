@@ -568,6 +568,71 @@ public class StoryLine {
                 this.size = i;
         }
 
+        public void skeleton1Corpse(){
+                int i = 0;
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "Okay, we get it, you really don't like this skeleton.";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "What are you, a necrophiliac? The skeleton is already dead!";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] =  "Dude, I think you broke it. Looks like you found a feature, not a bug.";
+                this.arr[i++] = "Achievement Unlocked: \"Skeleton Poking Master\"\n" + //
+                                                "You've been awarded a permanent increase of +10 base hp for your dedication to poking the dead. The devs were going to patch this out, but decided it was too funny to remove.";
+                this.size = i;
+        }
+
+        public void skeleton2Corpse(){
+                int i = 0;
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "Seriously, stop poking the poor dead skeleton.";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "You know, kicking a skeleton while it's down is just rude.";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] =  "Alright, I'm starting to think you have some unresolved issues with skeletons.";
+                this.arr[i++] = "Achievement Unlocked: \"Skeleton Abuse Awareness\"\n" + //
+                                                "Congratulations, your incessant skeleton poking has earned you an increase to your Strength stat. The dev team is a little concerned about your skeleton obsession, but hey, who are we to judge?";
+        }
+
+        public void necromancerCorpse(){
+                int i = 0;
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "Careful, you might accidentally raise the dead again.";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "I think the necromancer is trying to get the last laugh, even in death.";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] =  "Wow, you really hold a grudge against this guy. Maybe you should talk to a therapist.";
+                this.arr[i++] = "Achievement Unlocked: \"Necromancer Nemesis\"\n" + //
+                                                " Your hatred of necromancers is truly unparalleled. As a reward, you've been granted a temporary boost to your Mana pool. We're a little worried about your anger issues, but at least it's productive in combat.";
+                this.size = i;
+        }
+
         public void skillDetails() {
                 int i = 0;
 
