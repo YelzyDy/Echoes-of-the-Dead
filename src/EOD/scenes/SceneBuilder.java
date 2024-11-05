@@ -177,7 +177,7 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 2);
             sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 3);
             sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 4);
-            sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
+            sceneList.add(ImageIO.read(getClass().getResource("/worldEnding_assets/purgatory.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         }
     } catch (IOException e) {
@@ -306,6 +306,7 @@ public void createWorldScene() {
                 animator.updateBounds();
             }
         }
+        debugWorldEnding();
     }
 
     @Override
@@ -338,6 +339,12 @@ public void createWorldScene() {
         }
         for (Enemy enemy : enemyList) {
             enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+        }
+    }
+
+    public void debugWorldEnding() {
+        if (world.getTitle().equals("worldEnding")) {
+            System.out.println("CurrentSceneIndex: " + getCurrentSceneIndex());
         }
     }
 }

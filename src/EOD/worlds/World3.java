@@ -37,7 +37,7 @@ public class World3 extends World{
         player.setWorld(this);
         player.configureSkills();
         
-        System.out.println("Player type in world2: " + player.getCharacterType());
+        System.out.println("Player type in world3: " + player.getCharacterType());
         
         // Add player to scene
         scene.add(player);
@@ -195,7 +195,7 @@ public class World3 extends World{
                 shop.makeElementsVisible();
             } else if (source == obj && obj.getName().equals("portalNextWorld")){
                 scene.gameLoopTimer.stop();
-                World window = new WorldEnding(player, playerList);
+                World window = new WorldEnding(player);
                 window.setVisible(true);
                 this.setVisible(false);
             }
