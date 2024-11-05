@@ -202,13 +202,18 @@ public void createWorldScene() {
     public void updateStats(){
         int playerHp = player.getAttributes().getHp();
         int playerMana = player.getAttributes().getMana();
+        int playerBaseHp = player.getAttributes().getBaseHp();
+        int playerBaseMana = player.getAttributes().getBaseMana();
         if(player.getAnimator().getIsInBattle()){
         Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             world.getBattle().updateBars(playerHp, playerMana, enemyHp);
         };
         
-        if(world != null) world.getBattle().updatePlayerBars(playerHp, playerMana);
+        if(world != null){ 
+            world.getBattle().updatePlayerBaseStats(playerBaseHp, playerBaseMana);
+            world.getBattle().updatePlayerBars(playerHp, playerMana);
+        }
     }
 
     public void configureBattle(Enemy enemy, EchoesObjects portal){

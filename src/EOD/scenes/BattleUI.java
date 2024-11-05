@@ -326,6 +326,10 @@ public class BattleUI extends JPanel{
         battleBars.setEnemyHealth(enemyHp);
     }
 
+    public void updatePlayerBaseStats(int hp, int mp){
+        battleBars.setPlayerStats(hp, mp);
+    }
+
     // THE METHODS
 
     public void updateTurnIndicator(String text){

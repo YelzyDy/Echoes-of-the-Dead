@@ -11,6 +11,7 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import EOD.dialogues.*;
 /**
  *
  * @author Joana
@@ -219,6 +220,8 @@ public class World1 extends World{
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     battle.getEnemyWrapper().setVisible(false);
                     battle.toggleTextListOff();
+                    Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
+                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
                     // isBattleStopped = false;
                     // bgmPlayer.stopBGM();
                     // bgmPlayer.playBGM("src/audio_assets/world1.wav");
@@ -237,6 +240,8 @@ public class World1 extends World{
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     battle.getEnemyWrapper().setVisible(false);
                     battle.toggleTextListOff();
+                    Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
+                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
                     // isBattleStopped = false;
                     // isMiniBossDefeated = true;
                     // setIsMiniBossDefeated(true);

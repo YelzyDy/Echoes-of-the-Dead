@@ -84,6 +84,10 @@ public class Dialogues{
             story.skeleton2Corpse();
                 isClickableDialogue = false;
                 break;
+            case 23:
+            story.gorgonCorpse();
+                isClickableDialogue = false;
+                break;
             default:
                 break;
         }
@@ -136,9 +140,9 @@ public class Dialogues{
 
         buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.setBackground(Color.BLACK);
-        if(!(ID == 17 || ID == 19 || ID == 21))
+        if(!(ID == 17 || ID == 19 || ID == 21 || ID == 23))
         buttonPanel.add(skipButton, BorderLayout.EAST);
-        if(!(ID == 11 || ID == 13 || ID == 15 || ID == 17 || ID == 19 || ID == 21))
+        if(!(ID == 11 || ID == 13 || ID == 15 || ID == 17 || ID == 19 || ID == 21 || ID == 23))
         buttonPanel.add(askButton, BorderLayout.WEST);
 
         storyDialogue.add(buttonPanel, BorderLayout.NORTH);

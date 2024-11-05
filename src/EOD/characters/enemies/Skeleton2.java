@@ -261,7 +261,7 @@ public class Skeleton2 extends Enemy {
 
     private void handleFirstClick(){
         dialogues.displayDialogues(21, world);
-        dialogues.setFontSize(getWidth() * 0.18);
+        dialogues.setFontSize(getWidth() * 0.12);
         // Set initial dimensions and coordinates
         dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
                              (int)(getPanel().getHeight() * 0.1));
@@ -285,10 +285,10 @@ public class Skeleton2 extends Enemy {
     private void handleI15(){
         dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
         (int)(getPanel().getHeight() * 0.35));
+        dialogues.setCoordinates(dialogues.getStoryJDialog().getX(), getPanel().getHeight() * 0.1);
         autoCloseDelay = 10000;
         System.out.println("auto close delay " + autoCloseDelay);
-        world.getPlayer().getAttributes().setBaseHp(world.getPlayer().getAttributes().getBaseHp() + 10);
-        world.getBattle().updatePlayerBars(world.getPlayer().getAttributes().getBaseHp(), world.getPlayer().getAttributes().getBaseHp());
+        world.getPlayer().getAttributes().setAttack(world.getPlayer().getAttributes().getAttack() + 10);
     }
 
 }

@@ -61,6 +61,10 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
         return yFactor;
     }
 
+    public Dialogues getDialogues(){
+        return dialogues;
+    }
+
     public abstract double getOffsetX(int skill);
     public abstract double getOffsetY(int skill);
     public abstract double getOffsetW(int skill);

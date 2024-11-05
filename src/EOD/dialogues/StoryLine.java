@@ -586,7 +586,7 @@ public class StoryLine {
                 this.arr[i++] = "..."; 
                 this.arr[i++] =  "Dude, I think you broke it. Looks like you found a feature, not a bug.";
                 this.arr[i++] = "Achievement Unlocked: \"Skeleton Poking Master\"\n" + //
-                                                "You've been awarded a permanent increase of +10 base hp for your dedication to poking the dead. The devs were going to patch this out, but decided it was too funny to remove.";
+                                                "You've been awarded a temporary increase of +10 base hp for your dedication to poking the dead. The devs were going to patch this out, but decided it was too funny to remove.";
                 this.size = i;
         }
 
@@ -608,7 +608,8 @@ public class StoryLine {
                 this.arr[i++] = "..."; 
                 this.arr[i++] =  "Alright, I'm starting to think you have some unresolved issues with skeletons.";
                 this.arr[i++] = "Achievement Unlocked: \"Skeleton Abuse Awareness\"\n" + //
-                                                "Congratulations, your incessant skeleton poking has earned you an increase to your Strength stat. The dev team is a little concerned about your skeleton obsession, but hey, who are we to judge?";
+                                                "Congratulations, your incessant skeleton poking has earned you an increase of +10 to your attack stat. The dev team is a little concerned about your skeleton obsession, but hey, who are we to judge?";
+                this.size = i;
         }
 
         public void necromancerCorpse(){
@@ -629,7 +630,29 @@ public class StoryLine {
                 this.arr[i++] = "..."; 
                 this.arr[i++] =  "Wow, you really hold a grudge against this guy. Maybe you should talk to a therapist.";
                 this.arr[i++] = "Achievement Unlocked: \"Necromancer Nemesis\"\n" + //
-                                                " Your hatred of necromancers is truly unparalleled. As a reward, you've been granted a temporary boost to your Mana pool. We're a little worried about your anger issues, but at least it's productive in combat.";
+                                                " Your hatred of necromancers is truly unparalleled. As a reward, you've been granted a temporary +10 boost to your Mana pool. We're a little worried about your anger issues, but at least it's productive in combat.";
+                this.size = i;
+        }
+
+        public void gorgonCorpse(){
+                int i = 0;
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "I wouldn't stare too long, you might end up petrified too.";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] = "Turning a Gorgon into a ragdoll, huh? That's a bold move.";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "...";
+                this.arr[i++] = "..."; 
+                this.arr[i++] =  "Bravo, you've managed to thoroughly de-Gorgon the Gorgon. I'd give you a trophy, but I'm worried it might turn to stone.";
+                this.arr[i++] = "Achievement Unlocked: \"Gorgon Gratification\"\n" + //
+                "We're not sure why you felt the need to click on the Gorgon's corpse 15 times, but your commitment is impressive. As a reward, you've been granted a permanent boost to your Health. Try not to stare at it too long, or you might end up like the Gorgon.";
                 this.size = i;
         }
 

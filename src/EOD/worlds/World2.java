@@ -4,12 +4,14 @@ import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Gorgon;
 import EOD.characters.enemies.Skeleton2;
+import EOD.dialogues.Dialogues;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -173,6 +175,8 @@ public class World2 extends World{
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     battle.toggleTextListOff();
+                    Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
+                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
@@ -184,6 +188,8 @@ public class World2 extends World{
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     battle.toggleTextListOff();
+                    Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
+                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
