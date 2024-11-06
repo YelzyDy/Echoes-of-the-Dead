@@ -14,9 +14,14 @@ public class SettingsWindow extends JFrame {
     private JSlider volumeSlider;
     private JLabel volumeLabel;
     private BGMPlayer bgmPlayer;
+    private static SettingsWindow instance = null;
+    private String world;
+    private String filepath;
 
-    public SettingsWindow(BGMPlayer bgmPlayer) {
+    private SettingsWindow(BGMPlayer bgmPlayer, String world) {
         this.bgmPlayer = bgmPlayer;
+        this.world = world;
+        this.filepath = bgmPlayer.getFilePath();
         
         this.setTitle("Settings");
         this.setSize(400, 300);  // Increased height to accommodate slider
@@ -43,10 +48,10 @@ public class SettingsWindow extends JFrame {
 
         // Volume control section
         JPanel volumePanel = new JPanel(new FlowLayout());
-        volumeLabel = new JLabel("Volume: 50%");
+        volumeLabel = new JLabel("Volume: 100%");
         
         // Create volume slider
-        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
         volumeSlider.setMajorTickSpacing(20);
         volumeSlider.setMinorTickSpacing(5);
         volumeSlider.setPaintTicks(true);
@@ -64,13 +69,29 @@ public class SettingsWindow extends JFrame {
         this.add(volumePanel);
     }
 
+    // Singleton pattern: getInstance() to access the single instance
+    public static SettingsWindow getInstance(BGMPlayer bgmPlayer, String world) {
+        if (instance == null) {
+            instance = new SettingsWindow(bgmPlayer, world);
+        }
+        return instance;
+    }
+
+
     // Inner class to handle music toggling
     private class MusicToggleListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (musicOnButton.isSelected()) {
-                bgmPlayer.playBGM("src/audio_assets/selection.wav");
+                bgmPlayer.setMusicEnabled(true);
+                if (world.equals("null")){
+                    bgmPlayer.playBGM("src/audio_assets/selection.wav");
+                } else {
+                    bgmPlayer.playBGM(bgmPlayer.getFilePath());
+                }
             } else if (musicOffButton.isSelected()) {
+                bgmPlayer.setMusicEnabled(false);
+                //bgmPlayer.pauseBGM();  // Pauses the music when turned off
                 bgmPlayer.stopBGM();
             }
         }

@@ -43,8 +43,9 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private Player player;
     BGMPlayer bgmPlayer;
     public ChooseChar() {
-        bgmPlayer = new BGMPlayer();
+        bgmPlayer = BGMPlayer.getInstance();
         bgmPlayer.playBGM("src/audio_assets/selection.wav");
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.setTitle("Choose Character"); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -221,7 +222,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 window.setVisible(true);
                 window.setBGMPlayer(bgmPlayer);
                 this.setVisible(false);
-                bgmPlayer.stopBGM();
             
         }else if(source == btn_cancel){ 
             promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian

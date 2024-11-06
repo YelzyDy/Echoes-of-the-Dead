@@ -9,13 +9,13 @@ import EOD.scenes.*;
 import EOD.utils.BGMPlayer;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Font;
-import java.util.ArrayList;;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.*;;
 
 public abstract class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
     private EchoesObjects promptPanel;
@@ -442,8 +442,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         }
 
         if(source == btn_settings){
-            SettingsWindow settings = new SettingsWindow(bgmPlayer);  // Pass BGMPlayer instance to manage music
-            settings.setVisible(true);
+            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, worldType);
+            settingsWindow.setVisible(true); // Display the window
+
         }else if(source == bag){
             if (player.getInventory().isVisible()) {
                 player.getInventory().setVisible(false);

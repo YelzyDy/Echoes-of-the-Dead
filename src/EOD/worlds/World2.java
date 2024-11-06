@@ -21,7 +21,7 @@ public class World2 extends World{
     public World2(Player player, ArrayList<Player> playerList) {
         super("world2");
         scene = new SceneBuilder(this);
-        bgmPlayer = new BGMPlayer();
+        bgmPlayer = BGMPlayer.getInstance();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
         
         // Set up main player

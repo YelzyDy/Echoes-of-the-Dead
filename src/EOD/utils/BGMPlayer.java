@@ -1,52 +1,67 @@
 package EOD.utils;
 
-import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import javax.sound.sampled.*;
 
 public class BGMPlayer {
+    private static BGMPlayer instance = null;
     private Clip clip;
     private FloatControl gainControl;
     private float currentVolume = 0.5f; // Default volume at 50%
     private String currentBGMPath = null;
+    private boolean isMusicEnabled = true;
+    private String filepath;
+
+    // Private constructor to prevent multiple instances
+    private BGMPlayer() {}
+
+    // Static method to get the single instance of BGMPlayer
+    public static BGMPlayer getInstance() {
+        if (instance == null) {
+            instance = new BGMPlayer();
+        }
+        return instance;
+    }
+
 
     public void playBGM(String filePath) {
+        this.filepath = filePath;
+        if (!isMusicEnabled){
+            return;
+        } 
+    
         try {
-            // If the same BGM is already playing, don't restart it
-            if (currentBGMPath != null && currentBGMPath.equals(filePath) && 
-                clip != null && clip.isRunning()) {
-                return;
-            }
-
             // Stop any currently playing BGM
             stopBGM();
-
+    
             // Load and play the new BGM
             File audioFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             AudioFormat format = audioStream.getFormat();
             DataLine.Info info = new DataLine.Info(Clip.class, format);
-
+    
             if (!AudioSystem.isLineSupported(info)) {
                 throw new UnsupportedOperationException("Audio format not supported");
             }
-
+    
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(audioStream);
-            
+    
             // Get the gain control
             gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            
+    
             // Apply the current volume setting
             setVolume(currentVolume);
-            
+    
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             currentBGMPath = filePath;
-            
+    
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }
+    
 
     public void stopBGM() {
         if (clip != null) {
@@ -54,7 +69,7 @@ public class BGMPlayer {
             clip.close();
         }
         currentBGMPath = null;
-    }
+    }    
 
     public void setVolume(float volume) {
         try {
@@ -94,13 +109,36 @@ public class BGMPlayer {
 
     // Resume the current BGM
     public void resumeBGM() {
-        if (clip != null && !clip.isRunning()) {
-            clip.start();
+        if (currentBGMPath != null) {
+            try {
+                // If clip is not running, restart it from the beginning
+                if (!clip.isRunning()) {
+                    clip.setFramePosition(0); // Set the frame position to the beginning
+                    clip.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     // Check if BGM is currently playing
     public boolean isPlaying() {
         return clip != null && clip.isRunning();
+    }
+
+    public void setMusicEnabled(boolean enabled) {
+        isMusicEnabled = enabled;
+        if (!enabled) {
+            stopBGM(); // Stop playing music if it is disabled
+        }
+    }
+
+    public boolean getIsMusicEnabled() {
+        return isMusicEnabled;
+    }
+
+    public String getFilePath(){
+        return filepath;
     }
 }
