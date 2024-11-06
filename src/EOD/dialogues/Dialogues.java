@@ -26,6 +26,7 @@ public class Dialogues implements Freeable{
     private World world;
     private String playerType;
     private boolean isClickableDialogue = true;
+    private JLabel pressToContinueLabel;
 
     public void free() {
         // Dispose of the JDialog to release system resources
@@ -131,7 +132,7 @@ public class Dialogues implements Freeable{
         storyDialogue.setLayout(new BorderLayout());
 
         textBox = new JLabel("", SwingConstants.CENTER);
-        textBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        textBox.setFont(new Font("Monospaced", Font.PLAIN, (int)(screenSize.width * 0.02)));
         textBox.setForeground(Color.WHITE);
         textBox.setVerticalAlignment(SwingConstants.NORTH);
 
@@ -233,6 +234,24 @@ public class Dialogues implements Freeable{
         storyDialogue.setFocusable(true);
         storyDialogue.requestFocusInWindow();
         storyDialogue.setVisible(true);
+
+        // NEW PRESS TO CONTINUE LABEL
+        pressToContinueLabel = new JLabel("Press to Continue", SwingConstants.CENTER);
+        pressToContinueLabel.setFont(new Font("Monospaced", Font.PLAIN, (int)(screenSize.width * 0.01)));
+        pressToContinueLabel.setForeground(Color.WHITE);
+        pressToContinueLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(screenSize.height * 0.1), 0));
+        storyDialogue.add(pressToContinueLabel, BorderLayout.SOUTH);  // Adding label to bottom
+
+        pressToContinueLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // When clicked, proceed with the next dialogue
+                handleSetText();
+            }
+        });
+        this.size = story.getSize();
+        textBox.setText(story.getLine(0));
+        addMouseListenerForMultipleLines(story, textBox, storyDialogue, this.size);
     }
 
     // THE METHODS
@@ -265,6 +284,7 @@ public class Dialogues implements Freeable{
             textBox.setText(story.getLine(i));
             i++;
         }else{
+            if(ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
                     if(ID == 11 || ID == 13 || ID == 15){
                         world.getScene().remove(world.getScene().ally);

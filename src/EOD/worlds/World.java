@@ -172,6 +172,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void configureBanners(){
         victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "win", false, false, 1);
         defeatBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "lose", false, false, 1);
+        victoryBanner.addMouseListener(new MouseClickListener(this));
+        defeatBanner.addMouseListener(new MouseClickListener(this));
         layeredPane.add(victoryBanner, Integer.valueOf(1));
         layeredPane.add(defeatBanner, Integer.valueOf(1));
 
@@ -509,6 +511,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
                 System.out.println("defeatBanner hidden");
             }
             counterLabel.setVisible(false);
+        }else if(source == victoryBanner){
+            victoryBanner.setVisible(false);
+        }else{
+            defeatBanner.setVisible(false);
         }
     }
 
