@@ -4,6 +4,7 @@ import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Necromancer;
 import EOD.characters.enemies.Skeleton1;
+import EOD.dialogues.*;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.objects.profiles.AllyProfiles;
@@ -11,7 +12,6 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import EOD.dialogues.*;
 /**
  *
  * @author Joana
@@ -21,7 +21,7 @@ public class World1 extends World{
     private String characterType;
     public World1(String characterType, String playerName){
         super("world1");
-        bgmPlayer = new BGMPlayer();
+        bgmPlayer = BGMPlayer.getInstance();
         scene = new SceneBuilder(this);
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
         this.playerName = playerName;
@@ -210,7 +210,6 @@ public class World1 extends World{
             if (source == obj && obj.getName().equals("portal")){
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
                 if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
-                    bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
                     scene.setCurrentSceneIndex(3);
                     System.out.println(scene.getCurrentSceneIndex());
@@ -222,12 +221,6 @@ public class World1 extends World{
                     battle.toggleTextListOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
                     if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
-                    // isBattleStopped = false;
-                    // bgmPlayer.stopBGM();
-                    // bgmPlayer.playBGM("src/audio_assets/world1.wav");
-                    // World window = new World2(getPlayerType(), getPlayerName(), player);
-                    // window.setVisible(true);
-                    // this.setVisible(false);
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {

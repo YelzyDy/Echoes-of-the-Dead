@@ -22,7 +22,7 @@ public class World3 extends World{
     public World3(Player player, ArrayList<Player> playerList){
         super("world3");
         scene = new SceneBuilder(this);
-        bgmPlayer = new BGMPlayer();
+        bgmPlayer = BGMPlayer.getInstance();
         bgmPlayer.playBGM("src/audio_assets/world1.wav");
         
         // Set up main player
