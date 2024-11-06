@@ -3,18 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package EOD.gameInterfaces;
-
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.Graphics;
 
-public interface Entity {
+public interface Entity extends Freeable{
+    public final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public double getPosX();
     
     public double getPosY();
-
-    public double getWidthE();
-    
-    public double getHeightE();
     
     public void setPosX(double posX);
 

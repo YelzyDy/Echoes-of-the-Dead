@@ -5,7 +5,6 @@ import EOD.characters.Character;
 import EOD.characters.Player;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.gameInterfaces.Skillable;
-import EOD.gameInterfaces.Entity;
 import EOD.listeners.MouseClickListener;
 import java.awt.event.MouseEvent;
 import javax.swing.Timer;
@@ -14,7 +13,7 @@ import java.awt.event.ActionListener;
 
 import EOD.dialogues.*;
 
-public abstract class Enemy extends Character implements MouseInteractable, Skillable, Entity{
+public abstract class Enemy extends Character implements MouseInteractable, Skillable{
     protected Player player;
     protected int health;
     protected int attack;

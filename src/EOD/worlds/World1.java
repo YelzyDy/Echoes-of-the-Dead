@@ -221,7 +221,7 @@ public class World1 extends World{
                     battle.getEnemyWrapper().setVisible(false);
                     battle.toggleTextListOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
-                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
+                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                     // isBattleStopped = false;
                     // bgmPlayer.stopBGM();
                     // bgmPlayer.playBGM("src/audio_assets/world1.wav");
@@ -241,7 +241,7 @@ public class World1 extends World{
                     battle.getEnemyWrapper().setVisible(false);
                     battle.toggleTextListOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
-                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
+                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                     // isBattleStopped = false;
                     // isMiniBossDefeated = true;
                     // setIsMiniBossDefeated(true);
@@ -263,6 +263,7 @@ public class World1 extends World{
                 World window = new World2(player, playerList);
                 window.setVisible(true);
                 this.setVisible(false);
+                this.free();
             }
         }    
     }

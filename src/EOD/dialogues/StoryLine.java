@@ -1,8 +1,15 @@
 package EOD.dialogues;
 
-public class StoryLine {
+import EOD.gameInterfaces.Freeable;
+
+public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private int size;
+
+        public void free(){
+                size = 0;
+                arr = null;
+        }
 
         public void exposition() {
                 int i = 0;

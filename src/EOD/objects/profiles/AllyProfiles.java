@@ -1,6 +1,8 @@
 package EOD.objects.profiles;
 
 import java.awt.event.MouseEvent;
+
+import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
@@ -11,7 +13,7 @@ import EOD.characters.Player;
 import java.util.ArrayList;
 import EOD.worlds.World;
 
-public class AllyProfiles implements MouseInteractable {
+public class AllyProfiles implements MouseInteractable, Freeable {
     private static final double X_COORDINATE = 0.28;
     private EchoesObjects knightProfile;
     private EchoesObjects wizardProfile;
@@ -31,6 +33,29 @@ public class AllyProfiles implements MouseInteractable {
         this.world = world;
         allyList = new ArrayList<>();
         setUpYCoordinates();
+    }
+
+    @Override
+    public void free(){
+        if(knightProfile != null){
+            knightProfile.free();
+            knightProfile = null;
+        }
+        if(wizardProfile != null){
+            wizardProfile.free();
+            wizardProfile = null;
+        }
+        if(priestProfile != null){
+            priestProfile.free();
+            priestProfile = null;
+        }
+        for(String item : allyList){
+            item = null;
+        }
+        for(Player p : player){
+            p.free();
+            p = null;
+        }
     }
 
     private void setUpYCoordinates() {

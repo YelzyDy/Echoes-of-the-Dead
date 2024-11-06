@@ -5,8 +5,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import EOD.worlds.World;
+import EOD.gameInterfaces.Freeable;
 
-public class Dialogues{
+public class Dialogues implements Freeable{
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private AskDialogues askDialogues =  new AskDialogues();
@@ -25,6 +26,36 @@ public class Dialogues{
     private World world;
     private String playerType;
     private boolean isClickableDialogue = true;
+
+    public void free() {
+        // Dispose of the JDialog to release system resources
+        if (storyDialogue != null && storyDialogue.isVisible()) {
+            storyDialogue.dispose();
+        }
+    
+        // Nullify references to large objects
+        storyDialogue = null;
+        textBox = null;
+        buttonPanel = null;
+        skipButton = null;
+        askButton = null;
+    
+        // Nullify images (Icons) to release memory
+        askButtonIcon = null;
+        askButtonHoverIcon = null;
+        skipButtonIcon = null;
+        skipButtonHoverIcon = null;
+    
+        // If the story object holds resources, you may want to add a free method there too
+        if (story != null) {
+            story.free();  // Assuming StoryLine class has a free method that frees its resources
+        }
+    
+        // Reset the ID and other state-related variables
+        ID = -1;
+        i = 0;
+        isClickableDialogue = true;
+    }
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;

@@ -28,28 +28,7 @@ public class World3 extends World{
         // Set up main player
         this.player = player;
         this.playerList = playerList;
-        
-        // Configure player position and visibility
-        player.setPosX(0);
-        player.setPosY((int)(screenSize.height * 0.24));
-        player.setVisible(true);
-        player.setpanel(scene);
-        player.setWorld(this);
-        player.configureSkills();
-        
-        System.out.println("Player type in world3: " + player.getCharacterType());
-        
-        // Add player to scene
-        scene.add(player);
-        scene.setPlayer(player);
-        scene.setComponentZOrder(player, 0);
-        scene.addMouseListener(new MouseClickListener(player));
-        
-        // Set up player attributes
-        this.playerName = player.getName();
-        configureShopAndInventory();
-        setMoney(player.getAttributes().getMoney());
-        setMoneyLabel(player.getAttributes().getMoney() + "");
+    
         
         Welcome();
     }
@@ -67,6 +46,26 @@ public class World3 extends World{
     
     @Override
     public void initializeProtagonist(){
+        player.setPosX(0);
+        player.setPosY((int)(screenSize.height * 0.24));
+        player.setVisible(true);
+        player.setpanel(scene);
+        player.setWorld(this);
+        player.configureSkills();
+        
+        System.out.println("Player type in world2: " + player.getCharacterType());
+        
+        // Add player to scene
+        scene.add(player);
+        scene.setPlayer(player);
+        scene.setComponentZOrder(player, 0);
+        scene.addMouseListener(new MouseClickListener(player));
+
+        // Set up player attributes
+        this.playerName = player.getName();
+        configureShopAndInventory();
+        setMoney(player.getAttributes().getMoney());
+        setMoneyLabel(player.getAttributes().getMoney() + "");
         for (Player p : playerList) {
             if (p != player) {  // Skip the main player
                 p.setpanel(scene);
@@ -198,6 +197,7 @@ public class World3 extends World{
                 World window = new WorldEnding(player);
                 window.setVisible(true);
                 this.setVisible(false);
+                this.free();
             }
         }    
     }

@@ -17,6 +17,7 @@ import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.objects.*;
 import EOD.animator.Animator;
+import EOD.gameInterfaces.Freeable;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -26,7 +27,7 @@ import java.io.IOException;
  *
  * @author Joana
  */
-public class SceneBuilder extends JPanel{ 
+public class SceneBuilder extends JPanel implements Freeable{ 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private ImageList sceneList;
     private int currentSceneIndex;
@@ -62,6 +63,29 @@ public class SceneBuilder extends JPanel{
         this.setBounds(0, 0, screenSize.width, screenSize.height);
         this.setVisible(true);
         currentSceneIndex = 0;
+    }
+
+    private void freeLists(){
+        ArrayList<Freeable> free = new ArrayList<>();
+        if(npcList != null) free.addAll(npcList);
+        if(objList != null) free.addAll(objList);
+        if(enemyList != null) free.addAll(enemyList);
+        if(sceneList != null) free.add(sceneList);
+        // if(world != null) free.add(world);
+        for(Freeable item : free){
+            if(item != null) {
+                item.free();
+                item = null;
+            }
+        }
+
+    }
+
+    @Override
+    public void free(){
+        freeLists();
+        this.transitionHandler = null;
+        this.gameLoopTimer = null;
     }
 
     public ImageList getSceneList(){
@@ -339,6 +363,7 @@ public void createWorldScene() {
             }
         }
         
+        if(ally != null) ally.setVisible(ally.getIndex() == currentSceneIndex);
         for (Npc npc : npcList) {
             npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
         }

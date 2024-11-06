@@ -31,6 +31,12 @@ public class SkillEffects extends EchoesObjects {
         setOpaque(false);
         setVisible(true);
     }
+
+    @Override
+    public void free(){
+        panel.free();
+        panel = null;
+    }
     
     public void updateEffect() {
         if (!isActive) return;

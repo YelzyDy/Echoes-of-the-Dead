@@ -9,17 +9,18 @@ import java.awt.event.MouseEvent;
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.dialogues.*;
+import EOD.gameInterfaces.Freeable;
 import EOD.objects.EchoesObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
 
-public class BattleUI extends JPanel{
+public class BattleUI extends JPanel implements Freeable{
     // Constants
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int width = (int) (screenSize.width * 0.99);
     private final int topTextHeight = (int) (screenSize.height * 0.07);
     private final int bottomTextHeight = (int) (screenSize.height * 0.06);
-
+    private Rewards rewards;
     // Core Components
     private final JPanel textPanel;
     private final StoryLine story;
@@ -58,6 +59,90 @@ public class BattleUI extends JPanel{
         initializeUI();
     }
 
+    @Override
+    public void free(){
+        if (rewards != null) {
+            rewards = null;
+        }
+        if (story != null) {
+            story.free();
+        }
+        if (topTextBox != null) {
+            topTextBox = null;
+        }
+        if (bottomPanel != null) {
+            bottomPanel = null;
+        }
+        if (bottomTextBox != null) {
+            bottomTextBox = null;
+        }
+        if (textList != null) {
+            textList = null;
+        }
+        if (textListModel != null) {
+            textListModel = null;
+        }
+        if (skillButtonsPanel != null) {
+            skillButtonsPanel = null;
+        }
+        if (sidePanel != null) {
+            sidePanel = null;
+        }
+        if (enemyWrapper != null) {
+            enemyWrapper = null;
+        }
+        if (skillA != null) {
+            skillA = null;
+        }
+        if (skillB != null) {
+            skillB = null;
+        }
+        if (skillC != null) {
+            skillC = null;
+        }
+        if (skillD != null) {
+            skillD = null;
+        }
+        if (skillAIcon != null) {
+            skillAIcon = null;
+        }
+        if (skillBIcon != null) {
+            skillBIcon = null;
+        }
+        if (skillCIcon != null) {
+            skillCIcon = null;
+        }
+        if (skillDIcon != null) {
+            skillDIcon = null;
+        }
+        if (skillAHoverIcon != null) {
+            skillAHoverIcon = null;
+        }
+        if (skillBHoverIcon != null) {
+            skillBHoverIcon = null;
+        }
+        if (skillCHoverIcon != null) {
+            skillCHoverIcon = null;
+        }
+        if (skillDHoverIcon != null) {
+            skillDHoverIcon = null;
+        }
+        if (enemy != null) {
+            enemy.free();
+            enemy = null;
+        }
+        if (portal != null) {
+            portal.free();
+            portal = null;
+        }
+        if (temp != null) {
+            temp = null;
+        }
+        if (battleSample != null) {   
+            battleSample = null;
+        }      
+    }
+
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;
     }
@@ -71,7 +156,8 @@ public class BattleUI extends JPanel{
         battleBars.setEnemyStats(
            enemy.getHp()
         );
-        battleSample.setRewards(new Rewards(battleSample));
+        rewards = new Rewards(battleSample);
+        battleSample.setRewards(rewards);
         enemyWrapper.setVisible(true);
         setSkillButtonsEnabled(true);
         topTextBox.setText("Turn 1: Your Turn");

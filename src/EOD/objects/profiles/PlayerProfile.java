@@ -1,5 +1,6 @@
 package EOD.objects.profiles;
 
+import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
@@ -12,7 +13,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-public class PlayerProfile implements MouseInteractable {
+public class PlayerProfile implements MouseInteractable, Freeable {
     private EchoesObjects profileBorder;
     private JLabel profilePicture;
     private final int PROFILE_SIZE;
@@ -74,6 +75,12 @@ public class PlayerProfile implements MouseInteractable {
         // Add components to panel
         panel.add(profileBorder, Integer.valueOf(2));
         panel.add(profilePicture, Integer.valueOf(1));
+    }
+
+    @Override
+    public void free(){
+        profileBorder.free();
+        profileBorder = null;
     }
 
     public void setPanel(JLayeredPane panel) {

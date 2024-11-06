@@ -13,10 +13,13 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.*;
 import EOD.worlds.World;
 import EOD.worlds.World1;
+import EOD.gameInterfaces.Freeable;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -69,6 +72,22 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         scene.add(btn_select);
 
         addTransparentButton();
+    }
+
+    private void free(){
+        ArrayList <Freeable> list = new ArrayList<>();
+        list.add(btn_select);
+        list.add(btn_ok);
+        list.add(btn_cancel);
+        list.add(promptPanel);
+        list.add(scene);
+        for(Freeable item : list){
+            item.free();
+            item = null;
+        }
+        charType = null;
+        nameField = null;
+        screenSize = null;
     }
 
     public void initiializeProtagonist(){
@@ -222,6 +241,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 window.setBGMPlayer(bgmPlayer);
                 this.setVisible(false);
                 bgmPlayer.stopBGM();
+                this.free();
             
         }else if(source == btn_cancel){ 
             promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian

@@ -28,7 +28,22 @@ public class World2 extends World{
         this.player = player;
         this.playerList = playerList;
         
-        // Configure player position and visibility
+        Welcome();
+    }
+
+    @Override
+    public void initializeAllyProfiles() {
+        player.getAllyProfiles().setWorld(this);
+        player.getAllyProfiles().setPlayer(playerList);
+    }
+
+    @Override
+    public void initializePlayerProfile(){
+        player.getPlayerProfile().setPanel(getLayeredPane());
+    }
+
+    @Override
+    public void initializeProtagonist(){
         player.setPosX(0);
         player.setPosY((int)(screenSize.height * 0.24));
         player.setVisible(true);
@@ -49,23 +64,6 @@ public class World2 extends World{
         configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
         setMoneyLabel(player.getAttributes().getMoney() + "");
-        
-        Welcome();
-    }
-
-    @Override
-    public void initializeAllyProfiles() {
-        player.getAllyProfiles().setWorld(this);
-        player.getAllyProfiles().setPlayer(playerList);
-    }
-
-    @Override
-    public void initializePlayerProfile(){
-        player.getPlayerProfile().setPanel(getLayeredPane());
-    }
-
-    @Override
-    public void initializeProtagonist(){
         for (Player p : playerList) {
             if (p != player) {  // Skip the main player
                 p.setpanel(scene);
@@ -176,7 +174,7 @@ public class World2 extends World{
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     battle.toggleTextListOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
-                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
+                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
@@ -189,7 +187,7 @@ public class World2 extends World{
                     bgmPlayer.playBGM("src/audio_assets/world1.wav");
                     battle.toggleTextListOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
-                    if(dialogues != null) dialogues.getStoryJDialog().dispose();
+                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
@@ -198,6 +196,8 @@ public class World2 extends World{
                 World window = new World3(player, playerList);
                 window.setVisible(true);
                 this.setVisible(false);
+                this.free();
+                
             }
         }    
     }

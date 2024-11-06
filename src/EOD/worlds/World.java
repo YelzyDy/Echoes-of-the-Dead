@@ -1,6 +1,7 @@
 package EOD.worlds;
 
 import EOD.characters.*;
+import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 import EOD.objects.*;
@@ -17,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.util.ArrayList;;
 
-public abstract class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
+public abstract class World extends javax.swing.JFrame implements MouseInteractable, Freeable{ // this is the superclass for all 3 worlds -- jian
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private EchoesObjects victoryBanner;
@@ -89,6 +90,44 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         playerList = new ArrayList<>();
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
+    }
+
+    private void freeObjects(){
+        try{
+        ArrayList <Freeable> freeList = new ArrayList<>();
+        freeList.add(btn_ok);
+        freeList.add(victoryBanner);
+        freeList.add(defeatBanner);
+        freeList.add(soulShard);
+        freeList.add(scene);
+        freeList.add(battle);
+
+        for(Freeable item : freeList){
+            if (item != null){
+                item.free();
+                item = null;
+            }
+        }
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+    }
+
+    public void free(){
+        try{
+            freeObjects();
+            name = null;
+            worldType = null;
+            layeredPane = null;
+            progressBar = null;
+            bannerTimer = null;
+            counterLabel = null;
+            moneyLabel = null;
+            playerName = null;
+            promptPanel = null;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Player> getPlayerList(){
