@@ -257,6 +257,7 @@ public void createWorldScene() {
     private void updateBattleState(){
         if(player.getAnimator().getIsInBattle()){
             world.getBattle().updateCooldowns();
+            world.closeQuests();
         }
     }
     

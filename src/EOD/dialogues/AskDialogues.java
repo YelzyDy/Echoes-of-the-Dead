@@ -45,6 +45,12 @@ public class AskDialogues extends JFrame {
             case 13:
                 story.priestLines(playerType);
                 break;
+            case 26:
+                story.rubyLines(playerType);
+                break;
+            case 28:
+                story.reginaldLines(playerType);
+                break;
             default:
                 break;
         }

@@ -85,6 +85,14 @@ public class Npc extends Character implements MouseInteractable{
             dialogues.setPlayerType(getCharacterType());
             dialogues.displayDialogues(15, world);
         }
+        if(getCharacterType().equals("ruby")){
+            dialogues.setPlayerType(getCharacterType());
+            dialogues.displayDialogues(25, world);
+        }
+        if(getCharacterType().equals("renegald")){
+            dialogues.setPlayerType(getCharacterType());
+            dialogues.displayDialogues(27, world);
+        }
     }
 
     @Override
