@@ -96,7 +96,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         EchoesObjects clickedButton = (EchoesObjects) e.getSource();
 
         if ("settings".equals(clickedButton.getName())){
-            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, "null");
+            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer);
             settingsWindow.setVisible(true); // Display the window
 
         } else if ("play".equals(clickedButton.getName())){

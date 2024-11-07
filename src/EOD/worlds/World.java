@@ -497,7 +497,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         }
 
         if(source == btn_settings){
-            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, worldType);
+            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer);
             settingsWindow.setVisible(true); // Display the window
 
         }else if(source == bag){
