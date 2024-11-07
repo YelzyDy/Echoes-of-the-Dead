@@ -1,6 +1,7 @@
 package EOD.animator;
 
 import EOD.characters.Character;
+import EOD.gameInterfaces.Freeable;
 import EOD.utils.ImageList;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
-public abstract class Animator{
+public abstract class Animator implements Freeable{
     protected int currentFrame;
     protected boolean isMoving;
     protected boolean isMovingRight;
@@ -69,6 +70,30 @@ public abstract class Animator{
         this.isDeathAnimating = false;
     }
 
+    @Override
+    public void free() {
+        if(walkSprites != null) {
+            walkSprites.free();
+            walkSprites = null;
+        }
+        if(idleSprites != null){
+            idleSprites.free();
+            idleSprites = null;
+        }
+        if(skillSprites != null){
+            for (ImageList item : skillSprites) {
+                if(item != null) item.free();
+            }
+        }
+        if(skillSprites != null) skillSprites = null;
+        if(deadSprites != null){
+            deadSprites.free();
+            deadSprites = null;
+        
+        }
+        onAnimationComplete = null;
+        deathAnimationTimer = null;
+    }
 
     public void setOnAnimationComplete(Runnable callback) {
         this.onAnimationComplete = callback;

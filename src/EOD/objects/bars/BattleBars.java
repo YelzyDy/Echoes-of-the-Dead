@@ -2,7 +2,9 @@ package EOD.objects.bars;
 
 import javax.swing.*;
 
-public class BattleBars {
+import EOD.gameInterfaces.Freeable;
+
+public class BattleBars implements Freeable{
     private Timer healthTimer;
     private Timer manaTimer;
     private PlayerBar playerBar;
@@ -13,7 +15,14 @@ public class BattleBars {
         enemyBar = new EnemyBar();
     }
 
-
+    @Override
+    public void free(){
+        healthTimer = null;
+        manaTimer = null;
+        playerBar = null;
+        enemyBar = null;
+        enemyHealthTimer = null;
+    }
     public PlayerBar getPlayerStats(){
         return playerBar;
     }

@@ -5,8 +5,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import EOD.worlds.World;
+import EOD.gameInterfaces.Freeable;
 
-public class Dialogues{
+public class Dialogues implements Freeable{
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private AskDialogues askDialogues =  new AskDialogues();
@@ -25,6 +26,37 @@ public class Dialogues{
     private World world;
     private String playerType;
     private boolean isClickableDialogue = true;
+    private JLabel pressToContinueLabel;
+
+    public void free() {
+        // Dispose of the JDialog to release system resources
+        if (storyDialogue != null && storyDialogue.isVisible()) {
+            storyDialogue.dispose();
+        }
+    
+        // Nullify references to large objects
+        storyDialogue = null;
+        textBox = null;
+        buttonPanel = null;
+        skipButton = null;
+        askButton = null;
+    
+        // Nullify images (Icons) to release memory
+        askButtonIcon = null;
+        askButtonHoverIcon = null;
+        skipButtonIcon = null;
+        skipButtonHoverIcon = null;
+    
+        // If the story object holds resources, you may want to add a free method there too
+        if (story != null) {
+            story.free();  // Assuming StoryLine class has a free method that frees its resources
+        }
+    
+        // Reset the ID and other state-related variables
+        ID = -1;
+        i = 0;
+        isClickableDialogue = true;
+    }
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
@@ -88,6 +120,12 @@ public class Dialogues{
             story.gorgonCorpse();
                 isClickableDialogue = false;
                 break;
+            case 25:
+                story.rubyIntro();
+                break;
+            case 27:
+                story.reginaldIntro();
+                break;
             default:
                 break;
         }
@@ -100,7 +138,7 @@ public class Dialogues{
         storyDialogue.setLayout(new BorderLayout());
 
         textBox = new JLabel("", SwingConstants.CENTER);
-        textBox.setFont(new Font("Monospaced", Font.PLAIN, 28));
+        textBox.setFont(new Font("Monospaced", Font.PLAIN, (int)(screenSize.width * 0.02)));
         textBox.setForeground(Color.WHITE);
         textBox.setVerticalAlignment(SwingConstants.NORTH);
 
@@ -202,6 +240,24 @@ public class Dialogues{
         storyDialogue.setFocusable(true);
         storyDialogue.requestFocusInWindow();
         storyDialogue.setVisible(true);
+
+        // NEW PRESS TO CONTINUE LABEL
+        pressToContinueLabel = new JLabel("Press to Continue", SwingConstants.CENTER);
+        pressToContinueLabel.setFont(new Font("Monospaced", Font.PLAIN, (int)(screenSize.width * 0.01)));
+        pressToContinueLabel.setForeground(Color.WHITE);
+        pressToContinueLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(screenSize.height * 0.1), 0));
+        storyDialogue.add(pressToContinueLabel, BorderLayout.SOUTH);  // Adding label to bottom
+
+        pressToContinueLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // When clicked, proceed with the next dialogue
+                handleSetText();
+            }
+        });
+        this.size = story.getSize();
+        textBox.setText(story.getLine(0));
+        addMouseListenerForMultipleLines(story, textBox, storyDialogue, this.size);
     }
 
     // THE METHODS
@@ -234,6 +290,7 @@ public class Dialogues{
             textBox.setText(story.getLine(i));
             i++;
         }else{
+            if(ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
                     if(ID == 11 || ID == 13 || ID == 15){
                         world.getScene().remove(world.getScene().ally);

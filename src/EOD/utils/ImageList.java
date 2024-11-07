@@ -4,15 +4,28 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import EOD.gameInterfaces.Freeable;
+
 /**
  * BufferedImageList class manages a list of BufferedImages and provides methods to manipulate them.
  */
-public class ImageList {
+public class ImageList implements Freeable{
     protected final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     ArrayList<ArrayList<Object>> imageList = new ArrayList<>();
     private int size = 0;
     private int origHeight = 0;
     private int origWidth = 0;
+
+    @Override
+    public void free(){
+        for (ArrayList<Object> imageDetails : imageList) {
+            imageDetails.set(0, null); // Set the BufferedImage reference to null
+        }
+        
+        // Clear the entire imageList to release the memory held by the list
+        imageList.clear();
+        size = 0;
+    }
    
     public void add(BufferedImage icon, double x){
         ArrayList<Object> imageDetails = new ArrayList<>();

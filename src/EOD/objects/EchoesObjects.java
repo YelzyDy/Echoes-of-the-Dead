@@ -5,7 +5,6 @@
 package EOD.objects;
 
 import EOD.gameInterfaces.MouseInteractable;
-import EOD.gameInterfaces.Entity;
 import EOD.listeners.MouseClickListener;
 
 import EOD.utils.*;
@@ -15,9 +14,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import EOD.gameInterfaces.*;
 import javax.imageio.ImageIO;
 
 /**
@@ -25,7 +24,6 @@ import javax.imageio.ImageIO;
  * @author Joana
  */
 public class EchoesObjects extends TransparentPanel implements MouseInteractable, Entity{
-    public Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private double posX;
     private double posY;
     private int currentFrame;
@@ -54,6 +52,13 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.addMouseListener(new MouseClickListener(this));
     }   
 
+    @Override
+    public void free(){
+        if(objSprites != null) objSprites.free();
+        objSprites = null;
+        assetPackage = null;
+    }
+
     public void setEnabled(boolean enabled) {
         if (this.isEnabled != enabled) {  // Only process if state actually changes
             if (enabled) {
@@ -68,16 +73,6 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     public boolean getEnabled(){
         return isEnabled;
-    }
-
-    @Override
-    public double getWidthE(){
-        return getWidth();
-    }
-
-    @Override
-    public double getHeightE(){
-        return getHeight();
     }
     
     public void setAllowHover(boolean allowHover){

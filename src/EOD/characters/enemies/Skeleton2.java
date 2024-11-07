@@ -244,7 +244,7 @@ public class Skeleton2 extends Enemy {
             // Adjust dimensions based on click count or specific dialogue requirements
             if (i == 14) {
                handleI14();
-            } else if (i == 15) {
+            } else if (i >= 15) {
                 handleI15();
             }else if (i != 4 && i != 9){
                 handleDots();

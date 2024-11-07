@@ -7,11 +7,11 @@ import EOD.scenes.SceneBuilder;
 import java.awt.event.MouseEvent;
 
 import EOD.characters.Npc;
-import EOD.characters.Player;
+import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.worlds.World;
-public class Rewards implements MouseInteractable{
+public class Rewards implements MouseInteractable, Freeable{
     private static final String KNIGHT = "knight";
     private static final String PRIEST = "priest";
     private static final String WIZARD = "wizard";
@@ -31,7 +31,13 @@ public class Rewards implements MouseInteractable{
         this.world = battle.getPlayer().getWorld();
     }
 
-
+    @Override
+    public void free(){
+        if(allyProfiles != null){
+            allyProfiles.free();
+            allyProfiles = null;
+        }
+    }
 
     public void getAllyRewards() {
         if(!isMiniBoss()) return;
@@ -102,6 +108,7 @@ public class Rewards implements MouseInteractable{
         panel.ally.setStatic(true);
         panel.ally.setWorld(world);
         panel.ally.addMouseListener(new MouseClickListener(this));
+        panel.ally.setIndex(panel.ally.getWorld().getBattle().getPortal().getIndex());
         panel.add(panel.ally);
     }
 

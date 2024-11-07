@@ -4,14 +4,15 @@
  */
 package EOD.characters;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
+
+import javax.swing.tree.ExpandVetoException;
 
 import EOD.animator.*;
+import EOD.gameInterfaces.Entity;
 import EOD.utils.TransparentPanel;
 import EOD.worlds.World;
 import EOD.scenes.SceneBuilder;
@@ -22,13 +23,12 @@ import EOD.scenes.SceneBuilder;
  *
  * @author Joana
  */
-public class Character extends TransparentPanel{
+public class Character extends TransparentPanel implements Entity{
     private double posX;
     private double posY;
     private String characterType;
     protected World world;
     private SceneBuilder panel;
-    protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int index;
     private Animator animator;
 
@@ -39,6 +39,22 @@ public class Character extends TransparentPanel{
         this.characterType = characterType;
         this.setVisible(true);
         this.setName(name);
+    }   
+
+    @Override
+    public void free(){
+        try{
+            if(panel != null){
+                panel.free();
+                panel = null;
+            }
+            if(animator != null){
+                animator.free();
+                animator = null;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }   
 
     public void setWorld(World world){

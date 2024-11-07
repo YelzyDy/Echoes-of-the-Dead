@@ -2,12 +2,14 @@ package EOD.characters;
 
 import java.awt.event.MouseEvent;
 
+import javax.swing.tree.ExpandVetoException;
+
 import EOD.animator.NpcAnimator;
 import EOD.dialogues.*;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 // This class makes NPC move randomly
-public class Npc extends Character implements MouseInteractable {
+public class Npc extends Character implements MouseInteractable{
     Dialogues dialogues = new Dialogues();
     private NpcAnimator animator;
     private boolean isStatic;
@@ -27,6 +29,23 @@ public class Npc extends Character implements MouseInteractable {
         animator.updateBounds();
         animator.setRange(minRange, maxRange);
         isStatic = false;
+    }
+
+    @Override
+    public void free(){
+        try{
+            super.free();
+            if(animator != null){
+                animator.free();
+                animator = null;
+            }
+            if(dialogues != null){
+                dialogues.free();
+                dialogues = null;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void setStatic(boolean isStatic){
@@ -65,6 +84,14 @@ public class Npc extends Character implements MouseInteractable {
         if(getCharacterType().equals("priest")){
             dialogues.setPlayerType(getCharacterType());
             dialogues.displayDialogues(15, world);
+        }
+        if(getCharacterType().equals("ruby")){
+            dialogues.setPlayerType(getCharacterType());
+            dialogues.displayDialogues(25, world);
+        }
+        if(getCharacterType().equals("renegald")){
+            dialogues.setPlayerType(getCharacterType());
+            dialogues.displayDialogues(27, world);
         }
     }
 

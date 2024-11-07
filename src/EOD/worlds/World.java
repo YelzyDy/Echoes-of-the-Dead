@@ -1,6 +1,7 @@
 package EOD.worlds;
 
 import EOD.characters.*;
+import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 import EOD.objects.*;
@@ -17,7 +18,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.*;;
 
-public abstract class World extends javax.swing.JFrame implements MouseInteractable{ // this is the superclass for all 3 worlds -- jian
+public abstract class World extends javax.swing.JFrame implements MouseInteractable, Freeable{ // this is the superclass for all 3 worlds -- jian
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private EchoesObjects victoryBanner;
@@ -37,6 +38,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected BGMPlayer bgmPlayer;
     protected Shop shop;
     protected JProgressBar progressBar;
+    protected Quests quests;
     private Timer bannerTimer;
     private JLabel counterLabel;
     private JLabel moneyLabel;
@@ -91,6 +93,44 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(progressBar, Integer.valueOf(1));
     }
 
+    private void freeObjects(){
+        try{
+        ArrayList <Freeable> freeList = new ArrayList<>();
+        freeList.add(btn_ok);
+        freeList.add(victoryBanner);
+        freeList.add(defeatBanner);
+        freeList.add(soulShard);
+        freeList.add(scene);
+        freeList.add(battle);
+
+        for(Freeable item : freeList){
+            if (item != null){
+                item.free();
+                item = null;
+            }
+        }
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+    }
+
+    public void free(){
+        try{
+            freeObjects();
+            name = null;
+            worldType = null;
+            layeredPane = null;
+            progressBar = null;
+            bannerTimer = null;
+            counterLabel = null;
+            moneyLabel = null;
+            playerName = null;
+            promptPanel = null;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Player> getPlayerList(){
         return playerList;
     }
@@ -125,7 +165,19 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(battle, Integer.valueOf(1));
     }
 
-    
+    public void openQuests() {
+        this.quests = new Quests();
+        layeredPane.add(this.quests, Integer.valueOf(1));
+    }
+
+    public void reopenQuests() {
+        this.quests.setVisible(true);
+    }
+
+    public void closeQuests() {
+        this.quests.setVisible(false);
+    }
+
     public abstract void initializeAllyProfiles();
 
     public abstract void initializePlayerProfile();
@@ -133,6 +185,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void configureBanners(){
         victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "win", false, false, 1);
         defeatBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "lose", false, false, 1);
+        victoryBanner.addMouseListener(new MouseClickListener(this));
+        defeatBanner.addMouseListener(new MouseClickListener(this));
         layeredPane.add(victoryBanner, Integer.valueOf(1));
         layeredPane.add(defeatBanner, Integer.valueOf(1));
 
@@ -276,6 +330,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         protected void done() {
             progressBar.setString("Loading Complete");
             removeWelcome();
+            openQuests();
             initializeBattleUI();
             initializeAllyProfiles();
             initializePlayerProfile();
@@ -470,6 +525,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
                 System.out.println("defeatBanner hidden");
             }
             counterLabel.setVisible(false);
+        }else if(source == victoryBanner){
+            victoryBanner.setVisible(false);
+        }else{
+            defeatBanner.setVisible(false);
         }
     }
 

@@ -1,9 +1,10 @@
 package EOD.characters;
 
+import EOD.gameInterfaces.Freeable;
 import EOD.objects.SkillEffects;
 import java.awt.Dimension;
 
-public class PlayerAttributes{
+public class PlayerAttributes implements Freeable{
     protected int baseAttack;
     protected int attack;
     protected int health;
@@ -32,6 +33,20 @@ public class PlayerAttributes{
         this.player = player;
         this.screenSize = player.screenSize;
         configure(player.getCharacterType());
+    }
+
+    @Override
+    public void free(){
+        if(skillEffects1 != null) skillEffects1.free();
+        if(skillEffects2 != null) skillEffects2.free();
+        if(skillEffects3 != null) skillEffects3.free();
+        if(skillEffects4 != null) skillEffects4.free();
+        if(skillEffectsRandom != null) skillEffectsRandom.free();
+        skillEffects1 = null;
+        skillEffects2 = null;
+        skillEffects3 = null;
+        skillEffects4 = null;
+        skillEffectsRandom = null;
     }
 
     public void configure(String characterType) {

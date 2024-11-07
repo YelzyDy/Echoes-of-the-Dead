@@ -16,7 +16,7 @@ import EOD.objects.profiles.PlayerProfile;
 import EOD.gameInterfaces.Entity;
 import EOD.gameInterfaces.MouseInteractable;
 
-public class Player extends Character implements MouseInteractable, Entity {
+public class Player extends Character implements MouseInteractable{
     private PlayerAnimator animator;
     private Random random = new Random();
     private String characterType;
@@ -55,6 +55,17 @@ public class Player extends Character implements MouseInteractable, Entity {
         this.characterType = characterType;
         originalAttack = attributes.attack;
         inventory = new Inventory();
+    }
+
+    @Override
+    public void free(){
+        super.free();
+        random = null;
+        characterType = null;
+        if(attributes != null){
+            attributes.free();
+            attributes = null;
+        }
     }
 
     public void setAllyProfiles(AllyProfiles allyProfiles){

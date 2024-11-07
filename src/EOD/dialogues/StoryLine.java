@@ -1,8 +1,15 @@
 package EOD.dialogues;
 
-public class StoryLine {
+import EOD.gameInterfaces.Freeable;
+
+public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private int size;
+
+        public void free(){
+                size = 0;
+                arr = null;
+        }
 
         public void exposition() {
                 int i = 0;
@@ -339,7 +346,134 @@ public class StoryLine {
             
                 this.size = i;
         }
+
+        //
+
+        public void rubyIntro() {
+                int i = 0;
             
+                this.arr[i++] = "You stumble upon the edge of the city behind you. You approach the woman ahead, she's full of energy.";
+                this.arr[i++] = "Ruby: \"Well, look who showed up. I'm Ruby, by the way. Not that it matters—I'm not here to make friends.\"";
+                this.arr[i++] = "You: \"Have we met before? I deal with so many souls... I lose track.\"";
+                this.arr[i++] = "Ruby: \"Oh, trust me, you'd remember me if you had. I'm not like the rest of these lost souls. Although...\"";
+                this.arr[i++] = "Ruby: \"Just 'cause I look tough doesn't mean I don't feel the weight of this place. It's... intense.\"";
+                this.arr[i++] = "You: \"I feel the same, this place is a bit too much sometimes.\"";
+                this.arr[i++] = "Ruby: \"Ha! That's how I like it. I like a challenge. I've fought my own battles, and I'm still here.\"";
+                this.arr[i++] = "You: \"You do seem to have gone through a lot.\"";
+                this.arr[i++] = "Ruby: \"I've been through worse. Just... get out of my way, alright? I've got my own problems to deal with.\"";
+            
+                this.size = i;
+        }
+            
+        public void rubyLines(String playerType) {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"The city looks really unsettling from afar. What do you think?\"";
+                this.arr[i++] = "Ruby: \"Unsettling? You could say that. It does look menacing from here.\"";
+            
+                this.arr[i++] = "You: \"Which way leads to the forest?\"";
+                this.arr[i++] = "Ruby: \"Just go straight ahead. But where's the fun in leaving? You can't do anything if you're always running away.\"";
+            
+                this.arr[i++] = "You: \"What do you think of my outfit?\"";
+                if (playerType.equals("knight")) {
+                        this.arr[i++] = "Ruby: \"Looks bulky. It makes you look slow.\"";
+                } else if (playerType.equals("priest")) {
+                        this.arr[i++] = "Ruby: \"Gosh. That nurse outfit takes me back. I remember seeing someone wearing that here way too many times.\"";
+                } else {
+                        this.arr[i++] = "Ruby: \"Ew, are you cosplaying an anime character?\"";
+                }
+
+                this.arr[i++] = "You: \"Can you tell me about what your past life was like?\"";
+                this.arr[i++] = "Ruby: \"Life was great, I hoped it stayed that way. Now, everything's gone just like that. I'm not here to reminisce.\"";
+            
+                this.arr[i++] = "You: \"Why are you laughing by yourself?\"";
+                this.arr[i++] = "Ruby: \"Just thought of something funny. Guess you'd have to be me to get it.\"";
+            
+                this.arr[i++] = "You: \"You seem a bit more upbeat today. What's up?\"";
+                this.arr[i++] = "Ruby: \"I'm laughing at how scared everyone here is. They should toughen up.\"";
+            
+                this.arr[i++] = "You: \"You look tense. Am I bothering you?\"";
+                this.arr[i++] = "Ruby: \"You? Nah. I don't get scared of people, alright? Not even you.\"";
+            
+                this.arr[i++] = "[Ruby starts pacing] You: \"Is something wrong?\"";
+                this.arr[i++] = "Ruby: \"Nothing's wrong. Just... too much silence. Puts me on edge.\"";
+            
+                this.arr[i++] = "You: \"I'm looking for someone. Ever met any souls here who drowned just recently?\"";
+                if (playerType.equals("knight")) {
+                        this.arr[i++] = "Ruby: \"You and some other guy. He was really cute, that says a lot from what I've seen around here, hahaha.\"";
+                } else if (playerType.equals("priest")) {
+                        this.arr[i++] = "Ruby: \"No, I mean yes. She's been around here somewhere. I guess she's a bit chatty and unpredictable?\"";
+                } else {
+                        this.arr[i++] = "Ruby: \"Yep, some dude talking about how pissed he was at dying like that. He got a hair thing growing out his chin.\"";
+                }
+            
+                this.arr[i++] = "You: \"I drowned. How about you?\"";
+                this.arr[i++] = "Ruby: \"Died escaping from... a situation that held me down too long, just like you did. Anyway, guess I didn't make it. But I'm here now, so no use crying over it.\"";
+            
+                this.size = i;
+        }
+
+        public void reginaldIntro() {
+                int i = 0;
+            
+                this.arr[i++] = "You approach the edge of the city, where you see a well-dressed gentleman standing alone, adjusting his suit with exaggerated care.";
+                this.arr[i++] = "Reginald: \"Ah! A visitor, splendid! I am Reginald. A pleasure, indeed.\"";
+                this.arr[i++] = "You: \"I'm sure you're a pleasure and all that. Have we met before?\"";
+                this.arr[i++] = "Reginald: \"Oh, dear, I do believe not. I would recall a face such as yours. It would be improper to forget an acquaintance.\"";
+                this.arr[i++] = "You: \"Well, that's just fantastic.\"";
+                this.arr[i++] = "Reginald: \"Although I must admit, this place, as they call it... the underworld? It's rather lacking in refinement, wouldn't you agree?\"";
+                this.arr[i++] = "You: \"Not exactly a vacation spot, but you get used to it.\"";
+                this.arr[i++] = "Reginald: \"Indeed, but one must rise above it! My attire may not be entirely suitable for these surroundings, but one must maintain a sense of dignity.\"";
+                this.arr[i++] = "You: \"Sure, because dignity's so helpful down here.\"";
+                this.arr[i++] = "Reginald: \"Ah, sarcasm. I do find it rather charming.\"";
+            
+                this.size = i;
+        }
+            
+        public void reginaldLines(String playerType) {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"The city looks quite imposing from here. What do you think?\"";
+                this.arr[i++] = "Reginald: \"Imposing, perhaps, but I find it rather... gauche. Could use a touch of elegance, wouldn't you agree?\"";
+            
+                this.arr[i++] = "You: \"Which way leads to the forest?\"";
+                this.arr[i++] = "Reginald: \"Ah, through the archway, I believe. Though I must say, wandering into forests is hardly the proper thing to do.\"";
+            
+                this.arr[i++] = "You: \"What do you think of my outfit?\"";
+                if (playerType.equals("knight")) {
+                    this.arr[i++] = "Reginald: \"Ah, very... sturdy. Though, it does lack a bland.\"";
+                } else if (playerType.equals("priest")) {
+                    this.arr[i++] = "Reginald: \"Ah, quite dignified! We need more nurses in the world. If so, I would still be alive right now.\"";
+                } else {
+                    this.arr[i++] = "Reginald: \"Oh, my! It's, um, quite... unique, isn't it?\"";
+                }
+            
+                this.arr[i++] = "You: \"Can you tell me about your past life?\"";
+                this.arr[i++] = "Reginald: \"Ah, splendid days of grandeur, indeed! Fine dining, splendid attire, and the most impeccable gatherings. Those were the days.\"";
+            
+                this.arr[i++] = "You: \"Why are you smiling like that?\"";
+                this.arr[i++] = "Reginald: \"Ah, just recalling the time I hosted the most extravagant soirée. Such splendid company!\"";
+            
+                this.arr[i++] = "You: \"You seem in high spirits today. Any particular reason?\"";
+                this.arr[i++] = "Reginald: \"Ah, one must remain buoyant, regardless of one's circumstances. It is, after all, the hallmark of a true gentleman.\"";
+            
+                this.arr[i++] = "You: \"You look tense. Is something bothering you?\"";
+                this.arr[i++] = "Reginald: \"Oh, no, not at all! I merely find it rather challenging to maintain one's dignity amid such disorder. Look at this place, quite, um... messy?\"";
+            
+                this.arr[i++] = "You: \"I'm looking for someone. Ever met any souls here who drowned?\"";
+                if (playerType.equals("knight")) {
+                    this.arr[i++] = "Reginald: \"Why yes. Quite dashing, I must say, if a bit rough around the edges.\"";
+                } else if (playerType.equals("priest")) {
+                    this.arr[i++] = "Reginald: \"Ah, yes, a most peculiar lady in attire much like yours. She was quite... unwell, to say the least.\"";
+                } else {
+                    this.arr[i++] = "Reginald: \"Hmm, yes, there was a chap who seemed rather perturbed about his unfortunate... departure.\"";
+                }
+            
+                this.arr[i++] = "You: \"I drowned. How about you?\"";
+                this.arr[i++] = "Reginald: \"Oh, well, my departure was rather less dramatic, I fear. Passed away quietly, but with all the dignity befitting a gentleman.\"";
+            
+                this.size = i;
+        }          
 
         public void wizardIntro(String playerType) {
                 int i = 0;
