@@ -6,6 +6,7 @@ package EOD;
 
 import EOD.animator.Animator;
 import EOD.characters.Player;
+import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
@@ -13,13 +14,11 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.*;
 import EOD.worlds.World;
 import EOD.worlds.World1;
-import EOD.gameInterfaces.Freeable;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -47,7 +46,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     BGMPlayer bgmPlayer;
     public ChooseChar() {
         bgmPlayer = BGMPlayer.getInstance();
-        bgmPlayer.playBGM("src/audio_assets/selection.wav");
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.setTitle("Choose Character"); 
@@ -241,7 +239,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
                 window.setVisible(true);
                 window.setBGMPlayer(bgmPlayer);
                 this.setVisible(false);
-                bgmPlayer.stopBGM();
+                //bgmPlayer.stopBGM();
                 this.free();
             
         }else if(source == btn_cancel){ 

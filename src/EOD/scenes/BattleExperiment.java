@@ -120,10 +120,8 @@ public class BattleExperiment implements Skillable{
         
         if (player.isDamageReducerActive()) {
             damage = (int)(damage * 0.4);
-            if (damage > player.getAttributes().getHp() * 0.2) {
-                player.getAttributes().addMoney(
-                    player.getAttributes().getMoney() + 30
-                );
+            if (damage > (player.getAttributes().getHp() * 0.2)) {
+                player.getAttributes().addMoney(30);
                 battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
             }
             player.resetDamageReducer();
@@ -180,6 +178,7 @@ public class BattleExperiment implements Skillable{
         }
         player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.setSkillButtonsEnabled(false);
+        world.reopenQuests();
         // battleUI.getEnemyWrapper().setVisible(false);
         // Add any additional end-game logic here
     }

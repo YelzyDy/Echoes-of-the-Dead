@@ -15,13 +15,7 @@ public class SettingsWindow extends JFrame {
     private JLabel volumeLabel;
     private BGMPlayer bgmPlayer;
     private static SettingsWindow instance = null;
-    private String world;
-    private String filepath;
-
-    private SettingsWindow(BGMPlayer bgmPlayer, String world) {
-        this.bgmPlayer = bgmPlayer;
-        this.world = world;
-        this.filepath = bgmPlayer.getFilePath();
+    private SettingsWindow(BGMPlayer bgmPlayer) {
         
         this.setTitle("Settings");
         this.setSize(400, 300);  // Increased height to accommodate slider
@@ -70,9 +64,9 @@ public class SettingsWindow extends JFrame {
     }
 
     // Singleton pattern: getInstance() to access the single instance
-    public static SettingsWindow getInstance(BGMPlayer bgmPlayer, String world) {
+    public static SettingsWindow getInstance(BGMPlayer bgmPlayer) {
         if (instance == null) {
-            instance = new SettingsWindow(bgmPlayer, world);
+            instance = new SettingsWindow(bgmPlayer);
         }
         return instance;
     }
@@ -84,11 +78,7 @@ public class SettingsWindow extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (musicOnButton.isSelected()) {
                 bgmPlayer.setMusicEnabled(true);
-                if (world.equals("null")){
-                    bgmPlayer.playBGM("src/audio_assets/selection.wav");
-                } else {
-                    bgmPlayer.playBGM(bgmPlayer.getFilePath());
-                }
+                bgmPlayer.playBGM(bgmPlayer.getFilePath());
             } else if (musicOffButton.isSelected()) {
                 bgmPlayer.setMusicEnabled(false);
                 //bgmPlayer.pauseBGM();  // Pauses the music when turned off

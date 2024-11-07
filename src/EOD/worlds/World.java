@@ -38,6 +38,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected BGMPlayer bgmPlayer;
     protected Shop shop;
     protected JProgressBar progressBar;
+    protected Quests quests;
     private Timer bannerTimer;
     private JLabel counterLabel;
     private JLabel moneyLabel;
@@ -164,7 +165,19 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(battle, Integer.valueOf(1));
     }
 
-    
+    public void openQuests() {
+        this.quests = new Quests();
+        layeredPane.add(this.quests, Integer.valueOf(1));
+    }
+
+    public void reopenQuests() {
+        this.quests.setVisible(true);
+    }
+
+    public void closeQuests() {
+        this.quests.setVisible(false);
+    }
+
     public abstract void initializeAllyProfiles();
 
     public abstract void initializePlayerProfile();
@@ -317,6 +330,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         protected void done() {
             progressBar.setString("Loading Complete");
             removeWelcome();
+            openQuests();
             initializeBattleUI();
             initializeAllyProfiles();
             initializePlayerProfile();
@@ -483,7 +497,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         }
 
         if(source == btn_settings){
-            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, worldType);
+            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer);
             settingsWindow.setVisible(true); // Display the window
 
         }else if(source == bag){

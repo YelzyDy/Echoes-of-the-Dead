@@ -21,7 +21,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     public Main() {
         // Configure JFrame
         bgmPlayer = BGMPlayer.getInstance();  // Use singleton instance
-        bgmPlayer.playBGM("src/audio_assets/selection.wav");
+        bgmPlayer.playBGM("src/audio_assets/bgm/introbgm.wav");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -96,14 +96,11 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
         EchoesObjects clickedButton = (EchoesObjects) e.getSource();
 
         if ("settings".equals(clickedButton.getName())){
-            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, "null");
+            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer);
             settingsWindow.setVisible(true); // Display the window
 
         } else if ("play".equals(clickedButton.getName())){
-            bgmPlayer.stopBGM();
-            bgmPlayer.playBGM("src/audio_assets/exposition.wav");
             dialogues.displayDialogue(0);
-            bgmPlayer.stopBGM();
             ChooseChar window = new ChooseChar();
             window.setVisible(true);
             this.setVisible(false);

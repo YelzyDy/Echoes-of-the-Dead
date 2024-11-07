@@ -120,6 +120,12 @@ public class Dialogues implements Freeable{
             story.gorgonCorpse();
                 isClickableDialogue = false;
                 break;
+            case 25:
+                story.rubyIntro();
+                break;
+            case 27:
+                story.reginaldIntro();
+                break;
             default:
                 break;
         }
