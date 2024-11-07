@@ -21,7 +21,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     public Main() {
         // Configure JFrame
         bgmPlayer = BGMPlayer.getInstance();  // Use singleton instance
-        bgmPlayer.playBGM("src/audio_assets/selection.wav");
+        bgmPlayer.playBGM("src/old/audio_assets/selection.wav");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);
         this.setLocationRelativeTo(null);

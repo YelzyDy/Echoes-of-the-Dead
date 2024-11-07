@@ -85,7 +85,7 @@ public class SettingsWindow extends JFrame {
             if (musicOnButton.isSelected()) {
                 bgmPlayer.setMusicEnabled(true);
                 if (world.equals("null")){
-                    bgmPlayer.playBGM("src/audio_assets/selection.wav");
+                    bgmPlayer.playBGM("src/old/audio_assets/selection.wav");
                 } else {
                     bgmPlayer.playBGM(bgmPlayer.getFilePath());
                 }

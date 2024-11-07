@@ -23,7 +23,7 @@ public class World3 extends World{
         super("world3");
         scene = new SceneBuilder(this);
         bgmPlayer = BGMPlayer.getInstance();
-        bgmPlayer.playBGM("src/audio_assets/world1.wav");
+        bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
         
         // Set up main player
         this.player = player;
@@ -171,24 +171,24 @@ public class World3 extends World{
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
                 if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
                     bgmPlayer.stopBGM(); 
-                    bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
+                    bgmPlayer.playBGM("src/old/audio_assets/fightscene.wav");
                     scene.setCurrentSceneIndex(3);
                     System.out.println(scene.getCurrentSceneIndex());
                 }else{
                     scene.setCurrentSceneIndex(1);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
                     battle.toggleTextListOff();
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
                     scene.setCurrentSceneIndex(4);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/fightscene.wav");
+                    bgmPlayer.playBGM("src/old/audio_assets/fightscene.wav");
                 } else {
                     scene.setCurrentSceneIndex(2);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/world1.wav");
+                    bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
                     battle.toggleTextListOff();
                 }
             }else if(source == obj && obj.getName().equals("shop")){
