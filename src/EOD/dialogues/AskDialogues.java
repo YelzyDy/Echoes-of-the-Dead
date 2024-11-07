@@ -16,7 +16,6 @@ public class AskDialogues extends JFrame {
     private final int y = (int) (screenSize.height * 0.44);
     private String playerType;
 
-    World1 world1 = new World1(null, null);
     private boolean isYoo = false;
 
     public void setPlayerType(String playerType){
@@ -129,7 +128,7 @@ public class AskDialogues extends JFrame {
                     textBox.setText(story.getLine(j + 1));
                     
                     if(isYoo && j==0){
-                        world1.sideQuest1 = true;
+                        
                     }
 
                     dialog.remove(scrollPane);
