@@ -38,7 +38,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected BGMPlayer bgmPlayer;
     protected Shop shop;
     protected JProgressBar progressBar;
-    protected Quests quests;
+    public Quests quests;
     private Timer bannerTimer;
     private JLabel counterLabel;
     private JLabel moneyLabel;
@@ -167,6 +167,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
 
     public void openQuests() {
         this.quests = new Quests();
+        quests.setPlayer(player);
         layeredPane.add(this.quests, Integer.valueOf(1));
     }
 
@@ -504,9 +505,11 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             if (player.getInventory().isVisible()) {
                 player.getInventory().setVisible(false);
                 battle.toggleTextListOn();
+                reopenQuests();
             } else {
                 player.getInventory().setVisible(true);
                 battle.toggleTextListOff();
+                closeQuests();
             }
         }else if(source == this){
             if (bannerTimer != null && bannerTimer.isRunning()) {

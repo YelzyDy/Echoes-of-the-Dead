@@ -3,8 +3,16 @@ package EOD.objects;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
-public class Quests extends JPanel {
+import EOD.gameInterfaces.MouseInteractable;
+import EOD.listeners.MouseClickListener;
+import EOD.scenes.SceneBuilder;
+import EOD.characters.Player;
+import EOD.characters.Npc;
+import java.util.ArrayList;
+import EOD.worlds.*;
+public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     private int ifActive = 5;
@@ -13,17 +21,27 @@ public class Quests extends JPanel {
     private JScrollPane scrollPane;
     private JList<String> textList;
     private DefaultListModel<String> textListModel;
-
+    private Player player;
+    private SceneBuilder scene;
+    private ArrayList<Npc> npcList;
+    private World world;
     public Quests() {
         this.textPanel = new JPanel();
         initializeUI();
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+        this.npcList = player.getPanel().npcList;
+        this.scene = player.getPanel();
+        this.world = player.getWorld();
+    }
+
     private void initializeUI() {
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
-        setBounds(0, (int) (screenSize.height * 0.4),
-                (int) (screenSize.width), (int) (screenSize.height * 0.45));
+        setBounds((int) (screenSize.width * 0.13), (int) (screenSize.height * 0.4),
+                (int) (screenSize.width * 0.83), (int) (screenSize.height * 0.45));
 
         initializeQuestLabel();
         initializeTextPanel();
@@ -120,10 +138,11 @@ public class Quests extends JPanel {
                 return button;
             }
         });
-
+        textList.addMouseListener(new MouseClickListener(this));
         textPanel.add(scrollPane);
     }
 
+    
     private String getQuestTextForIndex(int index) { // Change the quests here
         switch (index) {
             case 13: return "Explore the ruins.";
@@ -134,7 +153,7 @@ public class Quests extends JPanel {
             case 8: return "Solve the riddle of the old reaper.";
             case 7: return "Rescue Miggins.";
             case 6: return "Investigate the shop.";
-            case 5: return "Help the locals.";
+            case 5: return "Talk to the Locals.";
             case 4: return "Retrieve the ancient artifact.";
             case 3: return "Defeat the skeleton.";
             case 2: return "Find the green portal.";
@@ -146,5 +165,54 @@ public class Quests extends JPanel {
 
     public void setQuestStatus(int ifActive) {
         this.ifActive = ifActive;
+    }
+
+    private void handleWorld1Q(int index, MouseEvent e){
+        if (index == 0){
+            int currentScene = scene.getCurrentSceneIndex();
+            if(currentScene == 0){
+                for(Npc npc : npcList){
+                    if ((npc.getName().equals("Yoo")) 
+                        && !npc.doneQuest) {
+                        // Move player to NPC position
+                        player.getAnimator().moveTo((int)(npc.getPosX() * 0.9), 20);
+                        // Trigger NPC interaction
+                        npc.onClick(e);
+                        npc.doneQuest = true;
+                        // Mark that we've handled an interaction
+                        break;
+                    }
+                    if ((npc.getName().equals("Constance"))
+                        && !npc.doneQuest) {
+                        // Move player to NPC position
+                        player.getAnimator().moveTo((int)(npc.getPosX() * 0.9), 20);
+                        // Trigger NPC interaction
+                        npc.onClick(e);
+                        npc.doneQuest = true;
+                        // Mark that we've handled an interaction
+                        break;
+                    }
+                }
+
+            }
+        }
+    }
+    @Override
+    public void onClick(MouseEvent e) {
+        int index = textList.locationToIndex(e.getPoint());
+        System.out.println(index);
+        if(world.getTitle().equals("world1")){
+            handleWorld1Q(index, e);
+        }
+    }
+
+    @Override
+    public void onHover(MouseEvent e) {
+       
+    }
+
+    @Override
+    public void onExit(MouseEvent e) {
+        
     }
 }

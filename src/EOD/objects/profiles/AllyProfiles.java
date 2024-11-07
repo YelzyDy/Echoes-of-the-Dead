@@ -12,7 +12,7 @@ import EOD.scenes.SceneBuilder;
 import EOD.characters.Player;
 import java.util.ArrayList;
 import EOD.worlds.World;
-
+import EOD.objects.Quests;
 public class AllyProfiles implements MouseInteractable, Freeable {
     private static final double X_COORDINATE = 0.28;
     private EchoesObjects knightProfile;
@@ -25,12 +25,13 @@ public class AllyProfiles implements MouseInteractable, Freeable {
     private World world;
     private double[] yCoordinates;
     private ArrayList<String> allyList;
-
+    private Quests quests;
     public AllyProfiles(World world) {
         this.battle = world.getBattle();
         this.panel = battle.getSidePanel();
         this.scene = world.getScene();
         this.world = world;
+        this.quests = world.quests;
         allyList = new ArrayList<>();
         setUpYCoordinates();
     }
@@ -160,12 +161,15 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         if (source == knightProfile) {
             battle.setPlayer(player.get(0));
             scene.setPlayer(player, 0);
+            quests.setPlayer(player.get(0));
         } else if (source == wizardProfile) {
             battle.setPlayer(player.get(2));
             scene.setPlayer(player, 2);
+            quests.setPlayer(player.get(2));
         } else {
             battle.setPlayer(player.get(1));
             scene.setPlayer(player, 1);
+            quests.setPlayer(player.get(1));
         }
     }
 

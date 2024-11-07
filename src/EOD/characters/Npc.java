@@ -2,7 +2,6 @@ package EOD.characters;
 
 import java.awt.event.MouseEvent;
 
-import javax.swing.tree.ExpandVetoException;
 
 import EOD.animator.NpcAnimator;
 import EOD.dialogues.*;
@@ -13,6 +12,7 @@ public class Npc extends Character implements MouseInteractable{
     Dialogues dialogues = new Dialogues();
     private NpcAnimator animator;
     private boolean isStatic;
+    public boolean doneQuest;
     
     public Npc(String name, String characterType, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, posX, posY);
@@ -29,6 +29,7 @@ public class Npc extends Character implements MouseInteractable{
         animator.updateBounds();
         animator.setRange(minRange, maxRange);
         isStatic = false;
+        doneQuest = false;
     }
 
     @Override
