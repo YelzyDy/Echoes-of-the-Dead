@@ -23,7 +23,7 @@ public class World1 extends World{
         super("world1");
         bgmPlayer = BGMPlayer.getInstance();
         scene = new SceneBuilder(this);
-        bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
+        bgmPlayer.playBGM("src/audio_assets/bgm/world1bgm.wav");
         this.playerName = playerName;
         this.characterType = characterType;
         Welcome();
@@ -210,13 +210,13 @@ public class World1 extends World{
             if (source == obj && obj.getName().equals("portal")){
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
                 if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
-                    bgmPlayer.playBGM("src/old/audio_assets/fightscene.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
                     scene.setCurrentSceneIndex(3);
                     System.out.println(scene.getCurrentSceneIndex());
                 }else{
                     scene.setCurrentSceneIndex(1);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/world1bgm.wav");
                     battle.getEnemyWrapper().setVisible(false);
                     battle.toggleTextListOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
@@ -226,28 +226,15 @@ public class World1 extends World{
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
                     scene.setCurrentSceneIndex(4);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/old/audio_assets/fightscene.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
                 } else {
                     scene.setCurrentSceneIndex(2);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/world1bgm.wav");
                     battle.getEnemyWrapper().setVisible(false);
                     battle.toggleTextListOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
                     if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
-                    // isBattleStopped = false;
-                    // isMiniBossDefeated = true;
-                    // setIsMiniBossDefeated(true);
-                    /*for (EchoesObjects object : scene.objList) {
-                        if (object.getName().equals("portalNextWorld")) {
-                            object.setVisible(true);
-                            object.setIndex(2);  // Ensure it's at index 2
-                        }
-                    }*/
-
-                    /*World window = new World2(getPlayerType(), getPlayerName(), player);
-                    window.setVisible(true);
-                    this.setVisible(false);*/
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
@@ -255,6 +242,7 @@ public class World1 extends World{
                 scene.gameLoopTimer.stop();
                 World window = new World2(player, playerList);
                 window.setVisible(true);
+                window.setBGMPlayer(bgmPlayer);
                 this.setVisible(false);
                 this.free();
             }

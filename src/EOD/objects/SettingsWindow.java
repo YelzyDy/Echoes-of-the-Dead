@@ -84,11 +84,9 @@ public class SettingsWindow extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (musicOnButton.isSelected()) {
                 bgmPlayer.setMusicEnabled(true);
-                if (world.equals("null")){
-                    bgmPlayer.playBGM("src/old/audio_assets/selection.wav");
-                } else {
+                //if (world.equals("null")){
                     bgmPlayer.playBGM(bgmPlayer.getFilePath());
-                }
+                //}
             } else if (musicOffButton.isSelected()) {
                 bgmPlayer.setMusicEnabled(false);
                 //bgmPlayer.pauseBGM();  // Pauses the music when turned off
