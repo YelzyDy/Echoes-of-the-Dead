@@ -159,13 +159,21 @@ public class Inventory extends EchoesObjects{
         switch (itemName) {
             case "Item 1":
                 if (item1Quantity > 0) {
+                    if(attributes.getHp() == 100){
+                        attributes.setHp(attributes.getBaseHp());
+                        effectMessage = "Soul Energy Already Full";
+                        return effectMessage;
+                    }
                     attributes.setHp(attributes.getHp() + 20); // Increase health
+                    if(attributes.getHp() > attributes.getBaseHp()){
+                        attributes.setHp(attributes.getBaseHp());
+                    }
                     item1Quantity--;
                     updateLabel(item1Label, item1Quantity);
                     if (item1Quantity == 0) {
                         item1Icon.setVisible(false); // Hide the item icon if quantity is 0
                     }
-                    effectMessage = "Health increased by 20";
+                    effectMessage = "Soul Energy increased by 20";
                 }
                 break;
             case "Item 2":
@@ -181,7 +189,15 @@ public class Inventory extends EchoesObjects{
                 break;
             case "Item 3":
                 if (item3Quantity > 0) {
+                    if(attributes.getMana() == 100){
+                        attributes.setMana(attributes.getBaseMana());
+                        effectMessage = "Mana Already Full";
+                        return effectMessage;
+                    }
                     attributes.setMana(attributes.getMana() + 20); // Increase mana
+                    if(attributes.getMana() > attributes.getBaseMana()){
+                        attributes.setMana(attributes.getBaseMana());
+                    }
                     item3Quantity--;
                     updateLabel(item3Label, item3Quantity);
                     if (item3Quantity == 0) {

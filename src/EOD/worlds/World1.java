@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class World1 extends World{
     private String characterType;
+    private boolean sideQuest1;
     public World1(String characterType, String playerName){
         super("world1");
         bgmPlayer = BGMPlayer.getInstance();
