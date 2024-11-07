@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class World1 extends World{
     private String characterType;
-    private boolean sideQuest1;
+    public boolean sideQuest1 = false;
+
     public World1(String characterType, String playerName){
         super("world1");
         bgmPlayer = BGMPlayer.getInstance();
@@ -126,6 +127,7 @@ public class World1 extends World{
             (int)(screenSize.height * 0.32),
             "shop", false, true, 2));
 
+            
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
             scene.objList.add(new EchoesObjects("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27));
@@ -144,6 +146,7 @@ public class World1 extends World{
                 }
                 obj.addMouseListener(new MouseClickListener(this));;
             }
+
     }
 
     @Override
