@@ -512,9 +512,17 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             }
             counterLabel.setVisible(false);
         }else if(source == victoryBanner){
+            if (bannerTimer != null && bannerTimer.isRunning()) {
+                bannerTimer.stop(); // Stop the timer if it's running
+            }
             victoryBanner.setVisible(false);
+            counterLabel.setVisible(false);
         }else{
+            if (bannerTimer != null && bannerTimer.isRunning()) {
+                bannerTimer.stop(); // Stop the timer if it's running
+            }
             defeatBanner.setVisible(false);
+            counterLabel.setVisible(false);
         }
     }
 

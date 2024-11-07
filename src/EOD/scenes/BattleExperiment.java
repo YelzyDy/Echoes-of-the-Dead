@@ -186,7 +186,7 @@ public class BattleExperiment implements Skillable{
 
     private double getEnemyDeathPosY(Enemy enemy){
         if(enemy.getName().equals("Skeleton2")){
-            return 0.3;
+            return 0.15;
         }else if(enemy.getName().equals("Necromancer")){
             return 20;
         }else if(enemy.getName().equals("Skeleton1")){

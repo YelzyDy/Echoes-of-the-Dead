@@ -6,8 +6,8 @@ package EOD.worlds;
 
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
-import EOD.characters.enemies.Gorgon;
 import EOD.characters.enemies.Skeleton2;
+import EOD.characters.enemies.Killer;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -146,7 +146,7 @@ public class World3 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Killer("Killer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
         
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
@@ -154,7 +154,7 @@ public class World3 extends World{
             scene.setComponentZOrder(enemy, 1);
             if (enemy.getName().equals("Skeleton")) {
                 enemy.setIndex(3);
-            } else if(enemy.getName().equals("Gorgon")) {
+            } else if(enemy.getName().equals("Killer")) {
                 enemy.setIndex(4);
             }
         }

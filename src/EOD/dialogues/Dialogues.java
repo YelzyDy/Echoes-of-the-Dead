@@ -240,6 +240,7 @@ public class Dialogues implements Freeable{
         pressToContinueLabel.setFont(new Font("Monospaced", Font.PLAIN, (int)(screenSize.width * 0.01)));
         pressToContinueLabel.setForeground(Color.WHITE);
         pressToContinueLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(screenSize.height * 0.1), 0));
+        if(!(ID == 17 || ID == 19 || ID == 21 || ID == 23))
         storyDialogue.add(pressToContinueLabel, BorderLayout.SOUTH);  // Adding label to bottom
 
         pressToContinueLabel.addMouseListener(new MouseAdapter() {

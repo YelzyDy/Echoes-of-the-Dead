@@ -191,7 +191,7 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/forest.png")), 1);
             sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/forest.png")), 2);
             sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/cemetary.png")), 3);
-            sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/cemetary.png")), 4);
+            sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/killerScene.png")), 4);
             sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         } else if (world.getTitle().equals("worldEnding")) {
