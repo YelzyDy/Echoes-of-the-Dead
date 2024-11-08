@@ -6,8 +6,8 @@ package EOD.worlds;
 
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
-import EOD.characters.enemies.Skeleton2;
 import EOD.characters.enemies.Killer;
+import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -193,11 +193,7 @@ public class World3 extends World{
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
             } else if (source == obj && obj.getName().equals("portalNextWorld")){
-                scene.gameLoopTimer.stop();
-                World window = new WorldEnding(player);
-                window.setVisible(true);
-                this.setVisible(false);
-                this.free();
+                scene.setCurrentSceneIndex(5);
             }
         }    
     }
