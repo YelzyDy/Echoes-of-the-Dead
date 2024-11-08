@@ -15,6 +15,7 @@ import EOD.objects.profiles.AllyProfiles;
 import EOD.objects.profiles.PlayerProfile;
 import EOD.gameInterfaces.Entity;
 import EOD.gameInterfaces.MouseInteractable;
+import java.util.ArrayList;
 
 public class Player extends Character implements MouseInteractable{
     private PlayerAnimator animator;
@@ -265,15 +266,8 @@ public class Player extends Character implements MouseInteractable{
             shieldBuffRemaining--;
         }
         
-        if (isKnight()) {
-            attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
-        }
-        if (isWizard()) {
-            attributes.mana = Math.min(attributes.mana + MANA_REGEN + 10, attributes.baseMana);
-        }
-        if (isPriest()) {
-            attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
-        }
+        attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
+
     }
 
     public boolean canUseSkill(int manaCost, int cooldown) {
@@ -446,6 +440,13 @@ public class Player extends Character implements MouseInteractable{
                 applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.42, 0.15);
                 actionString = "Divine Retribution! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
                 xFactor = screenSize.width * 0.3;
+                ArrayList<Player> playerList = this.getWorld().getPlayerList();
+                for(Player player : playerList){
+                    player.getAttributes().setHp(player.getAttributes().getHp() + (int)(player.getAttributes().getBaseHp()*0.3));
+                    if(player.getAttributes().getHp()>player.getAttributes().getBaseHp()){
+                        player.getAttributes().setHp(player.getAttributes().getBaseHp());
+                    }
+                }
                 return true;
         }
         return false;

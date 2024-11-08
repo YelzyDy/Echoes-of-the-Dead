@@ -48,6 +48,10 @@ public class Inventory extends EchoesObjects{
         attributes = world.getPlayer().getAttributes();
     }
 
+    public void setAttributes(PlayerAttributes attributes){
+        this.attributes = attributes;
+    }
+
     private void initializeItems() {
         // Initial x-position for the first item
         incrementingX = width * 0.35;
@@ -159,7 +163,7 @@ public class Inventory extends EchoesObjects{
         switch (itemName) {
             case "Item 1":
                 if (item1Quantity > 0) {
-                    if(attributes.getHp() == 100){
+                    if(attributes.getHp() == attributes.getBaseHp()){
                         attributes.setHp(attributes.getBaseHp());
                         effectMessage = "Soul Energy Already Full";
                         return effectMessage;
@@ -189,7 +193,7 @@ public class Inventory extends EchoesObjects{
                 break;
             case "Item 3":
                 if (item3Quantity > 0) {
-                    if(attributes.getMana() == 100){
+                    if(attributes.getMana() == attributes.getBaseMana()){
                         attributes.setMana(attributes.getBaseMana());
                         effectMessage = "Mana Already Full";
                         return effectMessage;
