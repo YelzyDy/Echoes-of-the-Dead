@@ -27,7 +27,7 @@ public class World2 extends World{
         // Set up main player
         this.player = player;
         this.playerList = playerList;
-        
+        this.playerName = player.getName();
         Welcome();
     }
 

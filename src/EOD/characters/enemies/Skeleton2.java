@@ -6,7 +6,7 @@ import EOD.objects.EchoesObjects;
 
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
-    private static final int BASE_ATTACK = 8;
+    private static final int BASE_ATTACK = 10;
     private static final int BASE_HEALTH = 100;
     
     // Skill cooldowns

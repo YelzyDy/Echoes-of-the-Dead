@@ -4,8 +4,8 @@ import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
-    private static final int BASE_ATTACK = 8;
-    private static final int BASE_HEALTH = 1;
+    private static final int BASE_ATTACK = 10;
+    private static final int BASE_HEALTH = 100;
     private static final double SPRITE_SCALE = 0.3; // Keep the smaller scale for minion appearance
     
     // Skill cooldowns
