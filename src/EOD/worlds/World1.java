@@ -225,7 +225,7 @@ public class World1 extends World{
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/bgm/world1bgm.wav");
                     battle.getEnemyWrapper().setVisible(false);
-                    battle.toggleTextListOff();
+                    battle.toggleInventoryOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
                     if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                 }
@@ -239,7 +239,7 @@ public class World1 extends World{
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/bgm/world1bgm.wav");
                     battle.getEnemyWrapper().setVisible(false);
-                    battle.toggleTextListOff();
+                    battle.toggleInventoryOff();
                     Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
                     if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                 }

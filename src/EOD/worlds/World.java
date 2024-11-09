@@ -94,6 +94,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(progressBar, Integer.valueOf(1));
     }
 
+    public Quests getQuests(){
+        return quests;
+    }
+
     private void freeObjects(){
         try{
         ArrayList <Freeable> freeList = new ArrayList<>();
@@ -513,12 +517,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         }else if(source == bag){
             if (player.getInventory().isVisible()) {
                 player.getInventory().setVisible(false);
-                battle.toggleTextListOn();
-                reopenQuests();
+                battle.toggleInventoryOff();
             } else {
                 player.getInventory().setVisible(true);
-                battle.toggleTextListOff();
-                closeQuests();
+                battle.toggleInventoryOn();
             }
         }else if(source == this){
             if (bannerTimer != null && bannerTimer.isRunning()) {

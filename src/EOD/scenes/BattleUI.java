@@ -344,17 +344,21 @@ public class BattleUI extends JPanel implements Freeable{
     }
 
 
-    public void toggleTextListOff(){
+    public void toggleInventoryOn(){
         if(player.getAnimator().getIsInBattle()) temp = topTextBox.getText();
-        else temp = "Echoes Of The Dead";
         topTextBox.setText("Inventory");
         textList.setVisible(false);
+        player.getWorld().getQuests().setVisible(false);
     }
 
-    public void toggleTextListOn(){
+    public void toggleInventoryOff(){
         topTextBox.setText(temp);
-        if(player.getAnimator().getIsInBattle()) textList.setVisible(true);
-        else textList.setVisible(false);
+        if(player.getAnimator().getIsInBattle()){
+            textList.setVisible(true);
+        }else{
+            player.getWorld().getQuests().setVisible(true);
+        }
+        textList.setVisible(false);
     }
 
     public void updateTextDetail(String detail){

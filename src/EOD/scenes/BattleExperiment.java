@@ -178,8 +178,7 @@ public class BattleExperiment implements Skillable{
         }
         player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.setSkillButtonsEnabled(false);
-        world.reopenQuests();
-        // battleUI.getEnemyWrapper().setVisible(false);
+        battleUI.getEnemyWrapper().setVisible(false);
         // Add any additional end-game logic here
     }
 

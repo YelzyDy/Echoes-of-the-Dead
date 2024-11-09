@@ -372,6 +372,7 @@ public class Player extends Character implements MouseInteractable{
 
     public boolean skill1() {
         // Basic attack with class-specific mechanics
+        handleXFactorBasedOnEnemy(1);
         switch(getCharacterType()) {
             case "knight":
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
@@ -387,12 +388,12 @@ public class Player extends Character implements MouseInteractable{
                 attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
                 break;
         }
-        handleXFactorBasedOnEnemy(1);
         actionString = "Player dealt " + damageDealt + " damage to the enemy!";
         return true;
     }
 
     public boolean skill2() {
+        handleXFactorBasedOnEnemy(2);
         if (attributes.skill2Cd > 0) {
             actionString = "Skill on cooldown! " + attributes.skill2Cd + " turns remaining!";
             return false;
@@ -438,11 +439,11 @@ public class Player extends Character implements MouseInteractable{
         
         skill2BuffRemaining = SKILL2_DURATION;
         attributes.skill2Cd = 4; // Set cooldown to 4 turns
-        handleXFactorBasedOnEnemy(2);
         return true;
     }
 
     public boolean skill3() {
+        handleXFactorBasedOnEnemy(3);
         if (!canUseSkill(40, attributes.skill3Cd)) return false;
 
         switch(getCharacterType()) {
@@ -478,13 +479,12 @@ public class Player extends Character implements MouseInteractable{
                 actionString = "Healed for " + healing + " and dealt " + damageDealt + " damage!";
                 return true;
         }
-        handleXFactorBasedOnEnemy(3);
         return false;
     }
 
     public boolean skill4() {
+        handleXFactorBasedOnEnemy(4);
         if (!canUseSkill(50, attributes.skill4Cd)) return false;
-
         switch(getCharacterType()) {
             case "knight":
                 int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
@@ -522,7 +522,6 @@ public class Player extends Character implements MouseInteractable{
                 }
                 return true;
         }
-        handleXFactorBasedOnEnemy(4);
         return false;
     }
 
