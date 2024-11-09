@@ -178,43 +178,46 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
+    private void q1World1(MouseEvent e){
+        Point clickPoint = e.getPoint();
+        if (clickPoint.x > 0 && clickPoint.y < screenSize.height * 0.4) {
+            setQuestStatus(++ifActive);
+            addQuests();
+        }
+    }
+
+    private void q2World2(MouseEvent e){
+        for(Npc npc : npcList) {
+            if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
+                && !npc.doneQuest) {
+                // Determine which side of NPC to move to
+                double playerX = player.getPosX();
+                double npcX = npc.getPosX();
+                double targetX;
+                int deltaX = 0;
+                if (playerX > npcX) {
+                    // If player is on right, stay on right
+                    targetX = npcX * 1.1; 
+                    deltaX = -20;
+                } else {
+                    // If player is on left, stay on left
+                    targetX = npcX * 0.9; // 20 pixels to left of NPC
+                    deltaX = 20;
+                }
+                
+                // Move player to appropriate position
+                player.getAnimator().moveTo((int)targetX, deltaX);
+                npc.onClick(e);
+                break;
+            }
+        }
+    }
+
     private void handleWorld1Q(int index, MouseEvent e) {
         if(index == 0){
-            Point clickPoint = e.getPoint();
-            if (clickPoint.x > 0 && clickPoint.y < screenSize.height * 0.4) {
-                setQuestStatus(++ifActive);
-                addQuests();
-            }
+           q1World1(e);
         }else if (index == 1) {
-            int currentScene = scene.getCurrentSceneIndex();
-            if(currentScene == 0) {
-                for(Npc npc : npcList) {
-                    if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
-                        && !npc.doneQuest) {
-                        // Determine which side of NPC to move to
-                        double playerX = player.getPosX();
-                        double npcX = npc.getPosX();
-                        double targetX;
-                        int deltaX = 0;
-                        if (playerX > npcX) {
-                            // If player is on right, stay on right
-                            targetX = npcX * 1.1; 
-                            deltaX = -20;
-                        } else {
-                            // If player is on left, stay on left
-                            targetX = npcX * 0.9; // 20 pixels to left of NPC
-                            deltaX = 20;
-                        }
-                        
-                        // Move player to appropriate position
-                        player.getAnimator().moveTo((int)targetX, deltaX);
-                        npc.onClick(e);
-                        break;
-                    }
-                }
-            }else if(currentScene == 1){
-
-            }
+            q2World2(e); 
         }
     }
     
