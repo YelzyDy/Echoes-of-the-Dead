@@ -151,6 +151,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     }
 
     public void onHover(MouseEvent e) {
+        System.out.println("Hovering on: " + getName());
         if(!allowHover || (!isEnabled)) return;
         if(!isAnimated && isState){
            currentFrame = 1;

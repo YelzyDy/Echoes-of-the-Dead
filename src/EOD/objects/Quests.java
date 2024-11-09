@@ -12,6 +12,7 @@ import EOD.characters.Player;
 import EOD.characters.Npc;
 import java.util.ArrayList;
 import EOD.worlds.*;
+import EOD.gameInterfaces.Entity;
 public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -145,18 +146,13 @@ public class Quests extends JPanel implements MouseInteractable{
     
     private String getQuestTextForIndex(int index) { // Change the quests here
         switch (index) {
-            case 13: return "Explore the ruins.";
-            case 12: return "Purchase potions.";
-            case 11: return "Enter the red portal.";
-            case 10: return "Defeat the Necromancer.";
-            case 9: return "Explore the city outskirts.";
-            case 8: return "Solve the riddle of the old reaper.";
-            case 7: return "Rescue Miggins.";
-            case 6: return "Investigate the shop.";
-            case 5: return "Talk to the Locals.";
-            case 4: return "Retrieve the ancient artifact.";
+            case 8: return "Enter the purple portal.";
+            case 7: return "Defeat the Necromancer.";
+            case 6: return "Enter the red portal.";
+            case 5: return "Investigate the shop.";
+            case 4: return "Speak to the old woman near the shop.";
             case 3: return "Defeat the skeleton.";
-            case 2: return "Find the green portal.";
+            case 2: return "Enter the green portal.";
             case 1: return "Talk to everyone.";
             case 0: return "Look around.";
             default: return "Welcome!";
@@ -188,19 +184,18 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void handleNpcClick(Npc npc, MouseEvent e){
-        // Determine which side of NPC to move to
+    private void movePlayerToEntity(Entity entity){
         double playerX = player.getPosX();
-        double npcX = npc.getPosX();
+        double entityX = entity.getPosX();
         double targetX;
         int deltaX = 0;
-        if (playerX > npcX) {
+        if (playerX > entityX) {
             // If player is on right, stay on right
-            targetX = npcX * 1.1; 
+            targetX = entityX * 1.1; 
             deltaX = -20;
         } else {
             // If player is on left, stay on left
-            targetX = npcX * 0.9; // 20 pixels to left of NPC
+            targetX = entityX * 0.9; // 20 pixels to left of NPC
             deltaX = 20;
         }
         
@@ -208,6 +203,10 @@ public class Quests extends JPanel implements MouseInteractable{
         if((int) playerX != (int) targetX){
             player.getAnimator().moveTo((int)targetX, deltaX);
         }
+    }
+
+    private void handleNpcClick(Npc npc, MouseEvent e){
+        movePlayerToEntity(npc);
         npc.onClick(e);
     }
     private void q2World1(MouseEvent e){
@@ -254,6 +253,19 @@ public class Quests extends JPanel implements MouseInteractable{
         scene.enemyList.get(0).onClick(e);
     }
 
+    private void q5World1(MouseEvent e){
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene == 2) {
+            for(Npc npc : npcList) {
+                if ((npc.getName().equals("Miggins")) 
+                    && !npc.doneQuest) {
+                    handleNpcClick(npc, e);
+                    break;
+                }
+            }
+        }
+    }
+
     private void handleWorld1Q(int index, MouseEvent e) {
         Object source = e.getSource();
         if(source == scene && index == 0){
@@ -264,6 +276,8 @@ public class Quests extends JPanel implements MouseInteractable{
             q3World1(e);
         }else if(source != scene && index == 3){
             q4World1(e);
+        }else if(source != scene && index == 4){
+            q5World1(e);
         }
     }
     

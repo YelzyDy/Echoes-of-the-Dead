@@ -167,8 +167,8 @@ public class Player extends Character implements MouseInteractable{
     public void reset(boolean playerWon) {
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
         skill2BuffRemaining = shieldBuffRemaining = 0;
-        // attributes.setMana((int)(attributes.getBaseMana() * 0.75));
-        attributes.setHp((int)(attributes.getBaseHp() * 0.75));
+        attributes.setMana((int)(attributes.getBaseMana() * 0.75));
+        // attributes.setHp((int)(attributes.getBaseHp() * 0.75));
         if(!playerWon){
             attributes.setHp((int)(attributes.getBaseHp() * 0.75));
         }

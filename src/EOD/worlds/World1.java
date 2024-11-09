@@ -47,9 +47,6 @@ public class World1 extends World{
         playerList.add(priest);
         playerList.add(wizard);
         player.initializeInventory();
-        // for(Player player: playerList){
-        //     player.setInventory(this.player.getInventory());
-        // }
         configureShopAndInventory();
         System.out.println("Player type in world2: " + characterType);
     }

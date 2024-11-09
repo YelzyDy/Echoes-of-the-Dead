@@ -237,10 +237,10 @@ public void createWorldScene() {
                 setCurrentSceneIndex(3);
                 world.getBGMPlayer().stopBGM();
                 world.getBGMPlayer().playBGM("src/audio_assets/bgm/world1bgm.wav");
-                if(currentSceneIndex == 3){
-                    quests.setQuestStatus(3);
-                    quests.addQuests();
-                }
+            }
+            if(currentSceneIndex == 3){
+                quests.setQuestStatus(3);
+                quests.addQuests();
             }
         }
 
@@ -248,6 +248,13 @@ public void createWorldScene() {
             Enemy enemy = enemyList.get(0);
             if(enemy.getHp() <= 0){
                 quests.setQuestStatus(4);
+                quests.addQuests();
+            }
+        }
+
+        if(quests.ifActive == 4){
+            if(npcList.get(3).doneQuest){
+                quests.setQuestStatus(5);
                 quests.addQuests();
             }
         }

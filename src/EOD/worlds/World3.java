@@ -166,7 +166,7 @@ public class World3 extends World{
     public void onClick(MouseEvent e) {
         super.onClick(e);
         Object source = e.getSource();
-
+        if(scene.objList == null) return;
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && obj.getName().equals("portal")){
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());

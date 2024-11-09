@@ -206,6 +206,10 @@ public class Dialogues implements Freeable{
             System.out.println("click");
             sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
+            if(!npc.doneQuest  && ID == 7){
+                npc.doneQuest = true;
+            }
+            
             if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)){
                 quests.incQ2Count();
                 npc.doneQuest = true;
@@ -310,6 +314,10 @@ public class Dialogues implements Freeable{
         }else{
             if(ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
+            if(!npc.doneQuest  && ID == 7){
+                npc.doneQuest = true;
+            }
+
             if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)){
                 quests.incQ2Count();
                 npc.doneQuest = true;

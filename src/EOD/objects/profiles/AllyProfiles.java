@@ -72,6 +72,9 @@ public class AllyProfiles implements MouseInteractable, Freeable {
 
     public void addAlly(String ally){
         allyList.add(ally);
+        if(ally.equals("knight")) setKnightProfileVisible();
+        else if(ally.equals("priest")) setPriestProfileVisible();
+        else if(ally.equals("wizard")) setWizardProfileVisible();
     }
 
     public void addProfile(String type, int index) {
@@ -81,14 +84,23 @@ public class AllyProfiles implements MouseInteractable, Freeable {
             (int)(panel.getWidth() * 0.47), (int)(panel.getWidth() * 0.47),
             type, false, true, 2
         );
-        profile.setVisible(true);
+
+        if(allyList.contains(type)){
+            profile.setVisible(true);
+        }else{
+            profile.setVisible(false);
+        }
         panel.add(profile);
         profile.addMouseListener(new MouseClickListener(this));
 
         switch (type) {
-            case "knight" -> knightProfile = profile;
-            case "wizard" -> wizardProfile = profile;
+            case "knight" ->{
+                knightProfile = profile;
+            }
             case "priest" -> priestProfile = profile;
+            case "wizard" ->{
+                wizardProfile = profile;
+            }
         }
         panel.repaint();
     }
@@ -96,9 +108,15 @@ public class AllyProfiles implements MouseInteractable, Freeable {
     public void changeYCoordinate(String type, int index) {
         double newYCoordinate = yCoordinates[index];
         switch (type) {
-            case "knight" -> knightProfile.setPosY(newYCoordinate);
-            case "wizard" -> wizardProfile.setPosY(newYCoordinate);
-            case "priest" -> priestProfile.setPosY(newYCoordinate);
+            case "knight" ->{
+                knightProfile.setPosY(newYCoordinate);
+            }
+            case "wizard" ->{ 
+                wizardProfile.setPosY(newYCoordinate);
+            }
+            case "priest" ->{ 
+                priestProfile.setPosY(newYCoordinate);
+            }
         }
     }
 
@@ -118,36 +136,39 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         return playerList;
     }
 
+    public void setKnightProfileVisible(){
+        knightProfile.setVisible(true);
+    }
+
+    public void setPriestProfileVisible(){
+        priestProfile.setVisible(true);
+    }
+
+    public void setWizardProfileVisible(){
+        wizardProfile.setVisible(true);
+    }
+
     public void showAllProfiles() {
         if (world.getPlayer().isKnight()){
             addProfile("knight", 1);
-            for(String allies : allyList){
-                if(allies.equals("wizard")){
-                    addProfile(allies, 2);
-                }else if(allies.equals("priest")){
-                    addProfile(allies, 0);
-                }
-            }
+            knightProfile.setVisible(true);
+            addProfile("wizard", 2);
+            addProfile("priest", 0);
+            
         }
         if (world.getPlayer().isWizard()){
             addProfile("wizard", 1);
-            for(String allies : allyList){
-                if(allies.equals("knight")){
-                    addProfile(allies, 2);
-                }else if(allies.equals("priest")){
-                    addProfile(allies, 0);
-                }
-            }
+            wizardProfile.setVisible(true);
+            addProfile("knight", 2);
+            addProfile("priest", 0);
+            
         }
         if (world.getPlayer().isPriest()){
             addProfile("priest", 1);
-            for(String allies : allyList){
-                if(allies.equals("wizard")){
-                    addProfile(allies, 0);
-                }else if(allies.equals("knight")){
-                    addProfile(allies, 2);
-                }
-            }
+            priestProfile.setVisible(true);
+            addProfile("wizard", 0);
+            addProfile("knight", 2);
+            
         }
     }
     public void setAllProfileEnabled(boolean enabled) {
@@ -166,18 +187,26 @@ public class AllyProfiles implements MouseInteractable, Freeable {
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        if (!knightProfile.getEnabled()) {
+        if(player.getCharacterType().equals("knight") && !knightProfile.getEnabled()){
+            return;
+        }else if(player.getCharacterType().equals("wizard") && !wizardProfile.getEnabled()){
+            return;
+        }else if(player.getCharacterType().equals("priest") && !priestProfile.getEnabled()){
             return;
         }
+
         if (source == knightProfile) {
+            System.out.println("knightProfileClicked");
             battle.setPlayer(playerList.get(0));
             scene.setPlayer(playerList, 0);
             quests.setPlayer(playerList.get(0));
         } else if (source == wizardProfile) {
+            System.out.println("WizardProfileClicked");
             battle.setPlayer(playerList.get(2));
             scene.setPlayer(playerList, 2);
             quests.setPlayer(playerList.get(2));
-        } else {
+        } else if(source == priestProfile){
+            System.out.println("PriestProfileClicked");
             battle.setPlayer(playerList.get(1));
             scene.setPlayer(playerList, 1);
             quests.setPlayer(playerList.get(1));
@@ -187,7 +216,14 @@ public class AllyProfiles implements MouseInteractable, Freeable {
 
     @Override
     public void onHover(MouseEvent e) {
-        // Hover functionality here if needed
+        Object source = e.getSource();
+        if (source == knightProfile) {
+            System.out.println("knightProfileHovered1");
+        } else if (source == wizardProfile) {
+            System.out.println("WizardProfileHovered1");
+        } else if(source == priestProfile){
+            System.out.println("PriestProfileHovered1");
+        }
     }
 
     @Override
