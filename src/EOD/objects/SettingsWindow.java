@@ -61,6 +61,7 @@ public class SettingsWindow extends JFrame {
         this.add(musicOffButton);
         this.add(new JLabel("Volume Control:")); // Section header
         this.add(volumePanel);
+        this.bgmPlayer = bgmPlayer;
     }
 
     // Singleton pattern: getInstance() to access the single instance
