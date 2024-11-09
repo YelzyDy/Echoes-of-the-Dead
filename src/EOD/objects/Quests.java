@@ -15,7 +15,7 @@ import EOD.worlds.*;
 public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private int ifActive = 5;
+    public int ifActive = 0;
 
     private final JPanel textPanel;
     private JScrollPane scrollPane;
@@ -25,7 +25,7 @@ public class Quests extends JPanel implements MouseInteractable{
     private SceneBuilder scene;
     private ArrayList<Npc> npcList;
     private World world;
-    public int quest1Count;
+    public int quest2Count;
     public Quests() {
         this.textPanel = new JPanel();
         initializeUI();
@@ -35,12 +35,13 @@ public class Quests extends JPanel implements MouseInteractable{
         this.player = player;
         this.npcList = player.getPanel().npcList;
         this.scene = player.getPanel();
+        this.scene.addMouseListener(new MouseClickListener(this));
         this.world = player.getWorld();
-        quest1Count = 0;
+        quest2Count = 0;
     }
 
-    public void incQ1Count(){
-        if(quest1Count < 2) quest1Count++;
+    public void incQ2Count(){
+        if(quest2Count < 2) quest2Count++;
     }
 
     private void initializeUI() {
@@ -82,16 +83,7 @@ public class Quests extends JPanel implements MouseInteractable{
         textList.setFont(new Font("Monospaced", Font.PLAIN, 28));
         textList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Add quests based on ifActive
-        for (int i = ifActive; i >= 0; i--) {
-            String questText = getQuestTextForIndex(i);
-
-            if (i == ifActive) {
-                textListModel.addElement(questText);
-            } else {
-                textListModel.addElement("<html><font color='#808080'>" + questText + "</font></html>");
-            }
-        }
+        addQuests();
 
         textList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -173,8 +165,27 @@ public class Quests extends JPanel implements MouseInteractable{
         this.ifActive = ifActive;
     }
 
+    public void addQuests(){
+        textListModel.clear();
+        for (int i = 0; i <= ifActive; i++) {
+            String questText = getQuestTextForIndex(i);
+
+            if (i == ifActive) {
+                textListModel.addElement(questText);
+            } else {
+                textListModel.addElement("<html><font color='#808080'>" + questText + "</font></html>");
+            }
+        }
+    }
+
     private void handleWorld1Q(int index, MouseEvent e) {
-        if (index == 0) {
+        if(index == 0){
+            Point clickPoint = e.getPoint();
+            if (clickPoint.x > 0 && clickPoint.y < screenSize.height * 0.4) {
+                setQuestStatus(++ifActive);
+                addQuests();
+            }
+        }else if (index == 1) {
             int currentScene = scene.getCurrentSceneIndex();
             if(currentScene == 0) {
                 for(Npc npc : npcList) {
@@ -201,6 +212,8 @@ public class Quests extends JPanel implements MouseInteractable{
                         break;
                     }
                 }
+            }else if(currentScene == 1){
+
             }
         }
     }

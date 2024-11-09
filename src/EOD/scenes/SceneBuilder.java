@@ -213,18 +213,22 @@ public void createWorldScene() {
                 updateGameState();
                 updateBattleState();
                 updateStats();
-                updateQuests();
+                updateDynamicQuests();
                 repaint();
             }
         });
         gameLoopTimer.start();
     }
 
-    public void updateQuests(){
+    public void updateDynamicQuests(){
         if(world == null) return;
         Quests quests = world.getQuests();
-        System.out.println("quest1 count: " + quests.quest1Count);
-        if(quests.quest1Count == 2) objList.get(1).setIsActivated(true);
+        if(quests.quest2Count == 2){ 
+            objList.get(1).setIsActivated(true);
+            quests.setQuestStatus(++quests.ifActive);
+            quests.addQuests();
+            quests.quest2Count = 0;
+        }
     }
 
     public void updateStats(){
