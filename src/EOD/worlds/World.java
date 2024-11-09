@@ -95,6 +95,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(progressBar, Integer.valueOf(1));
     }
 
+    public BGMPlayer getBGMPlayer(){
+        return bgmPlayer;
+    }
+
     public Quests getQuests(){
         return quests;
     }

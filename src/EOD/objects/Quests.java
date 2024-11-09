@@ -203,7 +203,9 @@ public class Quests extends JPanel implements MouseInteractable{
         }
         
         // Move player to appropriate position
-        player.getAnimator().moveTo((int)targetX, deltaX);
+        if((int) playerX != (int) targetX){
+            player.getAnimator().moveTo((int)targetX, deltaX);
+        }
         npc.onClick(e);
     }
     private void q2World1(MouseEvent e){
@@ -227,12 +229,39 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
+    private void q3World1(MouseEvent e){
+        double playerX = player.getPosX();
+        double objX = screenSize.width * 0.4;
+        double targetX;
+        int deltaX = 0;
+        if (playerX > objX) {
+            // If player is on right, stay on right
+            targetX = objX * 1.1; 
+            deltaX = -20;
+        } else {
+            // If player is on left, stay on left
+            targetX = objX * 0.9; // 20 pixels to left of NPC
+            deltaX = 20;
+        }
+        
+        if((int) playerX != (int) targetX){
+            player.getAnimator().moveTo((int)targetX, deltaX);
+        }
+        scene.setCurrentSceneIndex(3);
+        world.getBGMPlayer().stopBGM();
+        world.getBGMPlayer().playBGM("src/audio_assets/bgm/world1bgm.wav");
+        setQuestStatus(++ifActive);
+        addQuests();
+    }
+
     private void handleWorld1Q(int index, MouseEvent e) {
         Object source = e.getSource();
         if(source == scene && index == 0){
-           q1World1(e);
+            q1World1(e);
         }else if (source != scene && index == 1) {
             q2World1(e); 
+        }else if(source != scene && index == 2){
+            q3World1(e);
         }
     }
     
