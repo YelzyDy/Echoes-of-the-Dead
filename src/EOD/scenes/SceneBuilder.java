@@ -15,6 +15,7 @@ import EOD.worlds.*;
 import EOD.utils.*;
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
+import EOD.dialogues.AskDialogues;
 import EOD.objects.*;
 import EOD.animator.Animator;
 import EOD.gameInterfaces.Freeable;
@@ -45,6 +46,8 @@ public class SceneBuilder extends JPanel implements Freeable{
     private Player player;
 
     private SceneTransitionHandler transitionHandler;
+
+    private AskDialogues askDial = new AskDialogues();
 
     public SceneBuilder(World world){
         this.world = world;
@@ -330,6 +333,7 @@ public void createWorldScene() {
                 animator.updateMovement();
                 animator.updateBounds();
             }
+
         }
         debugWorldEnding();
     }
@@ -346,15 +350,21 @@ public void createWorldScene() {
         if(world == null){
             return;
         }
-    
+        
         if(player == null) return;
         if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
         if(world.getPlayerList().get(1).getAttributes().skillEffectsRandom != null)  world.getPlayerList().get(1).getAttributes().skillEffectsRandom.setVisible(world.getPlayerList().get(1).getSkill4CD() != 0);
         for (EchoesObjects obj : objList) {
-            if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
-                obj.setVisible(obj.getIndex() == currentSceneIndex && 
-                    (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
-            }else{
+            if(obj.getName().equals("portal")){
+                obj.setVisible(obj.getIndex() == currentSceneIndex && askDial.sideQuest1());
+                    // (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
+                   
+            }else if(obj.getName().equals("portalMiniBoss")){
+                obj.setVisible(obj.getIndex() == currentSceneIndex && !(enemyList.get(1).getIsDefeated()));
+            }else if(obj.getName().equals("portalNextWorld")){
+                obj.setVisible(obj.getIndex() == currentSceneIndex && enemyList.get(1).getIsDefeated());
+            }
+            else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);
             }
         }

@@ -17,6 +17,10 @@ public class AskDialogues extends JFrame {
     private String playerType;
 
     private boolean isYoo = false;
+    private boolean side1 = false;
+    public boolean sideQuest1(){
+        return side1;
+    }
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
@@ -128,7 +132,8 @@ public class AskDialogues extends JFrame {
                     textBox.setText(story.getLine(j + 1));
                     
                     if(isYoo && j==0){
-                        
+                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                        side1 = true;
                     }
 
                     dialog.remove(scrollPane);

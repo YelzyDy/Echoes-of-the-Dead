@@ -4,7 +4,6 @@
  */
 package EOD.objects;
 
-import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 
 import EOD.utils.*;
@@ -35,6 +34,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private int index;
     private boolean allowHover;
     private boolean isEnabled;
+    private boolean isActivated;
 
     public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
@@ -50,9 +50,17 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         isEnabled = true;
         initializeSprites(assetPackage, width, height);
         this.addMouseListener(new MouseClickListener(this));
-    }   
+        isActivated = false;
+    }
 
-    
+    public boolean getIsActivated(){
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated){
+        this.isActivated = isActivated;
+    }
+
     @Override
     public void free(){
         if(objSprites != null) objSprites.free();
