@@ -161,6 +161,7 @@ public class BattleUI extends JPanel implements Freeable{
         setSkillButtonsEnabled(true);
         topTextBox.setText("Turn 1: Your Turn");
         textList.setVisible(true);
+        player.getWorld().getQuests().setVisible(false);
     }
 
     private void initializeUI() {
@@ -355,10 +356,11 @@ public class BattleUI extends JPanel implements Freeable{
         topTextBox.setText(temp);
         if(player.getAnimator().getIsInBattle()){
             textList.setVisible(true);
+            player.getWorld().getQuests().setVisible(false);
         }else{
+            textList.setVisible(false);
             player.getWorld().getQuests().setVisible(true);
         }
-        textList.setVisible(false);
     }
 
     public void updateTextDetail(String detail){

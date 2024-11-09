@@ -1,6 +1,7 @@
 package EOD.worlds;
 
 import EOD.characters.*;
+import EOD.dialogues.Dialogues;
 import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
@@ -508,6 +509,19 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             InitializationWorker worker = new InitializationWorker();
             worker.execute();
             btn_okCount += 1;
+        }
+        for (EchoesObjects obj : scene.objList) {
+            if (source == obj && ((obj.getName ().equals("portalMiniBoss") || obj.getName().equals("portal")) && 
+                (scene.enemyList.get(1).getIsDefeated() || scene.enemyList.get(0).getIsDefeated()))){
+                battle.getEnemyWrapper().setVisible(false);
+                battle.toggleInventoryOff();
+                quests.setVisible(true);
+                for(Player player : playerList){
+                    player.getAnimator().setIsInBattle(false);
+                }
+                Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
+                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
+            }
         }
 
         if(source == btn_settings){

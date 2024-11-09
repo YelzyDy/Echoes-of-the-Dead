@@ -171,9 +171,6 @@ public class World2 extends World{
                     scene.setCurrentSceneIndex(1);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
-                    battle.toggleTextListOff();
-                    Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
-                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
@@ -184,9 +181,6 @@ public class World2 extends World{
                     scene.setCurrentSceneIndex(2);
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
-                    battle.toggleTextListOff();
-                    Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
-                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();

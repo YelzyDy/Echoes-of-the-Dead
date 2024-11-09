@@ -173,13 +173,10 @@ public class BattleExperiment implements Skillable{
         
         for(Player player : world.getPlayerList()){
             player.reset(playerWon);
-            player.getAnimator().setIsInBattle(false);
             player.setPosX(screenSize.width * 0.4);
         }
         player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.setSkillButtonsEnabled(false);
-        battleUI.getEnemyWrapper().setVisible(false);
-        // Add any additional end-game logic here
     }
 
     private double getEnemyDeathPosY(Enemy enemy){
