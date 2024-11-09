@@ -175,12 +175,17 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         this.initiateBattleUi = initiateBattleUi;
     }
 
+    public boolean getInitiateBattleUi (){
+        return initiateBattleUi;
+    }
+
     public void initializeBattleUI(){
-        if (initiateBattleUi){
+        if (getInitiateBattleUi()){
             System.out.println("called>");
             battle = new BattleUI(player);
             layeredPane.add(battle, Integer.valueOf(1));
         } else {
+            
             return;
         }
     }
@@ -299,7 +304,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public String getPlayerType(){
         return player.getCharacterType();
     }
-
 
     public abstract void initializeObjects();
 

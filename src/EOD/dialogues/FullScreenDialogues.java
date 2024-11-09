@@ -1,5 +1,6 @@
 package EOD.dialogues;
 
+import EOD.utils.SFXPlayer;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,7 @@ public class FullScreenDialogues extends JFrame {
     private final int height = (int)(screenSize.height * 0.97);
     private final int x = 0;
     private final int y = 23;
+    private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
 
     public void displayDialogue(int ID) {
 
@@ -55,6 +57,7 @@ public class FullScreenDialogues extends JFrame {
 
         skipButton.addActionListener(e -> {
             storyDialogue.dispose();
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         });
 
         skipButton.addMouseListener(new MouseAdapter() {
