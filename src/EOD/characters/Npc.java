@@ -1,12 +1,10 @@
 package EOD.characters;
 
-import java.awt.event.MouseEvent;
-
-
 import EOD.animator.NpcAnimator;
 import EOD.dialogues.*;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
+import java.awt.event.MouseEvent;
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable{
     Dialogues dialogues = new Dialogues();
@@ -20,8 +18,13 @@ public class Npc extends Character implements MouseInteractable{
         setAnimator(animator);
         animator.setSpeedMultiplier(1);
         setVisible(true); // Make sure the NPC is visible
-        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 4);
-        animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 4);
+        if (characterType.equals("reaper")){
+            animator.importSprites("character_asset", "walk",(int)(screenSize.height * 0.001), 8);
+            animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.1), 8);
+        } else {
+            animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 4);
+            animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 4);
+        }
         this.addMouseListener(new MouseClickListener(this));
         animator.startMovement();
         animator.chooseNewDirection(); 

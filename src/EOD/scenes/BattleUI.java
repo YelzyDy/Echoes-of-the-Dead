@@ -1,11 +1,5 @@
 package EOD.scenes;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.dialogues.*;
@@ -13,6 +7,11 @@ import EOD.gameInterfaces.Freeable;
 import EOD.objects.EchoesObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.*;
 
 public class BattleUI extends JPanel implements Freeable{
     // Constants

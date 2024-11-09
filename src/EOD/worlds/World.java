@@ -49,6 +49,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected Player priest;
     protected Player wizard;
     protected ArrayList<Player> playerList;
+    private boolean initiateBattleUi = true;
 
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
@@ -159,10 +160,18 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         moneyLabel.setText(player.getAttributes().getMoney() + "");
     }
 
+    public void setInitiateBattleUi (boolean initiateBattleUi){
+        this.initiateBattleUi = initiateBattleUi;
+    }
+
     public void initializeBattleUI(){
-        System.out.println("called>");
-        battle = new BattleUI(player);
-        layeredPane.add(battle, Integer.valueOf(1));
+        if (initiateBattleUi){
+            System.out.println("called>");
+            battle = new BattleUI(player);
+            layeredPane.add(battle, Integer.valueOf(1));
+        } else {
+            return;
+        }
     }
 
     public void openQuests() {

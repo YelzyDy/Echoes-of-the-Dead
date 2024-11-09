@@ -1,12 +1,12 @@
 package EOD.characters.enemies;
 
-import java.awt.event.MouseEvent;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import java.awt.event.MouseEvent;
 
 public class Necromancer extends Enemy {    
     private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 200;
+    private static final int BASE_HEALTH = 2;
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;

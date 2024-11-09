@@ -28,6 +28,7 @@ public class World1 extends World{
         bgmPlayer.playBGM("src/audio_assets/bgm/world1bgm.wav");
         this.playerName = playerName;
         this.characterType = characterType;
+        //super.setInitiateBattleUi(true);
         Welcome();
     }
     
