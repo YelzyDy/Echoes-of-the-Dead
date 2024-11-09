@@ -264,7 +264,7 @@ public void createWorldScene() {
 
     private void updateBattleState(){
         if(player.getAnimator().getIsInBattle()){
-            world.getBattle().updateCooldowns();
+            if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()) world.getBattle().updateCooldowns();
             world.closeQuests();
         }
     }
@@ -370,7 +370,7 @@ public void createWorldScene() {
                     // (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
                    
             }else if(obj.getName().equals("portalMiniBoss")){
-                obj.setVisible(obj.getIndex() == currentSceneIndex && !(enemyList.get(1).getIsDefeated()));
+                obj.setVisible(obj.getIndex() == currentSceneIndex);
             }else if(obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && enemyList.get(1).getIsDefeated());
             }
