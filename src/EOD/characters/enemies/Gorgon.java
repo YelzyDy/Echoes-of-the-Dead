@@ -273,6 +273,6 @@ public class Gorgon extends Enemy {
         dialogues.setCoordinates(getPanel().getWidth() * 0.5, getPanel().getHeight() * 0.1);
         autoCloseDelay = 10000;
         System.out.println("auto close delay " + autoCloseDelay);
-        world.getPlayer().getAttributes().setBaseHp(player.getAttributes().getBaseHp() + 10);
+        world.getPlayer().getAttributes().setBaseHp(world.getPlayer().getAttributes().getBaseHp() + 10);
     }
 }

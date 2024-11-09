@@ -254,6 +254,10 @@ public class Player extends Character implements MouseInteractable{
         damageReducer = false;
     }
 
+    public void setXFactor(double xFactor){
+        this.xFactor = xFactor;
+    }
+
     public void attributeTurnChecker() {
         if (attributes.skill2Cd > 0) attributes.skill2Cd--;
         if (attributes.skill3Cd > 0) attributes.skill3Cd--;
