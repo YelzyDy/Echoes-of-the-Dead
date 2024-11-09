@@ -167,36 +167,39 @@ public class Quests extends JPanel implements MouseInteractable{
         this.ifActive = ifActive;
     }
 
-    private void handleWorld1Q(int index, MouseEvent e){
-        if (index == 0){
+    private void handleWorld1Q(int index, MouseEvent e) {
+        if (index == 0) {
             int currentScene = scene.getCurrentSceneIndex();
-            if(currentScene == 0){
-                for(Npc npc : npcList){
-                    if ((npc.getName().equals("Yoo")) 
+            if(currentScene == 0) {
+                for(Npc npc : npcList) {
+                    if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
                         && !npc.doneQuest) {
-                        // Move player to NPC position
-                        player.getAnimator().moveTo((int)(npc.getPosX() * 0.9), 20);
-                        // Trigger NPC interaction
+                        // Determine which side of NPC to move to
+                        double playerX = player.getPosX();
+                        double npcX = npc.getPosX();
+                        double targetX;
+                        int deltaX = 0;
+                        if (playerX > npcX) {
+                            // If player is on right, stay on right
+                            targetX = npcX * 1.1; 
+                            deltaX = -20;
+                        } else {
+                            // If player is on left, stay on left
+                            targetX = npcX * 0.9; // 20 pixels to left of NPC
+                            deltaX = 20;
+                        }
+                        
+                        // Move player to appropriate position
+                        player.getAnimator().moveTo((int)targetX, deltaX);
                         npc.onClick(e);
                         npc.doneQuest = true;
-                        // Mark that we've handled an interaction
-                        break;
-                    }
-                    if ((npc.getName().equals("Constance"))
-                        && !npc.doneQuest) {
-                        // Move player to NPC position
-                        player.getAnimator().moveTo((int)(npc.getPosX() * 0.9), 20);
-                        // Trigger NPC interaction
-                        npc.onClick(e);
-                        npc.doneQuest = true;
-                        // Mark that we've handled an interaction
                         break;
                     }
                 }
-
             }
         }
     }
+    
     @Override
     public void onClick(MouseEvent e) {
         int index = textList.locationToIndex(e.getPoint());
