@@ -24,7 +24,7 @@ public class SFXPlayer {
     }
 
 
-    public void playSFX(String filePath) {
+    public synchronized void playSFX(String filePath) {
         if (filePath == null || filePath.isEmpty()) {
             System.err.println("Error: filePath is null or empty");
             return;
@@ -36,7 +36,10 @@ public class SFXPlayer {
     
         new Thread(() -> {
             try {
-                stopSFX(); // Stop any currently playing clip
+                if (clip != null && clip.isRunning()) {
+                    stopSFX();
+                }
+    
                 File audioFile = new File(filePath);
                 if (!audioFile.exists()) {
                     System.err.println("Audio file not found: " + filePath);
@@ -70,16 +73,17 @@ public class SFXPlayer {
             clip.stop();
             clip.close();
             clip = null; // Set to null to avoid any further null reference issues
+        } else {
+            System.out.println("null sfx");
         }
         filepath = null;
     }
     
 
     public void setVolume(float volume) {
-        currentVolume = volume; // Store the current volume level
-    
+        currentVolume = volume;
         if (gainControl == null) {
-            return; // Exit if gainControl is not available yet
+            return;
         }
     
         try {
@@ -89,6 +93,8 @@ public class SFXPlayer {
             float dB = (float) (Math.log10(adjustedVolume) * 20.0f);
             dB = Math.max(min, Math.min(max, dB));
             gainControl.setValue(dB);
+    
+            System.out.println("Volume set to: " + dB);  // Debugging output
         } catch (Exception e) {
             e.printStackTrace();
         }

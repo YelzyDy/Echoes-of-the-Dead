@@ -3,6 +3,7 @@ package EOD.objects.shop;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.objects.inventory.Inventory;
+import EOD.utils.SFXPlayer;
 import EOD.worlds.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -18,6 +19,7 @@ public class Shop extends EchoesObjects{
     private int itemToBuy;
     private int item1Stock, item2Stock, item3Stock, item4Stock;
     private Inventory inventory;
+    private SFXPlayer sfxPlayer;
 
     public Shop(World world) {
         super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 
@@ -30,6 +32,7 @@ public class Shop extends EchoesObjects{
         world.getLayeredPane().add(this, Integer.valueOf(2));
         world.getLayeredPane().setComponentZOrder(this, 0);
         showElementsInShop();
+        this.sfxPlayer = SFXPlayer.getInstance();
     }
 
     public void setInventory(Inventory inventory){
@@ -107,18 +110,22 @@ public class Shop extends EchoesObjects{
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
         buyButton.setVisible(true);
-
         if (source == item1) {
             handleItemClick(1, item1, item1Stock);
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == item2) {
             handleItemClick(2, item2, item2Stock);
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == item3) {
             handleItemClick(3, item3, item3Stock);
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == item4) {
             handleItemClick(4, item4, item4Stock);
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == buyButton) {
             buy();
         } else if (source == closeButton) {
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             hideShop();
         }
     }
@@ -140,6 +147,9 @@ public class Shop extends EchoesObjects{
                     updateStock(item1, --item1Stock);
                     itemCost = updateMoney(1); // Set cost for item 1
                     itemStock = item1Stock;
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                } else {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                 }
             }
             case 2 -> {
@@ -147,6 +157,9 @@ public class Shop extends EchoesObjects{
                     updateStock(item2, --item2Stock);
                     itemCost = updateMoney(2);
                     itemStock = item2Stock;
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                } else {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                 }
             }
             case 3 -> {
@@ -154,6 +167,9 @@ public class Shop extends EchoesObjects{
                     updateStock(item3, --item3Stock);
                     itemCost = updateMoney(3);
                     itemStock = item3Stock;
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                } else {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                 }
             }
             case 4 -> {
@@ -161,10 +177,13 @@ public class Shop extends EchoesObjects{
                     updateStock(item4, --item4Stock);
                     itemCost = updateMoney(4);
                     itemStock = item4Stock;
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                } else {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                 }
             }
         }
-        int money = world.getMoney() - 10;
+        int money = world.getMoney() - 15;
         if(money >= itemCost && itemStock > 0)
         world.setMoney(money);
     }
