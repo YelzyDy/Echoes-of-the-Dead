@@ -4,7 +4,6 @@ import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Gorgon;
 import EOD.characters.enemies.Skeleton2;
-import EOD.dialogues.Dialogues;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -164,23 +163,23 @@ public class World2 extends World{
                 System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
                 if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
                     bgmPlayer.stopBGM(); 
-                    bgmPlayer.playBGM("src/old/audio_assets/fightscene.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
                     scene.setCurrentSceneIndex(3);
                     System.out.println(scene.getCurrentSceneIndex());
                 }else{
                     scene.setCurrentSceneIndex(1);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/world2bgm.wav");
                 }
             }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
                 if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
                     scene.setCurrentSceneIndex(4);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/old/audio_assets/fightscene.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
                 } else {
                     scene.setCurrentSceneIndex(2);
                     bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/old/audio_assets/world1.wav");
+                    bgmPlayer.playBGM("src/audio_assets/bgm/world2bgm.wav");
                 }
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
