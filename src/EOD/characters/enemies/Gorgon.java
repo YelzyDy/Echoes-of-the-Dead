@@ -15,7 +15,7 @@ import EOD.objects.EchoesObjects;
  */
 public class Gorgon extends Enemy {
     private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 2;
+    private static final int BASE_HEALTH = 300;
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
