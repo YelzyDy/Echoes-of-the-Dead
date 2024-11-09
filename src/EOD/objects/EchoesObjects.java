@@ -52,6 +52,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         this.addMouseListener(new MouseClickListener(this));
     }   
 
+    
     @Override
     public void free(){
         if(objSprites != null) objSprites.free();
