@@ -23,6 +23,7 @@ public class Npc extends Character implements MouseInteractable{
         isStatic = false;
         doneQuest = false;
         animator.setRange(minRange, maxRange);
+        dialogues.setNpc(this);
     }
 
     public void initializeNpcSprites(){
