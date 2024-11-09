@@ -254,10 +254,6 @@ public class Player extends Character implements MouseInteractable{
         damageReducer = false;
     }
 
-    public void setXFactor(double xFactor){
-        this.xFactor = xFactor;
-    }
-
     public void attributeTurnChecker() {
         if (attributes.skill2Cd > 0) attributes.skill2Cd--;
         if (attributes.skill3Cd > 0) attributes.skill3Cd--;
@@ -299,34 +295,104 @@ public class Player extends Character implements MouseInteractable{
         effect.setStopFrame(stopFrame);
     }
 
+    private void handleXFactorBasedOnEnemy(int skill){
+        switch(getCharacterType()){
+            case "knight" -> {
+                xFactor = getKnightXFactor(skill);
+            }
+            case "wizard"  -> {
+                xFactor = getWizardXFactor(skill);
+            }
+            case "priest" -> {
+                xFactor = getPriestXFactor(skill);
+            }
+        }
+    }
+
+    private double getKnightXFactor(int skill){
+        switch(skill){
+            case 1 ->{
+                return screenSize.width * 0.5;
+            }
+            case 2 ->{
+                return getPosX();
+            }
+            case 3 ->{
+                return getPosX();
+            }
+            case 4 ->{
+                return screenSize.width * 0.5;
+            }
+        }
+        return 0;
+    }
+
+    private double getWizardXFactor(int skill){
+        switch(skill){
+            case 1 ->{
+                return screenSize.width * 0.1;
+            }
+            case 2 ->{
+                return getPosX();
+            }
+            case 3 ->{
+                return screenSize.width * 0.1;
+            }
+            case 4 ->{
+                return screenSize.width * 0.1;
+            }
+        }
+        return 0;
+    }
+
+    private double getPriestXFactor(int skill){
+        switch(skill){
+            case 1 ->{
+                if(enemy.getCharacterType().equals("skeleton1")){
+                    return screenSize.width * 0.3;
+                }else if(enemy.getCharacterType().equals("skeleton2")){
+                    return screenSize.width * 0.4;
+                }else if(enemy.getCharacterType().equals("necromancer")){
+                    return screenSize.width * 0.35;
+                }
+                return screenSize.width * 0.3;
+            }
+            case 2 ->{
+                return getPosX();
+            }
+            case 3 ->{
+                return screenSize.width * 0.22;
+            }
+            case 4 ->{
+                return screenSize.width * 0.3;
+            }
+        }
+        return 0;
+    }
+
     public boolean skill1() {
         // Basic attack with class-specific mechanics
         switch(getCharacterType()) {
             case "knight":
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
-                xFactor = screenSize.width * 0.5;
                 applySkillEffect(attributes.skillEffects1, enemy, 13, enemy.getOffsetX(1), enemy.getOffsetY(1));
                 attributes.skillEffects1.setOpaque(true);
                 break;
             case "wizard":
                 damageDealt = attributes.attack;
                 attributes.mana = Math.min(attributes.mana + 5, attributes.baseMana); // Mana return on basic attack
-                xFactor = screenSize.width * 0.1;
                 break;
             case "priest":
                 damageDealt = attributes.attack;
                 attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
-                xFactor = screenSize.width * 0.3;
                 break;
         }
-        
+        handleXFactorBasedOnEnemy(1);
         actionString = "Player dealt " + damageDealt + " damage to the enemy!";
         return true;
     }
 
     public boolean skill2() {
-        xFactor = getPosX();
-        
         if (attributes.skill2Cd > 0) {
             actionString = "Skill on cooldown! " + attributes.skill2Cd + " turns remaining!";
             return false;
@@ -372,6 +438,7 @@ public class Player extends Character implements MouseInteractable{
         
         skill2BuffRemaining = SKILL2_DURATION;
         attributes.skill2Cd = 4; // Set cooldown to 4 turns
+        handleXFactorBasedOnEnemy(2);
         return true;
     }
 
@@ -385,7 +452,6 @@ public class Player extends Character implements MouseInteractable{
                 attributes.mana -= 40;
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 actionString = "Defense activated! Damage reduced by 60%";
-                xFactor = getPosX();
                 shieldBuffRemaining = SHIELD_DURATION;
                 return true;
 
@@ -397,7 +463,6 @@ public class Player extends Character implements MouseInteractable{
                     attributes.mana = Math.min(attributes.mana + 90, attributes.baseMana);
                     applySkillEffect(attributes.skillEffects3, enemy, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                     actionString = "Shift Successful! 35 damage dealt to enemy!";
-                    xFactor = screenSize.width * 0.1;
                     return true;
                 } else {
                     actionString = "Shift Failed!";
@@ -411,9 +476,9 @@ public class Player extends Character implements MouseInteractable{
                 attributes.mana -= 40;
                 attributes.skill3Cd = 3;
                 actionString = "Healed for " + healing + " and dealt " + damageDealt + " damage!";
-                xFactor = screenSize.width * 0.22;
                 return true;
         }
+        handleXFactorBasedOnEnemy(3);
         return false;
     }
 
@@ -428,7 +493,6 @@ public class Player extends Character implements MouseInteractable{
                 attributes.mana -= 50;
                 applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 actionString = "Time Stop! Dealt " + damageDealt + " damage to the enemy";
-                xFactor = screenSize.width * 0.5;
                 return true;
 
             case "wizard":
@@ -437,7 +501,6 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 actionString = "Explosion! Dealt " + damageDealt + " damage to the enemy";
-                xFactor = screenSize.width * 0.1;
                 return true;
 
             case "priest":
@@ -450,7 +513,6 @@ public class Player extends Character implements MouseInteractable{
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.42, 0.15);
                 actionString = "Divine Retribution! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
-                xFactor = screenSize.width * 0.3;
                 ArrayList<Player> playerList = this.getWorld().getPlayerList();
                 for(Player player : playerList){
                     player.getAttributes().setHp(player.getAttributes().getHp() + (int)(player.getAttributes().getBaseHp()*0.3));
@@ -460,6 +522,7 @@ public class Player extends Character implements MouseInteractable{
                 }
                 return true;
         }
+        handleXFactorBasedOnEnemy(4);
         return false;
     }
 
