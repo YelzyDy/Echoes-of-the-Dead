@@ -41,7 +41,7 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     public void incQ2Count(){
-        if(quest2Count < 2) quest2Count++;
+        if(quest2Count < 4) quest2Count++;
     }
 
     private void initializeUI() {
@@ -186,38 +186,53 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void q2World2(MouseEvent e){
-        for(Npc npc : npcList) {
-            if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
-                && !npc.doneQuest) {
-                // Determine which side of NPC to move to
-                double playerX = player.getPosX();
-                double npcX = npc.getPosX();
-                double targetX;
-                int deltaX = 0;
-                if (playerX > npcX) {
-                    // If player is on right, stay on right
-                    targetX = npcX * 1.1; 
-                    deltaX = -20;
-                } else {
-                    // If player is on left, stay on left
-                    targetX = npcX * 0.9; // 20 pixels to left of NPC
-                    deltaX = 20;
+    private void handleNpcClick(Npc npc, MouseEvent e){
+        // Determine which side of NPC to move to
+        double playerX = player.getPosX();
+        double npcX = npc.getPosX();
+        double targetX;
+        int deltaX = 0;
+        if (playerX > npcX) {
+            // If player is on right, stay on right
+            targetX = npcX * 1.1; 
+            deltaX = -20;
+        } else {
+            // If player is on left, stay on left
+            targetX = npcX * 0.9; // 20 pixels to left of NPC
+            deltaX = 20;
+        }
+        
+        // Move player to appropriate position
+        player.getAnimator().moveTo((int)targetX, deltaX);
+        npc.onClick(e);
+    }
+    private void q2World1(MouseEvent e){
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene == 0) {
+            for(Npc npc : npcList) {
+                if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
+                    && !npc.doneQuest) {
+                    handleNpcClick(npc, e);
+                    break;
                 }
-                
-                // Move player to appropriate position
-                player.getAnimator().moveTo((int)targetX, deltaX);
-                npc.onClick(e);
-                break;
+            }
+        }else if(currentScene == 1){
+            for(Npc npc : npcList) {
+                if ((npc.getName().equals("Natty") || npc.getName().equals("Faithful")) 
+                    && !npc.doneQuest) {
+                    handleNpcClick(npc, e);
+                    break;
+                }
             }
         }
     }
 
     private void handleWorld1Q(int index, MouseEvent e) {
-        if(index == 0){
+        Object source = e.getSource();
+        if(source == scene && index == 0){
            q1World1(e);
-        }else if (index == 1) {
-            q2World2(e); 
+        }else if (source != scene && index == 1) {
+            q2World1(e); 
         }
     }
     

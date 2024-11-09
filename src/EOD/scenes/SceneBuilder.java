@@ -223,7 +223,7 @@ public void createWorldScene() {
     public void updateDynamicQuests(){
         if(world == null) return;
         Quests quests = world.getQuests();
-        if(quests.quest2Count == 2){ 
+        if(quests.quest2Count == 4){ 
             objList.get(1).setIsActivated(true);
             quests.setQuestStatus(++quests.ifActive);
             quests.addQuests();
