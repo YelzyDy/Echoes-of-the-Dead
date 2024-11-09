@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable{
     Dialogues dialogues = new Dialogues();
-    private NpcAnimator animator;
+    protected NpcAnimator animator;
     private boolean isStatic;
     public boolean doneQuest;
     
@@ -18,21 +18,19 @@ public class Npc extends Character implements MouseInteractable{
         setAnimator(animator);
         animator.setSpeedMultiplier(1);
         setVisible(true); // Make sure the NPC is visible
-        if (characterType.equals("reaper")){
-            animator.importSprites("character_asset", "walk",(int)(screenSize.height * 0.001), 8);
-            animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.1), 8);
-        } else {
-            animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 4);
-            animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 4);
-        }
         this.addMouseListener(new MouseClickListener(this));
-        animator.startMovement();
-        animator.chooseNewDirection(); 
-        System.out.println();
-        animator.updateBounds();
-        animator.setRange(minRange, maxRange);
+        initializeNpcSprites();
         isStatic = false;
         doneQuest = false;
+        animator.setRange(minRange, maxRange);
+    }
+
+    public void initializeNpcSprites(){
+        animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 4);
+        animator.importSprites("character_asset", "idle",(int)(screenSize.height * 0.006), 4);
+        animator.startMovement();
+        animator.chooseNewDirection(); 
+        animator.updateBounds();
     }
 
     @Override
