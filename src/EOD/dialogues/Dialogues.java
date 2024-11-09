@@ -6,7 +6,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import EOD.worlds.World;
 import EOD.gameInterfaces.Freeable;
-
+import EOD.objects.Quests;
+import EOD.characters.Npc;
 public class Dialogues implements Freeable{
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
@@ -27,7 +28,8 @@ public class Dialogues implements Freeable{
     private String playerType;
     private boolean isClickableDialogue = true;
     private JLabel pressToContinueLabel;
-    private boolean isDialogueFinished;
+    private Quests quests;
+    private Npc npc;
     public void free() {
         // Dispose of the JDialog to release system resources
         if (storyDialogue != null && storyDialogue.isVisible()) {
@@ -46,7 +48,6 @@ public class Dialogues implements Freeable{
         askButtonHoverIcon = null;
         skipButtonIcon = null;
         skipButtonHoverIcon = null;
-        isDialogueFinished = false;
     
         // If the story object holds resources, you may want to add a free method there too
         if (story != null) {
@@ -59,12 +60,8 @@ public class Dialogues implements Freeable{
         isClickableDialogue = true;
     }
 
-    public boolean getIsDialogueFinished(){
-        return isDialogueFinished;
-    }
-
-    public void setIsDialogueFinished(boolean isDialogueFinished){
-        this.isDialogueFinished = isDialogueFinished;
+    public void setNpc(Npc npc){
+        this.npc = npc;
     }
 
     public void setPlayerType(String playerType){
@@ -81,6 +78,10 @@ public class Dialogues implements Freeable{
 
     public void setFontSize(double size){
         textBox.setFont(new Font("Monospaced", Font.PLAIN, (int)size));
+    }
+
+    public void setQuests(Quests quests){
+        this.quests = quests;
     }
 
     public void displayDialogues(int ID, World world) {
@@ -202,8 +203,11 @@ public class Dialogues implements Freeable{
 
         skipButton.addActionListener(e -> {
             System.out.println("click");
-            isDialogueFinished = true;
             storyDialogue.dispose();
+            if (ID == 5 || ID == 1){
+                quests.incQ1Count();
+                npc.doneQuest = true;
+            }
             if(ID == 11 || ID == 13 || ID == 15){
                 world.getScene().remove(world.getScene().ally);
                 world.getScene().ally = null;
@@ -303,7 +307,8 @@ public class Dialogues implements Freeable{
         }else{
             if(ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
-            isDialogueFinished = true;
+            npc.doneQuest = true;
+            if (ID == 5 || ID == 1) quests.incQ1Count();
                     if(ID == 11 || ID == 13 || ID == 15){
                         world.getScene().remove(world.getScene().ally);
                         world.getScene().ally = null;
