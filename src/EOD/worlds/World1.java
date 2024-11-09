@@ -35,7 +35,6 @@ public class World1 extends World{
     public void initializeProtagonist(){
         // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
         initializePlayer();
-        configureShopAndInventory();
         setMoney(player.getAttributes().getMoney());
         setMoneyLabel(player.getAttributes().getMoney() + "");
         
@@ -46,6 +45,11 @@ public class World1 extends World{
         playerList.add(knight);
         playerList.add(priest);
         playerList.add(wizard);
+        player.initializeInventory();
+        // for(Player player: playerList){
+        //     player.setInventory(this.player.getInventory());
+        // }
+        configureShopAndInventory();
         System.out.println("Player type in world2: " + characterType);
     }
 

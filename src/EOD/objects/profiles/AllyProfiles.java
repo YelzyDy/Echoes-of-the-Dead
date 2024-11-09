@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import EOD.scenes.BattleUI;
 import EOD.scenes.SceneBuilder;
 import EOD.characters.Player;
+
 import java.util.ArrayList;
 import EOD.worlds.World;
 import EOD.objects.Quests;
@@ -21,17 +22,20 @@ public class AllyProfiles implements MouseInteractable, Freeable {
     private JPanel panel;
     private BattleUI battle;
     private SceneBuilder scene;
-    private ArrayList<Player> player;
+    private ArrayList<Player> playerList;
+    private Player player;
     private World world;
     private double[] yCoordinates;
     private ArrayList<String> allyList;
     private Quests quests;
+
     public AllyProfiles(World world) {
         this.battle = world.getBattle();
         this.panel = battle.getSidePanel();
         this.scene = world.getScene();
         this.world = world;
         this.quests = world.quests;
+        this.player = world.getPlayer();
         allyList = new ArrayList<>();
         setUpYCoordinates();
     }
@@ -53,7 +57,7 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         for(String item : allyList){
             item = null;
         }
-        for(Player p : player){
+        for(Player p : playerList){
             p.free();
             p = null;
         }
@@ -106,12 +110,12 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         setUpYCoordinates();
     }
 
-    public void setPlayer(ArrayList<Player> player) {
-        this.player = player;
+    public void setPlayer(ArrayList<Player> playerList) {
+        this.playerList = playerList;
     }
 
     public ArrayList<Player> getPlayerList() {
-        return player;
+        return playerList;
     }
 
     public void showAllProfiles() {
@@ -152,6 +156,13 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         if(priestProfile != null)priestProfile.setEnabled(enabled);
     }
 
+    private void setAttributesOfInventory(){
+        Player player;
+        player = this.player.getPanel().getPlayer();
+        this.player.getInventory().setAttributes(player.getAttributes());
+        //this sets attributes of inventory depending on the player of the sceneBuilder
+    }
+
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
@@ -159,18 +170,19 @@ public class AllyProfiles implements MouseInteractable, Freeable {
             return;
         }
         if (source == knightProfile) {
-            battle.setPlayer(player.get(0));
-            scene.setPlayer(player, 0);
-            quests.setPlayer(player.get(0));
+            battle.setPlayer(playerList.get(0));
+            scene.setPlayer(playerList, 0);
+            quests.setPlayer(playerList.get(0));
         } else if (source == wizardProfile) {
-            battle.setPlayer(player.get(2));
-            scene.setPlayer(player, 2);
-            quests.setPlayer(player.get(2));
+            battle.setPlayer(playerList.get(2));
+            scene.setPlayer(playerList, 2);
+            quests.setPlayer(playerList.get(2));
         } else {
-            battle.setPlayer(player.get(1));
-            scene.setPlayer(player, 1);
-            quests.setPlayer(player.get(1));
+            battle.setPlayer(playerList.get(1));
+            scene.setPlayer(playerList, 1);
+            quests.setPlayer(playerList.get(1));
         }
+        setAttributesOfInventory();
     }
 
     @Override

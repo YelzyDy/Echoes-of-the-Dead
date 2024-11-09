@@ -55,7 +55,14 @@ public class Player extends Character implements MouseInteractable{
         this.damageReducer = false;
         this.characterType = characterType;
         originalAttack = attributes.attack;
+    }
+
+    public void initializeInventory(){
         inventory = new Inventory();
+    }
+
+    public void setInventory(Inventory inventory){
+        this.inventory = inventory;
     }
 
     @Override
