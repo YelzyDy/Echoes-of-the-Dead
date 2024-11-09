@@ -53,6 +53,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected Player wizard;
     protected ArrayList<Player> playerList;
     private boolean initiateChoiceUi = true;
+    private ChoiceUI choicepan;
 
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
@@ -185,9 +186,16 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(battle, Integer.valueOf(1));
     }
 
-    public void initializeChoiceUI(){
-
+    public void initializeChoiceUI() {
+        choicepan = new ChoiceUI();
+        // Set ChoiceUI position and size: yOffset is the height of the image (40% of the screen)
+        choicepan.setBounds(0, (int) (screenSize.height * 0.4), (int) (screenSize.width * 0.99), (int) (screenSize.height * 0.6));
+        layeredPane.add(choicepan, Integer.valueOf(2));
+        layeredPane.revalidate();
+        layeredPane.repaint();
     }
+    
+    
 
     public void openQuests() {
         this.quests = new Quests();
