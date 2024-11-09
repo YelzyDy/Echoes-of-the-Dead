@@ -195,7 +195,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         // which of them caused the event using e.getSource() --jian
         Object source = e.getSource();
         Animator animator = player.getAnimator();
-        sfxPlayer = SFXPlayer.getInstance();
         sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if (source == btn_select) {
             if(!selectButtonIsEnable){ // this prevents the execution of the following lines of code --jian

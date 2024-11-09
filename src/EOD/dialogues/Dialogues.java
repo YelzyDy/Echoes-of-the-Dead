@@ -1,14 +1,16 @@
 package EOD.dialogues;
 
-import javax.swing.*;
+import EOD.characters.Npc;
+import EOD.gameInterfaces.Freeable;
+import EOD.objects.Quests;
+import EOD.utils.SFXPlayer;
+import EOD.worlds.World;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import EOD.worlds.World;
-import EOD.gameInterfaces.Freeable;
-import EOD.objects.Quests;
-import EOD.characters.Npc;
+import javax.swing.*;
 public class Dialogues implements Freeable{
+    private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private AskDialogues askDialogues =  new AskDialogues();
@@ -157,7 +159,6 @@ public class Dialogues implements Freeable{
         storyDialogue.setLocation(x, y);
 
         // SKIP BUTTON
-
         skipButtonIcon = scaleImageIcon("src/button_assets/skipButton.png");
         skipButtonHoverIcon = scaleImageIcon("src/button_assets/skipButtonHover.png");
 
@@ -203,6 +204,7 @@ public class Dialogues implements Freeable{
 
         skipButton.addActionListener(e -> {
             System.out.println("click");
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
             if (ID == 5 || ID == 1){
                 quests.incQ1Count();
@@ -229,6 +231,7 @@ public class Dialogues implements Freeable{
         // ASK BUTTON EVENT LISTENERS
 
         askButton.addActionListener(e -> {
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
             this.ID++;
             buttonPanel.setVisible(false);
@@ -328,6 +331,7 @@ public class Dialogues implements Freeable{
     public JDialog getStoryJDialog(){
         return storyDialogue;
     }
+
 }
 
 // Ask me nalang if naa mo questions with the Dialogues, giremove nako ang comments temporarily para easier debugging - Blair

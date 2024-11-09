@@ -1,9 +1,9 @@
 package EOD.dialogues;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.*;
 
 public class FullScreenDialogues extends JFrame {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
