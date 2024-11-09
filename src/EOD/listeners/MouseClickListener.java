@@ -4,10 +4,9 @@
  */
 package EOD.listeners;
 
+import EOD.gameInterfaces.MouseInteractable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import EOD.gameInterfaces.MouseInteractable;
 
 /**
  *
@@ -15,7 +14,7 @@ import EOD.gameInterfaces.MouseInteractable;
  */
 public class MouseClickListener extends MouseAdapter{
     private MouseInteractable interactable;
-
+    //private SFXPlayer sfxPlayer;
     public MouseClickListener(MouseInteractable interactable) {
         this.interactable = interactable;
     }
@@ -24,6 +23,7 @@ public class MouseClickListener extends MouseAdapter{
     public void mouseClicked(MouseEvent e) {
         if (interactable != null) {
             interactable.onClick(e);
+            //sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         }
     }
 

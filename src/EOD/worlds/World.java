@@ -9,6 +9,7 @@ import EOD.objects.*;
 import EOD.objects.shop.Shop;
 import EOD.scenes.*;
 import EOD.utils.BGMPlayer;
+import EOD.utils.SFXPlayer;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -37,6 +38,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private EchoesObjects bag;
     private JLayeredPane layeredPane;
     protected BGMPlayer bgmPlayer;
+    protected  SFXPlayer sfxPlayer;
     protected Shop shop;
     protected JProgressBar progressBar;
     public Quests quests;
@@ -526,7 +528,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         }
 
         if(source == btn_settings){
-            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer);
+            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, sfxPlayer);
             settingsWindow.setVisible(true); // Display the window
 
         }else if(source == bag){

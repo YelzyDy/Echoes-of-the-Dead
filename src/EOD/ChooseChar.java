@@ -43,10 +43,11 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private boolean selectButtonIsEnable = true;
 
     private Player player;
-    BGMPlayer bgmPlayer;
+    private BGMPlayer bgmPlayer;
+    private SFXPlayer sfxPlayer;
     public ChooseChar() {
         bgmPlayer = BGMPlayer.getInstance();
-        
+        sfxPlayer = sfxPlayer.getInstance();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.setTitle("Choose Character"); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -194,6 +195,8 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         // which of them caused the event using e.getSource() --jian
         Object source = e.getSource();
         Animator animator = player.getAnimator();
+        sfxPlayer = SFXPlayer.getInstance();
+        sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if (source == btn_select) {
             if(!selectButtonIsEnable){ // this prevents the execution of the following lines of code --jian
                 // when our promptPanel is Visible --jian
