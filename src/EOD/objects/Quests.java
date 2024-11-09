@@ -15,7 +15,7 @@ import EOD.worlds.*;
 public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private int ifActive = 5;
+    public int ifActive = 0;
 
     private final JPanel textPanel;
     private JScrollPane scrollPane;
@@ -25,7 +25,7 @@ public class Quests extends JPanel implements MouseInteractable{
     private SceneBuilder scene;
     private ArrayList<Npc> npcList;
     private World world;
-    public int quest1Count;
+    public int quest2Count;
     public Quests() {
         this.textPanel = new JPanel();
         initializeUI();
@@ -35,12 +35,13 @@ public class Quests extends JPanel implements MouseInteractable{
         this.player = player;
         this.npcList = player.getPanel().npcList;
         this.scene = player.getPanel();
+        this.scene.addMouseListener(new MouseClickListener(this));
         this.world = player.getWorld();
-        quest1Count = 0;
+        quest2Count = 0;
     }
 
-    public void incQ1Count(){
-        if(quest1Count < 2) quest1Count++;
+    public void incQ2Count(){
+        if(quest2Count < 4) quest2Count++;
     }
 
     private void initializeUI() {
@@ -82,16 +83,7 @@ public class Quests extends JPanel implements MouseInteractable{
         textList.setFont(new Font("Monospaced", Font.PLAIN, 28));
         textList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Add quests based on ifActive
-        for (int i = ifActive; i >= 0; i--) {
-            String questText = getQuestTextForIndex(i);
-
-            if (i == ifActive) {
-                textListModel.addElement(questText);
-            } else {
-                textListModel.addElement("<html><font color='#808080'>" + questText + "</font></html>");
-            }
-        }
+        addQuests();
 
         textList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -173,35 +165,103 @@ public class Quests extends JPanel implements MouseInteractable{
         this.ifActive = ifActive;
     }
 
-    private void handleWorld1Q(int index, MouseEvent e) {
-        if (index == 0) {
-            int currentScene = scene.getCurrentSceneIndex();
-            if(currentScene == 0) {
-                for(Npc npc : npcList) {
-                    if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
-                        && !npc.doneQuest) {
-                        // Determine which side of NPC to move to
-                        double playerX = player.getPosX();
-                        double npcX = npc.getPosX();
-                        double targetX;
-                        int deltaX = 0;
-                        if (playerX > npcX) {
-                            // If player is on right, stay on right
-                            targetX = npcX * 1.1; 
-                            deltaX = -20;
-                        } else {
-                            // If player is on left, stay on left
-                            targetX = npcX * 0.9; // 20 pixels to left of NPC
-                            deltaX = 20;
-                        }
-                        
-                        // Move player to appropriate position
-                        player.getAnimator().moveTo((int)targetX, deltaX);
-                        npc.onClick(e);
-                        break;
-                    }
+    public void addQuests(){
+        textListModel.clear();
+        for (int i = 0; i <= ifActive; i++) {
+            String questText = getQuestTextForIndex(i);
+
+            if (i == ifActive) {
+                textListModel.addElement(questText);
+            } else {
+                textListModel.addElement("<html><font color='#808080'>" + questText + "</font></html>");
+            }
+        }
+    }
+
+    private void q1World1(MouseEvent e){
+        Point clickPoint = e.getPoint();
+        if (clickPoint.x > 0 && clickPoint.y < screenSize.height * 0.4) {
+            setQuestStatus(++ifActive);
+            addQuests();
+        }
+    }
+
+    private void handleNpcClick(Npc npc, MouseEvent e){
+        // Determine which side of NPC to move to
+        double playerX = player.getPosX();
+        double npcX = npc.getPosX();
+        double targetX;
+        int deltaX = 0;
+        if (playerX > npcX) {
+            // If player is on right, stay on right
+            targetX = npcX * 1.1; 
+            deltaX = -20;
+        } else {
+            // If player is on left, stay on left
+            targetX = npcX * 0.9; // 20 pixels to left of NPC
+            deltaX = 20;
+        }
+        
+        // Move player to appropriate position
+        if((int) playerX != (int) targetX){
+            player.getAnimator().moveTo((int)targetX, deltaX);
+        }
+        npc.onClick(e);
+    }
+    private void q2World1(MouseEvent e){
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene == 0) {
+            for(Npc npc : npcList) {
+                if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
+                    && !npc.doneQuest) {
+                    handleNpcClick(npc, e);
+                    break;
                 }
             }
+        }else if(currentScene == 1){
+            for(Npc npc : npcList) {
+                if ((npc.getName().equals("Natty") || npc.getName().equals("Faithful")) 
+                    && !npc.doneQuest) {
+                    handleNpcClick(npc, e);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void q3World1(MouseEvent e){
+        double playerX = player.getPosX();
+        double objX = screenSize.width * 0.4;
+        double targetX;
+        int deltaX = 0;
+        if (playerX > objX) {
+            // If player is on right, stay on right
+            targetX = objX * 1.1; 
+            deltaX = -20;
+        } else {
+            // If player is on left, stay on left
+            targetX = objX * 0.9; // 20 pixels to left of NPC
+            deltaX = 20;
+        }
+        
+        if((int) playerX != (int) targetX){
+            player.getAnimator().moveTo((int)targetX, deltaX);
+        }
+        scene.setCurrentSceneIndex(3);
+        world.getBGMPlayer().stopBGM();
+        world.getBGMPlayer().playBGM("src/audio_assets/bgm/world1bgm.wav");
+        setQuestStatus(++ifActive);
+        addQuests();
+    }
+
+    private void handleWorld1Q(int index, MouseEvent e) {
+        Object source = e.getSource();
+        if(source == scene && index == 0){
+            q1World1(e);
+        }else if (source != scene && index == 1) {
+            q2World1(e); 
+        }else if(source != scene && index == 2){
+            q3World1(e);
         }
     }
     
