@@ -126,10 +126,10 @@ public class Rewards implements MouseInteractable, Freeable{
 
     private void handlePriestRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            allyProfiles.addProfile(KNIGHT, 0);
+            allyProfiles.setKnightProfileVisible();
             allyProfiles.addAlly(KNIGHT);
         } else if (DEATH.equals(enemyType)) {
-            allyProfiles.addProfile(WIZARD, 2);
+            allyProfiles.setWizardProfileVisible();
             allyProfiles.addAlly(WIZARD);
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
@@ -138,10 +138,10 @@ public class Rewards implements MouseInteractable, Freeable{
 
     private void handleWizardRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            allyProfiles.addProfile(PRIEST, 0);
+            allyProfiles.setPriestProfileVisible();
             allyProfiles.addAlly(PRIEST);
         } else if (DEATH.equals(enemyType)) {
-            allyProfiles.addProfile(KNIGHT, 2);
+            allyProfiles.setKnightProfileVisible();
             allyProfiles.addAlly(KNIGHT);
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
