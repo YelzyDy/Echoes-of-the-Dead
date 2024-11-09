@@ -310,8 +310,10 @@ public class Dialogues implements Freeable{
         }else{
             if(ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
-            npc.doneQuest = true;
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)) quests.incQ2Count();
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)){
+                quests.incQ2Count();
+                npc.doneQuest = true;
+            }
                     if(ID == 11 || ID == 13 || ID == 15){
                         world.getScene().remove(world.getScene().ally);
                         world.getScene().ally = null;
