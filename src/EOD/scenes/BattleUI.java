@@ -7,6 +7,7 @@ import EOD.gameInterfaces.Freeable;
 import EOD.objects.EchoesObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
+import EOD.utils.SFXPlayer;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -48,6 +49,7 @@ public class BattleUI extends JPanel implements Freeable{
     private EchoesObjects portal;
     private String temp;
     private JPanel bottomPanel;
+    private SFXPlayer sfxPlayer;
 
     public BattleUI(Player player){
         this.player = player;
@@ -56,6 +58,7 @@ public class BattleUI extends JPanel implements Freeable{
         this.textPanel = new JPanel(new GridLayout(3, 1));
         this.battleBars = new BattleBars();
         initializeUI();
+        sfxPlayer = SFXPlayer.getInstance();
     }
 
     @Override
@@ -455,6 +458,8 @@ public class BattleUI extends JPanel implements Freeable{
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                sfxPlayer = SFXPlayer.getInstance();
+                sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
                 super.mouseClicked(e);
             }
             @Override

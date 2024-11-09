@@ -81,6 +81,7 @@ public class BattleExperiment implements Skillable{
             });
             
             player.getAnimator().triggerSkillAnimation(skillNumber, (int)player.getXFactor());
+            player.playSfx(player, skillNumber);
             player.getAnimator().setMovingRight(true);
             battleUI.updateCooldowns();
             battleUI.updateTurnIndicator("Turn " + turnCount + " - Enemy Turn");

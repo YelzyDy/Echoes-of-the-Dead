@@ -6,6 +6,7 @@ import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.objects.SettingsWindow;
 import EOD.utils.BGMPlayer;
+import EOD.utils.SFXPlayer;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -17,6 +18,7 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     int width = screenSize.width;
     int height = screenSize.height;
     BGMPlayer bgmPlayer;
+    SFXPlayer sfxPlayer;
 
     public Main() {
         // Configure JFrame
@@ -94,9 +96,10 @@ public class Main extends javax.swing.JFrame implements MouseInteractable {
     @Override  
     public void onClick(MouseEvent e) {
         EchoesObjects clickedButton = (EchoesObjects) e.getSource();
-
+        sfxPlayer = SFXPlayer.getInstance();
+        sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if ("settings".equals(clickedButton.getName())){
-            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer);
+            SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, sfxPlayer);
             settingsWindow.setVisible(true); // Display the window
 
         } else if ("play".equals(clickedButton.getName())){

@@ -4,18 +4,18 @@
  */
 package EOD.characters;
 
-import java.awt.event.MouseEvent;
-import java.util.Random;
-import javax.swing.JLayeredPane;
 import EOD.animator.*;
 import EOD.characters.enemies.Enemy;
+import EOD.gameInterfaces.Entity;
+import EOD.gameInterfaces.MouseInteractable;
 import EOD.objects.*;
 import EOD.objects.inventory.Inventory;
 import EOD.objects.profiles.AllyProfiles;
 import EOD.objects.profiles.PlayerProfile;
-import EOD.gameInterfaces.Entity;
-import EOD.gameInterfaces.MouseInteractable;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.JLayeredPane;
 
 public class Player extends Character implements MouseInteractable{
     private PlayerAnimator animator;
@@ -546,5 +546,13 @@ public class Player extends Character implements MouseInteractable{
     @Override
     public void onExit(MouseEvent e) {
         
+    }
+
+    public void playSfx(Player player, int skillNumber) {
+        if (player.getCharacterType().equals("wizard")){
+            switch(skillNumber){
+                case 1: return; 
+            }
+        }
     }
 }

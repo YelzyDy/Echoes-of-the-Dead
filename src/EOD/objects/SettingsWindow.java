@@ -1,6 +1,7 @@
 package EOD.objects;
 
 import EOD.utils.BGMPlayer;
+import EOD.utils.SFXPlayer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +12,16 @@ import javax.swing.event.ChangeListener;
 public class SettingsWindow extends JFrame {
     private JRadioButton musicOnButton;
     private JRadioButton musicOffButton;
+    private JRadioButton sfxOnButton;
+    private JRadioButton sfxOffButton;
     private JSlider volumeSlider;
     private JLabel volumeLabel;
     private BGMPlayer bgmPlayer;
+    private SFXPlayer sfxPlayer;
     private static SettingsWindow instance = null;
-    private SettingsWindow(BGMPlayer bgmPlayer) {
-        
+    private SettingsWindow(BGMPlayer bgmPlayer, SFXPlayer sfxPlayer) {
+        this.bgmPlayer = bgmPlayer;
+        this.sfxPlayer = sfxPlayer;
         this.setTitle("Settings");
         this.setSize(400, 300);  // Increased height to accommodate slider
         this.setLocationRelativeTo(null);
@@ -24,21 +29,29 @@ public class SettingsWindow extends JFrame {
         this.setLayout(new GridLayout(5, 1));  // Increased rows for new components
 
         // Music toggle section
-        JLabel musicLabel = new JLabel("Enable or disable background music:");
+        JLabel musicLabel = new JLabel("Enable or disable sound:");
         musicLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // Create radio buttons
         musicOnButton = new JRadioButton("Music On", true);
         musicOffButton = new JRadioButton("Music Off");
+        sfxOnButton = new JRadioButton("SFX On", true);
+        sfxOffButton = new JRadioButton("SFX Off");
 
         // Group the radio buttons
         ButtonGroup musicGroup = new ButtonGroup();
         musicGroup.add(musicOnButton);
         musicGroup.add(musicOffButton);
 
+        ButtonGroup sfxGroup = new ButtonGroup();
+        sfxGroup.add(sfxOnButton);
+        sfxGroup.add(sfxOffButton);
+
         // Add action listeners to the buttons
         musicOnButton.addActionListener(new MusicToggleListener());
         musicOffButton.addActionListener(new MusicToggleListener());
+        sfxOnButton.addActionListener(new SfxToggleListener());
+        sfxOffButton.addActionListener(new SfxToggleListener());
 
         // Volume control section
         JPanel volumePanel = new JPanel(new FlowLayout());
@@ -59,15 +72,16 @@ public class SettingsWindow extends JFrame {
         this.add(musicLabel);
         this.add(musicOnButton);
         this.add(musicOffButton);
+        this.add(sfxOnButton);
+        this.add(sfxOffButton);
         this.add(new JLabel("Volume Control:")); // Section header
         this.add(volumePanel);
-        this.bgmPlayer = bgmPlayer;
     }
 
     // Singleton pattern: getInstance() to access the single instance
-    public static SettingsWindow getInstance(BGMPlayer bgmPlayer) {
-        if (instance == null) {
-            instance = new SettingsWindow(bgmPlayer);
+    public static SettingsWindow getInstance(BGMPlayer bgmPlayer, SFXPlayer sfxPlayer) {
+        if (instance == null || instance.bgmPlayer == null || instance.sfxPlayer == null) {
+            instance = new SettingsWindow(bgmPlayer, sfxPlayer);
         }
         return instance;
     }
@@ -88,6 +102,19 @@ public class SettingsWindow extends JFrame {
         }
     }
 
+    private class SfxToggleListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (sfxOnButton.isSelected()) {
+                sfxPlayer.setSFXEnabled(true);
+                sfxPlayer.playSFX(sfxPlayer.getFilePath());
+            } else if (sfxOffButton.isSelected()) {
+                sfxPlayer.setSFXEnabled(false);
+                sfxPlayer.stopSFX();
+            }
+        }
+    }
+
     // Inner class to handle volume changes
     private class VolumeChangeListener implements ChangeListener {
         @Override
@@ -98,6 +125,7 @@ public class SettingsWindow extends JFrame {
             // Assuming BGMPlayer has a setVolume method that accepts a value between 0.0 and 1.0
             float normalizedVolume = value / 100.0f;
             bgmPlayer.setVolume(normalizedVolume);
+            sfxPlayer.setVolume(normalizedVolume);
         }
     }
 }
