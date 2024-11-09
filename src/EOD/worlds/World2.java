@@ -1,8 +1,8 @@
 package EOD.worlds;
 
 import EOD.characters.*;
-import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Death;
+import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;

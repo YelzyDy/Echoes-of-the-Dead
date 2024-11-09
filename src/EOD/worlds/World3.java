@@ -194,7 +194,7 @@ public class World3 extends World{
                 shop.makeElementsVisible();
             } else if (source == obj && obj.getName().equals("portalNextWorld")){
                 scene.setCurrentSceneIndex(5);
-                super.setInitiateBattleUi(false);
+                super.initializeChoiceUI();
             }
         }    
     }
