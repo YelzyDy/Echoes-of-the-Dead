@@ -7,7 +7,7 @@ import EOD.listeners.*;
 import java.awt.event.MouseEvent;
 // This class makes NPC move randomly
 public class Npc extends Character implements MouseInteractable{
-    Dialogues dialogues = new Dialogues();
+    public Dialogues dialogues = new Dialogues();
     protected NpcAnimator animator;
     private boolean isStatic;
     public boolean doneQuest;
@@ -59,6 +59,7 @@ public class Npc extends Character implements MouseInteractable{
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
+        dialogues.setIsDialogueFinished(false);
         if(dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
         if (getCharacterType().equals("natty")){
             dialogues.displayDialogues(3, world);

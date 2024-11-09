@@ -27,7 +27,7 @@ public class Dialogues implements Freeable{
     private String playerType;
     private boolean isClickableDialogue = true;
     private JLabel pressToContinueLabel;
-
+    private boolean isDialogueFinished;
     public void free() {
         // Dispose of the JDialog to release system resources
         if (storyDialogue != null && storyDialogue.isVisible()) {
@@ -46,6 +46,7 @@ public class Dialogues implements Freeable{
         askButtonHoverIcon = null;
         skipButtonIcon = null;
         skipButtonHoverIcon = null;
+        isDialogueFinished = false;
     
         // If the story object holds resources, you may want to add a free method there too
         if (story != null) {
@@ -56,6 +57,14 @@ public class Dialogues implements Freeable{
         ID = -1;
         i = 0;
         isClickableDialogue = true;
+    }
+
+    public boolean getIsDialogueFinished(){
+        return isDialogueFinished;
+    }
+
+    public void setIsDialogueFinished(boolean isDialogueFinished){
+        this.isDialogueFinished = isDialogueFinished;
     }
 
     public void setPlayerType(String playerType){
@@ -193,6 +202,7 @@ public class Dialogues implements Freeable{
 
         skipButton.addActionListener(e -> {
             System.out.println("click");
+            isDialogueFinished = true;
             storyDialogue.dispose();
             if(ID == 11 || ID == 13 || ID == 15){
                 world.getScene().remove(world.getScene().ally);
@@ -293,6 +303,7 @@ public class Dialogues implements Freeable{
         }else{
             if(ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
+            isDialogueFinished = true;
                     if(ID == 11 || ID == 13 || ID == 15){
                         world.getScene().remove(world.getScene().ally);
                         world.getScene().ally = null;

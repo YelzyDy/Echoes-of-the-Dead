@@ -9,6 +9,7 @@ import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.scenes.SceneBuilder;
 import EOD.characters.Player;
+import EOD.dialogues.Dialogues;
 import EOD.characters.Npc;
 import java.util.ArrayList;
 import EOD.worlds.*;
@@ -25,6 +26,7 @@ public class Quests extends JPanel implements MouseInteractable{
     private SceneBuilder scene;
     private ArrayList<Npc> npcList;
     private World world;
+    private int quest1Count;
     public Quests() {
         this.textPanel = new JPanel();
         initializeUI();
@@ -35,6 +37,7 @@ public class Quests extends JPanel implements MouseInteractable{
         this.npcList = player.getPanel().npcList;
         this.scene = player.getPanel();
         this.world = player.getWorld();
+        quest1Count = 0;
     }
 
     private void initializeUI() {
@@ -167,7 +170,7 @@ public class Quests extends JPanel implements MouseInteractable{
         this.ifActive = ifActive;
     }
 
-    private void handleWorld1Q(int index, MouseEvent e) {
+    private boolean handleWorld1Q(int index, MouseEvent e) {
         if (index == 0) {
             int currentScene = scene.getCurrentSceneIndex();
             if(currentScene == 0) {
@@ -193,11 +196,18 @@ public class Quests extends JPanel implements MouseInteractable{
                         player.getAnimator().moveTo((int)targetX, deltaX);
                         npc.onClick(e);
                         npc.doneQuest = true;
-                        break;
+                        Dialogues dialogues = npc.dialogues;
+                        if(dialogues != null && dialogues.getStoryJDialog() != null && dialogues.getIsDialogueFinished()) 
+                        System.out.println("is dialogues displayable? " + dialogues.getStoryJDialog().isDisplayable());
+                        if (quest1Count < 2) quest1Count++;
                     }
+                }
+                if(quest1Count == 2){
+                    return true;
                 }
             }
         }
+        return false;
     }
     
     @Override
@@ -205,7 +215,9 @@ public class Quests extends JPanel implements MouseInteractable{
         int index = textList.locationToIndex(e.getPoint());
         System.out.println(index);
         if(world.getTitle().equals("world1")){
-            handleWorld1Q(index, e);
+            if(handleWorld1Q(index, e)){
+                player.getPanel().objList.get(1).setIsActivated(true);
+            }
         }
     }
 

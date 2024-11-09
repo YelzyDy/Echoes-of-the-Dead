@@ -47,8 +47,6 @@ public class SceneBuilder extends JPanel implements Freeable{
 
     private SceneTransitionHandler transitionHandler;
 
-    private AskDialogues askDial = new AskDialogues();
-
     public SceneBuilder(World world){
         this.world = world;
         this.setBackground(Color.black);
@@ -356,7 +354,7 @@ public void createWorldScene() {
         if(world.getPlayerList().get(1).getAttributes().skillEffectsRandom != null)  world.getPlayerList().get(1).getAttributes().skillEffectsRandom.setVisible(world.getPlayerList().get(1).getSkill4CD() != 0);
         for (EchoesObjects obj : objList) {
             if(obj.getName().equals("portal")){
-                obj.setVisible(obj.getIndex() == currentSceneIndex && askDial.sideQuest1());
+                obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated());
                     // (obj.getName().equals("portalNextWorld") ? enemyList.get(1).getIsDefeated() : true));
                    
             }else if(obj.getName().equals("portalMiniBoss")){

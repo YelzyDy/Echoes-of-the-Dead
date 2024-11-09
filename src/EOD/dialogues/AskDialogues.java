@@ -3,8 +3,6 @@ package EOD.dialogues;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-import EOD.worlds.World1;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,12 +13,6 @@ public class AskDialogues extends JFrame {
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.44);
     private String playerType;
-
-    private boolean isYoo = false;
-    private boolean side1 = false;
-    public boolean sideQuest1(){
-        return side1;
-    }
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
@@ -38,7 +30,6 @@ public class AskDialogues extends JFrame {
                 break;
             case 6:
                 story.yooLines();
-                isYoo = true;
                 break;
             case 8:
                 story.migginsLines();
@@ -130,12 +121,6 @@ public class AskDialogues extends JFrame {
 
                 optionButton.addActionListener(e -> {
                     textBox.setText(story.getLine(j + 1));
-                    
-                    if(isYoo && j==0){
-                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                        side1 = true;
-                    }
-
                     dialog.remove(scrollPane);
                     dialog.revalidate();
                     dialog.repaint();
