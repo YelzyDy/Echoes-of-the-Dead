@@ -185,7 +185,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             battle = new BattleUI(player);
             layeredPane.add(battle, Integer.valueOf(1));
         } else {
-            
+            battle.setVisible(false);
             return;
         }
     }
