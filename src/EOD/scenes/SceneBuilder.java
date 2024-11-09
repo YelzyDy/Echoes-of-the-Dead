@@ -223,11 +223,33 @@ public void createWorldScene() {
     public void updateDynamicQuests(){
         if(world == null) return;
         Quests quests = world.getQuests();
-        if(quests.quest2Count == 4){ 
-            objList.get(1).setIsActivated(true);
-            quests.setQuestStatus(++quests.ifActive);
-            quests.addQuests();
-            quests.quest2Count = 0;
+        if(quests.ifActive == 1){
+            if(quests.quest2Count == 4){ 
+                objList.get(1).setIsActivated(true);
+                quests.setQuestStatus(++quests.ifActive);
+                quests.addQuests();
+                quests.quest2Count = 0;
+            }
+        }
+
+        if(quests.ifActive == 2){
+            if((int)player.getPosX() == (int)quests.targetX){
+                setCurrentSceneIndex(3);
+                world.getBGMPlayer().stopBGM();
+                world.getBGMPlayer().playBGM("src/audio_assets/bgm/world1bgm.wav");
+                if(currentSceneIndex == 3){
+                    quests.setQuestStatus(3);
+                    quests.addQuests();
+                }
+            }
+        }
+
+        if(quests.ifActive == 3){
+            Enemy enemy = enemyList.get(0);
+            if(enemy.getHp() <= 0){
+                quests.setQuestStatus(4);
+                quests.addQuests();
+            }
         }
     }
 
@@ -264,7 +286,9 @@ public void createWorldScene() {
 
     private void updateBattleState(){
         if(player.getAnimator().getIsInBattle()){
-            if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()) world.getBattle().updateCooldowns();
+            if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
+                world.getBattle().updateCooldowns();
+            }
             world.closeQuests();
         }
     }

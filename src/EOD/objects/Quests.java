@@ -26,6 +26,8 @@ public class Quests extends JPanel implements MouseInteractable{
     private ArrayList<Npc> npcList;
     private World world;
     public int quest2Count;
+    public double targetX;
+
     public Quests() {
         this.textPanel = new JPanel();
         initializeUI();
@@ -232,7 +234,6 @@ public class Quests extends JPanel implements MouseInteractable{
     private void q3World1(MouseEvent e){
         double playerX = player.getPosX();
         double objX = screenSize.width * 0.4;
-        double targetX;
         int deltaX = 0;
         if (playerX > objX) {
             // If player is on right, stay on right
@@ -247,11 +248,10 @@ public class Quests extends JPanel implements MouseInteractable{
         if((int) playerX != (int) targetX){
             player.getAnimator().moveTo((int)targetX, deltaX);
         }
-        scene.setCurrentSceneIndex(3);
-        world.getBGMPlayer().stopBGM();
-        world.getBGMPlayer().playBGM("src/audio_assets/bgm/world1bgm.wav");
-        setQuestStatus(++ifActive);
-        addQuests();
+    }
+
+    private void q4World1(MouseEvent e){
+        scene.enemyList.get(0).onClick(e);
     }
 
     private void handleWorld1Q(int index, MouseEvent e) {
@@ -262,6 +262,8 @@ public class Quests extends JPanel implements MouseInteractable{
             q2World1(e); 
         }else if(source != scene && index == 2){
             q3World1(e);
+        }else if(source != scene && index == 3){
+            q4World1(e);
         }
     }
     
