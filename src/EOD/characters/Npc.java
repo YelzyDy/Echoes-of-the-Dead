@@ -59,7 +59,7 @@ public class Npc extends Character implements MouseInteractable{
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
-        dialogues.setIsDialogueFinished(false);
+        dialogues.setQuests(getPanel().getPlayer().getWorld().getQuests());
         if(dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
         if (getCharacterType().equals("natty")){
             dialogues.displayDialogues(3, world);

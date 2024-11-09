@@ -510,6 +510,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             worker.execute();
             btn_okCount += 1;
         }
+        if(scene.objList == null) return;
         for (EchoesObjects obj : scene.objList) {
             if (source == obj && ((obj.getName ().equals("portalMiniBoss") || obj.getName().equals("portal")) && 
                 (scene.enemyList.get(1).getIsDefeated() || scene.enemyList.get(0).getIsDefeated()))){

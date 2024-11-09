@@ -213,10 +213,18 @@ public void createWorldScene() {
                 updateGameState();
                 updateBattleState();
                 updateStats();
+                updateQuests();
                 repaint();
             }
         });
         gameLoopTimer.start();
+    }
+
+    public void updateQuests(){
+        if(world == null) return;
+        Quests quests = world.getQuests();
+        System.out.println("quest1 count: " + quests.quest1Count);
+        if(quests.quest1Count == 2) objList.get(1).setIsActivated(true);
     }
 
     public void updateStats(){
