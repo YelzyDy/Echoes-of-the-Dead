@@ -215,6 +215,7 @@ public void createWorldScene() {
                 updateStats();
                 updateDynamicQuests();
                 repaint();
+                System.out.println("Is player allowed to move? " + player.getAnimator().getIsMoving());
             }
         });
         gameLoopTimer.start();
@@ -281,7 +282,6 @@ public void createWorldScene() {
     public void configureBattle(Enemy enemy, EchoesObjects portal){
         for(Player player : world.getPlayerList()){
             player.getAnimator().setIsInBattle(true);
-            player.getAnimator().stopMovement();
             player.setPosX(screenSize.width * 0.35);
             player.getAnimator().setMovingRight(true);
         }

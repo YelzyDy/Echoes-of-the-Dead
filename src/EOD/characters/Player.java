@@ -536,7 +536,7 @@ public class Player extends Character implements MouseInteractable{
 
     @Override
     public void onClick(MouseEvent e) {
-        if (animator.getIsInBattle()){
+        if (animator.getIsInBattle() && (enemy != null && !enemy.getIsDefeated())){
             return;
         }
         int deltaX = ((int)e.getX() - (int)getPosX()) / 10;
