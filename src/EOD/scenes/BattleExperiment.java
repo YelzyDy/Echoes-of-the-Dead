@@ -228,6 +228,10 @@ public class BattleExperiment implements Skillable{
         enemy.setPosX((int) (screenSize.width * 0.65));
         //respawn at portal if defeated
         player.getPanel().setCurrentSceneIndex(battleUI.getPortal().getIndex());
+        for(Player player : player.getWorld().getPlayer().getAllyProfiles().getPlayerList()){
+            player.getAnimator().setIsInBattle(false);
+        }
+        battleUI.toggleInventoryOff();
         System.out.println("You lose");
         
     }

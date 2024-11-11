@@ -83,6 +83,11 @@ public class PlayerProfile implements MouseInteractable, Freeable {
         profileBorder = null;
     }
 
+    public void setVisible(boolean value){
+            profileBorder.setVisible(value);
+            profilePicture.setVisible(value);
+    }
+
     public void setPanel(JLayeredPane panel) {
         panel.add(profileBorder, Integer.valueOf(2));
         panel.add(profilePicture, Integer.valueOf(1));
