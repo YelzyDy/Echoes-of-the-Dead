@@ -1,4 +1,6 @@
 package EOD.scenes;
+import EOD.characters.Player;
+import EOD.dialogues.FullScreenDialogues;
 import java.awt.*;
 import javax.swing.*;
 
@@ -7,8 +9,16 @@ public class ChoiceUI extends JPanel {
     private final int width = (int) (screenSize.width * 0.95);
     private final int height = (int) (screenSize.height * 0.3);
     private final JPanel choicePanel;
+    private Player player;
+    private String[] buttonNames = {
+        "Faithful", "Ruby", "Akefay",
+        "Monologuer", "Natty", "Asriel",
+        "Renegald", "Chea", "Yoo"
+    };
     
-    public ChoiceUI() {
+    public ChoiceUI(Player player) {
+        this.player = player;
+
         // Main panel setup
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
@@ -28,7 +38,7 @@ public class ChoiceUI extends JPanel {
         textPanel.setPreferredSize(new Dimension(width, height / 3));
         
         // Dialogue text
-        JLabel dialogueLabel = new JLabel("<html><center>SOME DIALOGUE HERE<br>SO WHO DO YOU THINK IT IS?</center></html>");
+        JLabel dialogueLabel = new JLabel("<html><center>SO WHO DO YOU THINK IT IS?</center></html>");
         dialogueLabel.setFont(new Font("Arial", Font.BOLD, 24));
         dialogueLabel.setForeground(Color.WHITE);
         dialogueLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -40,14 +50,28 @@ public class ChoiceUI extends JPanel {
         choicePanel.setBackground(Color.BLACK);
         choicePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         
+        FullScreenDialogues dialogues = new FullScreenDialogues();
         // Create and add 9 buttons
         for (int i = 0; i < 9; i++) {
-            JButton button = new JButton();
+            JButton button = new JButton(buttonNames[i]);
             button.setBackground(Color.BLACK);
             button.setForeground(Color.WHITE);
             button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
             button.setFocusPainted(false);
             button.setFont(new Font("Arial", Font.PLAIN, 18));
+
+            button.addActionListener(e -> {
+                System.out.println(button.getText() + " button clicked!");
+                
+                if (player.getCharacterType().equals("wizard") && button.getText().equals("Yoo")) {
+                    dialogues.displayDialogue(0);
+                } else if (player.getCharacterType().equals("priest") && button.getText().equals("Natty")){
+                    dialogues.displayDialogue(0);
+                } else if (player.getCharacterType().equals("knight") && button.getText().equals("Faithful")){
+                    dialogues.displayDialogue(0);
+                }
+            });
+
             choicePanel.add(button);
         }
         
