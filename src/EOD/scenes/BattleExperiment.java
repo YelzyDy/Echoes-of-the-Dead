@@ -21,6 +21,7 @@ public class BattleExperiment implements Skillable{
     private int turnCount = 0;
     private boolean isProcessingTurn = false;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    protected boolean battleEnded = false;
 
     public boolean isProcessingTurn(){
         return isProcessingTurn;
@@ -160,6 +161,8 @@ public class BattleExperiment implements Skillable{
     }
 
     private void handleBattleEnd(boolean playerWon) {
+        if (battleEnded) return;
+        battleEnded = true;     
         isProcessingTurn = false;
         World world = player.getWorld();
         
@@ -175,6 +178,7 @@ public class BattleExperiment implements Skillable{
         for(Player player : world.getPlayerList()){
             player.reset(playerWon);
             player.setPosX(screenSize.width * 0.4);
+            player.getAnimator().setMoving(true);
         }
         player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.setSkillButtonsEnabled(false);

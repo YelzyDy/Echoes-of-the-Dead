@@ -158,6 +158,7 @@ public class BattleUI extends JPanel implements Freeable{
         battleBars.setEnemyStats(
            enemy.getHp()
         );
+        battleSample.battleEnded = false;
         rewards = new Rewards(battleSample);
         battleSample.setRewards(rewards);
         enemyWrapper.setVisible(true);

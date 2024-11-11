@@ -184,9 +184,8 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void movePlayerToEntity(Entity entity){
+    private void movePlayerToEntity(double entityX){
         double playerX = player.getPosX();
-        double entityX = entity.getPosX();
         double targetX;
         int deltaX = 0;
         if (playerX > entityX) {
@@ -206,7 +205,7 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     private void handleNpcClick(Npc npc, MouseEvent e){
-        movePlayerToEntity(npc);
+        movePlayerToEntity(npc.getPosX());
         npc.onClick(e);
     }
     private void q2World1(MouseEvent e){
@@ -218,6 +217,10 @@ public class Quests extends JPanel implements MouseInteractable{
                     handleNpcClick(npc, e);
                     break;
                 }
+                if((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
+                    && npc.doneQuest){
+                    movePlayerToEntity(screenSize.width * 1.1);
+                }
             }
         }else if(currentScene == 1){
             for(Npc npc : npcList) {
@@ -226,11 +229,17 @@ public class Quests extends JPanel implements MouseInteractable{
                     handleNpcClick(npc, e);
                     break;
                 }
+                if((npc.getName().equals("Natty") || npc.getName().equals("Faithful")) 
+                    && npc.doneQuest){
+                    movePlayerToEntity(screenSize.width * 0.01);
+                }
             }
         }
     }
 
     private void q3World1(MouseEvent e){
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene != 1) return;
         double playerX = player.getPosX();
         double objX = screenSize.width * 0.4;
         int deltaX = 0;
@@ -266,6 +275,11 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
+    private void q6World1(MouseEvent e){
+        // scene.objList.get(0).onClick(e);
+        movePlayerToEntity(scene.objList.get(0).getPosX());
+    }
+
     private void handleWorld1Q(int index, MouseEvent e) {
         Object source = e.getSource();
         if(source == scene && index == 0){
@@ -278,14 +292,15 @@ public class Quests extends JPanel implements MouseInteractable{
             q4World1(e);
         }else if(source != scene && index == 4){
             q5World1(e);
+        }else if(source != scene && index == 5){
+            q6World1(e);
         }
     }
     
     @Override
     public void onClick(MouseEvent e) {
         int index = textList.locationToIndex(e.getPoint());
-        System.out.println(index);
-        if(world.getTitle().equals("world1")){
+        if(world.getTitle().equals("world1") && index == ifActive){
             handleWorld1Q(index, e);
         }
     }

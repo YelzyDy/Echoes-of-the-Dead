@@ -233,6 +233,7 @@ public void createWorldScene() {
         }
 
         if(quests.ifActive == 2){
+            if(currentSceneIndex != 1)return;
             if((int)player.getPosX() == (int)quests.targetX){
                 setCurrentSceneIndex(3);
                 world.getBGMPlayer().stopBGM();
