@@ -165,7 +165,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     public void addQuests(){
         textListModel.clear();
-        for (int i = 0; i <= ifActive; i++) {
+        for (int i = ifActive; i >= 0; i--) {
             String questText = getQuestTextForIndex(i);
 
             if (i == ifActive) {
