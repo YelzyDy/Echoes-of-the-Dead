@@ -882,16 +882,26 @@ public class StoryLine implements Freeable{
 
                 this.size = i;
         }
+
+        public void preEnding() {
+                int i = 0;
+
+                this.arr[i++] = "Your journey nears its ends. You can't begin to fathom the idea of how far you've come. The friends and foes you made along the way, the obstacles you had to take, and the painstaking long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
+                this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
+                this.arr[i++] = "\"Your time is slipping away. Have you made a decision yet?\"";
+                this.arr[i++] = "As you hear those words spoken, you feel your throat run dry. You are faced with one of the most difficult decisions yet - a decision that could lead you to live your life once again. You went through the depths of despair rummaging for hope to find the future - or if there is any at all. Exhaustion sweeps through your core once more.";
+                this.arr[i++] = "Surprisingly, you remained calm, collected even and then, you remembered it. You remembered that the life you had once, was nothing but a cycle of agony. You remembered, and now, you are unsure again.";
+                this.arr[i++] = "\"I... I don't know. All I've been trying to do was care for people, why am I even here? I'm not even sure if … if I want to know.\"";
+                this.arr[i++] = "Feeling so done with everything, you didn't even want to think things through.";
+                this.arr[i++] = "Silence befell both of you as the weight of your unspoken thoughts filled the space between. Words lingered on the tip of your tongues, yet neither dared to break the fragile stillness. Not sure if the darkness saw itself in him, but this felt like a tribute to the fallen - the doubts, the fears, and the anguish that came rushing through.";
+                this.arr[i++] = "However, it is time to choose.";
+                this.arr[i++] = "\"Well... whatever it is that you doubt, you've come this far, and it's time to choose. Now, tell me. Who's on your mind?\"";
+
+                this.size = i;
+        }
         
         public void ending1() {
                 int i = 0;
-
-                this.arr[i++] = "Your journey nears its end. You can not begin to fathom the idea of how far you have come. The friends and foes you made along the way, the obstacles you had to take, and the painstakingly long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
-                this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
-                this.arr[i++] = "“Your time is slipping away. Have you made a decision yet?”";
-                this.arr[i++] = "Your throat tightens as you swallow hard. You've come so far—endured more than you thought possible—only to face the most difficult decision yet. One wrong move, one mistake, and all the progress you've made will all be for nothing.";
-                this.arr[i++] = "“I've made up my mind,” you finally say, your voice steady despite the anxiety clawing at your insides.";
-                this.arr[i++] = "“I know who it is.”";
 
                 this.arr[i++] = "There's a pause, a suffocating silence as if the universe itself is holding its breath. The veil of darkness that has cloaked your path begins to lift, parting like curtains to reveal the figure in the shadows.";
                 this.arr[i++] = "And there, standing in the dim light, is someone all too familiar.";
@@ -914,36 +924,11 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "You take a deep breath, summoning all the strength and resolve you have gained throughout your journey. You are not the same person who died before. You have fought your way through the darkest depths of the underworld, battled creatures that defy description, and now, you stand at the end of that road.";
                 this.arr[i++] = "“Let's finish this,” you mumbled.";
                 
-                this.arr[i++] = "The battle is over. Faithful is gone, he better be at the deepest point of the underworld now, never to be seen again.";
-                this.arr[i++] = "Death congratulates you.";
-                this.arr[i++] = "“Well done, no other mortal was able to put up with so much trouble like you did.” he chuckled.";
-                this.arr[i++] = "“Now, as promised. Do you have any last words? Your time here has come to an end.”";
-                this.arr[i++] = "“Well, will I be able to see anyone here again?” you asked.";
-                this.arr[i++] = "“Of course, they'll be waiting for you. I'll get to see you again in fifty years or so.” Death replied as he begins to dissipate.";
-                this.arr[i++] = "As the void around you begins to fade too, you feel wet sand enveloping you—and before you know it, you are laying on the seashore across the city. The weight of the afterlife lifts from your shoulders, and for the first time in what feels like an eternity, you breathe freely.";
-                this.arr[i++] = "You're alive.";
-                this.arr[i++] = "Opening your eyes, you find yourself standing in a familiar place. The sunlight filters through the palm trees, the scent of earth and sea filling the air. You're back. Back in the world of the living.";
-                this.arr[i++] = "A sense of peace washes over you. It's over. Finally, it's over.";
-                this.arr[i++] = "You close your eyes and take a deep breath, knowing that though your journey may have been long and painful. You wanted to tell your mom everything that have happened, but it might be pointless since she or no one will ever believe the things you went through.";
-                this.arr[i++] = "You are simply grateful to live a second time.";
-                this.arr[i++] = "And this time, you won't waste it.";
-                
                 this.size = i;
         }
             
         public void ending2() { 
                 int i = 0;
-
-                this.arr[i++] = "Your journey nears its ends. You can't begin to fathom the idea of how far you've come. The friends and foes you made along the way, the obstacles you had to take, and the painstaking long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
-                this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
-                this.arr[i++] = "\"Your time is slipping away. Have you made a decision yet?\"";
-                this.arr[i++] = "As you hear those words spoken, you feel your throat run dry. You are faced with one of the most difficult decisions yet - a decision that could lead you to live your life once again. You went through the depths of despair rummaging for hope to find the future - or if there is any at all. Exhaustion sweeps through your core once more.";
-                this.arr[i++] = "Surprisingly, you remained calm, collected even and then, you remembered it. You remembered that the life you had once, was nothing but a cycle of agony. You remembered, and now, you are unsure again.";
-                this.arr[i++] = "\"I... I don't know. All I've been trying to do was care for people, why am I even here? I'm not even sure if … if I want to know.\"";
-                this.arr[i++] = "Feeling so done with everything, you didn't even want to think things through.";
-                this.arr[i++] = "Silence befell both of you as the weight of your unspoken thoughts filled the space between. Words lingered on the tip of your tongues, yet neither dared to break the fragile stillness. Not sure if the darkness saw itself in him, but this felt like a tribute to the fallen - the doubts, the fears, and the anguish that came rushing through.";
-                this.arr[i++] = "However, it is time to choose.";
-                this.arr[i++] = "\"Well... whatever it is that you doubt, you've come this far, and it's time to choose. Now, tell me. Who's on your mind?\"";
 
                 this.arr[i++] = "Death vanishes from thin air and leaves a trail of darkness in his wake. The cold thick air came filling everything with a pause of deafening silence. And then suddenly, an unusual, high-pitched voice came right through. You hear a girl come running, arms open and extended as if prepared for a warm gripping hug. A very unusual act for a murderer about to face their justice.";
                 this.arr[i++] = "\"Nurseeee …. \" the loud voice fills the air, \"Nurseee, where are you??\" she shouts.";
@@ -981,33 +966,11 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "\"I was jealous of you, you know. You might forget, that was an asylum for murderers! Murderers like me. It was natural instinct. Something like, if I can't live a life, why don't I just die with the person who's loved by all.\"";
                 this.arr[i++] = "\"YOU TOTALLY ARE CRAZY. FINE. LET'S END THIS AND SEE IF YOU REALLY STILL CAN LIVE.\"";
 
-                this.arr[i++] = "The battle is over. Natty is gone, she better be at the deepest point of the underworld now, never to be seen again.";
-                this.arr[i++] = "Death congratulates you.";
-                this.arr[i++] = "\"Well done, no other mortal was able to put up with so much trouble like you did,\" he chuckles.";
-                this.arr[i++] = "\"Now, as promised. Do you have any last words? Your time here has come to an end.\"";
-                this.arr[i++] = "\"Will I be able to see anyone again?\" you ask.";
-                this.arr[i++] = "\"Of course, they'll be waiting for you. I'll get to see you again in fifty years or so, haha.\" Death replies, as he begins to dissipate.";
-                this.arr[i++] = "As the void around you begins to fade too, you feel wet sand enveloping you—and before you know it, you are laying on the seashore across the city. The weight of the afterlife lifts from your shoulders, and for the first time in what feels like an eternity, you breathe freely.";
-                this.arr[i++] = "You're alive.";
-                this.arr[i++] = "Opening your eyes, you find yourself standing in a familiar place. The sunlight filters through the palm trees, the scent of earth and sea filling the air.";
-                this.arr[i++] = "You're back. Back in the world of the living.";
-                this.arr[i++] = "A sense of peace washes over you. It's over. Finally, it's over.";
-                this.arr[i++] = "You close your eyes and take a deep breath, knowing that though your journey may have been long and painful, you've earned a second chance. You wanted to tell your mom everything that happened, but it might be pointless—no one would ever believe the things you went through.";
-                this.arr[i++] = "You are simply grateful to live a second time.";
-                this.arr[i++] = "And this time, you won't waste it.";
-
                 this.size = i;
         }
         
         public void ending3() {
                 int i = 0;
-                
-                this.arr[i++] = "Your journey nears its end. You cannot begin to fathom the idea of how far you have come. The friends and foes you made along the way, the obstacles you had to take, and the painstakingly long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
-                this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
-                this.arr[i++] = "“Your time is slipping away. Have you made a decision yet?”";
-                this.arr[i++] = "Your throat tightens as you swallow hard. You've come so far—endured more than you thought possible—only to face the most difficult decision yet. One wrong move, one mistake, and all the progress you've made will all be for nothing.";
-                this.arr[i++] = "“I've made up my mind,” you finally say, your voice steady despite the anxiety clawing at your insides.";
-                this.arr[i++] = "“I know who it is.”";
                 
                 this.arr[i++] = "A deafening silence takes place, as if the universe itself is holding its breath. The veil of darkness that has cloaked your path begins to lift, parting like curtains to reveal the figure in the shadows.";
                 this.arr[i++] = "And there, standing in the dim light, is someone all too familiar.";
@@ -1032,8 +995,21 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "You take a deep breath, summoning all the strength and resolve you have gained throughout your journey.";
                 this.arr[i++] = "You are not the same person who died before. You have fought your way through the darkest depths of the underworld, battled creatures that defy description, and now, you stand at the end of that road.";
                 this.arr[i++] = "“Let's finish this.”";
-                
-                this.arr[i++] = "The battle is over. Yoo is gone, he better be at the deepest point of the underworld now, never to be seen again.";
+
+                this.size = i;
+        }
+
+        public void postEnding(String playerType) {
+                int i = 0;
+
+                if (playerType.equals("knight")) {
+                        this.arr[i++] = "The battle is over. Faithful is gone, he better be at the deepest point of the underworld now, never to be seen again.";
+                } else if (playerType.equals("nurse")) {
+                        this.arr[i++] = "The battle is over. Natty is gone, she better be at the deepest point of the underworld now, never to be seen again.";
+                } else {
+                        this.arr[i++] = "The battle is over. Yoo is gone, he better be at the deepest point of the underworld now, never to be seen again.";
+                }
+
                 this.arr[i++] = "Death congratulates you.";
                 this.arr[i++] = "\"Well done, no other mortal was able to put up with so much trouble like you did,\" he chuckles.";
                 this.arr[i++] = "\"Now, as promised. Do you have any last words? Your time here has come to an end.\"";                
@@ -1053,26 +1029,6 @@ public class StoryLine implements Freeable{
 
         public void badEnding() {
                 int i = 0;
-                
-                this.arr[i++] = "Your journey nears its end. You can't begin to fathom the idea of how far you've come. The friends and foes you made along the way, the obstacles you had to overcome, and the painstakingly long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
-            
-                this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
-                
-                this.arr[i++] = "Death: \"Your time is slipping away. Have you made a decision yet?\"";
-            
-                this.arr[i++] = "As you hear those words spoken, you feel your throat run dry. You are faced with one of the most difficult decisions yet - a decision that could lead you to live your life once again. You went through the depths of despair rummaging for hope to find the future - or if there is any at all. Exhaustion sweeps through your core once more.";
-            
-                this.arr[i++] = "Surprisingly, you remain calm, collected even, and then, you remember it. You remembered that the life you had once was nothing but a cycle of agony. You remembered, and now, you are unsure again.";
-            
-                this.arr[i++] = "You: \"I... I don't know. All I've been trying to do was care for people, why am I even here? I'm not even sure if… if I want to know.\"";
-                
-                this.arr[i++] = "Feeling so done with everything, you don't even want to think things through.";
-            
-                this.arr[i++] = "Silence befell both of you as the weight of your unspoken thoughts filled the space between. Words lingered on the tips of your tongues, yet neither dared to break the fragile stillness. It felt like a tribute to the fallen - the doubts, the fears, and the anguish that came rushing through.";
-            
-                this.arr[i++] = "However, it is time to choose.";
-            
-                this.arr[i++] = "Death: \"Well... whatever it is that you doubt, you've come this far, and it's time to choose. Now, tell me. Who's on your mind?\"";
             
                 // Display the suspect list here for the player to choose from.
                 
