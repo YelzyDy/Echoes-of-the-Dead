@@ -473,7 +473,88 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Reginald: \"Oh, well, my departure was rather less dramatic, I fear. Passed away quietly, but with all the dignity befitting a gentleman.\"";
             
                 this.size = i;
-        }          
+        }
+        
+        public void asrielIntro() {
+                int i = 0;
+            
+                this.arr[i++] = "You approach the edge of the city and spot a figure brimming with energy, his voice booming as he greets you.";
+                this.arr[i++] = "Asriel: \"Hey! Finally, some company! I'm Asriel, and I'm ready to bring some action around here!\"";
+                this.arr[i++] = "You: \"Have we crossed paths before? Can't say I remember everyone I meet.\"";
+                this.arr[i++] = "Asriel: \"Oh, trust me, you'd remember me! I'm not one of those quiet, lost souls milling around.\"";
+                this.arr[i++] = "Asriel: \"Just because I'm all fired up doesn't mean I'm clueless about this place. It's rough, but I love a good thrill!\"";
+                this.arr[i++] = "You: \"Not everyone sees it that way. Guess you're one of a kind here.\"";
+                this.arr[i++] = "Asriel: \"You bet I am! Challenges don't scare me; they make me feel alive!\"";
+                this.arr[i++] = "You: \"Seems like you've fought your fair share of battles.\"";
+                this.arr[i++] = "Asriel: \"You bet! Now, enough talk—if you're with me, let's move. If not, stay out of my way!\"";
+            
+                this.size = i;
+        }
+            
+            public void asrielLines(String playerType) {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"From here, the city has this intense vibe. What's your take on it?\"";
+                this.arr[i++] = "Asriel: \"Intense? Nah, it's practically calling us for a showdown!\"";
+            
+                this.arr[i++] = "You: \"Which path leads to the forest?\"";
+                this.arr[i++] = "Asriel: \"Straight ahead! But honestly, what's the rush? Running off isn't my thing.\"";
+            
+                this.arr[i++] = "You: \"So, what do you think of this outfit?\"";
+                if (playerType.equals("knight")) {
+                    this.arr[i++] = "Asriel: \"Looks bulky! Can you even move in that?\"";
+                } else if (playerType.equals("priest")) {
+                    this.arr[i++] = "Asriel: \"Haha, it's got this old-school nurse vibe! Retro cool, I guess.\"";
+                } else {
+                    this.arr[i++] = "Asriel: \"You look like you're ready for an anime convention. Nice!\"";
+                }
+            
+                this.arr[i++] = "You: \"Care to tell me a bit about your past life?\"";
+                this.arr[i++] = "Asriel: \"Eh, life was a rush, but who cares about the past? I'm here to face whatever's next!\"";
+            
+                this.arr[i++] = "You: \"What's got you laughing to yourself?\"";
+                this.arr[i++] = "Asriel: \"Ha! Just remembered something hilarious. Doubt you'd get it unless you were me.\"";
+            
+                this.size = i;
+        }
+            
+            public void akifayIntro() {
+                int i = 0;
+            
+                this.arr[i++] = "You approach the edge of the city, noticing a reserved figure standing alone, looking down as if lost in thought.";
+                this.arr[i++] = "Akifay: \"Oh… hello. I didn't expect anyone to stop by. I'm… Akifay.\"";
+                this.arr[i++] = "You: \"I don't think we've met before, right?\"";
+                this.arr[i++] = "Akifay: \"No, I'd remember… I think. I… tend to keep to myself around here.\"";
+                this.arr[i++] = "You: \"It's alright. This place has a way of making anyone feel out of sorts.\"";
+                this.arr[i++] = "Akifay: \"Yes… it's so strange, so… heavy. Hard to find any comfort here.\"";
+                this.arr[i++] = "You: \"It takes some getting used to. Most just try to stay grounded however they can.\"";
+                this.arr[i++] = "Akifay: \"I suppose… I just try to stay unnoticed. I don't mean to be a bother.\"";
+                this.arr[i++] = "You: \"Don't worry, you're not a bother. I'm glad we crossed paths.\"";
+                this.arr[i++] = "Akifay: \"Oh… thank you. That's… very kind of you to say.\"";
+            
+                this.size = i;
+        }
+            
+            public void akifayLines(String playerType) {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"From here, the city seems pretty overwhelming, doesn't it?\"";
+                this.arr[i++] = "Akifay: \"Yes… it's so vast, so overpowering. Makes me feel so small.\"";
+            
+                this.arr[i++] = "You: \"Which path takes me to the forest?\"";
+                this.arr[i++] = "Akifay: \"Oh, um… straight ahead. But… if you don't have to, I wouldn't go there.\"";
+            
+                this.arr[i++] = "You: \"What do you think of this outfit?\"";
+                if (playerType.equals("knight")) {
+                    this.arr[i++] = "Akifay: \"Oh… it's very… protective. Looks… safe.\"";
+                } else if (playerType.equals("priest")) {
+                    this.arr[i++] = "Akifay: \"Oh… it's… familiar, almost comforting, really. Reminds me of a kind soul I once knew.\"";
+                } else {
+                    this.arr[i++] = "Akifay: \"Oh, um, it's quite… eye-catching. Very unique.\"";
+                }
+            
+                this.size = i;
+        }    
 
         public void wizardIntro(String playerType) {
                 int i = 0;
@@ -856,11 +937,11 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Your journey nears its ends. You can't begin to fathom the idea of how far you've come. The friends and foes you made along the way, the obstacles you had to take, and the painstaking long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
                 this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
                 this.arr[i++] = "\"Your time is slipping away. Have you made a decision yet?\"";
-                this.arr[i++] = "As you hear those words spoken, you feel your throat run dry. You are faced with one of the most difficult decisions yet – a decision that could lead you to live your life once again. You went through the depths of despair rummaging for hope to find the future – or if there is any at all. Exhaustion sweeps through your core once more.";
+                this.arr[i++] = "As you hear those words spoken, you feel your throat run dry. You are faced with one of the most difficult decisions yet - a decision that could lead you to live your life once again. You went through the depths of despair rummaging for hope to find the future - or if there is any at all. Exhaustion sweeps through your core once more.";
                 this.arr[i++] = "Surprisingly, you remained calm, collected even and then, you remembered it. You remembered that the life you had once, was nothing but a cycle of agony. You remembered, and now, you are unsure again.";
                 this.arr[i++] = "\"I... I don't know. All I've been trying to do was care for people, why am I even here? I'm not even sure if … if I want to know.\"";
                 this.arr[i++] = "Feeling so done with everything, you didn't even want to think things through.";
-                this.arr[i++] = "Silence befell both of you as the weight of your unspoken thoughts filled the space between. Words lingered on the tip of your tongues, yet neither dared to break the fragile stillness. Not sure if the darkness saw itself in him, but this felt like a tribute to the fallen – the doubts, the fears, and the anguish that came rushing through.";
+                this.arr[i++] = "Silence befell both of you as the weight of your unspoken thoughts filled the space between. Words lingered on the tip of your tongues, yet neither dared to break the fragile stillness. Not sure if the darkness saw itself in him, but this felt like a tribute to the fallen - the doubts, the fears, and the anguish that came rushing through.";
                 this.arr[i++] = "However, it is time to choose.";
                 this.arr[i++] = "\"Well... whatever it is that you doubt, you've come this far, and it's time to choose. Now, tell me. Who's on your mind?\"";
 
@@ -886,7 +967,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Totally disdained from what you just heard. You felt as if everything was all for naught. All your efforts, your choices, your time and what's most ridiculous of all is how you, trying to be a caring person got him in such an unfavorable situation.";
                 this.arr[i++] = "\"Accidentally. Well, I was too excited to see you so I immediately tried to see you and hehe... huh... OH MY GOSHH I KILLED YOU! I'm sorry. I didn't mean to? \"";
                 this.arr[i++] = "Confused on what he should be feeling, he tried to gather himself and all it lead to was a huge...";
-                this.arr[i++] = "\"AHAHAHHAAAHAAHAHAH... this is crazy. I can't even be mad at you cause this – this was all an accident.\"";
+                this.arr[i++] = "\"AHAHAHHAAAHAAHAHAH... this is crazy. I can't even be mad at you cause this - this was all an accident.\"";
                 this.arr[i++] = "You now understand everything. A person sick in the mind, trying to do things they're were not supposed to. What can you even do about that? For a second, you forgot all the anguish you felt. Now, everything should feel better, yet for some reason, you still can't escape the uneasy feeling you had when you first arrived in this world. Was this really the justice you've been looking for?";
                 this.arr[i++] = "\"Hey nurse, I'm really sorry about what happened okay? Can we just call it a truce? I, I didn't really mean it. hehe\"";
                 this.arr[i++] = "There was nothing left to do. It was stupid to be angry at a person who can't control himself. So, you let go of everything.";
@@ -968,7 +1049,42 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "And this time, you won't waste it.";
 
                 this.size = i;
-        }       
+        }
+
+        public void badEnding() {
+                int i = 0;
+                
+                this.arr[i++] = "Your journey nears its end. You can't begin to fathom the idea of how far you've come. The friends and foes you made along the way, the obstacles you had to overcome, and the painstakingly long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
+            
+                this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
+                
+                this.arr[i++] = "Death: \"Your time is slipping away. Have you made a decision yet?\"";
+            
+                this.arr[i++] = "As you hear those words spoken, you feel your throat run dry. You are faced with one of the most difficult decisions yet - a decision that could lead you to live your life once again. You went through the depths of despair rummaging for hope to find the future - or if there is any at all. Exhaustion sweeps through your core once more.";
+            
+                this.arr[i++] = "Surprisingly, you remain calm, collected even, and then, you remember it. You remembered that the life you had once was nothing but a cycle of agony. You remembered, and now, you are unsure again.";
+            
+                this.arr[i++] = "You: \"I... I don't know. All I've been trying to do was care for people, why am I even here? I'm not even sure if… if I want to know.\"";
+                
+                this.arr[i++] = "Feeling so done with everything, you don't even want to think things through.";
+            
+                this.arr[i++] = "Silence befell both of you as the weight of your unspoken thoughts filled the space between. Words lingered on the tips of your tongues, yet neither dared to break the fragile stillness. It felt like a tribute to the fallen - the doubts, the fears, and the anguish that came rushing through.";
+            
+                this.arr[i++] = "However, it is time to choose.";
+            
+                this.arr[i++] = "Death: \"Well... whatever it is that you doubt, you've come this far, and it's time to choose. Now, tell me. Who's on your mind?\"";
+            
+                // Display the suspect list here for the player to choose from.
+                
+                this.arr[i++] = "The cold, thick air fills everything with a pause of deafening silence. It envelops every inch of space that comes between you and Death. However, as seconds pass, it seems to whirl around Death more and more.";
+                
+                this.arr[i++] = "You wonder why Death hasn't said anything at all.";
+                
+                this.arr[i++] = "You failed.";
+                
+                this.size = i;
+        }
+            
 
         public String getLine(int i) {
                 return "<html><center>" + this.arr[i] + "</center></html>";

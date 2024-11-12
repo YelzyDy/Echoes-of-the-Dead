@@ -138,6 +138,24 @@ public class Dialogues implements Freeable{
             case 27:
                 story.reginaldIntro();
                 break;
+            case 29:
+                story.akifayIntro();
+                break;
+            case 31:
+                story.asrielIntro();
+                break;      
+            case 51:
+                story.ending1();
+                break;
+            case 53:
+                story.ending2();
+                break;
+            case 55:
+                story.ending3();
+                break;
+            case 57:
+                story.badEnding();
+                break;
             default:
                 break;
         }
