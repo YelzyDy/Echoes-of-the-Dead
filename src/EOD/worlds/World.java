@@ -186,16 +186,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(battle, Integer.valueOf(1));
     }
 
-    public void initializeChoiceUI() {
-        choicepan = new ChoiceUI(player);
-        // Set ChoiceUI position and size: yOffset is the height of the image (40% of the screen)
-        choicepan.setBounds(0, (int) (screenSize.height * 0.4), (int) (screenSize.width), (int) (screenSize.height * 0.6));
-        layeredPane.add(choicepan, Integer.valueOf(3));
-        player.getPlayerProfile().setVisible(false);
-    }
-    
-    
-
     public void openQuests() {
         this.quests = new Quests();
         quests.setPlayer(player);
