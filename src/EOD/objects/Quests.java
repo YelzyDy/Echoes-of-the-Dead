@@ -177,16 +177,16 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void movePlayerToEntity(double entityX){
+    private void movePlayerToLocation(double locationX){
         double playerX = player.getPosX();
         int deltaX = 0;
-        if (playerX > entityX) {
+        if (playerX > locationX) {
             // If player is on right, stay on right
-            targetX = entityX * 1.1; 
+            targetX = locationX * 1.1; 
             deltaX = ((int)targetX - (int)player.getPosX()) / 10;
         } else {
             // If player is on left, stay on left
-            targetX = entityX * 0.9; // 20 pixels to left of NPC
+            targetX = locationX * 0.9; // 20 pixels to left of NPC
             deltaX = ((int)targetX - (int)player.getPosX()) / 10;
         }
         
@@ -197,7 +197,7 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     private void handleNpcClick(Npc npc){
-        movePlayerToEntity(npc.getPosX());
+        movePlayerToLocation(npc.getPosX());
         npc.onClick(null);
     }
     private void q1World1(){
@@ -211,7 +211,7 @@ public class Quests extends JPanel implements MouseInteractable{
                 }
                 if((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
                     && npc.doneQuest){
-                    movePlayerToEntity(screenSize.width * 1.1);
+                    movePlayerToLocation(screenSize.width * 1.1);
                 }
             }
         }else if(currentScene == 1){
@@ -223,7 +223,7 @@ public class Quests extends JPanel implements MouseInteractable{
                 }
                 if((npc.getName().equals("Natty") || npc.getName().equals("Faithful")) 
                     && npc.doneQuest){
-                    movePlayerToEntity(screenSize.width * 0.01);
+                    movePlayerToLocation(screenSize.width * 0.01);
                 }
             }
         }
@@ -232,7 +232,7 @@ public class Quests extends JPanel implements MouseInteractable{
     private void q2World1(){
         int currentScene = scene.getCurrentSceneIndex();
         if(currentScene != 1) return;
-        movePlayerToEntity(screenSize.width * 0.4);
+        movePlayerToLocation(screenSize.width * 0.4);
     }
 
     private void q3World1(){
@@ -256,22 +256,22 @@ public class Quests extends JPanel implements MouseInteractable{
         // scene.objList.get(0).onClick(e);
         int currentScene = scene.getCurrentSceneIndex();
         if(currentScene != 2) return;
-        movePlayerToEntity(screenSize.width * 0.8);
+        movePlayerToLocation(screenSize.width * 0.8);
     }
 
-    private void handleWorld1Q(int index, MouseEvent e) {
+    private void handleWorld1Q(MouseEvent e) {
         Object source = e.getSource();
-        if(source == scene && index == 0){
+        if(source == scene && ifActive == 0){
             q0World1(e);
-        }else if (source != scene && index == 1) {
+        }else if (source != scene && ifActive == 1) {
             q1World1(); 
-        }else if(source != scene && index == 2){
+        }else if(source != scene && ifActive == 2){
             q2World1();
-        }else if(source != scene && index == 3){
+        }else if(source != scene && ifActive == 3){
             q3World1();
-        }else if(source != scene && index == 4){
+        }else if(source != scene && ifActive == 4){
             q4World1();
-        }else if(source != scene && index == 5){
+        }else if(source != scene && ifActive == 5){
             q5World1();
         }
     }
@@ -280,8 +280,8 @@ public class Quests extends JPanel implements MouseInteractable{
     public void onClick(MouseEvent e) {
         int index = textList.locationToIndex(e.getPoint());
         System.out.println("Index: " + index + "IfActive: " + ifActive);
-        if(world.getTitle().equals("world1") && index == ifActive){
-            handleWorld1Q(index, e);
+        if(world.getTitle().equals("world1") && index == 0){
+            handleWorld1Q(e);
         }
     }
 
