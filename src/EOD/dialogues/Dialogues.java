@@ -30,6 +30,7 @@ public class Dialogues implements Freeable{
     private boolean isClickableDialogue = true;
     protected JLabel pressToContinueLabel;
     protected Npc npc;
+    
     public void free() {
         // Dispose of the JDialog to release system resources
         if (storyDialogue != null && storyDialogue.isVisible()) {
@@ -66,6 +67,7 @@ public class Dialogues implements Freeable{
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
+        
     }
 
     public void setCoordinates(double x, double y){

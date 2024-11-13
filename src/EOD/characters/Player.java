@@ -463,7 +463,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 attributes.mana -= 30;
-                if (random.nextInt(100) < 55) { // 55% success rate
+                if (random.nextInt(100) < 45) { // 45% success rate
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
                     attributes.mana = Math.min(attributes.mana + 90, attributes.baseMana);
@@ -477,7 +477,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "priest":
                 int healing = (int)(attributes.baseHealth * 0.3);
-                damageDealt = (int)(attributes.baseHealth * 0.4);
+                damageDealt = healing;
                 attributes.health = Math.min(attributes.health + healing, attributes.baseHealth);
                 attributes.mana -= 40;
                 attributes.skill3Cd = 3;
@@ -497,15 +497,15 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill4Cd = 4;
                 attributes.mana -= 50;
                 applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));
-                actionString = "Binding Edge! Dealt " + damageDealt + " damage to the enemy";
+                actionString = "Truthbinding! Dealt " + damageDealt + " damage to the enemy";
                 return true;
 
             case "wizard":
-                damageDealt = 50 + (int)(attributes.mana * 0.3);
+                damageDealt = 30 + (int)(attributes.baseMana * 0.3);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
-                actionString = "Explosion! Dealt " + damageDealt + " damage to the enemy";
+                actionString = "Azure Inferno! Dealt " + damageDealt + " damage to the enemy";
                 return true;
 
             case "priest":
@@ -517,7 +517,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.42, 0.15);
-                actionString = "Divine Retribution! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
+                actionString = "Vengeful Vitality! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
                 ArrayList<Player> playerList = this.getWorld().getPlayerList();
                 for(Player player : playerList){
                     player.getAttributes().setHp(player.getAttributes().getHp() + (int)(player.getAttributes().getBaseHp()*0.3));
