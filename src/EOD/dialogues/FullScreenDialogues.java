@@ -14,11 +14,20 @@ public class FullScreenDialogues extends JFrame {
     private final int x = 0;
     private final int y = 23;
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
+    private String playerType;
+
+    public void setPlayerType(String playerType){
+        this.playerType = playerType;
+    }
 
     public void displayDialogue(int ID) {
 
         switch (ID) {
             case 0: story.exposition();
+                break;
+            case 1: story.postEnding(playerType);
+                break;
+            case 2: story.badEnding();
                 break;
             default:
                 break;

@@ -138,6 +138,26 @@ public class Dialogues implements Freeable{
             case 27:
                 story.reginaldIntro();
                 break;
+            case 29:
+                story.akifayIntro();
+                break;
+            case 31:
+                story.asrielIntro();
+                break;
+            case 101: story.preEnding();
+                break;      
+            case 103:
+                story.ending1();
+                break;
+            case 105:
+                story.ending2();
+                break;
+            case 107:
+                story.ending3();
+                break;
+            case 109:
+                story.badEnding();
+                break;
             default:
                 break;
         }
@@ -213,6 +233,7 @@ public class Dialogues implements Freeable{
             if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)){
                 npc.doneQuest = true;
             }
+
             if(ID == 11 || ID == 13 || ID == 15){
                 world.getScene().remove(world.getScene().ally);
                 world.getScene().ally = null;
@@ -341,5 +362,3 @@ public class Dialogues implements Freeable{
     }
 
 }
-
-// Ask me nalang if naa mo questions with the Dialogues, giremove nako ang comments temporarily para easier debugging - Blair
