@@ -232,6 +232,7 @@ public void createWorldScene() {
                 if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance") || npc.getName().equals("Faithful") || npc.getName().equals("Natty")) 
                     && npc.doneQuest) {
                         npc.onExit(null);
+                        npc.dialogues.askButton.setVisible(true);
                         switch (npc.getName()) {
                             case "Yoo" -> yooDone = true;
                             case "Constance" -> constanceDone = true;
@@ -275,6 +276,7 @@ public void createWorldScene() {
                     if ((npc.getName().equals("Miggins")) 
                         && !npc.doneQuest) {
                         npc.onExit(null);
+                        npc.dialogues.askButton.setVisible(true);
                     }
                 }
                 quests.targetX = -15;
