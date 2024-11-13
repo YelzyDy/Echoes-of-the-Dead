@@ -11,16 +11,16 @@ public class AskDialogues extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private final int x = 6;
-    private final int y = (int) (screenSize.height * 0.44);
+    private final int y = (int) (screenSize.height * 0.4);
     private String playerType;
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
     }
-    public void openScrollableOptions(int ID, JDialog dialog, JLabel textBox) {
-
+    public void openScrollableOptions(int ID, Dialogues dialogues, JLabel textBox) {
         // LOAD NPC
-
+        JDialog dialog = dialogues.getStoryJDialog();
+        dialogues.pressToContinueLabel.setVisible(false);
         switch (ID) {
             case 2:
                 story.missConstanceLines();
@@ -122,6 +122,7 @@ public class AskDialogues extends JFrame {
                 optionButton.addActionListener(e -> {
                     textBox.setText(story.getLine(j + 1));
                     dialog.remove(scrollPane);
+                    dialogues.pressToContinueLabel.setVisible(true);
                     dialog.revalidate();
                     dialog.repaint();
                 });

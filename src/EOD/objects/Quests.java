@@ -202,16 +202,17 @@ public class Quests extends JPanel implements MouseInteractable{
     }
     private void q1World1(){
         int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene != 1 || currentScene != 0){
+            if(currentScene > 1 || currentScene > 0 )movePlayerToLocation(screenSize.width * 0.01);
+            else movePlayerToLocation(screenSize.width * 1.1);
+        }
+
         if(currentScene == 0) {
             for(Npc npc : npcList) {
                 if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
                     && !npc.doneQuest) {
                     handleNpcClick(npc);
                     break;
-                }
-                if((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
-                    && npc.doneQuest){
-                    movePlayerToLocation(screenSize.width * 1.1);
                 }
             }
         }else if(currentScene == 1){
@@ -221,18 +222,18 @@ public class Quests extends JPanel implements MouseInteractable{
                     handleNpcClick(npc);
                     break;
                 }
-                if((npc.getName().equals("Natty") || npc.getName().equals("Faithful")) 
-                    && npc.doneQuest){
-                    movePlayerToLocation(screenSize.width * 0.01);
-                }
             }
         }
     }
 
     private void q2World1(){
         int currentScene = scene.getCurrentSceneIndex();
-        if(currentScene != 1) return;
-        movePlayerToLocation(screenSize.width * 0.4);
+        if(currentScene != 1){
+            if(currentScene > 1)movePlayerToLocation(screenSize.width * 0.01);
+            else movePlayerToLocation(screenSize.width * 1.1);
+        }else{
+            movePlayerToLocation(screenSize.width * 0.4);
+        }
     }
 
     private void q3World1(){
@@ -241,7 +242,10 @@ public class Quests extends JPanel implements MouseInteractable{
 
     private void q4World1(){
         int currentScene = scene.getCurrentSceneIndex();
-        if(currentScene == 2) {
+        if(currentScene != 2){
+            if(currentScene > 2)movePlayerToLocation(screenSize.width * 0.01);
+            else movePlayerToLocation(screenSize.width * 1.1);
+        }else{
             for(Npc npc : npcList) {
                 if ((npc.getName().equals("Miggins")) 
                     && !npc.doneQuest) {
@@ -255,8 +259,12 @@ public class Quests extends JPanel implements MouseInteractable{
     private void q5World1(){
         // scene.objList.get(0).onClick(e);
         int currentScene = scene.getCurrentSceneIndex();
-        if(currentScene != 2) return;
-        movePlayerToLocation(screenSize.width * 0.8);
+        if(currentScene != 2){
+            if(currentScene > 2)movePlayerToLocation(screenSize.width * 0.01);
+            else movePlayerToLocation(screenSize.width * 1.1);
+        }else{
+            movePlayerToLocation(screenSize.width * 0.8);
+        }
     }
 
     private void handleWorld1Q(MouseEvent e) {

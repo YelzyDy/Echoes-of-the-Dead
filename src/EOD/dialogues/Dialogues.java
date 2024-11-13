@@ -2,7 +2,6 @@ package EOD.dialogues;
 
 import EOD.characters.Npc;
 import EOD.gameInterfaces.Freeable;
-import EOD.objects.Quests;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
 import java.awt.*;
@@ -15,7 +14,7 @@ public class Dialogues implements Freeable{
     private StoryLine story = new StoryLine();
     private AskDialogues askDialogues =  new AskDialogues();
     private JDialog storyDialogue;
-    private JButton skipButton, askButton;
+    public JButton skipButton, askButton;
     private JLabel textBox;
     private ImageIcon askButtonIcon, askButtonHoverIcon, skipButtonIcon, skipButtonHoverIcon;
     private JPanel buttonPanel;
@@ -29,9 +28,8 @@ public class Dialogues implements Freeable{
     private World world;
     private String playerType;
     private boolean isClickableDialogue = true;
-    private JLabel pressToContinueLabel;
-    private Quests quests;
-    private Npc npc;
+    protected JLabel pressToContinueLabel;
+    protected Npc npc;
     public void free() {
         // Dispose of the JDialog to release system resources
         if (storyDialogue != null && storyDialogue.isVisible()) {
@@ -82,14 +80,9 @@ public class Dialogues implements Freeable{
         textBox.setFont(new Font("Monospaced", Font.PLAIN, (int)size));
     }
 
-    public void setQuests(Quests quests){
-        this.quests = quests;
-    }
-
     public void displayDialogues(int ID, World world) {
         this.world = world;
         // LOAD NPC
-
         this.ID = ID;
         switch (ID) {
             case 1:
@@ -204,6 +197,7 @@ public class Dialogues implements Freeable{
         askButton.setFocusPainted(false);
         askButton.setBorderPainted(false);
         askButton.setContentAreaFilled(false);
+        askButton.setVisible(false);
 
         // BUTTON PANEL
 
@@ -261,7 +255,7 @@ public class Dialogues implements Freeable{
             buttonPanel.setVisible(false);
             textBox.setText(null);
             askDialogues.setPlayerType(playerType);
-            askDialogues.openScrollableOptions(this.ID, storyDialogue, textBox);
+            askDialogues.openScrollableOptions(this.ID, this, textBox);
         });
 
         askButton.addMouseListener(new MouseAdapter() {
@@ -287,9 +281,9 @@ public class Dialogues implements Freeable{
         pressToContinueLabel.setFont(new Font("Monospaced", Font.PLAIN, (int)(screenSize.width * 0.01)));
         pressToContinueLabel.setForeground(Color.WHITE);
         pressToContinueLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(screenSize.height * 0.1), 0));
+        pressToContinueLabel.setVisible(true);
         if(!(ID == 17 || ID == 19 || ID == 21 || ID == 23))
         storyDialogue.add(pressToContinueLabel, BorderLayout.SOUTH);  // Adding label to bottom
-
         pressToContinueLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
