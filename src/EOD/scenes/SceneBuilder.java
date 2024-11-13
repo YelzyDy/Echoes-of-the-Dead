@@ -15,14 +15,14 @@ import EOD.worlds.*;
 import EOD.utils.*;
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
-import EOD.dialogues.AskDialogues;
 import EOD.objects.*;
 import EOD.animator.Animator;
 import EOD.gameInterfaces.Freeable;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
-
+import java.awt.event.MouseEvent;
+import java.awt.Component;
 
 /**
  *
@@ -215,7 +215,6 @@ public void createWorldScene() {
                 updateStats();
                 updateDynamicQuests();
                 repaint();
-                System.out.println("Is player allowed to move? " + player.getAnimator().getIsMoving());
             }
         });
         gameLoopTimer.start();
@@ -225,20 +224,34 @@ public void createWorldScene() {
         if(world == null) return;
         Quests quests = world.getQuests();
         if(quests.ifActive == 1){
-            if(quests.quest2Count == 4){ 
-                objList.get(1).setIsActivated(true);
-                quests.setQuestStatus(++quests.ifActive);
-                quests.addQuests();
-                quests.quest2Count = 0;
+            boolean yooDone = false;
+            boolean constanceDone = false;
+            boolean faithfulDone = false;
+            boolean nattyDone = false;
+            for(Npc npc : npcList) {
+                if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance") || npc.getName().equals("Faithful") || npc.getName().equals("Natty")) 
+                    && npc.doneQuest) {
+                        npc.onExit(null);
+                        switch (npc.getName()) {
+                            case "Yoo" -> yooDone = true;
+                            case "Constance" -> constanceDone = true;
+                            case "Faithful" -> faithfulDone = true;
+                            case "Natty" -> nattyDone = true;
+                        }
+                }
+                if (yooDone && constanceDone && faithfulDone && nattyDone) {
+                    objList.get(1).setIsActivated(true);
+                    quests.setQuestStatus(++quests.ifActive);  // Increment quest status
+                    quests.addQuests();
+                    quests.targetX = -15;
+                }
             }
         }
 
         if(quests.ifActive == 2){
             if(currentSceneIndex != 1)return;
             if((int)player.getPosX() == (int)quests.targetX){
-                setCurrentSceneIndex(3);
-                world.getBGMPlayer().stopBGM();
-                world.getBGMPlayer().playBGM("src/audio_assets/bgm/world1bgm.wav");
+                clickObject(objList.get(1));
             }
             if(currentSceneIndex == 3){
                 quests.setQuestStatus(3);
@@ -258,8 +271,40 @@ public void createWorldScene() {
             if(npcList.get(3).doneQuest){
                 quests.setQuestStatus(5);
                 quests.addQuests();
+                for(Npc npc : npcList) {
+                    if ((npc.getName().equals("Miggins")) 
+                        && !npc.doneQuest) {
+                        npc.onExit(null);
+                    }
+                }
+                quests.targetX = -15;
             }
         }
+
+        if(quests.ifActive == 5){
+            if(currentSceneIndex != 2)return;
+            if((int)player.getPosX() == (int)quests.targetX){  
+                clickObject(objList.get(0));
+                quests.setQuestStatus(6);
+                quests.addQuests();
+            }
+        }
+    }
+
+    private void clickObject(Component obj){
+        Component targetComponent = obj;
+        // Create a fake MouseEvent targeting the desired component
+        MouseEvent fakeClickEvent = new MouseEvent(
+            targetComponent,                 // Target component
+            MouseEvent.MOUSE_CLICKED,        // Event type
+            System.currentTimeMillis(),      // Event time
+            0,                               // Modifiers (no modifiers here)
+            targetComponent.getX(),          // X position
+            targetComponent.getY(),          // Y position
+            1,                               // Click count
+            false                            // Not a popup trigger
+        );
+        world.onClick(fakeClickEvent);
     }
 
     public void updateStats(){

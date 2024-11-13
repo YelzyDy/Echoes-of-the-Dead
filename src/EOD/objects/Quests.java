@@ -12,7 +12,6 @@ import EOD.characters.Player;
 import EOD.characters.Npc;
 import java.util.ArrayList;
 import EOD.worlds.*;
-import EOD.gameInterfaces.Entity;
 public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -26,7 +25,6 @@ public class Quests extends JPanel implements MouseInteractable{
     private SceneBuilder scene;
     private ArrayList<Npc> npcList;
     private World world;
-    public int quest2Count;
     public double targetX;
 
     public Quests() {
@@ -40,11 +38,6 @@ public class Quests extends JPanel implements MouseInteractable{
         this.scene = player.getPanel();
         this.scene.addMouseListener(new MouseClickListener(this));
         this.world = player.getWorld();
-        quest2Count = 0;
-    }
-
-    public void incQ2Count(){
-        if(quest2Count < 4) quest2Count++;
     }
 
     private void initializeUI() {
@@ -176,7 +169,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void q1World1(MouseEvent e){
+    private void q0World1(MouseEvent e){
         Point clickPoint = e.getPoint();
         if (clickPoint.x > 0 && clickPoint.y < screenSize.height * 0.4) {
             setQuestStatus(++ifActive);
@@ -186,16 +179,15 @@ public class Quests extends JPanel implements MouseInteractable{
 
     private void movePlayerToEntity(double entityX){
         double playerX = player.getPosX();
-        double targetX;
         int deltaX = 0;
         if (playerX > entityX) {
             // If player is on right, stay on right
             targetX = entityX * 1.1; 
-            deltaX = -20;
+            deltaX = ((int)targetX - (int)player.getPosX()) / 10;
         } else {
             // If player is on left, stay on left
             targetX = entityX * 0.9; // 20 pixels to left of NPC
-            deltaX = 20;
+            deltaX = ((int)targetX - (int)player.getPosX()) / 10;
         }
         
         // Move player to appropriate position
@@ -204,17 +196,17 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void handleNpcClick(Npc npc, MouseEvent e){
+    private void handleNpcClick(Npc npc){
         movePlayerToEntity(npc.getPosX());
-        npc.onClick(e);
+        npc.onClick(null);
     }
-    private void q2World1(MouseEvent e){
+    private void q1World1(){
         int currentScene = scene.getCurrentSceneIndex();
         if(currentScene == 0) {
             for(Npc npc : npcList) {
                 if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
                     && !npc.doneQuest) {
-                    handleNpcClick(npc, e);
+                    handleNpcClick(npc);
                     break;
                 }
                 if((npc.getName().equals("Yoo") || npc.getName().equals("Constance")) 
@@ -226,7 +218,7 @@ public class Quests extends JPanel implements MouseInteractable{
             for(Npc npc : npcList) {
                 if ((npc.getName().equals("Natty") || npc.getName().equals("Faithful")) 
                     && !npc.doneQuest) {
-                    handleNpcClick(npc, e);
+                    handleNpcClick(npc);
                     break;
                 }
                 if((npc.getName().equals("Natty") || npc.getName().equals("Faithful")) 
@@ -237,69 +229,57 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void q3World1(MouseEvent e){
+    private void q2World1(){
         int currentScene = scene.getCurrentSceneIndex();
         if(currentScene != 1) return;
-        double playerX = player.getPosX();
-        double objX = screenSize.width * 0.4;
-        int deltaX = 0;
-        if (playerX > objX) {
-            // If player is on right, stay on right
-            targetX = objX * 1.1; 
-            deltaX = -20;
-        } else {
-            // If player is on left, stay on left
-            targetX = objX * 0.9; // 20 pixels to left of NPC
-            deltaX = 20;
-        }
-        
-        if((int) playerX != (int) targetX){
-            player.getAnimator().moveTo((int)targetX, deltaX);
-        }
+        movePlayerToEntity(screenSize.width * 0.4);
     }
 
-    private void q4World1(MouseEvent e){
-        scene.enemyList.get(0).onClick(e);
+    private void q3World1(){
+        scene.enemyList.get(0).onClick(null);
     }
 
-    private void q5World1(MouseEvent e){
+    private void q4World1(){
         int currentScene = scene.getCurrentSceneIndex();
         if(currentScene == 2) {
             for(Npc npc : npcList) {
                 if ((npc.getName().equals("Miggins")) 
                     && !npc.doneQuest) {
-                    handleNpcClick(npc, e);
+                    handleNpcClick(npc);
                     break;
                 }
             }
         }
     }
 
-    private void q6World1(MouseEvent e){
+    private void q5World1(){
         // scene.objList.get(0).onClick(e);
-        movePlayerToEntity(scene.objList.get(0).getPosX());
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene != 2) return;
+        movePlayerToEntity(screenSize.width * 0.8);
     }
 
     private void handleWorld1Q(int index, MouseEvent e) {
         Object source = e.getSource();
         if(source == scene && index == 0){
-            q1World1(e);
+            q0World1(e);
         }else if (source != scene && index == 1) {
-            q2World1(e); 
+            q1World1(); 
         }else if(source != scene && index == 2){
-            q3World1(e);
+            q2World1();
         }else if(source != scene && index == 3){
-            q4World1(e);
+            q3World1();
         }else if(source != scene && index == 4){
-            q5World1(e);
+            q4World1();
         }else if(source != scene && index == 5){
-            q6World1(e);
+            q5World1();
         }
     }
     
     @Override
     public void onClick(MouseEvent e) {
         int index = textList.locationToIndex(e.getPoint());
+        System.out.println("Index: " + index + "IfActive: " + ifActive);
         if(world.getTitle().equals("world1") && index == ifActive){
             handleWorld1Q(index, e);
         }

@@ -211,7 +211,6 @@ public class Dialogues implements Freeable{
             }
             
             if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)){
-                quests.incQ2Count();
                 npc.doneQuest = true;
             }
             if(ID == 11 || ID == 13 || ID == 15){
@@ -319,7 +318,6 @@ public class Dialogues implements Freeable{
             }
 
             if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)){
-                quests.incQ2Count();
                 npc.doneQuest = true;
             }
                     if(ID == 11 || ID == 13 || ID == 15){

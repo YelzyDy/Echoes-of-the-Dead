@@ -101,7 +101,6 @@ public class Npc extends Character implements MouseInteractable{
 
     @Override
     public void onHover(MouseEvent e) {
-        System.out.println("hoverhover");
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
