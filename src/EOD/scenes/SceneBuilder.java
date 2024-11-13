@@ -257,6 +257,7 @@ public void createWorldScene() {
             if(currentSceneIndex == 3){
                 quests.setQuestStatus(3);
                 quests.addQuests();
+                quests.targetX = -15;
             }
         }
 
@@ -289,8 +290,20 @@ public void createWorldScene() {
                 clickObject(objList.get(0));
                 quests.setQuestStatus(6);
                 quests.addQuests();
+                quests.targetX = -15;
             }
         }
+
+        if(quests.ifActive == 6){
+            if(currentSceneIndex != 2)return;
+            if((int)player.getPosX() == (int)quests.targetX){  
+                clickObject(objList.get(2));
+                quests.setQuestStatus(7);
+                quests.addQuests();
+                quests.targetX = -15;
+            }
+        }
+
     }
 
     private void clickObject(Component obj){
