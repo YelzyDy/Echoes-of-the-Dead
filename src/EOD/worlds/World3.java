@@ -10,6 +10,7 @@ import EOD.characters.enemies.Killer;
 import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.MouseEvent;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
  * @author zendy
  */
 public class World3 extends World{
+    private boolean isKillerFound;
+    private ChoiceUI choicepan;
     public World3(Player player, ArrayList<Player> playerList){
         super("world3");
         scene = new SceneBuilder(this);
@@ -93,8 +96,7 @@ public class World3 extends World{
 
             scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
             scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
-            scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27));
-            for (EchoesObjects obj : scene.objList) {
+           for (EchoesObjects obj : scene.objList) {
                 /*if (obj.getName().equals("portalNextWorld") && !isMiniBossDefeated){
                     obj.setVisible(false);
                     continue;
@@ -103,8 +105,6 @@ public class World3 extends World{
                 if (obj.getName().equals("portal")) {
                         obj.setIndex(1);
                 } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
-                    obj.setIndex(2);
-                } else if (obj.getName().equals("portalNextWorld")){
                     obj.setIndex(2);
                 }
                 obj.addMouseListener(new MouseClickListener(this));;
@@ -139,7 +139,7 @@ public class World3 extends World{
             } else if (npc.getName().equals("Natty")){
                 npc.setIndex(0);
             } else if (npc.getName().equals("Reaper")){
-                npc.setIndex(5);
+                npc.setIndex(4);
             } 
         }
     }
@@ -157,7 +157,7 @@ public class World3 extends World{
             if (enemy.getName().equals("Skeleton")) {
                 enemy.setIndex(3);
             } else if(enemy.getName().equals("Killer")) {
-                enemy.setIndex(4);
+                enemy.setIndex(5);
             }
         }
     }
@@ -180,22 +180,17 @@ public class World3 extends World{
                     bgmPlayer.stopBGM();
                     bgmPlayer.playBGM("src/audio_assets/bgm/world3bgm.wav");
                 }
-            }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
-                if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
-                    scene.setCurrentSceneIndex(4);
-                    bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
-                } else {
-                    scene.setCurrentSceneIndex(2);
-                    bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/bgm/world3bgm.wav");
-                }
+            } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
+                scene.setCurrentSceneIndex(4);
+                choicepan = new ChoiceUI(this.player, this); // Pass World3 instance to ChoiceUI
+                choicepan.setBounds(0, (int) (screenSize.height * 0.4), 
+                                  (int) (screenSize.width), 
+                                  (int) (screenSize.height * 0.6));
+                getPane().add(choicepan, Integer.valueOf(3));
+                player.getPlayerProfile().setVisible(false);
             }else if(source == obj && obj.getName().equals("shop")){
                 shop.makeElementsVisible();
-            } else if (source == obj && obj.getName().equals("portalNextWorld")){
-                scene.setCurrentSceneIndex(5);
-                super.initializeChoiceUI();
-            }
+            } 
         }    
     }
 
@@ -207,5 +202,18 @@ public class World3 extends World{
     @Override
     public void onExit(MouseEvent e) {
        
+    }
+
+    public void startKillerBattle() {
+        bgmPlayer.stopBGM();
+        bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
+        scene.setCurrentSceneIndex(5);
+        // Make sure killer is visible/active for battle
+        for(Enemy enemy : scene.enemyList) {
+            if(enemy.getName().equals("Killer")) {
+                enemy.setVisible(true);
+                break;
+            }
+        }
     }
 }

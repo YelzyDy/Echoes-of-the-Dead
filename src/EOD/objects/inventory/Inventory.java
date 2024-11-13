@@ -93,16 +93,16 @@ public class Inventory extends EchoesObjects{
     
     private void initializeLabels() {
         // Initial x-position for the label, adjusted for spacing
-        double labelXOffset = width * 0.43;
-        int labelYPosition = (int)(height * 0.28);
+        double labelXOffset = width * 0.05;  // Reduced offset to position closer to items
+        int labelYPosition = (int)(height * 0.65);  // Moved down to be below items
         int labelWidth = (int)(width * 0.08);
         int labelHeight = (int)(height * 0.15);
     
         // Initialize each label with default quantity text and position
-        item1Label = createItemLabel((int) (item1Icon.getPosX() + labelXOffset), labelYPosition, labelWidth, labelHeight, item1Quantity);
-        item2Label = createItemLabel((int) (item2Icon.getPosX() + incrementValue + labelXOffset), labelYPosition, labelWidth, labelHeight, item2Quantity);
-        item3Label = createItemLabel((int) (item3Icon.getPosX() + 2 * incrementValue + labelXOffset), labelYPosition, labelWidth, labelHeight, item3Quantity);
-        item4Label = createItemLabel((int) (item4Icon.getPosX() + 3 * incrementValue + labelXOffset), labelYPosition, labelWidth, labelHeight, item4Quantity);
+        item1Label = createItemLabel((int)(item1Icon.getPosX() + labelXOffset), labelYPosition, labelWidth, labelHeight, item1Quantity);
+        item2Label = createItemLabel((int)(item2Icon.getPosX() + labelXOffset), labelYPosition, labelWidth, labelHeight, item2Quantity);
+        item3Label = createItemLabel((int)(item3Icon.getPosX() + labelXOffset), labelYPosition, labelWidth, labelHeight, item3Quantity);
+        item4Label = createItemLabel((int)(item4Icon.getPosX() + labelXOffset), labelYPosition, labelWidth, labelHeight, item4Quantity);
     }
     
     private JLabel createItemLabel(int x, int y, int width, int height, int quantity) {
@@ -110,7 +110,6 @@ public class Inventory extends EchoesObjects{
         label.setBounds(x, y, width, height);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Arial", Font.BOLD, 12));
-        label.setVisible(true);
         label.setVisible(false);
         add(label);
         setComponentZOrder(label, 1);

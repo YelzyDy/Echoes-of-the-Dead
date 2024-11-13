@@ -23,8 +23,6 @@ import javax.imageio.ImageIO;
  * @author Joana
  */
 public class EchoesObjects extends TransparentPanel implements MouseInteractable, Entity{
-    private double posX;
-    private double posY;
     private int currentFrame;
     protected ImageList objSprites = new ImageList();
     private String assetPackage = null;
@@ -36,13 +34,14 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private boolean isEnabled;
     private boolean isActivated;
 
-    public EchoesObjects(String assetPackage, int x, int y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
+    public EchoesObjects(String assetPackage, double x, double y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
         setName(type);
         this.isAnimated = isAnimated;
         this.isState = isState;
         this.numOfSprites = numOfSprites;
         this.assetPackage = assetPackage;
+
         currentFrame = 0;
         numOfSprites = 0;
         index = 0;
@@ -188,22 +187,22 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     
     @Override
     public double getPosX() {
-        return posX;
+        return getX();
     }
 
     @Override
     public double getPosY() {
-        return posY;
+        return getY();
     }
 
     @Override
     public void setPosX(double posX) {
-        this.posX = posX;
+        this.setLocation((int)posX, getY());;
     }
 
     @Override
     public void setPosY(double posY) {
-        this.posY = posY;
+        this.setLocation(getX(), (int)posY);;
     }
 
     public int getCurrentFrame(){
@@ -229,7 +228,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
         RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2d.drawImage(getCurrentSprite(), (int)posX, (int)posY, null);
+        g2d.drawImage(getCurrentSprite(), 0, 0, null);
     }
 
     /**
@@ -253,7 +252,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         objSprites.resizeImageList(width, currentHeight);
         
         // Update bounds while maintaining position
-        setBounds((int)posX, (int)posY, width, currentHeight);
+        setBounds(getX(), getY(), width, currentHeight);
         
         // Request a repaint to reflect changes
         repaint();
@@ -280,7 +279,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         objSprites.resizeImageList(currentWidth, height);
         
         // Update bounds while maintaining position
-        setBounds((int)posX, (int)posY, currentWidth, height);
+        setBounds(getX(), getY(), currentWidth, height);
         
         // Request a repaint to reflect changes
         repaint();
@@ -305,7 +304,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
         objSprites.resizeImageList(width, height);
         
         // Update bounds while maintaining position
-        setBounds((int)posX, (int)posY, width, height);
+        setBounds(getX(), getY(), width, height);
         
         // Request a repaint to reflect changes
         repaint();

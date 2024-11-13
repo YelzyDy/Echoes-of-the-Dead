@@ -196,8 +196,8 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/forest.png")), 1);
             sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/forest.png")), 2);
             sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/cemetary.png")), 3);
-            sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/killerScene.png")), 4);
-            sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/misty.png")), 5);
+            sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/misty.png")), 4);
+            sceneList.add(ImageIO.read(getClass().getResource("/world3_assets/killerScene.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         } 
     } catch (IOException e) {
@@ -257,12 +257,13 @@ public void createWorldScene() {
             if(currentSceneIndex == 3){
                 quests.setQuestStatus(3);
                 quests.addQuests();
+                quests.targetX = -15;
             }
         }
 
         if(quests.ifActive == 3){
             Enemy enemy = enemyList.get(0);
-            if(enemy.getHp() <= 0){
+            if(enemy.getIsDefeated()){
                 quests.setQuestStatus(4);
                 quests.addQuests();
             }
@@ -289,8 +290,38 @@ public void createWorldScene() {
                 clickObject(objList.get(0));
                 quests.setQuestStatus(6);
                 quests.addQuests();
+                quests.targetX = -15;
             }
         }
+
+        if(quests.ifActive == 6){
+            if(currentSceneIndex != 2)return;
+            if((int)player.getPosX() == (int)quests.targetX){  
+                clickObject(objList.get(2));
+                quests.setQuestStatus(7);
+                quests.addQuests();
+                quests.targetX = -15;
+            }
+        }
+
+        if(quests.ifActive == 7){
+            Enemy enemy = enemyList.get(1);
+            if(enemy.getIsDefeated()){
+                quests.setQuestStatus(8);
+                quests.addQuests();
+            }
+        }
+
+        if(quests.ifActive == 8){
+            if(currentSceneIndex != 2)return;
+            if((int)player.getPosX() == (int)quests.targetX){  
+                clickObject(objList.get(2));
+                quests.setQuestStatus(9);
+                quests.addQuests();
+                quests.targetX = -15;
+            }
+        }
+
     }
 
     private void clickObject(Component obj){
@@ -361,12 +392,11 @@ public void createWorldScene() {
             if(transitionHandler == null) return;
                  // Check if we're at a transition point
                 transitionHandler.handleSceneTransition(this, player.getPosX(), world.getPlayerList(), objList, npcList, enemyList);
-            if (transitionHandler.isAtTransitionPoint(player.getPosX(),  getCurrentSceneIndex(), getNumOfScenes() - 3)) {
-                animator.stopMovement(); // Stop movement when reaching transition point
-            }
 
             if (transitionHandler.isAtNonTransitionPoint(player.getPosX())) {
                 transitionHandler.setIsInTransition(false);
+            }else{
+                transitionHandler.setIsInTransition(transitionHandler.shouldTransitionAtEdge(player, currentSceneIndex));
             }
 
         }

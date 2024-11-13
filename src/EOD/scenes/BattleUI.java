@@ -189,6 +189,7 @@ public class BattleUI extends JPanel implements Freeable{
         requestFocusInWindow();
         setVisible(true);
         setSkillButtonsEnabled(false);
+        enemyWrapper.setVisible(false);
     }
 
     private void initializeTextPanel() {

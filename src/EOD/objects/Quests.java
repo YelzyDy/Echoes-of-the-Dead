@@ -232,7 +232,7 @@ public class Quests extends JPanel implements MouseInteractable{
             if(currentScene > 1)movePlayerToLocation(screenSize.width * 0.01);
             else movePlayerToLocation(screenSize.width * 1.1);
         }else{
-            movePlayerToLocation(screenSize.width * 0.4);
+            movePlayerToLocation(scene.objList.get(1).getPosX());
         }
     }
 
@@ -257,13 +257,36 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     private void q5World1(){
-        // scene.objList.get(0).onClick(e);
         int currentScene = scene.getCurrentSceneIndex();
         if(currentScene != 2){
             if(currentScene > 2)movePlayerToLocation(screenSize.width * 0.01);
             else movePlayerToLocation(screenSize.width * 1.1);
         }else{
-            movePlayerToLocation(screenSize.width * 0.8);
+            movePlayerToLocation(scene.objList.get(0).getPosX());
+        }
+    }
+
+    private void q6World1(){
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene != 2){
+            if(currentScene > 2)movePlayerToLocation(screenSize.width * 0.01);
+            else movePlayerToLocation(screenSize.width * 1.1);
+        }else{
+            movePlayerToLocation(scene.objList.get(2).getPosX());
+        }
+    }
+
+    private void q7World1(){
+        scene.enemyList.get(1).onClick(null);
+    }
+
+    private void q8World1(){
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene != 2){
+            if(currentScene > 2)movePlayerToLocation(screenSize.width * 0.01);
+            else movePlayerToLocation(screenSize.width * 1.1);
+        }else{
+            movePlayerToLocation(scene.objList.get(3).getPosX());
         }
     }
 
@@ -281,6 +304,12 @@ public class Quests extends JPanel implements MouseInteractable{
             q4World1();
         }else if(source != scene && ifActive == 5){
             q5World1();
+        }else if(source != scene && ifActive == 6){
+            q6World1();
+        }else if(source != scene && ifActive == 7){
+            q7World1();
+        }else if(source != scene && ifActive == 8){
+            q8World1();
         }
     }
     
