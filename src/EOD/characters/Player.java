@@ -497,7 +497,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill4Cd = 4;
                 attributes.mana -= 50;
                 applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));
-                actionString = "Time Stop! Dealt " + damageDealt + " damage to the enemy";
+                actionString = "Binding Edge! Dealt " + damageDealt + " damage to the enemy";
                 return true;
 
             case "wizard":
