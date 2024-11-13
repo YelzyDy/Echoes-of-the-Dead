@@ -181,13 +181,13 @@ public class Inventory extends EchoesObjects{
                 break;
             case "Item 2":
                 if (item2Quantity > 0) {
-                    attributes.setAttack(attributes.getAttack() + 20); // Increase attack
+                    attributes.setAttack(attributes.getAttack() + 5); // Increase attack
                     item2Quantity--;
                     updateLabel(item2Label, item2Quantity);
                     if (item2Quantity == 0) {
                         item2Icon.setVisible(false); // Hide the item icon if quantity is 0
                     }
-                    effectMessage = "Attack increased by 20";
+                    effectMessage = "Attack increased by 5";
                 }
                 break;
             case "Item 3":
