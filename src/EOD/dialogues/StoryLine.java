@@ -871,9 +871,9 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
 
-        public void skillDetails() {
+        public void skillDetails(String playerType) {
                 int i = 0;
-
+                
                 this.arr[i++] = "You have approached an enemy!";
                 this.arr[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
                 this.arr[i++] = "Objection Surge: Sacrifice 15 soul shards to buff attack by 15 for the whole fight";

@@ -26,6 +26,7 @@ public class Player extends Character implements MouseInteractable{
     private double xFactor;
     private Enemy enemy;
     private String actionString;
+    public double clickX;
     public PlayerAttributes attributes;
 
     // private static final int MONEY_REGEN = 5; // Knights gain some money per turn
@@ -50,6 +51,7 @@ public class Player extends Character implements MouseInteractable{
         configureSprites();
         animator.updateBounds();
         xFactor = 0;
+        clickX = 0;
         attributes.skill3Cd = attributes.skill4Cd = 0;
         actionString = null;
         this.damageReducer = false;
@@ -539,6 +541,7 @@ public class Player extends Character implements MouseInteractable{
         if (animator.getIsInBattle() && (enemy != null && !enemy.getIsDefeated())){
             return;
         }
+        clickX = e.getX();
         int deltaX = ((int)e.getX() - (int)getPosX()) / 10;
         animator.moveTo(e.getX(), deltaX);
     }
