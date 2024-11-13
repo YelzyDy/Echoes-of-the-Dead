@@ -184,7 +184,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     private void clickObjectAt(Component obj, double x) {
         // Calculate the target position based on custom x and y inputs, such as screenSize.width * 0.01
-        int targetX = (int) (x);
+        targetX = x;
     
         // Create a fake MouseEvent targeting the desired component with specified coordinates
         MouseEvent fakeClickEvent = new MouseEvent(
@@ -192,7 +192,7 @@ public class Quests extends JPanel implements MouseInteractable{
             MouseEvent.MOUSE_CLICKED,       // Event type
             System.currentTimeMillis(),     // Event time
             0,                              // Modifiers (no modifiers here)
-            targetX,                        // Specified X position
+            (int)targetX,                        // Specified X position
             obj.getY(),                        // Specified Y position
             1,                              // Click count
             false                           // Not a popup trigger
