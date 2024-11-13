@@ -276,6 +276,20 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
+    private void q7World1(){
+        scene.enemyList.get(1).onClick(null);
+    }
+
+    private void q8World1(){
+        int currentScene = scene.getCurrentSceneIndex();
+        if(currentScene != 2){
+            if(currentScene > 2)movePlayerToLocation(screenSize.width * 0.01);
+            else movePlayerToLocation(screenSize.width * 1.1);
+        }else{
+            movePlayerToLocation(scene.objList.get(3).getPosX());
+        }
+    }
+
     private void handleWorld1Q(MouseEvent e) {
         Object source = e.getSource();
         if(source == scene && ifActive == 0){
@@ -292,6 +306,10 @@ public class Quests extends JPanel implements MouseInteractable{
             q5World1();
         }else if(source != scene && ifActive == 6){
             q6World1();
+        }else if(source != scene && ifActive == 7){
+            q7World1();
+        }else if(source != scene && ifActive == 8){
+            q8World1();
         }
     }
     

@@ -263,7 +263,7 @@ public void createWorldScene() {
 
         if(quests.ifActive == 3){
             Enemy enemy = enemyList.get(0);
-            if(enemy.getHp() <= 0){
+            if(enemy.getIsDefeated()){
                 quests.setQuestStatus(4);
                 quests.addQuests();
             }
@@ -299,6 +299,24 @@ public void createWorldScene() {
             if((int)player.getPosX() == (int)quests.targetX){  
                 clickObject(objList.get(2));
                 quests.setQuestStatus(7);
+                quests.addQuests();
+                quests.targetX = -15;
+            }
+        }
+
+        if(quests.ifActive == 7){
+            Enemy enemy = enemyList.get(1);
+            if(enemy.getIsDefeated()){
+                quests.setQuestStatus(8);
+                quests.addQuests();
+            }
+        }
+
+        if(quests.ifActive == 8){
+            if(currentSceneIndex != 2)return;
+            if((int)player.getPosX() == (int)quests.targetX){  
+                clickObject(objList.get(2));
+                quests.setQuestStatus(9);
                 quests.addQuests();
                 quests.targetX = -15;
             }
