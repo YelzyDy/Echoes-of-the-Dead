@@ -469,12 +469,8 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 attributes.mana -= 30;
-<<<<<<< HEAD
-                if (random.nextInt(100) < 0) { // 45% success rate
-=======
                 sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
                 if (random.nextInt(100) < 55) { // 55% success rate
->>>>>>> 1ff7c4c22276b7bd8cf9d00337bf07500f07e0c1
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
                     attributes.mana = Math.min(attributes.mana + 90, attributes.baseMana);

@@ -871,18 +871,13 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
 
-<<<<<<< HEAD
         public void questNotComplete(){
                 int i = 0;
                 this.arr[i++] = "Complete the current quest!";
         }
 
         public void skillDetails(String playerType) {
-=======
-        public void skillDetails() {
->>>>>>> 1ff7c4c22276b7bd8cf9d00337bf07500f07e0c1
                 int i = 0;
-
                 this.arr[i++] = "You have approached an enemy!";
                 this.arr[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
                 this.arr[i++] = "Objection Surge: Sacrifice 15 soul shards to buff attack by 15 for the whole fight";

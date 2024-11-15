@@ -176,12 +176,10 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     private void movePlayerToLocation(double locationX){
-<<<<<<< HEAD
         if(player.getPosX() < locationX){
             targetX = locationX * 0.9;
         }else targetX =  locationX * 1.1;
         player.clickObjectAt(scene, targetX);
-=======
         double playerX = player.getPosX();
         int deltaX = 0;
         if (playerX > locationX) {
@@ -198,7 +196,6 @@ public class Quests extends JPanel implements MouseInteractable{
         if((int) playerX != (int) targetX){
             player.getAnimator().moveTo((int)targetX, deltaX);
         }
->>>>>>> 1ff7c4c22276b7bd8cf9d00337bf07500f07e0c1
     }
 
     private void handleNpcClick(Npc npc){
