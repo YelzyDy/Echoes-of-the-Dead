@@ -397,6 +397,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.mana = Math.min(attributes.mana + 5, attributes.baseMana); // Mana return on basic attack
                 break;
             case "priest":
+                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestbasicatk.wav");
                 damageDealt = attributes.attack;
                 attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
                 break;
@@ -443,6 +444,7 @@ public class Player extends Character implements MouseInteractable{
                     actionString = "Not enough Soul Energy!";
                     return false;
                 }
+                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill1.wav");
                 attributes.health -= 25;
                 originalAttack = attributes.attack;
                 attributes.attack += 30;
@@ -472,7 +474,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 attributes.mana -= 30;
-                if (random.nextInt(100) < 0) { // 45% success rate
+                if (random.nextInt(100) < 46) { // 45% success rate
                     sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
@@ -486,6 +488,7 @@ public class Player extends Character implements MouseInteractable{
                 }
 
             case "priest":
+                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
                 int healing = (int)(attributes.baseHealth * 0.3);
                 damageDealt = (int)(attributes.baseHealth * 0.4);
                 attributes.health = Math.min(attributes.health + healing, attributes.baseHealth);
@@ -520,6 +523,7 @@ public class Player extends Character implements MouseInteractable{
                 return true;
 
             case "priest":
+                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill3.wav");
                 int missingHealth = attributes.baseHealth - attributes.health;
                 damageDealt = (int)(missingHealth * 0.6);
                 int ultimateHeal = (int)(attributes.baseHealth * 0.4);
