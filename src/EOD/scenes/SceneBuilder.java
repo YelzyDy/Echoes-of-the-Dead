@@ -402,14 +402,12 @@ public void createWorldScene() {
             if(transitionHandler == null) return;
                  // Check if we're at a transition point
                 transitionHandler.handleSceneTransition(this, player.getPosX(), world.getPlayerList(), objList, npcList, enemyList);
-            if (transitionHandler.isAtTransitionPoint(player.getPosX(),  getCurrentSceneIndex(), getNumOfScenes() - 3)) {
-                animator.stopMovement(); // Stop movement when reaching transition point
-            }
 
             if (transitionHandler.isAtNonTransitionPoint(player.getPosX())) {
                 transitionHandler.setIsInTransition(false);
+            }else{
+                transitionHandler.setIsInTransition(transitionHandler.shouldTransitionAtEdge(player, currentSceneIndex));
             }
-
         }
 
         if(ally != null){
