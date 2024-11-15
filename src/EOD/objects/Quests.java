@@ -29,6 +29,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     public Quests() {
         this.textPanel = new JPanel();
+        targetX = -15;
         initializeUI();
     }
 
@@ -169,39 +170,17 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    private void q0World1(MouseEvent e){
+    private void q0World1(MouseEvent e){;
         Point clickPoint = e.getPoint();
-        if (clickPoint.x > 0 && clickPoint.y < screenSize.height * 0.4) {
-            setQuestStatus(++ifActive);
-            addQuests();
-        }
+        targetX = clickPoint.x;
     }
 
     private void movePlayerToLocation(double locationX){
-        if(player.getPosX() < locationX) clickObjectAt(scene, locationX * 0.9);
-        else clickObjectAt(scene, locationX * 1.1);
+        if(player.getPosX() < locationX){
+            targetX = locationX * 0.9;
+        }else targetX =  locationX * 1.1;
+        player.clickObjectAt(scene, targetX);
     }
-
-    private void clickObjectAt(Component obj, double x) {
-        // Calculate the target position based on custom x and y inputs, such as screenSize.width * 0.01
-        targetX = x;
-    
-        // Create a fake MouseEvent targeting the desired component with specified coordinates
-        MouseEvent fakeClickEvent = new MouseEvent(
-            obj,                            // Target component
-            MouseEvent.MOUSE_CLICKED,       // Event type
-            System.currentTimeMillis(),     // Event time
-            0,                              // Modifiers (no modifiers here)
-            (int)targetX,                        // Specified X position
-            obj.getY(),                        // Specified Y position
-            1,                              // Click count
-            false                           // Not a popup trigger
-        );
-    
-        // Call the world's click handler with the created event
-        player.onClick(fakeClickEvent);
-    }
-    
 
     private void handleNpcClick(Npc npc){
         movePlayerToLocation(npc.getPosX());

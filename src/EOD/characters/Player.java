@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JLayeredPane;
+import java.awt.Component;
 
 public class Player extends Character implements MouseInteractable{
     private PlayerAnimator animator;
@@ -465,7 +466,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 attributes.mana -= 30;
-                if (random.nextInt(100) < 45) { // 45% success rate
+                if (random.nextInt(100) < 0) { // 45% success rate
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
                     attributes.mana = Math.min(attributes.mana + 90, attributes.baseMana);
@@ -530,6 +531,24 @@ public class Player extends Character implements MouseInteractable{
                 return true;
         }
         return false;
+    }
+
+    public void clickObjectAt(Component obj, double x) {
+    
+        // Create a fake MouseEvent targeting the desired component with specified coordinates
+        MouseEvent fakeClickEvent = new MouseEvent(
+            obj,                            // Target component
+            MouseEvent.MOUSE_CLICKED,       // Event type
+            System.currentTimeMillis(),     // Event time
+            0,                              // Modifiers (no modifiers here)
+            (int)x,                        // Specified X position
+            obj.getY(),                        // Specified Y position
+            1,                              // Click count
+            false                           // Not a popup trigger
+        );
+    
+        // Call the world's click handler with the created event
+        onClick(fakeClickEvent);
     }
 
     public PlayerAttributes getAttributes() {

@@ -20,7 +20,7 @@ public class Npc extends Character implements MouseInteractable{
         setVisible(true); // Make sure the NPC is visible
         this.addMouseListener(new MouseClickListener(this));
         initializeNpcSprites();
-        isStatic = false;
+        isStatic = true;
         doneQuest = false;
         animator.setRange(minRange, maxRange);
         dialogues.setNpc(this);
@@ -57,10 +57,19 @@ public class Npc extends Character implements MouseInteractable{
     
     @Override
     public void onClick(MouseEvent e) {
+        if(isStatic){ 
+            dialogues.displayDialogues(0, world);  
+            return;
+        }
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
-        if(dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
+
+        System.out.println("JDialog null? " + (dialogues.getStoryJDialog() != null));
+        System.out.println("JDialog displayable? " + (dialogues.getStoryJDialog().isDisplayable()));
+
+        // if(dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
+
         if (getCharacterType().equals("natty")){
             dialogues.displayDialogues(3, world);
         }

@@ -221,7 +221,7 @@ public class Necromancer extends Enemy {
             // Adjust dimensions based on click count or specific dialogue requirements
             if (i == 14) {
                handleI14();
-            } else if (i >= 15) {
+            } else if (i == 15) {
                 handleI15();
             }else if (i != 4 && i != 9){
                 handleDots();
@@ -235,8 +235,8 @@ public class Necromancer extends Enemy {
                 autoCloseDelay = 3000;
             }
             dialogues.handleSetText();
-            resetAndStartTimer();
-            i++;
+            if(allowDialogues) resetAndStartTimer();
+            if (i != 15) i++;
         }
     }
 
@@ -269,7 +269,8 @@ public class Necromancer extends Enemy {
         dialogues.setCoordinates(dialogues.getStoryJDialog().getX(), getPanel().getHeight() * 0.1);
         autoCloseDelay = 10000;
         System.out.println("auto close delay " + autoCloseDelay);
-        world.getPlayer().getAttributes().setMana(world.getPlayer().getAttributes().getMana() + 10);
+        if(allowDialogues) world.getPlayer().getAttributes().setMana(world.getPlayer().getAttributes().getMana() + 10);
+        allowDialogues = false;
     }
 
 }

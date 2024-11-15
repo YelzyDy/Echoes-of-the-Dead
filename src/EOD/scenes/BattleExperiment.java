@@ -65,10 +65,11 @@ public class BattleExperiment implements Skillable{
                 if ((player.isWizard() && skillNumber == 3) || 
                     (player.isKnight() && skillNumber == 4)) {
                     enemy.missedTurn = true;
+                }else{
+                    
                 }
             }
 
-            battleUI.showAction("Turn " + turnCount + ": " + player.getAction());
             battleUI.setSkillButtonsEnabled(false);
             player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(false);
             
@@ -87,6 +88,7 @@ public class BattleExperiment implements Skillable{
             battleUI.updateCooldowns();
             battleUI.updateTurnIndicator("Turn " + turnCount + " - Enemy Turn");
         }
+        battleUI.showAction("Turn " + turnCount + ": " + player.getAction());
     }
 
 
@@ -226,6 +228,8 @@ public class BattleExperiment implements Skillable{
         enemy.getAnimator().setIsInBattle(false);
         enemy.getAnimator().setMoving(true);
         enemy.setPosX((int) (screenSize.width * 0.65));
+        enemy.onHover(null);
+        enemy.onExit(null);
         //respawn at portal if defeated
         player.getPanel().setCurrentSceneIndex(battleUI.getPortal().getIndex());
         for(Player player : player.getWorld().getPlayer().getAllyProfiles().getPlayerList()){

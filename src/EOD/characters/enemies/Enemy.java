@@ -33,6 +33,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     protected int i = 0;
     protected Timer autoCloseTimer; // Timer to auto-close the dialogue
     protected int autoCloseDelay = 0; // Delay in milliseconds (e.g., 3 seconds)
+    protected boolean allowDialogues;
 
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,
@@ -46,6 +47,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
         animator.setRange(minRange, maxRange);
         isDefeated = false;
         isClicked = false;
+        allowDialogues = true;
     }
 
     public void setPlayer(Player player){

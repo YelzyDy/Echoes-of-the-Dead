@@ -93,7 +93,7 @@ public class Inventory extends EchoesObjects{
     
     private void initializeLabels() {
         // Initial x-position for the label, adjusted for spacing
-        double labelXOffset = width * 0.05;  // Reduced offset to position closer to items
+        double labelXOffset = width * 0.065;  // Reduced offset to position closer to items
         int labelYPosition = (int)(height * 0.65);  // Moved down to be below items
         int labelWidth = (int)(width * 0.08);
         int labelHeight = (int)(height * 0.15);

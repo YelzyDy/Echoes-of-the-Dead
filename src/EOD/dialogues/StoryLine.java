@@ -870,6 +870,11 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
 
+        public void questNotComplete(){
+                int i = 0;
+                this.arr[i++] = "Complete the current quest!";
+        }
+
         public void skillDetails(String playerType) {
                 int i = 0;
                 

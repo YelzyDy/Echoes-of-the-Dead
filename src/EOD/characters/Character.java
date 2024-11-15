@@ -9,8 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 
-import javax.swing.tree.ExpandVetoException;
-
 import EOD.animator.*;
 import EOD.gameInterfaces.Entity;
 import EOD.utils.TransparentPanel;

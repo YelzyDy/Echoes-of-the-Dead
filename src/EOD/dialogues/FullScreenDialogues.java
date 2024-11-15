@@ -51,8 +51,8 @@ public class FullScreenDialogues extends JFrame {
 
         // SKIP BUTTON
 
-        ImageIcon skipButtonIcon = scaleImageIcon("src/button_assets/skipButton.png");
-        ImageIcon skipButtonHoverIcon = scaleImageIcon("src/button_assets/skipButtonHover.png");
+        ImageIcon skipButtonIcon = scaleImageIcon("src/button_assets/skipButton0.png");
+        ImageIcon skipButtonHoverIcon = scaleImageIcon("src/button_assets/skipButton1.png");
 
         JButton skipButton = new JButton(skipButtonIcon);
         int width = (int) (screenSize.width * 0.15);
