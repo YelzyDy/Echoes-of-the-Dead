@@ -1,7 +1,7 @@
 package EOD.characters.enemies;
-import java.awt.event.MouseEvent;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import java.awt.event.MouseEvent;
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 10;
@@ -256,7 +256,7 @@ public class Skeleton1 extends Enemy {
                 handleDots();
             }else{
                 dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
-                                     (int)(getPanel().getHeight() * 0.1));
+                                     (int)(getPanel().getHeight() * 0.2));
                 autoCloseDelay = 3000;
             }
             dialogues.handleSetText();
@@ -283,15 +283,14 @@ public class Skeleton1 extends Enemy {
     }
 
     private void handleI14(){
-        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
-                                     (int)(getPanel().getHeight() * 0.21));
-        autoCloseDelay = 5000;
+        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), (int)(getPanel().getHeight() * 0.21));
+        autoCloseDelay = 6000;
     }
 
     private void handleI15(){
-        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), (int)(getPanel().getHeight() * 0.35));
+        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), (int)(getPanel().getHeight() * 0.40));
         dialogues.setCoordinates(dialogues.getStoryJDialog().getX(), getPanel().getHeight() * 0.1);
-        autoCloseDelay = 10000;
+        autoCloseDelay = 11000;
         if(allowDialogues) world.getPlayer().getAttributes().setHp(world.getPlayer().getAttributes().getHp() + 10);
         allowDialogues = false;
     }
