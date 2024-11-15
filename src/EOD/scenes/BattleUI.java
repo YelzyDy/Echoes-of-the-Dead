@@ -54,7 +54,7 @@ public class BattleUI extends JPanel implements Freeable{
     public BattleUI(Player player){
         this.player = player;
         this.story = new StoryLine();
-        story.skillDetails(player.getCharacterType());
+        story.skillDetails();
         this.textPanel = new JPanel(new GridLayout(3, 1));
         this.battleBars = new BattleBars();
         initializeUI();
@@ -460,8 +460,8 @@ public class BattleUI extends JPanel implements Freeable{
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                sfxPlayer = SFXPlayer.getInstance();
-                sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
+                //sfxPlayer = SFXPlayer.getInstance();
+                //sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
                 super.mouseClicked(e);
             }
             @Override

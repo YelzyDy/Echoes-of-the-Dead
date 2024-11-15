@@ -31,6 +31,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     private boolean isClickableDialogue = true;
     protected JLabel pressToContinueLabel;
     protected Npc npc;
+<<<<<<< HEAD
 
     public Dialogues() {
         // TEXT WINDOW
@@ -79,6 +80,8 @@ public class Dialogues implements Freeable, MouseInteractable {
         pressToContinueLabel.setVisible(true);
     }
 
+=======
+>>>>>>> 1ff7c4c22276b7bd8cf9d00337bf07500f07e0c1
     public void free() {
         // Dispose of the JDialog to release system resources
         if (storyDialogue != null && storyDialogue.isVisible()) {

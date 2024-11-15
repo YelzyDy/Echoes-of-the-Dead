@@ -176,10 +176,29 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     private void movePlayerToLocation(double locationX){
+<<<<<<< HEAD
         if(player.getPosX() < locationX){
             targetX = locationX * 0.9;
         }else targetX =  locationX * 1.1;
         player.clickObjectAt(scene, targetX);
+=======
+        double playerX = player.getPosX();
+        int deltaX = 0;
+        if (playerX > locationX) {
+            // If player is on right, stay on right
+            targetX = locationX * 1.1; 
+            deltaX = ((int)targetX - (int)player.getPosX()) / 10;
+        } else {
+            // If player is on left, stay on left
+            targetX = locationX * 0.9; // 20 pixels to left of NPC
+            deltaX = ((int)targetX - (int)player.getPosX()) / 10;
+        }
+        
+        // Move player to appropriate position
+        if((int) playerX != (int) targetX){
+            player.getAnimator().moveTo((int)targetX, deltaX);
+        }
+>>>>>>> 1ff7c4c22276b7bd8cf9d00337bf07500f07e0c1
     }
 
     private void handleNpcClick(Npc npc){

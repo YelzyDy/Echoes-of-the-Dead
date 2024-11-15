@@ -48,7 +48,7 @@ public class Gorgon extends Enemy {
     @Override 
     public void skill1() {
         damageDealt = attack + (int)(Math.random() * 3);
-        actionString = getName() + " used razor claws spell, dealt " + damageDealt + " damage!";
+        actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
 
@@ -62,7 +62,7 @@ public class Gorgon extends Enemy {
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
         
-        actionString = getName() + " used Constrict, dealt " + damageDealt + " damage!";
+        actionString = getName() + " used Mutilate, dealt " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
     }

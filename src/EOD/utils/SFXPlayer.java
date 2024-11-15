@@ -8,7 +8,7 @@ public class SFXPlayer {
     private static SFXPlayer instance = null;
     private Clip clip;
     private FloatControl gainControl;
-    private float currentVolume = 1.0f; // Default volume at 50%
+    private float currentVolume = 1.0f; // Default volume 
     private boolean isSFXEnabled = true;
     private String filepath = null;
 

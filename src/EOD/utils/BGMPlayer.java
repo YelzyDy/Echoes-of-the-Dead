@@ -8,7 +8,7 @@ public class BGMPlayer {
     private static BGMPlayer instance = null;
     private Clip clip;
     private FloatControl gainControl;
-    private float currentVolume = 1.0f; // Default volume at 50%
+    private float currentVolume = 1.0f; // Default volume 
     private String currentBGMPath = null;
     private boolean isMusicEnabled = true;
     private String filepath;
