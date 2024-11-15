@@ -45,6 +45,7 @@ public class Player extends Character implements MouseInteractable{
     private AllyProfiles allyProfiles;
     private PlayerProfile playerProfile;
 
+
     public Player(String characterType, int posX, int posY) {
         super("name", characterType, posX, posY);
         animator = new PlayerAnimator(this);
@@ -61,6 +62,7 @@ public class Player extends Character implements MouseInteractable{
         this.characterType = characterType;
         originalAttack = attributes.attack;
         sfxPlayer = SFXPlayer.getInstance();
+        clickX = 0;
     }
 
     public void initializeInventory(){
