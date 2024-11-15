@@ -13,11 +13,11 @@ import EOD.objects.inventory.Inventory;
 import EOD.objects.profiles.AllyProfiles;
 import EOD.objects.profiles.PlayerProfile;
 import EOD.utils.SFXPlayer;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JLayeredPane;
-import java.awt.Component;
 
 public class Player extends Character implements MouseInteractable{
     private PlayerAnimator animator;
@@ -28,7 +28,8 @@ public class Player extends Character implements MouseInteractable{
     private double xFactor;
     private Enemy enemy;
     private String actionString;
-    protected  SFXPlayer sfxPlayer;
+    private SFXPlayer sfxPlayer;
+    public double clickX;
     public PlayerAttributes attributes;
 
     // private static final int MONEY_REGEN = 5; // Knights gain some money per turn
@@ -469,8 +470,8 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 attributes.mana -= 30;
-                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
-                if (random.nextInt(100) < 55) { // 55% success rate
+                if (random.nextInt(100) < 0) { // 45% success rate
+                    sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
                     attributes.mana = Math.min(attributes.mana + 90, attributes.baseMana);
@@ -509,7 +510,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
-                damageDealt = 50 + (int)(attributes.mana * 0.3);
+                damageDealt = 30 + (int)(attributes.baseMana * 0.3);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
