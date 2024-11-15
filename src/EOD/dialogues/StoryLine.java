@@ -5,7 +5,6 @@ import EOD.gameInterfaces.Freeable;
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private int size;
-
         public void free(){
                 size = 0;
                 arr = null;
@@ -871,15 +870,36 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
 
-        public void skillDetails() {
+        public void skillDetails(String playerType) {
                 int i = 0;
-
+                
                 this.arr[i++] = "You have approached an enemy!";
                 this.arr[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
-                this.arr[i++] = "Objection Surge: Sacrifice 15 soul shards to buff attack by 15 for the whole fight";
-                this.arr[i++] = "Ethereal Shield of Logic: Defends against the next damage taken by 40%. If damage taken is greater than 20% of soul energy left, soul shards gain increases by 10% this round.";
-                this.arr[i++] = "Truthbinding: Deal 200% Attack + 20% Soul Shards damage and the enemy can't attack this turn.";
+                
+                if(playerType.equals(("knight").toString())){
+                        this.arr[i++] = "Objection Surge: Sacrifice 15 Soul shards to buff attack by 15 2 turns";
+                }else if(playerType.equals(("wizard").toString())){
+                        this.arr[i++] = "Overclock: Sacrifice 15 Mana to buff attack by 15 for 2 turns";
+                }else{
+                        this.arr[i++] = "Vital Rush: Sacrifice 15 HP to buff attack by 15 for 2 turns";
+                }
+                
+                if(playerType.equals(("knight").toString())){
+                        this.arr[i++] = "Ethereal Shield of Logic: Defends against the next damage taken by 40%. If damage taken is greater than 20% of soul energy left, gain 30 Soul Shards this round.";
+                }else if(playerType.equals(("wizard").toString())){
+                        this.arr[i++] = "Quantum Shift: Has a 45% chance of evading the next attack. If successful, deal 35 damage and gain 90 mana.";
+                }else{
+                        this.arr[i++] = "Life Leech: Steals 30% of the MC’s Base HP  to the target.";
+                }
 
+                if(playerType.equals(("knight").toString())){
+                        this.arr[i++] = "Truthbinding: Deal 200% Attack + 15% Soul Shards damage and the enemy can't attack this turn.";
+                }else if(playerType.equals(("wizard").toString())){
+                        this.arr[i++] = "Azure Inferno: Incenerates enemy in blue flames, dealing 30 + 30% Base Mana";
+                }else{
+                        this.arr[i++] = "Vengeful Vitality: Deals 60% of missing HP to opponent and heals 40% of base HP to the party";
+                }
+                
                 this.size = i;
         }
 

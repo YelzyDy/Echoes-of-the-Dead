@@ -178,23 +178,30 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     private void movePlayerToLocation(double locationX){
-        double playerX = player.getPosX();
-        int deltaX = 0;
-        if (playerX > locationX) {
-            // If player is on right, stay on right
-            targetX = locationX * 1.1; 
-            deltaX = ((int)targetX - (int)player.getPosX()) / 10;
-        } else {
-            // If player is on left, stay on left
-            targetX = locationX * 0.9; // 20 pixels to left of NPC
-            deltaX = ((int)targetX - (int)player.getPosX()) / 10;
-        }
-        
-        // Move player to appropriate position
-        if((int) playerX != (int) targetX){
-            player.getAnimator().moveTo((int)targetX, deltaX);
-        }
+        if(player.getPosX() < locationX) clickObjectAt(scene, locationX * 0.9);
+        else clickObjectAt(scene, locationX * 1.1);
     }
+
+    private void clickObjectAt(Component obj, double x) {
+        // Calculate the target position based on custom x and y inputs, such as screenSize.width * 0.01
+        targetX = x;
+    
+        // Create a fake MouseEvent targeting the desired component with specified coordinates
+        MouseEvent fakeClickEvent = new MouseEvent(
+            obj,                            // Target component
+            MouseEvent.MOUSE_CLICKED,       // Event type
+            System.currentTimeMillis(),     // Event time
+            0,                              // Modifiers (no modifiers here)
+            (int)targetX,                        // Specified X position
+            obj.getY(),                        // Specified Y position
+            1,                              // Click count
+            false                           // Not a popup trigger
+        );
+    
+        // Call the world's click handler with the created event
+        player.onClick(fakeClickEvent);
+    }
+    
 
     private void handleNpcClick(Npc npc){
         movePlayerToLocation(npc.getPosX());
