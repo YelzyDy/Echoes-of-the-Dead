@@ -47,7 +47,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private SFXPlayer sfxPlayer;
     public ChooseChar() {
         bgmPlayer = BGMPlayer.getInstance();
-        sfxPlayer = sfxPlayer.getInstance();
+        sfxPlayer = SFXPlayer.getInstance();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         this.setTitle("Choose Character"); 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);

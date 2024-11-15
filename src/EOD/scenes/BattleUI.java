@@ -460,8 +460,8 @@ public class BattleUI extends JPanel implements Freeable{
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                sfxPlayer = SFXPlayer.getInstance();
-                sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
+                //sfxPlayer = SFXPlayer.getInstance();
+                //sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
                 super.mouseClicked(e);
             }
             @Override

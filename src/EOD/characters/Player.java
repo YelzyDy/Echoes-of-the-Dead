@@ -12,6 +12,7 @@ import EOD.objects.*;
 import EOD.objects.inventory.Inventory;
 import EOD.objects.profiles.AllyProfiles;
 import EOD.objects.profiles.PlayerProfile;
+import EOD.utils.SFXPlayer;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,6 +27,7 @@ public class Player extends Character implements MouseInteractable{
     private double xFactor;
     private Enemy enemy;
     private String actionString;
+    protected  SFXPlayer sfxPlayer;
     public PlayerAttributes attributes;
 
     // private static final int MONEY_REGEN = 5; // Knights gain some money per turn
@@ -55,6 +57,7 @@ public class Player extends Character implements MouseInteractable{
         this.damageReducer = false;
         this.characterType = characterType;
         originalAttack = attributes.attack;
+        sfxPlayer = SFXPlayer.getInstance();
     }
 
     public void initializeInventory(){
@@ -385,6 +388,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skillEffects1.setOpaque(true);
                 break;
             case "wizard":
+                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardbasicatk.wav");
                 damageDealt = attributes.attack;
                 attributes.mana = Math.min(attributes.mana + 5, attributes.baseMana); // Mana return on basic attack
                 break;
@@ -422,6 +426,7 @@ public class Player extends Character implements MouseInteractable{
                     actionString = "Not enough mana!";
                     return false;
                 }
+                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill1.wav");
                 attributes.mana -= 20;
                 originalAttack = attributes.attack;
                 attributes.attack += 20;
@@ -463,6 +468,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 attributes.mana -= 30;
+                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
                 if (random.nextInt(100) < 55) { // 55% success rate
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
@@ -501,6 +507,7 @@ public class Player extends Character implements MouseInteractable{
                 return true;
 
             case "wizard":
+                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
                 damageDealt = 50 + (int)(attributes.mana * 0.3);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
