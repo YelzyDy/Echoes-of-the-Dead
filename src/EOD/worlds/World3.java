@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * @author zendy
  */
 public class World3 extends World{
+    private boolean isKillerFound;
     private ChoiceUI choicepan;
     public World3(Player player, ArrayList<Player> playerList){
         super("world3");
