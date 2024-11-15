@@ -54,7 +54,7 @@ public class BattleUI extends JPanel implements Freeable{
     public BattleUI(Player player){
         this.player = player;
         this.story = new StoryLine();
-        story.skillDetails(player.getCharacterType());
+        story.skillDetails();
         this.textPanel = new JPanel(new GridLayout(3, 1));
         this.battleBars = new BattleBars();
         initializeUI();
