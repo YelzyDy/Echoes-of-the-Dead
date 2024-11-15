@@ -9,10 +9,10 @@ import EOD.characters.Npc;
 import java.util.ArrayList;
 import EOD.scenes.SceneBuilder;
 public class SceneTransitionHandler {
-    public final double RIGHT_BOUNDARY_THRESHOLD = 0.9;
-    public final double LEFT_BOUNDARY_THRESHOLD = 0.05;
-    public final double SPAWN_RIGHT_POSITION = 0.9;
-    public final double SPAWN_LEFT_POSITION = 0.03;
+    private final double RIGHT_BOUNDARY_THRESHOLD = 0.9;
+    private final double LEFT_BOUNDARY_THRESHOLD = 0.05;
+    private final double SPAWN_RIGHT_POSITION = 0.9;
+    private final double SPAWN_LEFT_POSITION = 0.03;
     private boolean isInTransition = false;
     
     private Dimension screenSize;
@@ -42,7 +42,7 @@ public class SceneTransitionHandler {
             return;
         }
         
-        int currentScene = panel.getCurrentSceneIndex(); 
+        int currentScene = panel.getCurrentSceneIndex();
         int maxPanel = panel.getNumOfScenes() - 3;
         
         // Check for right boundary transition
@@ -71,26 +71,6 @@ public class SceneTransitionHandler {
         return;
     }
 
-    public boolean shouldTransitionAtEdge(Player player, int currentSceneIndex) {
-        boolean isAtLeftBoundary = player.getPosX() <= (screenSize.width * LEFT_BOUNDARY_THRESHOLD);
-        boolean isAtRightBoundary = player.getPosX() >= (screenSize.width * RIGHT_BOUNDARY_THRESHOLD);
-        System.out.println("Boolean if player is clicking at edge: " + (isAtLeftBoundary && player.clickX <= player.getPosX() || isAtRightBoundary && player.clickX >= player.getPosX()));
-        // If player is already at an edge and clicks beyond that edge
-
-        if (isAtLeftBoundary) {
-            if(player.clickX <= screenSize.width * LEFT_BOUNDARY_THRESHOLD){
-                return false;
-            }
-        }
-
-        if (isAtRightBoundary) {
-            if(player.clickX >= screenSize.width * RIGHT_BOUNDARY_THRESHOLD){
-                return false;
-            }
-        }
-
-        return true;
-    }
 
      /**
      * Checks if player is at a position that would toggle isInTransition to false so we can transition again
@@ -103,6 +83,19 @@ public class SceneTransitionHandler {
         return posX > leftBoundary && posX < rightBoundary; // returns true if player is not at the end of the panel/screen
     }
     
+    
+    /**
+     * Checks if player is at a position that would trigger a scene transition
+     */
+
+    public boolean isAtTransitionPoint(double posX, int currentScene, int maxPanel) {
+        if (isInTransition) {
+            return false;
+        }
+        
+        return (posX >= (screenSize.width * RIGHT_BOUNDARY_THRESHOLD) && currentScene < maxPanel - 1) ||
+               (currentScene > 0 && posX <= (screenSize.width * LEFT_BOUNDARY_THRESHOLD));
+    }
 
     private boolean IsInEnemyIndex(SceneBuilder panel, ArrayList<Enemy> enemyList){
         if(enemyList == null) return false;

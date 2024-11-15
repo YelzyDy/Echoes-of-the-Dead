@@ -5,6 +5,7 @@ import EOD.gameInterfaces.Freeable;
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private int size;
+
         public void free(){
                 size = 0;
                 arr = null;
@@ -877,7 +878,7 @@ public class StoryLine implements Freeable{
 
         public void skillDetails(String playerType) {
                 int i = 0;
-                
+
                 this.arr[i++] = "You have approached an enemy!";
                 this.arr[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
                 

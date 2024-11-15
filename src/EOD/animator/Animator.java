@@ -237,7 +237,6 @@ public abstract class Animator implements Freeable{
 
 
     public void triggerSkillAnimation(int skillNumber, int targetX) {
-        character.getPanel().setComponentZOrder(character, 0);
         isUsingSkill = true;
         currentSkill = skillNumber - 1;
         skillAnimationFrame = 0;
@@ -327,9 +326,9 @@ public abstract class Animator implements Freeable{
         this.deltaX = deltaX;
         this.isMoving = true;
         this.isMovingRight = (targetX > character.getPosX());
-        // System.out.println("moveTo called, isMoving set to: " + isMoving + character.getName());
-        // if(character.getCharacterType().equals("knight"))System.out.println(
-        //     "Target X: " + targetX  + "\n Character X: " + character.getPosX() + "Character is moving right: " + isMovingRight);
+        System.out.println("moveTo called, isMoving set to: " + isMoving + character.getName());
+        if(character.getCharacterType().equals("knight"))System.out.println(
+            "Target X: " + targetX  + "\n Character X: " + character.getPosX() + "Character is moving right: " + isMovingRight);
     }
 
     // Abstract methods to be implemented by subclasses
