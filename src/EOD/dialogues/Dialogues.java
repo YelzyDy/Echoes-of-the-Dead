@@ -3,6 +3,7 @@ package EOD.dialogues;
 import EOD.characters.Npc;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.scenes.SceneBuilder;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     private boolean isClickableDialogue = true;
     protected JLabel pressToContinueLabel;
     protected Npc npc;
+    private SceneBuilder scene;
 
     public Dialogues() {
         // TEXT WINDOW
@@ -38,6 +40,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());
+        
 
         textBox = new JLabel("", SwingConstants.CENTER);
         textBox.setFont(new Font("Monospaced", Font.PLAIN, (int) (screenSize.width * 0.02)));
@@ -47,7 +50,8 @@ public class Dialogues implements Freeable, MouseInteractable {
         storyDialogue.getContentPane().setBackground(Color.BLACK);
         storyDialogue.add(textBox, BorderLayout.CENTER);
         storyDialogue.setLocation(x, y);
-
+        storyDialogue.addMouseListener(new MouseClickListener(this));
+        
         // ASK BUTTON
         double btnWidth = (int) (screenSize.width * 0.1);
         double btnHeight = (int) (screenSize.height * 0.1);
@@ -125,9 +129,11 @@ public class Dialogues implements Freeable, MouseInteractable {
 
     public void displayDialogues(int ID, World world) {
         this.world = world;
+        this.scene = world.getScene();
+        scene.addMouseListener(new MouseClickListener(this));
         // LOAD NPC
         this.ID = ID;
-
+        i = 0;
         switch (ID) {
             case 0:
                 story.questNotComplete();
@@ -211,7 +217,6 @@ public class Dialogues implements Freeable, MouseInteractable {
 
         this.size = story.getSize();
         textBox.setText(story.getLine(0));
-        addMouseListenerForMultipleLines(story, textBox, storyDialogue, this.size);
 
         // DISPLAY
         storyDialogue.setFocusable(true);
@@ -221,7 +226,6 @@ public class Dialogues implements Freeable, MouseInteractable {
         if (!(ID == 17 || ID == 19 || ID == 21 || ID == 23))
             storyDialogue.add(pressToContinueLabel, BorderLayout.SOUTH); // Adding label to bottom
             pressToContinueLabel.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 // When clicked, proceed with the next dialogue
@@ -230,7 +234,6 @@ public class Dialogues implements Freeable, MouseInteractable {
         });
         this.size = story.getSize();
         textBox.setText(story.getLine(0));
-        addMouseListenerForMultipleLines(story, textBox, storyDialogue, this.size);
     }
 
     // THE METHODS
@@ -245,35 +248,20 @@ public class Dialogues implements Freeable, MouseInteractable {
 
         return new ImageIcon(scaledImg);
     }
-
-    private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue, int size) {
-        i = 0;
-        storyDialogue.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (isClickableDialogue)
-                    handleSetText();
-            }
-        });
-    }
+    
 
     public void handleSetText() {
+        System.out.println("handle set text: " + i);
         if (i < size) {
             textBox.setText(story.getLine(i));
             i++;
         } else {
             if (ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
-            if (!npc.doneQuest && ID == 7) {
-                npc.doneQuest = true;
-            }
+            System.out.println("Story dialogue dispose");
 
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)) {
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 12 || ID == 15 || ID == 25 || ID == 27)) {
                 npc.doneQuest = true;
-            }
-            if (ID == 11 || ID == 13 || ID == 15) {
-                world.getScene().remove(world.getScene().ally);
-                world.getScene().ally = null;
             }
         }
     }
@@ -297,21 +285,11 @@ public class Dialogues implements Freeable, MouseInteractable {
         if(source == skipButton){
             sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
-                if (!npc.doneQuest && ID == 7) {
+
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 12 || ID == 15 || ID == 25 || ID == 27)) {
                 npc.doneQuest = true;
-            }
-
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9)) {
-                npc.doneQuest = true;
-            }
-
-            if (ID == 11 || ID == 13 || ID == 15) {
-                world.getScene().remove(world.getScene().ally);
-                world.getScene().ally = null;
-            }    
-        }
-
-        if(source == askButton){
+            }  
+        }else if(source == askButton){
             sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
             this.ID++;
@@ -319,6 +297,11 @@ public class Dialogues implements Freeable, MouseInteractable {
             textBox.setText(null);
             askDialogues.setPlayerType(playerType);
             askDialogues.openScrollableOptions(this.ID, this, textBox);
+        }else if (source == scene){
+            System.out.println("Dispose the dialog");
+            storyDialogue.dispose();
+        }else if (source == storyDialogue && isClickableDialogue && source != pressToContinueLabel){
+            handleSetText();
         }
     }
 

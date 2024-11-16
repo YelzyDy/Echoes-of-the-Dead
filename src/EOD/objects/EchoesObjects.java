@@ -5,7 +5,6 @@
 package EOD.objects;
 
 import EOD.listeners.MouseClickListener;
-
 import EOD.utils.*;
 
 import java.awt.Dimension;
@@ -17,7 +16,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import EOD.gameInterfaces.*;
 import javax.imageio.ImageIO;
-
+import EOD.worlds.World;
 /**
  *
  * @author Joana
@@ -33,7 +32,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
     private boolean allowHover;
     private boolean isEnabled;
     private boolean isActivated;
-
+    protected World world;
     public EchoesObjects(String assetPackage, double x, double y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(x, y, width, height);
         setName(type);
@@ -58,6 +57,10 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     public void setIsActivated(boolean isActivated){
         this.isActivated = isActivated;
+    }
+    
+    public void setWorld(World world){
+        this.world = world;
     }
 
     @Override

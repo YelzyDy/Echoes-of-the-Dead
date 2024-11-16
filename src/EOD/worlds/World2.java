@@ -6,9 +6,12 @@ import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.objects.portals.GreenPortal;
+import EOD.objects.portals.PurplePortal;
+import EOD.objects.portals.RedPortal;
+import EOD.objects.shop.ShopExterior;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 
@@ -79,58 +82,43 @@ public class World2 extends World{
 
     @Override
     public void initializeObjects(){
-            scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
-            // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
-            scene.objList.add(new EchoesObjects("shop",
-            (int)(screenSize.width * 0.78),
-            (int)(screenSize.height * 0.037),
-            (int)(screenSize.width * 0.22),
-            (int)(screenSize.height * 0.32),
-            "shop", false, true, 2));
-
-            scene.objList.add(new EchoesObjects("world2", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
-            scene.objList.add(new EchoesObjects("world2", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
-            scene.objList.add(new EchoesObjects("world2", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27));
-            for (EchoesObjects obj : scene.objList) {
-                /*if (obj.getName().equals("portalNextWorld") && !isMiniBossDefeated){
-                    obj.setVisible(false);
-                    continue;
-                }*/
-                scene.add(obj);
-                if (obj.getName().equals("portal")) {
-                    obj.setIndex(1); 
-                } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
-                    obj.setIndex(2);
-                } else if (obj.getName().equals("portalNextWorld")){
-                    obj.setIndex(2);
-                }
-                obj.addMouseListener(new MouseClickListener(this));;
-            }
+        scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
+        // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
+            scene.objList.add(new ShopExterior());
+            scene.objList.add(new GreenPortal());
+            scene.objList.add(new RedPortal());
+            scene.objList.add(new PurplePortal());
+        for (EchoesObjects obj : scene.objList) {
+            obj.setWorld(this);
+            scene.add(obj);
+        }
     }
 
     @Override
     public void initializeWorldChars(){
         scene.npcList = new ArrayList<>();
-        scene.npcList.add(new Npc("Faithful", "faithful", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.21), screenSize.width * 0.2, screenSize.width * 0.4));
-        scene.npcList.add(new Npc("Miggins", "miggins",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.5, screenSize.width * 0.62));
-        scene.npcList.add(new Npc("Ruby", "ruby",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.4, screenSize.width * 0.8));
-        scene.npcList.add(new Npc("Renegald", "renegald", (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.2, screenSize.width * 0.6));
         scene.npcList.add(new Npc("Constance", "missC", (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.21), screenSize.width * 0.6, screenSize.width * 0.8));
-        
+        scene.npcList.add(new Npc("Ruby", "ruby",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.4, screenSize.width * 0.8));
+        scene.npcList.add(new Npc("Faithful", "faithful", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.21), screenSize.width * 0.2, screenSize.width * 0.4));
+        scene.npcList.add(new Npc("Renegald", "renegald", (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.2, screenSize.width * 0.6));
+        scene.npcList.add(new Npc("Miggins", "miggins",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.5, screenSize.width * 0.62));
+
         for (Npc npc : scene.npcList) {
             scene.add(npc);
             scene.setComponentZOrder(npc, 0);
             npc.setWorld(this);
-            if (npc.getName().equals("Constance")) {
+            npc.setStatic(false);
+
+            if (npc.getName().equals("Ruby")){
+                npc.setIndex(0);
+            }else if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
             }else if (npc.getName().equals("Faithful")) {
                 npc.setIndex(1);
-            } else if (npc.getName().equals("Miggins")) {
-                npc.setIndex(2);
-            } else if (npc.getName().equals("Renegald")){
+            }else if (npc.getName().equals("Renegald")){
                 npc.setIndex(1);
-            } else if (npc.getName().equals("Ruby")){
-                npc.setIndex(0);
+            }else if (npc.getName().equals("Miggins")) {
+                npc.setIndex(2);
             }
         }
     }
@@ -151,56 +139,5 @@ public class World2 extends World{
                 enemy.setIndex(4);
             }
         }
-    }
-
-    @Override
-    public void onClick(MouseEvent e) {
-        super.onClick(e);
-        Object source = e.getSource();
-        if(scene.objList == null) return;
-        for (EchoesObjects obj : scene.objList) {
-            if (source == obj && obj.getName().equals("portal")){
-                System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
-                if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
-                    bgmPlayer.stopBGM(); 
-                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
-                    scene.setCurrentSceneIndex(3);
-                    System.out.println(scene.getCurrentSceneIndex());
-                }else{
-                    scene.setCurrentSceneIndex(1);
-                    bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/bgm/world2bgm.wav");
-                }
-            }else if (source == obj && obj.getName().equals("portalMiniBoss")) {
-                if (scene.enemyList != null && !scene.enemyList.get(1).getIsDefeated()) {
-                    scene.setCurrentSceneIndex(4);
-                    bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
-                } else {
-                    scene.setCurrentSceneIndex(2);
-                    bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/bgm/world2bgm.wav");
-                }
-            }else if(source == obj && obj.getName().equals("shop")){
-                shop.makeElementsVisible();
-            } else if (source == obj && obj.getName().equals("portalNextWorld")){
-                scene.gameLoopTimer.stop();
-                World window = new World3(player, playerList);
-                window.setVisible(true);
-                this.setVisible(false);
-                this.free();
-                
-            }
-        }    
-    }
-
-    @Override
-    public void onHover(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void onExit(MouseEvent e) {
-       
     }
 }

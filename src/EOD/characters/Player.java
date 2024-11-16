@@ -61,7 +61,7 @@ public class Player extends Character implements MouseInteractable{
         this.characterType = characterType;
         originalAttack = attributes.attack;
         sfxPlayer = SFXPlayer.getInstance();
-        clickX = 0;
+        clickX = -15;
     }
 
     public void initializeInventory(){

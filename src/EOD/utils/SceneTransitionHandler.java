@@ -3,7 +3,7 @@ package EOD.utils;
 import java.awt.Dimension;
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
-import EOD.objects.EchoesObjects;
+import EOD.objects.QuestableObjects;
 import EOD.characters.Npc;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class SceneTransitionHandler {
      * @return true if a scene transition occurred
      */
     public void handleSceneTransition(SceneBuilder panel, double currentPosX, ArrayList<Player> playerList, 
-                                    ArrayList<EchoesObjects> objList,
+                                    ArrayList<QuestableObjects> objList,
                                     ArrayList<Npc> npcList,
                                     ArrayList<Enemy> enemyList) {
 
@@ -115,14 +115,14 @@ public class SceneTransitionHandler {
     }
     
     private void updateObjectVisibility(SceneBuilder panel,
-                                      ArrayList<EchoesObjects> objList,
+                                      ArrayList<QuestableObjects> objList,
                                       ArrayList<Npc> npcList,
                                       ArrayList<Enemy> enemyList) {
         int currentSceneIndex = panel.getCurrentSceneIndex();
         boolean isInBattleScene = (currentSceneIndex == 3 || currentSceneIndex == 4);
 
         if (objList != null) {
-            for (EchoesObjects obj : objList) {
+            for (QuestableObjects obj : objList) {
                 boolean isObjectForCurrentScene = obj.getIndex() == currentSceneIndex;
                 boolean isPortalObject = obj.getName().equals("portal") || 
                                        obj.getName().equals("portalMiniBoss") ||

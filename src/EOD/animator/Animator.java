@@ -175,6 +175,7 @@ public abstract class Animator implements Freeable{
     // }
 
     public void updateSkillAnimation() {
+        character.getPanel().setComponentZOrder(character, 0);
         if (!reachedTarget) {
             updateMovement();
             currentFrame = (currentFrame + 1) % walkSprites.getSize();

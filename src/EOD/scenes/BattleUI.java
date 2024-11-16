@@ -144,6 +144,10 @@ public class BattleUI extends JPanel implements Freeable{
         }      
     }
 
+    public Rewards getRewards(){
+        return rewards;
+    }
+
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;
     }

@@ -37,7 +37,7 @@ public class SceneBuilder extends JPanel implements Freeable{
     
     private World world;
 
-    public ArrayList<EchoesObjects> objList;
+    public ArrayList<QuestableObjects> objList;
 
     public ArrayList<Npc> npcList;
 
@@ -223,131 +223,7 @@ public void createWorldScene() {
     public void updateDynamicQuests(){
         if(world == null) return;
         Quests quests = world.getQuests();
-        boolean yooDone = false;
-        boolean constanceDone = false;
-        boolean faithfulDone = false;
-        boolean nattyDone = false;
-
-        for(Npc npc : npcList) {
-            if ((npc.getName().equals("Yoo") || npc.getName().equals("Constance") || npc.getName().equals("Faithful") || npc.getName().equals("Natty")) 
-                && npc.doneQuest) {
-                    npc.onExit(null);
-                    npc.dialogues.askButton.setVisible(true);
-                    switch (npc.getName()) {
-                        case "Yoo" -> yooDone = true;
-                        case "Constance" -> constanceDone = true;
-                        case "Faithful" -> faithfulDone = true;
-                        case "Natty" -> nattyDone = true;
-                    }
-            }
-        }
-
-        if(quests.ifActive == 0){
-            if((int)player.getPosX() == (int)quests.targetX){
-                quests.setQuestStatus(++quests.ifActive);  // Increment quest status
-                quests.addQuests();
-                quests.targetX = -15;
-                for(Npc npc : npcList){
-                    npc.setStatic(false);
-                }
-            }
-        }
-
-        if(quests.ifActive == 1){
-            if (yooDone && constanceDone && faithfulDone && nattyDone) {
-                objList.get(1).setIsActivated(true);
-                quests.setQuestStatus(++quests.ifActive);  // Increment quest status
-                quests.addQuests();
-                quests.targetX = -15;
-            }
-        }
-
-        if(quests.ifActive == 2){
-            if(currentSceneIndex == 1){
-                if((int)player.getPosX() == (int)quests.targetX){
-                    clickObject(objList.get(1));
-                }
-            }
-
-            if(currentSceneIndex == 3){
-                quests.setQuestStatus(3);
-                quests.addQuests();
-                quests.targetX = -15;
-            }
-        }
-
-        if(quests.ifActive == 3){
-            Enemy enemy = enemyList.get(0);
-            if(enemy.getIsDefeated()){
-                quests.setQuestStatus(4);
-                quests.addQuests();
-            }
-        }
-
-        if(quests.ifActive == 4){
-            if(npcList.get(3).doneQuest){
-                quests.setQuestStatus(5);
-                quests.addQuests();
-                quests.targetX = -15;
-            }
-        }
-
-        if(quests.ifActive == 5){
-            if(currentSceneIndex != 2)return;
-            if((int)player.getPosX() == (int)quests.targetX){  
-                clickObject(objList.get(0));
-                quests.setQuestStatus(6);
-                quests.addQuests();
-                quests.targetX = -15;
-                objList.get(2).setIsActivated(true);
-            }
-        }
-
-        if(quests.ifActive == 6){
-            if(currentSceneIndex != 2)return;
-            if((int)player.getPosX() == (int)quests.targetX){  
-                clickObject(objList.get(2));
-                quests.setQuestStatus(7);
-                quests.addQuests();
-                quests.targetX = -15;
-            }
-        }
-
-        if(quests.ifActive == 7){
-            Enemy enemy = enemyList.get(1);
-            if(enemy.getIsDefeated()){
-                quests.setQuestStatus(8);
-                quests.addQuests();
-                ally.setStatic(false);
-            }
-        }
-
-        if(quests.ifActive == 8){
-            if(currentSceneIndex != 2)return;
-            if((int)player.getPosX() == (int)quests.targetX){  
-                clickObject(objList.get(3));
-                quests.setQuestStatus(9);
-                quests.addQuests();
-                quests.targetX = -15;
-            }
-        }
-
-    }
-
-    private void clickObject(Component obj){
-        Component targetComponent = obj;
-        // Create a fake MouseEvent targeting the desired component
-        MouseEvent fakeClickEvent = new MouseEvent(
-            targetComponent,                 // Target component
-            MouseEvent.MOUSE_CLICKED,        // Event type
-            System.currentTimeMillis(),      // Event time
-            0,                               // Modifiers (no modifiers here)
-            targetComponent.getX(),          // X position
-            targetComponent.getY(),          // Y position
-            1,                               // Click count
-            false                            // Not a popup trigger
-        );
-        world.onClick(fakeClickEvent);
+        quests.callPerformQuests();
     }
 
     public void updateStats(){
@@ -356,7 +232,7 @@ public void createWorldScene() {
         int playerBaseHp = player.getAttributes().getBaseHp();
         int playerBaseMana = player.getAttributes().getBaseMana();
         if(player.getAnimator().getIsInBattle()){
-        Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
+            Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             int enemyHp = enemy.getHp();
             world.getBattle().updateBars(playerHp, playerMana, enemyHp);
         };
@@ -488,6 +364,7 @@ public void createWorldScene() {
                    
             }else if(obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && enemyList.get(1).getIsDefeated());
+                // obj.setVisible(currentSceneIndex != 1 || currenSceneIndex != 2); //comment this out para makita dayun nextworld portal
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);

@@ -4,14 +4,10 @@ import EOD.objects.profiles.AllyProfiles;
 import EOD.scenes.BattleExperiment;
 import EOD.scenes.SceneBuilder;
 
-import java.awt.event.MouseEvent;
-
 import EOD.characters.Npc;
 import EOD.gameInterfaces.Freeable;
-import EOD.gameInterfaces.MouseInteractable;
-import EOD.listeners.MouseClickListener;
 import EOD.worlds.World;
-public class Rewards implements MouseInteractable, Freeable{
+public class Rewards implements Freeable{
     private static final String KNIGHT = "knight";
     private static final String PRIEST = "priest";
     private static final String WIZARD = "wizard";
@@ -107,7 +103,6 @@ public class Rewards implements MouseInteractable, Freeable{
         panel.ally.getAnimator().stopMovement();
         panel.ally.setStatic(true);
         panel.ally.setWorld(world);
-        panel.ally.addMouseListener(new MouseClickListener(this));
         panel.ally.setIndex(panel.ally.getWorld().getBattle().getPortal().getIndex());
         panel.add(panel.ally);
     }
@@ -148,36 +143,14 @@ public class Rewards implements MouseInteractable, Freeable{
         }
     }
 
-
-
-    @Override
-    public void onClick(MouseEvent e) {
-        Object source = e.getSource();
-        if(source == panel.ally){
-            switch (playerType) {
-                case KNIGHT -> {
-                    handleKnightRewards();
-                }
-                case PRIEST -> handlePriestRewards();
-                case WIZARD -> handleWizardRewards();
-                default -> System.out.println("Unknown player type: " + playerType);
+    public void handleAllyProfileRewards(){
+        switch (playerType) {
+            case KNIGHT -> {
+                handleKnightRewards();
             }
+            case PRIEST -> handlePriestRewards();
+            case WIZARD -> handleWizardRewards();
+            default -> System.out.println("Unknown player type: " + playerType);
         }
-    }
-
-
-
-    @Override
-    public void onHover(MouseEvent e) {
-        // // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'onHover'");
-    }
-
-
-
-    @Override
-    public void onExit(MouseEvent e) {
-        // // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'onExit'");
     }
 }

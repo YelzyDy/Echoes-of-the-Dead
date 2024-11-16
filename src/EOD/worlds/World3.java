@@ -10,10 +10,13 @@ import EOD.characters.enemies.Killer;
 import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.objects.portals.GreenPortal;
+import EOD.objects.portals.PurplePortal;
+import EOD.objects.portals.RedPortal;
+import EOD.objects.shop.ShopExterior;
 import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 /**
  *
@@ -84,30 +87,16 @@ public class World3 extends World{
 
     @Override
     public void initializeObjects(){
-            scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
-            // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
-            scene.objList.add(new EchoesObjects("shop",
-            (int)(screenSize.width * 0.78),
-            (int)(screenSize.height * 0.037),
-            (int)(screenSize.width * 0.22),
-            (int)(screenSize.height * 0.32),
-            "shop", false, true, 2));
-
-            scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29));
-            scene.objList.add(new EchoesObjects("world3", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47));
-           for (EchoesObjects obj : scene.objList) {
-                /*if (obj.getName().equals("portalNextWorld") && !isMiniBossDefeated){
-                    obj.setVisible(false);
-                    continue;
-                }*/
-                scene.add(obj);
-                if (obj.getName().equals("portal")) {
-                        obj.setIndex(1);
-                } else if (obj.getName().equals("portalMiniBoss") || (obj.getName().equals("shop"))) {
-                    obj.setIndex(2);
-                }
-                obj.addMouseListener(new MouseClickListener(this));;
-            }
+        scene.objList = new ArrayList<>(); // created an arrayList of Echoes Objects
+        // we can replace shop with a new class -- jian I will try to create blueprint of the Shop
+          scene.objList.add(new ShopExterior());
+        scene.objList.add(new GreenPortal());
+        scene.objList.add(new RedPortal());
+        scene.objList.add(new PurplePortal());
+        for (EchoesObjects obj : scene.objList) {
+            obj.setWorld(this);
+            scene.add(obj);
+        }
     }
 
     @Override
@@ -159,48 +148,6 @@ public class World3 extends World{
                 enemy.setIndex(5);
             }
         }
-    }
-
-    @Override
-    public void onClick(MouseEvent e) {
-        super.onClick(e);
-        Object source = e.getSource();
-        if(scene.objList == null) return;
-        for (EchoesObjects obj : scene.objList) {
-            if (source == obj && obj.getName().equals("portal")){
-                System.out.println("Enemy: " + scene.enemyList.get(0).getName() + scene.enemyList.get(0).getIsDefeated());
-                if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
-                    bgmPlayer.stopBGM(); 
-                    bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
-                    scene.setCurrentSceneIndex(3);
-                    System.out.println(scene.getCurrentSceneIndex());
-                }else{
-                    scene.setCurrentSceneIndex(1);
-                    bgmPlayer.stopBGM();
-                    bgmPlayer.playBGM("src/audio_assets/bgm/world3bgm.wav");
-                }
-            } else if (source == obj && obj.getName().equals("portalMiniBoss")) {
-                scene.setCurrentSceneIndex(4);
-                choicepan = new ChoiceUI(this.player, this); // Pass World3 instance to ChoiceUI
-                choicepan.setBounds(0, (int) (screenSize.height * 0.4), 
-                                  (int) (screenSize.width), 
-                                  (int) (screenSize.height * 0.6));
-                getPane().add(choicepan, Integer.valueOf(3));
-                player.getPlayerProfile().setVisible(false);
-            }else if(source == obj && obj.getName().equals("shop")){
-                shop.makeElementsVisible();
-            } 
-        }    
-    }
-
-    @Override
-    public void onHover(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void onExit(MouseEvent e) {
-       
     }
 
     public void startKillerBattle() {

@@ -1,7 +1,6 @@
 package EOD.worlds;
 
 import EOD.characters.*;
-import EOD.dialogues.Dialogues;
 import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
@@ -106,6 +105,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         return quests;
     }
 
+    public Shop getShop(){
+        return shop;
+    }
+
     private void freeObjects(){
         try{
         ArrayList <Freeable> freeList = new ArrayList<>();
@@ -189,6 +192,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void openQuests() {
         this.quests = new Quests();
         quests.setPlayer(player);
+        quests.initializeUI();
         layeredPane.add(this.quests, Integer.valueOf(1));
     }
 
@@ -315,6 +319,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
                 publish(0); // Start progress
                 initializeWorldChars();
                 publish(25);
+                System.out.println("World characters initialized");
 
                 initializeObjects();
                 publish(50);
@@ -322,7 +327,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
                 
                 initializeProtagonist();
                 publish(75);
-                System.out.println("World characters initialized");
+                System.out.println("Protagonist initialized");
     
                 initializeEnemies();
                 publish(100);
@@ -357,6 +362,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             initializePlayerProfile();
             player.getAllyProfiles().showAllProfiles();
             scene.initializeGameLoop();
+
         }
     }
 
@@ -515,20 +521,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             InitializationWorker worker = new InitializationWorker();
             worker.execute();
             btn_okCount += 1;
-        }
-        if(scene.objList == null) return;
-        for (EchoesObjects obj : scene.objList) {
-            if (source == obj && ((obj.getName ().equals("portalMiniBoss") || obj.getName().equals("portal")) && 
-                (scene.enemyList.get(1).getIsDefeated() || scene.enemyList.get(0).getIsDefeated()))){
-                battle.getEnemyWrapper().setVisible(false);
-                battle.toggleInventoryOff();
-                quests.setVisible(true);
-                for(Player player : playerList){
-                    player.getAnimator().setIsInBattle(false);
-                }
-                Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
-                    if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
-            }
         }
 
         if(source == btn_settings){
