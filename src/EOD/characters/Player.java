@@ -398,7 +398,6 @@ public class Player extends Character implements MouseInteractable{
                 sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightbasicatk.wav");
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
                 applySkillEffect(attributes.skillEffects1, enemy, 13, enemy.getOffsetX(1), enemy.getOffsetY(1));
-                attributes.skillEffects1.setOpaque(true);
                 break;
             case "wizard":
                 sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardbasicatk.wav");

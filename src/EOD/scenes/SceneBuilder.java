@@ -258,6 +258,8 @@ public void createWorldScene() {
 
     private void updateBattleState(){
         if(player.getAnimator().getIsInBattle()){
+            Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
+            if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
             if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
                 world.getBattle().updateCooldowns();
             }

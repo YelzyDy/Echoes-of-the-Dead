@@ -1,5 +1,7 @@
 package EOD.scenes;
 import EOD.characters.Player;
+import EOD.characters.enemies.Enemy;
+import EOD.characters.enemies.Killer;
 import EOD.dialogues.Dialogues;
 import EOD.dialogues.FullScreenDialogues;
 import EOD.worlds.World3;
@@ -76,6 +78,17 @@ public class ChoiceUI extends JPanel {
                         dialogues.displayDialogue(1);
                         isKillerFound = true;
                         setVisible(false); // Hide choice UI
+                        
+                        // Make killer visible but don't start battle yet
+                        for(Enemy enemy : world.getScene().enemyList) {
+                            if(enemy.getName().equals("Killer")) {
+                                enemy.setVisible(true);
+                                ((Killer)enemy).setFightEnabled(false);
+                                break;
+                            }
+                        }
+                        
+                        // Show appropriate dialogue based on player type before battle
                         switch (player.getCharacterType()){
                             case "knight":
                                 script.displayDialogues(102, world);
@@ -87,12 +100,11 @@ public class ChoiceUI extends JPanel {
                                 script.displayDialogues(104, world);
                                 break; 
                         }
-                        world.startKillerBattle(); // Start the battle
                     } else {
                         dialogues.displayDialogue(2);
                         isKillerFound = false;
                     }
-            });
+                });
 
             choicePanel.add(button);
         }
