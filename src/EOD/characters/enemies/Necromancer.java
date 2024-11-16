@@ -211,7 +211,7 @@ public class Necromancer extends Enemy {
     public int decideSkill() {
         // 70% chance to use basic attack
         // 30% chance to try skill2 (will fall back to basic if on cooldown)
-        return Math.random() < 0.0 ? 1 : 2;
+        return Math.random() < 0.7 ? 1 : 2;
     }
     
     @Override
