@@ -422,7 +422,7 @@ public class Player extends Character implements MouseInteractable{
                 }
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
-                attributes.attack += 25;
+                attributes.attack += 15;
                 actionString = "Player's attack increased by 15 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), enemy.getOffsetX(2), enemy.getOffsetY(2));
                 break;
@@ -490,12 +490,11 @@ public class Player extends Character implements MouseInteractable{
 
             case "priest":
                 sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
-                int healing = (int)(attributes.baseHealth * 0.3);
-                damageDealt = healing;
-                attributes.health = Math.min(attributes.health + healing, attributes.baseHealth);
+                int Damage = (int)(attributes.baseHealth * 0.4);
+                damageDealt = Damage;
                 attributes.mana -= 40;
                 attributes.skill3Cd = 3;
-                actionString = "Healed for " + healing + " and dealt " + damageDealt + " damage!";
+                actionString = "Health converted to force! " + damageDealt + " damage dealt to enemy!";
                 return true;
         }
         return false;

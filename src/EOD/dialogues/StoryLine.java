@@ -894,7 +894,7 @@ public class StoryLine implements Freeable{
                 }else if(playerType.equals(("wizard").toString())){
                         this.arr[i++] = "Quantum Shift: Has a 45% chance of evading the next attack. If successful, deal 35 damage and gain 90 mana.";
                 }else{
-                        this.arr[i++] = "Life Leech: Steals 30% of the MC’s Base HP  to the target.";
+                        this.arr[i++] = "Vital Strike: Deals 40% of the MC’s Base HP as damage to the target.";
                 }
 
                 if(playerType.equals(("knight").toString())){
