@@ -139,54 +139,63 @@ public class Shop extends EchoesObjects{
     }
 
     public void buy() {
-        int itemCost = 0;
-        int itemStock = 0;
+        if (itemToBuy <= 0) {
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+            return; // No item selected
+        }
+    
+        int itemCost = 15; // Assuming all items cost 15
+        int playerMoney = world.getPlayer().getAttributes().getMoney();
+    
+        if (playerMoney < itemCost) {
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+            return; // Not enough money
+        }
+    
         switch (itemToBuy) {
             case 1 -> {
-                if (item1Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
+                if (item1Stock > 0) {
                     updateStock(item1, --item1Stock);
-                    itemCost = updateMoney(1); // Set cost for item 1
-                    itemStock = item1Stock;
-                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                    inventory.addItem1(); // Add item to inventory
                 } else {
                     sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+                    return; // Out of stock
                 }
             }
             case 2 -> {
-                if (item2Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
+                if (item2Stock > 0) {
                     updateStock(item2, --item2Stock);
-                    itemCost = updateMoney(2);
-                    itemStock = item2Stock;
-                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                    inventory.addItem2();
                 } else {
                     sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+                    return;
                 }
             }
             case 3 -> {
-                if (item3Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
+                if (item3Stock > 0) {
                     updateStock(item3, --item3Stock);
-                    itemCost = updateMoney(3);
-                    itemStock = item3Stock;
-                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                    inventory.addItem3();
                 } else {
                     sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+                    return;
                 }
             }
             case 4 -> {
-                if (item4Stock > 0 && world.getPlayer().getAttributes().getMoney() >= 10) {
+                if (item4Stock > 0) {
                     updateStock(item4, --item4Stock);
-                    itemCost = updateMoney(4);
-                    itemStock = item4Stock;
-                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
+                    inventory.addItem4();
                 } else {
                     sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+                    return;
                 }
             }
         }
-        int money = world.getMoney() - 15;
-        if(money >= itemCost && itemStock > 0)
-        world.setMoney(money);
+    
+        // Deduct money and play success sound
+        world.getPlayer().getAttributes().setMoney(playerMoney - itemCost);
+        sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
     }
+    
     
 
     private void updateStock(EchoesObjects item, int stock) {
