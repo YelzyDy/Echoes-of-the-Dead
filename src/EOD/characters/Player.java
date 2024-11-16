@@ -395,6 +395,7 @@ public class Player extends Character implements MouseInteractable{
         handleXFactorBasedOnEnemy(1);
         switch(getCharacterType()) {
             case "knight":
+                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightbasicatk.wav");
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
                 applySkillEffect(attributes.skillEffects1, enemy, 13, enemy.getOffsetX(1), enemy.getOffsetY(1));
                 attributes.skillEffects1.setOpaque(true);
@@ -427,6 +428,7 @@ public class Player extends Character implements MouseInteractable{
                     actionString = "Not enough Soul Shards!";
                     return false;
                 }
+                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill1.wav");
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
@@ -472,6 +474,7 @@ public class Player extends Character implements MouseInteractable{
 
         switch(getCharacterType()) {
             case "knight":
+                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
                 damageReducer = true;
                 attributes.skill3Cd = 3;
                 attributes.mana -= 40;
@@ -512,6 +515,7 @@ public class Player extends Character implements MouseInteractable{
         if (!canUseSkill(50, attributes.skill4Cd)) return false;
         switch(getCharacterType()) {
             case "knight":
+                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill3.wav");
                 int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
                 damageDealt = 2 * attributes.attack + moneyBonus;
                 attributes.skill4Cd = 4;

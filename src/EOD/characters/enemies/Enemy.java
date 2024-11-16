@@ -6,12 +6,15 @@ import EOD.characters.Player;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.gameInterfaces.Skillable;
 import EOD.listeners.MouseClickListener;
+import EOD.utils.SFXPlayer;
+
 import java.awt.event.MouseEvent;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import EOD.dialogues.*;
+import EOD.utils.SFXPlayer;
 
 public abstract class Enemy extends Character implements MouseInteractable, Skillable{
     protected Player player;
@@ -34,6 +37,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     protected Timer autoCloseTimer; // Timer to auto-close the dialogue
     protected int autoCloseDelay = 0; // Delay in milliseconds (e.g., 3 seconds)
     protected boolean allowDialogues;
+    protected SFXPlayer sfxPlayer = SFXPlayer.getInstance();
 
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,

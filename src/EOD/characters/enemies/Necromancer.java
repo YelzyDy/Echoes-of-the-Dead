@@ -36,6 +36,7 @@ public class Necromancer extends Enemy {
 
     @Override 
     public void skill1() {
+        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3);
         actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
