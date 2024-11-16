@@ -200,7 +200,9 @@ public class Shop extends EchoesObjects{
 
     private void updateStock(EchoesObjects item, int stock) {
         if (stock == 0) {
-            updateUnavailableItem(item);
+            item.setCurrentFrame(2);  // Show "sold out" frame
+            item.repaint();
+            item.setAllowHover(false);
         }
     }
 
