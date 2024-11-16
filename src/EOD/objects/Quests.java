@@ -299,7 +299,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     public void callPerformQuests(){
         int currentSceneIndex = world.getScene().getCurrentSceneIndex();
-
+        Player player = world.getScene().getPlayer();
         for(QuestableObjects obj : objList){
             if((int)player.getPosX() == (int)obj.targetX && currentSceneIndex == obj.getIndex()){
                 obj.performQuest();

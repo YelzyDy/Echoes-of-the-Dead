@@ -476,7 +476,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill3Cd = 3;
                 attributes.mana -= 40;
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
-                actionString = "Defense activated! Damage reduced by 60%";
+                actionString = "Defense activated! Damage reduced by 50% for 3 turns!";
                 shieldBuffRemaining = SHIELD_DURATION;
                 return true;
 
