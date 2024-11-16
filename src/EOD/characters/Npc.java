@@ -62,7 +62,9 @@ public class Npc extends Character implements MouseInteractable, Questable{
     }
 
     private int getDialogueId(){
-        if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard"))) return 0;
+        if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard"))){
+            return 0;
+        }
         if (getCharacterType().equals("natty")){
             return 3;
         }
@@ -92,6 +94,12 @@ public class Npc extends Character implements MouseInteractable, Questable{
         }
         if(getCharacterType().equals("renegald")){
             return 27;
+        }
+        if(getCharacterType().equals("asriel")){
+            return 29;
+        }
+        if(getCharacterType().equals("akifay")){
+            return 31;
         }
         return 0;
     }

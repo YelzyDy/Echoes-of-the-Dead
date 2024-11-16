@@ -36,6 +36,9 @@ public class Quests extends JPanel implements MouseInteractable{
     private boolean nattyDone = false;
     private boolean renegaldDone = false;
     private boolean rubyDone = false;
+    private boolean akefayDone = false;
+    private boolean asrielDone = false;
+    private boolean cheaDone = false;
     public Quests() {
         this.textPanel = new JPanel();
     }
@@ -216,8 +219,18 @@ public class Quests extends JPanel implements MouseInteractable{
     
     private void q0World2(){
         for(Npc npc : npcList) {
-            if ((npc.getName().equals("Ruby") || npc.getName().equals("Constance") || 
-                (npc.getName().equals("Faithful") || npc.getName().equals("Renegald")))
+            if ((npc.getName().equals("Ruby") || npc.getName().equals("Renegald"))
+                && !npc.doneQuest) {
+                npc.onClick(null);
+                break;
+            }
+        }
+    }
+
+    private void q0World3(){
+        for(Npc npc : npcList) {
+            if ((npc.getName().equals("Chea") || npc.getName().equals("Natty") || 
+                (npc.getName().equals("Asriel") || npc.getName().equals("Afekay")))
                 && !npc.doneQuest) {
                 npc.onClick(null);
                 break;
@@ -313,7 +326,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     private void handleWorld3Q(){
         if(ifActive == 0){
-            q0World2();
+            q0World3();
         }else if(ifActive == 1){
             q2World1();
         }else if(ifActive == 2){
@@ -366,6 +379,9 @@ public class Quests extends JPanel implements MouseInteractable{
                         case "Natty" -> nattyDone = true;
                         case "Renegald" -> renegaldDone = true;
                         case "Ruby" -> rubyDone = true;
+                        case "Akefay" -> akefayDone = true;
+                        case "Asriel" -> asrielDone = true;
+                        case "Chea" -> cheaDone = true;
                     }
             }
         } 
@@ -508,7 +524,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     public void callWorld3QDynamically(){
         if(ifActive == 0){
-            if (renegaldDone && constanceDone && faithfulDone && rubyDone) {
+            if (cheaDone && akefayDone && asrielDone) {
                 objList.get(1).setIsActivated(true);
                 setQuestStatus(1);  // Increment quest status
                 addQuests();
