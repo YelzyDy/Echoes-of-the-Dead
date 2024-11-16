@@ -3,6 +3,9 @@ package EOD.characters.enemies;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
 import EOD.objects.SkillEffects;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.awt.event.MouseEvent;
 
@@ -41,7 +44,7 @@ public class Necromancer extends Enemy {
         "smoke",
         11,
         player.getPanel()
-    );
+        );
         skill2Effects.setLooping(false);
     }
 
@@ -67,8 +70,19 @@ public class Necromancer extends Enemy {
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
         skill2Effects.bindToTarget(player, -player.getWidth() * 1, -player.getHeight() * 1);
-        skill2Effects.play();
-        skill2Effects.setStopFrame(11);
+
+         // Create a timer with desired delay (e.g., 500ms = 0.5 seconds)
+
+        Timer effectsTimer = new Timer(2500, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            skill2Effects.play();
+            skill2Effects.setStopFrame(11);
+            ((Timer)e.getSource()).stop(); // Stop the timer after playing effects
+        }
+        });
+        effectsTimer.setRepeats(false);
+        effectsTimer.start();
     }
 
 
@@ -211,7 +225,7 @@ public class Necromancer extends Enemy {
     public int decideSkill() {
         // 70% chance to use basic attack
         // 30% chance to try skill2 (will fall back to basic if on cooldown)
-        return Math.random() < 0.7 ? 1 : 2;
+        return Math.random() < 0.9 ? 2 : 1;
     }
     
     @Override
