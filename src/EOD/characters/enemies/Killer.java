@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent; // added this for onClick method -j mugana na 
 public class Killer extends Enemy{
     private static final int BASE_ATTACK = 15;
     private static final int BASE_HEALTH = 200;
-    private boolean isFightEnabled = false;
+    private boolean fightEnabled = false;
     public Dialogues dialogues;
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -184,6 +184,10 @@ public class Killer extends Enemy{
         }
     }
 
+    public void setFightEnabled(boolean enabled) {
+        this.fightEnabled = enabled;
+    }
+
     @Override
     public void update() {
         if (skill2Cooldown > 0) {
@@ -205,14 +209,16 @@ public class Killer extends Enemy{
         getPanel().configureBattle(this, portal);
     }
 
-    /*@Override
-    public void onClick(MouseEvent e){
-        if (!isFightEnabled){
-            dialogues = new Dialogues();
-            dialogues.displayDialogues(1, world); // Display the Killer's dialogue
-            world.getLayeredPane().setVisible(false);
-            isFightEnabled = true;
-        }
-    }    */
+    @Override
+    public void onClick(MouseEvent e) {
+        if (!fightEnabled) return;
+        
+        animator.stopMovement();
+        if (animator.getIsInBattle()) return;
+        player.getAnimator().setIsInBattle(true);
+        animator.setIsInBattle(true);
+        positionForBattle();
+        onBattleStart();
+    }
 
 }
