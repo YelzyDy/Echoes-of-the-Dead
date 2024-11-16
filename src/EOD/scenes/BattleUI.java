@@ -169,6 +169,11 @@ public class BattleUI extends JPanel implements Freeable{
         topTextBox.setText("Turn 1: Your Turn");
         textList.setVisible(true);
         player.getWorld().getQuests().setVisible(false);
+        for(Player player : player.getWorld().getPlayerList()){
+            player.getAnimator().setIsInBattle(true);
+            player.setPosX(screenSize.width * 0.35);
+            player.getAnimator().setMovingRight(true);
+        }
     }
 
     private void initializeUI() {
