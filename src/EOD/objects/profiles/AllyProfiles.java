@@ -63,6 +63,15 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         }
     }
 
+    public boolean isAllyVisible(String type){
+        switch(type){
+            case "knight": return knightProfile.isVisible();
+            case "wizard": return wizardProfile.isVisible();
+            case "priest": return priestProfile.isVisible();
+        }
+        return false;
+    }
+
     private void setUpYCoordinates() {
         yCoordinates = new double[3];
         yCoordinates[0] = panel.getWidth() * 0.137;
@@ -177,12 +186,33 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         if(priestProfile != null)priestProfile.setEnabled(enabled);
     }
 
+    public void setProfileEnabled(String type, boolean enabled){
+        switch(type){
+            case "knight" -> knightProfile.setEnabled(enabled);
+            case "wizard" -> wizardProfile.setEnabled(enabled);
+            case "priest" -> priestProfile.setEnabled(enabled);
+        }
+    }
+
     private void setAttributesOfInventory(){
         Player player;
         player = this.player.getPanel().getPlayer();
         this.player.getInventory().setAttributes(player.getAttributes());
         //this sets attributes of inventory depending on the player of the sceneBuilder
     }
+
+    public void clickPlayerProfile(String type){
+        int index = 0;
+        switch(type){
+            case "knight" -> index = 0;
+            case "priest" -> index = 1;
+            case "wizard" -> index = 2;
+        }
+        battle.setPlayer(playerList.get(index));
+        scene.setPlayer(playerList, index);
+        quests.setPlayer(playerList.get(index));
+    }
+
 
     @Override
     public void onClick(MouseEvent e) {
@@ -196,20 +226,11 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         }
 
         if (source == knightProfile) {
-            System.out.println("knightProfileClicked");
-            battle.setPlayer(playerList.get(0));
-            scene.setPlayer(playerList, 0);
-            quests.setPlayer(playerList.get(0));
+            clickPlayerProfile("knight");
         } else if (source == wizardProfile) {
-            System.out.println("WizardProfileClicked");
-            battle.setPlayer(playerList.get(2));
-            scene.setPlayer(playerList, 2);
-            quests.setPlayer(playerList.get(2));
+            clickPlayerProfile("wizard");
         } else if(source == priestProfile){
-            System.out.println("PriestProfileClicked");
-            battle.setPlayer(playerList.get(1));
-            scene.setPlayer(playerList, 1);
-            quests.setPlayer(playerList.get(1));
+            clickPlayerProfile("priest");
         }
         setAttributesOfInventory();
     }

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener; // -z
 
 import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
+import EOD.objects.profiles.AllyProfiles;
 
 public class BattleExperiment implements Skillable{
     private Enemy enemy;
@@ -22,7 +23,7 @@ public class BattleExperiment implements Skillable{
     private boolean isProcessingTurn = false;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected boolean battleEnded = false;
-
+    private boolean isKnightDead = false, isPriestDead = false, isWizardDead = false;
     public boolean isProcessingTurn(){
         return isProcessingTurn;
     }
@@ -143,16 +144,77 @@ public class BattleExperiment implements Skillable{
         enemy.getAnimator().setMovingRight(false);
     }
 
+    private void setAvailableAlliesEnabled(boolean enabled){
+        AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
+        for(Player player : allyProfiles.getPlayerList()){
+            if(player.getAttributes().getHp() > 0){
+                if(player.isKnight()){
+                    allyProfiles.setProfileEnabled("knight", enabled);
+                }else if(player.isWizard()){
+                    allyProfiles.setProfileEnabled("wizard", enabled);
+                }else if(player.isPriest()){
+                    allyProfiles.setProfileEnabled("priest", enabled);
+                }
+            }
+        }
+    }
+
+    private void switchToRemainingAlly(){
+        AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
+        for(Player player : allyProfiles.getPlayerList()){
+            if(player.getAttributes().getHp() > 0){
+                if(player.isKnight() && allyProfiles.isAllyVisible("knight")){
+                    allyProfiles.clickPlayerProfile("knight");
+                }else if(player.isWizard() && allyProfiles.isAllyVisible("wizard")){
+                    allyProfiles.clickPlayerProfile("wizard");
+                }else if(player.isPriest() && allyProfiles.isAllyVisible("priest")){
+                    allyProfiles.clickPlayerProfile("priest");
+                }
+            }
+        }
+    }
+
     private void finishEnemyTurn() {
-        for(Player player : player.getWorld().getPlayer().getAllyProfiles().getPlayerList()){
+        AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
+
+        for(Player player : allyProfiles.getPlayerList()){
             player.attributeTurnChecker();
+            if(player.getAttributes().getHp() <= 0){
+                switch(player.getCharacterType()){
+                    case "knight" ->{
+                        isKnightDead = true;
+                    }
+                    case "priest" ->{
+                        isPriestDead = true;
+                    }
+                    case "wizard" ->{
+                        isWizardDead = true;
+                    }
+                }
+                allyProfiles.setProfileEnabled(player.getCharacterType(), false);
+                switchToRemainingAlly();
+            }
         }
         battleUI.setSkillButtonsEnabled(true);
-        player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
+        setAvailableAlliesEnabled(true);
         battleUI.updateTurnIndicator("Turn " + turnCount + " - Your turn");
         battleUI.updateCooldowns();
         
-        if (player.attributes.getHp() <= 0) {
+        // Check if all visible allies are dead
+        boolean areAllVisibleAlliesDead = true; // Assume all are dead initially
+
+        if (allyProfiles.isAllyVisible("knight") && !isKnightDead) {
+            areAllVisibleAlliesDead = false;
+        }
+        if (allyProfiles.isAllyVisible("wizard") && !isWizardDead) {
+            areAllVisibleAlliesDead = false;
+        }
+        if (allyProfiles.isAllyVisible("priest") && !isPriestDead) {
+            areAllVisibleAlliesDead = false;
+        }
+
+        // Handle battle end if all visible allies are dead
+        if (areAllVisibleAlliesDead) {
             System.out.println("handle on battle end");
             handleBattleEnd(false);
             return;

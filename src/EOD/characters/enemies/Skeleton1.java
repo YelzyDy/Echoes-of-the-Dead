@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 10;
-    private static final int BASE_HEALTH = 150;
+    private static final int BASE_HEALTH = 0;
     private static final double SPRITE_SCALE = 0.3; // Keep the smaller scale for minion appearance
     
     // Skill cooldowns
