@@ -200,24 +200,10 @@ public class Shop extends EchoesObjects{
 
     private void updateStock(EchoesObjects item, int stock) {
         if (stock == 0) {
-            item.setCurrentFrame(2);  // Show "sold out" frame
-            item.repaint();
-            item.setAllowHover(false);
+            updateUnavailableItem(item);
         }
     }
 
-    private int updateMoney(int item) {
-        int money = world.getPlayer().getAttributes().getMoney();
-        int cost = 0; // Set item cost here
-
-        switch (item) {
-            case 1 -> { cost = 15; if(money > cost) inventory.addItem1(); }
-            case 2 -> { cost = 15; if(money > cost) inventory.addItem2(); }
-            case 3 -> { cost = 15; if(money > cost) inventory.addItem3(); }
-            case 4 -> { cost = 15; if(money > cost) inventory.addItem4(); }
-        }
-        return cost; // Return the cost if purchase is successful
-    }    
 
     @Override
     public void onHover(MouseEvent e) {
