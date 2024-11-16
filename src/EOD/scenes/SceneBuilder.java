@@ -286,6 +286,7 @@ public void createWorldScene() {
             }
         }
 
+
         if(ally != null){
             ally.getAnimator().updateAnimation();
         }

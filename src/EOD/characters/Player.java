@@ -55,6 +55,7 @@ public class Player extends Character implements MouseInteractable{
         configureSprites();
         animator.updateBounds();
         xFactor = 0;
+        clickX = 0;
         attributes.skill3Cd = attributes.skill4Cd = 0;
         actionString = null;
         this.damageReducer = false;
@@ -421,7 +422,7 @@ public class Player extends Character implements MouseInteractable{
                 }
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
-                attributes.attack += 25;
+                attributes.attack += 15;
                 actionString = "Player's attack increased by 15 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), enemy.getOffsetX(2), enemy.getOffsetY(2));
                 break;
@@ -489,12 +490,11 @@ public class Player extends Character implements MouseInteractable{
 
             case "priest":
                 sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
-                int healing = (int)(attributes.baseHealth * 0.3);
-                damageDealt = (int)(attributes.baseHealth * 0.4);
-                attributes.health = Math.min(attributes.health + healing, attributes.baseHealth);
+                int Damage = (int)(attributes.baseHealth * 0.4);
+                damageDealt = Damage;
                 attributes.mana -= 40;
                 attributes.skill3Cd = 3;
-                actionString = "Healed for " + healing + " and dealt " + damageDealt + " damage!";
+                actionString = "Health converted to force! " + damageDealt + " damage dealt to enemy!";
                 return true;
         }
         return false;
@@ -510,16 +510,16 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill4Cd = 4;
                 attributes.mana -= 50;
                 applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));
-                actionString = "Binding Edge! Dealt " + damageDealt + " damage to the enemy";
+                actionString = "Truthbinding! Dealt " + damageDealt + " damage to the enemy";
                 return true;
 
             case "wizard":
                 sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
-                damageDealt = 30 + (int)(attributes.baseMana * 0.3);
+                damageDealt = 30 + (int)(attributes.mana * 0.3);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
-                actionString = "Explosion! Dealt " + damageDealt + " damage to the enemy";
+                actionString = "Azure Inferno! Dealt " + damageDealt + " damage to the enemy";
                 return true;
 
             case "priest":
@@ -532,7 +532,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
                 applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.42, 0.15);
-                actionString = "Divine Retribution! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
+                actionString = "Vengeful Vitality! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
                 ArrayList<Player> playerList = this.getWorld().getPlayerList();
                 for(Player player : playerList){
                     player.getAttributes().setHp(player.getAttributes().getHp() + (int)(player.getAttributes().getBaseHp()*0.3));

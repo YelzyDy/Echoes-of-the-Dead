@@ -5,7 +5,6 @@ import EOD.gameInterfaces.Freeable;
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private int size;
-
         public void free(){
                 size = 0;
                 arr = null;
@@ -878,7 +877,7 @@ public class StoryLine implements Freeable{
 
         public void skillDetails(String playerType) {
                 int i = 0;
-
+                
                 this.arr[i++] = "You have approached an enemy!";
                 this.arr[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
                 
@@ -895,7 +894,7 @@ public class StoryLine implements Freeable{
                 }else if(playerType.equals(("wizard").toString())){
                         this.arr[i++] = "Quantum Shift: Has a 45% chance of evading the next attack. If successful, deal 35 damage and gain 90 mana.";
                 }else{
-                        this.arr[i++] = "Life Leech: Steals 30% of the MC’s Base HP  to the target.";
+                        this.arr[i++] = "Vital Strike: Deals 40% of the MC’s Base HP as damage to the target.";
                 }
 
                 if(playerType.equals(("knight").toString())){

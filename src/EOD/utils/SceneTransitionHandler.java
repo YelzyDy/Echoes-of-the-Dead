@@ -1,13 +1,13 @@
 package EOD.utils;
 
-import java.awt.Dimension;
+import EOD.characters.Npc;
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
 import EOD.objects.QuestableObjects;
-import EOD.characters.Npc;
 
 import java.util.ArrayList;
 import EOD.scenes.SceneBuilder;
+import java.awt.Dimension;
 public class SceneTransitionHandler {
     public final double RIGHT_BOUNDARY_THRESHOLD = 0.9;
     public final double LEFT_BOUNDARY_THRESHOLD = 0.05;
@@ -96,6 +96,14 @@ public class SceneTransitionHandler {
      * Checks if player is at a position that would toggle isInTransition to false so we can transition again
      */
 
+     public boolean isAtTransitionPoint(double posX, int currentScene, int maxPanel) {
+        if (isInTransition) {
+            return false;
+        }
+        
+        return (posX >= (screenSize.width * RIGHT_BOUNDARY_THRESHOLD) && currentScene < maxPanel - 1) ||
+               (currentScene > 0 && posX <= (screenSize.width * LEFT_BOUNDARY_THRESHOLD));
+    }
     public boolean isAtNonTransitionPoint(double posX) {
         double leftBoundary = screenSize.width * LEFT_BOUNDARY_THRESHOLD;
         double rightBoundary = screenSize.width * RIGHT_BOUNDARY_THRESHOLD;
