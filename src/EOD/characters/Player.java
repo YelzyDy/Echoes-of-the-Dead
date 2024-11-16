@@ -411,7 +411,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
                 break;
         }
-        actionString = "Player dealt " + damageDealt + " damage to the enemy!";
+        actionString = getName() + " dealt " + damageDealt + " damage to the enemy!";
         return true;
     }
 
@@ -432,7 +432,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
-                actionString = "Player's attack increased by 15 for " + SKILL2_DURATION + " turns!";
+                actionString = getName() + "\'s attack increased by 15 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), enemy.getOffsetX(2), enemy.getOffsetY(2));
                 break;
                 
@@ -445,7 +445,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.mana -= 20;
                 originalAttack = attributes.attack;
                 attributes.attack += 20;
-                actionString = "Player's attack increased by 20 for " + SKILL2_DURATION + " turns!";
+                actionString = getName() + "\'s attack increased by 20 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
                 
@@ -458,7 +458,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.health -= 25;
                 originalAttack = attributes.attack;
                 attributes.attack += 30;
-                actionString = "Player's attack increased by 30 for " + SKILL2_DURATION + " turns!";
+                actionString = getName() + "\'s attack increased by 30 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
         }

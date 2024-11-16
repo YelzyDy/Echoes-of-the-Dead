@@ -50,7 +50,7 @@ public class Skeleton1 extends Enemy {
     public void skill1() {
         // Basic attack - consistent but low damage
         damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
-        actionString = getName() + " swings its rusty sword for " + damageDealt + " damage!";
+        actionString = getName() + " used small boney punch for " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
 
@@ -67,7 +67,7 @@ public class Skeleton1 extends Enemy {
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
         
-        actionString = getName() + " throws a bone for " + damageDealt + " damage!";
+        actionString = getName() + " swings its rusty dull sword for " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
     }
