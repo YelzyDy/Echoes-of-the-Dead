@@ -260,7 +260,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             storyDialogue.dispose();
             System.out.println("Story dialogue dispose");
 
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 12 || ID == 15 || ID == 25 || ID == 27)) {
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27)) {
                 npc.doneQuest = true;
             }
         }
@@ -286,7 +286,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
 
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 12 || ID == 15 || ID == 25 || ID == 27)) {
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27)) {
                 npc.doneQuest = true;
             }  
         }else if(source == askButton){
