@@ -1,18 +1,17 @@
 package EOD.scenes;
 
-import javax.swing.Timer;
-
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
-import EOD.worlds.World;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent; // -z
-import java.awt.event.ActionListener; // -z
-
 import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
 import EOD.objects.profiles.AllyProfiles;
+import EOD.utils.SFXPlayer;
+import EOD.worlds.World; // -z
+import java.awt.Dimension; // -z
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class BattleExperiment implements Skillable{
     private Enemy enemy;
@@ -22,6 +21,7 @@ public class BattleExperiment implements Skillable{
     private int turnCount = 0;
     private boolean isProcessingTurn = false;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     protected boolean battleEnded = false;
     private boolean isKnightDead = false, isPriestDead = false, isWizardDead = false;
     public boolean isProcessingTurn(){
@@ -279,6 +279,16 @@ public class BattleExperiment implements Skillable{
         Timer deathAnimationTimer = new Timer(800, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                switch (enemy.getName()){
+                    case "Necromancer":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerdead.wav");
+                        break;
+                    case "Skeleton1":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1dead.wav");
+                        break;
+                    default:
+                        break;
+                }
                 enemy.getAnimator().triggerDeathAnimation(enemy.getPosY() + enemy.getPosY() * enemyDeathY);
             }
         });
