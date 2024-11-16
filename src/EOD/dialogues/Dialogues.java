@@ -33,6 +33,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     protected JLabel pressToContinueLabel;
     protected Npc npc;
     private SceneBuilder scene;
+    private String worldType;
 
     public Dialogues() {
         // TEXT WINDOW
@@ -130,6 +131,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     public void displayDialogues(int ID, World world) {
         this.world = world;
         this.scene = world.getScene();
+        this.worldType = world.getTitle();
         scene.addMouseListener(new MouseClickListener(this));
         // LOAD NPC
         this.ID = ID;

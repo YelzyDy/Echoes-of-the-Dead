@@ -151,6 +151,7 @@ public class Quests extends JPanel implements MouseInteractable{
         switch(world.getTitle()){
             case "world1": return initializeIndicesForWorld1Q(index);
             case "world2": return initializeIndicesForWorld2Q(index);
+            case "world3": return initializeIndicesForWorld3Q(index);
             default: return null;
         }
     }
@@ -171,6 +172,19 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     public String initializeIndicesForWorld2Q(int index){
+        switch (index) {
+            case 6: return "Warp to the next world";
+            case 5: return "Defeat the Executioner.";
+            case 4: return "Enter the red portal.";
+            case 3: return "Speak to Miggings";
+            case 2: return "Defeat the skeleton.";
+            case 1: return "Enter the green portal.";
+            case 0: return "Talk to everyone.";
+            default: return "Welcome!";
+        }
+    }
+
+    public String initializeIndicesForWorld3Q(int index){
         switch (index) {
             case 6: return "Warp to the next world";
             case 5: return "Defeat the Executioner.";
@@ -297,6 +311,24 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
+    private void handleWorld3Q(){
+        if(ifActive == 0){
+            q0World2();
+        }else if(ifActive == 1){
+            q2World1();
+        }else if(ifActive == 2){
+            q3World1();
+        }else if(ifActive == 3){
+            q4World1();
+        }else if(ifActive == 4){
+            q6World1();
+        }else if(ifActive == 5){
+            q7World1();
+        }else if(ifActive == 6){
+            q8World1();
+        }
+    }
+
     public void callPerformQuests(){
         int currentSceneIndex = world.getScene().getCurrentSceneIndex();
         Player player = world.getScene().getPlayer();
@@ -339,68 +371,10 @@ public class Quests extends JPanel implements MouseInteractable{
         } 
         switch(world.getTitle()){
             case "world1" -> callWorld1QDynamically();
-            case "world2" ->callWorld2QDynamically();
+            case "world2" -> callWorld2QDynamically();
+            case "world3" -> callWorld3QDynamically();
         }
     }
-
-        public void callWorld2QDynamically(){
-            if(ifActive == 0){
-                if (renegaldDone && constanceDone && faithfulDone && rubyDone) {
-                    objList.get(1).setIsActivated(true);
-                    setQuestStatus(1);  // Increment quest status
-                    addQuests();
-                }
-            }
-
-            if(ifActive == 1){
-                QuestableObjects obj = objList.get(1);
-                if(obj.doneQuest){ 
-                    setQuestStatus(2);
-                    addQuests();
-                }
-            }
-
-            if(ifActive == 2){
-                Enemy enemy = enemyList.get(0);
-                if(enemy.getIsDefeated()){
-                    setQuestStatus(3);
-                    addQuests();
-                }
-            }
-
-            if(ifActive == 3){
-                if(npcList.get(4).doneQuest){
-                    setQuestStatus(4);
-                    addQuests();
-                    objList.get(2).setIsActivated(true);
-                }
-            }
-
-            if(ifActive == 4){
-                QuestableObjects obj = objList.get(2);
-                if(obj.doneQuest){
-                    setQuestStatus(5);
-                    addQuests();
-                }
-            }
-
-            if(ifActive == 5){
-                Enemy enemy = enemyList.get(1);
-                if(enemy.getIsDefeated()){
-                    setQuestStatus(6);
-                    addQuests();
-                    scene.ally.setStatic(true);
-                }
-            }
-
-            if(ifActive == 6){
-                QuestableObjects obj = objList.get(3);
-                if(obj.doneQuest){  
-                    setQuestStatus(7);
-                    addQuests();
-                }
-            }
-        }   
 
     public void callWorld1QDynamically(){
         if(ifActive == 0){
@@ -478,6 +452,112 @@ public class Quests extends JPanel implements MouseInteractable{
             }
         }
     }
+
+    public void callWorld2QDynamically(){
+        if(ifActive == 0){
+            if (renegaldDone && constanceDone && faithfulDone && rubyDone) {
+                objList.get(1).setIsActivated(true);
+                setQuestStatus(1);  // Increment quest status
+                addQuests();
+            }
+        }
+        if(ifActive == 1){
+            QuestableObjects obj = objList.get(1);
+            if(obj.doneQuest){ 
+                setQuestStatus(2);
+                addQuests();
+            }
+        }
+        if(ifActive == 2){
+            Enemy enemy = enemyList.get(0);
+            if(enemy.getIsDefeated()){
+                setQuestStatus(3);
+                addQuests();
+            }
+        }
+        if(ifActive == 3){
+            if(npcList.get(4).doneQuest){
+                setQuestStatus(4);
+                addQuests();
+                objList.get(2).setIsActivated(true);
+            }
+        }
+        if(ifActive == 4){
+            QuestableObjects obj = objList.get(2);
+            if(obj.doneQuest){
+                setQuestStatus(5);
+                addQuests();
+            }
+        }
+        if(ifActive == 5){
+            Enemy enemy = enemyList.get(1);
+            if(enemy.getIsDefeated()){
+                setQuestStatus(6);
+                addQuests();
+                scene.ally.setStatic(true);
+            }
+        }
+        if(ifActive == 6){
+            QuestableObjects obj = objList.get(3);
+            if(obj.doneQuest){  
+                setQuestStatus(7);
+                addQuests();
+            }
+        }
+    }   
+
+    public void callWorld3QDynamically(){
+        if(ifActive == 0){
+            if (renegaldDone && constanceDone && faithfulDone && rubyDone) {
+                objList.get(1).setIsActivated(true);
+                setQuestStatus(1);  // Increment quest status
+                addQuests();
+            }
+        }
+        if(ifActive == 1){
+            QuestableObjects obj = objList.get(1);
+            if(obj.doneQuest){ 
+                setQuestStatus(2);
+                addQuests();
+            }
+        }
+        if(ifActive == 2){
+            Enemy enemy = enemyList.get(0);
+            if(enemy.getIsDefeated()){
+                setQuestStatus(3);
+                addQuests();
+            }
+        }
+        if(ifActive == 3){
+            if(npcList.get(4).doneQuest){
+                setQuestStatus(4);
+                addQuests();
+                objList.get(2).setIsActivated(true);
+            }
+        }
+        if(ifActive == 4){
+            QuestableObjects obj = objList.get(2);
+            if(obj.doneQuest){
+                setQuestStatus(5);
+                addQuests();
+            }
+        }
+        if(ifActive == 5){
+            Enemy enemy = enemyList.get(1);
+            if(enemy.getIsDefeated()){
+                setQuestStatus(6);
+                addQuests();
+                scene.ally.setStatic(true);
+            }
+        }
+        if(ifActive == 6){
+            QuestableObjects obj = objList.get(3);
+            if(obj.doneQuest){  
+                setQuestStatus(7);
+                addQuests();
+            }
+        }
+    }   
     
     @Override
     public void onClick(MouseEvent e) {
@@ -488,6 +568,8 @@ public class Quests extends JPanel implements MouseInteractable{
             handleWorld1Q(e);
         }else if(source != scene && world.getTitle().equals("world2") && index == 0){
             handleWorld2Q();
+        }else if(source != scene && world.getTitle().equals("world3") && index == 0){
+            handleWorld3Q();
         }
     }
 
