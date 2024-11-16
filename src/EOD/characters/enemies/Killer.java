@@ -1,12 +1,14 @@
 package EOD.characters.enemies;
 
 import EOD.characters.Player;
+import EOD.dialogues.Dialogues;
 import EOD.objects.EchoesObjects;
 
 public class Killer extends Enemy{
     private static final int BASE_ATTACK = 15;
     private static final int BASE_HEALTH = 200;
-    
+    private boolean isFightEnabled = false;
+    public Dialogues dialogues;
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
@@ -201,4 +203,15 @@ public class Killer extends Enemy{
         EchoesObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
     }
+
+    /*@Override
+    public void onClick(MouseEvent e){
+        if (!isFightEnabled){
+            dialogues = new Dialogues();
+            dialogues.displayDialogues(1, world); // Display the Killer's dialogue
+            world.getLayeredPane().setVisible(false);
+            isFightEnabled = true;
+        }
+    }    */
+
 }

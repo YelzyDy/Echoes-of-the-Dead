@@ -1,5 +1,6 @@
 package EOD.scenes;
 import EOD.characters.Player;
+import EOD.dialogues.Dialogues;
 import EOD.dialogues.FullScreenDialogues;
 import EOD.worlds.World3;
 import java.awt.*;
@@ -71,10 +72,21 @@ public class ChoiceUI extends JPanel {
                     if ((player.getCharacterType().equals("wizard") && button.getText().equals("Yoo")) ||
                         (player.getCharacterType().equals("priest") && button.getText().equals("Natty")) ||
                         (player.getCharacterType().equals("knight") && button.getText().equals("Faithful"))) {
-                        
+                        Dialogues script = new Dialogues();
                         dialogues.displayDialogue(1);
                         isKillerFound = true;
                         setVisible(false); // Hide choice UI
+                        switch (player.getCharacterType()){
+                            case "knight":
+                                script.displayDialogues(102, world);
+                                break;
+                            case "priest":
+                                script.displayDialogues(103, world);
+                                break;
+                            case "wizard":
+                                script.displayDialogues(104, world);
+                                break; 
+                        }
                         world.startKillerBattle(); // Start the battle
                     } else {
                         dialogues.displayDialogue(2);
