@@ -283,8 +283,15 @@ public class BattleExperiment implements Skillable{
                     case "Necromancer":
                         sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerdead.wav");
                         break;
+                    case "Death":
+                        break;
                     case "Skeleton1":
                         sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1dead.wav");
+                        break;
+                    case "Skeleton2":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2dead.wav");
+                        break;
+                    case "Skeleton3":
                         break;
                     default:
                         break;

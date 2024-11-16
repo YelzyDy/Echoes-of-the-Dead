@@ -109,6 +109,7 @@ public class World3 extends World{
         scene.npcList.add(new Npc("Akefay", "akefay", (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.2, screenSize.width * 0.6));
         scene.npcList.add(new Npc("Miggins", "miggins",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.5, screenSize.width * 0.62));
         scene.npcList.add(new Npc("Yoo", "yoo", (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.21), screenSize.width * 0.6, screenSize.width * 0.8));
+        scene.npcList.add(new Npc("Constance", "missC", (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.21), screenSize.width * 0.6, screenSize.width * 0.8));
         scene.npcList.add(new Reaper());
         
         for (Npc npc : scene.npcList) {
@@ -134,7 +135,9 @@ public class World3 extends World{
                 npc.doneQuest = true;
             } else if (npc.getName().equals("Reaper")){
                 npc.setIndex(4);
-            } 
+            } else if (npc.getName().equals("Constance")){
+                npc.setIndex(0);
+            }
         }
     }
 
