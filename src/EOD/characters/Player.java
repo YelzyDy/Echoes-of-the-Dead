@@ -37,7 +37,7 @@ public class Player extends Character implements MouseInteractable{
     // private static final int HEALTH_REGEN = 5; // Small health regen for Pr
 
     private static final int SKILL2_DURATION = 3; // Duration of buff in turns
-    private static final int SHIELD_DURATION = 1; // Duration of shield in turns
+    private static final int SHIELD_DURATION = 3; // Duration of shield in turns
     private int skill2BuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int shieldBuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int originalAttack; // Stores original attack value
@@ -141,7 +141,7 @@ public class Player extends Character implements MouseInteractable{
             attributes.skillEffects4 = attributes.createSkillEffect("wizardss", getPosX() * 0.9, 0.08, 8, false);
             break;
             default:
-            attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08, 4, true);
+            attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08,14, false);
             attributes.skillEffects2 = attributes.createSkillEffect("pbuff", getPosX() * 0.9, 0.08, 9, false);
             attributes.skillEffects4 = attributes.createSkillEffect("lightning", getPosX() * 0.9, 0.08, 10, false);
             break;
@@ -284,7 +284,14 @@ public class Player extends Character implements MouseInteractable{
         // Handle shield buff duration
         if (shieldBuffRemaining > 0) {
             shieldBuffRemaining--;
-        }
+            damageReducer = true;
+            if (shieldBuffRemaining == 0) {
+                damageReducer = false;
+            }
+        } else {
+            // Ensure damage reducer is false when no shield is active
+            damageReducer = false;
+        }    
         
         attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
 
@@ -534,6 +541,7 @@ public class Player extends Character implements MouseInteractable{
                 applySkillEffect(attributes.skillEffectsRandom, this, 14, 0.42, 0.15);
                 actionString = "Vengeful Vitality! Healed for " + ultimateHeal + " and dealt " + damageDealt + " damage!";
                 ArrayList<Player> playerList = this.getWorld().getPlayerList();
+
                 for(Player player : playerList){
                     player.getAttributes().setHp(player.getAttributes().getHp() + (int)(player.getAttributes().getBaseHp()*0.3));
                     if(player.getAttributes().getHp()>player.getAttributes().getBaseHp()){

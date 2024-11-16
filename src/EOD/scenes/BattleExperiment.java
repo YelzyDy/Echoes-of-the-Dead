@@ -123,7 +123,7 @@ public class BattleExperiment implements Skillable{
         int damage = enemy.getDamageDealt();
         
         if (player.isDamageReducerActive()) {
-            damage = (int)(damage * 0.4);
+            damage = (int)(damage * 0.5);
             if (damage > (player.getAttributes().getHp() * 0.2)) {
                 player.getAttributes().addMoney(30);
                 battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
