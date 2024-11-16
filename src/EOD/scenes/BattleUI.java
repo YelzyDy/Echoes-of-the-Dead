@@ -283,9 +283,23 @@ public class BattleUI extends JPanel implements Freeable{
         skillButtonsPanel.add(skillD);
     }
 
-    private void loadSkillIcons() {
-        switch(player.getCharacterType()){
-            case "knight" ->{
+    public void loadSkillIcons() {
+        story.skillDetails(player.getCharacterType());
+        // Clear previous icons to prevent memory leaks
+        if (skillAIcon != null) {
+            skillAIcon.getImage().flush();
+            skillAHoverIcon.getImage().flush();
+            skillBIcon.getImage().flush();
+            skillBHoverIcon.getImage().flush();
+            skillCIcon.getImage().flush();
+            skillCHoverIcon.getImage().flush();
+            skillDIcon.getImage().flush();
+            skillDHoverIcon.getImage().flush();
+        }
+    
+        // Load new icons based on character type
+        switch(player.getCharacterType()) {
+            case "knight" -> {
                 skillAIcon = scaleImageIcon("src/button_assets/kBasicAtk0.png");
                 skillAHoverIcon = scaleImageIcon("src/button_assets/kBasicAtk1.png");
                 skillBIcon = scaleImageIcon("src/button_assets/k1stSkill0.png");
@@ -294,7 +308,8 @@ public class BattleUI extends JPanel implements Freeable{
                 skillCHoverIcon = scaleImageIcon("src/button_assets/k2ndSkill1.png");
                 skillDIcon = scaleImageIcon("src/button_assets/k3rdSkill0.png");
                 skillDHoverIcon = scaleImageIcon("src/button_assets/k3rdSkill1.png");
-            } case "wizard" ->{
+            }
+            case "wizard" -> {
                 skillAIcon = scaleImageIcon("src/button_assets/mBasicAtk0.png");
                 skillAHoverIcon = scaleImageIcon("src/button_assets/mBasicAtk1.png");
                 skillBIcon = scaleImageIcon("src/button_assets/m1stSkill0.png");
@@ -303,7 +318,8 @@ public class BattleUI extends JPanel implements Freeable{
                 skillCHoverIcon = scaleImageIcon("src/button_assets/m2ndSkill1.png");
                 skillDIcon = scaleImageIcon("src/button_assets/m3rdSkill0.png");
                 skillDHoverIcon = scaleImageIcon("src/button_assets/m3rdSkill1.png");
-            } case "priest" ->{
+            }
+            case "priest" -> {
                 skillAIcon = scaleImageIcon("src/button_assets/pBasicAtk0.png");
                 skillAHoverIcon = scaleImageIcon("src/button_assets/pBasicAtk1.png");
                 skillBIcon = scaleImageIcon("src/button_assets/p1stSkill0.png");
@@ -314,7 +330,24 @@ public class BattleUI extends JPanel implements Freeable{
                 skillDHoverIcon = scaleImageIcon("src/button_assets/p3rdSkill1.png");
             }
         }
-        
+    
+        // Update the button icons
+        if (skillA != null) {
+            skillA.setIcon(skillAIcon);
+            skillB.setIcon(skillBIcon);
+            skillC.setIcon(skillCIcon);
+            skillD.setIcon(skillDIcon);
+            
+            // Make sure the buttons are properly repainted
+            skillA.revalidate();
+            skillA.repaint();
+            skillB.revalidate();
+            skillB.repaint();
+            skillC.revalidate();
+            skillC.repaint();
+            skillD.revalidate();
+            skillD.repaint();
+        }
     }
 
     private void initializeBottomPanel() {

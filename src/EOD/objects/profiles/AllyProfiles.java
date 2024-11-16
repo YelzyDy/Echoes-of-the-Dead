@@ -209,6 +209,7 @@ public class AllyProfiles implements MouseInteractable, Freeable {
             case "wizard" -> index = 2;
         }
         battle.setPlayer(playerList.get(index));
+        battle.loadSkillIcons();
         scene.setPlayer(playerList, index);
         quests.setPlayer(playerList.get(index));
     }
