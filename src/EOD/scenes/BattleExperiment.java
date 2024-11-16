@@ -53,29 +53,29 @@ public class BattleExperiment implements Skillable{
     }
 
     private void handleSkill(int skillNumber, boolean damageEnemy) {
-        if (isProcessingTurn) return;  // Prevent multiple skill uses while animation is playing
+        if (isProcessingTurn) return;
         
         if (player.useSkill(skillNumber)) {
             isProcessingTurn = true;
             turnCount++;
             
-            if (damageEnemy) {
-                int damage = player.getDamageDealt();
-                enemy.takeDamage(damage);
-                
-                if ((player.isWizard() && skillNumber == 3) || 
-                    (player.isKnight() && skillNumber == 4)) {
-                    enemy.missedTurn = true;
-                }else{
-                    
-                }
-            }
-
             battleUI.setSkillButtonsEnabled(false);
             player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(false);
             
+            final int damage = player.getDamageDealt();
+            
             // Set callback for player's animation completion
             player.getAnimator().setOnAnimationComplete(() -> {
+                // Apply damage after animation completes
+                if (damageEnemy) {
+                    enemy.takeDamage(damage);
+                    
+                    if ((player.isWizard() && skillNumber == 3) || 
+                        (player.isKnight() && skillNumber == 4)) {
+                        enemy.missedTurn = true;
+                    }
+                }
+                
                 if (enemy.getHp() <= 0) {
                     handleBattleEnd(true);
                     return;
@@ -83,9 +83,11 @@ public class BattleExperiment implements Skillable{
                 startEnemyTurn();
             });
             
+            // Trigger animation and SFX
             player.getAnimator().triggerSkillAnimation(skillNumber, (int)player.getXFactor());
             player.playSfx(player, skillNumber);
             player.getAnimator().setMovingRight(true);
+            
             battleUI.updateCooldowns();
             battleUI.updateTurnIndicator("Turn " + turnCount + " - Enemy Turn");
         }
@@ -113,35 +115,35 @@ public class BattleExperiment implements Skillable{
         int chosenSkill = enemy.decideSkill();
         
         switch (chosenSkill) {
-            case 1:
-                enemy.skill1();
-                break;
-            case 2:
-                enemy.skill2();
-                break;
+            case 1 -> enemy.skill1();
+            case 2 -> enemy.skill2();
         }
 
-        int damage = enemy.getDamageDealt();
-        
-        if (player.isDamageReducerActive()) {
-            damage = (int)(damage * 0.5);
-            if (damage > (player.getAttributes().getHp() * 0.2)) {
+        final int initialDamage = enemy.getDamageDealt();
+        final int damage = player.isDamageReducerActive() ? 
+            (int)(initialDamage * 0.5) : initialDamage;
+
+        // Set callback for enemy's animation completion
+        enemy.getAnimator().setOnAnimationComplete(() -> {
+            // Apply damage after animation completes
+            player.takeDamage(damage);
+            
+            if (player.isDamageReducerActive() && 
+                damage > (player.getAttributes().getHp() * 0.2)) {
                 player.getAttributes().addMoney(30);
                 battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
             }
             player.resetDamageReducer();
-        }
-        
-        player.takeDamage(damage);
-        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
-        
-        // Set callback for enemy's animation completion
-        enemy.getAnimator().setOnAnimationComplete(this::finishEnemyTurn);
+            
+            finishEnemyTurn();
+        });
+
         enemy.getAnimator().triggerSkillAnimation(
             enemy.getLastUsedSkill(), 
             (int)enemy.getXFactor()
         );
         enemy.getAnimator().setMovingRight(false);
+        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
     }
 
     private void setAvailableAlliesEnabled(boolean enabled){
