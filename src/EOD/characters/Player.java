@@ -515,7 +515,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
-                damageDealt = 30 + (int)(attributes.baseMana * 0.3);
+                damageDealt = 30 + (int)(attributes.mana * 0.3);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
