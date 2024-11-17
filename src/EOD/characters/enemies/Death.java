@@ -5,7 +5,7 @@ import EOD.objects.EchoesObjects;
 
 public class Death extends Enemy{
     private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 150;
+    private static final int BASE_HEALTH = 250;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -91,9 +91,10 @@ public class Death extends Enemy{
 
     @Override 
     public double getOffsetY(int skill){
+        //increasing this moves skill effects up
         if(skill == 1){
             if(player.isKnight()){
-                return 0.18;
+                return 0.001;
             }else{
                 return 0.2;
             }
@@ -113,7 +114,7 @@ public class Death extends Enemy{
             }
         }else{
             if(player.isKnight()){
-                return 0.1;
+                return 0.001;
             }else if(player.isWizard()){
                 return 0.2;
             }else{

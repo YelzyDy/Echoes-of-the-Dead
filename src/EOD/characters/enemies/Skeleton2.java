@@ -112,20 +112,21 @@ public class Skeleton2 extends Enemy {
             }
         } else {
             if(player.isKnight()){
-                return 0.3;
+                return 0.2;
             }else if(player.isWizard()){
                 return 0.15;
             }else{
-                return 0.45;
+                return 0.4;
             }
         }
     }
 
     @Override 
     public double getOffsetY(int skill) {
+        //increasing this moves skill effects up
         if(skill == 1){
             if(player.isKnight()){
-                return 0.6;
+                return 0.4;
             }else{
                 return 0.1;
             }
@@ -149,7 +150,7 @@ public class Skeleton2 extends Enemy {
             }else if(player.isWizard()){
                 return 0.35;
             }else{
-                return 0.6;
+                return 0.5;
             }
         }
     }

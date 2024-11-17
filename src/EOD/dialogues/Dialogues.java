@@ -263,9 +263,8 @@ public class Dialogues implements Freeable, MouseInteractable {
         } else {
             if (ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
             storyDialogue.dispose();
-            System.out.println("Story dialogue dispose");
 
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27)) {
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27 || ID == 29 || ID == 31 || ID == 33)) {
                 npc.doneQuest = true;
             }
         }
@@ -291,7 +290,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
 
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27)) {
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27 || ID == 29 || ID == 31 || ID == 33)) {
                 npc.doneQuest = true;
             }  
         }else if(source == askButton){

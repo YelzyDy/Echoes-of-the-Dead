@@ -230,7 +230,7 @@ public class Quests extends JPanel implements MouseInteractable{
     private void q0World3(){
         for(Npc npc : npcList) {
             if ((npc.getName().equals("Chea") || npc.getName().equals("Natty") || 
-                (npc.getName().equals("Asriel") || npc.getName().equals("Afekay")))
+                (npc.getName().equals("Asriel") || npc.getName().equals("Akefay")))
                 && !npc.doneQuest) {
                 npc.onClick(null);
                 break;

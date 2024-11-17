@@ -387,9 +387,11 @@ public class Player extends Character implements MouseInteractable{
                 if(enemy.getCharacterType().equals("skeleton1")){
                     return screenSize.width * 0.3;
                 }else if(enemy.getCharacterType().equals("skeleton2")){
-                    return screenSize.width * 0.4;
+                    return screenSize.width * 0.3;
                 }else if(enemy.getCharacterType().equals("necromancer")){
                     return screenSize.width * 0.35;
+                }else if(enemy.getCharacterType().equals("death")){
+                    return screenSize.width * 0.4;
                 }
                 return screenSize.width * 0.3;
             }
@@ -447,7 +449,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
-                actionString = getName() + "\'s attack increased by 15 for " + SKILL2_DURATION + " turns!";
+                actionString = getCharacterType() + "\'s attack increased by 15 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), enemy.getOffsetX(2), enemy.getOffsetY(2));
                 break;
                 
