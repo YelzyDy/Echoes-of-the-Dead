@@ -102,6 +102,7 @@ public class World2 extends World{
         scene.npcList.add(new Npc("Faithful", "faithful", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.21), screenSize.width * 0.2, screenSize.width * 0.4));
         scene.npcList.add(new Npc("Renegald", "renegald", (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.2, screenSize.width * 0.6));
         scene.npcList.add(new Npc("Miggins", "miggins",  (int)(screenSize.width * 0.65), (int)(screenSize.height * 0.21), screenSize.width * 0.5, screenSize.width * 0.62));
+        scene.npcList.add(new Npc("Monologuer", "monologuer",  (int)(screenSize.width * 0.6), (int)(screenSize.height * 0.21), screenSize.width * 0.3, screenSize.width * 0.6));
 
         for (Npc npc : scene.npcList) {
             scene.add(npc);
@@ -122,6 +123,8 @@ public class World2 extends World{
             }else if (npc.getName().equals("Miggins")) {
                 npc.setIndex(2);
                 npc.doneQuest = true;
+            }else if (npc.getName().equals("Monologuer")) {
+                npc.setIndex(2);
             }
         }
     }
