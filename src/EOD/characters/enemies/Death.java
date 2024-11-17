@@ -35,6 +35,7 @@ public class Death extends Enemy{
     
 
     public void skill1() {
+        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathbasicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3);
         actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
@@ -48,7 +49,7 @@ public class Death extends Enemy{
             skill1();
             return;
         }
-
+        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathskill1.wav");
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
         

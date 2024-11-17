@@ -110,7 +110,7 @@ public class Shop extends EchoesObjects{
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
         buyButton.setVisible(true);
-        sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
+        //sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if (source == item1) {
             handleItemClick(1, item1, item1Stock);
         } else if (source == item2) {
@@ -122,12 +122,14 @@ public class Shop extends EchoesObjects{
         } else if (source == buyButton) {
             buy();
         } else if (source == closeButton) {
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             hideShop();
         }
     }
 
     private void handleItemClick(int itemNumber, EchoesObjects item, int stock) {
         itemToBuy = itemNumber;
+        sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if (stock > 0) {
             sidePanel.setCurrentFrame(itemNumber);
             sidePanel.repaint();

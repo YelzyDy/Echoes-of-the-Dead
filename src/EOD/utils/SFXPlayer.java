@@ -2,9 +2,12 @@ package EOD.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.sound.sampled.*;
 
 public class SFXPlayer {
+    private static final ExecutorService threadPool = Executors.newCachedThreadPool();
     private static SFXPlayer instance = null;
     private Clip clip;
     private FloatControl gainControl;
@@ -29,41 +32,38 @@ public class SFXPlayer {
             System.err.println("Error: filePath is null or empty");
             return;
         }
-        this.filepath = filePath;
-        if (!isSFXEnabled) {
-            return;
-        }
-    
-        new Thread(() -> {
+
+        threadPool.submit(() -> {
             try {
                 if (clip != null && clip.isRunning()) {
                     stopSFX();
                 }
-    
+
                 File audioFile = new File(filePath);
                 if (!audioFile.exists()) {
                     System.err.println("Audio file not found: " + filePath);
                     return;
                 }
+
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
                 AudioFormat format = audioStream.getFormat();
                 DataLine.Info info = new DataLine.Info(Clip.class, format);
-    
+
                 if (!AudioSystem.isLineSupported(info)) {
                     throw new UnsupportedOperationException("Audio format not supported");
                 }
-    
+
                 clip = (Clip) AudioSystem.getLine(info);
                 clip.open(audioStream);
-    
+
                 gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 setVolume(currentVolume);
-    
+
                 clip.start();
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 e.printStackTrace();
             }
-        }).start();
+        });
     }
     
     

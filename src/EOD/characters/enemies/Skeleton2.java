@@ -58,7 +58,7 @@ public class Skeleton2 extends Enemy {
             skill1();
             return;
         }
-        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2basicatk.wav");
+        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2skill1.wav");
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
