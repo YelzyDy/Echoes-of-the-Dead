@@ -110,7 +110,7 @@ public class Skeleton2 extends Enemy {
             }
         } else {
             if(player.isKnight()){
-                return 0.35;
+                return 0.3;
             }else if(player.isWizard()){
                 return 0.35;
             }else{
