@@ -206,8 +206,8 @@ public class Dialogues implements Freeable, MouseInteractable {
         }
         buttonPanel.setVisible(true);
 
-        if (ID == 4 || ID == 1)
-            buttonPanel.add(questsButton, BorderLayout.WEST);
+        // if (ID == 4 || ID == 1)
+            buttonPanel.add(questsButton, BorderLayout.CENTER);
 
         if (!(ID == 9 || ID == 10 || ID == 11 || ID == 12 || ID == 0))
             buttonPanel.add(skipButton, BorderLayout.EAST);
