@@ -204,7 +204,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             buttonPanel.add(askButton, BorderLayout.WEST);
 
         this.size = story.getSize();
-        
+
         if (size > 0) {
             typewriterEffect(story.getLine(0));
             i++; // Increment to point to the next line
@@ -333,11 +333,16 @@ public class Dialogues implements Freeable, MouseInteractable {
                 npc.doneQuest = true;
             }  
         }else if(source == askButton){
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
-            storyDialogue.dispose();
+           sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
+            // Interrupt typewriter effect and clear text
+            isTyping = false; // Stop typewriter effect
+            textBox.setText(""); // Clear the text box content
+
+            // Proceed with ask dialogues
+            storyDialogue.dispose(); // Close current dialogue
             this.ID++;
             buttonPanel.setVisible(false);
-            textBox.setText(null);
+            textBox.setText(null); // Clear any residual text
             askDialogues.setPlayerType(playerType);
             askDialogues.setWorldType(worldType);
             askDialogues.openScrollableOptions(this.ID, this, textBox);
