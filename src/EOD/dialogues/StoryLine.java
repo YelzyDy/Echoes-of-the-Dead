@@ -1,16 +1,13 @@
-package EOD.dialogues;
-
+package EOD.dialogues;;
 import EOD.gameInterfaces.Freeable;
 import EOD.utils.SFXPlayer;
-import java.awt.*;
-
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private String[] qArr = new String[50];
         private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
         private int questSize;
-        private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
         public void free(){
                 size = 0;
                 arr = null;
@@ -19,22 +16,19 @@ public class StoryLine implements Freeable{
 
         public void exposition() {
                 int i = 0;
+                
                 this.arr[i++] = "...";
                 this.arr[i++] = "It has been a long day at CITU. After hours of scanning through countless lines of codes, all you can think about is the comfort of your bed and the peace of being home.";
-                sfxPlayer.stopSFX();
-                sfxPlayer.playSFX("src/audio_assets/sfx/exposition/parkinglot.wav");
                 this.arr[i++] = "After stepping out of the university campus, you trudge toward the parking lot, exhaustion weighing heavily on your shoulders. The sun had long dipped beneath the horizon, leaving the streets bathed in the eerie glow of streetlights. You slid into the driver's seat, the familiar hum of the engine offering a slight sense of comfort as you started the car.";
                 this.arr[i++] = "Pulling onto the road, you glanced in the rearview mirror and caught sight of a car idling just across the street, its headlights glaring. Shaking off the sensation, you turned onto the main road, eager to get home. But as you made each turn, the car followed. Left, right, another left-it mirrored every move. An uneasy feeling began to settle in, creeping up your spine. What was a coincidence at first now felt intentional.";
                 this.arr[i++] = "\"Something is wrong.\"";
-                this.arr[i++] = "Determined to shake the car off, you took an abrupt turn into a nthis.arrow side street, speeding up as you weaved through the backroads. You heart raced, and every sharp corner felt like a calculated move. You spotted a small alley up ahead, barely wide enough for a car. Without hesitation, you darted into it and killed the engines. You sat in the darkness, holding your breath. Moments later, the other car went past the alley, oblivious. You restarted the engine and quickly sped to the opposite direction.";
+                this.arr[i++] = "Determined to shake the car off, you took an abrupt turn into a side street, speeding up as you weaved through the backroads. You heart raced, and every sharp corner felt like a calculated move. You spotted a small alley up ahead, barely wide enough for a car. Without hesitation, you darted into it and killed the engines. You sat in the darkness, holding your breath. Moments later, the other car went past the alley, oblivious. You restarted the engine and quickly sped to the opposite direction.";
                 this.arr[i++] = "You had to make a detour, taking the longer, less familiar route just to be safe. As you merged onto the Cebu-Cordova Link Expressway (CCLEX), the vast expanse of the bridge stretched ahead, disappearing into the fog. The bridge is lit by the occasional, flickering tail lights of the cars in front of you.";
                 this.arr[i++] = "Thunder rumbles in the distance, you are just minutes away from home.";
                 this.arr[i++] = "Then suddenly, from the corner of your eye, headlights blind you-the familiar vehicle from earlier veers recklessly into your lane. The screech of tires on wet pavement fills your ears, followed by the metallic crunch of impact. You got a glimpse of the driver of the car, but before you could properly identify who it is, your own car spins, losing all control. Glass shatters. You feel the weight of your vehicle tilt as the guardrail bursts. For a split second, there is a gut-curling freefall before both vehicles plunge into the cold, dark waters below.";
                 this.arr[i++] = "...";
                 
                 this.arr[i++] = "You wake up gasping, your chest tight with panic. There is no water filling your lungs, no agony gripping your body, yet the terror is all-consuming. Your breath comes in shallow bursts, but something is wrong-the air is still. Too still. And there's no sound. No feeling. Just a cold, oppressive silence that wraps around you like a shroud.";
-                sfxPlayer.stopSFX();
-                sfxPlayer.playSFX("src/audio_assets/sfx/exposition/panting.wav");
                 this.arr[i++] = "The world around you is dark and blurry, like a dream where nothing feels entirely real, but the fear coursing through your veins is far too tangible to be a nightmare. You try to focus, but it's like looking through a fog that refuses to lift.";
                 this.arr[i++] = "Then, from the corner of your eye, a figure begins to take shape, emerging from the surrounding shadows. Cloaked in darkness, the figure's form is indistinct, more of a presence than a person. It moves without sound, its silhouette unnaturally still despite the distance between you. You don't know exactly what it is or who it might be, but a deep, primal instinct tells you that if it reaches you, it will be the end of you.";
                 this.arr[i++] = "You are not ready.";
@@ -1242,17 +1236,8 @@ public class StoryLine implements Freeable{
         }
             
         public String getLine(int i) {
-                // Define padding values
-                int horizontalPadding = (int) (screenSize.width * 0.05);
-                int verticalPadding = (int) (screenSize.height * 0.01);
-                
-                String content = this.arr[i];
-                
-                // Return the formatted HTML string with padding and text alignment
-                return String.format("<html><div style='text-align: left; padding: %dpx %dpx;'>%s</div></html>",
-                verticalPadding, horizontalPadding, content);
+                return "<html><center>" + this.arr[i] + "</center></html>";
         }
-            
 
         public int getSize() {
                 return this.size;

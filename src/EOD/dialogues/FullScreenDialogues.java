@@ -88,7 +88,7 @@ public class FullScreenDialogues extends JFrame {
         storyDialogue.add(skipButtonPanel, BorderLayout.NORTH);
 
         textBox.setText(story.getLine(0));
-        addMouseListenerForMultipleLines(story, textBox, storyDialogue);
+        addMouseListenerForMultipleLines(story, textBox, storyDialogue, ID);
 
         storyDialogue.setFocusable(true);
         storyDialogue.requestFocusInWindow();
@@ -108,7 +108,7 @@ public class FullScreenDialogues extends JFrame {
         return new ImageIcon(scaledImg);
     }
 
-    private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue) {
+    private void addMouseListenerForMultipleLines(StoryLine story, JLabel textBox, JDialog storyDialogue, int ID) {
         storyDialogue.addMouseListener(new MouseAdapter() {
             int index = 0;
             int size = story.getSize();
@@ -117,6 +117,23 @@ public class FullScreenDialogues extends JFrame {
                 index++;
                 if (index < size) {
                     textBox.setText(story.getLine(index));
+                    if (ID == 0){
+                        switch (index){
+                            case 2:
+                                sfxPlayer.playSFX("src/audio_assets/sfx/exposition/parkinglot.wav");
+                                break;
+                            case 5:
+                                sfxPlayer.stopSFX();
+                                sfxPlayer.playSFX("src/audio_assets/sfx/exposition/drift.wav");
+                                break;
+                            case 7:
+                                sfxPlayer.stopSFX();
+                                sfxPlayer.playSFX("src/audio_assets/sfx/exposition/thunder.wav");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 } else {
                     storyDialogue.dispose();
                 }
