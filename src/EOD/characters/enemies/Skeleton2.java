@@ -6,8 +6,8 @@ import java.awt.event.MouseEvent;
 
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
-    private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 150;
+    private static final int BASE_ATTACK = 10;
+    private static final int BASE_HEALTH = 100;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -91,6 +91,7 @@ public class Skeleton2 extends Enemy {
     // Keep the existing offset methods as they handle skill effect positioning
     @Override 
     public double getOffsetX(int skill) {
+        // increasing this moves skill effects to the left
         if(skill == 1){
             if(player.isKnight()){
                 return 0.2;
@@ -103,28 +104,29 @@ public class Skeleton2 extends Enemy {
             }else{
                 return 0.15;
             }
-        }else if(skill != 4) {
+        }else if(skill == 3) {
             if(player.isWizard() && skill == 3) {
-                return 0.3;
+                return 0.2;
             } else {
                 return 0.25;
             }
         } else {
             if(player.isKnight()){
-                return 0.3;
+                return 0.2;
             }else if(player.isWizard()){
-                return 0.35;
+                return 0.15;
             }else{
-                return 0.45;
+                return 0.4;
             }
         }
     }
 
     @Override 
     public double getOffsetY(int skill) {
+        //increasing this moves skill effects up
         if(skill == 1){
             if(player.isKnight()){
-                return 0.6;
+                return 0.4;
             }else{
                 return 0.1;
             }
@@ -146,9 +148,9 @@ public class Skeleton2 extends Enemy {
             if(player.isKnight()){
                 return 0.4;
             }else if(player.isWizard()){
-                return 0.4;
+                return 0.35;
             }else{
-                return 0.6;
+                return 0.5;
             }
         }
     }

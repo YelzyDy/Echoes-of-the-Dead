@@ -88,9 +88,10 @@ public class Necromancer extends Enemy {
 
     @Override 
     public double getOffsetX(int skill){
+        // increasing this moves skill effects to the left
         if(skill == 1){
             if(player.isKnight()){
-                return 0.3;
+                return 0.35;
             }else{
                 return 0.3;
             }
@@ -117,9 +118,10 @@ public class Necromancer extends Enemy {
 
     @Override 
     public double getOffsetY(int skill){
+         //increasing this moves skill effects up
         if(skill == 1){
             if(player.isKnight()){
-                return 0.18;
+                return 0.05;
             }else{
                 return 0.2;
             }

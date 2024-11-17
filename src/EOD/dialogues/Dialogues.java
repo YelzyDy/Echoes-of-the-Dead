@@ -34,6 +34,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     protected Npc npc;
     private SceneBuilder scene;
     private String worldType;
+    private volatile boolean isTyping = false;
 
     public Dialogues() {
         // TEXT WINDOW
@@ -46,7 +47,9 @@ public class Dialogues implements Freeable, MouseInteractable {
         textBox = new JLabel("", SwingConstants.CENTER);
         textBox.setFont(new Font("Monospaced", Font.PLAIN, (int) (screenSize.width * 0.02)));
         textBox.setForeground(Color.WHITE);
-        textBox.setVerticalAlignment(SwingConstants.NORTH);
+        textBox.setHorizontalAlignment(SwingConstants.LEFT);
+        textBox.setVerticalAlignment(SwingConstants.TOP);
+
 
         storyDialogue.getContentPane().setBackground(Color.BLACK);
         storyDialogue.add(textBox, BorderLayout.CENTER);
@@ -138,32 +141,23 @@ public class Dialogues implements Freeable, MouseInteractable {
         i = 0;
         switch (ID) {
             case 0:
-                story.questNotComplete();
-                break;
+                story.questNotComplete(); break;
             case 1:
-                story.missConstanceIntro(playerType, worldType);
-                break;
+                story.missConstanceIntro(playerType, worldType); break;
             case 3:
-                story.nattyIntro();
-                break;
+                story.nattyIntro(); break;
             case 5:
-                story.yooIntro();
-                break;
+                story.yooIntro(); break;
             case 7:
-                story.migginsIntro(playerType, worldType);
-                break;
+                story.migginsIntro(playerType, worldType); break;
             case 9:
-                story.faithfulIntro();
-                break;
+                story.faithfulIntro(); break;
             case 11:
-                story.knightIntro(playerType);
-                break;
+                story.knightIntro(playerType); break;
             case 13:
-                story.wizardIntro(playerType);
-                break;
+                story.wizardIntro(playerType); break;
             case 15:
-                story.priestIntro(playerType);
-                break;
+                story.priestIntro(playerType); break;
             case 17:
                 story.skeleton1Corpse();
                 isClickableDialogue = false;
@@ -181,37 +175,26 @@ public class Dialogues implements Freeable, MouseInteractable {
                 isClickableDialogue = false;
                 break;
             case 25:
-                story.rubyIntro();
-                break;
+                story.rubyIntro(); break;
             case 27:
-                story.reginaldIntro();
-                break;
+                story.reginaldIntro(); break;
             case 29:
-                story.akifayIntro();
-                break;
+                story.akifayIntro(); break;
             case 31:
-                story.asrielIntro();
-                break;
+                story.asrielIntro(); break;
             case 33:
-                story.cheaIntro();
-                break;
+                story.cheaIntro(); break;
             case 101:
-                story.preEnding();
-                break;
+                story.preEnding(); break;
             case 103:
-                story.ending1();
-                break;
+                story.ending1(); break;
             case 105:
-                story.ending2();
-                break;
+                story.ending2(); break;
             case 107:
-                story.ending3();
-                break;
+                story.ending3(); break;
             case 109:
-                story.badEnding();
-                break;
-            default:
-                break;
+                story.badEnding(); break;
+            default: break;
         }
         buttonPanel.setVisible(true);
         if (!(ID == 17 || ID == 19 || ID == 21 || ID == 23 || ID == 0))
@@ -221,7 +204,11 @@ public class Dialogues implements Freeable, MouseInteractable {
             buttonPanel.add(askButton, BorderLayout.WEST);
 
         this.size = story.getSize();
-        textBox.setText(story.getLine(0));
+
+        if (size > 0) {
+            typewriterEffect(story.getLine(0));
+            i++; // Increment to point to the next line
+        }
 
         // DISPLAY
         storyDialogue.setFocusable(true);
@@ -254,18 +241,69 @@ public class Dialogues implements Freeable, MouseInteractable {
         return new ImageIcon(scaledImg);
     }
     
-
+    private void typewriterEffect(String text) {
+        // Set typing state to true
+        isTyping = true;
+    
+        new Thread(() -> {
+            try {
+                String rawText = text.replace("<html><center>", "").replace("</center></html>", "");
+                StringBuilder displayText = new StringBuilder();
+    
+                int horizontalPadding = (int) (screenSize.width * 0.05); // 5% of screen width
+                int verticalPadding = (int) (screenSize.height * 0.01);  // 1% of screen height
+    
+                displayText.append("<html><div style='text-align: left; padding: ")
+                           .append(verticalPadding).append("px ").append(horizontalPadding).append("px;'>");
+    
+                for (char c : rawText.toCharArray()) {
+                    // Check if the effect is interrupted
+                    if (!isTyping) {
+                        // Finish immediately if interrupted
+                        SwingUtilities.invokeLater(() -> textBox.setText(
+                            "<html><div style='text-align: left; padding: " + verticalPadding + "px " +
+                            horizontalPadding + "px;'>" + rawText + "</div></html>"
+                        ));
+                        return;
+                    }
+    
+                    displayText.append(c);
+                    final String fullText = displayText.toString() + "</div></html>";
+    
+                    SwingUtilities.invokeLater(() -> textBox.setText(fullText));
+                    Thread.sleep(30); // Adjust typing speed as needed
+                }
+    
+                // Typing complete
+                isTyping = false;
+    
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+    
     public void handleSetText() {
         System.out.println("handle set text: " + i);
+    
+        if (isTyping) {
+            // If typing is in progress, interrupt it and show the full text immediately
+            isTyping = false;
+            return;
+        }
+    
         if (i < size) {
-            textBox.setText(story.getLine(i));
+            // Start the typewriter effect for the next line
+            typewriterEffect(story.getLine(i));
             i++;
         } else {
+            // Handle end of dialogue
             if (ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
+    
             storyDialogue.dispose();
-            System.out.println("Story dialogue dispose");
-
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27)) {
+    
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 ||
+                ID == 13 || ID == 15 || ID == 25 || ID == 27 || ID == 29 || ID == 31 || ID == 33)) {
                 npc.doneQuest = true;
             }
         }
@@ -291,15 +329,20 @@ public class Dialogues implements Freeable, MouseInteractable {
             sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
 
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27)) {
+            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27 || ID == 29 || ID == 31 || ID == 33)) {
                 npc.doneQuest = true;
             }  
         }else if(source == askButton){
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
-            storyDialogue.dispose();
+           sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
+            // Interrupt typewriter effect and clear text
+            isTyping = false; // Stop typewriter effect
+            textBox.setText(""); // Clear the text box content
+
+            // Proceed with ask dialogues
+            storyDialogue.dispose(); // Close current dialogue
             this.ID++;
             buttonPanel.setVisible(false);
-            textBox.setText(null);
+            textBox.setText(null); // Clear any residual text
             askDialogues.setPlayerType(playerType);
             askDialogues.setWorldType(worldType);
             askDialogues.openScrollableOptions(this.ID, this, textBox);

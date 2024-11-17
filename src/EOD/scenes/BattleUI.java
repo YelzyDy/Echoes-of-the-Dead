@@ -4,6 +4,8 @@ import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.dialogues.*;
 import EOD.gameInterfaces.Freeable;
+import EOD.gameInterfaces.MouseInteractable;
+import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
@@ -13,7 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
-public class BattleUI extends JPanel implements Freeable{
+public class BattleUI extends JPanel implements Freeable, MouseInteractable{
     // Constants
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final int width = (int) (screenSize.width * 0.99);
@@ -267,14 +269,10 @@ public class BattleUI extends JPanel implements Freeable{
         loadSkillIcons();
         
         // Create all buttons
-        skillA = createSkillButton(story, skillAIcon, skillAHoverIcon, 
-            e -> battleSample.skill1(), bottomTextBox, 0, 1);
-        skillB = createSkillButton(story, skillBIcon, skillBHoverIcon, 
-            e -> battleSample.skill2(), bottomTextBox, 0, 2);
-        skillC = createSkillButton(story, skillCIcon, skillCHoverIcon, 
-            e -> battleSample.skill3(), bottomTextBox, 0, 3);
-        skillD = createSkillButton(story, skillDIcon, skillDHoverIcon, 
-            e -> battleSample.skill4(), bottomTextBox, 0, 4);
+        skillA = createSkillButton(skillAIcon);
+        skillB = createSkillButton(skillBIcon);
+        skillC = createSkillButton(skillCIcon);
+        skillD = createSkillButton(skillDIcon);
 
         // Add buttons to panel
         skillButtonsPanel.add(skillA);
@@ -285,7 +283,25 @@ public class BattleUI extends JPanel implements Freeable{
 
     public void loadSkillIcons() {
         story.skillDetails(player.getCharacterType());
-        // Clear previous icons to prevent memory leaks
+
+        // Clear previous icons
+        clearPreviousIcons();
+    
+        // Load new icons based on character type
+        loadCharacterSpecificIcons();
+    
+        // Update the button icons while preserving hover states
+        if (skillA != null) {
+            skillA.setIcon(skillAIcon);
+            skillB.setIcon(skillBIcon);
+            skillC.setIcon(skillCIcon);
+            skillD.setIcon(skillDIcon);
+            // Refresh the buttons
+            refreshButtons();
+        }
+    }
+
+    private void clearPreviousIcons() {
         if (skillAIcon != null) {
             skillAIcon.getImage().flush();
             skillAHoverIcon.getImage().flush();
@@ -296,58 +312,58 @@ public class BattleUI extends JPanel implements Freeable{
             skillDIcon.getImage().flush();
             skillDHoverIcon.getImage().flush();
         }
-    
-        // Load new icons based on character type
+    }
+
+    private void loadCharacterSpecificIcons() {
         switch(player.getCharacterType()) {
-            case "knight" -> {
-                skillAIcon = scaleImageIcon("src/button_assets/kBasicAtk0.png");
-                skillAHoverIcon = scaleImageIcon("src/button_assets/kBasicAtk1.png");
-                skillBIcon = scaleImageIcon("src/button_assets/k1stSkill0.png");
-                skillBHoverIcon = scaleImageIcon("src/button_assets/k1stSkill1.png");
-                skillCIcon = scaleImageIcon("src/button_assets/k2ndSkill0.png");
-                skillCHoverIcon = scaleImageIcon("src/button_assets/k2ndSkill1.png");
-                skillDIcon = scaleImageIcon("src/button_assets/k3rdSkill0.png");
-                skillDHoverIcon = scaleImageIcon("src/button_assets/k3rdSkill1.png");
-            }
-            case "wizard" -> {
-                skillAIcon = scaleImageIcon("src/button_assets/mBasicAtk0.png");
-                skillAHoverIcon = scaleImageIcon("src/button_assets/mBasicAtk1.png");
-                skillBIcon = scaleImageIcon("src/button_assets/m1stSkill0.png");
-                skillBHoverIcon = scaleImageIcon("src/button_assets/m1stSkill1.png");
-                skillCIcon = scaleImageIcon("src/button_assets/m2ndSkill0.png");
-                skillCHoverIcon = scaleImageIcon("src/button_assets/m2ndSkill1.png");
-                skillDIcon = scaleImageIcon("src/button_assets/m3rdSkill0.png");
-                skillDHoverIcon = scaleImageIcon("src/button_assets/m3rdSkill1.png");
-            }
-            case "priest" -> {
-                skillAIcon = scaleImageIcon("src/button_assets/pBasicAtk0.png");
-                skillAHoverIcon = scaleImageIcon("src/button_assets/pBasicAtk1.png");
-                skillBIcon = scaleImageIcon("src/button_assets/p1stSkill0.png");
-                skillBHoverIcon = scaleImageIcon("src/button_assets/p1stSkill1.png");
-                skillCIcon = scaleImageIcon("src/button_assets/p2ndSkill0.png");
-                skillCHoverIcon = scaleImageIcon("src/button_assets/p2ndSkill1.png");
-                skillDIcon = scaleImageIcon("src/button_assets/p3rdSkill0.png");
-                skillDHoverIcon = scaleImageIcon("src/button_assets/p3rdSkill1.png");
-            }
+            case "knight" -> loadKnightIcons();
+            case "wizard" -> loadWizardIcons();
+            case "priest" -> loadPriestIcons();
         }
-    
-        // Update the button icons
-        if (skillA != null) {
-            skillA.setIcon(skillAIcon);
-            skillB.setIcon(skillBIcon);
-            skillC.setIcon(skillCIcon);
-            skillD.setIcon(skillDIcon);
-            
-            // Make sure the buttons are properly repainted
-            skillA.revalidate();
-            skillA.repaint();
-            skillB.revalidate();
-            skillB.repaint();
-            skillC.revalidate();
-            skillC.repaint();
-            skillD.revalidate();
-            skillD.repaint();
-        }
+    }
+
+    private void loadKnightIcons() {
+        skillAIcon = scaleImageIcon("src/button_assets/kBasicAtk0.png");
+        skillAHoverIcon = scaleImageIcon("src/button_assets/kBasicAtk1.png");
+        skillBIcon = scaleImageIcon("src/button_assets/k1stSkill0.png");
+        skillBHoverIcon = scaleImageIcon("src/button_assets/k1stSkill1.png");
+        skillCIcon = scaleImageIcon("src/button_assets/k2ndSkill0.png");
+        skillCHoverIcon = scaleImageIcon("src/button_assets/k2ndSkill1.png");
+        skillDIcon = scaleImageIcon("src/button_assets/k3rdSkill0.png");
+        skillDHoverIcon = scaleImageIcon("src/button_assets/k3rdSkill1.png");
+    }
+
+    private void loadWizardIcons() {
+        skillAIcon = scaleImageIcon("src/button_assets/mBasicAtk0.png");
+        skillAHoverIcon = scaleImageIcon("src/button_assets/mBasicAtk1.png");
+        skillBIcon = scaleImageIcon("src/button_assets/m1stSkill0.png");
+        skillBHoverIcon = scaleImageIcon("src/button_assets/m1stSkill1.png");
+        skillCIcon = scaleImageIcon("src/button_assets/m2ndSkill0.png");
+        skillCHoverIcon = scaleImageIcon("src/button_assets/m2ndSkill1.png");
+        skillDIcon = scaleImageIcon("src/button_assets/m3rdSkill0.png");
+        skillDHoverIcon = scaleImageIcon("src/button_assets/m3rdSkill1.png");
+    }
+
+    private void loadPriestIcons() {
+        skillAIcon = scaleImageIcon("src/button_assets/pBasicAtk0.png");
+        skillAHoverIcon = scaleImageIcon("src/button_assets/pBasicAtk1.png");
+        skillBIcon = scaleImageIcon("src/button_assets/p1stSkill0.png");
+        skillBHoverIcon = scaleImageIcon("src/button_assets/p1stSkill1.png");
+        skillCIcon = scaleImageIcon("src/button_assets/p2ndSkill0.png");
+        skillCHoverIcon = scaleImageIcon("src/button_assets/p2ndSkill1.png");
+        skillDIcon = scaleImageIcon("src/button_assets/p3rdSkill0.png");
+        skillDHoverIcon = scaleImageIcon("src/button_assets/p3rdSkill1.png");
+    }
+
+    private void refreshButtons() {
+        skillA.revalidate();
+        skillA.repaint();
+        skillB.revalidate();
+        skillB.repaint();
+        skillC.revalidate();
+        skillC.repaint();
+        skillD.revalidate();
+        skillD.repaint();
     }
 
     private void initializeBottomPanel() {
@@ -501,8 +517,7 @@ public class BattleUI extends JPanel implements Freeable{
         textListModel.addElement(text);
     }
 
-    private JButton createSkillButton(StoryLine story, ImageIcon defaultIcon, ImageIcon hoverIcon, 
-        ActionListener action, JLabel textBox, int defaultIndex, int hoverIndex) {
+    private JButton createSkillButton(ImageIcon defaultIcon) {
        
         JButton button = new JButton(defaultIcon);
         int width = (int) (screenSize.width * 0.15);
@@ -512,33 +527,13 @@ public class BattleUI extends JPanel implements Freeable{
         button.setBackground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
-        button.addActionListener(action);
 
         // Add cooldown text styling
         button.setHorizontalTextPosition(JButton.CENTER);
         button.setVerticalTextPosition(JButton.CENTER);
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.BOLD, 40));
-        
-
-        button.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                //sfxPlayer = SFXPlayer.getInstance();
-                //sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
-                super.mouseClicked(e);
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                button.setIcon(hoverIcon);
-                textBox.setText(story.getLine(hoverIndex));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                button.setIcon(defaultIcon);
-            }
-        });
+        button.addMouseListener(new MouseClickListener(this));
 
         return button;
     }
@@ -592,6 +587,56 @@ public class BattleUI extends JPanel implements Freeable{
         Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
         return new ImageIcon(scaledImg);
+    }
+
+    @Override
+    public void onClick(MouseEvent e) {
+        Object source = e.getSource();
+        if(source == skillA){
+            battleSample.skill1();
+        }else if(source == skillB){
+            battleSample.skill2();
+        }else if(source == skillC){
+            battleSample.skill3();
+        }else if(source == skillD){
+            battleSample.skill4();
+        }
+    }
+
+    @Override
+    public void onHover(MouseEvent e) {
+        Object source = e.getSource();
+        if(source == skillA){
+            skillA.setIcon(skillAHoverIcon);
+            bottomTextBox.setText(story.getLine(1));
+        }else if(source == skillB){
+            skillB.setIcon(skillBHoverIcon);
+            bottomTextBox.setText(story.getLine(2));
+        }else if(source == skillC){
+            skillC.setIcon(skillCHoverIcon);
+            bottomTextBox.setText(story.getLine(3));
+        }else if(source == skillD){
+            skillD.setIcon(skillDHoverIcon);
+            bottomTextBox.setText(story.getLine(4));
+        }
+    }
+
+    @Override
+    public void onExit(MouseEvent e) {
+        Object source = e.getSource();
+        if(source == skillA){
+            skillA.setIcon(skillAIcon);
+            bottomTextBox.setText(""); 
+        }else if(source == skillB){
+            skillB.setIcon(skillBIcon);
+            bottomTextBox.setText("");
+        }else if(source == skillC){
+            skillC.setIcon(skillCIcon);
+            bottomTextBox.setText("");
+        }else if(source == skillD){
+            skillD.setIcon(skillDIcon);
+            bottomTextBox.setText("");
+        }
     }
 
 }

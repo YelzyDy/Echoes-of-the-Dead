@@ -87,12 +87,12 @@ public class Skeleton1 extends Enemy {
         return screenSize.width * 0.35;
     }
 
-    // Keep the existing offset methods as they handle skill effect positioning
     @Override 
     public double getOffsetX(int skill) {
+        // increasing this moves skill effects to the left
         if(skill == 1){
             if(player.isKnight()){
-                return 0.2;
+                return 0.3;
             }else{
                 return 0.1;
             }
@@ -104,7 +104,7 @@ public class Skeleton1 extends Enemy {
             }
         }else if(skill == 3) {
             if(player.isWizard()) {
-                return 0.2;
+                return 0.3;
             } else{
                 return 0.25;
             }
@@ -112,18 +112,19 @@ public class Skeleton1 extends Enemy {
             if(player.isKnight()){
                 return 0.3;
             }else if(player.isWizard()){
-                return 0.35;
+                return 0.25;
             }else{
-                return 0.35;
+                return 0.4;
             }
         }
     }
 
     @Override 
     public double getOffsetY(int skill) {
+        //increasing this moves skill effects up
         if(skill == 1){
             if(player.isKnight()){
-                return 0.6;
+                return 0.4;
             }else{
                 return 0.1;
             }
@@ -145,7 +146,7 @@ public class Skeleton1 extends Enemy {
             if(player.isKnight()){
                 return 0.4;
             }else if(player.isWizard()){
-                return 0.4;
+                return 0.35;
             }else{
                 return 0.6;
             }
