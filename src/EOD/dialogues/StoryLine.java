@@ -1,4 +1,4 @@
-package EOD.dialogues;;
+package EOD.dialogues;
 import EOD.gameInterfaces.Freeable;
 import EOD.utils.SFXPlayer;
 public class StoryLine implements Freeable{
