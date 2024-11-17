@@ -6,12 +6,15 @@ import java.awt.*;
 
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
+        private String[] qArr = new String[50];
         private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
+        private int questSize;
         private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         public void free(){
                 size = 0;
                 arr = null;
+                questSize = 0;
         }
 
         public void exposition() {
@@ -368,12 +371,35 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
             
+        public void migginsQuests() {
+                int i = 0;         
+                int q = 0;
+                // Initial Dialogue
+                this.arr[i++] = "You: \"I seek passage from these depths. Know you of any way?\"" + "</font>";
+                this.arr[i++] = "Miggins: \"*adjusts her spectral robes* Ah, another soul seeking ascension! There's a Crimson Gateway nearby - a portal that could serve your purpose. But... *glances nervously over shoulder*\"";
+                this.arr[i++] = "You: \"I sense there's more to this tale.\"";
+                this.arr[i++] = "Miggins: \"Indeed. The Necromancer and their undead syndicate have claimed the gateway. They charge excessive soul-tribute from any who wish to pass. My spirit-essence trading business is in ruins because of their... operations.\"";
+                this.arr[i++] = "You: \"Tell me more about this Necromancer.\"";
+                this.arr[i++] = "Miggins: \"*wisps of ethereal smoke curl around her form* Once a respected soul-keeper, now nothing but a common extortionist. Controls all transport through the gateway, demands payment in both coin and essence. My suppliers from the Phantom Bazaar refuse to cross their territory.\"";
+                this.arr[i++] = "You: \"Perhaps we could help each other.\"";
+                this.arr[i++] = "Miggins: \"*her form brightens noticeably* If you could... remove the Necromancer's influence, I have something that might interest you. A rare Crystallized Mana Potion - potent enough to restore the magical essence of both the living and the dead. It could prove invaluable on your journey to the surface.\"";
+                this.arr[i++] = "You: \"Your offer is generous, but why trust a stranger with this task?\"";
+                this.arr[i++] = "Miggins: \"The gateway route is vital for my trade. Without it, I'm losing customers to the merchants in the Higher Circles. Besides, *her voice drops to a whisper* that potion is a small price to pay for breaking the Necromancer's monopoly on soul-trafficking. Deal?\"";
+                this.arr[i++] = "You: \"I accept your task.\"";
+                this.arr[i++] = "Miggins: \"Excellent! But be warned - the Necromancer didn't rise to power by showing mercy. Return to me once the deed is done, and the potion is yours. Who knows? Perhaps this could be the beginning of a... profitable partnership.\"";
+                
+                // Quest Title
+                this.qArr[q++] = "<font color='#FF0000'>" + "Quest: Escape from the Underworld" + "</font>";
+                // Quest Objectives
+                this.qArr[q++] = "<font color='#FFFF00'>" + "- Defeat The Necromancer guarding the Crimson Gateway" + "</font>";
+                this.qArr[q++] = "<font color='#FFFF00'>" + "- Return to Miggins for your reward" + "</font>";
+                
+                this.size = i;
+                this.questSize = q;
+        }
 
         public void migginsLines(String playerType, String worldType) {
                         int i = 0;
-
-                        this.arr[i++] = "<font color='#00FFFF'>" + "You: \"How can I leave the city?\"" + "</font>";
-                        this.arr[i++] = "Miggins: \"Oh! Well luckily there is a shortcut right over there, the red portal. Unfortunately, The Necromancer is guarding the otherside. So, it's best to prepare before diving right in. They operate an undercity mafia, it's ridiculous.\"";
 
                         this.arr[i++] = "You: \"What are those red bottles near the window of your shop?\"";
                         this.arr[i++] = "Miggins: \"Those red potions are apple flavored, it may taste like medicine since it is one.\"";
@@ -812,13 +838,6 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
 
-        public void wizardLines(String playerType) {
-                int i = 0;
-            
-                
-                this.size = i;
-        }
-
         public void knightIntro(String playerType) {
                 int i = 0;
                 
@@ -876,12 +895,6 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
 
-        public void knightLines(String playerType) {
-                int i = 0;
-                
-                
-                this.size = i;
-        }
 
         public void priestIntro(String playerType) {
                 int i = 0;
@@ -941,42 +954,6 @@ public class StoryLine implements Freeable{
                 
                 this.arr[i++] = "Priest: \"*straightens up* Well, I hear you're hunting down your own tragic backstory. Could use a hand? I promise my bedside manner is way better than my death-side manner.\"";
                 System.out.println("size = " + i);
-                this.size = i;
-        }
-
-        public void priestLines(String playerType) {
-                int i = 0;
-            
-                this.arr[i++] = "You: \"Hey, you seem like the type that knows their way around.\"";
-                this.arr[i++] = "Faithful: \"Depends. What's the second worth to you?\"";
-            
-                this.arr[i++] = "You: \"You've got a familiar look. Have we met before, like in CITU?\"";
-                this.arr[i++] = "Faithful: \"Ah, CITU.. No, I don't think you'd have noticed me there.\"";
-            
-                this.arr[i++] = "You: \"I'm looking for someone, but I can't remember their face. Ever get that feeling?\"";
-                this.arr[i++] = "Faithful: \"All the time. Faces blend together after a while. What's their story?\"";
-            
-                this.arr[i++] = "You: \"Have you been to that little place across the way? The one with the pies?\"";
-                this.arr[i++] = "Faithful: \"Once. Let's just say, I've had better culinary adventures.\"";
-            
-                this.arr[i++] = "You: \"I'm still getting used to the whole being dead thing. My car got rammed out of nowhere.\"";
-                this.arr[i++] = "Faithful: \"Rough way to go. But hey, now you get to join the club.\"";
-            
-                this.arr[i++] = "You: \"Hi there, I was wondering if—\"";
-                this.arr[i++] = "Faithful: \"Careful, wondering tends to lead to trouble. What's on your mind?\"";
-            
-                this.arr[i++] = "You: \"I'm trying to get out of this place. Any idea which way to go?\"";
-                this.arr[i++] = "Faithful: \"Ah, the eternal question. If I had an answer, I wouldn't be standing here.\"";
-            
-                this.arr[i++] = "You: \"You don't look too happy. Something bothering you?\"";
-                this.arr[i++] = "Faithful: \"Not at all. Just my resting face. You get used to it.\"";
-            
-                this.arr[i++] = "You: \"Why does it always seem like it's pouring rain in this city?\"";
-                this.arr[i++] = "Faithful: \"Could be worse. At least it's not snowing. Yet.\"";
-            
-                this.arr[i++] = "You: \"It's so foggy, it's like walking through a cloud. Is it always like this?\"";
-                this.arr[i++] = "Faithful: \"Fog's the least of your worries around here. Keep your eyes sharp.\"";
-            
                 this.size = i;
         }
 
@@ -1283,5 +1260,9 @@ public class StoryLine implements Freeable{
 
         public String[] getArr() {
                 return arr;
+        }
+
+        public String[] getQArr() {
+                return qArr;
         }
 }

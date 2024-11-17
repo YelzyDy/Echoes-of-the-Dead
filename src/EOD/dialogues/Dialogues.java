@@ -11,13 +11,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 import EOD.gameInterfaces.*;
+
 public class Dialogues implements Freeable, MouseInteractable {
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private AskDialogues askDialogues = new AskDialogues();
+    private QuestsDialogues questsDialogues = new QuestsDialogues();
     private JDialog storyDialogue;
-    public EchoesObjects skipButton, askButton;
+    public EchoesObjects skipButton, askButton, questsButton;
     private JLabel textBox;
     private JPanel buttonPanel;
     private final int width = (int) (screenSize.width * 0.99);
@@ -70,12 +72,17 @@ public class Dialogues implements Freeable, MouseInteractable {
         skipButton.addMouseListener(new MouseClickListener(this));
         skipButton.setVisible(true);
 
+        questsButton = new EchoesObjects("button", screenSize.width * 0.8, screenSize.height * 0.4, (int)btnWidth, (int)btnHeight, "skipButton", false, true, 2);
+        questsButton.addMouseListener(new MouseClickListener(this));
+        questsButton.setVisible(true);
+
         // BUTTON PANEL
         buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.setBackground(Color.BLACK);
         
         askButton.setPreferredSize(new Dimension((int) btnWidth, (int) btnHeight));
         skipButton.setPreferredSize(new Dimension((int) btnWidth, (int) btnHeight));
+        questsButton.setPreferredSize(new Dimension((int) btnWidth, (int) btnHeight));
 
         
         storyDialogue.add(buttonPanel, BorderLayout.NORTH);
@@ -145,63 +152,67 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.questNotComplete(); break;
             case 1:
                 story.missConstanceIntro(playerType, worldType); break;
-            case 3:
+            case 2:
                 story.nattyIntro(); break;
-            case 5:
+            case 3:
                 story.yooIntro(); break;
-            case 7:
+            case 4:
                 story.migginsIntro(playerType, worldType); break;
-            case 9:
+            case 5:
                 story.faithfulIntro(); break;
-            case 11:
+            case 6:
                 story.knightIntro(playerType); break;
-            case 13:
+            case 7:
                 story.wizardIntro(playerType); break;
-            case 15:
+            case 8:
                 story.priestIntro(playerType); break;
-            case 17:
+            case 9:
                 story.skeleton1Corpse();
                 isClickableDialogue = false;
                 break;
-            case 19:
+            case 10:
                 story.necromancerCorpse();
                 isClickableDialogue = false;
                 break;
-            case 21:
+            case 11:
                 story.skeleton2Corpse();
                 isClickableDialogue = false;
                 break;
-            case 23:
+            case 12:
                 story.gorgonCorpse();
                 isClickableDialogue = false;
                 break;
-            case 25:
+            case 13:
                 story.rubyIntro(); break;
-            case 27:
+            case 14:
                 story.reginaldIntro(); break;
-            case 29:
+            case 15:
                 story.akifayIntro(); break;
-            case 31:
+            case 16:
                 story.asrielIntro(); break;
-            case 33:
+            case 17:
                 story.cheaIntro(); break;
-            case 101:
+            case 18:
                 story.preEnding(); break;
-            case 103:
+            case 19:
                 story.ending1(); break;
-            case 105:
+            case 20:
                 story.ending2(); break;
-            case 107:
+            case 21:
                 story.ending3(); break;
-            case 109:
+            case 22:
                 story.badEnding(); break;
             default: break;
         }
         buttonPanel.setVisible(true);
-        if (!(ID == 17 || ID == 19 || ID == 21 || ID == 23 || ID == 0))
+
+        if (ID == 4 || ID == 1)
+            buttonPanel.add(questsButton, BorderLayout.WEST);
+
+        if (!(ID == 9 || ID == 10 || ID == 11 || ID == 12 || ID == 0))
             buttonPanel.add(skipButton, BorderLayout.EAST);
 
-        if (!(ID == 11 || ID == 13 || ID == 15 || ID == 17 || ID == 19 || ID == 21 || ID == 23))
+        if (!(ID == 6 || ID == 7 || ID == 8 || ID == 9 || ID == 10 || ID == 11 || ID == 12))
             buttonPanel.add(askButton, BorderLayout.WEST);
 
         this.size = story.getSize();
@@ -311,8 +322,8 @@ public class Dialogues implements Freeable, MouseInteractable {
     
             storyDialogue.dispose();
     
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 ||
-                ID == 13 || ID == 15 || ID == 25 || ID == 27 || ID == 29 || ID == 31 || ID == 33)) {
+            if (!npc.doneQuest && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
+                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17)) {
                 npc.doneQuest = true;
             }
         }
@@ -349,7 +360,8 @@ public class Dialogues implements Freeable, MouseInteractable {
             sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             storyDialogue.dispose();
 
-            if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27 || ID == 29 || ID == 31 || ID == 33)) {
+            if (!npc.doneQuest && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
+            ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17)) {
                 npc.doneQuest = true;
             }  
         } else if(source == askButton) {
@@ -362,14 +374,11 @@ public class Dialogues implements Freeable, MouseInteractable {
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");
                 storyDialogue.dispose();
-                this.ID++;
                 buttonPanel.setVisible(false);
                 askDialogues.setPlayerType(playerType);
                 askDialogues.setWorldType(worldType);
                 askDialogues.openScrollableOptions(this.ID, this, textBox);
             });
-            resetDialogueState();
-
         }else if (source == scene){
             storyDialogue.dispose();
             if(askDialogues.scrollPane != null)askDialogues.scrollPane.setVisible(false);

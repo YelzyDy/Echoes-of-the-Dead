@@ -66,43 +66,43 @@ public class Npc extends Character implements MouseInteractable, Questable{
             return 0;
         }
         if (getCharacterType().equals("natty")){
-            return 3;
+            return 2;
         }
         if (getCharacterType().equals("missC")){
             return 1;
         } 
         if (getCharacterType().equals("yoo")){
-           return 5;
+           return 3;
         }  
         if (getCharacterType().equals("miggins")){
-           return 7;
+           return 4;
         }
         if (getCharacterType().equals("faithful")){
-           return 9;
+           return 5;
         }
         if(getCharacterType().equals("knight")){
-            return 11;
+            return 6;
         }
         if(getCharacterType().equals("wizard")){
-            return 13;
+            return 7;
         }
         if(getCharacterType().equals("priest")){
-            return 15;
+            return 8;
         }
         if(getCharacterType().equals("ruby")){
-            return 25;
+            return 13;
         }
         if(getCharacterType().equals("renegald")){
-            return 27;
+            return 14;
         }
         if(getCharacterType().equals("asriel")){
-            return 31;
+            return 16;
         }
         if(getCharacterType().equals("akefay")){
-            return 29;
+            return 15;
         }
         if(getCharacterType().equals("chea")){
-            return 33;
+            return 17;
         }
         return 0;
     }

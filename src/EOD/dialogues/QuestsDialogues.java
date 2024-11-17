@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class AskDialogues extends JFrame {
+public class QuestsDialogues extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private final int x = 6;
@@ -16,11 +16,14 @@ public class AskDialogues extends JFrame {
     private String worldType;
     private JDialog dialog;
     protected JScrollPane scrollPane;
-    public void setPlayerType(String playerType){
+    private int currentDialogueIndex = 0;
+    private String[] currentDialogueSequence;
+    
+    public void setPlayerType(String playerType) {
         this.playerType = playerType;
     }
 
-    public void setWorldType(String worldType){
+    public void setWorldType(String worldType) {
         this.worldType = worldType;
     }
 
@@ -29,45 +32,17 @@ public class AskDialogues extends JFrame {
         dialog = dialogues.getStoryJDialog();
         dialogues.pressToContinueLabel.setVisible(false);
         switch (ID) {
-            case 1:
-                story.missConstanceLines(playerType, worldType);
-                break;
-            case 2:
-                story.nattyLines();
-                break;
-            case 3:
-                story.yooLines();
-                break;
             case 4:
-                story.migginsLines(playerType, worldType);
-                break;
-            case 5:
-                story.faithfulLines();
-                break;
-            case 13:
-                story.rubyLines(playerType);
-                break;
-            case 14:
-                story.reginaldLines(playerType);
-                break;
-            case 15:
-                story.akifayLines(playerType);
-                break;
-            case 16:
-                story.asrielLines(playerType);
-                break;
-            case 17:
-                story.cheaLines(playerType);
-                break;
+                story.migginsQuests();
+            break;
             default:
-                break;
+            break;
         }
 
         dialog.getContentPane().setBackground(Color.BLACK);
         dialog.add(textBox, BorderLayout.CENTER);
 
         // SCROLL PANEL
-
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBackground(Color.BLACK);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -77,7 +52,6 @@ public class AskDialogues extends JFrame {
         gbc.gridx = 0;
 
         // SCROLL WINDOW & PANE
-
         scrollPane = new JScrollPane(buttonPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -108,11 +82,10 @@ public class AskDialogues extends JFrame {
         });
 
         // SET SCROLL BUTTONS
-
-        String[] options = story.getArr();
+        String[] options = story.getQArr();
 
         for (int i = 0; i < options.length; i++) {
-            if (options[i] != null && i % 2 == 0) {
+            if (options[i] != null) {
                 int j = i;
                 JButton optionButton = new JButton("<html><center>" + options[i] + "</center></html>");
                 optionButton.setFont(new Font("Monospaced", Font.PLAIN, 28));
@@ -127,7 +100,7 @@ public class AskDialogues extends JFrame {
                 optionButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, preferredHeight));
 
                 optionButton.addActionListener(e -> {
-                    textBox.setText(story.getLine(j + 1));
+                    textBox.setText(story.getLine(j));
                     dialog.remove(scrollPane);
                     dialogues.pressToContinueLabel.setVisible(true);
                     dialog.revalidate();
@@ -142,12 +115,20 @@ public class AskDialogues extends JFrame {
         }
 
         // SCROLL PANE EVENT LISTENER
-        
         MouseAdapter mouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                dialog.dispose();
-                dialog.removeMouseListener(this);
+                if (currentDialogueSequence != null) {
+                    currentDialogueIndex++;
+                    if (currentDialogueIndex < currentDialogueSequence.length) {
+                        // Show next dialogue in sequence
+                        textBox.setText(currentDialogueSequence[currentDialogueIndex]);
+                    } else {
+                        // Dispose dialog only when all dialogues are shown
+                        dialog.dispose();
+                        dialog.removeMouseListener(this);
+                    }
+                }
             }
         };
 
@@ -158,6 +139,4 @@ public class AskDialogues extends JFrame {
         dialog.setLocation(x, y);
         dialog.setVisible(true);
     }
-
-    
 }

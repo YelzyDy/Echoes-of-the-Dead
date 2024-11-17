@@ -272,7 +272,7 @@ public class Necromancer extends Enemy {
     }
 
     private void handleFirstClick(){
-        dialogues.displayDialogues(19, world);
+        dialogues.displayDialogues(10, world);
         dialogues.setFontSize(getWidth() * 0.18);
         // Set initial dimensions and coordinates
         dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 

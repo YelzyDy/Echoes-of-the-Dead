@@ -262,7 +262,7 @@ public class Skeleton1 extends Enemy {
     }
 
     private void handleFirstClick(){
-        dialogues.displayDialogues(17, world);
+        dialogues.displayDialogues(9, world);
         dialogues.setFontSize(getWidth() * 0.18);
         // Set initial dimensions and coordinates
         dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
