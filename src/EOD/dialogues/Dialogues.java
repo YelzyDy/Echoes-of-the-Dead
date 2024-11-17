@@ -72,7 +72,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         skipButton.addMouseListener(new MouseClickListener(this));
         skipButton.setVisible(true);
 
-        questsButton = new EchoesObjects("button", screenSize.width * 0.8, screenSize.height * 0.4, (int)btnWidth, (int)btnHeight, "skipButton", false, true, 2);
+        questsButton = new EchoesObjects("button", screenSize.width * 0.8, screenSize.height * 0.4, (int)btnWidth, (int)btnHeight, "questButton", false, true, 2);
         questsButton.addMouseListener(new MouseClickListener(this));
         questsButton.setVisible(true);
 
