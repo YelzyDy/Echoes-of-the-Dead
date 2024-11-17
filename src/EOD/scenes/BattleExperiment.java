@@ -57,7 +57,6 @@ public class BattleExperiment implements Skillable{
         
         if (player.useSkill(skillNumber)) {
             isProcessingTurn = true;
-            turnCount++;
             
             battleUI.setSkillButtonsEnabled(false);
             player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(false);
@@ -183,27 +182,25 @@ public class BattleExperiment implements Skillable{
             player.attributeTurnChecker();
             if(player.getAttributes().getHp() <= 0){
                 switch(player.getCharacterType()){
-                    case "knight" ->{
-                        isKnightDead = true;
-                    }
-                    case "priest" ->{
-                        isPriestDead = true;
-                    }
-                    case "wizard" ->{
-                        isWizardDead = true;
-                    }
+                    case "knight" -> isKnightDead = true;
+                    case "priest" -> isPriestDead = true;
+                    case "wizard" -> isWizardDead = true;
                 }
                 allyProfiles.setProfileEnabled(player.getCharacterType(), false);
                 switchToRemainingAlly();
             }
         }
+        
+        // Increment turn count after enemy's turn is complete
+        turnCount++;
+        
         battleUI.setSkillButtonsEnabled(true);
         setAvailableAlliesEnabled(true);
         battleUI.updateTurnIndicator("Turn " + turnCount + " - Your turn");
         battleUI.updateCooldowns();
         
         // Check if all visible allies are dead
-        boolean areAllVisibleAlliesDead = true; // Assume all are dead initially
+        boolean areAllVisibleAlliesDead = true;
 
         if (allyProfiles.isAllyVisible("knight") && !isKnightDead) {
             areAllVisibleAlliesDead = false;
@@ -215,15 +212,13 @@ public class BattleExperiment implements Skillable{
             areAllVisibleAlliesDead = false;
         }
 
-        // Handle battle end if all visible allies are dead
         if (areAllVisibleAlliesDead) {
-            System.out.println("handle on battle end");
             handleBattleEnd(false);
             return;
         }
         
         enemy.update();
-        isProcessingTurn = false;  // Turn is complete, allow next action
+        isProcessingTurn = false;
     }
 
     private void handleBattleEnd(boolean playerWon) {
