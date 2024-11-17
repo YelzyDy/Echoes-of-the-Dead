@@ -5,8 +5,7 @@ import java.awt.event.MouseEvent;
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 10;
-    private static final int BASE_HEALTH = 0;
-    private static final double SPRITE_SCALE = 0.3; // Keep the smaller scale for minion appearance
+    private static final int BASE_HEALTH = 100;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -30,16 +29,11 @@ public class Skeleton1 extends Enemy {
         
         // Import all sprite sets
         animator.importSprites("character_asset", "walk", baseSize, 8);
-        animator.importSprites("character_asset", "idle", baseSize, 7);
-        animator.importSprites("character_asset", "dead", baseSize, 3);
-        animator.importSkillSprites(1, "character_asset", baseSize, 7);
-        animator.importSkillSprites(2, "character_asset", baseSize, 7);
-        
-        // Scale all sprites uniformly
-        String[] spriteTypes = {"walk", "idle", "dead", "skill1", "skill2"};
-        for (String type : spriteTypes) {
-            animator.scaleDownSprites(type, SPRITE_SCALE);
-        }
+        animator.importSprites("character_asset", "idle", baseSize, 6);
+        animator.importSprites("character_asset", "dead", baseSize, 4);
+        animator.importSkillSprites(1, "character_asset", baseSize, 8);
+        animator.importSkillSprites(2, "character_asset", baseSize, 9);
+    
         
         animator.startMovement();
         animator.chooseNewDirection();
@@ -90,7 +84,7 @@ public class Skeleton1 extends Enemy {
 
     @Override
     public double getXFactor() {
-        return screenSize.width * 0.4;
+        return screenSize.width * 0.35;
     }
 
     // Keep the existing offset methods as they handle skill effect positioning
@@ -110,13 +104,13 @@ public class Skeleton1 extends Enemy {
             }
         }else if(skill == 3) {
             if(player.isWizard()) {
-                return 0.3;
+                return 0.2;
             } else{
                 return 0.25;
             }
         } else {
             if(player.isKnight()){
-                return 0.35;
+                return 0.3;
             }else if(player.isWizard()){
                 return 0.35;
             }else{

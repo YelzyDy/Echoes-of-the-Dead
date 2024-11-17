@@ -7,7 +7,7 @@ package EOD.worlds;
 import EOD.characters.*;
 import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Killer;
-import EOD.characters.enemies.Skeleton2;
+import EOD.characters.enemies.Skeleton3;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.objects.portals.GreenPortal;
@@ -144,7 +144,7 @@ public class World3 extends World{
     @Override
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Skeleton2("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.25), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Skeleton3("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.2), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Killer("Killer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
         
         for(Enemy enemy : scene.enemyList){
