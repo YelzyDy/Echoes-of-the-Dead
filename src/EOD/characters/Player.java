@@ -350,12 +350,28 @@ public class Player extends Character implements MouseInteractable{
     private double getWizardXFactor(int skill){
         switch(skill){
             case 1 ->{
-                return screenSize.width * 0.1;
+                if(enemy.getCharacterType().equals("skeleton1")){
+                    return screenSize.width * 0.12;
+                }else if(enemy.getCharacterType().equals("skeleton2")){
+                    return screenSize.width * 0.15;
+                }else if(enemy.getCharacterType().equals("necromancer")){
+                    return screenSize.width * 0.15;
+                }else if(enemy.getCharacterType().equals("death")){
+                    return screenSize.width * 0.15;
+                }
+                return screenSize.width * 0.3;
             }
             case 2 ->{
                 return getPosX();
             }
             case 3 ->{
+                if(enemy.getCharacterType().equals("skeleton1")){
+                    return screenSize.width * 0.06;
+                }else if(enemy.getCharacterType().equals("skeleton2")){
+                    return screenSize.width * 0.05;
+                }else if(enemy.getCharacterType().equals("necromancer")){
+                    return screenSize.width * 0.15;
+                }
                 return screenSize.width * 0.1;
             }
             case 4 ->{
@@ -410,7 +426,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
                 break;
         }
-        actionString = getName() + " dealt " + damageDealt + " damage to the enemy!";
+        actionString = getCharacterType() + " dealt " + damageDealt + " damage to the enemy!";
         return true;
     }
 
@@ -444,7 +460,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.mana -= 20;
                 originalAttack = attributes.attack;
                 attributes.attack += 20;
-                actionString = getName() + "\'s attack increased by 20 for " + SKILL2_DURATION + " turns!";
+                actionString = getCharacterType() + "\'s attack increased by 20 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
                 
@@ -457,7 +473,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.health -= 25;
                 originalAttack = attributes.attack;
                 attributes.attack += 30;
-                actionString = getName() + "\'s attack increased by 30 for " + SKILL2_DURATION + " turns!";
+                actionString = getCharacterType() + "\'s attack increased by 30 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
         }
@@ -494,6 +510,7 @@ public class Player extends Character implements MouseInteractable{
                     return true;
                 } else {
                     actionString = "Shift Failed!";
+                    applySkillEffect(attributes.skillEffects3, enemy, 4, enemy.getOffsetX(3), enemy.getOffsetY(3));
                     return false;
                 }
 
@@ -546,9 +563,12 @@ public class Player extends Character implements MouseInteractable{
                 ArrayList<Player> playerList = this.getWorld().getPlayerList();
 
                 for(Player player : playerList){
-                    player.getAttributes().setHp(player.getAttributes().getHp() + (int)(player.getAttributes().getBaseHp()*0.3));
-                    if(player.getAttributes().getHp()>player.getAttributes().getBaseHp()){
-                        player.getAttributes().setHp(player.getAttributes().getBaseHp());
+                    int playerHp = player.getAttributes().getHp();
+                    if(playerHp > 0){
+                        player.getAttributes().setHp(playerHp + (int)(player.getAttributes().getBaseHp()*0.3));
+                        if(player.getAttributes().getHp()>player.getAttributes().getBaseHp()){
+                            player.getAttributes().setHp(player.getAttributes().getBaseHp());
+                        }
                     }
                 }
                 return true;

@@ -5,7 +5,7 @@ import EOD.objects.EchoesObjects;
 
 public class Death extends Enemy{
     private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 0;
+    private static final int BASE_HEALTH = 150;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;

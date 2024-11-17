@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 10;
-    private static final int BASE_HEALTH = 0;
+    private static final int BASE_HEALTH = 100;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -91,6 +91,7 @@ public class Skeleton2 extends Enemy {
     // Keep the existing offset methods as they handle skill effect positioning
     @Override 
     public double getOffsetX(int skill) {
+        // increasing this moves skill effects to the left
         if(skill == 1){
             if(player.isKnight()){
                 return 0.2;
@@ -103,9 +104,9 @@ public class Skeleton2 extends Enemy {
             }else{
                 return 0.15;
             }
-        }else if(skill != 4) {
+        }else if(skill == 3) {
             if(player.isWizard() && skill == 3) {
-                return 0.3;
+                return 0.2;
             } else {
                 return 0.25;
             }
@@ -113,7 +114,7 @@ public class Skeleton2 extends Enemy {
             if(player.isKnight()){
                 return 0.3;
             }else if(player.isWizard()){
-                return 0.35;
+                return 0.15;
             }else{
                 return 0.45;
             }
@@ -146,7 +147,7 @@ public class Skeleton2 extends Enemy {
             if(player.isKnight()){
                 return 0.4;
             }else if(player.isWizard()){
-                return 0.4;
+                return 0.35;
             }else{
                 return 0.6;
             }

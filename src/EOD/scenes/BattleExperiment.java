@@ -18,7 +18,7 @@ public class BattleExperiment implements Skillable{
     private Player player;
     private Rewards rewards;
     private BattleUI battleUI;
-    private int turnCount = 0;
+    private int turnCount = 1;
     private boolean isProcessingTurn = false;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
@@ -255,7 +255,7 @@ public class BattleExperiment implements Skillable{
         }else if(enemy.getName().equals("Necromancer")){
             return 20;
         }else if(enemy.getName().equals("Skeleton1")){
-            return 0.5;
+            return 0.15;
         }
         return 0.0;
     }
