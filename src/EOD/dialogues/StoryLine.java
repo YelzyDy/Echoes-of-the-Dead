@@ -15,9 +15,10 @@ public class StoryLine implements Freeable{
 
         public void exposition() {
                 int i = 0;
-
                 this.arr[i++] = "...";
                 this.arr[i++] = "It has been a long day at CITU. After hours of scanning through countless lines of codes, all you can think about is the comfort of your bed and the peace of being home.";
+                sfxPlayer.stopSFX();
+                sfxPlayer.playSFX("src/audio_assets/sfx/exposition/parkinglot.wav");
                 this.arr[i++] = "After stepping out of the university campus, you trudge toward the parking lot, exhaustion weighing heavily on your shoulders. The sun had long dipped beneath the horizon, leaving the streets bathed in the eerie glow of streetlights. You slid into the driver's seat, the familiar hum of the engine offering a slight sense of comfort as you started the car.";
                 this.arr[i++] = "Pulling onto the road, you glanced in the rearview mirror and caught sight of a car idling just across the street, its headlights glaring. Shaking off the sensation, you turned onto the main road, eager to get home. But as you made each turn, the car followed. Left, right, another left-it mirrored every move. An uneasy feeling began to settle in, creeping up your spine. What was a coincidence at first now felt intentional.";
                 this.arr[i++] = "\"Something is wrong.\"";
@@ -28,6 +29,8 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "...";
                 
                 this.arr[i++] = "You wake up gasping, your chest tight with panic. There is no water filling your lungs, no agony gripping your body, yet the terror is all-consuming. Your breath comes in shallow bursts, but something is wrong-the air is still. Too still. And there's no sound. No feeling. Just a cold, oppressive silence that wraps around you like a shroud.";
+                sfxPlayer.stopSFX();
+                sfxPlayer.playSFX("src/audio_assets/sfx/exposition/panting.wav");
                 this.arr[i++] = "The world around you is dark and blurry, like a dream where nothing feels entirely real, but the fear coursing through your veins is far too tangible to be a nightmare. You try to focus, but it's like looking through a fog that refuses to lift.";
                 this.arr[i++] = "Then, from the corner of your eye, a figure begins to take shape, emerging from the surrounding shadows. Cloaked in darkness, the figure's form is indistinct, more of a presence than a person. It moves without sound, its silhouette unnaturally still despite the distance between you. You don't know exactly what it is or who it might be, but a deep, primal instinct tells you that if it reaches you, it will be the end of you.";
                 this.arr[i++] = "You are not ready.";

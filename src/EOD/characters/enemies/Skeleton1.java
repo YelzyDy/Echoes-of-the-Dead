@@ -57,7 +57,6 @@ public class Skeleton1 extends Enemy {
             skill1();
             return;
         }
-        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1basicatk.wav");
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
@@ -65,6 +64,7 @@ public class Skeleton1 extends Enemy {
         actionString = getName() + " swings its rusty dull sword for " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
+        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1skill1.wav");
     }
 
     @Override
