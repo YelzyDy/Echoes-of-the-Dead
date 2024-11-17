@@ -79,19 +79,30 @@ public class StoryLine implements Freeable{
                 }
             
                 if (worldType == "world2") {
-                    this.arr[i++] = "[Miss Constance suddenly stops mid-sentence, looking at you more closely.]";
-                    this.arr[i++] = "Miss C: \"Wait a second... You made it to the city outskirts?! Congrats!\"";
-                    this.arr[i++] = "You: \"Yeah, why?\"";
-                    this.arr[i++] = "Miss C (wide-eyed): \"Oh my, that's amazing! How in the world did you manage that?\"";
-                    this.arr[i++] = "You: \"A bit of skill, a lot of luck.\"";
-                    this.arr[i++] = "Miss C: \"Skill and luck? Pfft, more like a guardian angel working overtime! Trust me, most folks don't even get past Mr. Bones over there!\"";
-                    this.arr[i++] = "[She looks genuinely impressed, but her tone remains rapid-fire as ever.]";
-                    this.arr[i++] = "You: \"Why are you here anyway?\"";
-                    this.arr[i++] = "Miss C: \"If you lived (HA!) here as long as I did, you'd be surprised by how many shortcut portals there are. Hehehe.\"";
-                    this.arr[i++] = "You: \"Ugh, you should've told me sooner. It would've saved me a lot of time.\"";
-                    this.arr[i++] = "Miss C: \"Well, if you can handle that, maybe you'll be just fine down here even without shortcuts. But seriously, don't let it go to your head—I've seen tougher souls get crushed trying to go deeper! Also, we needed someone to get rid of those skeletons anyway.\"";
-                    this.arr[i++] = "You: \"Good to know.\"";
-                    this.arr[i++] = "Miss C: \"Anytime! Now go prove me right—or wrong! Just don't end up like Miggins. Long story.\"";
+                        this.arr[i++] = "[Miss Constance suddenly stops mid-sentence, looking at you more closely.]";
+                        this.arr[i++] = "Miss C: \"Wait a second... You made it to the city outskirts?! Congrats!\"";
+                        this.arr[i++] = "You: \"Yeah, why?\"";
+                        this.arr[i++] = "Miss C (wide-eyed): \"Oh my, that's amazing! How in the world did you manage that?\"";
+                        this.arr[i++] = "You: \"A bit of skill, a lot of luck.\"";
+                        this.arr[i++] = "Miss C: \"Skill and luck? Pfft, more like a guardian angel working overtime! Trust me, most folks don't even get past Mr. Bones over there!\"";
+                        this.arr[i++] = "[She looks genuinely impressed, but her tone remains rapid-fire as ever.]";
+                        this.arr[i++] = "You: \"Why are you here anyway?\"";
+                        this.arr[i++] = "Miss C: \"If you lived (HA!) here as long as I did, you'd be surprised by how many shortcut portals there are. Hehehe.\"";
+                        this.arr[i++] = "You: \"Ugh, you should've told me sooner. It would've saved me a lot of time.\"";
+                        this.arr[i++] = "Miss C: \"Well, if you can handle that, maybe you'll be just fine down here even without shortcuts. But seriously, don't let it go to your head—I've seen tougher souls get crushed trying to go deeper! Also, we needed someone to get rid of those skeletons anyway.\"";
+                        this.arr[i++] = "You: \"Good to know.\"";
+                        this.arr[i++] = "Miss C: \"Anytime! Now go prove me right—or wrong! Just don't end up like Miggins. Long story.\"";
+                        if (playerType == "knight") {
+                                this.arr[i++] = "Miss C: \"P.S. I learned that your little murderer friend have " + "<font color='#FF0000'>" + "freckles" + "</font>" + ". How cute!\"";
+                        }
+                        if (playerType == "wizard") {
+                                this.arr[i++] = "Miss C: \"P.S. I learned that your little murderer friend have " + "<font color='#FF0000'>" + "scars" + "</font>" + ". How scary!\"";
+                        }
+                        if (playerType == "priest") {
+                                this.arr[i++] = "Miss C: \"P.S. I learned that your little murderer friend have " + "<font color='#FF0000'>" + "freckles" + "</font>" + ". How cute!\"";
+                        }
+                        this.arr[i++] = "You: \"Well that's just g r e a t.\"";
+                        this.arr[i++] = "Miss C: \"Thanks! Chea told me, she already left.\"";
                 }
             
                 if (worldType == "world3") {
@@ -103,13 +114,13 @@ public class StoryLine implements Freeable{
                     this.arr[i++] = "Miss C: \"Someone's waiting for you. Whoever they are, they're not friendly. They must know you're here.\"";
                     this.arr[i++] = "You: \"Who are you talking about?\"";
                     if (playerType == "knight") {
-                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they always wear a dreadful scowl, no matter where they go.\"";
+                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they always wear a " + "<font color='#FF0000'>" + "frightening frown" + "</font>" + ", no matter where they go.\"";
                     }
                     if (playerType == "wizard") {
-                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they wear an empty expression, one that seems to suck the soul right out of you.\"";
+                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they wear an " + "<font color='#FF0000'>" + "empty expession" + "</font>" + ", one that seems to suck the soul right out of you (v053).\"";
                     }
                     if (playerType == "priest") {
-                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they always wear a sinister smile.\"";
+                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they always wear a " + "<font color='#FF0000'>" + "sinister smile" + "</font>" + ".\"";
                     }
                     this.arr[i++] = "You: \"Thanks for the warning. I guess I'll find out soon enough.\"";
                     this.arr[i++] = "[She gives you a weak smile but doesn't say anything more as you step into the ominous forest.]";
@@ -123,6 +134,9 @@ public class StoryLine implements Freeable{
                 int i = 0;
 
                 if (worldType == "world3") {
+                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"Which way leads deeper into the forest?\"" + "</font>";
+                        this.arr[i++] = "Miss C: \"I suggest talking to the others here in the forest and gather clues of your killer's whereabouts, it may help you later. Then enter the green portal, it leads directly to a secluded section in the forest.\"";
+
                         this.arr[i++] = "You: \"Do you have any clue who could be here?\"";
                         this.arr[i++] = "Miss C: \"I alread told you, it's best not to go deeper unprepared.\"";
                         
@@ -131,24 +145,12 @@ public class StoryLine implements Freeable{
                 
                         this.size = i;
                         return;
-                }
-                
-                this.arr[i++] = "You: \"What are you waiting for? You look impatient.\"";
-                this.arr[i++] = "Miss C: \"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a spirit would swing by or something. Do you think they're avoiding me? Honestly, I'm starting to take it personally.\"";
-                
-                this.arr[i++] = "You: \"Do you know anyone that is still alive?\"";
-                this.arr[i++] = "Miss C: \"Do you think the living still remember me? Probably not, right? I wasn't exactly a celebrity. Just your average city girl. But, oh, how I like to imagine there's a statue somewhere with my name on it! A girl can dream, even in the afterlife.\"";
-                
-                this.arr[i++] = "You: \"Do you have any friends?\"";
-                this.arr[i++] = "Miss C: \"I tried to make friends with the other souls, but they're all so… distant. Like, 'Hello! We're stuck here together for eternity, can we at least pretend to like each other?' No one ever laughs at my jokes either. Rude, right?\"";
-                
-                this.arr[i++] = "You: \"Have you been here for a while?\"";
-                this.arr[i++] = "Miss C: \"How long have I been dead, you ask? Oh wait, you did. Well, too bad! Time is a blur down here. I feel like I've been dead for a thousand years… or maybe just ten? You lose track after a century or two. By the way, what year is it?\"";
-                
-                this.arr[i++] = "You: \"Do you like it here? What do you think of this place?\"";
-                this.arr[i++] = "Miss C: \"The spirit world, ugh, just as bleak as you'd imagine. No sun, no moon, no stars. Just endless dark skies. And the fog! Don't even get me started on the fog. It's like a wet blanket draped over your soul 24/7.\"";
-                
-                if (worldType == "world2") {                
+                }        
+
+                if (worldType == "world2") {   
+                        this.arr[i++] = "<font color='#0000FF'>" + "Where to now?" + "</font>";
+                        this.arr[i++] = "Walk straight ahead, talk to the others, a portal shortcut will pop up at the end of the trail. More minions of Mr. Bones will be waiting for you though. I heard they were furious. HAHAHA!";
+                        
                         this.arr[i++] = "You: \"Everyone is avoiding you, they said-\"";
                         this.arr[i++] = "Miss C: \"I know! Tried chatting with another soul earlier. They're all so cranky! It's like, 'Hello! We're stuck here for eternity together! Could we at least *pretend* to like each other?' I swear, they all think being moody is a personality trait.\"";
                 
@@ -164,6 +166,24 @@ public class StoryLine implements Freeable{
                         this.arr[i++] = "You: \"Why are you giggling?\'";
                         this.arr[i++] = "Miss C: \"Oh my gosh, like, if the sun emitted Wi-Fi, trees would be like cell towers, you know? I mean, cellphones are basically fruits from those trees or whatever. Don't even get me started on how apples are used to make smartphones, like, it's science, right?";
                 }
+
+                this.arr[i++] = "<font color='#0000FF'>" + "You: \"Can you help me out? I need to find someone, this place is way too big for me to search alone.\'" + "</font>";
+                this.arr[i++] = "Miss C: \"Well, you can ask around the cetizens here! They probably know who you're talking about. I can't really remember faces. Anyway, you can also check the green portal at the end of the street.\"";
+                
+                this.arr[i++] = "You: \"What are you waiting for? You look impatient.\"";
+                this.arr[i++] = "Miss C: \"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a spirit would swing by or something. Do you think they're avoiding me? Honestly, I'm starting to take it personally.\"";
+                
+                this.arr[i++] = "You: \"Do you know anyone that is still alive?\"";
+                this.arr[i++] = "Miss C: \"Do you think the living still remember me? Probably not, right? I wasn't exactly a celebrity. Just your average city girl. But, oh, how I like to imagine there's a statue somewhere with my name on it! A girl can dream, even in the afterlife.\"";
+                
+                this.arr[i++] = "You: \"Do you have any friends?\"";
+                this.arr[i++] = "Miss C: \"I tried to make friends with the other souls, but they're all so… distant. Like, 'Hello! We're stuck here together for eternity, can we at least pretend to like each other?' No one ever laughs at my jokes either. Rude, right?\"";
+                
+                this.arr[i++] = "You: \"Have you been here for a while?\"";
+                this.arr[i++] = "Miss C: \"How long have I been dead, you ask? Oh wait, you did. Well, too bad! Time is a blur down here. I feel like I've been dead for a thousand years… or maybe just ten? You lose track after a century or two. By the way, what year is it?\"";
+                
+                this.arr[i++] = "You: \"Do you like it here? What do you think of this place?\"";
+                this.arr[i++] = "Miss C: \"The spirit world, ugh, just as bleak as you'd imagine. No sun, no moon, no stars. Just endless dark skies. And the fog! Don't even get me started on the fog. It's like a wet blanket draped over your soul 24/7.\"";
 
                 this.size = i;
         }
@@ -330,13 +350,13 @@ public class StoryLine implements Freeable{
                         this.arr[i++] = "You: \"I'll handle it. Don't worry.\"";
                         this.arr[i++] = "Miggins: \"Don't worry, he says! You're braver than I could ever be, that's for sure. Good luck out there, dear.\"";
                         if (playerType == "knight") {
-                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had short, wavy hair.\"";
+                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had " + "<font color='#FF0000'>" + "short" + "</font>" + ", " + "<font color='#FF0000'>" + "wavy hair" + "</font>" + ".\"";
                         }
                         if (playerType == "wizard") {
-                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had long, short hair.\"";
+                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had " + "<font color='#FF0000'>" + "short" + "</font>" + ", " + "<font color='#FF0000'>" + "straight hair" + "</font>" + ".\"";
                         }
                         if (playerType == "priest") {
-                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had long, straight hair.\"";
+                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had " + "<font color='#FF0000'>" + "long" + "</font>" + ", " + "<font color='#FF0000'>" + "straight hair" + "</font>" + ".\"";
                         }
                 }
             
@@ -345,35 +365,33 @@ public class StoryLine implements Freeable{
             
 
         public void migginsLines(String playerType, String worldType) {
-                int i = 0;
+                        int i = 0;
 
-                if (worldType == "world3") {
-                        this.arr[i++] = "You: \"Do you have any more clues about them?\"";
-                        this.arr[i++] = "Miggins: \"No, I'm sorry. They seem to have shrouded themselves in a deep dark aura while conjuring spells. It's like trying too see through smoke.\"";
-                
-                        this.arr[i++] = "You: \"Do you have any tips to defeat this demon?\"";
-                        this.arr[i++] = "Miggins: \"Sorry if this comes across as a bit insensitive, but you might need to stock up on potions.\"";
+                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"How can I leave the city?\"" + "</font>";
+                        this.arr[i++] = "Miggins: \"Oh! Well luckily there is a shortcut right over there, the red portal. Unfortunately, The Necromancer is guarding the otherside. So, it's best to prepare before diving right in. They operate an undercity mafia, it's ridiculous.\"";
+
+                        this.arr[i++] = "You: \"What are those red bottles near the window of your shop?\"";
+                        this.arr[i++] = "Miggins: \"Those red potions are apple flavored, it may taste like medicine since it is one.\"";
+
+                        this.arr[i++] = "You: \"What are those red bottles near the window of your shop?\"";
+                        this.arr[i++] = "Miggins: \"Those red potions are apple flavored, it may taste like medicine since it is one.\"";
                         
-                        this.size = i;
-                        return;
-                }
+                        this.arr[i++] = "You: \"Why do the other souls dislike your pies?\"";
+                        this.arr[i++] = "Miggins: \"Some of the denizens here just don't like me at all.\"";
+                        
+                        this.arr[i++] = "You: \"How can apple trees grow here in total darkness?\"";
+                        this.arr[i++] = "Miggins: \"Plants grow here without the need for sunlight, the faint glow of the underworld is more than enough.\"";
+                        
+                        this.arr[i++] = "You: \"Is it okay if I come in and take a look?\"";
+                        this.arr[i++] = "Miggins: \"Of course, my shop is open for all!\"";
+                        
+                        this.arr[i++] = "You: \"I died an unjust death. I take it that you died peacefully at an old age?\"";
+                        this.arr[i++] = "Miggins: \"Yep, 88. It's a shame that you died that way, perhaps I could cheer you up with some of my cookings?\"";
 
-                this.arr[i++] = "You: \"What are those red bottles near the window of your shop?\"";
-                this.arr[i++] = "Miggins: \"Those red potions are apple flavored, it may taste like medicine since it is one.\"";
-                
-                this.arr[i++] = "You: \"Why do the other souls dislike your pies?\"";
-                this.arr[i++] = "Miggins: \"Some of the denizens here just don't like me at all.\"";
-                
-                this.arr[i++] = "You: \"How can apple trees grow here in total darkness?\"";
-                this.arr[i++] = "Miggins: \"Plants grow here without the need for sunlight, the faint glow of the underworld is more than enough.\"";
-                
-                this.arr[i++] = "You: \"Is it okay if I come in and take a look?\"";
-                this.arr[i++] = "Miggins: \"Of course, my shop is open for all!\"";
-                
-                this.arr[i++] = "You: \"I died an unjust death. I take it that you died peacefully at an old age?\"";
-                this.arr[i++] = "Miggins: \"Yep, 88. It's a shame that you died that way, perhaps I could cheer you up with some of my cookings?\"";
-                
                 if (worldType == "world2") {
+                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"I'm so glad to see you again, is there a shortcut that cuts right through the outskirts?\"" + "</font>";
+                        this.arr[i++] = "Miggins: \"Of course! Another red portal should appear anytime now. However, is that what you want? It's best to take the longer route, since it's safer, but I understand that you're in a hurry.\"";
+
                         this.arr[i++] = "You: \"So, I can't starve to death?\"";
                         this.arr[i++] = "Miggins: \"Of course. Some souls could even go months without food, but the hunger is way too unbearable that most wouldn't last a year without it.\"";
                         
@@ -388,6 +406,20 @@ public class StoryLine implements Freeable{
                         
                         this.arr[i++] = "You: \"You're quite energetic despite having died of old age. I guess death makes you feel younger?\"";
                         this.arr[i++] = "Miggins: \"Oh, sweetie, the grave doesn't stop me from whipping up a batch of pies!\"";
+                }
+
+                if (worldType == "world3") {
+                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"Where's the red portal? I swear I just saw one right here.\"" + "</font>";
+                        this.arr[i++] = "Miggins: \"I casted a temporary removal spell on it, there was too much negative energy, I don't think it will last long. Here, I'll undo it for you. Be careful what you find in the otherside, dear. I wish you the best.\"";
+
+                        this.arr[i++] = "You: \"Do you have any more clues about them?\"";
+                        this.arr[i++] = "Miggins: \"No, I'm sorry. They seem to have shrouded themselves in a deep dark aura while conjuring spells. It's like trying too see through smoke.\"";
+                
+                        this.arr[i++] = "You: \"Do you have any tips to defeat this demon?\"";
+                        this.arr[i++] = "Miggins: \"Sorry if this comes across as a bit insensitive, but you might need to stock up on potions.\"";
+                        
+                        this.size = i;
+                        return;
                 }
 
                 this.size = i;
@@ -659,7 +691,62 @@ public class StoryLine implements Freeable{
                 }
             
                 this.size = i;
-        }    
+        }
+        
+        public void cheaIntro() {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"Hey! You need to get out of here!\"";
+                this.arr[i++] = "Chea: \"Oh, and who might you be? Don't even think about sneaking past me.\"";
+                this.arr[i++] = "You: \"I don't have time for this. There's something dangerous out there.\"";
+                this.arr[i++] = "Chea: \"Dangerous? Oh, honey, you've got to be more specific. I've lived here long enough to know there's always danger. Now spill—what is it?\"";
+                this.arr[i++] = "You: \"A demon. It's roaming the forest, hunting anything that moves. You need to be careful.\"";
+                this.arr[i++] = "Chea: \"A demon, you say? What does it look like? Big? Small? Does it have wings? Horns? And why are you so worried about it?\"";
+                this.arr[i++] = "You: \"I don't have time to answer your questions. Just stay away from the forest!\"";
+                this.arr[i++] = "Chea: \"Stay away? Oh, please. I can take care of myself. But now you've got me curious—what were YOU doing near the forest anyway?\"";
+                this.arr[i++] = "You: \"Well, I tried to warn you. Just stay out of trouble.\"";
+                this.arr[i++] = "Chea: \"Oh, please...\"";
+
+                this.size = i;
+            }
+            
+            public void cheaLines(String playerType) {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"You really shouldn't be wandering around here. That demon could attack at any moment.\"";
+                this.arr[i++] = "Chea: \"A demon attack? Oh, dear. And where exactly was this, hmm? Don't leave out any details!\"";
+            
+                this.arr[i++] = "You: \"I'm serious. The forest isn't safe. Why aren't you listening?\"";
+                this.arr[i++] = "Chea: \"Listening? Oh, I'm listening. I just want to know why someone like you seems so worked up. Have you actually seen it? What does it DO?\"";
+            
+                this.arr[i++] = "You: \"Why are you persistent on staying?\"";
+                this.arr[i++] = "Chea: \"Because you're acting all mysterious about it! What's a demon doing out here anyway? The suspense is killing, I need to see this go down!\"";
+            
+                this.arr[i++] = "You: \"Look, I don't want anyone else to get hurt. Please, take my warning seriously.\"";
+                this.arr[i++] = "Chea: \"Oh, aren't you sweet? But tell me—did the demon say anything? Does it talk? I always imagined demons would be scary. I'm pretty sure they're not supposed here unless a wicked soul made a deal with the devil. Oh, the tea!\"";
+            
+                this.arr[i++] = "You: \"You're not taking this seriously. It's a real threat.\"";
+                this.arr[i++] = "Chea: \"I'll take it seriously once I know more about it. Do you think it's coming here? Should I get ready? What do you think it wants?\"";
+            
+                this.arr[i++] = "You: \"If you keep asking questions, you might just find out the hard way.\"";
+                this.arr[i++] = "Chea: \"Oh, don't be dramatic. I've dealt with plenty of problems in my time. But a demon, now that's exciting! Tell me everything! A hellish creature could only be summoned through malicious drama, now that's entertainment!\"";
+
+                if (playerType == "knight") {
+                        this.arr[i++] = "You: \"Can you atleast tell me if you know anything about a-\"";
+                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "blood" + "</font>" + " all over them.\"";
+                }
+                if (playerType == "wizard") {
+                        this.arr[i++] = "You: \"Can you atleast tell me if you know anything about a-\"";
+                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "scars" + "</font>" + " all over them.\"";
+                } 
+                if (playerType == "priest") {
+                        this.arr[i++] = "You: \"Can you atleast tell me if you know anything about a-\"";
+                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "blood" + "</font>" + ".\"";
+                }
+
+                this.size = i;
+        }
+            
 
         public void wizardIntro(String playerType) {
                 int i = 0;
@@ -1172,7 +1259,6 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
             
-
         public String getLine(int i) {
                 return "<html><center>" + this.arr[i] + "</center></html>";
         }
