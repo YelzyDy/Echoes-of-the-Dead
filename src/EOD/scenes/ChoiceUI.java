@@ -21,10 +21,12 @@ public class ChoiceUI extends JPanel {
         "Monologuer", "Natty", "Asriel",
         "Renegald", "Chea", "Yoo"
     };
+    private JLayeredPane layeredPane;
     
     public ChoiceUI(Player player, World3 world) {
         this.player = player;
         this.world = world;
+        this.layeredPane = world.getLayeredPane();
             // Main panel setup
             setPreferredSize(new Dimension(width, height));
             setBackground(Color.BLACK);

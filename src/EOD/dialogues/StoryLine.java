@@ -160,7 +160,7 @@ public class StoryLine implements Freeable{
             
                 this.size = i;
                 this.questSize = q;
-         }
+        }
 
         public void missConstanceLines(String playerType, String worldType) {
                 int i = 0;
