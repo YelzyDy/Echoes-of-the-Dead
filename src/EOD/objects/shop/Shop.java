@@ -110,22 +110,18 @@ public class Shop extends EchoesObjects{
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
         buyButton.setVisible(true);
+        sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if (source == item1) {
             handleItemClick(1, item1, item1Stock);
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == item2) {
             handleItemClick(2, item2, item2Stock);
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == item3) {
             handleItemClick(3, item3, item3Stock);
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == item4) {
             handleItemClick(4, item4, item4Stock);
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         } else if (source == buyButton) {
             buy();
         } else if (source == closeButton) {
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             hideShop();
         }
     }
@@ -155,6 +151,7 @@ public class Shop extends EchoesObjects{
         switch (itemToBuy) {
             case 1 -> {
                 if (item1Stock > 0) {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
                     updateStock(item1, --item1Stock);
                     inventory.addItem1(); // Add item to inventory
                 } else {
@@ -164,6 +161,7 @@ public class Shop extends EchoesObjects{
             }
             case 2 -> {
                 if (item2Stock > 0) {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
                     updateStock(item2, --item2Stock);
                     inventory.addItem2();
                 } else {
@@ -173,6 +171,7 @@ public class Shop extends EchoesObjects{
             }
             case 3 -> {
                 if (item3Stock > 0) {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
                     updateStock(item3, --item3Stock);
                     inventory.addItem3();
                 } else {
@@ -182,6 +181,7 @@ public class Shop extends EchoesObjects{
             }
             case 4 -> {
                 if (item4Stock > 0) {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
                     updateStock(item4, --item4Stock);
                     inventory.addItem4();
                 } else {
@@ -193,7 +193,6 @@ public class Shop extends EchoesObjects{
     
         // Deduct money and play success sound
         world.getPlayer().getAttributes().setMoney(playerMoney - itemCost);
-        sfxPlayer.playSFX("src/audio_assets/sfx/general/buy.wav");
     }
     
     
