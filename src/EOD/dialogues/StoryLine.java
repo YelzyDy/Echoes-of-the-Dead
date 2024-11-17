@@ -1,13 +1,14 @@
 package EOD.dialogues;
 import EOD.gameInterfaces.Freeable;
 import EOD.utils.SFXPlayer;
+import java.awt.*;
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private String[] qArr = new String[50];
         private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
-        private int questSize;
-
+        private int questSize; 
+        private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         public void free(){
                 size = 0;
                 arr = null;
@@ -130,7 +131,36 @@ public class StoryLine implements Freeable{
 
                 this.size = i;
         }
+        
+        public void missConstanceQuests() {
+                int i = 0;
+                int q = 0;
+                
+                // Initial Dialogue
+                this.arr[i++] = "You: \"Which path leads deeper into these cursed woods?\"";
+                this.arr[i++] = "Miss C: \"*gestures toward a shimmering green mist* The emerald portal ahead leads to the forest's depths. But heed my warning, dear soul...\"";
+                this.arr[i++] = "You: \"What troubles you, Miss Constance?\"";
+                this.arr[i++] = "Miss C: \"*her form flickers anxiously* The forest harbors dark secrets. Many who venture deeper never return. The necromancer's influence grows stronger with each passing night.\"";
+                this.arr[i++] = "You: \"Tell me more about these dark secrets.\"";
+                this.arr[i++] = "Miss C: \"*her voice drops to a whisper* Strange rituals, corrupted spirits... The trees themselves whisper of ancient evil. Natty, near the old well, has witnessed their dark ceremonies.\"";
+                this.arr[i++] = "You: \"And this necromancer you speak of?\"";
+                this.arr[i++] = "Miss C: \"*ethereal mist swirls around her* Once a guardian of these woods, now consumed by darkness. They command an army of the undead, adding to their ranks with each victim that falls to their magic.\"";
+                this.arr[i++] = "You: \"How can I prepare for what lies ahead?\"";
+                this.arr[i++] = "Miss C: \"*her form brightens slightly* Seek out the others who dwell here. Miggins, the merchant, knows of strange artifacts that might aid you. And Yoo has been tracking the necromancer's movements.\"";
+                this.arr[i++] = "You: \"I shall gather what information I can.\"";
+                this.arr[i++] = "Miss C: \"*nods solemnly* Wisdom before valor, dear soul. The forest's secrets may be your key to survival. Return to me if you require guidance. And remember - in these woods, not all is as it seems.\"";
             
+                // Quest Title
+                this.qArr[q++] = "<font color='#FFFF00'>" + "Quest: Secrets of the Haunted Forest" + "</font>";
+                // Quest Objectives
+                this.qArr[q++] = "<font color='#FFFF00'>" + "- Speak with Natty near the old well" + "</font>";
+                this.qArr[q++] = "<font color='#FFFF00'>" + "- Find Merchant Miggins for valuable artifacts" + "</font>";
+                this.qArr[q++] = "<font color='#FFFF00'>" + "- Locate Yoo to learn about the necromancer's movements" + "</font>";
+                this.qArr[q++] = "<font color='#FFFF00'>" + "- Enter the emerald portal to the forest's depths" + "</font>";
+            
+                this.size = i;
+                this.questSize = q;
+         }
 
         public void missConstanceLines(String playerType, String worldType) {
                 int i = 0;
@@ -383,7 +413,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Miggins: \"Excellent! But be warned - the Necromancer didn't rise to power by showing mercy. Return to me once the deed is done, and the potion is yours. Who knows? Perhaps this could be the beginning of a... profitable partnership.\"";
                 
                 // Quest Title
-                this.qArr[q++] = "<font color='#FF0000'>" + "Quest: Escape from the Underworld" + "</font>";
+                this.qArr[q++] = "<font color='#FFFF00'>" + "Quest: Escape from the Underworld" + "</font>";
                 // Quest Objectives
                 this.qArr[q++] = "<font color='#FFFF00'>" + "- Defeat The Necromancer guarding the Crimson Gateway" + "</font>";
                 this.qArr[q++] = "<font color='#FFFF00'>" + "- Return to Miggins for your reward" + "</font>";
@@ -1236,7 +1266,15 @@ public class StoryLine implements Freeable{
         }
             
         public String getLine(int i) {
-                return "<html><center>" + this.arr[i] + "</center></html>";
+                // Define padding values
+                int horizontalPadding = (int) (screenSize.width * 0.05);
+                int verticalPadding = (int) (screenSize.height * 0.01);
+                
+                String content = this.arr[i];
+                
+                // Return the formatted HTML string with padding and text alignment
+                return String.format("<html><div style='text-align: left; padding: %dpx %dpx;'>%s</div></html>",
+                verticalPadding, horizontalPadding, content);
         }
 
         public int getSize() {

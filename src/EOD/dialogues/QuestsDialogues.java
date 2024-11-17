@@ -16,9 +16,10 @@ public class QuestsDialogues extends JFrame {
     private String worldType;
     private JDialog dialog;
     protected JScrollPane scrollPane;
-    private int currentDialogueIndex = 0;
-    private String[] currentDialogueSequence;
-    
+    private Dialogues dialogues;
+    private int i = 0;
+    protected boolean isQuestDialoguesActive;
+
     public void setPlayerType(String playerType) {
         this.playerType = playerType;
     }
@@ -31,7 +32,13 @@ public class QuestsDialogues extends JFrame {
         // LOAD NPC
         dialog = dialogues.getStoryJDialog();
         dialogues.pressToContinueLabel.setVisible(false);
+        this.dialogues = dialogues;
+        isQuestDialoguesActive = true;
+        i = 0;
         switch (ID) {
+            case 1:
+                story.missConstanceQuests();
+            break;
             case 4:
                 story.migginsQuests();
             break;
@@ -105,6 +112,11 @@ public class QuestsDialogues extends JFrame {
                     dialogues.pressToContinueLabel.setVisible(true);
                     dialog.revalidate();
                     dialog.repaint();
+                    if (story.getSize() > 0) {
+                        dialogues.typewriterEffect(story.getLine(0));
+                        this.i++;
+                    }
+                    dialogues.buttonPanel.setVisible(true);
                 });
 
                 gbc.gridy = i;
@@ -118,17 +130,11 @@ public class QuestsDialogues extends JFrame {
         MouseAdapter mouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                if (currentDialogueSequence != null) {
-                    currentDialogueIndex++;
-                    if (currentDialogueIndex < currentDialogueSequence.length) {
-                        // Show next dialogue in sequence
-                        textBox.setText(currentDialogueSequence[currentDialogueIndex]);
-                    } else {
-                        // Dispose dialog only when all dialogues are shown
-                        dialog.dispose();
-                        dialog.removeMouseListener(this);
+                    // Show next dialogue in sequence
+                    if (handleSetText()){
+                        dialog.removeMouseListener(this);  
+                        isQuestDialoguesActive = false;
                     }
-                }
             }
         };
 
@@ -138,5 +144,31 @@ public class QuestsDialogues extends JFrame {
         dialog.getContentPane().setBackground(Color.BLACK);
         dialog.setLocation(x, y);
         dialog.setVisible(true);
+    }
+
+    public boolean handleSetText() {
+        boolean isTyping = dialogues.isTyping;
+        int size = story.getSize();
+        JLabel textBox = dialogues.textBox;
+        if (isTyping) {
+            // If typing is in progress, interrupt it and show the full text immediately
+            dialogues.isTyping = false;
+            if (i < size) {
+                i -= 1;
+                textBox.setText(story.getLine(i++));
+            }
+            System.out.println("Interrupting");
+            return false;
+        }
+    
+        if (i < size) {
+            // Start the typewriter effect for the next line
+            dialogues.typewriterEffect(story.getLine(i));
+            i++;
+        } else {
+            dialogues.getStoryJDialog().dispose();
+            return true;
+        }
+        return false;
     }
 }
