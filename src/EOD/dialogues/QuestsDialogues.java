@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 public class QuestsDialogues extends JFrame {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
+    private String[] currentDialogue;
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.4);
     private String playerType;
@@ -93,7 +94,6 @@ public class QuestsDialogues extends JFrame {
 
         for (int i = 0; i < options.length; i++) {
             if (options[i] != null) {
-                int j = i;
                 JButton optionButton = new JButton("<html><center>" + options[i] + "</center></html>");
                 optionButton.setFont(new Font("Monospaced", Font.PLAIN, 28));
                 optionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -105,18 +105,41 @@ public class QuestsDialogues extends JFrame {
                 int preferredHeight = optionButton.getPreferredSize().height * 3;
                 optionButton.setPreferredSize(new Dimension(0, preferredHeight));
                 optionButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, preferredHeight));
+                optionButton.setActionCommand(String.valueOf(i));
 
                 optionButton.addActionListener(e -> {
-                    textBox.setText(story.getLine(j));
+                    int clickedIndex = Integer.parseInt(e.getActionCommand());
                     dialog.remove(scrollPane);
                     dialogues.pressToContinueLabel.setVisible(true);
                     dialog.revalidate();
                     dialog.repaint();
-                    if (story.getSize() > 0) {
-                        dialogues.typewriterEffect(story.getLine(0));
-                        this.i++;
-                    }
                     dialogues.buttonPanel.setVisible(true);
+                    if(clickedIndex == 0){
+                        if (story.getSize() > 0) {
+                            dialogues.typewriterEffect(story.getLine(0));
+                            currentDialogue = story.getArr();
+                            this.i++;
+                        }
+                    }else{
+                        int c = 0;
+                            for(int j = 0, count = 1; j < story.getSize("oarr"); j++){
+                                if(story.getOArr()[j].equals("-")){
+                                    count++;
+                                }
+                                if(clickedIndex == count){
+                                    break;
+                                }
+                                c++;
+                            }
+                        if(clickedIndex != 1){
+                            clickedIndex = c + 1;
+                        }else{
+                            clickedIndex = 0;
+                        }
+                        dialogues.typewriterEffect(story.getLine(clickedIndex, story.getOArr()));
+                        this.i = clickedIndex + 1;
+                        currentDialogue = story.getOArr();
+                    }
                 });
 
                 gbc.gridy = i;
@@ -146,24 +169,35 @@ public class QuestsDialogues extends JFrame {
         dialog.setVisible(true);
     }
 
+    private String getCurrentStringArray(){
+        if(currentDialogue == story.getArr()){
+            return "arr";
+        }else if(currentDialogue == story.getOArr()){
+            return "oarr";
+        }else if(currentDialogue == story.getQArr()){
+            return "qarr";
+        }
+        return null;
+    }
+
     public boolean handleSetText() {
         boolean isTyping = dialogues.isTyping;
-        int size = story.getSize();
+        int size = story.getSize(getCurrentStringArray());
         JLabel textBox = dialogues.textBox;
         if (isTyping) {
             // If typing is in progress, interrupt it and show the full text immediately
             dialogues.isTyping = false;
             if (i < size) {
                 i -= 1;
-                textBox.setText(story.getLine(i++));
+                textBox.setText(story.getLine(i++, currentDialogue));
             }
             System.out.println("Interrupting");
             return false;
         }
     
-        if (i < size) {
+        if (i < size && !currentDialogue[i].equals("-")) {
             // Start the typewriter effect for the next line
-            dialogues.typewriterEffect(story.getLine(i));
+            dialogues.typewriterEffect(story.getLine(i, currentDialogue));
             i++;
         } else {
             dialogues.getStoryJDialog().dispose();

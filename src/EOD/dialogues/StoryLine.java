@@ -5,9 +5,12 @@ import java.awt.*;
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private String[] qArr = new String[50];
+        private String[] oArr = new String[50];
+
         private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
         private int questSize; 
+        private int objectivesSize;
         private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         public void free(){
                 size = 0;
@@ -135,7 +138,7 @@ public class StoryLine implements Freeable{
         public void missConstanceQuests() {
                 int i = 0;
                 int q = 0;
-                
+                int o = 0;
                 // Initial Dialogue
                 this.arr[i++] = "You: \"Which path leads deeper into these cursed woods?\"";
                 this.arr[i++] = "Miss C: \"*gestures toward a shimmering green mist* The emerald portal ahead leads to the forest's depths. But heed my warning, dear soul...\"";
@@ -149,7 +152,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Miss C: \"*her form brightens slightly* Seek out the others who dwell here. Miggins, the merchant, knows of strange artifacts that might aid you. And Yoo has been tracking the necromancer's movements.\"";
                 this.arr[i++] = "You: \"I shall gather what information I can.\"";
                 this.arr[i++] = "Miss C: \"*nods solemnly* Wisdom before valor, dear soul. The forest's secrets may be your key to survival. Return to me if you require guidance. And remember - in these woods, not all is as it seems.\"";
-            
+                
                 // Quest Title
                 this.qArr[q++] = "<font color='#FFFF00'>" + "Quest: Secrets of the Haunted Forest" + "</font>";
                 // Quest Objectives
@@ -157,9 +160,34 @@ public class StoryLine implements Freeable{
                 this.qArr[q++] = "<font color='#FFFF00'>" + "- Find Merchant Miggins for valuable artifacts" + "</font>";
                 this.qArr[q++] = "<font color='#FFFF00'>" + "- Locate Yoo to learn about the necromancer's movements" + "</font>";
                 this.qArr[q++] = "<font color='#FFFF00'>" + "- Enter the emerald portal to the forest's depths" + "</font>";
-            
+                
+                this.oArr[o++] = "blablabla for obejctive1";
+                this.oArr[o++] = "You - blablabla for objective1 asdf ";
+                this.oArr[o++] = "blablabla for objective1 asdf f";
+                this.oArr[o++] = "You - blablabla for objective1 asdfa";
+                this.oArr[o++] = "blablabla for objective1 3wfsa";
+                this.oArr[o++] = "-";
+                this.oArr[o++] = "blablabla for obejctive2";
+                this.oArr[o++] = "You - bla for objective2 asdf ";
+                this.oArr[o++] = "blablabla for objective2 asdf f";
+                this.oArr[o++] = "You - bla for objective2 asdfa";
+                this.oArr[o++] = "blablabla for objective2 3wfsa";
+                this.oArr[o++] = "-";
+                this.oArr[o++] = "blablabla for obejctive3";
+                this.oArr[o++] = "You - bla for objective3 asdf ";
+                this.oArr[o++] = "blablabla for objective3 asdf f";
+                this.oArr[o++] = "You - bla for objective3 asdfa";
+                this.oArr[o++] = "blablabla for objective3 3wfsa";
+                this.oArr[o++] = "-";
+                this.oArr[o++] = "blablabla for obejctive4";
+                this.oArr[o++] = "You - bla for objective4 asdf ";
+                this.oArr[o++] = "blablabla for objective4 asdf f";
+                this.oArr[o++] = "You - bla for objective4 asdfa";
+                this.oArr[o++] = "blablabla for objective4 3wfsa";
+                this.oArr[o++] = "-";
                 this.size = i;
                 this.questSize = q;
+                this.objectivesSize = o;
         }
 
         public void missConstanceLines(String playerType, String worldType) {
@@ -398,6 +426,7 @@ public class StoryLine implements Freeable{
         public void migginsQuests() {
                 int i = 0;         
                 int q = 0;
+                int o = 0;
                 // Initial Dialogue
                 this.arr[i++] = "You: \"I seek passage from these depths. Know you of any way?\"" + "</font>";
                 this.arr[i++] = "Miggins: \"*adjusts her spectral robes* Ah, another soul seeking ascension! There's a Crimson Gateway nearby - a portal that could serve your purpose. But... *glances nervously over shoulder*\"";
@@ -411,15 +440,28 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Miggins: \"The gateway route is vital for my trade. Without it, I'm losing customers to the merchants in the Higher Circles. Besides, *her voice drops to a whisper* that potion is a small price to pay for breaking the Necromancer's monopoly on soul-trafficking. Deal?\"";
                 this.arr[i++] = "You: \"I accept your task.\"";
                 this.arr[i++] = "Miggins: \"Excellent! But be warned - the Necromancer didn't rise to power by showing mercy. Return to me once the deed is done, and the potion is yours. Who knows? Perhaps this could be the beginning of a... profitable partnership.\"";
-                
+
                 // Quest Title
                 this.qArr[q++] = "<font color='#FFFF00'>" + "Quest: Escape from the Underworld" + "</font>";
                 // Quest Objectives
                 this.qArr[q++] = "<font color='#FFFF00'>" + "- Defeat The Necromancer guarding the Crimson Gateway" + "</font>";
                 this.qArr[q++] = "<font color='#FFFF00'>" + "- Return to Miggins for your reward" + "</font>";
                 
+                this.oArr[o++] = "blablabla for objective1";
+                this.oArr[o++] = "blablabla for objective1 asdf ";
+                this.oArr[o++] = "blablabla for objective1 asdf f";
+                this.oArr[o++] = "blablabla for objective1 asdfa";
+                this.oArr[o++] = "blablabla for objective1 3wfsa";
+                this.oArr[o++] = "-";
+                this.oArr[o++] = "blablabla for objective2";
+                this.oArr[o++] = "blablabla for objective2 asdf ";
+                this.oArr[o++] = "blablabla for objective2 asdf f";
+                this.oArr[o++] = "blablabla for objective2 asdfa";
+                this.oArr[o++] = "blablabla for objective2 3wfsa";
+
                 this.size = i;
                 this.questSize = q;
+                this.objectivesSize = o;
         }
 
         public void migginsLines(String playerType, String worldType) {
@@ -1277,8 +1319,29 @@ public class StoryLine implements Freeable{
                 verticalPadding, horizontalPadding, content);
         }
 
+        public String getLine(int i, String[] arr) {
+                // Define padding values
+                int horizontalPadding = (int) (screenSize.width * 0.05);
+                int verticalPadding = (int) (screenSize.height * 0.01);
+                
+                String content = arr[i];
+                
+                // Return the formatted HTML string with padding and text alignment
+                return String.format("<html><div style='text-align: left; padding: %dpx %dpx;'>%s</div></html>",
+                verticalPadding, horizontalPadding, content);
+        }
+
         public int getSize() {
                 return this.size;
+        }
+
+        public int getSize(String type) {
+                switch(type){
+                        case "arr": return size;
+                        case "oarr": return objectivesSize;
+                        case "qarr": return questSize;
+                        default: return 0;
+                }
         }
 
         public String[] getArr() {
@@ -1287,5 +1350,9 @@ public class StoryLine implements Freeable{
 
         public String[] getQArr() {
                 return qArr;
+        }
+
+        public String[] getOArr() {
+                return oArr;
         }
 }
