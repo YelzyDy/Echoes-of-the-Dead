@@ -297,6 +297,22 @@ public class FullScreenDialogues extends JFrame {
                             sfxPlayer.stopSFX();
                             sfxPlayer.playSFX("src/audio_assets/sfx/exposition/thunder.wav");
                             break;
+                        case 10:
+                            sfxPlayer.stopSFX();
+                            sfxPlayer.playSFX("src/audio_assets/sfx/exposition/panting.wav");
+                            break;
+                        case 12:
+                            sfxPlayer.stopSFX();
+                            sfxPlayer.playSFX("src/audio_assets/sfx/exposition/appear.wav");
+                            break;
+                        case 14:
+                            sfxPlayer.stopSFX();
+                            sfxPlayer.playSFX("src/audio_assets/sfx/exposition/panting.wav");
+                            break;
+                        case 33:
+                            sfxPlayer.stopSFX();
+                            sfxPlayer.playSFX("src/audio_assets/sfx/exposition/appear.wav");
+                            break;
                         default:
                             break;
                     }
