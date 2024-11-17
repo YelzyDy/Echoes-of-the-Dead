@@ -101,6 +101,9 @@ public class Npc extends Character implements MouseInteractable, Questable{
         if(getCharacterType().equals("akifay")){
             return 31;
         }
+        if(getCharacterType().equals("chea")){
+            return 33;
+        }
         return 0;
     }
 

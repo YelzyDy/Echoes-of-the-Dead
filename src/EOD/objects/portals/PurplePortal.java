@@ -4,6 +4,7 @@ import EOD.characters.Player;
 import EOD.objects.QuestableObjects;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
+import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
 import EOD.worlds.World2;
 import EOD.worlds.World3;
@@ -22,14 +23,17 @@ public class PurplePortal extends QuestableObjects{
 
         SceneBuilder scene = world.getScene();
         BGMPlayer bgmPlayer = world.getBGMPlayer();
+        SFXPlayer sfxPlayer =  SFXPlayer.getInstance();
         ArrayList<Player> playerList = world.getPlayerList();
         Player player = world.getPlayer();
 
         scene.gameLoopTimer.stop();
         World window;
         if(world.getTitle().equals("world1")){
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/teleport.wav");
             window = new World2(player, playerList);
         }else{
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/teleport.wav");
             window = new World3(player, playerList);
         }
         window.setVisible(true);

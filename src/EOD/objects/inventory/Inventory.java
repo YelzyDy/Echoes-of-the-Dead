@@ -3,13 +3,15 @@ package EOD.objects.inventory;
 import EOD.characters.PlayerAttributes;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
-import java.awt.*;
+import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
-import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
+import javax.swing.*;
 
 public class Inventory extends EchoesObjects{
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     private EchoesObjects item1Icon, item2Icon, item3Icon, item4Icon, sideIcon;
     private double width, height;
     private double incrementingX;
@@ -163,10 +165,12 @@ public class Inventory extends EchoesObjects{
             case "Item 1":
                 if (item1Quantity > 0) {
                     if(attributes.getHp() == attributes.getBaseHp()){
+                        //sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                         attributes.setHp(attributes.getBaseHp());
                         effectMessage = "Soul Energy Already Full";
                         return effectMessage;
                     }
+                    //sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
                     attributes.setHp(attributes.getHp() + 20); // Increase health
                     if(attributes.getHp() > attributes.getBaseHp()){
                         attributes.setHp(attributes.getBaseHp());
@@ -181,6 +185,7 @@ public class Inventory extends EchoesObjects{
                 break;
             case "Item 2":
                 if (item2Quantity > 0) {
+                    //sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
                     attributes.setAttack(attributes.getAttack() + 5); // Increase attack
                     item2Quantity--;
                     updateLabel(item2Label, item2Quantity);
@@ -193,10 +198,12 @@ public class Inventory extends EchoesObjects{
             case "Item 3":
                 if (item3Quantity > 0) {
                     if(attributes.getMana() == attributes.getBaseMana()){
+                        //sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                         attributes.setMana(attributes.getBaseMana());
                         effectMessage = "Mana Already Full";
                         return effectMessage;
                     }
+                    //sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
                     attributes.setMana(attributes.getMana() + 20); // Increase mana
                     if(attributes.getMana() > attributes.getBaseMana()){
                         attributes.setMana(attributes.getBaseMana());
@@ -211,6 +218,7 @@ public class Inventory extends EchoesObjects{
                 break;
             case "Item 4":
                 if (item4Quantity > 0) {
+                    //sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
                     attributes.setHp(attributes.getHp() + 10); // Increase health
                     attributes.setAttack(attributes.getAttack() + 5); // Increase attack
                     attributes.setMana(attributes.getMana() + 10); // Increase mana
@@ -272,8 +280,10 @@ public class Inventory extends EchoesObjects{
             );
     
             if (choice == JOptionPane.YES_OPTION) {
+                sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
                 JOptionPane.showMessageDialog(this, applyItemEffect(itemName));
             } else {
+                sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                 JOptionPane.showMessageDialog(this, itemName + " was not used.");
             }
         }
