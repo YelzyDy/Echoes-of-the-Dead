@@ -1,8 +1,8 @@
 package EOD.characters.enemies;
 
-import java.awt.event.MouseEvent;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import java.awt.event.MouseEvent;
 
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
@@ -44,6 +44,7 @@ public class Skeleton2 extends Enemy {
     @Override 
     public void skill1() {
         // Basic attack - consistent but low damage
+        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2basicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
         actionString = getName() + " used mediocre bone punch " + damageDealt + " damage!";
         lastUsedSkill = 1;
@@ -57,7 +58,7 @@ public class Skeleton2 extends Enemy {
             skill1();
             return;
         }
-
+        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2basicatk.wav");
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation

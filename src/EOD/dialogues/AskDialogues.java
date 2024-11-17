@@ -13,17 +13,23 @@ public class AskDialogues extends JFrame {
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.4);
     private String playerType;
+    private String worldType;
 
     public void setPlayerType(String playerType){
         this.playerType = playerType;
     }
+
+    public void setWorldType(String worldType){
+        this.worldType = worldType;
+    }
+
     public void openScrollableOptions(int ID, Dialogues dialogues, JLabel textBox) {
         // LOAD NPC
         JDialog dialog = dialogues.getStoryJDialog();
         dialogues.pressToContinueLabel.setVisible(false);
         switch (ID) {
             case 2:
-                story.missConstanceLines();
+                story.missConstanceLines(playerType, worldType);
                 break;
             case 4:
                 story.nattyLines();
@@ -32,7 +38,7 @@ public class AskDialogues extends JFrame {
                 story.yooLines();
                 break;
             case 8:
-                story.migginsLines();
+                story.migginsLines(playerType, worldType);
                 break;
             case 10:
                 story.faithfulLines();

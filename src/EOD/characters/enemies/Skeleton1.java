@@ -43,6 +43,7 @@ public class Skeleton1 extends Enemy {
     @Override 
     public void skill1() {
         // Basic attack - consistent but low damage
+        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1basicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
         actionString = getName() + " used small boney punch for " + damageDealt + " damage!";
         lastUsedSkill = 1;
@@ -56,7 +57,7 @@ public class Skeleton1 extends Enemy {
             skill1();
             return;
         }
-
+        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1basicatk.wav");
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation

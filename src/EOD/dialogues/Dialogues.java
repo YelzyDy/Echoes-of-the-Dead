@@ -1,7 +1,6 @@
 package EOD.dialogues;
 
 import EOD.characters.Npc;
-import EOD.gameInterfaces.*;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -11,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import EOD.gameInterfaces.*;
 public class Dialogues implements Freeable, MouseInteractable {
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -141,7 +141,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.questNotComplete();
                 break;
             case 1:
-                story.missConstanceIntro();
+                story.missConstanceIntro(playerType, worldType);
                 break;
             case 3:
                 story.nattyIntro();
@@ -150,7 +150,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.yooIntro();
                 break;
             case 7:
-                story.migginsIntro();
+                story.migginsIntro(playerType, worldType);
                 break;
             case 9:
                 story.faithfulIntro();
@@ -252,7 +252,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     }
     
 
-    /*public void handleSetText() {
+    public void handleSetText() {
         System.out.println("handle set text: " + i);
         if (i < size) {
             textBox.setText(story.getLine(i));
@@ -266,23 +266,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 npc.doneQuest = true;
             }
         }
-    }*/
-
-    public void handleSetText() {
-    System.out.println("handle set text: " + i);
-    if (i < size) {
-        textBox.setText(story.getLine(i));
-        i++;
-    } else {
-        if (ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
-        storyDialogue.dispose();
-        System.out.println("Story dialogue dispose");
-
-        if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27)) {
-            npc.doneQuest = true;
-        }
     }
-}
 
     public String getText() {
         return textBox.getText();
@@ -314,6 +298,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             buttonPanel.setVisible(false);
             textBox.setText(null);
             askDialogues.setPlayerType(playerType);
+            askDialogues.setWorldType(worldType);
             askDialogues.openScrollableOptions(this.ID, this, textBox);
         }else if (source == scene){
             System.out.println("Dispose the dialog");
