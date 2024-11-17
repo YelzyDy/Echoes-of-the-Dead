@@ -134,7 +134,7 @@ public class StoryLine implements Freeable{
                 int i = 0;
 
                 if (worldType == "world3") {
-                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"Which way leads deeper into the forest?\"" + "</font>";
+                        this.arr[i++] = "<font color='#00FFFF'>" + "You: \"Which way leads deeper into the forest?\"" + "</font>";
                         this.arr[i++] = "Miss C: \"I suggest talking to the others here in the forest and gather clues of your killer's whereabouts, it may help you later. Then enter the green portal, it leads directly to a secluded section in the forest.\"";
 
                         this.arr[i++] = "You: \"Do you have any clue who could be here?\"";
@@ -148,7 +148,7 @@ public class StoryLine implements Freeable{
                 }        
 
                 if (worldType == "world2") {   
-                        this.arr[i++] = "<font color='#0000FF'>" + "Where to now?" + "</font>";
+                        this.arr[i++] = "<font color='#00FFFF'>" + "Where to now?" + "</font>";
                         this.arr[i++] = "Walk straight ahead, talk to the others, a portal shortcut will pop up at the end of the trail. More minions of Mr. Bones will be waiting for you though. I heard they were furious. HAHAHA!";
                         
                         this.arr[i++] = "You: \"Everyone is avoiding you, they said-\"";
@@ -167,7 +167,7 @@ public class StoryLine implements Freeable{
                         this.arr[i++] = "Miss C: \"Oh my gosh, like, if the sun emitted Wi-Fi, trees would be like cell towers, you know? I mean, cellphones are basically fruits from those trees or whatever. Don't even get me started on how apples are used to make smartphones, like, it's science, right?";
                 }
 
-                this.arr[i++] = "<font color='#0000FF'>" + "You: \"Can you help me out? I need to find someone, this place is way too big for me to search alone.\'" + "</font>";
+                this.arr[i++] = "<font color='#00FFFF'>" + "You: \"Can you help me out? I need to find someone, this place is way too big for me to search alone.\'" + "</font>";
                 this.arr[i++] = "Miss C: \"Well, you can ask around the cetizens here! They probably know who you're talking about. I can't really remember faces. Anyway, you can also check the green portal at the end of the street.\"";
                 
                 this.arr[i++] = "You: \"What are you waiting for? You look impatient.\"";
@@ -367,7 +367,7 @@ public class StoryLine implements Freeable{
         public void migginsLines(String playerType, String worldType) {
                         int i = 0;
 
-                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"How can I leave the city?\"" + "</font>";
+                        this.arr[i++] = "<font color='#00FFFF'>" + "You: \"How can I leave the city?\"" + "</font>";
                         this.arr[i++] = "Miggins: \"Oh! Well luckily there is a shortcut right over there, the red portal. Unfortunately, The Necromancer is guarding the otherside. So, it's best to prepare before diving right in. They operate an undercity mafia, it's ridiculous.\"";
 
                         this.arr[i++] = "You: \"What are those red bottles near the window of your shop?\"";
@@ -389,7 +389,7 @@ public class StoryLine implements Freeable{
                         this.arr[i++] = "Miggins: \"Yep, 88. It's a shame that you died that way, perhaps I could cheer you up with some of my cookings?\"";
 
                 if (worldType == "world2") {
-                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"I'm so glad to see you again, is there a shortcut that cuts right through the outskirts?\"" + "</font>";
+                        this.arr[i++] = "<font color='#00FFFF'>" + "You: \"I'm so glad to see you again, is there a shortcut that cuts right through the outskirts?\"" + "</font>";
                         this.arr[i++] = "Miggins: \"Of course! Another red portal should appear anytime now. However, is that what you want? It's best to take the longer route, since it's safer, but I understand that you're in a hurry.\"";
 
                         this.arr[i++] = "You: \"So, I can't starve to death?\"";
@@ -409,7 +409,7 @@ public class StoryLine implements Freeable{
                 }
 
                 if (worldType == "world3") {
-                        this.arr[i++] = "<font color='#0000FF'>" + "You: \"Where's the red portal? I swear I just saw one right here.\"" + "</font>";
+                        this.arr[i++] = "<font color='#00FFFF'>" + "You: \"Where's the red portal? I swear I just saw one right here.\"" + "</font>";
                         this.arr[i++] = "Miggins: \"I casted a temporary removal spell on it, there was too much negative energy, I don't think it will last long. Here, I'll undo it for you. Be careful what you find in the otherside, dear. I wish you the best.\"";
 
                         this.arr[i++] = "You: \"Do you have any more clues about them?\"";
