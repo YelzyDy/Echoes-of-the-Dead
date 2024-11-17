@@ -35,13 +35,14 @@ public class Dialogues implements Freeable, MouseInteractable {
     private SceneBuilder scene;
     private String worldType;
     private volatile boolean isTyping = false;
+    private Thread typewriterThread = null;
 
     public Dialogues() {
         // TEXT WINDOW
         storyDialogue = new JDialog(world, "ECHOES OF THE DEAD", Dialog.ModalityType.MODELESS);
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
-        storyDialogue.setLayout(new BorderLayout());
+        storyDialogue.setLayout(new BorderLayout());   
         
 
         textBox = new JLabel("", SwingConstants.CENTER);
@@ -242,53 +243,61 @@ public class Dialogues implements Freeable, MouseInteractable {
     }
     
     private void typewriterEffect(String text) {
-        // Set typing state to true
-        isTyping = true;
-    
-        new Thread(() -> {
+        // Extract the actual text content from HTML
+        String plainText = text.replaceAll("<[^>]*>", "");
+        
+        // Stop any existing typewriter thread
+        if (typewriterThread != null && typewriterThread.isAlive()) {
+            isTyping = false;
             try {
-                String rawText = text.replace("<html><center>", "").replace("</center></html>", "");
-                StringBuilder displayText = new StringBuilder();
-    
-                int horizontalPadding = (int) (screenSize.width * 0.05); // 5% of screen width
-                int verticalPadding = (int) (screenSize.height * 0.01);  // 1% of screen height
-    
-                displayText.append("<html><div style='text-align: left; padding: ")
-                           .append(verticalPadding).append("px ").append(horizontalPadding).append("px;'>");
-    
-                for (char c : rawText.toCharArray()) {
-                    // Check if the effect is interrupted
-                    if (!isTyping) {
-                        // Finish immediately if interrupted
-                        SwingUtilities.invokeLater(() -> textBox.setText(
-                            "<html><div style='text-align: left; padding: " + verticalPadding + "px " +
-                            horizontalPadding + "px;'>" + rawText + "</div></html>"
-                        ));
-                        return;
-                    }
-    
-                    displayText.append(c);
-                    final String fullText = displayText.toString() + "</div></html>";
-    
-                    SwingUtilities.invokeLater(() -> textBox.setText(fullText));
-                    Thread.sleep(30); // Adjust typing speed as needed
-                }
-    
-                // Typing complete
-                isTyping = false;
-    
+                typewriterThread.join(100); // Wait for thread to die with timeout
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }).start();
+        }
+        
+        isTyping = true;
+        typewriterThread = new Thread(() -> {
+            try {
+                StringBuilder displayText = new StringBuilder();
+                
+                // Get the HTML prefix and suffix
+                String htmlPrefix = text.substring(0, text.indexOf(plainText));
+                String htmlSuffix = text.substring(text.indexOf(plainText) + plainText.length());
+                
+                for (char c : plainText.toCharArray()) {
+                    if (!isTyping) {
+                        return;
+                    }
+                    
+                    displayText.append(c);
+                    final String currentText = htmlPrefix + displayText.toString() + htmlSuffix;
+                    
+                    SwingUtilities.invokeLater(() -> textBox.setText(currentText));
+                    Thread.sleep(30);
+                }
+                
+                isTyping = false;
+                
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        typewriterThread.start();
     }
     
     public void handleSetText() {
         System.out.println("handle set text: " + i);
-    
+        System.out.println("is typing? " + isTyping);
+        System.out.println("size: " + size);
+        
         if (isTyping) {
             // If typing is in progress, interrupt it and show the full text immediately
             isTyping = false;
+            if (i < size) {
+                i-=1;
+                textBox.setText(story.getLine(i++));
+            }
             return;
         }
     
@@ -320,7 +329,18 @@ public class Dialogues implements Freeable, MouseInteractable {
     public JDialog getStoryJDialog() {
         return storyDialogue;
     }
-
+    
+    private void resetDialogueState() {
+        isTyping = false;
+        if (typewriterThread != null && typewriterThread.isAlive()) {
+            try {
+                typewriterThread.join(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
@@ -332,23 +352,27 @@ public class Dialogues implements Freeable, MouseInteractable {
             if (!npc.doneQuest && (ID == 5 || ID == 1 || ID == 3 || ID == 9 || ID == 7 || ID == 11 || ID == 13 || ID == 15 || ID == 25 || ID == 27 || ID == 29 || ID == 31 || ID == 33)) {
                 npc.doneQuest = true;
             }  
-        }else if(source == askButton){
-           sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
-            // Interrupt typewriter effect and clear text
-            isTyping = false; // Stop typewriter effect
-            textBox.setText(""); // Clear the text box content
+        } else if(source == askButton) {
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
+                
+            // Stop the typewriter
+            resetDialogueState();
+            
+            // Clear the text immediately
+            SwingUtilities.invokeLater(() -> {
+                textBox.setText("");
+                storyDialogue.dispose();
+                this.ID++;
+                buttonPanel.setVisible(false);
+                askDialogues.setPlayerType(playerType);
+                askDialogues.setWorldType(worldType);
+                askDialogues.openScrollableOptions(this.ID, this, textBox);
+            });
+            resetDialogueState();
 
-            // Proceed with ask dialogues
-            storyDialogue.dispose(); // Close current dialogue
-            this.ID++;
-            buttonPanel.setVisible(false);
-            textBox.setText(null); // Clear any residual text
-            askDialogues.setPlayerType(playerType);
-            askDialogues.setWorldType(worldType);
-            askDialogues.openScrollableOptions(this.ID, this, textBox);
         }else if (source == scene){
-            System.out.println("Dispose the dialog");
             storyDialogue.dispose();
+            if(askDialogues.scrollPane != null)askDialogues.scrollPane.setVisible(false);
         }else if (source == storyDialogue && isClickableDialogue && source != pressToContinueLabel){
             handleSetText();
         }

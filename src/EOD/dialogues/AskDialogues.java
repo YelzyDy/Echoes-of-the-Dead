@@ -14,7 +14,8 @@ public class AskDialogues extends JFrame {
     private final int y = (int) (screenSize.height * 0.4);
     private String playerType;
     private String worldType;
-
+    private JDialog dialog;
+    protected JScrollPane scrollPane;
     public void setPlayerType(String playerType){
         this.playerType = playerType;
     }
@@ -25,7 +26,7 @@ public class AskDialogues extends JFrame {
 
     public void openScrollableOptions(int ID, Dialogues dialogues, JLabel textBox) {
         // LOAD NPC
-        JDialog dialog = dialogues.getStoryJDialog();
+        dialog = dialogues.getStoryJDialog();
         dialogues.pressToContinueLabel.setVisible(false);
         switch (ID) {
             case 2:
@@ -86,7 +87,7 @@ public class AskDialogues extends JFrame {
 
         // SCROLL WINDOW & PANE
 
-        JScrollPane scrollPane = new JScrollPane(buttonPanel);
+        scrollPane = new JScrollPane(buttonPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getViewport().setBackground(Color.BLACK);
@@ -150,15 +151,16 @@ public class AskDialogues extends JFrame {
         }
 
         // SCROLL PANE EVENT LISTENER
-
-        dialog.addMouseListener(new MouseAdapter() {
+        
+        MouseAdapter mouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 dialog.dispose();
+                dialog.removeMouseListener(this);
             }
-        });
+        };
 
-        // DISPLAY
+        dialog.addMouseListener(mouseListener);
 
         dialog.add(scrollPane, BorderLayout.CENTER);
         dialog.getContentPane().setBackground(Color.BLACK);

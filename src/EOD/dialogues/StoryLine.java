@@ -2,12 +2,13 @@ package EOD.dialogues;
 
 import EOD.gameInterfaces.Freeable;
 import EOD.utils.SFXPlayer;
+import java.awt.*;
 
 public class StoryLine implements Freeable{
         private String[] arr = new String[50];
         private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
-
+        private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         public void free(){
                 size = 0;
                 arr = null;
@@ -1261,8 +1262,17 @@ public class StoryLine implements Freeable{
         }
             
         public String getLine(int i) {
-                return "<html><center>" + this.arr[i] + "</center></html>";
+                // Define padding values
+                int horizontalPadding = (int) (screenSize.width * 0.05);
+                int verticalPadding = (int) (screenSize.height * 0.01);
+                
+                String content = this.arr[i];
+                
+                // Return the formatted HTML string with padding and text alignment
+                return String.format("<html><div style='text-align: left; padding: %dpx %dpx;'>%s</div></html>",
+                verticalPadding, horizontalPadding, content);
         }
+            
 
         public int getSize() {
                 return this.size;
