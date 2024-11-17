@@ -192,6 +192,9 @@ public class Dialogues implements Freeable, MouseInteractable {
             case 31:
                 story.asrielIntro();
                 break;
+            case 33:
+                story.cheaIntro();
+                break;
             case 101:
                 story.preEnding();
                 break;

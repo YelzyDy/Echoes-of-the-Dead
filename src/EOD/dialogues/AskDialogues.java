@@ -58,6 +58,15 @@ public class AskDialogues extends JFrame {
             case 28:
                 story.reginaldLines(playerType);
                 break;
+            case 30:
+                story.akifayLines(playerType);
+                break;
+            case 32:
+                story.asrielLines(playerType);
+                break;
+            case 34:
+                story.cheaLines(playerType);
+                break;
             default:
                 break;
         }
