@@ -448,7 +448,9 @@ public class StoryLine implements Freeable{
             
                         // Quest Objectives
                         this.oArr[o++] = "Find a way out of the city, a purple portal should have opened by now.";
+                        this.oArr[o++] = "-";
                         this.oArr[o++] = "Beyond the crimson portal lies the Necromancer. Prepare for a tough fight.";
+                        this.oArr[o++] = "-";
                         this.oArr[o++] = "Return to Miggins after defeating the Necromancer.";
                 }
             
@@ -469,7 +471,9 @@ public class StoryLine implements Freeable{
             
                         // Quest Objectives
                         this.oArr[o++] = "Find a way to safely pass through the city outskirts, the purple portal will be your exit. Too bad something is standing between you and the portal. Destroy the obstacle!";
+                        this.oArr[o++] = "-";
                         this.oArr[o++] = "There seems to be some kind of anomaly beyond the crimson portal, this warrants an investigation. Enter at your own discretion.";
+                        this.oArr[o++] = "-";
                         this.oArr[o++] = "Return to Miggins with news of your success.";
                 }
             
@@ -490,7 +494,9 @@ public class StoryLine implements Freeable{
             
                         // Quest Objectives
                         this.oArr[o++] = "Cleanse the forest from evil. Your path will be revealed.";
+                        this.oArr[o++] = "-";
                         this.oArr[o++] = "Exterminate the demon tormenting the forest.";
+                        this.oArr[o++] = "-";
                         this.oArr[o++] = "Return to Miggins with news of the exterminated demon.";
                 }
             
