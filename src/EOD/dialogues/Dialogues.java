@@ -280,7 +280,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     }
     
     
-    private void handleSetText() {
+    public void handleSetText() {
         if (isTyping) {
             resetDialogueState();
             if (i < size) {
