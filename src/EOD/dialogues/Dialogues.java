@@ -203,7 +203,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             case 22:
                 story.badEnding(); break;
             case 23:
-                story.monoIntro(playerType, worldType);
+                story.monoIntro(playerType, worldType); break;
             default: break;
         }
         buttonPanel.setVisible(true);
@@ -220,7 +220,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         this.size = story.getSize();
 
         if (size > 0) {
-            typewriterEffect(story.getLine(0));
+            typewriterEffect(story.getLine(i));
             i++; // Increment to point to the next line
         }
 
