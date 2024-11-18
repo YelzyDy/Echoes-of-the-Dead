@@ -41,7 +41,7 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
                 story.missConstanceQuests();
             break;
             case 4:
-                story.migginsQuests();
+                story.migginsQuests(worldType);
             break;
             default:
             break;
