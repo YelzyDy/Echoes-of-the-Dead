@@ -394,7 +394,7 @@ public class StoryLine implements Freeable{
                         this.arr[i++] = "You: \"It's not on my to-do list, but I'll keep it in mind.\"";
                         this.arr[i++] = "Miggins: \"Keep it in mind? Darling, if you don't, that thing'll keep scaring off my customers! Think of my livelihood!\"";
                         this.arr[i++] = "You: \"Well, I guess I have to now.\"";
-                        this.arr[i++] = "Miggins: \"That's the spirit! You're a hero already. Don't let me down, sweetheart!\"";
+                        this.arr[i++] = "Miggins: \"That's the spirit! You're a hero already. Don't let me down, child!\"";
                 }
             
                 if (worldType == "world3") {

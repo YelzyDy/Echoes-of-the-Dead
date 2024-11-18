@@ -6,8 +6,8 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-public class QuestsDialogues extends JFrame {
+import EOD.gameInterfaces.MouseInteractable;
+public class QuestsDialogues extends JFrame implements MouseInteractable{
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private StoryLine story = new StoryLine();
     private String[] currentDialogue;
@@ -114,6 +114,7 @@ public class QuestsDialogues extends JFrame {
                     dialog.revalidate();
                     dialog.repaint();
                     dialogues.buttonPanel.setVisible(true);
+                
                     if(clickedIndex == 0){
                         if (story.getSize() > 0) {
                             dialogues.typewriterEffect(story.getLine(0));
@@ -122,22 +123,18 @@ public class QuestsDialogues extends JFrame {
                         }
                     }else{
                         int c = 0;
-                            for(int j = 0, count = 1; j < story.getSize("oarr"); j++){
-                                if(story.getOArr()[j].equals("-")){
-                                    count++;
-                                }
-                                if(clickedIndex == count){
-                                    break;
-                                }
-                                c++;
+                        for(int j = 0, count = 1; j < story.getSize("oarr"); j++){
+                            if(story.getOArr()[j].equals("-")){
+                                count++;
                             }
-                        if(clickedIndex != 1){
-                            clickedIndex = c + 1;
-                        }else{
-                            clickedIndex = 0;
+                            if(clickedIndex == count){
+                                break;
+                            }
+                            c++;
                         }
-                        dialogues.typewriterEffect(story.getLine(clickedIndex, story.getOArr()));
-                        this.i = clickedIndex + 1;
+                        int targetIndex = (clickedIndex != 1) ? c + 1 : 0;
+                        dialogues.typewriterEffect(story.getLine(targetIndex, story.getOArr()));
+                        this.i = targetIndex + 1;
                         currentDialogue = story.getOArr();
                     }
                 });
@@ -148,20 +145,6 @@ public class QuestsDialogues extends JFrame {
                 buttonPanel.add(optionButton, gbc);
             }
         }
-
-        // SCROLL PANE EVENT LISTENER
-        MouseAdapter mouseListener = new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-                    // Show next dialogue in sequence
-                    if (handleSetText()){
-                        dialog.removeMouseListener(this);  
-                        isQuestDialoguesActive = false;
-                    }
-            }
-        };
-
-        dialog.addMouseListener(mouseListener);
 
         dialog.add(scrollPane, BorderLayout.CENTER);
         dialog.getContentPane().setBackground(Color.BLACK);
@@ -180,19 +163,20 @@ public class QuestsDialogues extends JFrame {
         return null;
     }
 
-    public boolean handleSetText() {
-        boolean isTyping = dialogues.isTyping;
+    public void handleSetText() {
         int size = story.getSize(getCurrentStringArray());
         JLabel textBox = dialogues.textBox;
-        if (isTyping) {
+        System.out.println("handleSetText called");
+        System.out.println("Current i: " + i);
+        System.out.println("isTyping: " + dialogues.isTyping);
+        if (dialogues.isTyping) {
             // If typing is in progress, interrupt it and show the full text immediately
             dialogues.isTyping = false;
             if (i < size) {
                 i -= 1;
                 textBox.setText(story.getLine(i++, currentDialogue));
             }
-            System.out.println("Interrupting");
-            return false;
+            return;
         }
     
         if (i < size && !currentDialogue[i].equals("-")) {
@@ -201,8 +185,26 @@ public class QuestsDialogues extends JFrame {
             i++;
         } else {
             dialogues.getStoryJDialog().dispose();
-            return true;
+            isQuestDialoguesActive = false;
+            return;
         }
-        return false;
+    }
+
+    @Override
+    public void onClick(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onClick'");
+    }
+
+    @Override
+    public void onHover(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onHover'");
+    }
+
+    @Override
+    public void onExit(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onExit'");
     }
 }

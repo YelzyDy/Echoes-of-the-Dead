@@ -247,55 +247,40 @@ public class Dialogues implements Freeable, MouseInteractable {
         return new ImageIcon(scaledImg);
     }
     
-    public void typewriterEffect(String text) {
-        // Extract the actual text content from HTML
-        String plainText = text.replaceAll("<[^>]*>", "");
-        
-        // Stop any existing typewriter thread
-        if (typewriterThread != null && typewriterThread.isAlive()) {
-            isTyping = false;
-            try {
-                typewriterThread.join(100); // Wait for thread to die with timeout
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        
+    public synchronized void typewriterEffect(String text) {
+        resetDialogueState(); // Safely terminate any existing thread.
+    
         isTyping = true;
-
         typewriterThread = new Thread(() -> {
             try {
                 StringBuilder displayText = new StringBuilder();
-                
-                // Get the HTML prefix and suffix
+                String plainText = text.replaceAll("<[^>]*>", "");
                 String htmlPrefix = text.substring(0, text.indexOf(plainText));
                 String htmlSuffix = text.substring(text.indexOf(plainText) + plainText.length());
-                
+    
                 for (char c : plainText.toCharArray()) {
                     if (!isTyping) {
-                        return;
+                        return; // Exit if interrupted.
                     }
-                    
                     displayText.append(c);
                     final String currentText = htmlPrefix + displayText.toString() + htmlSuffix;
-                    
                     SwingUtilities.invokeLater(() -> textBox.setText(currentText));
-                    Thread.sleep(30);
+                    Thread.sleep(30); // Delay between characters.
                 }
-                
-                isTyping = false;
-                
+    
+                isTyping = false; // Mark typing as complete.
+    
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt(); // Safely handle interruption.
             }
         });
         typewriterThread.start();
     }
     
-    public void handleSetText() {
+    
+    private void handleSetText() {
         if (isTyping) {
-            // If typing is in progress, interrupt it and show the full text immediately
-            isTyping = false;
+            resetDialogueState();
             if (i < size) {
                 i -= 1;
                 textBox.setText(story.getLine(i++));
@@ -332,16 +317,20 @@ public class Dialogues implements Freeable, MouseInteractable {
         return storyDialogue;
     }
     
-    private void resetDialogueState() {
-        isTyping = false;
+    private synchronized void resetDialogueState() {
+        isTyping = false; // Signal the thread to stop typing.
         if (typewriterThread != null && typewriterThread.isAlive()) {
             try {
-                typewriterThread.join(100);
+                typewriterThread.interrupt(); // Interrupt the thread.
+                typewriterThread.join(); // Ensure the thread finishes before continuing.
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); // Restore interrupt status.
                 e.printStackTrace();
             }
         }
+        typewriterThread = null;
     }
+    
     
     @Override
     public void onClick(MouseEvent e) {
@@ -370,7 +359,6 @@ public class Dialogues implements Freeable, MouseInteractable {
         }else if(source == questsButton){
             // Stop the typewriter
             resetDialogueState();
-            
             // Clear the text immediately
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");
@@ -384,8 +372,10 @@ public class Dialogues implements Freeable, MouseInteractable {
             storyDialogue.dispose();
             if(askDialogues.scrollPane != null)askDialogues.scrollPane.setVisible(false);
             if(questsDialogues.scrollPane != null)questsDialogues.scrollPane.setVisible(false);
-        }else if ((source == storyDialogue || source == pressToContinueLabel) && isClickableDialogue &&  !questsDialogues.isQuestDialoguesActive){
-            handleSetText();
+        }else if ((source == storyDialogue || source == pressToContinueLabel) && isClickableDialogue){
+            
+            if(questsDialogues.isQuestDialoguesActive) questsDialogues.handleSetText();
+            else handleSetText();
         }
     }
 
