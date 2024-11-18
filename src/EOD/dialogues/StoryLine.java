@@ -9,7 +9,7 @@ public class StoryLine implements Freeable{
 
         private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
-        private int questSize; 
+        private int questSize;
         private int objectivesSize;
         private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         public void free(){
@@ -440,7 +440,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Miggins: \"The gateway route is vital for my trade. Without it, I'm losing customers to the merchants in the Higher Circles. Besides, *her voice drops to a whisper* that potion is a small price to pay for breaking the Necromancer's monopoly on soul-trafficking. Deal?\"";
                 this.arr[i++] = "You: \"I accept your task.\"";
                 this.arr[i++] = "Miggins: \"Excellent! But be warned - the Necromancer didn't rise to power by showing mercy. Return to me once the deed is done, and the potion is yours. Who knows? Perhaps this could be the beginning of a... profitable partnership.\"";
-
+                
                 // Quest Title
                 this.qArr[q++] = "<font color='#FFFF00'>" + "Quest: Escape from the Underworld" + "</font>";
                 // Quest Objectives
@@ -582,6 +582,60 @@ public class StoryLine implements Freeable{
         }
 
         //
+
+        public void monoIntro(String playerType, String worldType) {
+                int i = 0;
+            
+                if (worldType == "world1") {
+                    this.arr[i++] = "[You find a man facing a wall, quietly practicing conversations with themselves.]";
+                    this.arr[i++] = "Mono: \"...okay, so then I say 'nice to meet you' and maybe smile? No, smiling feels weird. But people like smiling. Um... oh! Someone's actually here.\"";
+                    this.arr[i++] = "You: \"Hello?\"";
+                    this.arr[i++] = "Mono: \"Oh. Hi. I'm Mono. Sorry, I was just... never mind. Um, you're new here, right? I should probably tell you about... well, I notice things. Like how there are these scratch marks on the walls. Always three lines. Might be important.\"";
+                    this.arr[i++] = "You: \"I should probably get going—\"";
+                    this.arr[i++] = "Mono: \"Wait! Sorry, didn't mean to shout. It's just... there's this skeleton guard ahead. Through the green portal. Really dangerous. Thought you should know. I'd feel bad if I didn't mention it.\"";
+                    this.arr[i++] = "[They fidget with their sleeves while speaking, eyes darting around.]";
+                    this.arr[i++] = "Mono: \"I'll be here if you need anything. I like this spot. It's quiet. Good for... thinking. And I hear things. From the shadows. Not in a weird way! Just... you know what, never mind.\"";
+                    this.arr[i++] = "Mono: \"Um, goodbye? Yes, goodbye. That's the right thing to say now, I think.\"";
+                }
+            
+                this.size = i;
+            }
+
+        public void monoLines() {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"Do you always talk to yourself?\"";
+                this.arr[i++] = "Mono: \"Oh! Um, yes. It helps me practice. Was I being too loud? Sometimes I forget others can hear me.\"";
+            
+                this.arr[i++] = "You: \"What's with all the shadows you keep mentioning?\"";
+                this.arr[i++] = "Mono: \"They're... well... it's hard to explain without sounding strange. More strange than usual, I mean.\"";
+            
+                this.arr[i++] = "You: \"How long have you been here?\"";
+                this.arr[i++] = "Mono: \"Time is... sorry, should I answer directly? People prefer direct answers, right? Um... long enough to memorize every crack in this rock.\"";
+            
+                this.arr[i++] = "You: \"Do you ever leave this spot?\"";
+                this.arr[i++] = "Mono: \"Sometimes. When the shadows show me where to go. That sounded creepy again, didn't it? I need to work on that.\"";
+            
+                this.arr[i++] = "You: \"Have you seen anyone suspicious around here?\"";
+                this.arr[i++] = "Mono: \"I see lots of... no, wait, that's not helpful. Let me try again. I notice things. Small things. Like how some people never leave footprints.\"";
+            
+                this.arr[i++] = "You: \"Why do you stay here alone?\"";
+                this.arr[i++] = "Mono: \"It's quiet. Easier to think. Easier to... be. Does that make sense? Sometimes I can't tell if I'm making sense.\"";
+            
+                this.arr[i++] = "You: \"What happened to you? How did you end up here?\"";
+                this.arr[i++] = "Mono: \"I... um... was trying to help someone. Didn't work out. Sorry, I don't like talking about it. Is that okay?\"";
+            
+                this.arr[i++] = "You: \"Do you know what those strange markings mean?\"";
+                this.arr[i++] = "Mono: \"Yes! I mean, maybe. The shadows whisper about them but... no, that sounds weird. Let me start over. They're important, that's all I know for sure.\"";
+            
+                this.arr[i++] = "You: \"Have you seen others pass through here?\"";
+                this.arr[i++] = "Mono: \"Many. Some stop to talk. Most don't. Which is fine! Totally fine. I'm not very good at talking anyway.\"";
+            
+                this.arr[i++] = "You: \"What do you do all day?\"";
+                this.arr[i++] = "Mono: \"Watch. Listen. Practice talking. Though clearly I need more practice. Was that supposed to be funny? I'm trying to learn humor.\"";
+            
+                this.size = i;
+        }
 
         public void rubyIntro() {
                 int i = 0;

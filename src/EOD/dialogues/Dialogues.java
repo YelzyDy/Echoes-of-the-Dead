@@ -202,6 +202,8 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.ending3(); break;
             case 22:
                 story.badEnding(); break;
+            case 23:
+                story.monoIntro(playerType, worldType);
             default: break;
         }
         buttonPanel.setVisible(true);
