@@ -9,7 +9,7 @@ public class StoryLine implements Freeable{
 
         private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
-        private int questSize; 
+        private int questSize;
         private int objectivesSize;
         private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         public void free(){
@@ -423,46 +423,81 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
             
-        public void migginsQuests() {
-                int i = 0;         
+        public void migginsQuests(String worldType) {
+                int i = 0;
                 int q = 0;
                 int o = 0;
-                // Initial Dialogue
-                this.arr[i++] = "You: \"I seek passage from these depths. Know you of any way?\"" + "</font>";
-                this.arr[i++] = "Miggins: \"*adjusts her spectral robes* Ah, another soul seeking ascension! There's a Crimson Gateway nearby - a portal that could serve your purpose. But... *glances nervously over shoulder*\"";
-                this.arr[i++] = "You: \"I sense there's more to this tale.\"";
-                this.arr[i++] = "Miggins: \"Indeed. The Necromancer and their undead syndicate have claimed the gateway. They charge excessive soul-tribute from any who wish to pass. My spirit-essence trading business is in ruins because of their... operations.\"";
-                this.arr[i++] = "You: \"Tell me more about this Necromancer.\"";
-                this.arr[i++] = "Miggins: \"*wisps of ethereal smoke curl around her form* Once a respected soul-keeper, now nothing but a common extortionist. Controls all transport through the gateway, demands payment in both coin and essence. My suppliers from the Phantom Bazaar refuse to cross their territory.\"";
-                this.arr[i++] = "You: \"Perhaps we could help each other.\"";
-                this.arr[i++] = "Miggins: \"*her form brightens noticeably* If you could... remove the Necromancer's influence, I have something that might interest you. A rare Crystallized Mana Potion - potent enough to restore the magical essence of both the living and the dead. It could prove invaluable on your journey to the surface.\"";
-                this.arr[i++] = "You: \"Your offer is generous, but why trust a stranger with this task?\"";
-                this.arr[i++] = "Miggins: \"The gateway route is vital for my trade. Without it, I'm losing customers to the merchants in the Higher Circles. Besides, *her voice drops to a whisper* that potion is a small price to pay for breaking the Necromancer's monopoly on soul-trafficking. Deal?\"";
-                this.arr[i++] = "You: \"I accept your task.\"";
-                this.arr[i++] = "Miggins: \"Excellent! But be warned - the Necromancer didn't rise to power by showing mercy. Return to me once the deed is done, and the potion is yours. Who knows? Perhaps this could be the beginning of a... profitable partnership.\"";
-
-                // Quest Title
-                this.qArr[q++] = "<font color='#FFFF00'>" + "Quest: Escape from the Underworld" + "</font>";
-                // Quest Objectives
-                this.qArr[q++] = "<font color='#FFFF00'>" + "- Defeat The Necromancer guarding the Crimson Gateway" + "</font>";
-                this.qArr[q++] = "<font color='#FFFF00'>" + "- Return to Miggins for your reward" + "</font>";
-                
-                this.oArr[o++] = "blablabla for objective1";
-                this.oArr[o++] = "blablabla for objective1 asdf ";
-                this.oArr[o++] = "blablabla for objective1 asdf f";
-                this.oArr[o++] = "blablabla for objective1 asdfa";
-                this.oArr[o++] = "blablabla for objective1 3wfsa";
-                this.oArr[o++] = "-";
-                this.oArr[o++] = "blablabla for objective2";
-                this.oArr[o++] = "blablabla for objective2 asdf ";
-                this.oArr[o++] = "blablabla for objective2 asdf f";
-                this.oArr[o++] = "blablabla for objective2 asdfa";
-                this.oArr[o++] = "blablabla for objective2 3wfsa";
-
+            
+                if (worldType == "world1") {
+                        
+                        this.arr[i++] = "You: \"Can you point me the way out of the city? This place is way too vast to leave on foot.\"";
+                        this.arr[i++] = "Miggins: \"Oh, bless your heart! There's a purple portal nearby. That's your exit, but... well, it's got a bit of a problem.\"";
+                        this.arr[i++] = "You: \"A problem?\"";
+                        this.arr[i++] = "Miggins: \"A necromancer got the portal locked down, it's ridiculous. It's terrible for my business. No one trades with a skeleton army lurking about.\"";
+                        this.arr[i++] = "You: \"Maybe I can deal with this Necromancer.\"";
+                        this.arr[i++] = "Miggins: \"Oh, you would? You're a lifesaver! Here's the deal: take care of that menace, and I'll give you a reward in exchange. You'll need it!\"";
+                        this.arr[i++] = "You: \"Why trust me?\"";
+                        this.arr[i++] = "Miggins: \"Well, it's not like I've got a line of heroes waiting to volunteer, love. You've got that spark of determination.\"";
+                        this.arr[i++] = "You: \"Fine.\"";
+                        this.arr[i++] = "Miggins: \"Good on you! Just be careful, alright? That Necromancer didn't get power by being nice. Come back here when it's done.\"";
+            
+                        // Quest Titles
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Escape the City." + "</font>";
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Defeat The Necromancer Beyond the Crimson Portal." + "</font>";
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Return to Miggins." + "</font>";
+            
+                        // Quest Objectives
+                        this.oArr[o++] = "Find a way out of the city, a purple portal should have opened by now.";
+                        this.oArr[o++] = "Beyond the crimson portal lies the Necromancer. Prepare for a tough fight.";
+                        this.oArr[o++] = "Return to Miggins after defeating the Necromancer.";
+                }
+            
+                if (worldType == "world2") {
+                        this.arr[i++] = "You: \"What's the best way to get past the outskirts?\"";
+                        this.arr[i++] = "Miggins: \"Oh, dearie, it's a mess out there. Foggy, spooky, you name it. But I know you'll manage if you're determined.\"";
+                        this.arr[i++] = "You: \"What do you suggest I do?\"";
+                        this.arr[i++] = "Miggins: \"Find your way through. Keep your wits about you, and don't let the eerie stuff get to you. If you do manage it, I'll give you something special.\"";
+                        this.arr[i++] = "You: \"\"";
+                        this.arr[i++] = "Miggins: \"Oh, I've got a good feeling about you, love. Besides, you've already made it this far.\"";
+                        this.arr[i++] = "You: \"Alright.\"";
+                        this.arr[i++] = "Miggins: \"Good on you! Be careful out there. The outskirts aren't for the faint of heart. I'll be waiting right here when you're done.\"";
+            
+                        // Quest Titles
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Defeat the Outskirt Spirit." + "</font>";
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Investigate the Crimson Portal." + "</font>";
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Return to Miggins." + "</font>";
+            
+                        // Quest Objectives
+                        this.oArr[o++] = "Find a way to safely pass through the city outskirts, the purple portal will be your exit. Too bad something is standing between you and the portal. Destroy the obstacle!";
+                        this.oArr[o++] = "There seems to be some kind of anomaly beyond the crimson portal, this warrants an investigation. Enter at your own discretion.";
+                        this.oArr[o++] = "Return to Miggins with news of your success.";
+                }
+            
+                if (worldType == "world3") {
+                        this.arr[i++] = "You: \"I need to get through the forest. Any advice?\"";
+                        this.arr[i++] = "Miggins: \"Oh, the forest? That place is bad news, love. Something dark's taken root here. But if anyone can handle it, it's you.\"";
+                        this.arr[i++] = "You: \"What do I need to do?\"";
+                        this.arr[i++] = "Miggins: \"There's a demon causing all sorts of trouble. It's lurking at the other side of the forest crimson portal.\"";
+                        this.arr[i++] = "You: \"Is it that dangerous?\"";
+                        this.arr[i++] = "Miggins: \"Very. However, I have faith in you. I'm sure you'll be able to handle it!\"";
+                        this.arr[i++] = "You: \"I will.\"";
+                        this.arr[i++] = "Miggins: \"That's the spirit! We're all counting on you! Watch your back out there, and don't let that demon trick you. I heard that it was truly tantalizing yet terrifying!\"";
+            
+                        // Quest Titles
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Cleanse the Forest" + "</font>";
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Banish the Demon." + "</font>";
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Return to Miggins for your reward" + "</font>";
+            
+                        // Quest Objectives
+                        this.oArr[o++] = "Cleanse the forest from evil. Your path will be revealed.";
+                        this.oArr[o++] = "Exterminate the demon tormenting the forest.";
+                        this.oArr[o++] = "Return to Miggins with news of the exterminated demon.";
+                }
+            
                 this.size = i;
                 this.questSize = q;
                 this.objectivesSize = o;
-        }
+        }            
 
         public void migginsLines(String playerType, String worldType) {
                         int i = 0;
@@ -582,6 +617,58 @@ public class StoryLine implements Freeable{
         }
 
         //
+
+        public void monoIntro(String playerType, String worldType) {
+                int i = 0;
+            
+                this.arr[i++] = "[You find a man facing a wall, quietly practicing conversations with themselves.]";
+                this.arr[i++] = "Mono: \"...okay, so then I say 'nice to meet you' and maybe smile? No, smiling feels weird. But people like smiling. Um... oh! Someone's actually here.\"";
+                this.arr[i++] = "You: \"Hello?\"";
+                this.arr[i++] = "Mono: \"Oh. Hi. I'm Mono. Sorry, I was just... never mind. Um, you're new here, right? I should probably tell you about... well, I notice things. Like how there are these scratch marks on the walls. Always three lines. Might be important.\"";
+                this.arr[i++] = "You: \"I should probably get going—\"";
+                this.arr[i++] = "Mono: \"Wait! Sorry, didn't mean to shout. It's just... there's this skeleton guard ahead. Through the green portal. Really dangerous. Thought you should know. I'd feel bad if I didn't mention it.\"";
+                this.arr[i++] = "[They fidget with their sleeves while speaking, eyes darting around.]";
+                this.arr[i++] = "Mono: \"I'll be here if you need anything. I like this spot. It's quiet. Good for... thinking. And I hear things. From the shadows. Not in a weird way! Just... you know what, never mind.\"";
+                this.arr[i++] = "Mono: \"Um, goodbye? Yes, goodbye. That's the right thing to say now, I think.\"";
+            
+                this.size = i;
+        }
+
+        public void monoLines() {
+                int i = 0;
+            
+                this.arr[i++] = "You: \"Do you always talk to yourself?\"";
+                this.arr[i++] = "Mono: \"Oh! Um, yes. It helps me practice. Was I being too loud? Sometimes I forget others can hear me.\"";
+            
+                this.arr[i++] = "You: \"What's with all the shadows you keep mentioning?\"";
+                this.arr[i++] = "Mono: \"They're... well... it's hard to explain without sounding strange. More strange than usual, I mean.\"";
+            
+                this.arr[i++] = "You: \"How long have you been here?\"";
+                this.arr[i++] = "Mono: \"Time is... sorry, should I answer directly? People prefer direct answers, right? Um... long enough to memorize every crack in this rock.\"";
+            
+                this.arr[i++] = "You: \"Do you ever leave this spot?\"";
+                this.arr[i++] = "Mono: \"Sometimes. When the shadows show me where to go. That sounded creepy again, didn't it? I need to work on that.\"";
+            
+                this.arr[i++] = "You: \"Have you seen anyone suspicious around here?\"";
+                this.arr[i++] = "Mono: \"I see lots of... no, wait, that's not helpful. Let me try again. I notice things. Small things. Like how some people never leave footprints.\"";
+            
+                this.arr[i++] = "You: \"Why do you stay here alone?\"";
+                this.arr[i++] = "Mono: \"It's quiet. Easier to think. Easier to... be. Does that make sense? Sometimes I can't tell if I'm making sense.\"";
+            
+                this.arr[i++] = "You: \"What happened to you? How did you end up here?\"";
+                this.arr[i++] = "Mono: \"I... um... was trying to help someone. Didn't work out. Sorry, I don't like talking about it. Is that okay?\"";
+            
+                this.arr[i++] = "You: \"Do you know what those strange markings mean?\"";
+                this.arr[i++] = "Mono: \"Yes! I mean, maybe. The shadows whisper about them but... no, that sounds weird. Let me start over. They're important, that's all I know for sure.\"";
+            
+                this.arr[i++] = "You: \"Have you seen others pass through here?\"";
+                this.arr[i++] = "Mono: \"Many. Some stop to talk. Most don't. Which is fine! Totally fine. I'm not very good at talking anyway.\"";
+            
+                this.arr[i++] = "You: \"What do you do all day?\"";
+                this.arr[i++] = "Mono: \"Watch. Listen. Practice talking. Though clearly I need more practice. Was that supposed to be funny? I'm trying to learn humor.\"";
+            
+                this.size = i;
+        }
 
         public void rubyIntro() {
                 int i = 0;
