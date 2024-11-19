@@ -7,7 +7,6 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 import EOD.gameInterfaces.*;
@@ -93,6 +92,10 @@ public class Dialogues implements Freeable, MouseInteractable {
         pressToContinueLabel.setForeground(Color.WHITE);
         pressToContinueLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int) (screenSize.height * 0.1), 0));
         pressToContinueLabel.setVisible(true);
+    }
+
+    public QuestsDialogues getQuestsDialogues(){
+        return questsDialogues;
     }
 
     public void free() {
@@ -208,7 +211,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         }
         buttonPanel.setVisible(true);
 
-        if (ID == 4 || ID == 1)
+        if ((ID == 4 || ID == 1 || ID == 2 || ID == 3 || ID == 5) && npc.activateQuest)
             buttonPanel.add(questsButton, BorderLayout.CENTER);
 
         if (!(ID == 9 || ID == 10 || ID == 11 || ID == 12 || ID == 0))
@@ -300,9 +303,9 @@ public class Dialogues implements Freeable, MouseInteractable {
     
             storyDialogue.dispose();
     
-            if (!npc.doneQuest && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
+            if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
                 ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17)) {
-                npc.doneQuest = true;
+                npc.doneDialogues = true;
             }
         }
     }
@@ -340,10 +343,17 @@ public class Dialogues implements Freeable, MouseInteractable {
         sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if(source == skipButton){
             storyDialogue.dispose();
-
-            if (!npc.doneQuest && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
+            if(questsDialogues.isQuestDialoguesActive){
+                questsDialogues.isQuestDialoguesActive = false;
+                if(questsDialogues.currentDialogue == questsDialogues.story.getArr()){
+                    npc.doneQDialogues = true;
+                }else if(questsDialogues.currentDialogue == questsDialogues.story.getOArr()){
+                    npc.doneODialogues[questsDialogues.getObjectiveIndex()] = true;
+                }
+            }
+            if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
             ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17)) {
-                npc.doneQuest = true;
+                npc.doneDialogues = true;
             }  
         } else if(source == askButton) {
             // Stop the typewriter
@@ -375,7 +385,6 @@ public class Dialogues implements Freeable, MouseInteractable {
             if(askDialogues.scrollPane != null)askDialogues.scrollPane.setVisible(false);
             if(questsDialogues.scrollPane != null)questsDialogues.scrollPane.setVisible(false);
         }else if ((source == storyDialogue || source == pressToContinueLabel) && isClickableDialogue){
-            
             if(questsDialogues.isQuestDialoguesActive) questsDialogues.handleSetText();
             else handleSetText();
         }

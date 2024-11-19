@@ -4,13 +4,11 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import EOD.gameInterfaces.MouseInteractable;
-public class QuestsDialogues extends JFrame implements MouseInteractable{
+import java.util.ArrayList;
+public class QuestsDialogues extends JFrame{
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private StoryLine story = new StoryLine();
-    private String[] currentDialogue;
+    protected StoryLine story = new StoryLine();
+    protected String[] currentDialogue;
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.4);
     private String playerType;
@@ -20,6 +18,16 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
     private Dialogues dialogues;
     private int i = 0;
     protected boolean isQuestDialoguesActive;
+    private int objectiveIndex = 0;
+    private java.util.List<JButton> optionButtons;
+    private JPanel buttonPanel;
+
+    public QuestsDialogues(){
+        buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBackground(Color.BLACK);
+    
+        optionButtons = new ArrayList<>();
+    }
 
     public void setPlayerType(String playerType) {
         this.playerType = playerType;
@@ -27,6 +35,10 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
 
     public void setWorldType(String worldType) {
         this.worldType = worldType;
+    }
+
+    public int getObjectiveIndex(){
+        return objectiveIndex;
     }
 
     public void openScrollableOptions(int ID, Dialogues dialogues, JLabel textBox) {
@@ -38,11 +50,10 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
         i = 0;
         switch (ID) {
             case 1:
-                story.missConstanceQuests();
-            break;
+                story.missConstanceQuests(); break;
             case 4:
-                story.migginsQuests(worldType);
-            break;
+                story.migginsQuests(worldType); break;
+            case 5:
             default:
             break;
         }
@@ -51,13 +62,14 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
         dialog.add(textBox, BorderLayout.CENTER);
 
         // SCROLL PANEL
-        JPanel buttonPanel = new JPanel(new GridBagLayout());
-        buttonPanel.setBackground(Color.BLACK);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         gbc.gridx = 0;
+
+        optionButtons.clear();
+        buttonPanel.removeAll();
 
         // SCROLL WINDOW & PANE
         scrollPane = new JScrollPane(buttonPanel);
@@ -88,7 +100,6 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
                 return button;
             }
         });
-
         // SET SCROLL BUTTONS
         String[] options = story.getQArr();
 
@@ -101,6 +112,7 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
                 optionButton.setBackground(Color.BLACK);
                 optionButton.setFocusPainted(false);
                 optionButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+                optionButtons.add(optionButton);
 
                 int preferredHeight = optionButton.getPreferredSize().height * 3;
                 optionButton.setPreferredSize(new Dimension(0, preferredHeight));
@@ -132,9 +144,9 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
                             }
                             c++;
                         }
-                        int targetIndex = (clickedIndex != 1) ? c + 1 : 0;
-                        dialogues.typewriterEffect(story.getLine(targetIndex, story.getOArr()));
-                        this.i = targetIndex + 1;
+                        objectiveIndex = (clickedIndex != 1) ? c + 1 : 0;
+                        dialogues.typewriterEffect(story.getLine(objectiveIndex, story.getOArr()));
+                        this.i = objectiveIndex + 1;
                         currentDialogue = story.getOArr();
                     }
                 });
@@ -152,6 +164,10 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
         dialog.setVisible(true);
     }
 
+    public void updateObjectivesAtIndex(int index, boolean value){
+        story.getObjDoneArray()[index] = value;
+    }
+
     private String getCurrentStringArray(){
         if(currentDialogue == story.getArr()){
             return "arr";
@@ -162,6 +178,35 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
         }
         return null;
     }
+
+   public void removeOptionButton(int index) {
+    if (index >= 0 && index < optionButtons.size()) {
+        // Remove the specific button from the panel and the list
+        buttonPanel.remove(optionButtons.get(index));
+        optionButtons.remove(index);
+        
+        // Adjust button layout without full panel reset
+        buttonPanel.removeAll();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+        gbc.gridx = 0;
+        
+        for (int i = 0; i < optionButtons.size(); i++) {
+            gbc.gridy = i;
+            buttonPanel.add(optionButtons.get(i), gbc);
+        }
+        
+        story.removeQuestLine(index);
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+        
+        // Clear existing buttons before creating new ones in openScrollableOptions
+        optionButtons.clear();
+    }
+}
+    
 
     public void handleSetText() {
         int size = story.getSize(getCurrentStringArray());
@@ -186,25 +231,12 @@ public class QuestsDialogues extends JFrame implements MouseInteractable{
         } else {
             dialogues.getStoryJDialog().dispose();
             isQuestDialoguesActive = false;
+            if(currentDialogue == story.getArr()){
+                dialogues.npc.doneQDialogues = true;
+            }else if(currentDialogue == story.getOArr()){
+                dialogues.npc.doneODialogues[objectiveIndex] = true;
+            }
             return;
         }
-    }
-
-    @Override
-    public void onClick(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onClick'");
-    }
-
-    @Override
-    public void onHover(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onHover'");
-    }
-
-    @Override
-    public void onExit(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onExit'");
     }
 }

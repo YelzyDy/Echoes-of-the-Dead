@@ -9,12 +9,12 @@ import EOD.scenes.SceneBuilder;
 public abstract class QuestableObjects extends EchoesObjects implements Questable{
     public double targetX;
     protected boolean isClicked;
-    public boolean doneQuest;
+    public boolean doneInteraction;
     public QuestableObjects (String assetPackage, double x, double y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(assetPackage, x, y, width, height, type, isAnimated, isState, numOfSprites);
         targetX = -15;
         isClicked = false;
-        doneQuest = false;
+        doneInteraction = false;
     }
 
     public void onClick(MouseEvent e){

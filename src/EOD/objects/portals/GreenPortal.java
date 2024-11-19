@@ -19,7 +19,7 @@ public class GreenPortal extends QuestableObjects{
     @Override
     public void performQuest(){
         if(isClicked) return;
-        if(!doneQuest) doneQuest = true;
+        if(!doneInteraction) doneInteraction = true;
         SceneBuilder scene = world.getScene();
         BGMPlayer bgmPlayer = world.getBGMPlayer();
         SFXPlayer sfxPlayer = SFXPlayer.getInstance();

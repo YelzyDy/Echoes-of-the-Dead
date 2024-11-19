@@ -12,7 +12,10 @@ public class Npc extends Character implements MouseInteractable, Questable{
     public Dialogues dialogues = new Dialogues();
     protected NpcAnimator animator;
     private boolean isStatic;
-    public boolean doneQuest;
+    public boolean doneDialogues;
+    public boolean doneQDialogues;
+    public boolean[] doneODialogues;
+    public boolean activateQuest;
     public double targetX;
     public boolean isClicked;
     
@@ -25,7 +28,11 @@ public class Npc extends Character implements MouseInteractable, Questable{
         this.addMouseListener(new MouseClickListener(this));
         initializeNpcSprites();
         isStatic = true;
-        doneQuest = false;
+        doneDialogues = false;
+        doneQDialogues = false;
+        doneODialogues = new boolean[4];
+        doneODialogues[0] = false; doneODialogues[1] = false; doneODialogues[2] = false; doneODialogues[3] = false;
+        activateQuest = false;
         animator.setRange(minRange, maxRange);
         dialogues.setNpc(this);
         targetX = -15;

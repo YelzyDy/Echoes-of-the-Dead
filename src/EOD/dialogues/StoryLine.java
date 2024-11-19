@@ -12,10 +12,16 @@ public class StoryLine implements Freeable{
         private int questSize;
         private int objectivesSize;
         private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        private boolean[] objDone = new boolean[4];
         public void free(){
                 size = 0;
                 arr = null;
                 questSize = 0;
+        }
+        
+        public boolean[] getObjDoneArray(){
+                return objDone;
         }
 
         public void exposition() {
@@ -140,51 +146,60 @@ public class StoryLine implements Freeable{
                 int q = 0;
                 int o = 0;
                 // Initial Dialogue
-                this.arr[i++] = "You: \"Which path leads deeper into these cursed woods?\"";
-                this.arr[i++] = "Miss C: \"*gestures toward a shimmering green mist* The emerald portal ahead leads to the forest's depths. But heed my warning, dear soul...\"";
-                this.arr[i++] = "You: \"What troubles you, Miss Constance?\"";
-                this.arr[i++] = "Miss C: \"*her form flickers anxiously* The forest harbors dark secrets. Many who venture deeper never return. The necromancer's influence grows stronger with each passing night.\"";
-                this.arr[i++] = "You: \"Tell me more about these dark secrets.\"";
-                this.arr[i++] = "Miss C: \"*her voice drops to a whisper* Strange rituals, corrupted spirits... The trees themselves whisper of ancient evil. Natty, near the old well, has witnessed their dark ceremonies.\"";
-                this.arr[i++] = "You: \"And this necromancer you speak of?\"";
-                this.arr[i++] = "Miss C: \"*ethereal mist swirls around her* Once a guardian of these woods, now consumed by darkness. They command an army of the undead, adding to their ranks with each victim that falls to their magic.\"";
-                this.arr[i++] = "You: \"How can I prepare for what lies ahead?\"";
-                this.arr[i++] = "Miss C: \"*her form brightens slightly* Seek out the others who dwell here. Miggins, the merchant, knows of strange artifacts that might aid you. And Yoo has been tracking the necromancer's movements.\"";
-                this.arr[i++] = "You: \"I shall gather what information I can.\"";
-                this.arr[i++] = "Miss C: \"*nods solemnly* Wisdom before valor, dear soul. The forest's secrets may be your key to survival. Return to me if you require guidance. And remember - in these woods, not all is as it seems.\"";
+                boolean isQuestDone = objDone[0] && objDone[1];
+                if(!isQuestDone){
+                        this.arr[i++] = "You: \"What dangers lurk in these cursed woods?\"";
+                        this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
+                        this.arr[i++] = "You: \"How can I help stop this threat?\"";
+                        this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
+                        this.arr[i++] = "You: \"Tell me more about these skeletal enemies.\"";
+                        this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
+                        this.arr[i++] = "You: \"And then what?\"";
+                        this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
+                }else{
+                        //handle dialogue if all objectives is complete here
+                        this.arr[i++] = "blablabla";
+                }
+                        // Quest Title
+                if(!isQuestDone){
+                        this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
+                }else{
+                        this.qArr[q++] = "<font color='#FFFF00'>Quest: Complete Quest!</font>";
+                }
                 
-                // Quest Title
-                this.qArr[q++] = "<font color='#FFFF00'>" + "Quest: Secrets of the Haunted Forest" + "</font>";
-                // Quest Objectives
-                this.qArr[q++] = "<font color='#FFFF00'>" + "- Speak with Natty near the old well" + "</font>";
-                this.qArr[q++] = "<font color='#FFFF00'>" + "- Find Merchant Miggins for valuable artifacts" + "</font>";
-                this.qArr[q++] = "<font color='#FFFF00'>" + "- Locate Yoo to learn about the necromancer's movements" + "</font>";
-                this.qArr[q++] = "<font color='#FFFF00'>" + "- Enter the emerald portal to the forest's depths" + "</font>";
-                
-                this.oArr[o++] = "blablabla for obejctive1";
-                this.oArr[o++] = "You - blablabla for objective1 asdf ";
-                this.oArr[o++] = "blablabla for objective1 asdf f";
-                this.oArr[o++] = "You - blablabla for objective1 asdfa";
-                this.oArr[o++] = "blablabla for objective1 3wfsa";
-                this.oArr[o++] = "-";
-                this.oArr[o++] = "blablabla for obejctive2";
-                this.oArr[o++] = "You - bla for objective2 asdf ";
-                this.oArr[o++] = "blablabla for objective2 asdf f";
-                this.oArr[o++] = "You - bla for objective2 asdfa";
-                this.oArr[o++] = "blablabla for objective2 3wfsa";
-                this.oArr[o++] = "-";
-                this.oArr[o++] = "blablabla for obejctive3";
-                this.oArr[o++] = "You - bla for objective3 asdf ";
-                this.oArr[o++] = "blablabla for objective3 asdf f";
-                this.oArr[o++] = "You - bla for objective3 asdfa";
-                this.oArr[o++] = "blablabla for objective3 3wfsa";
-                this.oArr[o++] = "-";
-                this.oArr[o++] = "blablabla for obejctive4";
-                this.oArr[o++] = "You - bla for objective4 asdf ";
-                this.oArr[o++] = "blablabla for objective4 asdf f";
-                this.oArr[o++] = "You - bla for objective4 asdfa";
-                this.oArr[o++] = "blablabla for objective4 3wfsa";
-                this.oArr[o++] = "-";
+                // Revised Quest Objectives
+                if(!objDone[0]){
+                        this.qArr[q++] = "Talk to everyone";
+                }else{
+                        this.qArr[q++] = "<font color='#FFFF00'>- Done Objective: Finished talking to everyone</font>";
+                }
+
+                if(!objDone[1]){
+                        this.qArr[q++] = "Enter the emerald portal to confront the skeleton army in the forest's depths";
+                }else{
+                        this.qArr[q++] = "<font color='#FFFF00'>- Done Objective: Defeated the skeleton</font>";
+                }
+            
+                // Revised Quest Objectives
+                // sample rani guys i fix lng pls kay dili connected sa story
+                if(!objDone[0]){
+                        this.oArr[o++] = "Some obejctive description";
+                        this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
+                }else{
+                        // handle dialogue if allo bjective is done
+                        this.oArr[o++] = "blablabla objective done";
+                        this.oArr[o++] = "-";
+                }
+
+                if(!objDone[1]){
+                        this.oArr[o++] = "Some obejctive description";
+                        // don't need to put dash if we are at the end of the array
+                }else{
+                        // handle dialogue if individual objective is done
+                        this.oArr[o++] = "blablabla objective done";
+                        // don't need to put dash if we are at the end of the array
+                }
+
                 this.size = i;
                 this.questSize = q;
                 this.objectivesSize = o;
@@ -1436,6 +1451,16 @@ public class StoryLine implements Freeable{
                         default: return 0;
                 }
         }
+
+        public void removeQuestLine(int index) {
+                // Shift remaining quest lines
+                for (int i = index; i < questSize - 1; i++) {
+                    qArr[i] = qArr[i + 1];
+                }
+                questSize--;
+                qArr[questSize] = null;
+            
+            }
 
         public String[] getArr() {
                 return arr;

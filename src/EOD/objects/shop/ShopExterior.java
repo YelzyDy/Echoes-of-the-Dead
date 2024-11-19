@@ -14,7 +14,7 @@ public class ShopExterior  extends QuestableObjects{
     @Override
     public void performQuest() {
         if(isClicked) return;
-        if(!doneQuest) doneQuest = true;
+        if(!doneInteraction) doneInteraction = true;
         Shop shop = world.getShop();
         shop.makeElementsVisible();
         isClicked = true;
