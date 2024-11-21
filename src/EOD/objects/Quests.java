@@ -39,6 +39,9 @@ public class Quests extends JPanel implements MouseInteractable{
     private boolean akefayDone = false;
     private boolean asrielDone = false;
     private boolean cheaDone = false;
+    private boolean migginsDone = false;
+
+
     public Quests() {
         this.textPanel = new JPanel();
     }
@@ -176,10 +179,12 @@ public class Quests extends JPanel implements MouseInteractable{
 
     public String initializeIndicesForWorld1Q(int index){
         switch (index) {
-            // case 8: return "Enter the purple portal.";
-            // case 7: return "Defeat the Necromancer.";
-            // case 6: return "Enter the red portal.";
-            // case 5: return "Investigate the shop.";
+            case 13: return "Warp to the next world";
+            case 12: return "Bring good news to Miggins";
+            case 11: return  "Defeat the Necomrancer";
+            case 10: return "Enter the red portal.";
+            case 9: return "Speak to Miggins about a quest";
+            case 8: return "Buy an item from Miggin's shop.";
             case 7: return "Speak to the old woman near the shop.";
             case 6: return "Tell Constance you've defeated the skeleton";
             case 5: return "Defeat the axe-wielding skeleton.";
@@ -288,51 +293,60 @@ public class Quests extends JPanel implements MouseInteractable{
     private void clickMiggins(){
         for(Npc npc : npcList) {
             if ((npc.getName().equals("Miggins")) 
-                && !npc.doneDialogues) {
+                && (!npc.doneDialogues || !npc.doneQDialogues || !npc.doneODialogues[0] || !npc.doneODialogues[1])) {
                 npc.onClick(null);
                 break;
             }
         }
     }
 
-    private void q5World1(){
+    private void clickShop(){
         objList.get(0).onClick(null);
     }
 
-    private void q6World1(){
+    private void clickRedPortal(){
        objList.get(2).onClick(null);
     }
 
-    private void q7World1(){
+    private void clickMiniBoss(){
         enemyList.get(1).onClick(null);
     }
 
-    private void q8World1(){
+    private void clickPurplePortal(){
         objList.get(3).onClick(null);
     }
 
 
 
-    private void handleWorld1Q(MouseEvent e) {
-        Object source = e.getSource();
-        if (source != scene && ifActive == 0) {
+    private void handleWorld1Q() {
+        if (ifActive == 0) {
             clickConstance(); 
-        }else if (source != scene && ifActive == 1) {
+        }else if (ifActive == 1) {
             clickConstance(); 
-        }else if(source != scene && ifActive == 2){
+        }else if(ifActive == 2){
             clickLocals();
-        }else if(source != scene && ifActive == 3){
+        }else if(ifActive == 3){
             clickConstance(); 
-        }else if(source != scene && ifActive == 4){
+        }else if(ifActive == 4){
             clickGreenPortal();
-        }else if(source != scene && ifActive == 5){
+        }else if(ifActive == 5){
             clickMinion();
-        }else if(source != scene && ifActive == 6){
+        }else if(ifActive == 6){
             clickConstance();
-        }else if(source != scene && ifActive == 7){
-            q7World1();
-        }else if(source != scene && ifActive == 8){
-            q8World1();
+        }else if(ifActive == 7){
+            clickMiggins();
+        }else if(ifActive == 8){
+            clickShop();
+        }else if(ifActive == 9){
+            clickMiggins();
+        }else if(ifActive == 10){
+            clickRedPortal();
+        }else if(ifActive == 11){
+            clickMiniBoss();
+        }else if(ifActive == 12){
+            clickMiggins();
+        }else{
+            clickPurplePortal();
         }
     }
 
@@ -346,11 +360,11 @@ public class Quests extends JPanel implements MouseInteractable{
         }else if(ifActive == 3){
             clickMiggins();
         }else if(ifActive == 4){
-            q6World1();
+            // q6World1();
         }else if(ifActive == 5){
-            q7World1();
+            // q7World1();
         }else if(ifActive == 6){
-            q8World1();
+            // q8World1();
         }
     }
 
@@ -364,11 +378,11 @@ public class Quests extends JPanel implements MouseInteractable{
         }else if(ifActive == 3){
             clickMiggins();
         }else if(ifActive == 4){
-            q6World1();
+            // q6World1();
         }else if(ifActive == 5){
-            q7World1();
+            // q7World1();
         }else if(ifActive == 6){
-            q8World1();
+            // q8World1();
         }
     }
 
@@ -413,29 +427,37 @@ public class Quests extends JPanel implements MouseInteractable{
                         case "Akefay" -> akefayDone = true;
                         case "Asriel" -> asrielDone = true;
                         case "Chea" -> cheaDone = true;
+                        case "Miggins" -> migginsDone = true;
                     }
             }
         } 
         switch(world.getTitle()){
-            case "world1" -> callWorld1QDynamically();
+            case "world1" -> {
+                if (callWorld1QDynamically()){
+                    addQuests();
+                }
+            }
             case "world2" -> callWorld2QDynamically();
             case "world3" -> callWorld3QDynamically();
         }
     }
 
-    public void callWorld1QDynamically(){
+    public boolean callWorld1QDynamically(){
         if(ifActive == 0){
             if(constanceDone){
                 npcList.get(1).activateQuest = true;
                 setQuestStatus(1);  // Increment quest status
-                addQuests();
+                return true;
             }
         }
 
         if(ifActive == 1){
             if(npcList.get(1).doneQDialogues){
                 setQuestStatus(2);  // Increment quest status
-                addQuests();
+                for(Npc npc : npcList){
+                    npc.setStatic(false);
+                }
+                return true;
             }
         }
 
@@ -448,19 +470,19 @@ public class Quests extends JPanel implements MouseInteractable{
                 }
             }
                 textListModel.setElementAt("Talk to the locals (" + (localCount) + "/3)", 0);
-            if (yooDone && constanceDone && faithfulDone && nattyDone) {
+            if (yooDone && faithfulDone && nattyDone) {
                 npcList.get(1).dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
                 setQuestStatus(3);  // Increment quest status
-                addQuests();
+                return true;
             }
         }
 
         if(ifActive == 3){
             if(npcList.get(1).doneODialogues[0]){
                 objList.get(1).setIsActivated(true);
-                npcList.get(1).dialogues.getQuestsDialogues().removeOptionButton(npcList.get(1).dialogues.getQuestsDialogues().getObjectiveIndex());
+                // npcList.get(1).dialogues.getQuestsDialogues().removeOptionButton(npcList.get(1).dialogues.getQuestsDialogues().getObjectiveIndex());
                 setQuestStatus(4);  // Increment quest status
-                addQuests();
+                return true;
             }
         }
 
@@ -468,7 +490,7 @@ public class Quests extends JPanel implements MouseInteractable{
             QuestableObjects obj = objList.get(1);
             if(obj.doneInteraction){ 
                 setQuestStatus(5);
-                addQuests();
+                return true;
             }
         }
 
@@ -477,57 +499,76 @@ public class Quests extends JPanel implements MouseInteractable{
             if(enemy.getIsDefeated()){
                 npcList.get(1).dialogues.getQuestsDialogues().updateObjectivesAtIndex(1, true);
                 setQuestStatus(6);
-                addQuests();
+                return true;
             }
         }
 
         if(ifActive == 6){
             if(npcList.get(1).doneODialogues[1]){
                 setQuestStatus(7);  // Increment quest status
-                addQuests();
+                return true;
             }
         }
 
-        // if(ifActive == 4){
-        //     if(npcList.get(3).doneDialogues){
-        //         setQuestStatus(5);
-        //         addQuests();
-        //     }
-        // }
+        if(ifActive == 7){
+            if(migginsDone){
+                setQuestStatus(8);
+                return true;
+            }
+        }
 
-        // if(ifActive == 5){
-        //     QuestableObjects obj = objList.get(0);
-        //     if(obj.doneInteraction){  
-        //         setQuestStatus(6);
-        //         addQuests();
-        //         objList.get(2).setIsActivated(true);
-        //     }
-        // }
+        if(ifActive == 8){
+            QuestableObjects obj = world.getShop();
+            if(obj.doneInteraction){  
+                npcList.get(3).activateQuest = true;
+                setQuestStatus(9);
+                return true;
+            }
+        }
 
-        // if(ifActive == 6){
-        //     QuestableObjects obj = objList.get(2);
-        //     if(obj.doneInteraction){
-        //         setQuestStatus(7);
-        //         addQuests();
-        //     }
-        // }
+        if(ifActive == 9){
+            if(npcList.get(3).doneQDialogues){
+                objList.get(2).setIsActivated(true);
+                setQuestStatus(10);  // Increment quest status
+                return true;
+            }
+        }
 
-        // if(ifActive == 7){
-        //     Enemy enemy = enemyList.get(1);
-        //     if(enemy.getIsDefeated()){
-        //         setQuestStatus(8);
-        //         addQuests();
-        //         scene.ally.setStatic(true);
-        //     }
-        // }
+        if(ifActive == 10){
+            QuestableObjects obj = objList.get(2);
+            if(obj.doneInteraction){
+                setQuestStatus(11);
+                return true;
+            }
+        }
 
-        // if(ifActive == 8){
-        //     QuestableObjects obj = objList.get(3);
-        //     if(obj.doneInteraction){  
-        //         setQuestStatus(9);
-        //         addQuests();
-        //     }
-        // }
+        if(ifActive == 11){
+            Enemy enemy = enemyList.get(1);
+            if(enemy.getIsDefeated()){
+                npcList.get(3).dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
+                setQuestStatus(12);
+                scene.ally.setStatic(true);
+                return true;
+            }
+        }
+
+        if(ifActive == 12){
+            if(npcList.get(3).doneODialogues[0]){
+                objList.get(3).setIsActivated(true);
+                // npcList.get(1).dialogues.getQuestsDialogues().removeOptionButton(npcList.get(1).dialogues.getQuestsDialogues().getObjectiveIndex());
+                setQuestStatus(13);  // Increment quest status
+                return true;
+            }
+        }
+
+        if(ifActive == 13){
+            QuestableObjects obj = objList.get(3);
+            if(obj.doneInteraction){  
+                setQuestStatus(14);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void callWorld2QDynamically(){
@@ -641,8 +682,8 @@ public class Quests extends JPanel implements MouseInteractable{
         int index = textList.locationToIndex(e.getPoint());
         System.out.println("Index: " + index + "IfActive: " + ifActive);
         Object source = e.getSource();
-        if(world.getTitle().equals("world1") && index == 0){
-            handleWorld1Q(e);
+        if(source != scene && world.getTitle().equals("world1") && index == 0){
+            handleWorld1Q();
         }else if(source != scene && world.getTitle().equals("world2") && index == 0){
             handleWorld2Q();
         }else if(source != scene && world.getTitle().equals("world3") && index == 0){

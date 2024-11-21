@@ -11,7 +11,7 @@ public class QuestsDialogues extends JFrame{
     protected String[] currentDialogue;
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.4);
-    private String playerType;
+    private String playerName;
     private String worldType;
     private JDialog dialog;
     protected JScrollPane scrollPane;
@@ -29,8 +29,8 @@ public class QuestsDialogues extends JFrame{
         optionButtons = new ArrayList<>();
     }
 
-    public void setPlayerType(String playerType) {
-        this.playerType = playerType;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public void setWorldType(String worldType) {
@@ -47,6 +47,7 @@ public class QuestsDialogues extends JFrame{
         dialogues.pressToContinueLabel.setVisible(false);
         this.dialogues = dialogues;
         isQuestDialoguesActive = true;
+        story.setPlayerName(playerName);
         i = 0;
         switch (ID) {
             case 1:
@@ -121,6 +122,7 @@ public class QuestsDialogues extends JFrame{
 
                 optionButton.addActionListener(e -> {
                     int clickedIndex = Integer.parseInt(e.getActionCommand());
+                    objectiveIndex = clickedIndex;
                     dialog.remove(scrollPane);
                     dialogues.pressToContinueLabel.setVisible(true);
                     dialog.revalidate();
@@ -144,9 +146,9 @@ public class QuestsDialogues extends JFrame{
                             }
                             c++;
                         }
-                        objectiveIndex = (clickedIndex != 1) ? c + 1 : 0;
-                        dialogues.typewriterEffect(story.getLine(objectiveIndex, story.getOArr()));
-                        this.i = objectiveIndex + 1;
+                        int targetIndex = (clickedIndex != 1) ? c + 1 : 0;
+                        dialogues.typewriterEffect(story.getLine(targetIndex, story.getOArr()));
+                        this.i = targetIndex + 1;
                         currentDialogue = story.getOArr();
                     }
                 });
@@ -179,33 +181,40 @@ public class QuestsDialogues extends JFrame{
         return null;
     }
 
-   public void removeOptionButton(int index) {
-    if (index >= 0 && index < optionButtons.size()) {
-        // Remove the specific button from the panel and the list
-        buttonPanel.remove(optionButtons.get(index));
-        optionButtons.remove(index);
-        
-        // Adjust button layout without full panel reset
-        buttonPanel.removeAll();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
-        gbc.gridx = 0;
-        
-        for (int i = 0; i < optionButtons.size(); i++) {
-            gbc.gridy = i;
-            buttonPanel.add(optionButtons.get(i), gbc);
+    public void removeOptionButton(int index) {
+        if (index >= 0 && index < optionButtons.size()) {
+            // Remove the button from the panel
+            JButton buttonToRemove = optionButtons.get(index);
+            buttonPanel.remove(buttonToRemove);
+            
+            // Remove from our list of buttons
+            optionButtons.remove(index);
+            
+            // Rebuild the panel layout with remaining buttons
+            buttonPanel.removeAll();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.weightx = 1;
+            gbc.gridx = 0;
+            
+            // Re-add remaining buttons with updated positions
+            for (int i = 0; i < optionButtons.size(); i++) {
+                gbc.gridy = i;
+                buttonPanel.add(optionButtons.get(i), gbc);
+            }
+            
+            // Update the visual state
+            buttonPanel.revalidate();
+            buttonPanel.repaint();
+            
+            // Signal that we need to update the dialog
+            if (dialog != null) {
+                dialog.revalidate();
+                dialog.repaint();
+            }
         }
-        
-        story.removeQuestLine(index);
-        buttonPanel.revalidate();
-        buttonPanel.repaint();
-        
-        // Clear existing buttons before creating new ones in openScrollableOptions
-        optionButtons.clear();
     }
-}
     
 
     public void handleSetText() {
@@ -223,6 +232,7 @@ public class QuestsDialogues extends JFrame{
             }
             return;
         }
+        System.out.println("o index: " + objectiveIndex);
     
         if (i < size && !currentDialogue[i].equals("-")) {
             // Start the typewriter effect for the next line
@@ -233,8 +243,8 @@ public class QuestsDialogues extends JFrame{
             isQuestDialoguesActive = false;
             if(currentDialogue == story.getArr()){
                 dialogues.npc.doneQDialogues = true;
-            }else if(currentDialogue == story.getOArr()){
-                dialogues.npc.doneODialogues[objectiveIndex] = true;
+            }else if(currentDialogue == story.getOArr() && story.getObjDoneArray()[objectiveIndex - 1]){
+                dialogues.npc.doneODialogues[objectiveIndex - 1] = true;
             }
             return;
         }

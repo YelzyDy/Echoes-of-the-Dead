@@ -121,6 +121,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
     public void performQuest(){
         if(isClicked) return;
         dialogues.setPlayerType(world.getPlayerType());
+        dialogues.setPlayerName(world.getPlayer().getName());
         System.out.println("JDialog not null? " + (dialogues.getStoryJDialog() != null));
         System.out.println("JDialog displayable? " + (dialogues.getStoryJDialog().isDisplayable()));
 

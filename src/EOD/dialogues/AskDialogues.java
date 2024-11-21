@@ -13,11 +13,17 @@ public class AskDialogues extends JFrame {
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.4);
     private String playerType;
+    private String playerName;
     private String worldType;
     private JDialog dialog;
     protected JScrollPane scrollPane;
+
     public void setPlayerType(String playerType){
         this.playerType = playerType;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public void setWorldType(String worldType){
@@ -28,6 +34,7 @@ public class AskDialogues extends JFrame {
         // LOAD NPC
         dialog = dialogues.getStoryJDialog();
         dialogues.pressToContinueLabel.setVisible(false);
+        story.setPlayerName(playerName);
         switch (ID) {
             case 1:
                 story.missConstanceLines(playerType, worldType);

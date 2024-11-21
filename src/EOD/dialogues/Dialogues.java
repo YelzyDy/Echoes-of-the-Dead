@@ -14,7 +14,7 @@ import EOD.gameInterfaces.*;
 public class Dialogues implements Freeable, MouseInteractable {
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private StoryLine story = new StoryLine();
+    private StoryLine story;
     private AskDialogues askDialogues = new AskDialogues();
     private QuestsDialogues questsDialogues = new QuestsDialogues();
     private JDialog storyDialogue;
@@ -30,6 +30,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     protected int i = 0;
     private World world;
     private String playerType;
+    private String playerName;
     private boolean isClickableDialogue = true;
     protected JLabel pressToContinueLabel;
     protected Npc npc;
@@ -37,9 +38,11 @@ public class Dialogues implements Freeable, MouseInteractable {
     private String worldType;
     protected volatile boolean isTyping = false;
     private Thread typewriterThread = null;
+    
 
     public Dialogues() {
         // TEXT WINDOW
+        story = new StoryLine();
         storyDialogue = new JDialog(world, "ECHOES OF THE DEAD", Dialog.ModalityType.MODELESS);
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
@@ -129,6 +132,9 @@ public class Dialogues implements Freeable, MouseInteractable {
     public void setPlayerType(String playerType) {
         this.playerType = playerType;
     }
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
     public void setCoordinates(double x, double y) {
         storyDialogue.setLocation((int) x, (int) y);
@@ -147,6 +153,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         this.scene = world.getScene();
         this.worldType = world.getTitle();
         scene.addMouseListener(new MouseClickListener(this));
+        story.setPlayerName(playerName);
         // LOAD NPC
         this.ID = ID;
         i = 0;
@@ -343,12 +350,14 @@ public class Dialogues implements Freeable, MouseInteractable {
         sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if(source == skipButton){
             storyDialogue.dispose();
+            System.out.println("o index: " + (questsDialogues.getObjectiveIndex() - 1));
+            
             if(questsDialogues.isQuestDialoguesActive){
                 questsDialogues.isQuestDialoguesActive = false;
                 if(questsDialogues.currentDialogue == questsDialogues.story.getArr()){
                     npc.doneQDialogues = true;
-                }else if(questsDialogues.currentDialogue == questsDialogues.story.getOArr()){
-                    npc.doneODialogues[questsDialogues.getObjectiveIndex()] = true;
+                }else if(questsDialogues.currentDialogue == questsDialogues.story.getOArr() && questsDialogues.story.getObjDoneArray()[questsDialogues.getObjectiveIndex() - 1]){
+                    npc.doneODialogues[questsDialogues.getObjectiveIndex() - 1] = true;
                 }
             }
             if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
@@ -365,6 +374,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 storyDialogue.dispose();
                 buttonPanel.setVisible(false);
                 askDialogues.setPlayerType(playerType);
+                askDialogues.setPlayerName(playerName);
                 askDialogues.setWorldType(worldType);
                 askDialogues.openScrollableOptions(this.ID, this, textBox);
             });
@@ -376,7 +386,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 textBox.setText("");
                 storyDialogue.dispose();
                 buttonPanel.setVisible(false);
-                questsDialogues.setPlayerType(playerType);
+                questsDialogues.setPlayerName(playerName);
                 questsDialogues.setWorldType(worldType);
                 questsDialogues.openScrollableOptions(this.ID, this, textBox);
             });

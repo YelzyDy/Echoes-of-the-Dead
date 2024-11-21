@@ -114,15 +114,12 @@ public class World2 extends World{
                 npc.setIndex(0);
             }else if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
-                npc.doneQuest = true;
             }else if (npc.getName().equals("Faithful")) {
                 npc.setIndex(1);
-                npc.doneQuest = true;
             }else if (npc.getName().equals("Renegald")){
                 npc.setIndex(1);
             }else if (npc.getName().equals("Miggins")) {
                 npc.setIndex(2);
-                npc.doneQuest = true;
             }else if (npc.getName().equals("Monologuer")) {
                 npc.setIndex(2);
             }

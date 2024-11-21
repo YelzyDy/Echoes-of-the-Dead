@@ -21,8 +21,6 @@ import EOD.gameInterfaces.Freeable;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
-import java.awt.event.MouseEvent;
-import java.awt.Component;
 
 /**
  *

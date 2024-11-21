@@ -120,19 +120,16 @@ public class World3 extends World{
             
             if (npc.getName().equals("Yoo")) {
                 npc.setIndex(2);
-                npc.doneQuest = true;
             }else if (npc.getName().equals("Akefay")) {
                 npc.setIndex(1);
             } else if (npc.getName().equals("Miggins")) {
                 npc.setIndex(2);
-                npc.doneQuest = true;
             } else if (npc.getName().equals("Asriel")){
                 npc.setIndex(1);
             } else if (npc.getName().equals("Chea")){
                 npc.setIndex(0);
             } else if (npc.getName().equals("Natty")){
                 npc.setIndex(0);
-                npc.doneQuest = true;
             } else if (npc.getName().equals("Reaper")){
                 npc.setIndex(4);
             } else if (npc.getName().equals("Constance")){

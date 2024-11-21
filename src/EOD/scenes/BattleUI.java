@@ -24,7 +24,7 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
     private Rewards rewards;
     // Core Components
     private final JPanel textPanel;
-    private final StoryLine story;
+    private StoryLine story;
     private final BattleBars battleBars;
     
     // UI Components

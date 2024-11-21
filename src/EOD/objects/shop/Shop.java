@@ -2,13 +2,14 @@ package EOD.objects.shop;
 
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.objects.QuestableObjects;
 import EOD.objects.inventory.Inventory;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class Shop extends EchoesObjects{
+public class Shop extends QuestableObjects{
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private World world;
     // objects
@@ -107,6 +108,11 @@ public class Shop extends EchoesObjects{
     }
 
     @Override
+    public void performQuest() {
+        if(!doneInteraction) doneInteraction = true;
+    }
+    
+    @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
         buyButton.setVisible(true);
@@ -149,7 +155,7 @@ public class Shop extends EchoesObjects{
             sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
             return; // Not enough money
         }
-    
+        
         switch (itemToBuy) {
             case 1 -> {
                 if (item1Stock > 0) {
@@ -192,7 +198,7 @@ public class Shop extends EchoesObjects{
                 }
             }
         }
-    
+        performQuest();
         // Deduct money and play success sound
         world.getPlayer().getAttributes().setMoney(playerMoney - itemCost);
     }
