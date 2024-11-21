@@ -1,5 +1,9 @@
 package EOD.objects;
 
+import EOD.objects.chests.QuestsChest;
+import EOD.objects.chests.MinionChest;
+import EOD.objects.chests.MiniBossChest;
+import EOD.objects.chests.Chest;
 import EOD.objects.profiles.AllyProfiles;
 import EOD.scenes.BattleExperiment;
 import EOD.scenes.SceneBuilder;
@@ -7,6 +11,7 @@ import EOD.scenes.SceneBuilder;
 import EOD.characters.Npc;
 import EOD.gameInterfaces.Freeable;
 import EOD.worlds.World;
+
 public class Rewards implements Freeable{
     private static final String KNIGHT = "knight";
     private static final String PRIEST = "priest";
@@ -18,13 +23,28 @@ public class Rewards implements Freeable{
     private AllyProfiles allyProfiles;
     private SceneBuilder panel;
     private World world;
+    private Chest questTreasure;
+    private Chest minionTreasure;
+    private Chest minibossTreasure;
 
-    public Rewards(BattleExperiment battle) {
-        this.playerType = battle.getPlayer().getWorld().getPlayer().getCharacterType();
+    public Rewards(World world) {
+        this.world = world;
+        this.playerType = world.getPlayer().getCharacterType();
+        this.allyProfiles = world.getPlayer().getAllyProfiles();
+        this.panel = world.getScene();
+        questTreasure = new QuestsChest();
+        questTreasure.setWorld(world);
+        minionTreasure = new MinionChest();
+        minionTreasure.setWorld(world);
+        minibossTreasure = new MiniBossChest();
+        minibossTreasure.setWorld(world);
+        world.getScene().add(questTreasure);
+        world.getScene().add(minionTreasure);
+        world.getScene().add(minibossTreasure);
+    }
+
+    public void setBattle(BattleExperiment battle){
         this.enemyType = battle.getEnemy().getCharacterType();
-        this.allyProfiles = battle.getPlayer().getWorld().getPlayer().getAllyProfiles();
-        this.panel = battle.getPlayer().getPanel();
-        this.world = battle.getPlayer().getWorld();
     }
 
     @Override
@@ -34,6 +54,40 @@ public class Rewards implements Freeable{
             allyProfiles = null;
         }
     }
+
+    public void getQuestsRewards(int goldValue, double x, double y){
+        questTreasure.setGold(goldValue);
+        questTreasure.setLocation((int)x, (int) y);
+    }
+
+    public void getEnemyRewards(String enemyType, int goldValue, double x, double y){
+        switch (enemyType) {
+            case "minions":
+                minionTreasure.setGold(goldValue);
+                minionTreasure.setLocation((int)x, (int)y);
+                break;
+            case "miniboss":
+                minibossTreasure.setGold(goldValue);
+                minibossTreasure.setLocation((int)x, (int)y);
+            break;
+            default:
+                break;
+        }
+
+    }
+
+    public Chest getQuestChest(){
+        return questTreasure;
+    }
+
+    public Chest getMinionsChest(){
+        return minionTreasure;
+    }
+
+    public Chest getMiniBossChest(){
+        return minibossTreasure;
+    }
+
 
     public void getAllyRewards() {
         if(!isMiniBoss()) return;

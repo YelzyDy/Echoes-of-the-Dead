@@ -150,6 +150,7 @@ public class EchoesObjects extends TransparentPanel implements MouseInteractable
 
     public void onClick(MouseEvent e) {     
           if(!isEnabled) return;
+          System.out.println("scene index: " + getIndex());
     }
 
     public void onHover(MouseEvent e) {

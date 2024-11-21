@@ -53,6 +53,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected ArrayList<Player> playerList;
     private boolean initiateChoiceUi = true;
     private ChoiceUI choicepan;
+    protected Rewards rewards;
 
     //public Enemy skeleton; // minions -z
     //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
@@ -75,7 +76,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         JPanel basePanel = new JPanel();
         basePanel.setBackground(Color.BLACK);
         basePanel.setBounds(0, 0, screenSize.width, screenSize.height);
-        
+    
         // Add the base panel to the bottom layer
         layeredPane.add(basePanel, Integer.valueOf(0));
         addSettingsButton();
@@ -95,6 +96,10 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         playerList = new ArrayList<>();
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
+    }
+
+    public Rewards getRewards(){
+        return rewards;
     }
 
     public BGMPlayer getBGMPlayer(){
@@ -190,7 +195,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     }
 
     public void openQuests() {
-        this.quests = new Quests();
+        this.quests = new Quests(this);
         quests.setPlayer(player);
         quests.initializeUI();
         layeredPane.add(this.quests, Integer.valueOf(1));
@@ -311,6 +316,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
 
     public abstract void initializeEnemies();
 
+    private void initializeRewards(){
+        rewards = new Rewards(this);
+    }
     private class InitializationWorker extends SwingWorker<Void, Integer> {
         @Override
         protected Void doInBackground() {
@@ -359,8 +367,12 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             openQuests();
             initializeBattleUI();
             initializeAllyProfiles();
+            
             initializePlayerProfile();
             player.getAllyProfiles().showAllProfiles();
+            initializeRewards();
+            quests.setRewards(rewards);
+            battle.setRewards(rewards);
             scene.initializeGameLoop();
 
         }

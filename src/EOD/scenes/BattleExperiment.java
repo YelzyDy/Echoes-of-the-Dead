@@ -46,10 +46,7 @@ public class BattleExperiment implements Skillable{
 
     public void setBattleUI(BattleUI battle){
         this.battleUI = battle;
-    }
-
-    public void setRewards(Rewards rewards){
-        this.rewards = rewards;
+        rewards = battleUI.rewards;
     }
 
     private void handleSkill(int skillNumber, boolean damageEnemy) {
@@ -221,6 +218,24 @@ public class BattleExperiment implements Skillable{
         isProcessingTurn = false;
     }
 
+    private String getEnemyType(){
+        switch(enemy.getCharacterType()){
+            case "skeleton1" ->{
+                return "minions";
+            }case "skeleton2" ->{
+                return "minions";
+            }case "skeleton3" ->{
+                return "minions";
+            }case "death" ->{
+                return "miniboss";
+            }case "necromancer" ->{
+                return "miniboss";
+            }default->{
+                return null;
+            }
+        }
+    }
+
     private void handleBattleEnd(boolean playerWon) {
         if (battleEnded) return;
         battleEnded = true;     
@@ -229,7 +244,6 @@ public class BattleExperiment implements Skillable{
         
         if(playerWon){
             world.callVictory();
-            player.getAttributes().addMoney(enemy.getMoneyDrop());
             handleWin();
         }else{
             world.callDefeat();

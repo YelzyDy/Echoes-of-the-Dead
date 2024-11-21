@@ -51,7 +51,7 @@ public class QuestsDialogues extends JFrame{
         i = 0;
         switch (ID) {
             case 1:
-                story.missConstanceQuests(); break;
+                story.missConstanceQuests(worldType); break;
             case 4:
                 story.migginsQuests(worldType); break;
             case 5:

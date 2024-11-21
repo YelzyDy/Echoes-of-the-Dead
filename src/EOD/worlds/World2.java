@@ -6,6 +6,7 @@ import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.objects.Rewards;
 import EOD.objects.portals.GreenPortal;
 import EOD.objects.portals.PurplePortal;
 import EOD.objects.portals.RedPortal;
@@ -25,7 +26,6 @@ public class World2 extends World{
         scene = new SceneBuilder(this);
         bgmPlayer = BGMPlayer.getInstance();
         bgmPlayer.playBGM("src/audio_assets/bgm/world2bgm.wav");
-        
         // Set up main player
         this.player = player;
         this.playerList = playerList;

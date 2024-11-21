@@ -40,6 +40,7 @@ public class PurplePortal extends QuestableObjects{
         window.setBGMPlayer(bgmPlayer);
         scene.setVisible(false);
         scene.free();
+        isClicked = true;
     }
 
 }

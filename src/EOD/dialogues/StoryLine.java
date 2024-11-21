@@ -208,62 +208,117 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
         
-        public void missConstanceQuests() {
+        public void missConstanceQuests(String worldType) {
                 int i = 0;
                 int q = 0;
                 int o = 0;
                 // Initial Dialogue
                 boolean isQuestDone = objDone[0] && objDone[1];
-                if(!isQuestDone){
-                        this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
-                        this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
-                        this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
-                        this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
-                        this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
-                        this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
-                        this.arr[i++] = playerName + ": \"And then what?\"";
-                        this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
-                }else{
-                        //handle dialogue if all objectives is complete here
-                        this.arr[i++] = "blablabla";
-                }
-                        // Quest Title
-                if(!isQuestDone){
-                        this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
-                }else{
-                        this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
-                }
+
+                if(worldType.equals("world1")){
+                        if(!isQuestDone){
+                                this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
+                                this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
+                                this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
+                                this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
+                                this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
+                                this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
+                                this.arr[i++] = playerName + ": \"And then what?\"";
+                                this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
+                        }else{
+                                //handle dialogue if all objectives is complete here
+                                this.arr[i++] = "blablabla";
+                        }
+                                // Quest Title
+                        if(!isQuestDone){
+                                this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
+                        }else{
+                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        }
+
+                        // Revised Quest Objectives
+                        if(!objDone[0]){
+                                this.qArr[q++] = "Objective #1: Talk to everyone";
+                        }else{
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Finished talking to everyone</font>";
+                        }
+
+                        if(!objDone[1]){
+                                this.qArr[q++] = "Objective #2: Enter the emerald portal to confront the skeleton army in the forest's depths";
+                        }else{
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the skeleton</font>";
+                        }
                 
-                // Revised Quest Objectives
-                if(!objDone[0]){
-                        this.qArr[q++] = "Objective #1: Talk to everyone";
-                }else{
-                        this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Finished talking to everyone</font>";
-                }
+                        // sample rani guys i fix lng pls kay dili connected sa story
+                        if(!objDone[0]){
+                                this.oArr[o++] = "Some obejctive description1";
+                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
+                        }else{
+                                // handle dialogue if allo bjective is done
+                                this.oArr[o++] = "blablabla objective done";
+                                this.oArr[o++] = "-";
+                        }
 
-                if(!objDone[1]){
-                        this.qArr[q++] = "Objective #2: Enter the emerald portal to confront the skeleton army in the forest's depths";
-                }else{
-                        this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the skeleton</font>";
-                }
-            
-                // sample rani guys i fix lng pls kay dili connected sa story
-                if(!objDone[0]){
-                        this.oArr[o++] = "Some obejctive description1";
-                        this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
-                }else{
-                        // handle dialogue if allo bjective is done
-                        this.oArr[o++] = "blablabla objective done";
-                        this.oArr[o++] = "-";
-                }
+                        if(!objDone[1]){
+                                this.oArr[o++] = "Some obejctive description2";
+                                // don't need to put dash if we are at the end of the array
+                        }else{
+                                // handle dialogue if individual objective is done
+                                this.oArr[o++] = "blablabla objective done";
+                                // don't need to put dash if we are at the end of the array
+                        }
+                }else if(worldType.equals("world2")){
+                        if(!isQuestDone){
+                                this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
+                                this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
+                                this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
+                                this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
+                                this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
+                                this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
+                                this.arr[i++] = playerName + ": \"And then what?\"";
+                                this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
+                        }else{
+                                //handle dialogue if all objectives is complete here
+                                this.arr[i++] = "blablabla";
+                        }
+                                // Quest Title
+                        if(!isQuestDone){
+                                this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
+                        }else{
+                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        }
 
-                if(!objDone[1]){
-                        this.oArr[o++] = "Some obejctive description2";
-                        // don't need to put dash if we are at the end of the array
-                }else{
-                        // handle dialogue if individual objective is done
-                        this.oArr[o++] = "blablabla objective done";
-                        // don't need to put dash if we are at the end of the array
+                        // Revised Quest Objectives
+                        if(!objDone[0]){
+                                this.qArr[q++] = "Objective #1: Talk to everyone";
+                        }else{
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Finished talking to everyone</font>";
+                        }
+
+                        if(!objDone[1]){
+                                this.qArr[q++] = "Objective #2: Enter the emerald portal to confront the skeleton army in the forest's depths";
+                        }else{
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the skeleton</font>";
+                        }
+                
+                        // sample rani guys i fix lng pls kay dili connected sa story
+                        if(!objDone[0]){
+                                this.oArr[o++] = "Some obejctive description1";
+                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
+                        }else{
+                                // handle dialogue if allo bjective is done
+                                this.oArr[o++] = "blablabla objective done";
+                                this.oArr[o++] = "-";
+                        }
+
+                        if(!objDone[1]){
+                                this.oArr[o++] = "Some obejctive description2";
+                                // don't need to put dash if we are at the end of the array
+                        }else{
+                                // handle dialogue if individual objective is done
+                                this.oArr[o++] = "blablabla objective done";
+                                // don't need to put dash if we are at the end of the array
+                        }
                 }
 
                 this.size = i;
@@ -524,13 +579,13 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = "Miggins: \"Good on you! Just be careful, alright? That Necromancer didn't get power by being nice. Come back here when it's done.\"";
                         }else{
                                 //handle dialogue if all objectives is complete here
-                                this.arr[i++] = "blablabla";
+                                this.arr[i++] = "blablabla bla blab bla";
                         }
                         if(!isQuestDone){
                                  // Quest Title
                                 this.qArr[q++] = "Quest: Escape the City.";
                         }else{
-                                this.qArr[q++] = "<font color='##00f541'> Quest Complete!</font>";
+                                this.qArr[q++] = "<font color='#00f541'> Quest Complete!</font>";
                         }
 
                         // Revised Quest Objectives

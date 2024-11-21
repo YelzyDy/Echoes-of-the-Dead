@@ -10,8 +10,6 @@ import EOD.objects.EchoesObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
@@ -21,7 +19,7 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
     private final int width = (int) (screenSize.width * 0.99);
     private final int topTextHeight = (int) (screenSize.height * 0.07);
     private final int bottomTextHeight = (int) (screenSize.height * 0.06);
-    private Rewards rewards;
+    protected Rewards rewards;
     // Core Components
     private final JPanel textPanel;
     private StoryLine story;
@@ -60,6 +58,10 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         this.battleBars = new BattleBars();
         initializeUI();
         //sfxPlayer = SFXPlayer.getInstance();
+    }
+
+    public void setRewards(Rewards rewards){
+        this.rewards = rewards;
     }
 
     @Override
@@ -146,10 +148,6 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         }      
     }
 
-    public Rewards getRewards(){
-        return rewards;
-    }
-
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;
     }
@@ -164,8 +162,6 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
            enemy.getHp()
         );
         battleSample.battleEnded = false;
-        rewards = new Rewards(battleSample);
-        battleSample.setRewards(rewards);
         enemyWrapper.setVisible(true);
         setSkillButtonsEnabled(true);
         topTextBox.setText("Turn 1: Your Turn");
@@ -176,6 +172,7 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
             player.setPosX(screenSize.width * 0.35);
             player.getAnimator().setMovingRight(true);
         }
+        rewards.setBattle(battleSample);
     }
 
     private void initializeUI() {

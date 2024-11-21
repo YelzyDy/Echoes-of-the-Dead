@@ -48,6 +48,7 @@ public class RedPortal extends QuestableObjects{
                 Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
                     if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
         }
+        isClicked = true;
     }
 
 }
