@@ -510,7 +510,7 @@ public class StoryLine implements Freeable{
                 int o = 0;
                 
                 if (worldType == "world1") {
-                        boolean isQuestDone = objDone[0] && objDone[1];
+                        boolean isQuestDone = objDone[0];
                         if(!isQuestDone){
                                 this.arr[i++] = playerName + ": \"Can you point me the way out of the city? This place is way too vast to leave on foot.\"";
                                 this.arr[i++] = "Miggins: \"Oh, bless your heart! There's a purple portal nearby. That's your exit, but... well, it's got a bit of a problem.\"";

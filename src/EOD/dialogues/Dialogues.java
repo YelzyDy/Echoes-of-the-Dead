@@ -309,12 +309,11 @@ public class Dialogues implements Freeable, MouseInteractable {
             i++;
         } else {
             // Handle end of dialogue
-            if (ID == 17 || ID == 19 || ID == 21 || ID == 23) return;
     
             storyDialogue.dispose();
     
             if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
-                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17)) {
+                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 23)) {
                 npc.doneDialogues = true;
             }
         }
@@ -364,7 +363,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 }
             }
             if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
-            ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17)) {
+                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 23)) {
                 npc.doneDialogues = true;
             }  
         } else if(source == askButton) {
