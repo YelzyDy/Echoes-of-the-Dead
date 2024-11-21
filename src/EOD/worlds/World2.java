@@ -108,12 +108,12 @@ public class World2 extends World{
             scene.add(npc);
             scene.setComponentZOrder(npc, 0);
             npc.setWorld(this);
-            npc.setStatic(false);
 
             if (npc.getName().equals("Ruby")){
                 npc.setIndex(0);
             }else if (npc.getName().equals("Constance")) {
                 npc.setIndex(0);
+                npc.setStatic(false);
             }else if (npc.getName().equals("Faithful")) {
                 npc.setIndex(1);
             }else if (npc.getName().equals("Renegald")){

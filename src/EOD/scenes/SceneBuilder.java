@@ -364,8 +364,8 @@ public void createWorldScene() {
                 obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated());
                    
             }else if(obj.getName().equals("portalNextWorld")){
-                // obj.setVisible(obj.getIndex() == currentSceneIndex && enemyList.get(1).getIsDefeated());
-                obj.setVisible(currentSceneIndex != 0 && currentSceneIndex != 1); //comment this out para makita dayun nextworld portal
+                obj.setVisible(obj.getIndex() == currentSceneIndex && enemyList.get(1).getIsDefeated());
+                // obj.setVisible(currentSceneIndex != 0 && currentSceneIndex != 1); //comment this out para makita dayun nextworld portal
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);

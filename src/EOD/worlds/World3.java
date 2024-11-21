@@ -10,7 +10,6 @@ import EOD.characters.enemies.Killer;
 import EOD.characters.enemies.Skeleton3;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
-import EOD.objects.Rewards;
 import EOD.objects.portals.GreenPortal;
 import EOD.objects.portals.PurplePortal;
 import EOD.objects.portals.RedPortal;
