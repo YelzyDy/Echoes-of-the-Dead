@@ -40,6 +40,8 @@ public class Quests extends JPanel implements MouseInteractable{
     private boolean asrielDone = false;
     private boolean cheaDone = false;
     private boolean migginsDone = false;
+    private Npc constance;
+    private Npc miggins;
 
 
     public Quests() {
@@ -54,6 +56,8 @@ public class Quests extends JPanel implements MouseInteractable{
         this.scene = player.getPanel();
         this.scene.addMouseListener(new MouseClickListener(this));
         this.world = player.getWorld();
+        constance = npcList.get(1);
+        miggins = npcList.get(3);
     }
 
     public void initializeUI() {
@@ -445,14 +449,14 @@ public class Quests extends JPanel implements MouseInteractable{
     public boolean callWorld1QDynamically(){
         if(ifActive == 0){
             if(constanceDone){
-                npcList.get(1).activateQuest = true;
+                constance.activateQuest = true;
                 setQuestStatus(1);  // Increment quest status
                 return true;
             }
         }
 
         if(ifActive == 1){
-            if(npcList.get(1).doneQDialogues){
+            if(constance.doneQDialogues){
                 setQuestStatus(2);  // Increment quest status
                 for(Npc npc : npcList){
                     npc.setStatic(false);
@@ -471,16 +475,16 @@ public class Quests extends JPanel implements MouseInteractable{
             }
                 textListModel.setElementAt("Talk to the locals (" + (localCount) + "/3)", 0);
             if (yooDone && faithfulDone && nattyDone) {
-                npcList.get(1).dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
+                constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
                 setQuestStatus(3);  // Increment quest status
                 return true;
             }
         }
 
         if(ifActive == 3){
-            if(npcList.get(1).doneODialogues[0]){
+            if(constance.doneODialogues[0]){
                 objList.get(1).setIsActivated(true);
-                // npcList.get(1).dialogues.getQuestsDialogues().removeOptionButton(npcList.get(1).dialogues.getQuestsDialogues().getObjectiveIndex());
+                // constance.dialogues.getQuestsDialogues().removeOptionButton(constance.dialogues.getQuestsDialogues().getObjectiveIndex());
                 setQuestStatus(4);  // Increment quest status
                 return true;
             }
@@ -497,14 +501,15 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 5){
             Enemy enemy = enemyList.get(0);
             if(enemy.getIsDefeated()){
-                npcList.get(1).dialogues.getQuestsDialogues().updateObjectivesAtIndex(1, true);
+                constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(1, true);
                 setQuestStatus(6);
                 return true;
             }
         }
 
         if(ifActive == 6){
-            if(npcList.get(1).doneODialogues[1]){
+            if(constance.doneODialogues[1]){
+                constance.activateQuest = false;
                 setQuestStatus(7);  // Increment quest status
                 return true;
             }
@@ -520,14 +525,14 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 8){
             QuestableObjects obj = world.getShop();
             if(obj.doneInteraction){  
-                npcList.get(3).activateQuest = true;
+                miggins.activateQuest = true;
                 setQuestStatus(9);
                 return true;
             }
         }
 
         if(ifActive == 9){
-            if(npcList.get(3).doneQDialogues){
+            if(miggins.doneQDialogues){
                 objList.get(2).setIsActivated(true);
                 setQuestStatus(10);  // Increment quest status
                 return true;
@@ -545,7 +550,7 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 11){
             Enemy enemy = enemyList.get(1);
             if(enemy.getIsDefeated()){
-                npcList.get(3).dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
+                miggins.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
                 setQuestStatus(12);
                 scene.ally.setStatic(true);
                 return true;
@@ -553,9 +558,10 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 12){
-            if(npcList.get(3).doneODialogues[0]){
+            if(miggins.doneODialogues[0]){
                 objList.get(3).setIsActivated(true);
-                // npcList.get(1).dialogues.getQuestsDialogues().removeOptionButton(npcList.get(1).dialogues.getQuestsDialogues().getObjectiveIndex());
+                miggins.activateQuest = false;
+                // constance.dialogues.getQuestsDialogues().removeOptionButton(constance.dialogues.getQuestsDialogues().getObjectiveIndex());
                 setQuestStatus(13);  // Increment quest status
                 return true;
             }

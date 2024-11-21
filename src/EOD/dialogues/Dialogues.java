@@ -76,7 +76,7 @@ public class Dialogues implements Freeable, MouseInteractable {
 
         questsButton = new EchoesObjects("button", screenSize.width * 0.8, screenSize.height * 0.4, (int)btnWidth, (int)btnHeight, "questButton", false, true, 2);
         questsButton.addMouseListener(new MouseClickListener(this));
-        questsButton.setVisible(true);
+        questsButton.setVisible(false);
 
         // BUTTON PANEL
         buttonPanel = new JPanel(new BorderLayout());
@@ -154,6 +154,10 @@ public class Dialogues implements Freeable, MouseInteractable {
         this.worldType = world.getTitle();
         scene.addMouseListener(new MouseClickListener(this));
         story.setPlayerName(playerName);
+        if(npc.activateQuest) questsButton.setVisible(true);
+        else questsButton.setVisible(false);
+
+
         // LOAD NPC
         this.ID = ID;
         i = 0;
@@ -217,7 +221,6 @@ public class Dialogues implements Freeable, MouseInteractable {
             default: break;
         }
         buttonPanel.setVisible(true);
-
         if ((ID == 4 || ID == 1 || ID == 2 || ID == 3 || ID == 5) && npc.activateQuest)
             buttonPanel.add(questsButton, BorderLayout.CENTER);
 

@@ -58,27 +58,27 @@ public class QuestsDialogues extends JFrame{
             default:
             break;
         }
-
+    
         dialog.getContentPane().setBackground(Color.BLACK);
         dialog.add(textBox, BorderLayout.CENTER);
-
+    
         // SCROLL PANEL
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         gbc.gridx = 0;
-
+    
         optionButtons.clear();
         buttonPanel.removeAll();
-
+    
         // SCROLL WINDOW & PANE
         scrollPane = new JScrollPane(buttonPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getViewport().setBackground(Color.BLACK);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
+    
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
         verticalScrollBar.setUI(new BasicScrollBarUI() {
             @Override
@@ -86,14 +86,14 @@ public class QuestsDialogues extends JFrame{
                 this.thumbColor = Color.WHITE;
                 this.trackColor = Color.BLACK;
             }
-
+    
             @Override
             protected JButton createDecreaseButton(int orientation) {
                 JButton button = super.createDecreaseButton(orientation);
                 button.setBackground(Color.BLACK);
                 return button;
             }
-
+    
             @Override
             protected JButton createIncreaseButton(int orientation) {
                 JButton button = super.createIncreaseButton(orientation);
@@ -101,9 +101,10 @@ public class QuestsDialogues extends JFrame{
                 return button;
             }
         });
+        
         // SET SCROLL BUTTONS
         String[] options = story.getQArr();
-
+    
         for (int i = 0; i < options.length; i++) {
             if (options[i] != null) {
                 JButton optionButton = new JButton("<html><center>" + options[i] + "</center></html>");
@@ -114,12 +115,18 @@ public class QuestsDialogues extends JFrame{
                 optionButton.setFocusPainted(false);
                 optionButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
                 optionButtons.add(optionButton);
-
+    
                 int preferredHeight = optionButton.getPreferredSize().height * 3;
                 optionButton.setPreferredSize(new Dimension(0, preferredHeight));
                 optionButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, preferredHeight));
                 optionButton.setActionCommand(String.valueOf(i));
-
+    
+                // Check if this option is completed and disable if true
+                if (i > 0 && dialogues.npc.doneODialogues[i - 1]) {
+                    optionButton.setEnabled(false);
+                    optionButton.setForeground(Color.GRAY);
+                }
+    
                 optionButton.addActionListener(e -> {
                     int clickedIndex = Integer.parseInt(e.getActionCommand());
                     objectiveIndex = clickedIndex;
@@ -152,14 +159,14 @@ public class QuestsDialogues extends JFrame{
                         currentDialogue = story.getOArr();
                     }
                 });
-
+    
                 gbc.gridy = i;
                 gbc.weightx = 1.0;
                 gbc.fill = GridBagConstraints.BOTH;
                 buttonPanel.add(optionButton, gbc);
             }
         }
-
+    
         dialog.add(scrollPane, BorderLayout.CENTER);
         dialog.getContentPane().setBackground(Color.BLACK);
         dialog.setLocation(x, y);
@@ -180,43 +187,7 @@ public class QuestsDialogues extends JFrame{
         }
         return null;
     }
-
-    public void removeOptionButton(int index) {
-        if (index >= 0 && index < optionButtons.size()) {
-            // Remove the button from the panel
-            JButton buttonToRemove = optionButtons.get(index);
-            buttonPanel.remove(buttonToRemove);
-            
-            // Remove from our list of buttons
-            optionButtons.remove(index);
-            
-            // Rebuild the panel layout with remaining buttons
-            buttonPanel.removeAll();
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(5, 5, 5, 5);
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.weightx = 1;
-            gbc.gridx = 0;
-            
-            // Re-add remaining buttons with updated positions
-            for (int i = 0; i < optionButtons.size(); i++) {
-                gbc.gridy = i;
-                buttonPanel.add(optionButtons.get(i), gbc);
-            }
-            
-            // Update the visual state
-            buttonPanel.revalidate();
-            buttonPanel.repaint();
-            
-            // Signal that we need to update the dialog
-            if (dialog != null) {
-                dialog.revalidate();
-                dialog.repaint();
-            }
-        }
-    }
     
-
     public void handleSetText() {
         int size = story.getSize(getCurrentStringArray());
         JLabel textBox = dialogues.textBox;
