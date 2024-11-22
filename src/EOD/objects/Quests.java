@@ -424,6 +424,22 @@ public class Quests extends JPanel implements MouseInteractable{
     public void callPerformQuests(){
         int currentSceneIndex = world.getScene().getCurrentSceneIndex();
         Player player = world.getScene().getPlayer();
+        if(ifActive > 2){
+            // Find the quest text in the list model and update it, regardless of active status
+            for(int i = 0; i < textListModel.getSize(); i++) {
+                String currentText = textListModel.getElementAt(i);
+                if(currentText.contains("Talk to the locals")) {
+                    // Preserve the gray HTML formatting for completed quests while updating the count
+                    if(currentText.contains("<html>")) {
+                        textListModel.setElementAt("<html><font color='#808080'>Talk to the locals (3/3)</font></html>", i);
+                    } else {
+                        textListModel.setElementAt("Talk to the locals (3/3)", i);
+                    }
+                    break;
+                }
+            }
+            
+        }
 
         rewards.getMinionsChest().setVisible(!rewards.getMinionsChest().isClicked && currentSceneIndex != 0 && currentSceneIndex == rewards.getMinionsChest().getIndex());
         rewards.getMiniBossChest().setVisible(!rewards.getMiniBossChest().isClicked && currentSceneIndex != 0 && currentSceneIndex  == rewards.getMiniBossChest().getIndex());
