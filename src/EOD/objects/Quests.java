@@ -518,9 +518,9 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 2){
             Boolean[] arr = {nattyDone, yooDone, faithfulDone};
             int localCount = 0;
-            for(int i = 0; i < arr.length; i++){
-                if(arr[i]){
-                    localCount = i;
+            for(int i = 0; i < arr.length; i++) {
+                if(arr[i]) {
+                    localCount++; // Increment count instead of setting it to index
                 }
             }
                 textListModel.setElementAt("Talk to the locals (" + (localCount) + "/3)", 0);
@@ -652,13 +652,14 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 2){
-            Boolean[] arr = {renegaldDone, faithfulDone, rubyDone};
+            Boolean[] arr = {rubyDone, faithfulDone, renegaldDone};
             int localCount = 0;
-            for(int i = 0; i < arr.length; i++){
-                if(arr[i]){
-                    localCount = i;
+            for(int i = 0; i < arr.length; i++) {
+                if(arr[i]) {
+                    localCount++; // Increment count instead of setting it to index
                 }
             }
+
                 textListModel.setElementAt("Talk to the locals (" + (localCount) + "/3)", 0);
             if (renegaldDone && faithfulDone && rubyDone) {
                 constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);

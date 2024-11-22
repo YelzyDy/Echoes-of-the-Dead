@@ -623,7 +623,9 @@ public class Player extends Character implements MouseInteractable{
     public void playSfx(Player player, int skillNumber) {
         if (player.getCharacterType().equals("wizard")){
             switch(skillNumber){
-                case 1: return; 
+                case 1 ->{
+
+                }
             }
         }
     }

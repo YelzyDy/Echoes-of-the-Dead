@@ -67,6 +67,7 @@ public class BattleExperiment implements Skillable{
                 public void actionPerformed(ActionEvent e) {
                     if (player.getAnimator().isExecutingSkill()) {
                         // Apply damage only once during skill execution
+                        System.out.println("skill skill");
                         if (damageEnemy) {
                             enemy.takeDamage(damage);
                             
