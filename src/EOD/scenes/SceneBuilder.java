@@ -364,12 +364,9 @@ public void createWorldScene() {
         if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
         // if(world.getPlayerList().get(1).getAttributes().skillEffectsRandom != null)  world.getPlayerList().get(1).getAttributes().skillEffectsRandom.setVisible(world.getPlayerList().get(1).getSkill4CD() != 0);
         for (EchoesObjects obj : objList) {
-            if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss")){
+            if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated());
                    
-            }else if(obj.getName().equals("portalNextWorld")){
-                obj.setVisible(obj.getIndex() == currentSceneIndex && enemyList.get(1).getIsDefeated());
-                // obj.setVisible(currentSceneIndex != 0 && currentSceneIndex != 1); //comment this out para makita dayun nextworld portal
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);
