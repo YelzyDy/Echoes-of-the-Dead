@@ -494,7 +494,7 @@ public class Player extends Character implements MouseInteractable{
                 sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
                 damageReducer = true;
                 attributes.skill3Cd = 3;
-                attributes.mana -= 40;
+                attributes.mana -= 30;
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 actionString = "Defense activated! Damage reduced by 50% for 3 turns!";
                 shieldBuffRemaining = SHIELD_DURATION;
@@ -623,7 +623,9 @@ public class Player extends Character implements MouseInteractable{
     public void playSfx(Player player, int skillNumber) {
         if (player.getCharacterType().equals("wizard")){
             switch(skillNumber){
-                case 1: return; 
+                case 1 ->{
+
+                }
             }
         }
     }

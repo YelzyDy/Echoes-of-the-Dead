@@ -255,13 +255,17 @@ public void createWorldScene() {
     }
 
     private void updateBattleState(){
+        if(world == null) return;
         if(player.getAnimator().getIsInBattle()){
             Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
             if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
+                System.out.println("not going throug here sure");
                 world.getBattle().updateCooldowns();
             }
             world.closeQuests();
+        }else{
+            if(world.getBattle() != null) world.getBattle().setSkillButtonsEnabled(false);
         }
     }
     
