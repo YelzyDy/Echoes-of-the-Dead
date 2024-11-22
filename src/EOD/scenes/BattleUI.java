@@ -531,16 +531,27 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.BOLD, 40));
         button.addMouseListener(new MouseClickListener(this));
-
+        button.setEnabled(false);
         return button;
     }
 
 
     public void updateCooldowns() {
-        // Update each cooldown label
+        // First check if battle is active
+        if (battleSample == null) return;
+        
+        // Update cooldown displays
         updateSkillCooldown(1, battleSample.getPlayer().getSkill2CD());
         updateSkillCooldown(2, battleSample.getPlayer().getSkill3CD());
         updateSkillCooldown(3, battleSample.getPlayer().getSkill4CD());
+        
+        // Update enabled states based on cooldowns
+        boolean buttonsEnabled = skillA.isEnabled(); // Get current base state
+        if (buttonsEnabled) {
+            skillB.setEnabled(battleSample.getPlayer().getSkill2CD() == 0);
+            skillC.setEnabled(battleSample.getPlayer().getSkill3CD() == 0);
+            skillD.setEnabled(battleSample.getPlayer().getSkill4CD() == 0);
+        }
     }
 
     private void updateSkillCooldown(int skillIndex, int cooldown) {
@@ -559,10 +570,19 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
     }
 
     public void setSkillButtonsEnabled(boolean enabled) {
+        // Set the base enabled state for all buttons
         skillA.setEnabled(enabled);
-        skillB.setEnabled(enabled &&  battleSample.getPlayer().getSkill2CD() == 0);
-        skillC.setEnabled(enabled &&  battleSample.getPlayer().getSkill3CD() == 0);
-        skillD.setEnabled(enabled &&  battleSample.getPlayer().getSkill4CD() == 0);
+        
+        // Only enable other skills if their cooldowns are 0
+        if (enabled && battleSample != null) {
+            skillB.setEnabled(battleSample.getPlayer().getSkill2CD() == 0);
+            skillC.setEnabled(battleSample.getPlayer().getSkill3CD() == 0);
+            skillD.setEnabled(battleSample.getPlayer().getSkill4CD() == 0);
+        } else {
+            skillB.setEnabled(false);
+            skillC.setEnabled(false);
+            skillD.setEnabled(false);
+        }
     }
 
     private JButton getSkillButton(int index) {
@@ -589,14 +609,16 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        if(source == skillA){
-            battleSample.skill1();
-        }else if(source == skillB){
-            battleSample.skill2();
-        }else if(source == skillC){
-            battleSample.skill3();
-        }else if(source == skillD){
-            battleSample.skill4();
+        if (battleSample != null && !battleSample.isProcessingTurn()) {
+            if (source == skillA && skillA.isEnabled()) {
+                battleSample.skill1();
+            } else if (source == skillB && skillB.isEnabled()) {
+                battleSample.skill2();
+            } else if (source == skillC && skillC.isEnabled()) {
+                battleSample.skill3();
+            } else if (source == skillD && skillD.isEnabled()) {
+                battleSample.skill4();
+            }
         }
     }
 
