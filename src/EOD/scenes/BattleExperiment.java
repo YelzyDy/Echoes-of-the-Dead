@@ -49,6 +49,7 @@ public class BattleExperiment implements Skillable{
         rewards = battleUI.rewards;
     }
 
+    
     private void handleSkill(int skillNumber, boolean damageEnemy) {
         if (isProcessingTurn) return;
         
@@ -60,23 +61,38 @@ public class BattleExperiment implements Skillable{
             
             final int damage = player.getDamageDealt();
             
-            // Set callback for player's animation completion
-            player.getAnimator().setOnAnimationComplete(() -> {
-                // Apply damage after animation completes
-                if (damageEnemy) {
-                    enemy.takeDamage(damage);
-                    
-                    if ((player.isWizard() && skillNumber == 3) || 
-                        (player.isKnight() && skillNumber == 4)) {
-                        enemy.missedTurn = true;
+            // Create a Timer to check for skill execution
+            Timer skillCheckTimer = new Timer(16, new ActionListener() { // 60 FPS check
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (player.getAnimator().isExecutingSkill()) {
+                        // Apply damage only once during skill execution
+                        if (damageEnemy) {
+                            enemy.takeDamage(damage);
+                            
+                            // Check enemy death immediately after damage
+                            if (enemy.getHp() <= 0) {
+                                ((Timer)e.getSource()).stop();
+                                handleBattleEnd(true);
+                                return;
+                            }
+                            
+                            if ((player.isWizard() && skillNumber == 3) || 
+                                (player.isKnight() && skillNumber == 4)) {
+                                enemy.missedTurn = true;
+                            }
+                        }
+                        ((Timer)e.getSource()).stop();
                     }
                 }
-                
-                if (enemy.getHp() <= 0) {
-                    handleBattleEnd(true);
-                    return;
+            });
+            skillCheckTimer.start();
+            
+            // Set callback for player's animation completion - only proceed to enemy turn if enemy is still alive
+            player.getAnimator().setOnAnimationComplete(() -> {
+                if (!battleEnded) {  // Only start enemy turn if battle hasn't ended
+                    startEnemyTurn();
                 }
-                startEnemyTurn();
             });
             
             // Trigger animation and SFX
@@ -88,6 +104,77 @@ public class BattleExperiment implements Skillable{
             battleUI.updateTurnIndicator("Turn " + turnCount + " - Enemy Turn");
         }
         battleUI.showAction("Turn " + turnCount + ": " + player.getAction());
+    }
+
+    private void determineAndExecuteEnemyAction() {
+        int chosenSkill = enemy.decideSkill();
+        
+        switch (chosenSkill) {
+            case 1 -> enemy.skill1();
+            case 2 -> enemy.skill2();
+        }
+    
+        final int initialDamage = enemy.getDamageDealt();
+        final int damage = player.isDamageReducerActive() ? 
+            (int)(initialDamage * 0.5) : initialDamage;
+    
+        Timer skillCheckTimer = new Timer(16, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (enemy.getAnimator().isExecutingSkill()) {
+                    player.takeDamage(damage);
+                    
+                    if (player.isDamageReducerActive() && 
+                        damage > (player.getAttributes().getHp() * 0.2)) {
+                        player.getAttributes().addMoney(30);
+                        battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
+                    }
+                    player.resetDamageReducer();
+                    
+                    // Check for player death immediately after damage
+                    AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
+                    boolean areAllVisibleAlliesDead = checkAllVisibleAlliesDead(allyProfiles);
+                    if (areAllVisibleAlliesDead) {
+                        ((Timer)e.getSource()).stop();
+                        handleBattleEnd(false);
+                        return;
+                    }
+                    
+                    ((Timer)e.getSource()).stop();
+                }
+            }
+        });
+        skillCheckTimer.start();
+    
+        // Set callback for enemy's animation completion - only finish turn if battle hasn't ended
+        enemy.getAnimator().setOnAnimationComplete(() -> {
+            if (!battleEnded) {  // Only finish enemy turn if battle hasn't ended
+                finishEnemyTurn();
+            }
+        });
+    
+        enemy.getAnimator().triggerSkillAnimation(
+            enemy.getLastUsedSkill(), 
+            (int)enemy.getXFactor()
+        );
+        enemy.getAnimator().setMovingRight(false);
+        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
+    }
+
+    private boolean checkAllVisibleAlliesDead(AllyProfiles allyProfiles) {
+        boolean areAllVisibleAlliesDead = true;
+        
+        if (allyProfiles.isAllyVisible("knight") && !isKnightDead) {
+            areAllVisibleAlliesDead = false;
+        }
+        if (allyProfiles.isAllyVisible("wizard") && !isWizardDead) {
+            areAllVisibleAlliesDead = false;
+        }
+        if (allyProfiles.isAllyVisible("priest") && !isPriestDead) {
+            areAllVisibleAlliesDead = false;
+        }
+        
+        return areAllVisibleAlliesDead;
     }
 
 
@@ -105,41 +192,6 @@ public class BattleExperiment implements Skillable{
             battleUI.showAction("Turn " + turnCount + ": Enemy's turn was skipped!");
             finishEnemyTurn();
         }
-    }
-
-    private void determineAndExecuteEnemyAction() {
-        int chosenSkill = enemy.decideSkill();
-        
-        switch (chosenSkill) {
-            case 1 -> enemy.skill1();
-            case 2 -> enemy.skill2();
-        }
-
-        final int initialDamage = enemy.getDamageDealt();
-        final int damage = player.isDamageReducerActive() ? 
-            (int)(initialDamage * 0.5) : initialDamage;
-
-        // Set callback for enemy's animation completion
-        enemy.getAnimator().setOnAnimationComplete(() -> {
-            // Apply damage after animation completes
-            player.takeDamage(damage);
-            
-            if (player.isDamageReducerActive() && 
-                damage > (player.getAttributes().getHp() * 0.2)) {
-                player.getAttributes().addMoney(30);
-                battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
-            }
-            player.resetDamageReducer();
-            
-            finishEnemyTurn();
-        });
-
-        enemy.getAnimator().triggerSkillAnimation(
-            enemy.getLastUsedSkill(), 
-            (int)enemy.getXFactor()
-        );
-        enemy.getAnimator().setMovingRight(false);
-        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
     }
 
     private void setAvailableAlliesEnabled(boolean enabled){

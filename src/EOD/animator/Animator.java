@@ -95,6 +95,10 @@ public abstract class Animator implements Freeable{
         deathAnimationTimer = null;
     }
 
+    public boolean isExecutingSkill() {
+        return isUsingSkill && reachedTarget && !skillCompleted;
+    }
+
     public void setOnAnimationComplete(Runnable callback) {
         this.onAnimationComplete = callback;
     }

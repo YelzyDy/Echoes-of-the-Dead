@@ -154,7 +154,6 @@ public class Dialogues implements Freeable, MouseInteractable {
         this.worldType = world.getTitle();
         scene.addMouseListener(new MouseClickListener(this));
         story.setPlayerName(playerName);
-        System.out.println("Npc name: " + npc.getName() + " activate? " + npc.activateQuest);
         if(npc != null && npc.activateQuest) questsButton.setVisible(true);
         else questsButton.setVisible(false);
 
