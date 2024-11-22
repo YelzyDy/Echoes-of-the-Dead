@@ -233,7 +233,8 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
             if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
-                JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+            JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
                 scene.gameLoopTimer.stop();
