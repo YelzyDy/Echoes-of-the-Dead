@@ -44,7 +44,7 @@ public class StoryLine implements Freeable{
                     }
                     c++;
                 }
-                return clickedIndex != 1) ? c + 1 : 0;
+                return (clickedIndex != 1) ? c + 1 : 0;
         }
 
         public void setPlayerName(String playerName){
@@ -1408,27 +1408,27 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
                 
                 if(playerType.equals(("knight").toString())){
-                        this.arr[i++] = "Objection Surge: Sacrifice 15 Soul shards to buff attack by 15 for 2 turns";
+                        this.arr[i++] = "Objection Surge (Cost: 10 Mana): Sacrifice 15 Soul shards to buff attack by 15 for 2 turns";
                 }else if(playerType.equals(("wizard").toString())){
-                        this.arr[i++] = "Overclock: Sacrifice 15 Mana to buff attack by 15 for 2 turns";
+                        this.arr[i++] = "Overclock (Cost: 20 Mana): Sacrifice 15 Mana to buff attack by 15 for 2 turns";
                 }else{
-                        this.arr[i++] = "Vital Rush: Sacrifice 15 HP to buff attack by 15 for 2 turns";
+                        this.arr[i++] = "Vital Rush(Cost: 25 HP): Sacrifice 15 HP to buff attack by 15 for 2 turns";
                 }
                 
                 if(playerType.equals(("knight").toString())){
-                        this.arr[i++] = "Ethereal Shield of Logic: Defends against the next damage taken by 40%. If damage taken is greater than 20% of soul energy left, gain 30 Soul Shards this round.";
+                        this.arr[i++] = "Ethereal Shield of Logic(Cost: 30 Mana): Defends against the next damage taken by 40%. If damage taken is greater than 20% of soul energy left, gain 30 Soul Shards this round.";
                 }else if(playerType.equals(("wizard").toString())){
-                        this.arr[i++] = "Quantum Shift: Has a 45% chance of evading the next attack. If successful, deal 35 damage and gain 90 mana.";
+                        this.arr[i++] = "Quantum Shift(Cost: 30 Mana): Has a 45% chance of evading the next attack. If successful, deal 35 damage and gain 90 mana.";
                 }else{
-                        this.arr[i++] = "Vital Strike: Deals 40% of the MC's Base HP as damage to the target.";
+                        this.arr[i++] = "Vital Strike(Cost: 40 Mana): Deals 40% of the MC's Base HP as damage to the target.";
                 }
 
                 if(playerType.equals(("knight").toString())){
-                        this.arr[i++] = "Truthbinding: Deal 200% Attack + 15% Soul Shards damage and the enemy can't attack this turn.";
+                        this.arr[i++] = "Truthbinding(Cost: 50 Mana): Deal 200% Attack + 15% Soul Shards damage and the enemy can't attack this turn.";
                 }else if(playerType.equals(("wizard").toString())){
-                        this.arr[i++] = "Azure Inferno: Incenerates enemy in blue flames, dealing 30 + 30% Base Mana";
+                        this.arr[i++] = "Azure Inferno(Cost: 50 Mana): Incenerates enemy in blue flames, dealing 30 + 30% Base Mana";
                 }else{
-                        this.arr[i++] = "Vengeful Vitality: Deals 60% of missing HP to opponent and heals 40% of base HP to the party";
+                        this.arr[i++] = "Vengeful Vitality(Cost: 50 Mana): Deals 60% of missing HP to opponent and heals 40% of base HP to the party";
                 }
                 
                 this.size = i;
