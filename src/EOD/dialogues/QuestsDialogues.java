@@ -107,6 +107,7 @@ public class QuestsDialogues extends JFrame{
     
         for (int i = 0; i < options.length; i++) {
             if (options[i] != null) {
+                if(!dialogues.npc.doneQDialogues && i != 0) break;
                 JButton optionButton = new JButton("<html><center>" + options[i] + "</center></html>");
                 optionButton.setFont(new Font("Monospaced", Font.PLAIN, 28));
                 optionButton.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -297,8 +297,6 @@ public class StoryLine implements Freeable{
                                 for(int l = 1; l < objectivesSize; l++){
                                         this.arr[i++] = this.oArr[l];
                                 }
-                        }else if(isQuestDone){
-                                this.arr[i++] = "handle done conversation if all quests are completeed";
                         }
                 }else if(worldType.equals("world2")){
                         if(!isQuestDone){
