@@ -143,17 +143,7 @@ public class QuestsDialogues extends JFrame{
                             this.i++;
                         }
                     }else{
-                        int c = 0;
-                        for(int j = 0, count = 1; j < story.getSize("oarr"); j++){
-                            if(story.getOArr()[j].equals("-")){
-                                count++;
-                            }
-                            if(clickedIndex == count){
-                                break;
-                            }
-                            c++;
-                        }
-                        int targetIndex = (clickedIndex != 1) ? c + 1 : 0;
+                        int targetIndex = story.getTargetIndex(clickedIndex);
                         dialogues.typewriterEffect(story.getLine(targetIndex, story.getOArr()));
                         this.i = targetIndex + 1;
                         currentDialogue = story.getOArr();
