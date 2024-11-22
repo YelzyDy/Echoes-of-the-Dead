@@ -15,12 +15,10 @@ public class StoryLine implements Freeable{
         private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         private boolean[] objDone = new boolean[4];
         private String playerName;
-        private int targetIndex;
         public void free(){
                 size = 0;
                 arr = null;
                 questSize = 0;
-                targetIndex = 0;
         }
         
         public int getTargetIndex(int clickedIndex){
@@ -34,8 +32,7 @@ public class StoryLine implements Freeable{
                     }
                     c++;
                 }
-                targetIndex = (clickedIndex != 1) ? c + 1 : 0;
-                return targetIndex;
+                return clickedIndex != 1) ? c + 1 : 0;
         }
 
         public void setPlayerName(String playerName){
@@ -280,8 +277,12 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
                                 this.arr[i++] = playerName + ": \"And then what?\"";
                                 this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
-                        }else if(objDone[0] || objDone[1]){
-                                for(int l = targetIndex; l < objectivesSize; l++){
+                        }else if(objDone[0]){
+                                for(int l = 0; l < objectivesSize; l++){
+                                        this.arr[i++] = this.oArr[l];
+                                }
+                        }else if(objDone[1]){
+                                for(int l = 1; l < objectivesSize; l++){
                                         this.arr[i++] = this.oArr[l];
                                 }
                         }
@@ -623,7 +624,7 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = playerName + ": \"Fine.\"";
                                 this.arr[i++] = "Miggins: \"Good on you! Just be careful, alright? That Necromancer didn't get power by being nice. Come back here when it's done.\"";
                         }else{
-                                for(int l = targetIndex; l < objectivesSize; l++){
+                                for(int l = 0; l < objectivesSize; l++){
                                         this.arr[i++] = this.oArr[l];
                                 }
                         }
