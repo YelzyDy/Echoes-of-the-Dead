@@ -18,8 +18,20 @@ public class StoryLine implements Freeable{
         public void free(){
                 size = 0;
                 arr = null;
+                qArr = null;
                 questSize = 0;
         }
+
+        public int getDoneObjectiveIndex() {
+                int lastIndex = -1;
+                for (int i = 0; i < 4; i++) {
+                    if (objDone[i]) {
+                        lastIndex = i; 
+                    }
+                }
+                return lastIndex;
+            }
+            
         
         public int getTargetIndex(int clickedIndex){
                 int c = 0;
@@ -268,7 +280,7 @@ public class StoryLine implements Freeable{
                                 this.oArr[o++] = "blablabla objective done";
                                 // don't need to put dash if we are at the end of the array
                         }
-                        if(!isQuestDone){
+                        if(!objDone[0] && !objDone[1]){
                                 this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
                                 this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
                                 this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";

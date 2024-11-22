@@ -204,6 +204,7 @@ public class QuestsDialogues extends JFrame{
             isQuestDialoguesActive = false;
             if(currentDialogue == story.getArr()){
                 dialogues.npc.doneQDialogues = true;
+                if (story.getDoneObjectiveIndex() != -1)dialogues.npc.doneODialogues[story.getDoneObjectiveIndex()] = true;
             }else if(currentDialogue == story.getOArr() && story.getObjDoneArray()[objectiveIndex - 1]){
                 dialogues.npc.doneODialogues[objectiveIndex - 1] = true;
             }

@@ -359,6 +359,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 questsDialogues.isQuestDialoguesActive = false;
                 if(questsDialogues.currentDialogue == questsDialogues.story.getArr()){
                     npc.doneQDialogues = true;
+                    if (questsDialogues.story.getDoneObjectiveIndex() != -1)npc.doneODialogues[questsDialogues.story.getDoneObjectiveIndex()] = true;
                 }else if(questsDialogues.currentDialogue == questsDialogues.story.getOArr() && questsDialogues.story.getObjDoneArray()[questsDialogues.getObjectiveIndex() - 1]){
                     npc.doneODialogues[questsDialogues.getObjectiveIndex() - 1] = true;
                 }
