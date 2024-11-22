@@ -143,17 +143,7 @@ public class QuestsDialogues extends JFrame{
                             this.i++;
                         }
                     }else{
-                        int c = 0;
-                        for(int j = 0, count = 1; j < story.getSize("oarr"); j++){
-                            if(story.getOArr()[j].equals("-")){
-                                count++;
-                            }
-                            if(clickedIndex == count){
-                                break;
-                            }
-                            c++;
-                        }
-                        int targetIndex = (clickedIndex != 1) ? c + 1 : 0;
+                        int targetIndex = story.getTargetIndex(clickedIndex);
                         dialogues.typewriterEffect(story.getLine(targetIndex, story.getOArr()));
                         this.i = targetIndex + 1;
                         currentDialogue = story.getOArr();
@@ -214,6 +204,7 @@ public class QuestsDialogues extends JFrame{
             isQuestDialoguesActive = false;
             if(currentDialogue == story.getArr()){
                 dialogues.npc.doneQDialogues = true;
+                if (story.getDoneObjectiveIndex() != -1)dialogues.npc.doneODialogues[story.getDoneObjectiveIndex()] = true;
             }else if(currentDialogue == story.getOArr() && story.getObjDoneArray()[objectiveIndex - 1]){
                 dialogues.npc.doneODialogues[objectiveIndex - 1] = true;
             }

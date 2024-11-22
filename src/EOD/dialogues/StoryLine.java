@@ -18,7 +18,33 @@ public class StoryLine implements Freeable{
         public void free(){
                 size = 0;
                 arr = null;
+                qArr = null;
                 questSize = 0;
+        }
+
+        public int getDoneObjectiveIndex() {
+                int lastIndex = -1;
+                for (int i = 0; i < 4; i++) {
+                    if (objDone[i]) {
+                        lastIndex = i; 
+                    }
+                }
+                return lastIndex;
+            }
+            
+        
+        public int getTargetIndex(int clickedIndex){
+                int c = 0;
+                for(int j = 0, count = 1; j < objectivesSize; j++){
+                    if(getOArr()[j].equals("-")){
+                        count++;
+                    }
+                    if(clickedIndex == count){
+                        break;
+                    }
+                    c++;
+                }
+                return (clickedIndex != 1) ? c + 1 : 0;
         }
 
         public void setPlayerName(String playerName){
@@ -216,19 +242,6 @@ public class StoryLine implements Freeable{
                 boolean isQuestDone = objDone[0] && objDone[1];
 
                 if(worldType.equals("world1")){
-                        if(!isQuestDone){
-                                this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
-                                this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
-                                this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
-                                this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
-                                this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
-                                this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
-                                this.arr[i++] = playerName + ": \"And then what?\"";
-                                this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
-                        }else{
-                                //handle dialogue if all objectives is complete here
-                                this.arr[i++] = "blablabla";
-                        }
                                 // Quest Title
                         if(!isQuestDone){
                                 this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
@@ -266,6 +279,26 @@ public class StoryLine implements Freeable{
                                 // handle dialogue if individual objective is done
                                 this.oArr[o++] = "blablabla objective done";
                                 // don't need to put dash if we are at the end of the array
+                        }
+                        if(!objDone[0] && !objDone[1]){
+                                this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
+                                this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
+                                this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
+                                this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
+                                this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
+                                this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
+                                this.arr[i++] = playerName + ": \"And then what?\"";
+                                this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
+                        }else if(objDone[0]){
+                                for(int l = 0; l < objectivesSize; l++){
+                                        this.arr[i++] = this.oArr[l];
+                                }
+                        }else if(objDone[1]){
+                                for(int l = 1; l < objectivesSize; l++){
+                                        this.arr[i++] = this.oArr[l];
+                                }
+                        }else if(isQuestDone){
+                                this.arr[i++] = "handle done conversation if all quests are completeed";
                         }
                 }else if(worldType.equals("world2")){
                         if(!isQuestDone){
@@ -567,21 +600,6 @@ public class StoryLine implements Freeable{
                 if (worldType == "world1") {
                         boolean isQuestDone = objDone[0];
                         if(!isQuestDone){
-                                this.arr[i++] = playerName + ": \"Can you point me the way out of the city? This place is way too vast to leave on foot.\"";
-                                this.arr[i++] = "Miggins: \"Oh, bless your heart! There's a purple portal nearby. That's your exit, but... well, it's got a bit of a problem.\"";
-                                this.arr[i++] = playerName + ": \"A problem?\"";
-                                this.arr[i++] = "Miggins: \"A necromancer got the portal locked down, it's ridiculous. It's terrible for my business. No one trades with a skeleton army lurking about.\"";
-                                this.arr[i++] = playerName + ": \"Maybe I can deal with this Necromancer.\"";
-                                this.arr[i++] = "Miggins: \"Oh, you would? You're a lifesaver! Here's the deal: take care of that menace, and I'll give you a reward in exchange. You'll need it!\"";
-                                this.arr[i++] = playerName + ": \"Why trust me?\"";
-                                this.arr[i++] = "Miggins: \"Well, it's not like I've got a line of heroes waiting to volunteer, love. You've got that spark of determination.\"";
-                                this.arr[i++] = playerName + ": \"Fine.\"";
-                                this.arr[i++] = "Miggins: \"Good on you! Just be careful, alright? That Necromancer didn't get power by being nice. Come back here when it's done.\"";
-                        }else{
-                                //handle dialogue if all objectives is complete here
-                                this.arr[i++] = "blablabla bla blab bla";
-                        }
-                        if(!isQuestDone){
                                  // Quest Title
                                 this.qArr[q++] = "Quest: Escape the City.";
                         }else{
@@ -608,21 +626,40 @@ public class StoryLine implements Freeable{
                                 this.oArr[o++] = playerName + ": blablabla";
                                 this.oArr[o++] = "-";
                         }
+                        if(!isQuestDone){
+                                this.arr[i++] = playerName + ": \"Can you point me the way out of the city? This place is way too vast to leave on foot.\"";
+                                this.arr[i++] = "Miggins: \"Oh, bless your heart! There's a purple portal nearby. That's your exit, but... well, it's got a bit of a problem.\"";
+                                this.arr[i++] = playerName + ": \"A problem?\"";
+                                this.arr[i++] = "Miggins: \"A necromancer got the portal locked down, it's ridiculous. It's terrible for my business. No one trades with a skeleton army lurking about.\"";
+                                this.arr[i++] = playerName + ": \"Maybe I can deal with this Necromancer.\"";
+                                this.arr[i++] = "Miggins: \"Oh, you would? You're a lifesaver! Here's the deal: take care of that menace, and I'll give you a reward in exchange. You'll need it!\"";
+                                this.arr[i++] = playerName + ": \"Why trust me?\"";
+                                this.arr[i++] = "Miggins: \"Well, it's not like I've got a line of heroes waiting to volunteer, love. You've got that spark of determination.\"";
+                                this.arr[i++] = playerName + ": \"Fine.\"";
+                                this.arr[i++] = "Miggins: \"Good on you! Just be careful, alright? That Necromancer didn't get power by being nice. Come back here when it's done.\"";
+                        }else if(objDone[0]){
+                                for(int l = 0; l < objectivesSize; l++){
+                                        this.arr[i++] = this.oArr[l];
+                                }
+                        }
                 }
             
                 if (worldType == "world2") {
-                        this.arr[i++] = playerName + ": \"What's the best way to get past the outskirts?\"";
-                        this.arr[i++] = "Miggins: \"Oh, dearie, it's a mess out there. Foggy, spooky, you name it. But I know you'll manage if you're determined.\"";
-                        this.arr[i++] = playerName + ": \"What do you suggest I do?\"";
-                        this.arr[i++] = "Miggins: \"Find your way through. Keep your wits about you, and don't let the eerie stuff get to you. If you do manage it, I'll give you something special.\"";
-                        this.arr[i++] = playerName + ": \"\"";
-                        this.arr[i++] = "Miggins: \"Oh, I've got a good feeling about you, love. Besides, you've already made it this far.\"";
-                        this.arr[i++] = playerName + ": \"Alright.\"";
-                        this.arr[i++] = "Miggins: \"Good on you! Be careful out there. The outskirts aren't for the faint of heart. I'll be waiting right here when you're done.\"";
-            
+                        boolean isQuestDone = objDone[0];
+                        if(!isQuestDone){
+                                this.arr[i++] = playerName + ": \"What's the best way to get past the outskirts?\"";
+                                this.arr[i++] = "Miggins: \"Oh, dearie, it's a mess out there. Foggy, spooky, you name it. But I know you'll manage if you're determined.\"";
+                                this.arr[i++] = playerName + ": \"What do you suggest I do?\"";
+                                this.arr[i++] = "Miggins: \"Find your way through. Keep your wits about you, and don't let the eerie stuff get to you. If you do manage it, I'll give you something special.\"";
+                                this.arr[i++] = playerName + ": \"\"";
+                                this.arr[i++] = "Miggins: \"Oh, I've got a good feeling about you, love. Besides, you've already made it this far.\"";
+                                this.arr[i++] = playerName + ": \"Alright.\"";
+                                this.arr[i++] = "Miggins: \"Good on you! Be careful out there. The outskirts aren't for the faint of heart. I'll be waiting right here when you're done.\"";
+                        }
                         // Quest Titles
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "Defeat the Outskirt Spirit." + "</font>";
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "Investigate the Crimson Portal." + "</font>";
+
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "The Outskirt Spirit." + "</font>";
+                        this.qArr[q++] = "<font color='#FFFF00'>" + "Defeat the Executioner." + "</font>";
                         this.qArr[q++] = "<font color='#FFFF00'>" + "Return to Miggins." + "</font>";
             
                         // Quest Objectives
@@ -659,6 +696,7 @@ public class StoryLine implements Freeable{
                 this.size = i;
                 this.questSize = q;
                 this.objectivesSize = o;
+                
         }            
 
         public void migginsLines(String playerType, String worldType) {
