@@ -37,7 +37,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private EchoesObjects bag;
     private JLayeredPane layeredPane;
     protected BGMPlayer bgmPlayer;
-    protected  SFXPlayer sfxPlayer;
+    protected  SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     protected Shop shop;
     protected JProgressBar progressBar;
     public Quests quests;
@@ -527,6 +527,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
         if (source == btn_ok && btn_okCount == 0) {
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             progressBar.setVisible(true);
             progressBar.setValue(0);
             // Start the initialization in a background thread
@@ -536,10 +537,12 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         }
 
         if(source == btn_settings){
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             SettingsWindow settingsWindow = SettingsWindow.getInstance(bgmPlayer, sfxPlayer);
             settingsWindow.setVisible(true); // Display the window
 
         }else if(source == bag){
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
             if (player.getInventory().isVisible()) {
                 player.getInventory().setVisible(false);
                 battle.toggleInventoryOff();
