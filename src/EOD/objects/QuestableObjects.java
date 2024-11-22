@@ -1,11 +1,10 @@
 package EOD.objects;
 
-import java.awt.event.MouseEvent;
-import java.awt.Component;
-
 import EOD.characters.Player;
 import EOD.gameInterfaces.Questable;
 import EOD.scenes.SceneBuilder;
+import java.awt.Component;
+import java.awt.event.MouseEvent;
 public abstract class QuestableObjects extends EchoesObjects implements Questable{
     public double targetX;
     protected boolean isClicked;
