@@ -64,8 +64,11 @@ public class Quests extends JPanel implements MouseInteractable{
         if(world.getTitle().equals("world1")){
             constance = npcList.get(1);
             miggins = npcList.get(3);
-        }else{
+        }else if(world.getTitle().equals("world2")){
             constance = npcList.get(0);
+            miggins = npcList.get(4);
+        }else if(world.getTitle().equals("world3")){
+            constance = npcList.get(6);
             miggins = npcList.get(4);
         }
     }
@@ -223,7 +226,7 @@ public class Quests extends JPanel implements MouseInteractable{
             case 5: return "Defeat the shield-wielding skeleton.";
             case 4: return "Enter the green portal.";
             case 3: return "Tell Constance you're done talking to the locals.";
-            case 2: return "Talk to the Locals (0/4).";
+            case 2: return "Talk to the locals (0/4).";
             case 1: return "Accept a quest from Constance.";
             case 0: return "Talk to Constance.";
             default: return "Welcome!";
@@ -242,7 +245,7 @@ public class Quests extends JPanel implements MouseInteractable{
             case 5: return "Defeat the shield-wielding skeleton.";
             case 4: return "Enter the green portal.";
             case 3: return "Tell Constance you're done talking to the locals.";
-            case 2: return "Talk to the Locals (0/3).";
+            case 2: return "Talk to the locals (0/3).";
             case 1: return "Accept a quest from Constance.";
             case 0: return "Talk to Constance.";
             default: return "Welcome!";
@@ -406,19 +409,31 @@ public class Quests extends JPanel implements MouseInteractable{
 
     private void handleWorld3Q(){
         if(ifActive == 0){
-            clickLocals();
+            clickConstance();
         }else if(ifActive == 1){
-            clickGreenPortal();
+            clickConstance();
         }else if(ifActive == 2){
-            // q3World1();
+            clickLocals();
         }else if(ifActive == 3){
-            clickMiggins();
+            clickConstance();
         }else if(ifActive == 4){
-            // q6World1();
+            clickGreenPortal();
         }else if(ifActive == 5){
-            // q7World1();
+           clickMinion();
         }else if(ifActive == 6){
-            // q8World1();
+            clickConstance();
+        }else if(ifActive == 7){
+            clickMiggins();
+        }else if(ifActive == 8){
+            clickMiggins();
+        }else if(ifActive == 9){
+            clickRedPortal();
+        }else if(ifActive == 10){
+            clickMiniBoss();
+        }else if(ifActive == 11){
+            clickMiggins();
+        }else if(ifActive == 12){
+            clickPurplePortal();
         }
     }
 
@@ -432,10 +447,18 @@ public class Quests extends JPanel implements MouseInteractable{
                 String currentText = textListModel.getElementAt(i);
                 if(currentText.contains("Talk to the locals")) {
                     // Preserve the gray HTML formatting for completed quests while updating the count
+                    String str = null;
+                    if(world.getTitle().equals("world1")){
+                        str = "(3/3)";
+                    }else if(world.getTitle().equals("world2")){
+                        str = "(4/4)";
+                    }else{
+                        str = "(3/3)";
+                    }
                     if(currentText.contains("<html>")) {
-                        textListModel.setElementAt("<html><font color='#808080'>Talk to the locals (3/3)</font></html>", i);
+                        textListModel.setElementAt("<html><font color='#808080'>Talk to the locals " + str + "</font></html>", i);
                     } else {
-                        textListModel.setElementAt("Talk to the locals (3/3)", i);
+                        textListModel.setElementAt("Talk to the locals " + str, i);
                     }
                     break;
                 }
@@ -511,7 +534,11 @@ public class Quests extends JPanel implements MouseInteractable{
                     addQuests();
                 }
             }
-            case "world3" -> callWorld3QDynamically();
+            case "world3" -> {
+                if(callWorld3QDynamically()){
+                    addQuests();
+                }
+            }
         }
     }
 
@@ -780,57 +807,133 @@ public class Quests extends JPanel implements MouseInteractable{
         return false;
     }   
 
-    public void callWorld3QDynamically(){
+    public boolean callWorld3QDynamically(){
         if(ifActive == 0){
-            if (cheaDone && akefayDone && asrielDone) {
-                objList.get(1).setIsActivated(true);
+            if(constanceDone){
+                constance.activateQuest = true;
                 setQuestStatus(1);  // Increment quest status
-                addQuests();
+                return true;
             }
         }
+
         if(ifActive == 1){
+            if(constance.doneQDialogues){
+                setQuestStatus(2);  // Increment quest status
+                for(Npc npc : npcList){
+                    npc.setStatic(false);
+                }
+                return true;
+            }
+        }
+
+        if(ifActive == 2){
+            Boolean[] arr = {cheaDone, akefayDone, asrielDone};
+            int localCount = 0;
+            for(int i = 0; i < arr.length; i++) {
+                if(arr[i]) {
+                    localCount++; // Increment count instead of setting it to index
+                }
+            }
+
+                textListModel.setElementAt("Talk to the locals (" + (localCount) + "/3)", 0);
+            if (cheaDone && akefayDone && asrielDone) {
+                constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
+                setQuestStatus(3);  // Increment quest status
+                return true;
+            }
+        }
+
+        if(ifActive == 3){
+            if(constance.doneODialogues[0]){
+                objList.get(1).setIsActivated(true);
+                // constance.dialogues.getQuestsDialogues().removeOptionButton(constance.dialogues.getQuestsDialogues().getObjectiveIndex());
+                setQuestStatus(4);  // Increment quest status
+                return true;
+            }
+        }
+
+        if(ifActive == 4){
             QuestableObjects obj = objList.get(1);
             if(obj.doneInteraction){ 
-                setQuestStatus(2);
-                addQuests();
+                setQuestStatus(5);
+                return true;
             }
         }
-        if(ifActive == 2){
+
+        if(ifActive == 5){
             Enemy enemy = enemyList.get(0);
             if(enemy.getIsDefeated()){
-                setQuestStatus(3);
-                addQuests();
+                setQuestStatus(6);
+                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 100, enemy.getX() * 1.2, screenSize.height * 0.23);
+                rewards.getMinionsChest().setIndex(enemy.getIndex());
+                constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(1, true);
+                return true;
             }
         }
-        if(ifActive == 3){
-            if(npcList.get(4).doneDialogues){
-                setQuestStatus(4);
-                addQuests();
+
+        if(ifActive == 6){
+            if(constance.doneODialogues[1]){
+                constance.activateQuest = false;
+                setQuestStatus(7);  // Increment quest status
+                return true;
+            }
+        }
+
+        if(ifActive == 7){
+            if(migginsDone){
+                miggins.activateQuest = true;
+                setQuestStatus(8);
+                return true;
+            }
+        }
+
+        if(ifActive == 8){
+            if(miggins.doneQDialogues){
                 objList.get(2).setIsActivated(true);
+                setQuestStatus(9);  // Increment quest status
+                return true;
             }
         }
-        if(ifActive == 4){
+
+        if(ifActive == 9){
             QuestableObjects obj = objList.get(2);
             if(obj.doneInteraction){
-                setQuestStatus(5);
-                addQuests();
+                setQuestStatus(10);
+                return true;
             }
         }
-        if(ifActive == 5){
+
+        if(ifActive == 10){
             Enemy enemy = enemyList.get(1);
             if(enemy.getIsDefeated()){
-                setQuestStatus(6);
-                addQuests();
+                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 200, enemy.getX() * 1.2, screenSize.height * 0.23);
+                rewards.getMiniBossChest().setIndex(enemy.getIndex());
+                miggins.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
+                setQuestStatus(11);
                 scene.ally.setStatic(true);
+                return true;
             }
         }
-        if(ifActive == 6){
+
+        if(ifActive == 11){
+            if(miggins.doneODialogues[0]){
+                objList.get(3).setIsActivated(true);
+                miggins.activateQuest = false;
+                setQuestStatus(12);  // Increment quest status
+                rewards.getQuestsRewards(100, miggins.getX() * 0.8, screenSize.height * 0.23);
+                rewards.getQuestChest().setIndex(miggins.getIndex());
+                return true;
+            }
+        }
+
+        if(ifActive == 12){
             QuestableObjects obj = objList.get(3);
             if(obj.doneInteraction){  
-                setQuestStatus(7);
-                addQuests();
+                setQuestStatus(13);
+                return true;
             }
         }
+        return false;
     }   
     
     @Override

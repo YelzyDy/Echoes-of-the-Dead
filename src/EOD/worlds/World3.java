@@ -116,9 +116,11 @@ public class World3 extends World{
             scene.add(npc);
             scene.setComponentZOrder(npc, 0);
             npc.setWorld(this);
-            npc.setStatic(false);
             
-            if (npc.getName().equals("Yoo")) {
+            if (npc.getName().equals("Constance")){
+                npc.setIndex(0);
+                npc.setStatic(false);
+            }else if (npc.getName().equals("Yoo")) {
                 npc.setIndex(2);
             }else if (npc.getName().equals("Akefay")) {
                 npc.setIndex(1);
@@ -132,8 +134,6 @@ public class World3 extends World{
                 npc.setIndex(0);
             } else if (npc.getName().equals("Reaper")){
                 npc.setIndex(4);
-            } else if (npc.getName().equals("Constance")){
-                npc.setIndex(0);
             }
         }
     }

@@ -169,250 +169,193 @@ public class StoryLine implements Freeable{
 
         public void missConstanceIntro(String playerType, String worldType) {
                 int i = 0;
-
-                if (worldType == "world1") {
-                        this.arr[i++] = "[You enter a misty area of the underworld and spot an ordinary woman sitting on a rock, talking to herself. She looks up and her eyes brighten.]";
-                        this.arr[i++] = "Miss Constance: \"Oh! A new face! You must be curious about who's who down here, right? Well, I know everything! Like, have you heard about Faithful? Total creep! He stalked everyone who came down here! I'm Miss Constance, by the way; you can call me Miss C!\"";
-                        this.arr[i++] = playerName + ": \"Actually, I—\"";           
-                        this.arr[i++] = "Miss C (interrupting): \"And Yoo? Such a drama queen! He's been here for sometime now, I didn't keep track. Acts all mysterious, but it's just a show. And don't get me started on Miggins—he tried to sneak an advertisement into The Grand Mausoleum! Can you believe the nerve?\"";           
-                        this.arr[i++] = playerName + " (awkwardly): \"Yeah, well, it was nice to meet you, I might check out the rest of the city before going to-\"";            
-                        this.arr[i++] = "Miss C: \"Leaving so soon? Oh, sure! But come back! I've got loads more to share—wait till you hear about Myself!\"";            
-                        this.arr[i++] = "[She's a little too much to take in right now, you slowly back away, the woman's voice trailing after you.]";            
-                        this.arr[i++] = "Miss C (calling out): \"Don't forget to visit! I know everything! Also, don't try to approach some of the monsters roaming around, unless you're prepared!\"";            
-                        this.arr[i++] = "Miss C (continuing): \"...I have the juiciest stories about all the denizens here! You wouldn't believe what they're really like!\"";
-                        this.arr[i++] = "Miss C (shouting): \"Also, after you're done with meeting up with everyone, can you slay the skeleton blocking the path out of the city? Just enter the green portal. Thanks!\"";
+            
+                if (worldType.equals("world1")) {
+                    this.arr[i++] = "[You enter a misty area of the underworld and spot an ordinary woman sitting on a rock, talking to herself. She looks up and her eyes brighten.]";
+                    this.arr[i++] = "Miss Constance: \"Oh! A new face! Finally, some fresh meat—I mean, company! You must be dying to know who's who down here, right? Well, you've found the one and only Miss Constance! But you can call me Miss C—everyone does.\"";
+                    this.arr[i++] = playerName + ": \"Actually, I—\"";
+                    this.arr[i++] = "Miss C (interrupting): \"Faithful? Total creep. Stalked *everyone*—even in death! And Yoo? Ugh, such a drama queen. Always going on about his tragic past, like we don't all have skeletons in our closets! Oh, and Miggins? Tried sneaking ads into the Grand Mausoleum. I mean, really?\"";
+                    this.arr[i++] = playerName + " (awkwardly): \"Yeah, well, it was nice meeting you. I'll just check out the rest of the city before—\"";
+                    this.arr[i++] = "Miss C: \"Leaving already? But we're just getting started! Come back soon—I've got *so* much dirt to share. Wait till you hear about Myself!\"";
+                    this.arr[i++] = "[She's a little too much to handle right now, so you slowly back away, her voice trailing after you.]";
+                    this.arr[i++] = "Miss C (calling out): \"Don't forget to visit! And maybe avoid the monsters, unless you like surprise fights. Just sayin'.\"";
+                    this.arr[i++] = "Miss C (continuing): \"Oh, and one last thing—those skeletons by the purple portal? Could you take care of them? Thanks!\"";
                 }
             
-                if (worldType == "world2") {
-                        this.arr[i++] = "[Miss Constance suddenly stops mid-sentence, looking at you more closely.]";
-                        this.arr[i++] = "Miss C: \"Wait a second... You made it to the city outskirts?! Congrats!\"";
-                        this.arr[i++] = playerName + ": \"Yeah, why?\"";
-                        this.arr[i++] = "Miss C (wide-eyed): \"Oh my, that's amazing! How in the world did you manage that?\"";
-                        this.arr[i++] = playerName + ": \"A bit of skill, a lot of luck.\"";
-                        this.arr[i++] = "Miss C: \"Skill and luck? Pfft, more like a guardian angel working overtime! Trust me, most folks don't even get past Mr. Bones over there!\"";
-                        this.arr[i++] = "[She looks genuinely impressed, but her tone remains rapid-fire as ever.]";
-                        this.arr[i++] = playerName + ": \"Why are you here anyway?\"";
-                        this.arr[i++] = "Miss C: \"If you lived (HA!) here as long as I did, you'd be surprised by how many shortcut portals there are. Hehehe.\"";
-                        this.arr[i++] = playerName + ": \"Ugh, you should've told me sooner. It would've saved me a lot of time.\"";
-                        this.arr[i++] = "Miss C: \"Well, if you can handle that, maybe you'll be just fine down here even without shortcuts. But seriously, don't let it go to your head—I've seen tougher souls get crushed trying to go deeper! Also, we needed someone to get rid of those skeletons anyway.\"";
-                        this.arr[i++] = playerName + ": \"Good to know.\"";
-                        this.arr[i++] = "Miss C: \"Anytime! Now go prove me right—or wrong! Just don't end up like Miggins. Long story.\"";
-                        if (playerType == "knight") {
-                                this.arr[i++] = "Miss C: \"P.S. I learned that your little murderer friend have " + "<font color='#FF0000'>" + "freckles" + "</font>" + ". How cute!\"";
-                        }
-                        if (playerType == "wizard") {
-                                this.arr[i++] = "Miss C: \"P.S. I learned that your little murderer friend have " + "<font color='#FF0000'>" + "scars" + "</font>" + ". How scary!\"";
-                        }
-                        if (playerType == "priest") {
-                                this.arr[i++] = "Miss C: \"P.S. I learned that your little murderer friend have " + "<font color='#FF0000'>" + "freckles" + "</font>" + ". How cute!\"";
-                        }
-                        this.arr[i++] = playerName + ": \"Well that's just g r e a t.\"";
-                        this.arr[i++] = "Miss C: \"Thanks! Chea told me, she already left.\"";
+                if (worldType.equals("world2")) {
+                    this.arr[i++] = "[Miss Constance suddenly stops mid-sentence, looking at you more closely.]";
+                    this.arr[i++] = "Miss C: \"Wait a second... You made it to the city outskirts?! Look at you, all adventurous!\"";
+                    this.arr[i++] = playerName + ": \"Yeah, why's that such a big deal?\"";
+                    this.arr[i++] = "Miss C (wide-eyed): \"Big deal? Sweetie, that's *huge*! Do you know how many people don't even make it past Mr. Bones over there?\"";
+                    this.arr[i++] = playerName + ": \"A bit of skill, a lot of luck.\"";
+                    this.arr[i++] = "Miss C: \"Skill and luck? Ha! More like a guardian angel pulling double shifts. Trust me, most folks get crushed trying to leave the city.\"";
+                    this.arr[i++] = playerName + ": \"Why are you out here anyway?\"";
+                    this.arr[i++] = "Miss C: \"Oh, you know, just enjoying the scenic death vibes. And maybe keeping tabs on you. Don't look so shocked! I get bored.\"";
+                    this.arr[i++] = "Miss C: \"By the way, if you're heading deeper, watch out. The spirits out there are no joke—they'll mess with your head. Even tougher souls than you have cracked.\"";
+                    if (playerType.equals("knight")) {
+                        this.arr[i++] = "Miss C: \"Oh, and P.S.—I heard your little murderer friend has " + "<font color='#FF0000'>" + "freckles" + "</font>" + ". Cute, right?\"";
+                    } else if (playerType.equals("wizard")) {
+                        this.arr[i++] = "Miss C: \"Oh, and P.S.—I heard your little murderer friend has " + "<font color='#FF0000'>" + "scars" + "</font>" + ". Spooky!\"";
+                    } else if (playerType.equals("priest")) {
+                        this.arr[i++] = "Miss C: \"Oh, and P.S.—I heard your little murderer friend has " + "<font color='#FF0000'>" + "freckles" + "</font>" + ". Adorable!\"";
+                    }
+                    this.arr[i++] = playerName + ": \"Great. Just great.\"";
+                    this.arr[i++] = "Miss C: \"Thanks! Oh, and Chea told me. She's a doll, isn't she?\"";
                 }
             
-                if (worldType == "world3") {
+                if (worldType.equals("world3")) {
                     this.arr[i++] = "[You notice Miss Constance, her usual chatter replaced by a tense silence as she looks around nervously.]";
-                    this.arr[i++] = "Miss C: \"Oh, it's you... You're here already? I thought... never mind. You probably shouldn't stay here long.\"";
-                    this.arr[i++] = playerName + ": \"What's going on? You seem startled.\"";
-                    this.arr[i++] = "Miss C (whispering): \"Something's wrong. Really wrong. The forest... there's this dark aura, suffocating. It's like the whole place is holding its breath.\"";
-                    this.arr[i++] = "[Her usual confidence is replaced with fear as she glances over her shoulder.]";
-                    this.arr[i++] = "Miss C: \"Someone's waiting for you. Whoever they are, they're not friendly. They must know you're here.\"";
-                    this.arr[i++] = playerName + ": \"Who are you talking about?\"";
-                    if (playerType == "knight") {
-                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they always wear a " + "<font color='#FF0000'>" + "frightening frown" + "</font>" + ", no matter where they go.\"";
+                    this.arr[i++] = "Miss C: \"Oh, it's you… already? I thought — never mind. You probably shouldn't stick around.\"";
+                    this.arr[i++] = playerName + ": \"What's going on? You look spooked.\"";
+                    this.arr[i++] = "Miss C (whispering): \"Something's wrong. The forest... it's suffocating, like it's alive and watching. Even the monsters won't go near it. Someone is waiting for you too. They were watching you all this time!\"";
+                    if (playerType.equals("knight")) {
+                        this.arr[i++] = "Miss C (shaking her head): \"Whoever's waiting for you always has a " + "<font color='#FF0000'>" + "frightening frown" + "</font>" + ". Creepy, huh?\"";
+                    } else if (playerType.equals("wizard")) {
+                        this.arr[i++] = "Miss C (shaking her head): \"Whoever's waiting for you has this " + "<font color='#FF0000'>" + "empty expression" + "</font>" + ", like they're staring into your soul. Gives me chills.\"";
+                    } else if (playerType.equals("priest")) {
+                        this.arr[i++] = "Miss C (shaking her head): \"Whoever's waiting for you always wears a " + "<font color='#FF0000'>" + "sinister smile" + "</font>" + ". Gives me the creeps.\"";
                     }
-                    if (playerType == "wizard") {
-                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they wear an " + "<font color='#FF0000'>" + "empty expession" + "</font>" + ", one that seems to suck the soul right out of you (v053).\"";
-                    }
-                    if (playerType == "priest") {
-                        this.arr[i++] = "Miss C (shaking her head): \"I don't know. But whatever it is, even the monsters are steering clear of the forest now. Please, just... Be careful. I also heard that they always wear a " + "<font color='#FF0000'>" + "sinister smile" + "</font>" + ".\"";
-                    }
-                    this.arr[i++] = playerName + ": \"Thanks for the warning. I guess I'll find out soon enough.\"";
-                    this.arr[i++] = "[She gives you a weak smile but doesn't say anything more as you step into the ominous forest.]";
+                    this.arr[i++] = playerName + ": \"Thanks for the heads-up. Guess I'll find out soon enough.\"";
+                    this.arr[i++] = "[She gives you a weak smile but says no more as you step into the ominous forest.]";
                 }
-
+            
                 this.size = i;
         }
-        
+            
         public void missConstanceQuests(String worldType) {
                 int i = 0;
                 int q = 0;
                 int o = 0;
                 // Initial Dialogue
                 boolean isQuestDone = objDone[0] && objDone[1];
-
-                if(worldType.equals("world1")){
-                                // Quest Title
-                        if(!isQuestDone){
-                                this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
-                        }else{
-                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
-                        }
-
-                        // Revised Quest Objectives
-                        if(!objDone[0]){
-                                this.qArr[q++] = "Objective #1: Talk to everyone";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Finished talking to everyone</font>";
-                        }
-
-                        if(!objDone[1]){
-                                this.qArr[q++] = "Objective #2: Enter the emerald portal to confront the skeleton army in the forest's depths";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the skeleton</font>";
-                        }
-                
-                        // sample rani guys i fix lng pls kay dili connected sa story
-                        if(!objDone[0]){
-                                this.oArr[o++] = "Some obejctive description1";
-                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
-                        }else{
-                                // handle dialogue if allo bjective is done
-                                this.oArr[o++] = "blablabla objective done";
-                                this.oArr[o++] = "-";
-                        }
-
-                        if(!objDone[1]){
-                                this.oArr[o++] = "Some obejctive description2";
-                                // don't need to put dash if we are at the end of the array
-                        }else{
-                                // handle dialogue if individual objective is done
-                                this.oArr[o++] = "blablabla objective done";
-                                // don't need to put dash if we are at the end of the array
-                        }
-                        if(!objDone[0] && !objDone[1]){
-                                this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
-                                this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
-                                this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
-                                this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
-                                this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
-                                this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
-                                this.arr[i++] = playerName + ": \"And then what?\"";
-                                this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
-                        }else if(objDone[0]){
-                                for(int l = 0; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
-                                }
-                        }else if(objDone[1]){
-                                for(int l = 1; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
-                                }
-                        }
-                }else if(worldType.equals("world2")){
-                               // Quest Title
-                               if(!isQuestDone){
-                                this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
-                        }else{
-                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
-                        }
-
-                        // Revised Quest Objectives
-                        if(!objDone[0]){
-                                this.qArr[q++] = "Objective #1: Talk to everyone";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Finished talking to everyone</font>";
-                        }
-
-                        if(!objDone[1]){
-                                this.qArr[q++] = "Objective #2: Enter the emerald portal to confront the skeleton army in the forest's depths";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the skeleton</font>";
-                        }
-                
-                        // sample rani guys i fix lng pls kay dili connected sa story
-                        if(!objDone[0]){
-                                this.oArr[o++] = "Some obejctive description1";
-                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
-                        }else{
-                                // handle dialogue if allo bjective is done
-                                this.oArr[o++] = "blablabla objective done";
-                                this.oArr[o++] = "-";
-                        }
-
-                        if(!objDone[1]){
-                                this.oArr[o++] = "Some obejctive description2";
-                                // don't need to put dash if we are at the end of the array
-                        }else{
-                                // handle dialogue if individual objective is done
-                                this.oArr[o++] = "blablabla objective done";
-                                // don't need to put dash if we are at the end of the array
-                        }
-                        if(!objDone[0] && !objDone[1]){
-                                this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
-                                this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
-                                this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
-                                this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
-                                this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
-                                this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
-                                this.arr[i++] = playerName + ": \"And then what?\"";
-                                this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
-                        }else if(objDone[0]){
-                                for(int l = 0; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
-                                }
-                        }else if(objDone[1]){
-                                for(int l = 1; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
-                                }
-                        }
-                }else if(worldType.equals("world3")){
+            
+                if (worldType.equals("world1")) {
                         // Quest Title
-                        if(!isQuestDone){
-                         this.qArr[q++] = "Quest: Unravel the Skeleton Army's Secrets";
-                        }else{
+                        if (!isQuestDone) {
+                                this.qArr[q++] = "Quest: Investigate The City";
+                        } else {
                                 this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
                         }
-
+                
                         // Revised Quest Objectives
-                        if(!objDone[0]){
-                                this.qArr[q++] = "Objective #1: Talk to everyone";
-                        }else{
+                        if (!objDone[0]) {
+                                this.qArr[q++] = "Objective #1: Talk to everyone.";
+                        } else {
                                 this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Finished talking to everyone</font>";
                         }
-
-                        if(!objDone[1]){
-                                this.qArr[q++] = "Objective #2: Enter the emerald portal to confront the skeleton army in the forest's depths";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the skeleton</font>";
+                
+                        if (!objDone[1]) {
+                                this.qArr[q++] = "Objective #2: Enter the green portal and confront the skeleton minion.";
+                        } else {
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the skeleton minion</font>";
                         }
-         
-                        // sample rani guys i fix lng pls kay dili connected sa story
-                        if(!objDone[0]){
-                                this.oArr[o++] = "Some obejctive description1";
-                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
-                        }else{
-                                // handle dialogue if allo bjective is done
-                                this.oArr[o++] = "blablabla objective done";
+                
+                        // Objective Dialogue
+                        if (!objDone[0]) {
+                                this.oArr[o++] = "Gather clues from the local denizens; they might possess valuable information about your nemesis.";
+                                this.oArr[o++] = "-";
+                        } else {
+                                this.oArr[o++] = "Clues from the locals will greatly help you determine the identity of your murderer! Fun Fact: <font color='#FF0000'>Red</font> is often used in contexts where it signifies important information, danger, or attention-grabbing elements. This is particularly useful in police investigations.";
                                 this.oArr[o++] = "-";
                         }
-
-                        if(!objDone[1]){
-                                this.oArr[o++] = "Some obejctive description2";
-                                // don't need to put dash if we are at the end of the array
-                        }else{
-                                // handle dialogue if individual objective is done
-                                this.oArr[o++] = "blablabla objective done";
-                                // don't need to put dash if we are at the end of the array
+                
+                        if (!objDone[1]) {
+                                this.oArr[o++] = "These pesky mindless minions will do anything to stop you from reaching their boss.";
+                        } else {
+                                this.oArr[o++] = "Now there is nothing between you and the Necromancer.";
                         }
-                        if(!objDone[0] && !objDone[1]){
-                                this.arr[i++] = playerName + ": \"What dangers lurk in these cursed woods?\"";
-                                this.arr[i++] = "Miss C: \"*her spectral form shimmers with urgency* The forest is besieged by a dark necromancer who's corrupting the land and raising an undead army.\"";
-                                this.arr[i++] = playerName + ": \"How can I help stop this threat?\"";
-                                this.arr[i++] = "Miss C: \"*points to three key locations* You must gather critical intelligence about the skeletal forces before you can challenge the necromancer's power.\"";
-                                this.arr[i++] = playerName + ": \"Tell me more about these skeletal enemies.\"";
-                                this.arr[i++] = "Miss C: \"Natty by the old well knows of dark rituals, Yoo tracks the skeleton movements, and Faithful understands the monsters within the portals.\"";
-                                this.arr[i++] = playerName + ": \"And then what?\"";
-                                this.arr[i++] = "Miss C: \"*gestures to an emerald portal* Once you've gathered their insights, this portal will grant you passage to the forest's deepest, most dangerous heart.\"";
-                        }else if(objDone[0]){
-                                for(int l = 0; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
+                
+                        // Dialogue Sequence
+                        if (!objDone[0] && !objDone[1]) {
+                                this.arr[i++] = playerName + ": \"Why is the portal blocked anyway?\"";
+                                this.arr[i++] = "Miss C: \"[cheery sarcasm] Oh, you've finally noticed the chaos? Took you long enough!\"";
+                                this.arr[i++] = playerName + ": \"Look, I'm just trying to figure out what's going on. Why can't anyone get through?\"";
+                                this.arr[i++] = "Miss C: \"Well, some wannabe overlord decided to set up shop near the portals. It's soooo annoying!\"";
+                                this.arr[i++] = playerName + ": \"What kind of overlord are we talking about?\"";
+                                this.arr[i++] = "Miss C: \"Oh, the usual kind: leader of a skelegang, just a big ol' mess. And his little minions? Ugh, just... don't get me started.\"";
+                                this.arr[i++] = playerName + ": \"Great... How do I stop him?\"";
+                                this.arr[i++] = "Miss C: \"Well, first, you've gotta deal with his minions. I tried talking to them, and let's just say they sent me flying across the street... good times, not!\"";
+                                this.arr[i++] = playerName + ": \"Where?\"";
+                                this.arr[i++] = "Miss C: \"There's a green portal down the street. It'll spawn any minute now. Those skeletons love to use the green portals. Real handy for getting around the city.\"";
+                                this.arr[i++] = playerName + ": \"How long will I have to wait exactly?\"";
+                                this.arr[i++] = "Miss C: \"Well, patience is a virtue... I guess? It'll spawn soon enough, trust me. But in the meantime, why don't you get to know the locals? They're all a bunch of weirdos. You might as well, since you have all the time in the afterlife to kill.\"";
+                                this.arr[i++] = "Miss C: \"Like, Yoo? Natty the nuts? That guy over there? Oh, and the old lady. Such a charming bunch.\"";
+                                this.arr[i++] = "Miss C: \"Once you're done with that, come back to me! I just *love* chatting!\"";
+                                this.arr[i++] = playerName + ": \"Ehhh...\"";
+                                this.arr[i++] = "Miss C: \"[Gestures dramatically toward the distant portal] Maybe you'll even find some clues about your mysterious killer, oooooo~\" [giggles]";
+                                this.arr[i++] = playerName + ": \"Wait, how did you know I was looking for them?\"";
+                                this.arr[i++] = "Miss C: \"Oh, you were mumbling about it earlier. It wasn't hard to pick up. I guess you're the victim?\"";
+                                this.arr[i++] = playerName + ": \"Duh! Hello?\"";
+                                this.arr[i++] = "Miss C: \"Oh, just one more thing. That Necromancer doesn't just play with magic—he lives for it. Make sure you're not his next meal or minion, alright?\"";
+                                this.arr[i++] = playerName + ": \"Thanks. I'll get started.\"";
+                                this.arr[i++] = "Miss C: \"You better! The city's counting on you... and so am I. Hehehe.\"";
+                        } else if (objDone[0]) {
+                                for (int l = 0; l < objectivesSize; l++) {
+                                this.arr[i++] = this.oArr[l];
                                 }
-                        }else if(objDone[1]){
-                                for(int l = 1; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
+                        } else if (objDone[1]) {
+                                for (int l = 1; l < objectivesSize; l++) {
+                                this.arr[i++] = this.oArr[l];
                                 }
                         }
-                }
+                } else if (worldType.equals("world2")) {
+                        // Quest Title
+                        if (!isQuestDone) {
+                                this.qArr[q++] = "Quest: Purge the City's Outskirts";
+                        } else {
+                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        }
+                
+                        // Revised Quest Objectives
+                        if (!objDone[0]) {
+                                this.qArr[q++] = "Objective #1: Speak with the locals to gather information.";
+                        } else {
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Gathered information from the locals</font>";
+                        }
+                
+                        if (!objDone[1]) {
+                                this.qArr[q++] = "Objective #2: Confront the assassin hunting you down.";
+                        } else {
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Defeated the assassin</font>";
+                        }
+                
+                        // Adding objectives dialogue
+                        if (!objDone[0]) {
+                                this.oArr[o++] = "The locals are aware of an assassin lurking near the outskirts. They might have info on your suspect's whereabouts.";
+                                this.oArr[o++] = "-";
+                        } else {
+                                this.oArr[o++] = "The locals' info points to a secluded area. It seems there's a portal leading somewhere... What's on the other side?";
+                                this.oArr[o++] = "-";
+                        }
+                
+                        if (!objDone[1]) {
+                                this.oArr[o++] = "The spirit's aura of fear has kept the area abandoned. You must face it to stop its reign of terror.";
+                        } else {
+                                this.oArr[o++] = "With the spirit defeated, the city's outskirts are safe once more.";
+                        }
+            
+                // Dialogue Sequence
+                if (!objDone[0] && !objDone[1]) {
+                        this.arr[i++] = playerName + ": \"What's up with the outskirts? Why is it so empty? The city is just right over there.\"";
+                        this.arr[i++] = "Miss C: \"Oh, you haven't heard? There's a nasty spirit lurking out there. Creepy, right?\"";
+                        this.arr[i++] = playerName + ": \"[sarcastic] Oh nooo... How can it be?\"";
+                        this.arr[i++] = "Miss C: \"HAHAHA! Oh honey, that's the least of your worries!\"";
+                        this.arr[i++] = playerName + ": \"What's that supposed to mean?!\"";
+                        this.arr[i++] = "Miss C: \"I heard the Necromancer sent an assassin after you! Bet you made him *really* mad! HAHAHA!\"";
+                        this.arr[i++] = playerName + ": \"That's not funny! You need to help me!\"";
+                        this.arr[i++] = "Miss C: \"Try asking the locals if they've seen this little assassin. He's sneaky, you know? You wouldn't even see him coming.\"";
+                        this.arr[i++] = playerName + ": \"[Groan] When will this nightmare end?\"";
+                        this.arr[i++] = "Miss C: \"Oh, darling. It's just beginning. But cheer up! You'll make it! After all, you're the hero of this world, right?\"";
+                }       else if (objDone[0]) {
+                                for (int l = 0; l < objectivesSize; l++) {
+                                    this.arr[i++] = this.oArr[l];
+                                }
+                        } else if (objDone[1]) {
+                                for (int l = 1; l < objectivesSize; l++) {
+                                    this.arr[i++] = this.oArr[l];
+                                }
+                        }  
+                }                    
 
                 this.size = i;
                 this.questSize = q;
@@ -421,61 +364,62 @@ public class StoryLine implements Freeable{
 
         public void missConstanceLines(String playerType, String worldType) {
                 int i = 0;
-
-                if (worldType == "world3") {
-                        this.arr[i++] = "<font color='#00FFFF'>" + playerName + ": \"Which way leads deeper into the forest?\"" + "</font>";
-                        this.arr[i++] = "Miss C: \"I suggest talking to the others here in the forest and gather clues of your killer's whereabouts, it may help you later. Then enter the green portal, it leads directly to a secluded section in the forest.\"";
-
-                        this.arr[i++] = playerName + ": \"Do you have any clue who could be here?\"";
-                        this.arr[i++] = "Miss C: \"I alread told you, it's best not to go deeper unprepared.\"";
-                        
-                        this.arr[i++] = playerName + ": \"The others seem not to care.\"";
-                        this.arr[i++] = "Miss C: \"I haven't told them yet. They are oblivious. I'm too scared to approach, it's too risky.\"";
-                
-                        this.size = i;
-                        return;
-                }        
-
-                if (worldType == "world2") {   
-                        this.arr[i++] = "<font color='#00FFFF'>" + "Where to now?" + "</font>";
-                        this.arr[i++] = "Walk straight ahead, talk to the others, a portal shortcut will pop up at the end of the trail. More minions of Mr. Bones will be waiting for you though. I heard they were furious. HAHAHA!";
-                        
-                        this.arr[i++] = playerName + ": \"Everyone is avoiding you, they said-\"";
-                        this.arr[i++] = "Miss C: \"I know! Tried chatting with another soul earlier. They're all so cranky! It's like, 'Hello! We're stuck here for eternity together! Could we at least *pretend* to like each other?' I swear, they all think being moody is a personality trait.\"";
-                
-                        this.arr[i++] = playerName + ": \"Are you close with Yoo?\"";
-                        this.arr[i++] = "Miss C: \"Yoo? Like Yoo the dude over there, not you? Don't even get me started on that guy. Always acting so mysterious, sitting under a tree, staring dramatically into the mist. We get it, Yoo, you're emo. Join the club, honey! We're all brooding down here.\"";
-                        
-                        this.arr[i++] = playerName + ": \"Have you visited the shop over there?\"";
-                        this.arr[i++] = "Miss C: \"Miggins, right? Yeah, she's been trying to impress everyone with her so-called 'Homemade Pies.' Please! We all know she just heats up store-bought ones and calls it a day. It's honestly kind of sad.\"";
-                        
-                        this.arr[i++] = playerName + ": \"Are you happy here?\"";
-                        this.arr[i++] = "Miss C: \"Nope. 'Death is peaceful'? Lies! It's boring down here. No one talks. Except me, of course. I keep talking because if I don't, I'll probably go mad. Or maybe I already have. Who's to say?\"";
-                        
-                        this.arr[i++] = playerName + ": \"Why are you giggling?\'";
-                        this.arr[i++] = "Miss C: \"Oh my gosh, like, if the sun emitted Wi-Fi, trees would be like cell towers, you know? I mean, cellphones are basically fruits from those trees or whatever. Don't even get me started on how apples are used to make smartphones, like, it's science, right?";
+            
+                if (worldType.equals("world3")) {
+                    this.arr[i++] = "<font color='#00FFFF'>" + playerName + ": \"Which way leads deeper into the forest?\"" + "</font>";
+                    this.arr[i++] = "Miss C: \"Well, I *could* tell you, but it's far more fun to let you stumble around like a clueless ghost. Just kidding—head towards the green portal, and it should lead you to where you need to go. I'd say good luck, but, like, what's the point?\"";
+                    
+                    this.arr[i++] = playerName + ": \"Do you have any clue who could be here?\"";
+                    this.arr[i++] = "Miss C: \"I told you already, didn't I? Don't go wandering off without a clue. Bad idea, trust me. But if you must, check in with the others—they might have seen something... or not. It's the afterlife; everyone's too tired to care.\"";
+                    
+                    this.arr[i++] = playerName + ": \"The others seem not to care.\"";
+                    this.arr[i++] = "Miss C: \"Oh, they're totally *clueless*. I'm too scared to talk to them myself! Too risky. Some of them have… questionable habits. You'll get used to the whole 'silent, brooding' thing. Or not. Your choice.\"";
+                    
+                    this.size = i;
+                    return;
                 }
-
-                this.arr[i++] = "<font color='#00FFFF'>" + playerName + ": \"Can you help me out? I need to find someone, this place is way too big for me to search alone.\'" + "</font>";
-                this.arr[i++] = "Miss C: \"Well, you can ask around the cetizens here! They probably know who you're talking about. I can't really remember faces. Anyway, you can also check the green portal at the end of the street.\"";
-                
+            
+                if (worldType.equals("world2")) {   
+                    this.arr[i++] = "<font color='#00FFFF'>" + "Where to now?" + "</font>";
+                    this.arr[i++] = "Miss C: \"Walk straight ahead, chat with the others—ugh, I can't believe I'm saying this—and there should be a portal that pops up at the end of the path. More of Mr. Bones' minions will be waiting for you. Word on the afterlife street is, they're super *angry*. HAHAHA!\"";
+            
+                    this.arr[i++] = playerName + ": \"Everyone is avoiding you, they said—\"";
+                    this.arr[i++] = "Miss C: \"Oh, they all love to pretend they're too busy for me. Please. I tried talking to one of them earlier. It's like trying to get a conversation out of a rock. And they act like being moody is a personality trait. Ridiculous, right?\"";
+            
+                    this.arr[i++] = playerName + ": \"Are you close with Yoo?\"";
+                    this.arr[i++] = "Miss C: \"Yoo? Oh, honey, *Yoo* is that guy sitting all alone under a tree, pretending to be deep and mysterious. We get it, Yoo, you're *dark and brooding.* So original. Like, get over yourself, darling. Join the club, we're all miserable down here!\"";
+            
+                    this.arr[i++] = playerName + ": \"Have you visited the shop over there?\"";
+                    this.arr[i++] = "Miss C: \"Oh, you mean Miggins? She's trying so hard to impress everyone with her 'Homemade Pies.' I've tasted them, and let me tell you, those pies are from the *store*—not homemade! It's pathetic, honestly.\"";
+            
+                    this.arr[i++] = playerName + ": \"Are you happy here?\"";
+                    this.arr[i++] = "Miss C: \"Happy? No. 'Death is peaceful'? Pfft, lies. It's boring as heck. No one talks. Except me, of course. If I didn't talk, I'd go completely insane. Maybe I already have. Who can even tell?\"";
+            
+                    this.arr[i++] = playerName + ": \"Why are you giggling?\"";
+                    this.arr[i++] = "Miss C: \"Oh my gosh, like, if trees emitted Wi-Fi signals, they'd basically be cell towers, right? And, I mean, phones are basically fruits of the tree now. *It's science*, darling! Don't make me explain how apples are like smartphones. I could go on... but let's not.\"";
+                }
+            
+                this.arr[i++] = "<font color='#00FFFF'>" + playerName + ": \"Can you help me out? I need to find someone, this place is way too big for me to search alone.\"" + "</font>";
+                this.arr[i++] = "Miss C: \"Sure, why not? Ask the locals—they might have seen your person. Can't promise they'll actually *remember* anything, though. But hey, it's worth a shot!\"";
+            
                 this.arr[i++] = playerName + ": \"What are you waiting for? You look impatient.\"";
-                this.arr[i++] = "Miss C: \"I keep waiting for something exciting to happen down here, but nope, just the same old spirit world. I thought maybe a spirit would swing by or something. Do you think they're avoiding me? Honestly, I'm starting to take it personally.\"";
-                
-                this.arr[i++] = playerName + ": \"Do you know anyone that is still alive?\"";
-                this.arr[i++] = "Miss C: \"Do you think the living still remember me? Probably not, right? I wasn't exactly a celebrity. Just your average city girl. But, oh, how I like to imagine there's a statue somewhere with my name on it! A girl can dream, even in the afterlife.\"";
-                
+                this.arr[i++] = "Miss C: \"Waiting for something exciting to happen! But no, just the same old boring spirit world. I was hoping a ghost would show up, but nope. It's like they're avoiding me! Honestly, *rude.*\"";
+            
+                this.arr[i++] = playerName + ": \"Do you know anyone who is still alive?\"";
+                this.arr[i++] = "Miss C: \"Oh please, do you think anyone remembers me? I wasn't exactly a star back in my day. Just a regular city girl. But imagine—*imagine*—if there was a statue somewhere with my name on it? In a park, next to some pigeons. A girl can dream, even in the afterlife.\"";
+            
                 this.arr[i++] = playerName + ": \"Do you have any friends?\"";
-                this.arr[i++] = "Miss C: \"I tried to make friends with the other souls, but they're all so… distant. Like, 'Hello! We're stuck here together for eternity, can we at least pretend to like each other?' No one ever laughs at my jokes either. Rude, right?\"";
-                
+                this.arr[i++] = "Miss C: \"I tried! Seriously, I tried. But the souls here are, like, totally not into making friends. They're all just 'too cool' for me. You'd think we'd bond over being stuck together forever. But nope. No one laughs at my jokes. *So rude.*\"";
+            
                 this.arr[i++] = playerName + ": \"Have you been here for a while?\"";
-                this.arr[i++] = "Miss C: \"How long have I been dead, you ask? Oh wait, you did. Well, too bad! Time is a blur down here. I feel like I've been dead for a thousand years… or maybe just ten? You lose track after a century or two. By the way, what year is it?\"";
-                
+                this.arr[i++] = "Miss C: \"How long have I been dead, you ask? Well, time doesn't really work the same down here. It could've been a thousand years or just ten minutes. I really can't tell. By the way, what *year* is it? Because I have no idea. Does anyone?\"";
+            
                 this.arr[i++] = playerName + ": \"Do you like it here? What do you think of this place?\"";
-                this.arr[i++] = "Miss C: \"The spirit world, ugh, just as bleak as you'd imagine. No sun, no moon, no stars. Just endless dark skies. And the fog! Don't even get me started on the fog. It's like a wet blanket draped over your soul 24/7.\"";
-
+                this.arr[i++] = "Miss C: \"Do I like it here? Ugh, it's as bleak as you'd think. No sun, no stars, just endless fog. It's like living inside a cloud. And don't even get me started on the fog—it's a wet blanket for your soul, 24/7.\"";
+            
                 this.size = i;
         }
+            
 
         public void nattyIntro() {
                 int i = 0;
@@ -617,7 +561,7 @@ public class StoryLine implements Freeable{
                 if (worldType == "world2") {
                         this.arr[i++] = "Miggins: \"Well, look who it is! I was worried sick!\"";
                         this.arr[i++] = playerName + ": \"Why?\"";
-                        this.arr[i++] = "Miggins: \"The city outskirts are no joke. That creature entity out there has been tormenting everyone who tries to get close!\"";
+                        this.arr[i++] = "Miggins: \"The city outskirts are no joke. That spirit out there has been tormenting everyone who tries to get close!\"";
                         this.arr[i++] = playerName + ": \"I noticed... It wasn't easy getting here.\"";
                         this.arr[i++] = "Miggins: You're tougher than you look, then! Maybe you can do something about it—beat that thing, would you?\"";
                         this.arr[i++] = playerName + ": \"It's not on my to-do list, but I'll keep it in mind.\"";
