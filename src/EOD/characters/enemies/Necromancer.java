@@ -3,11 +3,10 @@ package EOD.characters.enemies;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
 import EOD.objects.SkillEffects;
-import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.awt.event.MouseEvent;
+import javax.swing.Timer;
 
 public class Necromancer extends Enemy {    
     private static final int BASE_ATTACK = 15;
@@ -50,7 +49,7 @@ public class Necromancer extends Enemy {
 
     @Override 
     public void skill1() {
-        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerskill1.wav");
+        //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerskill1.wav");
         damageDealt = attack + (int)(Math.random() * 3);
         actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
@@ -62,7 +61,7 @@ public class Necromancer extends Enemy {
             skill1();
             return;
         }
-        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
+        //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
         

@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import EOD.dialogues.*;
-import EOD.utils.SFXPlayer;
 
 public abstract class Enemy extends Character implements MouseInteractable, Skillable{
     protected Player player;
@@ -211,4 +210,44 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     }
 
     protected abstract void onBattleStart();
+
+    public void playSfx(Enemy enemy, int skillNumber){
+        if (enemy.getCharacterType().equals("skeleton1")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1basicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1skill1.wav");
+                 
+            }
+        } else if (enemy.getCharacterType().equals("skeleton2")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2basicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2skill1.wav");
+                 
+            }
+        } else if (enemy.getCharacterType().equals("skeleton3")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton3basicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton3skill1.wav");
+                 
+            }
+        } else if (player.getCharacterType().equals("necromancer")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerskill1.wav");
+                   
+            }
+        } else if (player.getCharacterType().equals("death")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathbasicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathskill1.wav");
+                 
+            }
+        } else if (player.getCharacterType().equals("killer")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerbasicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerskill1.wav");
+                 
+            }
+        }
+    }
 }

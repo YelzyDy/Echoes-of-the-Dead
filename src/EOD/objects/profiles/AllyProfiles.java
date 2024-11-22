@@ -1,19 +1,18 @@
 package EOD.objects.profiles;
 
-import java.awt.event.MouseEvent;
-
+import EOD.characters.Player;
 import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
-import javax.swing.JPanel;
+import EOD.objects.Quests;
 import EOD.scenes.BattleUI;
 import EOD.scenes.SceneBuilder;
-import EOD.characters.Player;
-
-import java.util.ArrayList;
+import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
-import EOD.objects.Quests;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 public class AllyProfiles implements MouseInteractable, Freeable {
     private static final double X_COORDINATE = 0.28;
     private EchoesObjects knightProfile;
@@ -28,6 +27,7 @@ public class AllyProfiles implements MouseInteractable, Freeable {
     private double[] yCoordinates;
     private ArrayList<String> allyList;
     private Quests quests;
+    private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
 
     public AllyProfiles(World world) {
         this.battle = world.getBattle();
@@ -225,8 +225,10 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         }else if(player.getCharacterType().equals("priest") && !priestProfile.getEnabled()){
             return;
         }
-
-        if (source == knightProfile) {
+        
+        sfxPlayer.playSFX("src/audio_assets/sfx/general/switch.wav");
+        
+        if (source == knightProfile) {  
             clickPlayerProfile("knight");
         } else if (source == wizardProfile) {
             clickPlayerProfile("wizard");
