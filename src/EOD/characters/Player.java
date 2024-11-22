@@ -413,17 +413,17 @@ public class Player extends Character implements MouseInteractable{
         handleXFactorBasedOnEnemy(1);
         switch(getCharacterType()) {
             case "knight":
-                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightbasicatk.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightbasicatk.wav");
                 damageDealt = (int)(attributes.attack * 1.2); // Knights deal more basic attack damage
                 applySkillEffect(attributes.skillEffects1, enemy, 13, enemy.getOffsetX(1), enemy.getOffsetY(1));
                 break;
             case "wizard":
-                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardbasicatk.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardbasicatk.wav");
                 damageDealt = attributes.attack;
                 attributes.mana = Math.min(attributes.mana + 5, attributes.baseMana); // Mana return on basic attack
                 break;
             case "priest":
-                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestbasicatk.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestbasicatk.wav");
                 damageDealt = attributes.attack;
                 attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
                 break;
@@ -445,7 +445,7 @@ public class Player extends Character implements MouseInteractable{
                     actionString = "Not enough Soul Shards!";
                     return false;
                 }
-                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill1.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill1.wav");
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
@@ -458,7 +458,7 @@ public class Player extends Character implements MouseInteractable{
                     actionString = "Not enough mana!";
                     return false;
                 }
-                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill1.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill1.wav");
                 attributes.mana -= 20;
                 originalAttack = attributes.attack;
                 attributes.attack += 20;
@@ -471,7 +471,7 @@ public class Player extends Character implements MouseInteractable{
                     actionString = "Not enough Soul Energy!";
                     return false;
                 }
-                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill1.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill1.wav");
                 attributes.health -= 25;
                 originalAttack = attributes.attack;
                 attributes.attack += 30;
@@ -491,7 +491,7 @@ public class Player extends Character implements MouseInteractable{
 
         switch(getCharacterType()) {
             case "knight":
-                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
                 damageReducer = true;
                 attributes.skill3Cd = 3;
                 attributes.mana -= 30;
@@ -503,7 +503,7 @@ public class Player extends Character implements MouseInteractable{
             case "wizard":
                 attributes.mana -= 30;
                 if (random.nextInt(100) < 46) { // 45% success rate
-                    sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
+                    //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
                     damageDealt = 35;
                     attributes.skill3Cd = 3;
                     attributes.mana = Math.min(attributes.mana + 90, attributes.baseMana);
@@ -517,7 +517,7 @@ public class Player extends Character implements MouseInteractable{
                 }
 
             case "priest":
-                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
                 int Damage = (int)(attributes.baseHealth * 0.4);
                 damageDealt = Damage;
                 attributes.mana -= 40;
@@ -533,7 +533,7 @@ public class Player extends Character implements MouseInteractable{
         if (!canUseSkill(50, attributes.skill4Cd)) return false;
         switch(getCharacterType()) {
             case "knight":
-                sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill3.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill3.wav");
                 int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
                 damageDealt = 2 * attributes.attack + moneyBonus;
                 attributes.skill4Cd = 4;
@@ -543,7 +543,7 @@ public class Player extends Character implements MouseInteractable{
                 return true;
 
             case "wizard":
-                sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
                 damageDealt = 30 + (int)(attributes.mana * 0.3);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
@@ -552,7 +552,7 @@ public class Player extends Character implements MouseInteractable{
                 return true;
 
             case "priest":
-                sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill3.wav");
+                //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill3.wav");
                 int missingHealth = attributes.baseHealth - attributes.health;
                 damageDealt = (int)(missingHealth * 0.6);
                 int ultimateHeal = (int)(attributes.baseHealth * 0.4);
@@ -623,9 +623,25 @@ public class Player extends Character implements MouseInteractable{
     public void playSfx(Player player, int skillNumber) {
         if (player.getCharacterType().equals("wizard")){
             switch(skillNumber){
-                case 1 ->{
-
-                }
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardbasicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill1.wav");
+                case 3 -> sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
+                case 4 -> sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
+                
+            }
+        } else if (player.getCharacterType().equals("knight")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightbasicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill1.wav");
+                case 3 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
+                case 4 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill3.wav");
+            }
+        } else if (player.getCharacterType().equals("priest")){
+            switch(skillNumber){
+                case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestbasicatk.wav");
+                case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill1.wav");
+                case 3 -> sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
+                case 4 -> sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill3.wav");
             }
         }
     }

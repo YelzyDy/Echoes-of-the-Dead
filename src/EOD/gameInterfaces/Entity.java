@@ -4,8 +4,8 @@
  */
 package EOD.gameInterfaces;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 
 public interface Entity extends Freeable{
     public final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

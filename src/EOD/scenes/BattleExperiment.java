@@ -68,6 +68,7 @@ public class BattleExperiment implements Skillable{
                     if (player.getAnimator().isExecutingSkill()) {
                         // Apply damage only once during skill execution
                         System.out.println("skill skill");
+                        player.playSfx(player, skillNumber);
                         if (damageEnemy) {
                             enemy.takeDamage(damage);
                             
@@ -98,7 +99,6 @@ public class BattleExperiment implements Skillable{
             
             // Trigger animation and SFX
             player.getAnimator().triggerSkillAnimation(skillNumber, (int)player.getXFactor());
-            player.playSfx(player, skillNumber);
             player.getAnimator().setMovingRight(true);
             
             battleUI.updateCooldowns();
@@ -123,6 +123,7 @@ public class BattleExperiment implements Skillable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (enemy.getAnimator().isExecutingSkill()) {
+                    enemy.playSfx(enemy, chosenSkill);
                     player.takeDamage(damage);
                     
                     if (player.isDamageReducerActive() && 
