@@ -40,6 +40,7 @@ public class Quests extends JPanel implements MouseInteractable{
     private boolean asrielDone = false;
     private boolean cheaDone = false;
     private boolean migginsDone = false;
+    private boolean monologuerDone = false;
     private Npc constance;
     private Npc miggins;
     
@@ -222,7 +223,7 @@ public class Quests extends JPanel implements MouseInteractable{
             case 5: return "Defeat the shield-wielding skeleton.";
             case 4: return "Enter the green portal.";
             case 3: return "Tell Constance you're done talking to the locals.";
-            case 2: return "Talk to the Locals (0/3).";
+            case 2: return "Talk to the Locals (0/4).";
             case 1: return "Accept a quest from Constance.";
             case 0: return "Talk to Constance.";
             default: return "Welcome!";
@@ -280,7 +281,7 @@ public class Quests extends JPanel implements MouseInteractable{
         for(Npc npc : npcList) {
             if (npc.getName().equals("Yoo") || npc.getName().equals("Natty") || npc.getName().equals("Faithful") ||
                 npc.getName().equals("Ruby") || npc.getName().equals("Renegald") || npc.getName().equals("Chea") || 
-                npc.getName().equals("Asriel") || npc.getName().equals("Akefay")) {
+                npc.getName().equals("Asriel") || npc.getName().equals("Akefay") || npc.getName().equals("Monologuer")) {
                 if (!npc.doneDialogues) {
                     npc.onClick(null);
                     break;
@@ -424,6 +425,7 @@ public class Quests extends JPanel implements MouseInteractable{
     public void callPerformQuests(){
         int currentSceneIndex = world.getScene().getCurrentSceneIndex();
         Player player = world.getScene().getPlayer();
+
         if(ifActive > 2){
             // Find the quest text in the list model and update it, regardless of active status
             for(int i = 0; i < textListModel.getSize(); i++) {
@@ -494,6 +496,7 @@ public class Quests extends JPanel implements MouseInteractable{
                         case "Asriel" -> asrielDone = true;
                         case "Chea" -> cheaDone = true;
                         case "Miggins" -> migginsDone = true;
+                        case "Monologuer" -> monologuerDone = true;
                     }
             }
         } 
@@ -668,7 +671,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 2){
-            Boolean[] arr = {rubyDone, faithfulDone, renegaldDone};
+            Boolean[] arr = {rubyDone, faithfulDone, renegaldDone, monologuerDone};
             int localCount = 0;
             for(int i = 0; i < arr.length; i++) {
                 if(arr[i]) {
@@ -676,8 +679,8 @@ public class Quests extends JPanel implements MouseInteractable{
                 }
             }
 
-                textListModel.setElementAt("Talk to the locals (" + (localCount) + "/3)", 0);
-            if (renegaldDone && faithfulDone && rubyDone) {
+                textListModel.setElementAt("Talk to the locals (" + (localCount) + "/4)", 0);
+            if (renegaldDone && faithfulDone && rubyDone && monologuerDone) {
                 constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
                 setQuestStatus(3);  // Increment quest status
                 return true;
@@ -731,7 +734,7 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 8){
             if(miggins.doneQDialogues){
                 objList.get(2).setIsActivated(true);
-                setQuestStatus(10);  // Increment quest status
+                setQuestStatus(9);  // Increment quest status
                 return true;
             }
         }
@@ -739,7 +742,7 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 9){
             QuestableObjects obj = objList.get(2);
             if(obj.doneInteraction){
-                setQuestStatus(11);
+                setQuestStatus(10);
                 return true;
             }
         }
@@ -750,7 +753,7 @@ public class Quests extends JPanel implements MouseInteractable{
                 rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 200, enemy.getX() * 1.2, screenSize.height * 0.23);
                 rewards.getMiniBossChest().setIndex(enemy.getIndex());
                 miggins.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
-                setQuestStatus(12);
+                setQuestStatus(11);
                 scene.ally.setStatic(true);
                 return true;
             }
@@ -760,7 +763,7 @@ public class Quests extends JPanel implements MouseInteractable{
             if(miggins.doneODialogues[0]){
                 objList.get(3).setIsActivated(true);
                 miggins.activateQuest = false;
-                setQuestStatus(13);  // Increment quest status
+                setQuestStatus(12);  // Increment quest status
                 rewards.getQuestsRewards(100, miggins.getX() * 0.8, screenSize.height * 0.23);
                 rewards.getQuestChest().setIndex(miggins.getIndex());
                 return true;
@@ -770,7 +773,7 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 12){
             QuestableObjects obj = objList.get(3);
             if(obj.doneInteraction){  
-                setQuestStatus(14);
+                setQuestStatus(13);
                 return true;
             }
         }

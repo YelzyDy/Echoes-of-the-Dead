@@ -1,15 +1,14 @@
 package EOD.objects;
 
-import EOD.objects.chests.QuestsChest;
-import EOD.objects.chests.MinionChest;
-import EOD.objects.chests.MiniBossChest;
+import EOD.characters.Npc;
+import EOD.gameInterfaces.Freeable;
 import EOD.objects.chests.Chest;
+import EOD.objects.chests.MiniBossChest;
+import EOD.objects.chests.MinionChest;
+import EOD.objects.chests.QuestsChest;
 import EOD.objects.profiles.AllyProfiles;
 import EOD.scenes.BattleExperiment;
 import EOD.scenes.SceneBuilder;
-
-import EOD.characters.Npc;
-import EOD.gameInterfaces.Freeable;
 import EOD.worlds.World;
 
 public class Rewards implements Freeable{

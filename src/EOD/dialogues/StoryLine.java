@@ -650,6 +650,36 @@ public class StoryLine implements Freeable{
             
                 if (worldType == "world2") {
                         boolean isQuestDone = objDone[0];
+            
+                        // Quest Objectives
+                        this.oArr[o++] = "There seems to be some kind of anomaly beyond the crimson portal, this warrants an investigation. Enter at your own discretion.";
+                        if(!isQuestDone){
+                                 // Quest Title
+                                this.qArr[q++] = "Quest: The Outskirt Spirit.";
+                        }else{
+                                this.qArr[q++] = "<font color='#00f541'> Quest Complete!</font>";
+                        }
+
+                        // Revised Quest Objectives
+                        if(!objDone[0]){
+                                this.qArr[q++] = "Objective #1: Defeat the Executioner.";
+                        }else{
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the Executioner!</font>";
+                        }
+
+                         // sample rani guys i fix lng pls kay dili connected sa story
+                        if(!objDone[0]){
+                                // pwede pd ni sha himuon dialogue instead of description lng
+                                this.oArr[o++] = "Some obejctive description1";
+                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
+                        }else{
+                                // handle conversation if allo bjective is done // ing ania lng pd ka constance pls
+                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
+                                this.oArr[o++] = playerName + ": blablabla";
+                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
+                                this.oArr[o++] = playerName + ": blablabla";
+                                this.oArr[o++] = "-";
+                        }
                         if(!isQuestDone){
                                 this.arr[i++] = playerName + ": \"What's the best way to get past the outskirts?\"";
                                 this.arr[i++] = "Miggins: \"Oh, dearie, it's a mess out there. Foggy, spooky, you name it. But I know you'll manage if you're determined.\"";
@@ -659,42 +689,58 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = "Miggins: \"Oh, I've got a good feeling about you, love. Besides, you've already made it this far.\"";
                                 this.arr[i++] = playerName + ": \"Alright.\"";
                                 this.arr[i++] = "Miggins: \"Good on you! Be careful out there. The outskirts aren't for the faint of heart. I'll be waiting right here when you're done.\"";
+                        }else if(objDone[0]){
+                                for(int l = 0; l < objectivesSize; l++){
+                                        this.arr[i++] = this.oArr[l];
+                                }
                         }
-                        // Quest Titles
-
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "The Outskirt Spirit." + "</font>";
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "Defeat the Executioner." + "</font>";
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "Return to Miggins." + "</font>";
-            
-                        // Quest Objectives
-                        this.oArr[o++] = "Find a way to safely pass through the city outskirts, the purple portal will be your exit. Too bad something is standing between you and the portal. Destroy the obstacle!";
-                        this.oArr[o++] = "-";
-                        this.oArr[o++] = "There seems to be some kind of anomaly beyond the crimson portal, this warrants an investigation. Enter at your own discretion.";
-                        this.oArr[o++] = "-";
-                        this.oArr[o++] = "Return to Miggins with news of your success.";
                 }
             
                 if (worldType == "world3") {
-                        this.arr[i++] = playerName + ": \"I need to get through the forest. Any advice?\"";
-                        this.arr[i++] = "Miggins: \"Oh, the forest? That place is bad news, love. Something dark's taken root here. But if anyone can handle it, it's you.\"";
-                        this.arr[i++] = playerName + ": \"What do I need to do?\"";
-                        this.arr[i++] = "Miggins: \"There's a demon causing all sorts of trouble. It's lurking at the other side of the forest crimson portal.\"";
-                        this.arr[i++] = playerName + ": \"Is it that dangerous?\"";
-                        this.arr[i++] = "Miggins: \"Very. However, I have faith in you. I'm sure you'll be able to handle it!\"";
-                        this.arr[i++] = playerName + ": \"I will.\"";
-                        this.arr[i++] = "Miggins: \"That's the spirit! We're all counting on you! Watch your back out there, and don't let that demon trick you. I heard that it was truly tantalizing yet terrifying!\"";
-            
-                        // Quest Titles
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "Cleanse the Forest" + "</font>";
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "Banish the Demon." + "</font>";
-                        this.qArr[q++] = "<font color='#FFFF00'>" + "Return to Miggins for your reward" + "</font>";
+                        boolean isQuestDone = objDone[0];
             
                         // Quest Objectives
-                        this.oArr[o++] = "Cleanse the forest from evil. Your path will be revealed.";
-                        this.oArr[o++] = "-";
-                        this.oArr[o++] = "Exterminate the demon tormenting the forest.";
-                        this.oArr[o++] = "-";
-                        this.oArr[o++] = "Return to Miggins with news of the exterminated demon.";
+                        if(!isQuestDone){
+                                 // Quest Title
+                                this.qArr[q++] = "Quest: Cleanse the Forest.";
+                        }else{
+                                this.qArr[q++] = "<font color='#00f541'> Quest Complete!</font>";
+                        }
+
+                        // Revised Quest Objectives
+                        if(!objDone[0]){
+                                this.qArr[q++] = "Objective #1: Banish the Demon.";
+                        }else{
+                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the Demon!</font>";
+                        }
+
+                         // sample rani guys i fix lng pls kay dili connected sa story
+                        if(!objDone[0]){
+                                // pwede pd ni sha himuon dialogue instead of description lng
+                                this.oArr[o++] = "Some obejctive description1";
+                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
+                        }else{
+                                // handle conversation if allo bjective is done // ing ania lng pd ka constance pls
+                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
+                                this.oArr[o++] = playerName + ": blablabla";
+                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
+                                this.oArr[o++] = playerName + ": blablabla";
+                                this.oArr[o++] = "-";
+                        }
+                        if(!isQuestDone){
+                                this.arr[i++] = playerName + ": \"I need to get through the forest. Any advice?\"";
+                                this.arr[i++] = "Miggins: \"Oh, the forest? That place is bad news, love. Something dark's taken root here. But if anyone can handle it, it's you.\"";
+                                this.arr[i++] = playerName + ": \"What do I need to do?\"";
+                                this.arr[i++] = "Miggins: \"There's a demon causing all sorts of trouble. It's lurking at the other side of the forest crimson portal.\"";
+                                this.arr[i++] = playerName + ": \"Is it that dangerous?\"";
+                                this.arr[i++] = "Miggins: \"Very. However, I have faith in you. I'm sure you'll be able to handle it!\"";
+                                this.arr[i++] = playerName + ": \"I will.\"";
+                                this.arr[i++] = "Miggins: \"That's the spirit! We're all counting on you! Watch your back out there, and don't let that demon trick you. I heard that it was truly tantalizing yet terrifying!\"";
+                        }else if(objDone[0]){
+                                for(int l = 0; l < objectivesSize; l++){
+                                        this.arr[i++] = this.oArr[l];
+                                }
+                        }
                 }
             
                 this.size = i;
