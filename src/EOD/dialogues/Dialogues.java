@@ -21,7 +21,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     public EchoesObjects skipButton, askButton, questsButton;
     protected JLabel textBox;
     protected JPanel buttonPanel;
-    private final int width = (int) (screenSize.width * 0.99);
+    private final int width = (int) (screenSize.width * 1);
     private final int height = (int) (screenSize.height * 0.6);
     private final int x = 6;
     private final int y = (int) (screenSize.height * 0.4);
@@ -72,21 +72,36 @@ public class Dialogues implements Freeable, MouseInteractable {
         // SKIP BUTTON
         skipButton = new EchoesObjects("button", screenSize.width * 0.8, screenSize.height * 0.4, (int)btnWidth, (int)btnHeight, "skipButton", false, true, 2);
         skipButton.addMouseListener(new MouseClickListener(this));
-        skipButton.setVisible(true);
+        skipButton.setVisible(false);
 
         questsButton = new EchoesObjects("button", screenSize.width * 0.8, screenSize.height * 0.4, (int)btnWidth, (int)btnHeight, "questButton", false, true, 2);
         questsButton.addMouseListener(new MouseClickListener(this));
         questsButton.setVisible(false);
 
         // BUTTON PANEL
-        buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, (int)(screenSize.width * 0.01), (int)(screenSize.width * 0.01))); // Use FlowLayout with gaps
+        buttonPanel.setOpaque(true);
         buttonPanel.setBackground(Color.BLACK);
-        
-        askButton.setPreferredSize(new Dimension((int) btnWidth, (int) btnHeight));
-        skipButton.setPreferredSize(new Dimension((int) btnWidth, (int) btnHeight));
-        questsButton.setPreferredSize(new Dimension((int) btnWidth, (int) btnHeight));
+        buttonPanel.setVisible(true);;
 
-        
+        // Configure button sizes
+        Dimension buttonSize = new Dimension((int)btnWidth, (int)btnHeight);
+
+        // Configure ask button
+        askButton.setPreferredSize(buttonSize);
+
+        // Configure quests button
+        questsButton.setPreferredSize(buttonSize);
+
+        // Configure skip button
+        skipButton.setPreferredSize(buttonSize);
+
+        // Add all buttons to the panel
+        buttonPanel.add(askButton);
+        buttonPanel.add(questsButton);
+        buttonPanel.add(skipButton);
+
+        // Add the button panel to the main dialogue
         storyDialogue.add(buttonPanel, BorderLayout.NORTH);
 
         // NEW PRESS TO CONTINUE LABEL
@@ -154,6 +169,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         this.worldType = world.getTitle();
         scene.addMouseListener(new MouseClickListener(this));
         story.setPlayerName(playerName);
+        buttonPanel.setVisible(true);
         if(npc != null && npc.activateQuest) questsButton.setVisible(true);
         else questsButton.setVisible(false);
 
@@ -220,15 +236,15 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.monoIntro(playerType, worldType); break;
             default: break;
         }
-        buttonPanel.setVisible(true);
         if ((ID == 4 || ID == 1 || ID == 2 || ID == 3 || ID == 5) && npc.activateQuest)
-            buttonPanel.add(questsButton, BorderLayout.CENTER);
+            questsButton.setVisible(true);
+    
 
         if (!(ID == 9 || ID == 10 || ID == 11 || ID == 12 || ID == 0))
-            buttonPanel.add(skipButton, BorderLayout.EAST);
+            skipButton.setVisible(true);
 
-        if (!(ID == 6 || ID == 7 || ID == 8 || ID == 9 || ID == 10 || ID == 11 || ID == 12))
-            buttonPanel.add(askButton, BorderLayout.WEST);
+        // if (!(ID == 6 || ID == 7 || ID == 8 || ID == 9 || ID == 10 || ID == 11 || ID == 12))
+        //     askButton.setVisible(true);
 
         this.size = story.getSize();
 
