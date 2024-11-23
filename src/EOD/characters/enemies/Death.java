@@ -36,6 +36,7 @@ public class Death extends Enemy{
     }
     
 
+    @Override
     public void skill1() {
         //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathbasicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3);
