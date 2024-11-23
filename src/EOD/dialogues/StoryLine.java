@@ -1474,7 +1474,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Basic Skill: A basic attack, will deal little damage for little mana.";
                 
                 if(playerType.equals(("knight").toString())){
-                        this.arr[i++] = "Objection Surge (Cost: 10 Mana): Sacrifice 15 Soul shards to buff attack by 15 for 2 turns";
+                        this.arr[i++] = "Objection Surge (Cost: 15 Soul Shards): Sacrifice 15 Soul shards to buff attack by 15 for 2 turns";
                 }else if(playerType.equals(("wizard").toString())){
                         this.arr[i++] = "Overclock (Cost: 20 Mana): Sacrifice 15 Mana to buff attack by 15 for 2 turns";
                 }else{
