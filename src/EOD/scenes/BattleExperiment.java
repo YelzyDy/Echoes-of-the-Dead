@@ -52,22 +52,22 @@ public class BattleExperiment implements Skillable{
 
     private void performPriestPoison(int damageHolder[], int initialDamage){
         System.out.println("damageHolder[0] = " + damageHolder[0]);
-        System.out.println("Initial damage: " + initialDamage);
+        System.out.println("Initial damage: " + player.getDamageDealt());
         System.out.println("Poison Stacks: " + player.getPoisonStacks());
         System.out.println("Enemy name: " + enemy.getName());
         System.out.println("enemy base hp: " + enemy.getBaseHp());
         int poisonStacks = Math.min(player.getPoisonStacks(), 3);
         System.out.println("Posion Stacks from Math.min: " + poisonStacks);
-        double poisonMultiplier = 1 + (poisonStacks + 1 * 0.08);
+        double poisonMultiplier = (poisonStacks * 0.08);
         System.out.println("Posion multiplier: " + poisonMultiplier);
-        damageHolder[0] = (int) (initialDamage * poisonMultiplier);
+        damageHolder[0] = initialDamage + (int)(initialDamage * poisonMultiplier);
         System.out.println("Damage Holder after calculation: " + damageHolder[0]);
         // Create a Timer for delayed poison tick damage
         Timer poisonTimer = new Timer(1000, new ActionListener() { // 1 second delay
             @Override
             public void actionPerformed(ActionEvent e) {
                 int poisonTickDamage = (int) (enemy.getBaseHp() * 0.02 * poisonStacks);
-                System.out.println("Huy nganu ka");
+                System.out.println("Huy nganu ka\n " + enemy.getBaseHp() +  " * 0.02 "+" * " + poisonStacks + " = " + poisonTickDamage);
                 enemy.takeDamage(poisonTickDamage);
                 
                 // Check enemy death after poison damage
@@ -104,7 +104,7 @@ public class BattleExperiment implements Skillable{
                         // Apply damage only once during skill execution
                         player.playSfx(player, skillNumber);
 
-                        if (player.isPoisonDebufferActive()) {
+                        if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                             performPriestPoison(damageHolder, initialDamage);
                         }
 
@@ -161,7 +161,7 @@ public class BattleExperiment implements Skillable{
         final int playerDamageHolder[] = {initialPlayerDamage};
 
         
-        if (player.isDamageReducerActive()){ 
+        if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
             damageHolder[0] = (int)(initialDamage * 0.4);
         }
 
@@ -170,13 +170,12 @@ public class BattleExperiment implements Skillable{
             public void actionPerformed(ActionEvent e) {
                 if (enemy.getAnimator().isExecutingSkill()) {
                     enemy.playSfx(enemy, chosenSkill);
-                    player.takeDamage(damageHolder[0]);
-
-                    if (player.isPoisonDebufferActive()) {
+                    if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                         performPriestPoison(playerDamageHolder, initialPlayerDamage);
                     }
+                    player.takeDamage(damageHolder[0]);
 
-                    if (player.isDamageReducerActive() && 
+                    if (player.getWorld().getPlayerList().get(0).isDamageReducerActive() && 
                         damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {
                         player.getAttributes().addMoney(30);
                         battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");

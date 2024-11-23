@@ -67,7 +67,7 @@ public class Player extends Character implements MouseInteractable{
         originalAttack = attributes.attack;
         sfxPlayer = SFXPlayer.getInstance();
         clickX = -15;
-        poisonStacks = 0;
+        poisonStacks = 1;
     }
 
     public void initializeInventory(){
