@@ -260,6 +260,9 @@ public void createWorldScene() {
         if(player.getAnimator().getIsInBattle()){
             Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
+            ArrayList<Player> playerList = player.getWorld().getPlayerList();
+            if(playerList.get(0).getAttributes().skillEffects3 != null) playerList.get(0).getAttributes().skillEffects3.bindToTarget(player, enemy.getOffsetX(3), enemy.getOffsetY(3));
+            if(playerList.get(1).getAttributes().skillEffects3 != null) playerList.get(1).getAttributes().skillEffects3.bindToTarget(player, enemy.getOffsetX(3), enemy.getOffsetY(3));
             if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
                 world.getBattle().updateCooldowns();
             }
@@ -302,9 +305,6 @@ public void createWorldScene() {
             if (player.getAttributes().skillEffects4 != null) player.getAttributes().skillEffects4.updateEffect();
             
             if (player.getAttributes().skillEffectsRandom != null) player.getAttributes().skillEffectsRandom.updateEffect();
-            ArrayList<Player> playerList = player.getWorld().getPlayerList();
-            if(playerList.get(0).getAttributes().skillEffects3 != null) playerList.get(0).getAttributes().skillEffects3.updateEffect();
-            if(playerList.get(1).getAttributes().skillEffects3 != null) playerList.get(1).getAttributes().skillEffects3.updateEffect();
 
             if (objList == null) return;
 
