@@ -303,28 +303,6 @@ public class StoryLine implements Freeable{
                                 }
                         }
                 } else if (worldType.equals("world2")) {
-                        // Dialogue Sequence
-                        if (!isQuestDone) {
-                                this.arr[i++] = playerName + ": \"What's up with the outskirts? Why is it so empty? The city is just right over there.\"";
-                                this.arr[i++] = "Miss C: \"Oh, you haven't heard? There's a nasty spirit lurking out there. Creepy, right?\"";
-                                this.arr[i++] = playerName + ": \"[sarcastic] Oh nooo... How can it be?\"";
-                                this.arr[i++] = "Miss C: \"HAHAHA! Oh honey, that's the least of your worries!\"";
-                                this.arr[i++] = playerName + ": \"What's that supposed to mean?!\"";
-                                this.arr[i++] = "Miss C: \"I heard the Necromancer sent an assassin after you! Bet you made him *really* mad! HAHAHA!\"";
-                                this.arr[i++] = playerName + ": \"That's not funny! You need to help me!\"";
-                                this.arr[i++] = "Miss C: \"Try asking the locals if they've seen this little assassin. He's sneaky, you know? You wouldn't even see him coming.\"";
-                                this.arr[i++] = playerName + ": \"[Groan] When will this nightmare end?\"";
-                                this.arr[i++] = "Miss C: \"Oh, darling. It's just beginning. But cheer up! You'll make it! After all, you're the hero of this world, right?\"";
-                        } else {
-                                this.arr[i++] = playerName + ": \"That assassin wasn't that much of a trouble.\"";
-                                this.arr[i++] = "Miss C: \"Oh, look at you, all triumphant! Color me impressed! You've got more grit than I gave you credit for.\"";
-                                this.arr[i++] = playerName + ": \"Yeah, but it doesn't feel like a victory yet. The ominous spirit is still out there.\"";
-                                this.arr[i++] = "Miss C: \"Pfft, details! The fact you're here means you've already won half the battle.\"";
-                                this.arr[i++] = playerName + ": \"Half the battle? That's not exactly comforting.\"";
-                                this.arr[i++] = "Miss C: \"Oh, don't be so dramatic. You've proven you can handle yourself. That assassin didn't stand a chance, I bet!\"";
-                                this.arr[i++] = playerName + ": \"You really think so?\"";
-                                this.arr[i++] = "Miss C: \"Absolutely! But if I were you, I'd stop standing around here and start sniffing out more clues. Hero work waits for no one!.\"";
-                        }
                         // Quest Title
                         if (!isQuestDone) {
                                 this.qArr[q++] = "Quest: Purge the City's Outskirts";
@@ -358,6 +336,38 @@ public class StoryLine implements Freeable{
                                 this.oArr[o++] = "The spirit's aura of fear has kept the area abandoned. You must face it to stop its reign of terror.";
                         } else {
                                 this.oArr[o++] = "With the spirit defeated, the city's outskirts are safe once more.";
+                        }
+
+                        // Dialogue Sequence
+                        if (!objDone[0] && !objDone[1]) {
+                                this.arr[i++] = playerName + ": \"What's up with the outskirts? Why is it so empty? The city is just right over there.\"";
+                                this.arr[i++] = "Miss C: \"Oh, you haven't heard? There's a nasty spirit lurking out there. Creepy, right?\"";
+                                this.arr[i++] = playerName + ": \"[sarcastic] Oh nooo... How can it be?\"";
+                                this.arr[i++] = "Miss C: \"HAHAHA! Oh honey, that's the least of your worries!\"";
+                                this.arr[i++] = playerName + ": \"What's that supposed to mean?!\"";
+                                this.arr[i++] = "Miss C: \"I heard the Necromancer sent an assassin after you! Bet you made him *really* mad! HAHAHA!\"";
+                                this.arr[i++] = playerName + ": \"That's not funny! You need to help me!\"";
+                                this.arr[i++] = "Miss C: \"Try asking the locals if they've seen this little assassin. He's sneaky, you know? You wouldn't even see him coming.\"";
+                                this.arr[i++] = playerName + ": \"[Groan] When will this nightmare end?\"";
+                                this.arr[i++] = "Miss C: \"Oh, darling. It's just beginning. But cheer up! You'll make it! After all, you're the hero of this world, right?\"";
+                        } else if (objDone[0] && objDone[1]) {
+                                this.arr[i++] = playerName + ": \"That assassin wasn't that much of a trouble.\"";
+                                this.arr[i++] = "Miss C: \"Oh, look at you, all triumphant! Color me impressed! You've got more grit than I gave you credit for.\"";
+                                this.arr[i++] = playerName + ": \"Yeah, but it doesn't feel like a victory yet. The ominous spirit is still out there.\"";
+                                this.arr[i++] = "Miss C: \"Pfft, details! The fact you're here means you've already won half the battle.\"";
+                                this.arr[i++] = playerName + ": \"Half the battle? That's not exactly comforting.\"";
+                                this.arr[i++] = "Miss C: \"Oh, don't be so dramatic. You've proven you can handle yourself. That assassin didn't stand a chance, I bet!\"";
+                                this.arr[i++] = playerName + ": \"You really think so?\"";
+                                this.arr[i++] = "Miss C: \"Absolutely! But if I were you, I'd stop standing around here and start sniffing out more clues. Hero work waits for no one!.\"";
+                        } else if (objDone[0]) {
+                                i = 0;
+                                for (int l = 0; l < objectivesSize; l++) {
+                                        this.arr[i++] = this.oArr[l];
+                                }
+                        } else if (objDone[1]) {
+                                for (int l = 0; l < objectivesSize; l++) {
+                                        this.arr[i++] = this.oArr[l];
+                                }
                         }
                 }                    
 
