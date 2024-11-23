@@ -36,7 +36,7 @@ public class FullScreenDialogues extends JFrame {
     public void displayDialogue(int ID) {
         // Initialize text attributes
         textAttributes = new SimpleAttributeSet();
-        StyleConstants.setAlignment(textAttributes, StyleConstants.ALIGN_CENTER);
+        StyleConstants.setAlignment(textAttributes, StyleConstants.ALIGN_JUSTIFIED);
         StyleConstants.setFontFamily(textAttributes, "Monospaced");
         StyleConstants.setFontSize(textAttributes, 28);
         StyleConstants.setForeground(textAttributes, Color.WHITE);
@@ -101,6 +101,7 @@ public class FullScreenDialogues extends JFrame {
         textBox.setForeground(Color.WHITE);
         textBox.setBorder(null);
         textBox.setHighlighter(null); // Disable text highlighting
+        
         
         // Custom caret that is invisible
         textBox.setCaret(new DefaultCaret() {
