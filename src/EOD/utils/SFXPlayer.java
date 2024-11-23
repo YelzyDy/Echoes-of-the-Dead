@@ -2,6 +2,7 @@ package EOD.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.sound.sampled.*;
@@ -9,16 +10,14 @@ import javax.sound.sampled.*;
 public class SFXPlayer {
     private static final ExecutorService threadPool = Executors.newCachedThreadPool();
     private static SFXPlayer instance = null;
-    private Clip clip;
-    private FloatControl gainControl;
-    private float currentVolume = 1.0f; // Default volume at 50%
+    private ConcurrentHashMap<String, Clip> activeClips = new ConcurrentHashMap<>();
+    private float currentVolume = 1.0f;
     private boolean isSFXEnabled = true;
-    private String filepath = null;
 
     // Private constructor to prevent multiple instances
     private SFXPlayer() {}
 
-    // Static method to get the single instance of BGMPlayer
+    // Static method to get the single instance of SFXPlayer
     public static SFXPlayer getInstance() {
         if (instance == null) {
             instance = new SFXPlayer();
@@ -26,19 +25,13 @@ public class SFXPlayer {
         return instance;
     }
 
-
     public synchronized void playSFX(String filePath) {
-        if (filePath == null || filePath.isEmpty()) {
-            System.err.println("Error: filePath is null or empty");
+        if (!isSFXEnabled || filePath == null || filePath.isEmpty()) {
             return;
         }
 
         threadPool.submit(() -> {
             try {
-                if (clip != null && clip.isRunning()) {
-                    stopSFX();
-                }
-
                 File audioFile = new File(filePath);
                 if (!audioFile.exists()) {
                     System.err.println("Audio file not found: " + filePath);
@@ -53,67 +46,78 @@ public class SFXPlayer {
                     throw new UnsupportedOperationException("Audio format not supported");
                 }
 
-                clip = (Clip) AudioSystem.getLine(info);
-                clip.open(audioStream);
+                Clip newClip = (Clip) AudioSystem.getLine(info);
+                newClip.open(audioStream);
 
-                gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                setVolume(currentVolume);
+                // Set the volume for the new clip
+                if (newClip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                    FloatControl gainControl = (FloatControl) newClip.getControl(FloatControl.Type.MASTER_GAIN);
+                    setVolumeForControl(gainControl, currentVolume);
+                }
 
-                clip.start();
+                // Add listener to remove clip from active clips when it's done
+                newClip.addLineListener(event -> {
+                    if (event.getType() == LineEvent.Type.STOP) {
+                        newClip.close();
+                        activeClips.remove(filePath + System.nanoTime());
+                    }
+                });
+
+                // Store the clip with a unique key (filepath + timestamp)
+                String uniqueKey = filePath + System.nanoTime();
+                activeClips.put(uniqueKey, newClip);
+                newClip.start();
+
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 e.printStackTrace();
             }
         });
     }
-    
-    
 
-    public void stopSFX() {
-        if (clip != null) {
+    public void stopAllSFX() {
+        activeClips.forEach((key, clip) -> {
             clip.stop();
             clip.close();
-            clip = null; // Set to null to avoid any further null reference issues
-        } else {
-            System.out.println("null sfx");
-        }
-        filepath = null;
+        });
+        activeClips.clear();
     }
-    
 
     public void setVolume(float volume) {
         currentVolume = volume;
-        if (gainControl == null) {
-            return;
-        }
-    
+        // Update volume for all active clips
+        activeClips.forEach((key, clip) -> {
+            if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                setVolumeForControl(gainControl, volume);
+            }
+        });
+    }
+
+    private void setVolumeForControl(FloatControl gainControl, float volume) {
         try {
             float min = gainControl.getMinimum();
             float max = gainControl.getMaximum();
-            float adjustedVolume = (volume < 0.0001f) ? 0.0001f : volume;
+            float adjustedVolume = Math.max(0.0001f, volume);
             float dB = (float) (Math.log10(adjustedVolume) * 20.0f);
             dB = Math.max(min, Math.min(max, dB));
             gainControl.setValue(dB);
-    
-            System.out.println("Volume set to: " + dB);  // Debugging output
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
 
     public float getCurrentVolume() {
         return currentVolume;
     }
 
-    // Check if BGM is currently playing
-    public boolean isPlaying() {
-        return clip != null && clip.isRunning();
+    public boolean isAnyPlaying() {
+        return !activeClips.isEmpty();
     }
 
     public void setSFXEnabled(boolean enabled) {
         isSFXEnabled = enabled;
         if (!enabled) {
-            stopSFX(); // Stop playing music if it is disabled
+            stopAllSFX();
         }
     }
 
@@ -121,7 +125,9 @@ public class SFXPlayer {
         return isSFXEnabled;
     }
 
-    public String getFilePath(){
-        return filepath;
+    // Cleanup method to be called when shutting down
+    public void cleanup() {
+        stopAllSFX();
+        threadPool.shutdown();
     }
 }
