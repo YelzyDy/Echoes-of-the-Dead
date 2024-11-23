@@ -235,9 +235,6 @@ public class Quests extends JPanel implements MouseInteractable{
 
     public String initializeIndicesForWorld3Q(int index){
         switch (index) {
-            case 12: return "Warp to the next world";
-            case 11: return "Bring good news to Miggins";
-            case 10: return "Defeat the Executioner";
             case 9: return "Enter the red portal.";
             case 8: return "Speak to Miggins about a quest";
             case 7: return "Speak to the old woman near the shop.";
@@ -428,12 +425,6 @@ public class Quests extends JPanel implements MouseInteractable{
             clickMiggins();
         }else if(ifActive == 9){
             clickRedPortal();
-        }else if(ifActive == 10){
-            clickMiniBoss();
-        }else if(ifActive == 11){
-            clickMiggins();
-        }else if(ifActive == 12){
-            clickPurplePortal();
         }
     }
 
@@ -899,37 +890,6 @@ public class Quests extends JPanel implements MouseInteractable{
             QuestableObjects obj = objList.get(2);
             if(obj.doneInteraction){
                 setQuestStatus(10);
-                return true;
-            }
-        }
-
-        if(ifActive == 10){
-            Enemy enemy = enemyList.get(1);
-            if(enemy.getIsDefeated()){
-                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 200, enemy.getX() * 1.2, screenSize.height * 0.23);
-                rewards.getMiniBossChest().setIndex(enemy.getIndex());
-                miggins.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
-                setQuestStatus(11);
-                scene.ally.setStatic(true);
-                return true;
-            }
-        }
-
-        if(ifActive == 11){
-            if(miggins.doneODialogues[0]){
-                objList.get(3).setIsActivated(true);
-                miggins.activateQuest = false;
-                setQuestStatus(12);  // Increment quest status
-                rewards.getQuestsRewards(100, miggins.getX() * 0.8, screenSize.height * 0.23);
-                rewards.getQuestChest().setIndex(miggins.getIndex());
-                return true;
-            }
-        }
-
-        if(ifActive == 12){
-            QuestableObjects obj = objList.get(3);
-            if(obj.doneInteraction){  
-                setQuestStatus(13);
                 return true;
             }
         }

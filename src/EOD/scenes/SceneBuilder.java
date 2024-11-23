@@ -220,6 +220,7 @@ public void createWorldScene() {
 
     public void updateDynamicQuests(){
         if(world == null) return;
+        
         Quests quests = world.getQuests();
         quests.callPerformQuests();
     }

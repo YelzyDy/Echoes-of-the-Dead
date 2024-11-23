@@ -28,6 +28,7 @@ public class PurplePortal extends QuestableObjects{
         Player player = world.getPlayer();
 
         scene.gameLoopTimer.stop();
+        scene.free();
         World window;
         if(world.getTitle().equals("world1")){
             sfxPlayer.playSFX("src/audio_assets/sfx/general/teleport.wav");
@@ -39,7 +40,6 @@ public class PurplePortal extends QuestableObjects{
         window.setVisible(true);
         window.setBGMPlayer(bgmPlayer);
         scene.setVisible(false);
-        scene.free();
         isClicked = true;
     }
 
