@@ -77,7 +77,7 @@ public class BattleExperiment implements Skillable{
                 }
                 
                 // Optional: Show poison damage in UI
-                battleUI.showAction("Poison deals " + poisonTickDamage + " damage!");
+                battleUI.showAction("Turn " + turnCount + ": " + "Poison deals " + poisonTickDamage + " damage!");
             }
         });
         poisonTimer.setRepeats(false); // Only trigger once
