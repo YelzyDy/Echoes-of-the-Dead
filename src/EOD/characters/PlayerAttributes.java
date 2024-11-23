@@ -52,10 +52,10 @@ public class PlayerAttributes implements Freeable{
     public void configure(String characterType) {
         switch (characterType) {
             case "knight":
-                setupAttributes(15, 100, 100, 80, 7, 4, 4, 11);
+                setupAttributes(15, 100, 100, 0, 7, 4, 4, 11);
                 break;
             case "wizard":
-                setupAttributes(15, 100, 130, 50, 6, 6, 6, 6);
+                setupAttributes(15, 100, 130, 0, 6, 6, 6, 6);
                 break;
             case "priest":
                 setupAttributes(10, 130, 100, 50, 9, 9, 9, 6);

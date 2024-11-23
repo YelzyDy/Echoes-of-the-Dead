@@ -19,24 +19,25 @@ public class SettingsWindow extends JFrame {
     private BGMPlayer bgmPlayer;
     private SFXPlayer sfxPlayer;
     private static SettingsWindow instance = null;
+
     private SettingsWindow(BGMPlayer bgmPlayer, SFXPlayer sfxPlayer) {
         this.bgmPlayer = bgmPlayer;
         this.sfxPlayer = sfxPlayer;
         this.setTitle("Settings");
-        this.setSize(400, 300);  // Increased height to accommodate slider
+        this.setSize(400, 300);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setLayout(new GridLayout(5, 1));  // Increased rows for new components
+        this.setLayout(new GridLayout(7, 1));  // Adjusted for proper spacing
 
         // Music toggle section
         JLabel musicLabel = new JLabel("Enable or disable sound:");
         musicLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // Create radio buttons
-        musicOnButton = new JRadioButton("Music On", true);
-        musicOffButton = new JRadioButton("Music Off");
-        sfxOnButton = new JRadioButton("SFX On", true);
-        sfxOffButton = new JRadioButton("SFX Off");
+        musicOnButton = new JRadioButton("Music On", bgmPlayer.getIsMusicEnabled());
+        musicOffButton = new JRadioButton("Music Off", !bgmPlayer.getIsMusicEnabled());
+        sfxOnButton = new JRadioButton("SFX On", sfxPlayer.getIsSFXEnabled());
+        sfxOffButton = new JRadioButton("SFX Off", !sfxPlayer.getIsSFXEnabled());
 
         // Group the radio buttons
         ButtonGroup musicGroup = new ButtonGroup();
@@ -55,10 +56,12 @@ public class SettingsWindow extends JFrame {
 
         // Volume control section
         JPanel volumePanel = new JPanel(new FlowLayout());
-        volumeLabel = new JLabel("Volume: 100%");
+        float currentVolume = sfxPlayer.getCurrentVolume();
+        int sliderValue = (int)(currentVolume * 100);
+        volumeLabel = new JLabel("Volume: " + sliderValue + "%");
         
         // Create volume slider
-        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, sliderValue);
         volumeSlider.setMajorTickSpacing(20);
         volumeSlider.setMinorTickSpacing(5);
         volumeSlider.setPaintTicks(true);
@@ -70,15 +73,24 @@ public class SettingsWindow extends JFrame {
 
         // Add all components to the frame
         this.add(musicLabel);
-        this.add(musicOnButton);
-        this.add(musicOffButton);
-        this.add(sfxOnButton);
-        this.add(sfxOffButton);
-        this.add(new JLabel("Volume Control:")); // Section header
+        JPanel musicPanel = new JPanel(new FlowLayout());
+        musicPanel.add(musicOnButton);
+        musicPanel.add(musicOffButton);
+        this.add(musicPanel);
+
+        JPanel sfxPanel = new JPanel(new FlowLayout());
+        sfxPanel.add(sfxOnButton);
+        sfxPanel.add(sfxOffButton);
+        this.add(sfxPanel);
+
+        this.add(new JLabel("Volume Control:", JLabel.CENTER));
         this.add(volumePanel);
+
+        // Pack the frame to ensure proper layout
+        this.pack();
+        this.setSize(400, 300); // Set final size after packing
     }
 
-    // Singleton pattern: getInstance() to access the single instance
     public static SettingsWindow getInstance(BGMPlayer bgmPlayer, SFXPlayer sfxPlayer) {
         if (instance == null || instance.bgmPlayer == null || instance.sfxPlayer == null) {
             instance = new SettingsWindow(bgmPlayer, sfxPlayer);
@@ -86,17 +98,16 @@ public class SettingsWindow extends JFrame {
         return instance;
     }
 
-
-    // Inner class to handle music toggling
     private class MusicToggleListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (musicOnButton.isSelected()) {
                 bgmPlayer.setMusicEnabled(true);
-                bgmPlayer.playBGM(bgmPlayer.getFilePath());
+                if (bgmPlayer.getFilePath() != null) {
+                    bgmPlayer.playBGM(bgmPlayer.getFilePath());
+                }
             } else if (musicOffButton.isSelected()) {
                 bgmPlayer.setMusicEnabled(false);
-                //bgmPlayer.pauseBGM();  // Pauses the music when turned off
                 bgmPlayer.stopBGM();
             }
         }
@@ -107,22 +118,19 @@ public class SettingsWindow extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (sfxOnButton.isSelected()) {
                 sfxPlayer.setSFXEnabled(true);
-                sfxPlayer.playSFX(sfxPlayer.getFilePath());
             } else if (sfxOffButton.isSelected()) {
                 sfxPlayer.setSFXEnabled(false);
-                sfxPlayer.stopSFX();
+                sfxPlayer.stopAllSFX();
             }
         }
     }
 
-    // Inner class to handle volume changes
     private class VolumeChangeListener implements ChangeListener {
         @Override
         public void stateChanged(ChangeEvent e) {
             int value = volumeSlider.getValue();
             volumeLabel.setText("Volume: " + value + "%");
             
-            // Assuming BGMPlayer has a setVolume method that accepts a value between 0.0 and 1.0
             float normalizedVolume = value / 100.0f;
             bgmPlayer.setVolume(normalizedVolume);
             sfxPlayer.setVolume(normalizedVolume);

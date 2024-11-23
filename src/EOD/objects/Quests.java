@@ -589,7 +589,7 @@ public class Quests extends JPanel implements MouseInteractable{
             Enemy enemy = enemyList.get(0);
             if(enemy.getIsDefeated()){
                 setQuestStatus(6);
-                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 100, enemy.getX() * 1.2, screenSize.height * 0.23);
+                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 50, enemy.getX() * 1.2, screenSize.height * 0.23);
                 rewards.getMinionsChest().setIndex(enemy.getIndex());
                 constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(1, true);
                 return true;
@@ -639,7 +639,7 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 11){
             Enemy enemy = enemyList.get(1);
             if(enemy.getIsDefeated()){
-                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 200, enemy.getX() * 1.2, screenSize.height * 0.23);
+                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 100, enemy.getX() * 1.2, screenSize.height * 0.23);
                 rewards.getMiniBossChest().setIndex(enemy.getIndex());
                 miggins.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
                 setQuestStatus(12);
@@ -726,7 +726,7 @@ public class Quests extends JPanel implements MouseInteractable{
             Enemy enemy = enemyList.get(0);
             if(enemy.getIsDefeated()){
                 setQuestStatus(6);
-                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 100, enemy.getX() * 1.2, screenSize.height * 0.23);
+                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 50, enemy.getX() * 1.2, screenSize.height * 0.23);
                 rewards.getMinionsChest().setIndex(enemy.getIndex());
                 constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(1, true);
                 return true;
@@ -768,7 +768,7 @@ public class Quests extends JPanel implements MouseInteractable{
         if(ifActive == 10){
             Enemy enemy = enemyList.get(1);
             if(enemy.getIsDefeated()){
-                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 200, enemy.getX() * 1.2, screenSize.height * 0.23);
+                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 100, enemy.getX() * 1.2, screenSize.height * 0.23);
                 rewards.getMiniBossChest().setIndex(enemy.getIndex());
                 miggins.dialogues.getQuestsDialogues().updateObjectivesAtIndex(0, true);
                 setQuestStatus(11);
