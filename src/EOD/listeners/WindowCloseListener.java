@@ -10,7 +10,6 @@ public class WindowCloseListener extends WindowAdapter{
         this.interactable = interactable;
     }
 
-    @Override
     public void onWindowClosing(WindowEvent e){
         interactable.onWindowClosing(e);
     }

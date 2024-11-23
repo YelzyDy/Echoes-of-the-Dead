@@ -13,10 +13,10 @@ public class ShopExterior  extends QuestableObjects{
 
     @Override
     public void performQuest() {
-        if(isClicked) return;
+        if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
         Shop shop = world.getShop();
         shop.makeElementsVisible();
-        isClicked = true;
+        isPerformQActive = true;
     }
 }

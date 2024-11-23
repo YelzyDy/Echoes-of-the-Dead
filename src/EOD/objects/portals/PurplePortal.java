@@ -18,7 +18,7 @@ public class PurplePortal extends QuestableObjects{
 
     @Override
     public void performQuest(){
-        if(isClicked) return;
+        if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
 
         SceneBuilder scene = world.getScene();
@@ -40,7 +40,7 @@ public class PurplePortal extends QuestableObjects{
         window.setVisible(true);
         window.setBGMPlayer(bgmPlayer);
         scene.setVisible(false);
-        isClicked = true;
+        isPerformQActive = true;
     }
 
 }

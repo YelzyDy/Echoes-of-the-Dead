@@ -17,7 +17,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
     public boolean[] doneODialogues;
     public boolean activateQuest;
     public double targetX;
-    public boolean isClicked;
+    public boolean isPerformQActive;
     
     public Npc(String name, String characterType, int posX, int posY, double minRange, double maxRange) {
         super(name, characterType, posX, posY);
@@ -36,7 +36,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
         animator.setRange(minRange, maxRange);
         dialogues.setNpc(this);
         targetX = -15;
-        isClicked = false;
+        isPerformQActive = false;
     }
 
     public void initializeNpcSprites(){
@@ -120,20 +120,26 @@ public class Npc extends Character implements MouseInteractable, Questable{
 
     @Override
     public void performQuest(){
-        if(isClicked) return;
+        if(isPerformQActive) return;
         dialogues.setPlayerType(world.getPlayerType());
         dialogues.setPlayerName(world.getPlayer().getName());
-        System.out.println("JDialog not null? " + (dialogues.getStoryJDialog() != null));
+        System.out.println("JDialog null? " + (dialogues.getStoryJDialog() == null));
         System.out.println("JDialog displayable? " + (dialogues.getStoryJDialog().isDisplayable()));
 
-        if(dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
+        if(dialogues.getStoryJDialog().isDisplayable()){
+            dialogues.getStoryJDialog().dispose();
+            return;
+        }
 
+        if(dialogues.getStoryJDialog() == null){
+
+        }
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
-
+        System.out.println("questing");
         dialogues.displayDialogues(getDialogueId(), world);
-        isClicked = true;
+        isPerformQActive = true;
     }
     
     @Override
@@ -174,7 +180,8 @@ public class Npc extends Character implements MouseInteractable, Questable{
         animator.stopMovement();
         animator.setPaused(true);
         animator.setInteracting(true);
-        isClicked = false;
+        isPerformQActive = false;
+        System.out.println("clicking btch");
     }
 
     @Override
