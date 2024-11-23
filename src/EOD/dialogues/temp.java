@@ -257,8 +257,7 @@ public class StoryLine implements Freeable{
                                 this.oArr[o++] = "Gather clues from the local denizens; they might possess valuable information about your nemesis.";
                                 this.oArr[o++] = "-";
                         } else {
-                                this.oArr[o++] = "Clues from the locals will greatly help you determine the identity of your murderer!";
-                                this.oArr[o++] = "Fun Fact: &lt;font color='#FF0000'&gt;Red&lt;/font&gt; is often used in contexts where it signifies important information, danger, or attention-grabbing elements.";
+                                this.oArr[o++] = "Clues from the locals will greatly help you determine the identity of your murderer! Fun Fact: <font color='#FF0000'>Red</font> is often used in contexts where it signifies important information, danger, or attention-grabbing elements. This is particularly useful in police investigations.";
                                 this.oArr[o++] = "-";
                         }
                 
@@ -294,11 +293,13 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = "Miss C: \"You better! The city's counting on you... and so am I. Hehehe.\"";
                         } else if (objDone[0]) {
                                 i = 0;
-                                for (int l = 0; l < objectivesSize; l++) {
+                                int startingIndex = getTargetIndex(0);
+                                for (int l = startingIndex; l < objectivesSize; l++) {
                                         this.arr[i++] = this.oArr[l];
                                 }
                         } else if (objDone[1]) {
-                                for (int l = 0; l < objectivesSize; l++) {
+                                int startingIndex = getTargetIndex(1);
+                                for (int l = startingIndex; l < objectivesSize; l++) {
                                         this.arr[i++] = this.oArr[l];
                                 }
                         }
