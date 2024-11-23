@@ -99,6 +99,10 @@ public abstract class Animator implements Freeable{
         return isUsingSkill && reachedTarget && !skillCompleted;
     }
 
+    public boolean isExecutingSkillAndNotReachedTarget(){
+        return isUsingSkill && !reachedTarget && !skillCompleted;
+    }
+
     public void setOnAnimationComplete(Runnable callback) {
         this.onAnimationComplete = callback;
     }
@@ -169,6 +173,10 @@ public abstract class Animator implements Freeable{
             // logCurrentSpritePath(currentSprites);
         }
         // if(character.getCharacterType().equals("knight") || character.getCharacterType().equals("wizard")  || character.getCharacterType().equals("priest") )System.out.println("Character type to animate: " + character.getCharacterType());
+    }
+
+    public int getCurrentFrame(){
+        return currentFrame;
     }
 
     // private void logCurrentSpritePath(ImageList sprites) {

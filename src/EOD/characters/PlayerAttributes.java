@@ -58,7 +58,7 @@ public class PlayerAttributes implements Freeable{
                 setupAttributes(15, 100, 130, 0, 6, 6, 6, 6);
                 break;
             case "priest":
-                setupAttributes(10, 130, 100, 0, 9, 9, 10, 6);
+                setupAttributes(10, 130, 100, 50, 9, 9, 9, 6);
                 break;
         }
     }

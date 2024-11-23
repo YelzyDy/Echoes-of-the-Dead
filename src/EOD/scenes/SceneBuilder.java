@@ -297,23 +297,21 @@ public void createWorldScene() {
         }
 
         if (world != null) {
-            // Update skill effects
-            if (world.getPlayerList().get(1).getAttributes().skillEffectsRandom != null){
-                world.getPlayerList().get(1).getAttributes().skillEffectsRandom.updateEffect();
+            if(world.getPlayerList().get(1).getAttributes().skillEffects3 != null && player.getEnemy() != null){
+                Enemy enemy = player.getEnemy();
                 double offsetX = 0, offsetY = 0;
-                if(player.getCharacterType().equals("priest")){
-                   offsetX =  0.42;
-                   offsetY =  0.15;
-                }else if(player.getCharacterType().equals("wizard")){
-                    offsetX =  0.42;
-                    offsetY =  0.15;
+                int currentFrame = enemy.getAnimator().getCurrentFrame();
+                if(enemy.getAnimator().isExecutingSkillAndNotReachedTarget() && currentFrame == 3){
+                    offsetX = 0.35;
                 }else{
-                    offsetX =  0.4;
-                    offsetY =  0.15;
+                    offsetX =  0.25;
                 }
-                SkillEffects effect = world.getPlayerList().get(1).getAttributes().skillEffectsRandom;
-                effect.bindToTarget(player, -effect.getWidth() * offsetX, -effect.getHeight() * offsetY);
+                offsetY =  -0.7;
+                SkillEffects effect = world.getPlayerList().get(1).getAttributes().skillEffects3;
+                effect.bindToTarget(player.getEnemy(), -effect.getWidth() * offsetX, -effect.getHeight() * offsetY);
             }
+
+
             if (player.getAttributes().skillEffects1 != null) player.getAttributes().skillEffects1.updateEffect();
             if (player.getAttributes().skillEffects2 != null) player.getAttributes().skillEffects2.updateEffect();
             if (player.getAttributes().skillEffects3 != null) player.getAttributes().skillEffects3.updateEffect();

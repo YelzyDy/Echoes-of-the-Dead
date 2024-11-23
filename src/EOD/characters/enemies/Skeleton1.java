@@ -99,8 +99,10 @@ public class Skeleton1 extends Enemy {
         }else if(skill == 2){
             if(player.isKnight()){
                 return 0.35;
-            }else{
+            }else if(player.isWizard()){
                 return 0.15;
+            }else{
+                return 0.25;
             }
         }else if(skill == 3) {
             if(player.isWizard()) {
@@ -139,9 +141,11 @@ public class Skeleton1 extends Enemy {
         } else if(skill == 3){
             if(player.isKnight()){
                 return 0.3;
-            }else{
+            }else if(player.isWizard()){
                 return 0.3;
-            }  
+            }  else{
+                return -0.7;
+            }
         }else{
             if(player.isKnight()){
                 return 0.4;
@@ -167,7 +171,7 @@ public class Skeleton1 extends Enemy {
             }else if(player.isWizard()){
                 return 0.15;
             } else {
-                return 0.25;
+                return 0.17;
             }
         } else if(skill == 3) {
             if(player.isKnight()) {
@@ -175,7 +179,7 @@ public class Skeleton1 extends Enemy {
             } else if(player.isWizard()) {
                 return 0.2;
             } else {
-                return 0.17;
+                return 0.12;
             }
         } else {
             if(player.isKnight()) {
@@ -208,7 +212,7 @@ public class Skeleton1 extends Enemy {
             } else if(player.isWizard()) {
                 return 0.2;
             } else {
-                return 0.17;
+                return 0.05;
             }
         }else {
             if(player.isKnight()) {
