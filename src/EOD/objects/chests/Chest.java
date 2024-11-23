@@ -18,13 +18,13 @@ public class Chest extends QuestableObjects{
 
     @Override
     public void performQuest(){
-        if(isClicked) return;
+        if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
         Player player = world.getPlayer();
         sfxPlayer.playSFX("src/audio_assets/sfx/general/reward.wav");
         player.getAttributes().addMoney(gold);
         setVisible(false);
-        isClicked = true;
+        isPerformQActive = true;
     }
     
 }

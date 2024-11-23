@@ -18,7 +18,7 @@ public class GreenPortal extends QuestableObjects{
 
     @Override
     public void performQuest(){
-        if(isClicked) return;
+        if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
         SceneBuilder scene = world.getScene();
         BGMPlayer bgmPlayer = world.getBGMPlayer();
@@ -49,7 +49,7 @@ public class GreenPortal extends QuestableObjects{
                 Dialogues dialogues = battle.getBattleExperiment().getEnemy().getDialogues();
                     if(dialogues != null && dialogues.getStoryJDialog() != null) dialogues.getStoryJDialog().dispose();
         }
-        isClicked = true;
+        isPerformQActive = true;
     }
 
 }

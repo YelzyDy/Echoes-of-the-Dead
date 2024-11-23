@@ -457,9 +457,9 @@ public class Quests extends JPanel implements MouseInteractable{
             
         }
 
-        rewards.getMinionsChest().setVisible(!rewards.getMinionsChest().isClicked && currentSceneIndex != 0 && currentSceneIndex == rewards.getMinionsChest().getIndex());
-        rewards.getMiniBossChest().setVisible(!rewards.getMiniBossChest().isClicked && currentSceneIndex != 0 && currentSceneIndex  == rewards.getMiniBossChest().getIndex());
-        rewards.getQuestChest().setVisible(!rewards.getQuestChest().isClicked && currentSceneIndex != 0 && currentSceneIndex == rewards.getQuestChest().getIndex());
+        rewards.getMinionsChest().setVisible(!rewards.getMinionsChest().isPerformQActive && currentSceneIndex != 0 && currentSceneIndex == rewards.getMinionsChest().getIndex());
+        rewards.getMiniBossChest().setVisible(!rewards.getMiniBossChest().isPerformQActive && currentSceneIndex != 0 && currentSceneIndex  == rewards.getMiniBossChest().getIndex());
+        rewards.getQuestChest().setVisible(!rewards.getQuestChest().isPerformQActive && currentSceneIndex != 0 && currentSceneIndex == rewards.getQuestChest().getIndex());
 
         for(QuestableObjects obj : objList){
             if((int)player.getPosX() == (int)obj.targetX && currentSceneIndex == obj.getIndex()){
