@@ -52,7 +52,7 @@ public class BattleExperiment implements Skillable{
 
     private void performPriestPoison(int damageHolder[], int initialDamage){
         System.out.println("damageHolder[0] = " + damageHolder[0]);
-        System.out.println("Initial damage: " + player.getDamageDealt());
+        System.out.println("Initial damage: " + initialDamage);
         System.out.println("Poison Stacks: " + player.getPoisonStacks());
         System.out.println("Enemy name: " + enemy.getName());
         System.out.println("enemy base hp: " + enemy.getBaseHp());
