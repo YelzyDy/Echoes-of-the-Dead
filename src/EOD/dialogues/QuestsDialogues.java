@@ -181,7 +181,7 @@ public class QuestsDialogues extends JFrame{
     
     public void handleSetText() {
         int size = story.getSize(getCurrentStringArray());
-        JLabel textBox = dialogues.textBox;
+        JTextPane textBox = dialogues.textBox;
         System.out.println("handleSetText called");
         System.out.println("Current i: " + i);
         System.out.println("isTyping: " + dialogues.isTyping);
