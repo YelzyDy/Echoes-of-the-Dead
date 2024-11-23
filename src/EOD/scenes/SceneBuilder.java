@@ -368,7 +368,7 @@ public void createWorldScene() {
         
         if(player == null) return;
         if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
-        if(player.getAttributes().skillEffects3 != null && player.isPriest())player.getAttributes().skillEffects3.setVisible(player.getPoisonDebuffRemaining() != 0);
+        // if(player.getAttributes().skillEffects3 != null && player.isPriest())player.getAttributes().skillEffects3.setVisible(player.getPoisonDebuffRemaining() != 0);
         for (EchoesObjects obj : objList) {
             if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated()); // comment this code if nahan mu nextworldportal dayun gawas

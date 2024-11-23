@@ -679,8 +679,8 @@ public class Player extends Character implements MouseInteractable{
         
     }
 
-    public void playSfx(Player player, int skillNumber) {
-        if (player.getCharacterType().equals("wizard")){
+    public void playSfx(int skillNumber) {
+        if (getCharacterType().equals("wizard")){
             switch(skillNumber){
                 case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardbasicatk.wav");
                 case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill1.wav");
@@ -688,14 +688,14 @@ public class Player extends Character implements MouseInteractable{
                 case 4 -> sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
                 
             }
-        } else if (player.getCharacterType().equals("knight")){
+        } else if (getCharacterType().equals("knight")){
             switch(skillNumber){
                 case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightbasicatk.wav");
                 case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill1.wav");
                 case 3 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
                 case 4 -> sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill3.wav");
             }
-        } else if (player.getCharacterType().equals("priest")){
+        } else if (getCharacterType().equals("priest")){
             switch(skillNumber){
                 case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestbasicatk.wav");
                 case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill1.wav");

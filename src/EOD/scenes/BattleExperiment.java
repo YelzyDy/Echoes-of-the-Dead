@@ -4,6 +4,7 @@ import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
 import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
+import EOD.objects.SkillEffects;
 import EOD.objects.profiles.AllyProfiles;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World; // -z
@@ -67,7 +68,7 @@ public class BattleExperiment implements Skillable{
                 int poisonTickDamage = (int) (enemy.getBaseHp() * 0.1 * poisonStacks);
                 System.out.println("Huy nganu ka\n " + enemy.getBaseHp() +  " * 0.02 "+" * " + poisonStacks + " = " + poisonTickDamage);
                 enemy.takeDamage(poisonTickDamage);
-                
+                enemy.getAnimator().triggerHurtAnimation();
                 // Check enemy death after poison damage
                 if (enemy.getHp() <= 0) {
                     ((Timer)e.getSource()).stop();
@@ -99,9 +100,7 @@ public class BattleExperiment implements Skillable{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (player.getAnimator().isExecutingSkill()) {
-                        // Apply damage only once during skill execution
-                        player.playSfx(player, skillNumber);
-
+                
                         if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                             performPriestPoison(damageHolder);
                         }
@@ -174,6 +173,7 @@ public class BattleExperiment implements Skillable{
                     }
                     player.takeDamage(damageHolder[0]);
                     player.getAnimator().triggerHurtAnimation();
+                    player.playSfx(initialPlayerDamage);
 
                     if (player.getWorld().getPlayerList().get(0).isDamageReducerActive() && 
                         damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {
