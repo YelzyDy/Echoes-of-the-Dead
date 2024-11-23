@@ -292,11 +292,14 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = playerName + ": \"Thanks. I'll get started.\"";
                                 this.arr[i++] = "Miss C: \"You better! The city's counting on you... and so am I. Hehehe.\"";
                         } else if (objDone[0]) {
-                                for (int l = 0; l < objectivesSize; l++) {
+                                i = 0;
+                                int startingIndex = getTargetIndex(0);
+                                for (int l = startingIndex; l < objectivesSize; l++) {
                                         this.arr[i++] = this.oArr[l];
                                 }
                         } else if (objDone[1]) {
-                                for (int l = 1; l < objectivesSize; l++) {
+                                int startingIndex = getTargetIndex(1);
+                                for (int l = startingIndex; l < objectivesSize; l++) {
                                         this.arr[i++] = this.oArr[l];
                                 }
                         }
