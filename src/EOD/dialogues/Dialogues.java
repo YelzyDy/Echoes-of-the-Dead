@@ -172,7 +172,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         buttonPanel.setVisible(true);
         if(npc != null && npc.activateQuest) questsButton.setVisible(true);
         else questsButton.setVisible(false);
-
+        startVoiceLine(ID, 0);
 
         // LOAD NPC
         this.ID = ID;
