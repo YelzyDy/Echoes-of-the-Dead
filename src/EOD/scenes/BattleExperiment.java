@@ -272,23 +272,6 @@ public class BattleExperiment implements Skillable{
         isProcessingTurn = false;
     }
 
-    private String getEnemyType(){
-        switch(enemy.getCharacterType()){
-            case "skeleton1" ->{
-                return "minions";
-            }case "skeleton2" ->{
-                return "minions";
-            }case "skeleton3" ->{
-                return "minions";
-            }case "death" ->{
-                return "miniboss";
-            }case "necromancer" ->{
-                return "miniboss";
-            }default->{
-                return null;
-            }
-        }
-    }
 
     private void handleBattleEnd(boolean playerWon) {
         if (battleEnded) return;

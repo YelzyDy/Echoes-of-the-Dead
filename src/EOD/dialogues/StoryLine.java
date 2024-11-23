@@ -37,6 +37,7 @@ public class StoryLine implements Freeable{
                 int c = 0;
                 for(int j = 0, count = 1; j < objectivesSize; j++){
                     if(getOArr()[j].equals("-")){
+                        System.out.println(oArr[j]);
                         count++;
                     }
                     if(clickedIndex == count){
@@ -44,6 +45,7 @@ public class StoryLine implements Freeable{
                     }
                     c++;
                 }
+                System.out.println("Clicked index to return: " + ((clickedIndex != 1) ? c + 1 : 0));
                 return (clickedIndex != 1) ? c + 1 : 0;
         }
 
@@ -291,11 +293,11 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = "Miss C: \"You better! The city's counting on you... and so am I. Hehehe.\"";
                         } else if (objDone[0]) {
                                 for (int l = 0; l < objectivesSize; l++) {
-                                this.arr[i++] = this.oArr[l];
+                                        this.arr[i++] = this.oArr[l];
                                 }
                         } else if (objDone[1]) {
                                 for (int l = 1; l < objectivesSize; l++) {
-                                this.arr[i++] = this.oArr[l];
+                                        this.arr[i++] = this.oArr[l];
                                 }
                         }
                 } else if (worldType.equals("world2")) {
