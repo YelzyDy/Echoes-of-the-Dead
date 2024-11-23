@@ -148,7 +148,7 @@ public class World3 extends World{
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
-            if (enemy.getCharacterType().equals("skeleton")) {
+            if (enemy.getCharacterType().equals("skeleton3")) {
                 enemy.setIndex(3);
             } else if(enemy.getCharacterType().equals("killer")) {
                 enemy.setIndex(5);
