@@ -50,9 +50,8 @@ public class BattleExperiment implements Skillable{
     }
 
 
-    private void performPriestPoison(int damageHolder[], int initialDamage){
+    private void performPriestPoison(int damageHolder[]){
         System.out.println("damageHolder[0] = " + damageHolder[0]);
-        System.out.println("Initial damage: " + initialDamage);
         System.out.println("Poison Stacks: " + player.getPoisonStacks());
         System.out.println("Enemy name: " + enemy.getName());
         System.out.println("enemy base hp: " + enemy.getBaseHp());
@@ -60,7 +59,6 @@ public class BattleExperiment implements Skillable{
         System.out.println("Posion Stacks from Math.min: " + poisonStacks);
         double poisonMultiplier = (poisonStacks * 0.08);
         System.out.println("Posion multiplier: " + poisonMultiplier);
-        damageHolder[0] = initialDamage + (int)(initialDamage * poisonMultiplier);
         System.out.println("Damage Holder after calculation: " + damageHolder[0]);
         // Create a Timer for delayed poison tick damage
         Timer poisonTimer = new Timer(1000, new ActionListener() { // 1 second delay
@@ -77,7 +75,7 @@ public class BattleExperiment implements Skillable{
                 }
                 
                 // Optional: Show poison damage in UI
-                battleUI.showAction("Turn " + turnCount + ": " + "Poison deals " + poisonTickDamage + " damage!" + " Damage increased by: " + (int)(initialDamage * poisonMultiplier));
+                battleUI.showAction("Turn " + turnCount + ": " + "Poison deals " + poisonTickDamage + " damage!");
             }
         });
         poisonTimer.setRepeats(false); // Only trigger once
@@ -105,7 +103,7 @@ public class BattleExperiment implements Skillable{
                         player.playSfx(player, skillNumber);
 
                         if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
-                            performPriestPoison(damageHolder, initialDamage);
+                            performPriestPoison(damageHolder);
                         }
 
                         if (damageEnemy) {
@@ -171,7 +169,7 @@ public class BattleExperiment implements Skillable{
                 if (enemy.getAnimator().isExecutingSkill()) {
                     enemy.playSfx(enemy, chosenSkill);
                     if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
-                        performPriestPoison(playerDamageHolder, initialPlayerDamage);
+                        performPriestPoison(playerDamageHolder);
                     }
                     player.takeDamage(damageHolder[0]);
 
