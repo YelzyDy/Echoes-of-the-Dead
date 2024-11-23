@@ -35,6 +35,7 @@ public class Skeleton2 extends Enemy {
         animator.importSprites("character_asset", "walk", baseSize, 8);
         animator.importSprites("character_asset", "idle", baseSize, 6);
         animator.importSprites("character_asset", "dead", baseSize, 4);
+        animator.importSprites("character_asset","hurt", baseSize, 4);
         animator.importSkillSprites(1, "character_asset", baseSize, 6);
         animator.importSkillSprites(2, "character_asset", baseSize, 7);
         

@@ -28,6 +28,7 @@ public class Death extends Enemy{
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.0055), 8);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.0055), 8);
         animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.0055), 11);
+        animator.importSprites("character_asset","hurt",(int)(screenSize.height * 0.0055), 4);
         animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.0055), 10);
         animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.0055), 9);
         animator.startMovement();

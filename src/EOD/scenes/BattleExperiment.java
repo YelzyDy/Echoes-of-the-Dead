@@ -108,6 +108,7 @@ public class BattleExperiment implements Skillable{
 
                         if (damageEnemy) {
                             enemy.takeDamage(damageHolder[0]);
+                            enemy.getAnimator().triggerHurtAnimation();
                             
                             // Check enemy death immediately after damage
                             if (enemy.getHp() <= 0) {
@@ -172,6 +173,7 @@ public class BattleExperiment implements Skillable{
                         performPriestPoison(playerDamageHolder);
                     }
                     player.takeDamage(damageHolder[0]);
+                    player.getAnimator().triggerHurtAnimation();
 
                     if (player.getWorld().getPlayerList().get(0).isDamageReducerActive() && 
                         damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {

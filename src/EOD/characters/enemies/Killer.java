@@ -31,6 +31,7 @@ public class Killer extends Enemy{
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 8);
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.006), 12);
         animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.006), 10);
+        animator.importSprites("character_asset","hurt", (int)(screenSize.height * 0.006), 4);
         animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.006), 15);
         animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.006), 9);
         animator.startMovement();

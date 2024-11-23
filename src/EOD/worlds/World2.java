@@ -128,7 +128,7 @@ public class World2 extends World{
     @Override
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Skeleton2("Dual-Wield Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.2), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Skeleton2("Dual-Wield Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.19), screenSize.width * 0.4, screenSize.width * 0.8, player));
         // scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Death("Death",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){

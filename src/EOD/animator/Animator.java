@@ -20,13 +20,16 @@ public abstract class Animator implements Freeable{
     protected ImageList idleSprites;
     protected ImageList[] skillSprites;
     protected ImageList deadSprites;
+    protected ImageList hurtSprites;
     protected Character character;
+    protected boolean isHurt;
     protected int targetX;
     protected int deltaX;
     protected boolean isInBattle;
     protected Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     protected Runnable onAnimationComplete;
-
+    protected Timer hurtAnimationTimer;
+    
     protected double targetY;
     protected double currentY;
     protected boolean isDeathAnimating;
@@ -36,6 +39,9 @@ public abstract class Animator implements Freeable{
     protected boolean isUsingSkill;
     protected int currentSkill;
     protected int skillAnimationFrame;
+    protected int hurtAnimationFrame;
+    protected double hurtAnimationSpeedMultiplier;
+    protected Runnable onHurtAnimationComplete;
     protected int originalPosX;
     protected boolean isReturning;
     protected int skillTargetX;
@@ -55,6 +61,7 @@ public abstract class Animator implements Freeable{
         this.walkSprites = new ImageList();
         this.idleSprites = new ImageList();
         this.deadSprites = new ImageList();
+        this.hurtSprites = new ImageList();
         this.skillSprites = new ImageList[numberOfSkills];
         for (int i = 0; i < numberOfSkills; i++) {
             this.skillSprites[i] = new ImageList();
@@ -68,6 +75,9 @@ public abstract class Animator implements Freeable{
         this.skillCompleted = false;
         this.reachedTarget = false;
         this.isDeathAnimating = false;
+        this.isHurt = false;
+        this.hurtAnimationFrame = 0;
+        this.hurtAnimationSpeedMultiplier = 1;
     }
 
     @Override
@@ -152,6 +162,7 @@ public abstract class Animator implements Freeable{
             case "walk": return walkSprites;
             case "idle": return idleSprites;
             case "dead": return deadSprites;
+            case "hurt": return hurtSprites;
             default:
                 if (type.startsWith("skill")) {
                     int skillNumber = Integer.parseInt(type.substring(5)) - 1;
@@ -236,9 +247,11 @@ public abstract class Animator implements Freeable{
     public BufferedImage getCurrentSprite() {
         if (isDead) {
             return deadSprites.get(Math.min(currentFrame, deadSprites.getSize() - 1));
+        } else if (isHurt) {
+            return hurtSprites.get(Math.min(hurtAnimationFrame, hurtSprites.getSize() - 1));
         } else if (isUsingSkill) {
             if (!reachedTarget || isReturning) {
-                return walkSprites.get(currentFrame % walkSprites.getSize());  // Here's the problem!
+                return walkSprites.get(currentFrame % walkSprites.getSize());
             } else {
                 return skillSprites[currentSkill].get(Math.min(skillAnimationFrame, skillSprites[currentSkill].getSize() - 1));
             }
@@ -247,6 +260,39 @@ public abstract class Animator implements Freeable{
             return sprites.get(currentFrame % sprites.getSize());
         }
     }
+
+    public void triggerHurtAnimation() {
+        if (!isHurt && !isDead) {  // Don't trigger hurt animation if already hurt or dead
+            isHurt = true;
+            hurtAnimationFrame = 0;
+            
+            final int fps = 60;
+            
+            hurtAnimationTimer = new Timer(5000 / fps, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (hurtAnimationFrame < hurtSprites.getSize()) {
+                        hurtAnimationFrame += Math.max(1, (int)(1 * hurtAnimationSpeedMultiplier));
+                        updateBounds();
+                    } else {
+                        isHurt = false;
+                        hurtAnimationFrame = 0;
+                        ((Timer) e.getSource()).stop();
+                        
+                        // Trigger callback if set
+                        if (onHurtAnimationComplete != null) {
+                            Runnable callback = onHurtAnimationComplete;
+                            onHurtAnimationComplete = null;  // Clear callback
+                            callback.run();
+                        }
+                    }
+                }
+            });
+
+            hurtAnimationTimer.start();
+        }
+    }
+
 
 
     public void triggerSkillAnimation(int skillNumber, int targetX) {
