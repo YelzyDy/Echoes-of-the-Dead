@@ -339,20 +339,46 @@ public class Dialogues implements Freeable, MouseInteractable {
     }
 
     void startVoiceLine(int ID, int i){
-        if (ID == 2 && i == 1){
+        if (ID == 1){
+            if (worldType.equals("world1") && i == 1){
+                sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Constance1.wav");
+            } else if (worldType.equals("world2") && i == 1){
+                sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Constance2.wav");
+            } else if (worldType.equals("world3") && i == 1){
+                sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Constance3.wav");
+            }
+        } else if (ID == 2 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Natty.wav");
         } else if (ID == 3 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Yoo.wav");
+        } else if (ID == 4){
+            if (worldType.equals("world1") && i == 1){
+                sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins1.wav");
+            } else if (worldType.equals("world2") && i == 1){
+                sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins2.wav");
+            } else if (worldType.equals("world3") && i == 1){
+                sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins3.wav");
+            }
+        } else if (ID == 5 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Faithful.wav");
         } else if (ID == 6 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Knight.wav");
+        } else if (ID == 7 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Wizard.wav");
+        } else if (ID == 8 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Priest.wav");
         } else if (ID == 13 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Ruby.wav");
+        } else if (ID == 14 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Reginald.wav");
         } else if (ID == 15 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Akefay.wav");
         } else if (ID == 16 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Asriel.wav");
         } else if (ID == 17 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Chea.wav");
+        } else if (ID == 2 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Mono.wav");
         } else {
             sfxPlayer.stopAllSFX();
         }
