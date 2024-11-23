@@ -59,10 +59,6 @@ public class Necromancer extends Enemy {
 
     @Override 
     public void skill2() {
-        if (skill2Cooldown > 0) {
-            skill1();
-            return;
-        }
         //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
@@ -228,9 +224,11 @@ public class Necromancer extends Enemy {
     // Decision making for skill usage
     @Override
     public int decideSkill() {
-        // 70% chance to use basic attack
-        // 30% chance to try skill2 (will fall back to basic if on cooldown)
-        return Math.random() < 0.9 ? 2 : 1;
+        if (skill2Cooldown > 0) {
+            return 1;
+        }
+        // Otherwise, 70% chance for skill1, 30% chance for skill2
+        return (Math.random() < 0.9) ? 2 : 1;
     }
     
     @Override

@@ -53,12 +53,6 @@ public class Skeleton3 extends Enemy {
     @Override 
     public void skill2() {
         // Special attack - bone throw with damage variation
-        if (skill2Cooldown > 0) {
-            // Fallback to basic attack if on cooldown
-            skill1();
-            return;
-        }
-
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
@@ -78,9 +72,11 @@ public class Skeleton3 extends Enemy {
     // Decision making for skill usage
     @Override
     public int decideSkill() {
-        // 70% chance to use basic attack
-        // 30% chance to try skill2 (will fall back to basic if on cooldown)
-        return Math.random() < 0.7 ? 1 : 2;
+        if (skill2Cooldown > 0) {
+            return 1;
+        }
+        // Otherwise, 70% chance for skill1, 30% chance for skill2
+        return (Math.random() < 0.7) ? 1 : 2;
     }
 
     @Override

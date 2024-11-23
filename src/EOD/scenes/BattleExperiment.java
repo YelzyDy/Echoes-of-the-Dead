@@ -279,6 +279,7 @@ public class BattleExperiment implements Skillable{
 
         for(Player player : allyProfiles.getPlayerList()){
             player.attributeTurnChecker();
+            enemy.update();
             if(player.getAttributes().getHp() <= 0){
                 switch(player.getCharacterType()){
                     case "knight" -> isKnightDead = true;
@@ -315,8 +316,6 @@ public class BattleExperiment implements Skillable{
             handleBattleEnd(false);
             return;
         }
-        
-        enemy.update();
         isProcessingTurn = false;
     }
 

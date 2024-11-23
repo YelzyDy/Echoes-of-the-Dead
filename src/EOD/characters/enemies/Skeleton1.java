@@ -45,20 +45,13 @@ public class Skeleton1 extends Enemy {
     @Override 
     public void skill1() {
         // Basic attack - consistent but low damage
-        //sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1basicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
         actionString = getName() + " thrusted its broadaxe dealing " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
 
     @Override 
-    public void skill2() {
-        // Special attack - bone throw with damage variation
-        if (skill2Cooldown > 0) {
-            // Fallback to basic attack if on cooldown
-            skill1();
-            return;
-        }
+    public void skill2(){
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
@@ -66,12 +59,12 @@ public class Skeleton1 extends Enemy {
         actionString = getName() + " spins its broadaxe dealing " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
-        //sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1skill1.wav");
     }
 
     @Override
     public void update() {
         if (skill2Cooldown > 0) {
+            System.out.println("cooldown: " + skill2Cooldown);
             skill2Cooldown--;
         }
     }
@@ -79,9 +72,11 @@ public class Skeleton1 extends Enemy {
     // Decision making for skill usage
     @Override
     public int decideSkill() {
-        // 70% chance to use basic attack
-        // 30% chance to try skill2 (will fall back to basic if on cooldown)
-        return Math.random() < 0.7 ? 1 : 2;
+        if (skill2Cooldown > 0) {
+            return 1;
+        }
+        // Otherwise, 70% chance for skill1, 30% chance for skill2
+        return (Math.random() < 0.7) ? 1 : 2;
     }
 
     @Override
