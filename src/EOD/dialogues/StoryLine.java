@@ -258,7 +258,7 @@ public class StoryLine implements Freeable{
                                 this.oArr[o++] = "-";
                         } else {
                                 this.oArr[o++] = "Clues from the locals will greatly help you determine the identity of your murderer!";
-                                this.oArr[o++] = "Fun Fact: &lt;font color='#FF0000'&gt;Red&lt;/font&gt; is often used in contexts where it signifies important information, danger, or attention-grabbing elements.";
+                                this.oArr[o++] = "Fun Fact: <font color='#fc0303'>- Red</font> is often used in contexts where it signifies important information, danger, or attention-grabbing elements.";
                                 this.oArr[o++] = "-";
                         }
                 

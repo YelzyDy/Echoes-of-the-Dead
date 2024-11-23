@@ -263,30 +263,48 @@ public class Dialogues implements Freeable, MouseInteractable {
     }
     
     public synchronized void typewriterEffect(String text) {
-        resetDialogueState(); // Safely terminate any existing thread.
-    
+        resetDialogueState(); // Safely terminate any existing thread
+        
         isTyping = true;
         typewriterThread = new Thread(() -> {
             try {
                 StringBuilder displayText = new StringBuilder();
-                String plainText = text.replaceAll("<[^>]*>", "");
-                String htmlPrefix = text.substring(0, text.indexOf(plainText));
-                String htmlSuffix = text.substring(text.indexOf(plainText) + plainText.length());
-    
-                for (char c : plainText.toCharArray()) {
+                int currentIndex = 0;
+                boolean inTag = false;
+                StringBuilder currentTag = new StringBuilder();
+                
+                while (currentIndex < text.length()) {
                     if (!isTyping) {
-                        return; // Exit if interrupted.
+                        return; // Exit if interrupted
                     }
-                    displayText.append(c);
-                    final String currentText = htmlPrefix + displayText.toString() + htmlSuffix;
-                    SwingUtilities.invokeLater(() -> textBox.setText(currentText));
-                    Thread.sleep(30); // Delay between characters.
+                    
+                    char currentChar = text.charAt(currentIndex);
+                    
+                    if (currentChar == '<') {
+                        inTag = true;
+                        currentTag.append(currentChar);
+                    } else if (currentChar == '>') {
+                        inTag = false;
+                        currentTag.append(currentChar);
+                        displayText.append(currentTag);
+                        currentTag.setLength(0); // Reset the tag buffer
+                    } else if (inTag) {
+                        currentTag.append(currentChar);
+                    } else {
+                        displayText.append(currentChar);
+                        // Only sleep for actual text characters, not HTML tags
+                        final String currentText = displayText.toString();
+                        SwingUtilities.invokeLater(() -> textBox.setText(currentText));
+                        Thread.sleep(30); // Delay between characters
+                    }
+                    
+                    currentIndex++;
                 }
-    
-                isTyping = false; // Mark typing as complete.
-    
+                
+                isTyping = false; // Mark typing as complete
+                
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // Safely handle interruption.
+                Thread.currentThread().interrupt(); // Safely handle interruption
             }
         });
         typewriterThread.start();
