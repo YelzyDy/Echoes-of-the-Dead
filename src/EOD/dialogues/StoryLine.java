@@ -373,7 +373,71 @@ public class StoryLine implements Freeable{
                                         this.arr[i++] = this.oArr[l];
                                 }
                         }
-                }                    
+                } else if (worldType.equals("world3")) {
+                        // Quest Title
+                        if (!isQuestDone) {
+                            this.qArr[q++] = "Quest: Explore and purify the forest.";
+                        } else {
+                            this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        }
+                    
+                        // Revised Quest Objectives
+                        if (!objDone[0]) {
+                            this.qArr[q++] = "Objective #1: Speak with the bystanders to gather information about the chaos.";
+                        } else {
+                            this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Learned more about the chaos</font>";
+                        }
+                    
+                        if (!objDone[1]) {
+                            this.qArr[q++] = "Objective #2: Face the minion deep in the forest.";
+                        } else {
+                            this.qArr[q++] = "<font color='#FFFF00'>- Objective #2 Done!: Vanquished the minion</font>";
+                        }
+                    
+                        //objectives dialogue
+                        if (!objDone[0]) {
+                            this.oArr[o++] = "The locals mention eerie disturbances and destructive rampages in the forest. They suspect dark forces are involved.";
+                            this.oArr[o++] = "-";
+                        } else {
+                            this.oArr[o++] = "The locals' insights lead you to a thicket along the forest path, a dark aura surges among the brambly branches. Something awaits beyond the green portal ahead.";
+                            this.oArr[o++] = "-";
+                        }
+                    
+                        if (!objDone[1]) {
+                            this.oArr[o++] = "Another minion was sent to stop you. You must face it to proceed deeper into the forest and in turn, deeper into the truth.";
+                        } else {
+                            this.oArr[o++] = "Minion exterminated, the forest thanks you. However, something bigger is approaching.";
+                        }
+                    
+                        // Dialogue Sequence
+                        if (!objDone[0] && !objDone[1]) {
+                            this.arr[i++] = playerName + ": \"Why does the forest feel... wrong? Something's out there, isn't it?\"";
+                            this.arr[i++] = "Miss C: \"Oh, darling, you're quite perceptive! It's not just *something*—there's something evil causing havoc.\"";
+                            this.arr[i++] = playerName + ": \"Let me guess. My nemesis summoned it or perhaps sent it on my way?\"";
+                            this.arr[i++] = "Miss C: \"I'm not sure, it's stirring up all kinds of trouble though. Everyone seems tensed!\"";
+                            this.arr[i++] = playerName + ": \"Great. Just what I needed. Any advice?\"";
+                            this.arr[i++] = "Miss C: \"Start with the bystanders. They might point you to the source of this mischief.\"";
+                            this.arr[i++] = playerName + ": \"Why can't this ever be easy?\"";
+                            this.arr[i++] = "Miss C: \"Oh, sweetie, you're the hero! If it were easy, you'd be out of a job.\"";
+                            this.arr[i++] = playerName + ": \"Right. I'll get to it, then.\"";
+                        } else if (objDone[0] && objDone[1]) {
+                            this.arr[i++] = playerName + ": \"The minion is defeated. The forest is finally less dangerous. I think?\"";
+                            this.arr[i++] = "Miss C: \"Look at you, the savior of greenery! I'm so proud.\"";
+                            this.arr[i++] = playerName + ": \"It wasn't easy, but I guess someone had to do it.\"";
+                            this.arr[i++] = "Miss C: \"Oh, no doubt about that! And your nemesis? Bet they're trembling now!\"";
+                            this.arr[i++] = playerName + ": \"If only. I'm sure they've got more up their sleeve.\"";
+                            this.arr[i++] = "Miss C: \"Pfft, let them try. You've got this, hero.\"";
+                        } else if (objDone[0]) {
+                            i = 0;
+                            for (int l = 0; l < objectivesSize; l++) {
+                                this.arr[i++] = this.oArr[l];
+                            }
+                        } else if (objDone[1]) {
+                            for (int l = 0; l < objectivesSize; l++) {
+                                this.arr[i++] = this.oArr[l];
+                            }
+                        }
+                }                                      
 
                 this.size = i;
                 this.questSize = q;
@@ -414,7 +478,7 @@ public class StoryLine implements Freeable{
                     this.arr[i++] = "Miss C: \"Happy? No. 'Death is peaceful'? Pfft, lies. It's boring as heck. No one talks. Except me, of course. If I didn't talk, I'd go completely insane. Maybe I already have. Who can even tell?\"";
             
                     this.arr[i++] = playerName + ": \"Why are you giggling?\"";
-                    this.arr[i++] = "Miss C: \"Oh my gosh, like, if trees emitted Wi-Fi signals, they'd basically be cell towers, right? And, I mean, phones are basically fruits of the tree now. *It's science*, darling! Don't make me explain how apples are like smartphones. I could go on... but let's not.\"";
+                    this.arr[i++] = "Miss C: \"Oh my gosh, like, if trees emitted Wi-Fi signals, they'd basically be cell towers, right? And, I mean, phones are basically fruits of the tree now. *It's science*, Iphone! Don't make me explain how apples are like smartphones. I could go on... but let's not.\"";
                 }
             
                 this.arr[i++] = "<font color='#00FFFF'>" + playerName + ": \"Can you help me out? I need to find someone, this place is way too big for me to search alone.\"" + "</font>";
