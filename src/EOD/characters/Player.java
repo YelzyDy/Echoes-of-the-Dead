@@ -328,6 +328,7 @@ public class Player extends Character implements MouseInteractable{
             // Ensure damage reducer is false when no shield is active
             poisonDebuffer = false;
         }  
+        System.out.println("Shield Buff Remaining: " + shieldBuffRemaining);
         System.out.println("Poison Debuff Remaining: " + poisonDebuffRemaining);
         attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
 

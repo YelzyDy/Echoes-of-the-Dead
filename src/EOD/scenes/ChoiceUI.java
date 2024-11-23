@@ -83,7 +83,7 @@ public class ChoiceUI extends JPanel {
                         
                         // Make killer visible but don't start battle yet
                         for(Enemy enemy : world.getScene().enemyList) {
-                            if(enemy.getName().equals("Killer")) {
+                            if(enemy.getCharacterType().equals("killer")) {
                                 enemy.setVisible(true);
                                 ((Killer)enemy).setFightEnabled(false);
                                 break;

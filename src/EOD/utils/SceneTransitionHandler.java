@@ -153,8 +153,8 @@ public class SceneTransitionHandler {
         if (enemyList != null) {
             for (Enemy enemy : enemyList) {
                 boolean isInCorrectBattleScene = 
-                    (currentSceneIndex == 3 && enemy.getName().equals("Skeleton")) ||
-                    (currentSceneIndex == 4 && enemy.getName().equals("Necromancer"));
+                    (currentSceneIndex == 3 && enemy.getCharacterType().equals("skeleton")) ||
+                    (currentSceneIndex == 4 && enemy.getCharacterType().equals("necromancer"));
                 
                 enemy.setVisible(isInCorrectBattleScene || enemy.getIndex() == currentSceneIndex);
             }

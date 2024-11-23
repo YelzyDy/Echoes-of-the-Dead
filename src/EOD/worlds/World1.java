@@ -171,9 +171,9 @@ public class World1 extends World{
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
-            if (enemy.getName().equals("Skeleton1")) {
+            if (enemy.getCharacterType().equals("skeleton1")) {
                 enemy.setIndex(3);
-            }else if(enemy.getName().equals("Necromancer")) {
+            }else if(enemy.getCharacterType().equals("necromancer")) {
                 enemy.setIndex(4);
             }
         }
