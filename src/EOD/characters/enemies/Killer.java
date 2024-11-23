@@ -20,6 +20,8 @@ public class Killer extends Enemy{
             configureSprites();
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
+            setBaseHp(BASE_HEALTH);
+            setBaseAttack(BASE_ATTACK);
             animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(1);
             animator.setSkillAnimationSpeedMultiplier(1);

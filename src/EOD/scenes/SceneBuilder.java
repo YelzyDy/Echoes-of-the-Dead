@@ -261,7 +261,6 @@ public void createWorldScene() {
             Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
             if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
-                System.out.println("not going throug here sure");
                 world.getBattle().updateCooldowns();
             }
             world.closeQuests();

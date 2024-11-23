@@ -22,6 +22,8 @@ public class Skeleton2 extends Enemy {
         // Base stats - weaker than protagonist but not trivial
         attack = BASE_ATTACK;
         health = BASE_HEALTH;
+        setBaseHp(BASE_HEALTH);
+        setBaseAttack(BASE_ATTACK);
         moneyDrop = 25;
         animator.setSpeedMultiplier(1);
     }

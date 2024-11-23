@@ -51,7 +51,9 @@ public class BattleExperiment implements Skillable{
 
 
     private void performPriestPoison(int damageHolder[], int initialDamage){
-
+        System.out.println("damageHolder[0] = " + damageHolder[0]);
+        System.out.println("Initial damage: " + initialDamage);
+        System.out.println("Poison Stacks: " + player.getPoisonStacks());
         int poisonStacks = Math.min(player.getPoisonStacks(), 3);
         double poisonMultiplier = 1 + (poisonStacks + 1 * 0.08);
         damageHolder[0] = (int) (initialDamage * poisonMultiplier);
@@ -148,6 +150,10 @@ public class BattleExperiment implements Skillable{
     
         final int initialDamage = enemy.getDamageDealt();
         final int damageHolder[] = {initialDamage};
+
+        final int initialPlayerDamage = player.getDamageDealt();
+        final int playerDamageHolder[] = {initialPlayerDamage};
+
         
         if (player.isDamageReducerActive()){ 
             damageHolder[0] = (int)(initialDamage * 0.4);
@@ -161,7 +167,7 @@ public class BattleExperiment implements Skillable{
                     player.takeDamage(damageHolder[0]);
 
                     if (player.isPoisonDebufferActive()) {
-                        performPriestPoison(damageHolder, initialDamage);
+                        performPriestPoison(playerDamageHolder, initialPlayerDamage);
                     }
 
                     if (player.isDamageReducerActive() && 
