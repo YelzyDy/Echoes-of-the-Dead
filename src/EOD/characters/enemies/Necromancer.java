@@ -21,7 +21,7 @@ public class Necromancer extends Enemy {
             configureSprites();
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
-            moneyDrop = 40;
+            moneyDrop = 100;
             animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(5);
             animator.setSkillAnimationSpeedMultiplier(3);
