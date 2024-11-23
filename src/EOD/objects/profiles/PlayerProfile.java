@@ -50,7 +50,19 @@ public class PlayerProfile implements MouseInteractable, Freeable {
         );
         profilePicture.setHorizontalAlignment(JLabel.CENTER);
         profilePicture.setVerticalAlignment(JLabel.CENTER);
-        
+        try{
+            BufferedImage originalImage = ImageIO.read(getClass().getResource("/profile_assets/sampleProfile.jpg"));
+            Image scaledImage = getScaledImage(originalImage, PROFILE_SIZE, PROFILE_SIZE);
+            ImageIcon profileIcon = new ImageIcon(scaledImage);
+            profilePicture.setIcon(profileIcon);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(
+                parentPanel,
+                "Error loading image: " + ex.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
         // Initialize file chooser
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
