@@ -186,7 +186,7 @@ public class StoryLine implements Freeable{
             
                 if (worldType.equals("world2")) {
                     this.arr[i++] = "[Miss Constance suddenly stops mid-sentence, looking at you more closely.]";
-                    this.arr[i++] = "Miss C: \"Wait a second... You made it to the city outskirts?! Look at you, all adventurous!\"";
+                    this.arr[i++] = "Miss C: \"Wait a second... You made it to the city outskirts?! Congrats! Look at you, all adventurous!\"";
                     this.arr[i++] = playerName + ": \"Yeah, why's that such a big deal?\"";
                     this.arr[i++] = "Miss C (wide-eyed): \"Big deal? Sweetie, that's *huge*! Do you know how many people don't even make it past Mr. Bones over there?\"";
                     this.arr[i++] = playerName + ": \"A bit of skill, a lot of luck.\"";
