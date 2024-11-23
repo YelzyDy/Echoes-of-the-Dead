@@ -13,7 +13,7 @@ import EOD.objects.shop.ShopExterior;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.util.ArrayList;
-
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -142,4 +142,9 @@ public class World2 extends World{
             }
         }
     }
+    @Override
+    public void onWindowClosing(WindowEvent e){
+        bgmPlayer.stopBGM();
+    }
+      
 }

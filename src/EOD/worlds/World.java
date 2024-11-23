@@ -3,6 +3,7 @@ package EOD.worlds;
 import EOD.characters.*;
 import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
+import EOD.gameInterfaces.WindowInteractable;
 import EOD.listeners.*;
 import EOD.objects.*;
 import EOD.objects.shop.Shop;
@@ -13,13 +14,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.*;;
+import javax.swing.*;
+import java.awt.event.*;
 
-public abstract class World extends javax.swing.JFrame implements MouseInteractable, Freeable{ // this is the superclass for all 3 worlds -- jian
+public abstract class World extends javax.swing.JFrame implements MouseInteractable, Freeable, WindowInteractable{ // this is the superclass for all 3 worlds -- jian
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private EchoesObjects victoryBanner;
@@ -70,6 +69,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         this.setLocationRelativeTo(null);
         this.worldType = worldType;
         this.addMouseListener(new MouseClickListener(this));
+        this.addWindowListener(new WindowCloseListener(this));
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
         
@@ -590,4 +590,5 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void onExit(MouseEvent e) {
        
     }
+    
 }

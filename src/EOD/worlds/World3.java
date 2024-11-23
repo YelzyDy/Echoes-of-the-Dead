@@ -18,6 +18,7 @@ import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.util.ArrayList;
+import java.awt.event.WindowEvent;
 /**
  *
  * @author zendy
@@ -167,5 +168,9 @@ public class World3 extends World{
                 break;
             }
         }
+    }
+    @Override
+    public void onWindowClosing(WindowEvent e){
+        bgmPlayer.stopBGM();
     }
 }

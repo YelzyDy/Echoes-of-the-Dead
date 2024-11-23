@@ -13,7 +13,7 @@ import EOD.objects.profiles.AllyProfiles;
 import EOD.objects.shop.ShopExterior;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
-import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 /**
  *
@@ -191,12 +191,8 @@ public class World1 extends World{
     }
 
     @Override
-    public void onHover(MouseEvent e) {
-        
+    public void onWindowClosing(WindowEvent e){
+        bgmPlayer.stopBGM();
     }
-
-    @Override
-    public void onExit(MouseEvent e) {
-       
-    }
+      
 }
