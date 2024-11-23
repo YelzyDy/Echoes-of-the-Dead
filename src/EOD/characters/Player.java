@@ -535,7 +535,7 @@ public class Player extends Character implements MouseInteractable{
             case "knight":
                 //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill3.wav");
                 int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
-                damageDealt = 2 * attributes.attack + moneyBonus;
+                damageDealt = 30 + moneyBonus;
                 attributes.skill4Cd = 4;
                 attributes.mana -= 50;
                 applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));
