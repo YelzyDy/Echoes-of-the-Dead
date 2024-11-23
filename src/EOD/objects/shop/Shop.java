@@ -41,8 +41,8 @@ public class Shop extends QuestableObjects{
     }
 
     private void showSidePanelBg(double width, double height) {
-        sidePanel = new EchoesObjects("shop", (int) (width * 0.3799), (int) (height * 0.240),
-                                      (int) (width * 0.58), (int) (height * 0.58), "sidePanel_", false, false, 5);
+        sidePanel = new EchoesObjects("shop", (int) (width * 0.318), (int) (height * 0.20),
+                                      (int) (width * 0.69), (int) (height * 0.68), "sidePanel_", false, false, 5);
         sidePanel.setVisible(true);
         add(sidePanel);
     }
@@ -81,15 +81,15 @@ public class Shop extends QuestableObjects{
     }
 
     private void showBuyButton(double width, double height) {
-        buyButton = new EchoesObjects("shop", (int) (width * 0.618), (int) (height * 0.717),
-                                      (int) (width * 0.13), (int) (height * 0.15), "buy_", false, true, 2);
+        buyButton = new EchoesObjects("shop", (int) (width * 0.6), (int) (height * 0.68),
+                                      (int) (width * 0.16), (int) (height * 0.18), "buy_", false, true, 2);
         buyButton.addMouseListener(new MouseClickListener(this));
         add(buyButton);
         setComponentZOrder(buyButton, 0);
     }
 
     private void showCloseButton(double width, double height) {
-        closeButton = new EchoesObjects("shop", (int) (width * 0.82), (int) (height * 0.189),
+        closeButton = new EchoesObjects("shop", (int) (width * 0.825), (int) (height * 0.168),
                                         (int) (width * 0.056), (int) (height * 0.1), "close_", false, true, 2);
         closeButton.setVisible(true);
         closeButton.addMouseListener(new MouseClickListener(this));
