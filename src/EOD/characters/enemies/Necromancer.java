@@ -137,8 +137,10 @@ public class Necromancer extends Enemy {
         }else if(skill == 3){
             if(player.isKnight()){
                 return 0.3;
-            }else{
+            }else if(player.isWizard()){
                 return 0.2;
+            }else{
+                return -0.1;
             }
         }else{
             if(player.isKnight()){

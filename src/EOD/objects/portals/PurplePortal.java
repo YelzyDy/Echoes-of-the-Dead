@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PurplePortal extends QuestableObjects{
     public PurplePortal(){
-        super("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27);
+        super("world1", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27);
         setIndex(2);
     }
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class RedPortal extends QuestableObjects{
     public RedPortal(){
-        super("world1", (int)(screenSize.width * 0.3), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47);
+        super("world1", (int)(screenSize.width * 0.15), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47);
         setIndex(2);
     }
 

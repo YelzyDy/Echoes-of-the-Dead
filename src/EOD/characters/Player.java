@@ -60,7 +60,7 @@ public class Player extends Character implements MouseInteractable{
         animator.updateBounds();
         xFactor = 0;
         clickX = 0;
-        attributes.skill3Cd = attributes.skill4Cd = 0;
+        attributes.skill2Cd = attributes.skill3Cd = attributes.skill4Cd = 0;
         actionString = null;
         this.damageReducer = false;
         this.characterType = characterType;
@@ -562,7 +562,7 @@ public class Player extends Character implements MouseInteractable{
                 damageDealt = Damage;
                 attributes.mana -= 40;
                 applySkillEffect(attributes.skillEffects3, enemy, 7, enemy.getOffsetX(3), enemy.getOffsetY(3));
-                attributes.skill3Cd = 3;
+                attributes.skill3Cd = 4;
                 actionString = "Health converted to force! Dealing poison damage for 3 turns!";
                 poisonDebuffer = true;
                 poisonDebuffRemaining = POISON_DURATION;

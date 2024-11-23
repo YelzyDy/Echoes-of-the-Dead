@@ -68,6 +68,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
         this.isStatic = isStatic;
     }
 
+
     private int getDialogueId(){
         if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard"))){
             return 0;
