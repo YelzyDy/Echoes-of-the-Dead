@@ -23,7 +23,7 @@ public class Necromancer extends Enemy {
             attack = BASE_ATTACK;
             setBaseHp(BASE_HEALTH);
             setBaseAttack(BASE_ATTACK);
-            moneyDrop = 100;
+            moneyDrop = 50;
             animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(5);
             animator.setSkillAnimationSpeedMultiplier(3);

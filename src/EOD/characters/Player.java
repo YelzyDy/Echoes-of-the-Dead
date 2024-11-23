@@ -478,7 +478,7 @@ public class Player extends Character implements MouseInteractable{
 
         switch(getCharacterType()) {
             case "knight":
-                if (attributes.money < 25) {
+                if (attributes.money < 15) {
                     actionString = "Not enough Soul Shards!";
                     return false;
                 }
