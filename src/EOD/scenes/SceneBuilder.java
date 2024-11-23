@@ -261,8 +261,26 @@ public void createWorldScene() {
             Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
             ArrayList<Player> playerList = player.getWorld().getPlayerList();
-            if(playerList.get(0).getAttributes().skillEffects3 != null) playerList.get(0).getAttributes().skillEffects3.bindToTarget(player, enemy.getOffsetX(3), enemy.getOffsetY(3));
-            if(playerList.get(1).getAttributes().skillEffects3 != null) playerList.get(1).getAttributes().skillEffects3.bindToTarget(player, enemy.getOffsetX(3), enemy.getOffsetY(3));
+
+            if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
+                world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect();
+                double offsetX = 0, offsetY = 0;
+                if(player.getCharacterType().equals("priest")){
+                   offsetX =  0.25;
+                   offsetY =  0.3;
+                }else if(player.getCharacterType().equals("wizard")){
+                    offsetX =  0.25;
+                    offsetY =  0.3;
+                }else{
+                    offsetX =  0.25;
+                    offsetY =  0.3;
+                }
+                SkillEffects effect = world.getPlayerList().get(0).getAttributes().skillEffects3;
+                effect.bindToTarget(player, -effect.getWidth() * offsetX, -effect.getHeight() * offsetY);
+            }
+
+        
+            if(playerList.get(1).getAttributes().skillEffects3 != null) playerList.get(1).getAttributes().skillEffects3.updateEffect();
             if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
                 world.getBattle().updateCooldowns();
             }
