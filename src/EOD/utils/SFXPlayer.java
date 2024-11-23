@@ -2,6 +2,8 @@ package EOD.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,7 +12,7 @@ import javax.sound.sampled.*;
 public class SFXPlayer {
     private static final ExecutorService threadPool = Executors.newCachedThreadPool();
     private static SFXPlayer instance = null;
-    private ConcurrentHashMap<String, Clip> activeClips = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, List<Clip>> activeClips = new ConcurrentHashMap<>();
     private float currentVolume = 1.0f;
     private boolean isSFXEnabled = true;
 
@@ -59,13 +61,19 @@ public class SFXPlayer {
                 newClip.addLineListener(event -> {
                     if (event.getType() == LineEvent.Type.STOP) {
                         newClip.close();
-                        activeClips.remove(filePath + System.nanoTime());
+                        // Remove this specific clip from the list
+                        List<Clip> clips = activeClips.get(filePath);
+                        if (clips != null) {
+                            clips.remove(newClip);
+                            if (clips.isEmpty()) {
+                                activeClips.remove(filePath);
+                            }
+                        }
                     }
                 });
 
-                // Store the clip with a unique key (filepath + timestamp)
-                String uniqueKey = filePath + System.nanoTime();
-                activeClips.put(uniqueKey, newClip);
+                // Add the clip to the list of active clips for this file path
+                activeClips.computeIfAbsent(filePath, k -> new ArrayList<>()).add(newClip);
                 newClip.start();
 
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -74,10 +82,29 @@ public class SFXPlayer {
         });
     }
 
+    // Stop a specific sound effect
+    public void stopSFX(String filePath) {
+        if (filePath == null || filePath.isEmpty()) {
+            return;
+        }
+
+        List<Clip> clips = activeClips.get(filePath);
+        if (clips != null) {
+            // Create a new list to avoid concurrent modification
+            new ArrayList<>(clips).forEach(clip -> {
+                clip.stop();
+                clip.close();
+            });
+            activeClips.remove(filePath);
+        }
+    }
+
     public void stopAllSFX() {
-        activeClips.forEach((key, clip) -> {
-            clip.stop();
-            clip.close();
+        activeClips.forEach((filePath, clips) -> {
+            clips.forEach(clip -> {
+                clip.stop();
+                clip.close();
+            });
         });
         activeClips.clear();
     }
@@ -85,11 +112,13 @@ public class SFXPlayer {
     public void setVolume(float volume) {
         currentVolume = volume;
         // Update volume for all active clips
-        activeClips.forEach((key, clip) -> {
-            if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                setVolumeForControl(gainControl, volume);
-            }
+        activeClips.forEach((filePath, clips) -> {
+            clips.forEach(clip -> {
+                if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                    setVolumeForControl(gainControl, volume);
+                }
+            });
         });
     }
 
@@ -112,6 +141,12 @@ public class SFXPlayer {
 
     public boolean isAnyPlaying() {
         return !activeClips.isEmpty();
+    }
+
+    // Check if a specific sound is playing
+    public boolean isPlaying(String filePath) {
+        List<Clip> clips = activeClips.get(filePath);
+        return clips != null && !clips.isEmpty();
     }
 
     public void setSFXEnabled(boolean enabled) {
