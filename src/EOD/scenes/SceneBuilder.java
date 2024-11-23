@@ -371,8 +371,12 @@ public void createWorldScene() {
         if(player.getAttributes().skillEffects3 != null && player.isPriest())player.getAttributes().skillEffects3.setVisible(player.getPoisonDebuffRemaining() != 0);
         for (EchoesObjects obj : objList) {
             if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
-                obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated());
-                   
+                obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated()); // comment this code if nahan mu nextworldportal dayun gawas
+                // if(obj.getName().equals("portalNextWorld"))obj.setVisible(true);
+                // else{
+                //     obj.setVisible(false);
+                // }
+                   // comment out the code above if ganahan mu nextWorldPortal kay naa dayun pero sa last scene ra sha ma click
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);
