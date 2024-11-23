@@ -557,12 +557,12 @@ public class Player extends Character implements MouseInteractable{
             case "priest":
             if (!canUseSkill(30, attributes.skill3Cd)) return false;
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
-                int Damage = (int)(attributes.baseHealth * 0.4);
+                int Damage = (int)(attributes.baseHealth * 0.1);
                 damageDealt = Damage;
                 attributes.mana -= 40;
                 applySkillEffect(attributes.skillEffects3, enemy, 7, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 attributes.skill3Cd = 3;
-                actionString = "Health converted to force! " + damageDealt + " damage dealt to enemy!";
+                actionString = "Health converted to force! Dealing poison damage for 3 turns!";
                 poisonDebuffer = true;
                 poisonDebuffRemaining = POISON_DURATION;
                 return true;

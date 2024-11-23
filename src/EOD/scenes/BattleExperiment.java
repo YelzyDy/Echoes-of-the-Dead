@@ -66,7 +66,7 @@ public class BattleExperiment implements Skillable{
         Timer poisonTimer = new Timer(1000, new ActionListener() { // 1 second delay
             @Override
             public void actionPerformed(ActionEvent e) {
-                int poisonTickDamage = (int) (enemy.getBaseHp() * 0.02 * poisonStacks);
+                int poisonTickDamage = (int) (enemy.getBaseHp() * 0.1 * poisonStacks);
                 System.out.println("Huy nganu ka\n " + enemy.getBaseHp() +  " * 0.02 "+" * " + poisonStacks + " = " + poisonTickDamage);
                 enemy.takeDamage(poisonTickDamage);
                 
