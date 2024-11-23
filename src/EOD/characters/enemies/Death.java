@@ -17,8 +17,8 @@ public class Death extends Enemy{
             configureSprites();
             health = BASE_HEALTH;
             attack = BASE_ATTACK;
-            setBaseHp(BASE_HEALTH);
-            setBaseAttack(BASE_ATTACK);
+            baseHp = BASE_HEALTH;
+            baseAttack = BASE_ATTACK;
             animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(1);
             animator.setSkillAnimationSpeedMultiplier(1);
@@ -36,6 +36,7 @@ public class Death extends Enemy{
     }
     
 
+    @Override
     public void skill1() {
         //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathbasicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3);
