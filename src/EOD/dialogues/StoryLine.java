@@ -233,12 +233,14 @@ public class StoryLine implements Freeable{
             
                 if (worldType.equals("world1")) {
                         // Quest Title
-                        if (!isQuestDone) {
-                                this.qArr[q++] = "Quest: Investigate The City";
+                        if(isQuestDone) {
+                            this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        } else if(objDone[0]) {
+                            this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
                         } else {
-                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                            this.qArr[q++] = "Quest: Investigate The City";
                         }
-                
+
                         // Revised Quest Objectives
                         if (!objDone[0]) {
                                 this.qArr[q++] = "Objective #1: Talk to everyone.";
@@ -304,10 +306,12 @@ public class StoryLine implements Freeable{
                         }
                 } else if (worldType.equals("world2")) {
                         // Quest Title
-                        if (!isQuestDone) {
-                                this.qArr[q++] = "Quest: Purge the City's Outskirts";
+                        if(isQuestDone) {
+                            this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        } else if(objDone[0]) {
+                            this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
                         } else {
-                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                            this.qArr[q++] = "Quest: Purge the City's Outskirts";
                         }
                 
                         // Revised Quest Objectives
@@ -617,11 +621,12 @@ public class StoryLine implements Freeable{
                 
                 if (worldType == "world1") {
                         boolean isQuestDone = objDone[0];
-                        if(!isQuestDone){
-                                 // Quest Title
+                        if(isQuestDone) {
+                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        } else if(objDone[0]) {
+                                this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
+                        } else {
                                 this.qArr[q++] = "Quest: Escape the City.";
-                        }else{
-                                this.qArr[q++] = "<font color='#00f541'> Quest Complete!</font>";
                         }
 
                         // Revised Quest Objectives
