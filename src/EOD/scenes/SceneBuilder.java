@@ -300,7 +300,11 @@ public void createWorldScene() {
             if (player.getAttributes().skillEffects2 != null) player.getAttributes().skillEffects2.updateEffect();
             if (player.getAttributes().skillEffects3 != null) player.getAttributes().skillEffects3.updateEffect();
             if (player.getAttributes().skillEffects4 != null) player.getAttributes().skillEffects4.updateEffect();
+            
             if (player.getAttributes().skillEffectsRandom != null) player.getAttributes().skillEffectsRandom.updateEffect();
+            ArrayList<Player> playerList = player.getWorld().getPlayerList();
+            if(playerList.get(0).getAttributes().skillEffects3 != null) playerList.get(0).getAttributes().skillEffects3.updateEffect();
+            if(playerList.get(1).getAttributes().skillEffects3 != null) playerList.get(1).getAttributes().skillEffects3.updateEffect();
 
             if (objList == null) return;
 

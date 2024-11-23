@@ -60,7 +60,7 @@ public class Player extends Character implements MouseInteractable{
         animator.updateBounds();
         xFactor = 0;
         clickX = 0;
-        attributes.skill3Cd = attributes.skill4Cd = 0;
+        attributes.skill2Cd = attributes.skill3Cd = attributes.skill4Cd = 0;
         actionString = null;
         this.damageReducer = false;
         this.characterType = characterType;
