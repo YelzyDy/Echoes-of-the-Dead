@@ -100,15 +100,15 @@ public class BattleExperiment implements Skillable{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (player.getAnimator().isExecutingSkill()) {
-                
                         if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                             performPriestPoison(damageHolder);
                         }
 
                         if (damageEnemy) {
                             enemy.takeDamage(damageHolder[0]);
+                            player.playSfx(skillNumber);
                             enemy.getAnimator().triggerHurtAnimation();
-                            
+                                
                             // Check enemy death immediately after damage
                             if (enemy.getHp() <= 0) {
                                 ((Timer)e.getSource()).stop();
@@ -173,7 +173,6 @@ public class BattleExperiment implements Skillable{
                     }
                     player.takeDamage(damageHolder[0]);
                     player.getAnimator().triggerHurtAnimation();
-                    player.playSfx(initialPlayerDamage);
 
                     if (player.getWorld().getPlayerList().get(0).isDamageReducerActive() && 
                         damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {

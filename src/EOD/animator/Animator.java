@@ -109,8 +109,8 @@ public abstract class Animator implements Freeable{
         return isUsingSkill && reachedTarget && !skillCompleted;
     }
 
-    public boolean isExecutingSkillAndNotReachedTarget(){
-        return isUsingSkill && !reachedTarget && !skillCompleted;
+    public boolean isExecutingSkillAndIsNotReturning(){
+        return isUsingSkill && reachedTarget && skillCompleted && !isReturning;
     }
 
     public void setOnAnimationComplete(Runnable callback) {

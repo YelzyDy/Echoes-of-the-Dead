@@ -262,6 +262,13 @@ public void createWorldScene() {
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
             ArrayList<Player> playerList = player.getWorld().getPlayerList();
 
+            if(player.getAnimator().isExecutingSkillAndIsNotReturning()){
+                for(Player player : playerList){
+                    player.setPosX(screenSize.width * 0.35);
+                }
+            }
+            if(enemy.getCharacterType().equals("necromancer")) enemy.setPosY(screenSize.height * 0.05);
+
             if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
                 world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect();
                 double offsetX = 0, offsetY = 0;
