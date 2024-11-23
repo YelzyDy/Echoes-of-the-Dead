@@ -650,7 +650,7 @@ public class Player extends Character implements MouseInteractable{
 
     private String firstLetterCap(String name){
         String cap = String.valueOf(name.charAt(0)).toUpperCase();
-        return cap + name.substring(2, name.length());
+        return cap + name.substring(1, name.length());
     }
 
     public PlayerAttributes getAttributes() {
