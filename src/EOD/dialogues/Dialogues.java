@@ -1,6 +1,7 @@
 package EOD.dialogues;
 
 import EOD.characters.Npc;
+import EOD.gameInterfaces.*;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -9,7 +10,6 @@ import EOD.worlds.World;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
-import EOD.gameInterfaces.*;
 
 public class Dialogues implements Freeable, MouseInteractable {
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
@@ -323,6 +323,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     
         if (i < size) {
             // Start the typewriter effect for the next line
+            startVoiceLine(ID, i);
             typewriterEffect(story.getLine(i));
             i++;
         } else {
@@ -334,6 +335,26 @@ public class Dialogues implements Freeable, MouseInteractable {
                 ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 23)) {
                 npc.doneDialogues = true;
             }
+        }
+    }
+
+    void startVoiceLine(int ID, int i){
+        if (ID == 2 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Natty.wav");
+        } else if (ID == 3 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Yoo.wav");
+        } else if (ID == 6 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Knight.wav");
+        } else if (ID == 13 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Ruby.wav");
+        } else if (ID == 15 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Akefay.wav");
+        } else if (ID == 16 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Asriel.wav");
+        } else if (ID == 17 && i == 1){
+            sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Chea.wav");
+        } else {
+            sfxPlayer.stopAllSFX();
         }
     }
 
@@ -418,6 +439,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         }else if ((source == storyDialogue || source == pressToContinueLabel) && isClickableDialogue){
             if(questsDialogues.isQuestDialoguesActive) questsDialogues.handleSetText();
             else handleSetText();
+            //if else id and index size
         }
     }
 
