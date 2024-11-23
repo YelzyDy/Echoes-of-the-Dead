@@ -49,6 +49,32 @@ public class BattleExperiment implements Skillable{
         rewards = battleUI.rewards;
     }
 
+
+    private void performPriestPoison(int damageHolder[], int initialDamage){
+
+        int poisonStacks = Math.min(player.getPoisonStacks(), 3);
+        double poisonMultiplier = 1 + (poisonStacks + 1 * 0.08);
+        damageHolder[0] = (int) (initialDamage * poisonMultiplier);
+        // Create a Timer for delayed poison tick damage
+        Timer poisonTimer = new Timer(1000, new ActionListener() { // 1 second delay
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int poisonTickDamage = (int) (enemy.getBaseHp() * 0.02 * poisonStacks);
+                enemy.takeDamage(poisonTickDamage);
+                
+                // Check enemy death after poison damage
+                if (enemy.getHp() <= 0) {
+                    ((Timer)e.getSource()).stop();
+                    handleBattleEnd(true);
+                }
+                
+                // Optional: Show poison damage in UI
+                battleUI.showAction("Poison deals " + poisonTickDamage + " damage!");
+            }
+        });
+        poisonTimer.setRepeats(false); // Only trigger once
+        poisonTimer.start();  
+    }
     
     private void handleSkill(int skillNumber, boolean damageEnemy) {
         if (isProcessingTurn) return;
@@ -59,18 +85,23 @@ public class BattleExperiment implements Skillable{
             battleUI.setSkillButtonsEnabled(false);
             player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(false);
             
-            final int damage = player.getDamageDealt();
-            
+            final int initialDamage = player.getDamageDealt();
+            final int[] damageHolder = { initialDamage };
+
             // Create a Timer to check for skill execution
             Timer skillCheckTimer = new Timer(16, new ActionListener() { // 60 FPS check
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (player.getAnimator().isExecutingSkill()) {
                         // Apply damage only once during skill execution
-                        System.out.println("skill skill");
                         player.playSfx(player, skillNumber);
+
+                        if (player.isPoisonDebufferActive()) {
+                            performPriestPoison(damageHolder, initialDamage);
+                        }
+
                         if (damageEnemy) {
-                            enemy.takeDamage(damage);
+                            enemy.takeDamage(damageHolder[0]);
                             
                             // Check enemy death immediately after damage
                             if (enemy.getHp() <= 0) {
@@ -116,22 +147,30 @@ public class BattleExperiment implements Skillable{
         }
     
         final int initialDamage = enemy.getDamageDealt();
-        final int damage = player.isDamageReducerActive() ? 
-            (int)(initialDamage * 0.4) : initialDamage;
-    
+        final int damageHolder[] = {initialDamage};
+        
+        if (player.isDamageReducerActive()){ 
+            damageHolder[0] = (int)(initialDamage * 0.4);
+        }
+
         Timer skillCheckTimer = new Timer(16, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (enemy.getAnimator().isExecutingSkill()) {
                     enemy.playSfx(enemy, chosenSkill);
-                    player.takeDamage(damage);
-                    
+                    player.takeDamage(damageHolder[0]);
+
+                    if (player.isPoisonDebufferActive()) {
+                        performPriestPoison(damageHolder, initialDamage);
+                    }
+
                     if (player.isDamageReducerActive() && 
-                        damage > (player.getAttributes().getHp() * 0.2)) {
+                        damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {
                         player.getAttributes().addMoney(30);
                         battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
                     }
                     player.resetDamageReducer();
+
                     
                     // Check for player death immediately after damage
                     AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
