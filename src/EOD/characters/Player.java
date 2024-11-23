@@ -514,6 +514,7 @@ public class Player extends Character implements MouseInteractable{
                     actionString = "Shift Successful! 35 damage dealt to enemy!";
                     return true;
                 } else {
+                    sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardfail.wav");
                     actionString = "Shift Failed!";
                     applySkillEffect(attributes.skillEffects3, enemy, 4, enemy.getOffsetX(3), enemy.getOffsetY(3));
                     return false;
