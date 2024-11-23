@@ -487,10 +487,10 @@ public class Player extends Character implements MouseInteractable{
 
     public boolean skill3() {
         handleXFactorBasedOnEnemy(3);
-        if (!canUseSkill(40, attributes.skill3Cd)) return false;
 
         switch(getCharacterType()) {
             case "knight":
+                if (!canUseSkill(30, attributes.skill3Cd)) return false;
                 //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
                 damageReducer = true;
                 attributes.skill3Cd = 3;
@@ -501,6 +501,7 @@ public class Player extends Character implements MouseInteractable{
                 return true;
 
             case "wizard":
+                if (!canUseSkill(40, attributes.skill3Cd)) return false;
                 attributes.mana -= 30;
                 if (random.nextInt(100) < 46) { // 45% success rate
                     //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
@@ -517,10 +518,11 @@ public class Player extends Character implements MouseInteractable{
                 }
 
             case "priest":
+            if (!canUseSkill(30, attributes.skill3Cd)) return false;
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
                 int Damage = (int)(attributes.baseHealth * 0.4);
                 damageDealt = Damage;
-                attributes.mana -= 40;
+                attributes.mana -= 30;
                 attributes.skill3Cd = 3;
                 actionString = "Health converted to force! " + damageDealt + " damage dealt to enemy!";
                 return true;
