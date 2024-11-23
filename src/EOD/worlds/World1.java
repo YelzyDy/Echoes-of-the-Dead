@@ -165,15 +165,15 @@ public class World1 extends World{
     @Override
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Skeleton1("Skeleton1",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.2), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Skeleton1("Broadaxe Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.2), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Necromancer("Necromancer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
-            if (enemy.getName().equals("Skeleton1")) {
+            if (enemy.getCharacterType().equals("skeleton1")) {
                 enemy.setIndex(3);
-            }else if(enemy.getName().equals("Necromancer")) {
+            }else if(enemy.getCharacterType().equals("necromancer")) {
                 enemy.setIndex(4);
             }
         }

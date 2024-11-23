@@ -148,9 +148,9 @@ public class World3 extends World{
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
-            if (enemy.getName().equals("Skeleton")) {
+            if (enemy.getCharacterType().equals("skeleton")) {
                 enemy.setIndex(3);
-            } else if(enemy.getName().equals("Killer")) {
+            } else if(enemy.getCharacterType().equals("killer")) {
                 enemy.setIndex(5);
             }
         }
@@ -162,7 +162,7 @@ public class World3 extends World{
         scene.setCurrentSceneIndex(5);
         // Make sure killer is visible/active for battle
         for(Enemy enemy : scene.enemyList) {
-            if(enemy.getName().equals("Killer")) {
+            if(enemy.getCharacterType().equals("killer")) {
                 enemy.setVisible(true);
                 break;
             }

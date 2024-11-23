@@ -261,7 +261,6 @@ public void createWorldScene() {
             Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
             if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
-                System.out.println("not going throug here sure");
                 world.getBattle().updateCooldowns();
             }
             world.closeQuests();
@@ -297,25 +296,11 @@ public void createWorldScene() {
         }
 
         if (world != null) {
-            if(world.getPlayerList().get(1).getAttributes().skillEffects3 != null && player.getEnemy() != null){
-                Enemy enemy = player.getEnemy();
-                double offsetX = 0, offsetY = 0;
-                int currentFrame = enemy.getAnimator().getCurrentFrame();
-                if(enemy.getAnimator().isExecutingSkillAndNotReachedTarget() && currentFrame == 3){
-                    offsetX = 0.35;
-                }else{
-                    offsetX =  0.25;
-                }
-                offsetY =  -0.7;
-                SkillEffects effect = world.getPlayerList().get(1).getAttributes().skillEffects3;
-                effect.bindToTarget(player.getEnemy(), -effect.getWidth() * offsetX, -effect.getHeight() * offsetY);
-            }
-
-
             if (player.getAttributes().skillEffects1 != null) player.getAttributes().skillEffects1.updateEffect();
             if (player.getAttributes().skillEffects2 != null) player.getAttributes().skillEffects2.updateEffect();
             if (player.getAttributes().skillEffects3 != null) player.getAttributes().skillEffects3.updateEffect();
             if (player.getAttributes().skillEffects4 != null) player.getAttributes().skillEffects4.updateEffect();
+            if (player.getAttributes().skillEffectsRandom != null) player.getAttributes().skillEffectsRandom.updateEffect();
 
             if (objList == null) return;
 
@@ -361,7 +346,7 @@ public void createWorldScene() {
         
         if(player == null) return;
         if(player.getAttributes().skillEffects3 != null && player.isKnight())player.getAttributes().skillEffects3.setVisible(player.getShieldBuffRemaining() != 0);
-        // if(world.getPlayerList().get(1).getAttributes().skillEffectsRandom != null)  world.getPlayerList().get(1).getAttributes().skillEffectsRandom.setVisible(world.getPlayerList().get(1).getSkill4CD() != 0);
+        if(player.getAttributes().skillEffects3 != null && player.isPriest())player.getAttributes().skillEffects3.setVisible(player.getPoisonDebuffRemaining() != 0);
         for (EchoesObjects obj : objList) {
             if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated());

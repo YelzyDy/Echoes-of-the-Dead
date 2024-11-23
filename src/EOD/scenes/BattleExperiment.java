@@ -49,6 +49,40 @@ public class BattleExperiment implements Skillable{
         rewards = battleUI.rewards;
     }
 
+
+    private void performPriestPoison(int damageHolder[], int initialDamage){
+        System.out.println("damageHolder[0] = " + damageHolder[0]);
+        System.out.println("Initial damage: " + player.getDamageDealt());
+        System.out.println("Poison Stacks: " + player.getPoisonStacks());
+        System.out.println("Enemy name: " + enemy.getName());
+        System.out.println("enemy base hp: " + enemy.getBaseHp());
+        int poisonStacks = Math.min(player.getPoisonStacks(), 3);
+        System.out.println("Posion Stacks from Math.min: " + poisonStacks);
+        double poisonMultiplier = (poisonStacks * 0.08);
+        System.out.println("Posion multiplier: " + poisonMultiplier);
+        damageHolder[0] = initialDamage + (int)(initialDamage * poisonMultiplier);
+        System.out.println("Damage Holder after calculation: " + damageHolder[0]);
+        // Create a Timer for delayed poison tick damage
+        Timer poisonTimer = new Timer(1000, new ActionListener() { // 1 second delay
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int poisonTickDamage = (int) (enemy.getBaseHp() * 0.02 * poisonStacks);
+                System.out.println("Huy nganu ka\n " + enemy.getBaseHp() +  " * 0.02 "+" * " + poisonStacks + " = " + poisonTickDamage);
+                enemy.takeDamage(poisonTickDamage);
+                
+                // Check enemy death after poison damage
+                if (enemy.getHp() <= 0) {
+                    ((Timer)e.getSource()).stop();
+                    handleBattleEnd(true);
+                }
+                
+                // Optional: Show poison damage in UI
+                battleUI.showAction("Poison deals " + poisonTickDamage + " damage!");
+            }
+        });
+        poisonTimer.setRepeats(false); // Only trigger once
+        poisonTimer.start();  
+    }
     
     private void handleSkill(int skillNumber, boolean damageEnemy) {
         if (isProcessingTurn) return;
@@ -59,18 +93,23 @@ public class BattleExperiment implements Skillable{
             battleUI.setSkillButtonsEnabled(false);
             player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(false);
             
-            final int damage = player.getDamageDealt();
-            
+            final int initialDamage = player.getDamageDealt();
+            final int[] damageHolder = { initialDamage };
+
             // Create a Timer to check for skill execution
             Timer skillCheckTimer = new Timer(16, new ActionListener() { // 60 FPS check
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (player.getAnimator().isExecutingSkill()) {
                         // Apply damage only once during skill execution
-                        System.out.println("skill skill");
                         player.playSfx(player, skillNumber);
+
+                        if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
+                            performPriestPoison(damageHolder, initialDamage);
+                        }
+
                         if (damageEnemy) {
-                            enemy.takeDamage(damage);
+                            enemy.takeDamage(damageHolder[0]);
                             
                             // Check enemy death immediately after damage
                             if (enemy.getHp() <= 0) {
@@ -116,22 +155,33 @@ public class BattleExperiment implements Skillable{
         }
     
         final int initialDamage = enemy.getDamageDealt();
-        final int damage = player.isDamageReducerActive() ? 
-            (int)(initialDamage * 0.4) : initialDamage;
-    
+        final int damageHolder[] = {initialDamage};
+
+        final int initialPlayerDamage = player.getDamageDealt();
+        final int playerDamageHolder[] = {initialPlayerDamage};
+
+        
+        if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
+            damageHolder[0] = (int)(initialDamage * 0.4);
+        }
+
         Timer skillCheckTimer = new Timer(16, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (enemy.getAnimator().isExecutingSkill()) {
                     enemy.playSfx(enemy, chosenSkill);
-                    player.takeDamage(damage);
-                    
-                    if (player.isDamageReducerActive() && 
-                        damage > (player.getAttributes().getHp() * 0.2)) {
+                    if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
+                        performPriestPoison(playerDamageHolder, initialPlayerDamage);
+                    }
+                    player.takeDamage(damageHolder[0]);
+
+                    if (player.getWorld().getPlayerList().get(0).isDamageReducerActive() && 
+                        damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {
                         player.getAttributes().addMoney(30);
                         battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
                     }
                     player.resetDamageReducer();
+
                     
                     // Check for player death immediately after damage
                     AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
@@ -295,11 +345,11 @@ public class BattleExperiment implements Skillable{
     }
 
     private double getEnemyDeathPosY(Enemy enemy){
-        if(enemy.getName().equals("Skeleton2")){
+        if(enemy.getCharacterType().equals("skeleton2")){
             return 0.15;
-        }else if(enemy.getName().equals("Necromancer")){
+        }else if(enemy.getCharacterType().equals("necromancer")){
             return 20;
-        }else if(enemy.getName().equals("Skeleton1")){
+        }else if(enemy.getCharacterType().equals("skeleton1")){
             return 0.15;
         }
         return 0.0;

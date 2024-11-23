@@ -23,7 +23,8 @@ public class Player extends Character implements MouseInteractable{
     private PlayerAnimator animator;
     private Random random = new Random();
     private String characterType;
-    public boolean damageReducer;
+    private boolean damageReducer;
+    private boolean poisonDebuffer;
     private int damageDealt;
     private double xFactor;
     private Enemy enemy;
@@ -31,6 +32,7 @@ public class Player extends Character implements MouseInteractable{
     private SFXPlayer sfxPlayer;
     public double clickX;
     public PlayerAttributes attributes;
+    private int poisonStacks;
 
     // private static final int MONEY_REGEN = 5; // Knights gain some money per turn
     private static final int MANA_REGEN = 10; // Reduced from 15
@@ -38,8 +40,10 @@ public class Player extends Character implements MouseInteractable{
 
     private static final int SKILL2_DURATION = 3; // Duration of buff in turns
     private static final int SHIELD_DURATION = 3; // Duration of shield in turns
+    private static final int POISON_DURATION = 3;
     private int skill2BuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int shieldBuffRemaining = 0; // Tracks remaining turns of skill 2 buff
+    private int poisonDebuffRemaining = 0;
     private int originalAttack; // Stores original attack value
     private Inventory inventory;
     private AllyProfiles allyProfiles;
@@ -63,6 +67,7 @@ public class Player extends Character implements MouseInteractable{
         originalAttack = attributes.attack;
         sfxPlayer = SFXPlayer.getInstance();
         clickX = -15;
+        poisonStacks = 1;
     }
 
     public void initializeInventory(){
@@ -105,6 +110,10 @@ public class Player extends Character implements MouseInteractable{
         return inventory;
     }
 
+    public int getPoisonStacks(){
+        return poisonStacks;
+    }
+
     public boolean isWizard() {
         return "wizard".equals(characterType);
     }
@@ -143,7 +152,7 @@ public class Player extends Character implements MouseInteractable{
             default:
             attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08,14, false);
             attributes.skillEffects2 = attributes.createSkillEffect("pbuff", getPosX() * 0.9, 0.08, 9, false);
-            attributes.skillEffects3 = attributes.createSkillEffect("poison",  getPosX() * 0.9, 0.08, 7, true);
+            attributes.skillEffects3 = attributes.createSkillEffect("poison",  getPosX() * 0.9, 0.08, 7, false);
             attributes.skillEffects4 = attributes.createSkillEffect("lightning", getPosX() * 0.9, 0.08, 10, false);
             break;
         }
@@ -176,7 +185,7 @@ public class Player extends Character implements MouseInteractable{
 
     public void reset(boolean playerWon) {
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
-        skill2BuffRemaining = shieldBuffRemaining = 0;
+        skill2BuffRemaining = shieldBuffRemaining = poisonDebuffRemaining = 0;
         attributes.setMana((int)(attributes.getBaseMana() * 0.75));
         // attributes.setHp((int)(attributes.getBaseHp() * 0.75));
         if(!playerWon){
@@ -216,6 +225,10 @@ public class Player extends Character implements MouseInteractable{
 
     public int getShieldBuffRemaining() {
         return shieldBuffRemaining;
+    }
+
+    public int getPoisonDebuffRemaining(){
+        return poisonDebuffRemaining;
     }
 
     public int getSkill2BuffRemaining() {
@@ -269,6 +282,14 @@ public class Player extends Character implements MouseInteractable{
         damageReducer = false;
     }
 
+    public boolean isPoisonDebufferActive() {
+        return poisonDebuffer;
+    }
+
+    public void resetPoisonDebuffer() {
+        poisonDebuffer = false;
+    }
+
     public void attributeTurnChecker() {
         if (attributes.skill2Cd > 0) attributes.skill2Cd--;
         if (attributes.skill3Cd > 0) attributes.skill3Cd--;
@@ -294,7 +315,21 @@ public class Player extends Character implements MouseInteractable{
             // Ensure damage reducer is false when no shield is active
             damageReducer = false;
         }    
-        
+
+        // Handle poison buff duration
+        if (poisonDebuffRemaining > 0) {
+            poisonDebuffRemaining--;
+            poisonStacks++;
+            poisonDebuffer = true;
+            if (poisonDebuffRemaining == 0) {
+                poisonDebuffer = false;
+            }
+        } else {
+            // Ensure damage reducer is false when no shield is active
+            poisonDebuffer = false;
+        }  
+        System.out.println("Shield Buff Remaining: " + shieldBuffRemaining);
+        System.out.println("Poison Debuff Remaining: " + poisonDebuffRemaining);
         attributes.mana = Math.min(attributes.mana + MANA_REGEN, attributes.baseMana);
 
     }
@@ -430,7 +465,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
                 break;
         }
-        actionString = getCharacterType() + " dealt " + damageDealt + " damage to the enemy!";
+        actionString = firstLetterCap(getCharacterType()) + " dealt " + damageDealt + " damage to the enemy!";
         return true;
     }
 
@@ -443,7 +478,7 @@ public class Player extends Character implements MouseInteractable{
 
         switch(getCharacterType()) {
             case "knight":
-                if (attributes.money < 25) {
+                if (attributes.money < 15) {
                     actionString = "Not enough Soul Shards!";
                     return false;
                 }
@@ -451,7 +486,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.money -= 10;
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
-                actionString = getCharacterType() + "\'s attack increased by 15 for " + SKILL2_DURATION + " turns!";
+                actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 15 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), enemy.getOffsetX(2), enemy.getOffsetY(2));
                 break;
                 
@@ -464,7 +499,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.mana -= 20;
                 originalAttack = attributes.attack;
                 attributes.attack += 20;
-                actionString = getCharacterType() + "\'s attack increased by 20 for " + SKILL2_DURATION + " turns!";
+                actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 20 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
                 
@@ -477,7 +512,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.health -= 25;
                 originalAttack = attributes.attack;
                 attributes.attack += 30;
-                actionString = getCharacterType() + "\'s attack increased by 30 for " + SKILL2_DURATION + " turns!";
+                actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 30 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
         }
@@ -529,6 +564,8 @@ public class Player extends Character implements MouseInteractable{
                 applySkillEffect(attributes.skillEffects3, enemy, 7, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 attributes.skill3Cd = 3;
                 actionString = "Health converted to force! " + damageDealt + " damage dealt to enemy!";
+                poisonDebuffer = true;
+                poisonDebuffRemaining = POISON_DURATION;
                 return true;
         }
         return false;
@@ -610,6 +647,11 @@ public class Player extends Character implements MouseInteractable{
     
         // Call the world's click handler with the created event
         onClick(fakeClickEvent);
+    }
+
+    private String firstLetterCap(String name){
+        String cap = String.valueOf(name.charAt(0)).toUpperCase();
+        return cap + name.substring(1, name.length());
     }
 
     public PlayerAttributes getAttributes() {

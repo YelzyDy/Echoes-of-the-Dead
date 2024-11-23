@@ -20,7 +20,9 @@ public class Skeleton1 extends Enemy {
         // Base stats - weaker than protagonist but not trivial
         attack = BASE_ATTACK;
         health = BASE_HEALTH;
-        moneyDrop = 15;
+        baseHp = BASE_HEALTH;
+        baseAttack = BASE_ATTACK;
+        moneyDrop = 30;
         animator.setSpeedMultiplier(1);
     }
 
@@ -45,7 +47,7 @@ public class Skeleton1 extends Enemy {
         // Basic attack - consistent but low damage
         //sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1basicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
-        actionString = getName() + " used small boney punch for " + damageDealt + " damage!";
+        actionString = getName() + " thrusted its broadaxe dealing " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
 
@@ -61,7 +63,7 @@ public class Skeleton1 extends Enemy {
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
         
-        actionString = getName() + " swings its rusty dull sword for " + damageDealt + " damage!";
+        actionString = getName() + " spins its broadaxe dealing " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
         //sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1skill1.wav");
