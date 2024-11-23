@@ -143,6 +143,7 @@ public class Player extends Character implements MouseInteractable{
             default:
             attributes.skillEffectsRandom = attributes.createSkillEffect("heal", getPosX() * 0.9, 0.08,14, false);
             attributes.skillEffects2 = attributes.createSkillEffect("pbuff", getPosX() * 0.9, 0.08, 9, false);
+            attributes.skillEffects3 = attributes.createSkillEffect("poison",  getPosX() * 0.9, 0.08, 7, true);
             attributes.skillEffects4 = attributes.createSkillEffect("lightning", getPosX() * 0.9, 0.08, 10, false);
             break;
         }
@@ -166,7 +167,8 @@ public class Player extends Character implements MouseInteractable{
     
             default:
                 attributes.skillEffectsRandom.setDimensions((int)(screenSize.width * 0.25), (int)(screenSize.width * 0.15));
-                attributes.skillEffects2.setDimensions((int)(screenSize.width * enemy.getOffsetW(3)), (int)(screenSize.width * enemy.getOffsetH(3)));  
+                attributes.skillEffects2.setDimensions((int)(screenSize.width * enemy.getOffsetW(2)), (int)(screenSize.width * enemy.getOffsetH(2)));  
+                attributes.skillEffects3.setDimensions((int)(screenSize.width * enemy.getOffsetW(3)), (int)(screenSize.width * enemy.getOffsetH(3)));
                 attributes.skillEffects4.setDimensions((int)(screenSize.width * enemy.getOffsetW(4)), (int)(screenSize.width * enemy.getOffsetH(4)));
                 break;
         }
@@ -297,7 +299,7 @@ public class Player extends Character implements MouseInteractable{
 
     }
 
-    public boolean canUseSkill(int manaCost, int cooldown) {
+    private boolean canUseSkill(int manaCost, int cooldown) {
         if (attributes.mana < manaCost) {
             actionString = "Not enough mana!";
             return false;
@@ -521,6 +523,7 @@ public class Player extends Character implements MouseInteractable{
                 int Damage = (int)(attributes.baseHealth * 0.4);
                 damageDealt = Damage;
                 attributes.mana -= 40;
+                applySkillEffect(attributes.skillEffects3, enemy, 7, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 attributes.skill3Cd = 3;
                 actionString = "Health converted to force! " + damageDealt + " damage dealt to enemy!";
                 return true;
@@ -534,8 +537,18 @@ public class Player extends Character implements MouseInteractable{
         switch(getCharacterType()) {
             case "knight":
                 //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill3.wav");
-                int moneyBonus = (int)Math.min(attributes.money * 0.15, attributes.attack);
-                damageDealt = 2 * attributes.attack + moneyBonus;
+                // Base damage from attack
+                int baseDamage = (int)(attributes.attack * 1.5); // Changed from 2x to 1.5x
+
+                // Money scaling with better caps
+                int maxMoneyBonus = (int)(attributes.baseAttack * 0.5); // Cap based on base attack, not current
+                int moneyBonus = (int)Math.min(
+                    Math.min(attributes.money * 0.1, maxMoneyBonus), // Lower money scaling and hard cap
+                    attributes.baseAttack * 0.5  // Secondary cap
+                );
+
+                // Total damage
+                damageDealt = baseDamage + moneyBonus;
                 attributes.skill4Cd = 4;
                 attributes.mana -= 50;
                 applySkillEffect(attributes.skillEffects4, enemy, 25, enemy.getOffsetX(4), enemy.getOffsetY(4));

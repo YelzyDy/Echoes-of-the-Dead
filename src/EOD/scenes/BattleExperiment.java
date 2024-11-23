@@ -117,7 +117,7 @@ public class BattleExperiment implements Skillable{
     
         final int initialDamage = enemy.getDamageDealt();
         final int damage = player.isDamageReducerActive() ? 
-            (int)(initialDamage * 0.5) : initialDamage;
+            (int)(initialDamage * 0.4) : initialDamage;
     
         Timer skillCheckTimer = new Timer(16, new ActionListener() {
             @Override
