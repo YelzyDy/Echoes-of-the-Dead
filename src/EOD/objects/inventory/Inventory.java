@@ -20,15 +20,6 @@ public class Inventory extends EchoesObjects{
     private int item1Quantity = 0, item2Quantity = 0, item3Quantity = 0, item4Quantity = 0;
     private PlayerAttributes attributes;
     private World world;
-
-    //confirmation messages:
-    private EchoesObjects okButton, useButton, cancelButton;
-    private String selectedItemName;
-    private boolean isConfirmationVisible;
-    private EchoesObjects confirmationPanel;
-
-            
-
     public Inventory() {
         super("inventory",
             (int) (screenSize.width * 0.3),
@@ -51,8 +42,6 @@ public class Inventory extends EchoesObjects{
         this.setLayout(null);
         initializeItems();
         initializeLabels();
-
-        initializeConfirmationPanel();
     }
 
     public void setWorld(World world){
@@ -263,179 +252,43 @@ public class Inventory extends EchoesObjects{
     }
 
     
-    // @Override 
-    // public void onClick(MouseEvent e) {
-    //     Object source = e.getSource();
-    //     String itemName = "";
-    
-    //     if (source == item1Icon) {
-    //         itemName = "Item 1";
-    //     } else if (source == item2Icon) {
-    //         itemName = "Item 2";
-    //     } else if (source == item3Icon) {
-    //         itemName = "Item 3";
-    //     } else if (source == item4Icon) {
-    //         itemName = "Item 4";
-    //     }
-    
-    //     if (!itemName.isEmpty()) {
-
-    //         int choice = JOptionPane.showOptionDialog(
-    //             this,
-    //             "Do you want to use " + itemName + "?",
-    //             "Item Use Confirmation",
-    //             JOptionPane.YES_NO_OPTION,
-    //             JOptionPane.QUESTION_MESSAGE,
-    //             null,
-    //             new String[]{"Use", "Cancel"},
-    //             "Use"
-    //         );
-    
-    //         if (choice == JOptionPane.YES_OPTION) {
-    //             sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
-    //             JOptionPane.showMessageDialog(this, applyItemEffect(itemName));
-
-    //         } else {
-    //             sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
-    //             JOptionPane.showMessageDialog(this, itemName + " was not used.");
-
-    //         }
-    //     }
-    // }
-
-
-    // all sheena
-    private void initializeConfirmationPanel() {
-        // Create confirmation panel background
-        confirmationPanel = new EchoesObjects("inventory",
-            (int) (width * 0.25),  // Center the panel
-            (int) (height * 0.15),
-            (int) (width * 0.5),
-            (int) (height * 0.7),
-            "confirmation_bg",  // You'll need this image asset
-            false,
-            false,
-            1);
-        
-        // Create use button
-        useButton = new EchoesObjects("inventory",
-            (int) (confirmationPanel.getPosX() + confirmationPanel.getWidth() * 0.2),
-            (int) (confirmationPanel.getPosY() + confirmationPanel.getHeight() * 0.6),
-            (int) (width * 0.15),
-            (int) (height * 0.2),
-            "use_button",  // You'll need this image asset
-            false,
-            true,
-            2);
-            
-        // Create cancel button
-        cancelButton = new EchoesObjects("inventory",
-            (int) (confirmationPanel.getPosX() + confirmationPanel.getWidth() * 0.6),
-            (int) (confirmationPanel.getPosY() + confirmationPanel.getHeight() * 0.6),
-            (int) (width * 0.15),
-            (int) (height * 0.2),
-            "cancel_button",  // You'll need this image asset
-            false,
-            true,
-            2);
-            
-        // Add mouse listeners
-        useButton.addMouseListener(new MouseClickListener(this));
-        cancelButton.addMouseListener(new MouseClickListener(this));
-        
-        // Add components but keep them initially invisible
-        add(confirmationPanel);
-        add(useButton);
-        add(cancelButton);
-        
-        hideConfirmation();
-    }
-
-    private void showConfirmation(String itemName) {
-        selectedItemName = itemName;
-        isConfirmationVisible = true;
-        
-        confirmationPanel.setVisible(true);
-        useButton.setVisible(true);
-        cancelButton.setVisible(true);
-        
-        // Ensure proper z-order
-        setComponentZOrder(confirmationPanel, 0);
-        setComponentZOrder(useButton, 0);
-        setComponentZOrder(cancelButton, 0);
-    }
-
-    private void hideConfirmation() {
-        isConfirmationVisible = false;
-        confirmationPanel.setVisible(false);
-        useButton.setVisible(false);
-        cancelButton.setVisible(false);
-    }
-
     @Override 
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
-        
-        if (!isConfirmationVisible) {
-            // Handle initial item clicks
-            if (source == item1Icon) {
-                showConfirmation("Item 1");
-            } else if (source == item2Icon) {
-                showConfirmation("Item 2");
-            } else if (source == item3Icon) {
-                showConfirmation("Item 3");
-            } else if (source == item4Icon) {
-                showConfirmation("Item 4");
-            }
-        } else {
-            // Handle confirmation panel buttons
-            if (source == useButton) {
+        String itemName = "";
+    
+        if (source == item1Icon) {
+            itemName = "Item 1";
+        } else if (source == item2Icon) {
+            itemName = "Item 2";
+        } else if (source == item3Icon) {
+            itemName = "Item 3";
+        } else if (source == item4Icon) {
+            itemName = "Item 4";
+        }
+    
+        if (!itemName.isEmpty()) {
+            int choice = JOptionPane.showOptionDialog(
+                this,
+                "Do you want to use " + itemName + "?",
+                "Item Use Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"Use", "Cancel"},
+                "Use"
+            );
+    
+            if (choice == JOptionPane.YES_OPTION) {
                 sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
-                String effectMessage = applyItemEffect(selectedItemName);
-                hideConfirmation();
-                // You might want to show the effect message in a more integrated way
-                world.getBattle().updateTextDetail(effectMessage);
-            } else if (source == cancelButton) {
+                JOptionPane.showMessageDialog(this, applyItemEffect(itemName));
+            } else {
                 sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
-                hideConfirmation();
-                world.getBattle().updateTextDetail(selectedItemName + " was not used.");
+                JOptionPane.showMessageDialog(this, itemName + " was not used.");
             }
         }
     }
 
-    // private void showOkButton(double width, double height) {
-    //     okButton = new EchoesObjects("button", (int) (width * 0.825), (int) (height * 0.168),
-    //                                     (int) (width * 0.056), (int) (height * 0.1), "ok_button", false, true, 2);
-    //     okButton.setVisible(true);
-    //     okButton.addMouseListener(new MouseClickListener(this));
-    //     add(okButton);
-    //     setComponentZOrder(okButton, 0);
-    // }
-
-    // private void showUseButton(double width, double height) {
-    //     useButton = new EchoesObjects("button", (int) (width * 0.825), (int) (height * 0.168),
-    //                                     (int) (width * 0.056), (int) (height * 0.1), "use_", false, true, 2);
-    //     useButton.setVisible(true);
-    //     useButton.addMouseListener(new MouseClickListener(this));
-    //     add(useButton);
-    //     setComponentZOrder(useButton, 0);
-    // }
-
-    // private void showcancelButton(double width, double height) {
-    //     cancelButton = new EchoesObjects("shop", (int) (width * 0.825), (int) (height * 0.168),
-    //                                     (int) (width * 0.056), (int) (height * 0.1), "close_", false, true, 2);
-    //     cancelButton.setVisible(true);
-    //     cancelButton.addMouseListener(new MouseClickListener(this));
-    //     add(cancelButton);
-    //     setComponentZOrder(cancelButton, 0);
-    // }
-
-    // public void confirm(World world){
-        
-    // }
-
-
-    //end
 
     @Override
     public void onHover(MouseEvent e){
