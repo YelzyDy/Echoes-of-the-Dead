@@ -375,10 +375,12 @@ public class StoryLine implements Freeable{
                         }
                 } else if (worldType.equals("world3")) {
                         // Quest Title
-                        if (!isQuestDone) {
-                            this.qArr[q++] = "Quest: Explore and purify the forest.";
-                        } else {
+                        if(isQuestDone) {
                             this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
+                        } else if(objDone[0]) {
+                            this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
+                        } else {
+                            this.qArr[q++] = "Quest: Explore and purify the forest";
                         }
                     
                         // Revised Quest Objectives
