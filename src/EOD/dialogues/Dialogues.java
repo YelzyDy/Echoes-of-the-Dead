@@ -17,7 +17,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     private StoryLine story;
     private AskDialogues askDialogues = new AskDialogues();
     private QuestsDialogues questsDialogues = new QuestsDialogues();
-    private JDialog storyDialogue;
+    private JDialog storyDialogue, portraitDialog;
     public EchoesObjects skipButton, askButton, questsButton;
     protected JLabel textBox;
     protected JPanel buttonPanel;
@@ -31,13 +31,16 @@ public class Dialogues implements Freeable, MouseInteractable {
     private World world;
     private String playerType;
     private String playerName;
+    private String portraitPath;
     private boolean isClickableDialogue = true;
-    protected JLabel pressToContinueLabel;
+    protected JLabel pressToContinueLabel, portraitBox;
     protected Npc npc;
     private SceneBuilder scene;
     private String worldType;
     protected volatile boolean isTyping = false;
     private Thread typewriterThread = null;
+    private final int PORTRAIT_WIDTH = (int)(screenSize.width * 0.2);
+    private final int PORTRAIT_HEIGHT = (int)(screenSize.height * 0.35);
     
 
     public Dialogues() {
@@ -47,14 +50,17 @@ public class Dialogues implements Freeable, MouseInteractable {
         storyDialogue.setUndecorated(true);
         storyDialogue.setSize(width, height);
         storyDialogue.setLayout(new BorderLayout());   
-        
 
+        // Create a panel for the top section that will hold buttons
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(Color.BLACK);
+        
+        // Text Box setup
         textBox = new JLabel("", SwingConstants.CENTER);
         textBox.setFont(new Font("Monospaced", Font.PLAIN, (int) (screenSize.width * 0.02)));
         textBox.setForeground(Color.WHITE);
         textBox.setHorizontalAlignment(SwingConstants.LEFT);
         textBox.setVerticalAlignment(SwingConstants.TOP);
-
 
         storyDialogue.getContentPane().setBackground(Color.BLACK);
         storyDialogue.add(textBox, BorderLayout.CENTER);
@@ -79,21 +85,17 @@ public class Dialogues implements Freeable, MouseInteractable {
         questsButton.setVisible(false);
 
         // BUTTON PANEL
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, (int)(screenSize.width * 0.01), (int)(screenSize.width * 0.01))); // Use FlowLayout with gaps
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, (int)(screenSize.width * 0.01), (int)(screenSize.width * 0.01)));
         buttonPanel.setOpaque(true);
         buttonPanel.setBackground(Color.BLACK);
-        buttonPanel.setVisible(true);;
+        buttonPanel.setVisible(true);
 
         // Configure button sizes
         Dimension buttonSize = new Dimension((int)btnWidth, (int)btnHeight);
 
-        // Configure ask button
+        // Configure buttons
         askButton.setPreferredSize(buttonSize);
-
-        // Configure quests button
         questsButton.setPreferredSize(buttonSize);
-
-        // Configure skip button
         skipButton.setPreferredSize(buttonSize);
 
         // Add all buttons to the panel
@@ -101,16 +103,58 @@ public class Dialogues implements Freeable, MouseInteractable {
         buttonPanel.add(questsButton);
         buttonPanel.add(skipButton);
 
-        // Add the button panel to the main dialogue
-        storyDialogue.add(buttonPanel, BorderLayout.NORTH);
+        // Add components to top panel
+        topPanel.add(buttonPanel, BorderLayout.WEST);
 
-        // NEW PRESS TO CONTINUE LABEL
+        // Add the top panel to the main dialogue
+        storyDialogue.add(topPanel, BorderLayout.NORTH);
+
+        // PRESS TO CONTINUE LABEL
         pressToContinueLabel = new JLabel("Press to Continue", SwingConstants.CENTER);
         pressToContinueLabel.setFont(new Font("Monospaced", Font.PLAIN, (int) (screenSize.width * 0.01)));
         pressToContinueLabel.setForeground(Color.WHITE);
         pressToContinueLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int) (screenSize.height * 0.1), 0));
         pressToContinueLabel.setVisible(true);
+        
+        storyDialogue.add(pressToContinueLabel, BorderLayout.SOUTH);
     }
+
+    private void setupPortraitDialog(String path) {
+        portraitDialog = new JDialog(world, "", Dialog.ModalityType.MODELESS);
+        portraitDialog.setUndecorated(true);
+        portraitDialog.setBackground(Color.BLACK);
+        portraitDialog.setLayout(new BorderLayout());
+        
+        // PORTRAIT BOX
+        portraitBox = new JLabel();
+        portraitBox.setPreferredSize(new Dimension(PORTRAIT_WIDTH, PORTRAIT_HEIGHT));
+        portraitBox.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        portraitBox.setHorizontalAlignment(SwingConstants.CENTER);
+        portraitBox.setVerticalAlignment(SwingConstants.CENTER);
+        portraitBox.setOpaque(true);
+        portraitBox.setBackground(Color.BLACK);
+        
+        // Load image and set it to the portraitBox
+        try {
+            ImageIcon portraitImage = new ImageIcon(getClass().getResource(path));
+            // Scale image to fit the label dimensions
+            Image scaledImage = portraitImage.getImage().getScaledInstance(PORTRAIT_WIDTH, PORTRAIT_HEIGHT, Image.SCALE_SMOOTH);
+            portraitBox.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception e) {
+            e.printStackTrace();
+            portraitBox.setText("Finish Quest First!");
+            portraitBox.setForeground(Color.RED);
+        }
+    
+        portraitDialog.add(portraitBox);
+        portraitDialog.pack();
+        
+        // Position portrait dialog in top right corner
+        int portraitX = (int)(screenSize.width - PORTRAIT_WIDTH - 10); // 20 pixels from right edge
+        int portraitY = 30; // 30 pixels from top
+        portraitDialog.setLocation(portraitX, portraitY);
+        portraitDialog.setVisible(true);
+    }    
 
     public QuestsDialogues getQuestsDialogues(){
         return questsDialogues;
@@ -120,6 +164,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         // Dispose of the JDialog to release system resources
         if (storyDialogue != null && storyDialogue.isVisible()) {
             storyDialogue.dispose();
+            portraitDialog.dispose();
         }
 
         // Nullify references to large objects
@@ -181,15 +226,25 @@ public class Dialogues implements Freeable, MouseInteractable {
             case 0:
                 story.questNotComplete(); break;
             case 1:
-                story.missConstanceIntro(playerType, worldType); break;
+                story.missConstanceIntro(playerType, worldType);
+                this.portraitPath = "/portrait_assets/carefree_constance.png";
+                break;
             case 2:
-                story.nattyIntro(); break;
+                story.nattyIntro();
+                this.portraitPath = "/portrait_assets/nanno.png";
+                break;
             case 3:
-                story.yooIntro(); break;
+                story.yooIntro();
+                this.portraitPath = "/portrait_assets/yoo.png";
+                break;
             case 4:
-                story.migginsIntro(playerType, worldType); break;
+                story.migginsIntro(playerType, worldType);
+                this.portraitPath = "/portrait_assets/miggins.png";
+                break;
             case 5:
-                story.faithfulIntro(); break;
+                story.faithfulIntro();
+                this.portraitPath = "/portrait_assets/faithful.png";
+                break;
             case 6:
                 story.knightIntro(playerType); break;
             case 7:
@@ -213,15 +268,25 @@ public class Dialogues implements Freeable, MouseInteractable {
                 isClickableDialogue = false;
                 break;
             case 13:
-                story.rubyIntro(); break;
+                story.rubyIntro();
+                this.portraitPath = "/portrait_assets/ruby.png";
+                break;
             case 14:
-                story.reginaldIntro(); break;
+                story.reginaldIntro();
+                this.portraitPath = "/portrait_assets/reginald.png";
+                break;
             case 15:
-                story.akifayIntro(); break;
+                story.akifayIntro();
+                this.portraitPath = "/portrait_assets/akifay.png";
+                break;
             case 16:
-                story.asrielIntro(); break;
+                story.asrielIntro();
+                this.portraitPath = "/portrait_assets/asriel.png";
+                break;
             case 17:
-                story.cheaIntro(); break;
+                story.cheaIntro();
+                this.portraitPath = "/portrait_assets/chea.png";
+                break;
             case 18:
                 story.preEnding(); break;
             case 19:
@@ -233,9 +298,14 @@ public class Dialogues implements Freeable, MouseInteractable {
             case 22:
                 story.badEnding(); break;
             case 23:
-                story.monoIntro(playerType, worldType); break;
+                story.monoIntro(playerType, worldType);
+                this.portraitPath = "/portrait_assets/mono.png";
+                break;
             default: break;
         }
+
+        setupPortraitDialog(this.portraitPath);
+
         if ((ID == 4 || ID == 1 || ID == 2 || ID == 3 || ID == 5) && npc.activateQuest)
             questsButton.setVisible(true);
     
@@ -347,6 +417,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             // Handle end of dialogue
     
             storyDialogue.dispose();
+            portraitDialog.dispose();
     
             if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
                 ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 23)) {
@@ -460,6 +531,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         if(source == skipButton){
             sfxPlayer.stopAllSFX();
             storyDialogue.dispose();
+            portraitDialog.dispose();
             System.out.println("o index: " + (questsDialogues.getObjectiveIndex() - 1));
             
             if(questsDialogues.isQuestDialoguesActive){
@@ -495,6 +567,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");
                 storyDialogue.dispose();
+                portraitDialog.dispose();
                 buttonPanel.setVisible(false);
                 questsDialogues.setPlayerName(playerName);
                 questsDialogues.setWorldType(worldType);
@@ -502,6 +575,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             });
         }else if (source == scene){
             storyDialogue.dispose();
+            portraitDialog.dispose();
             if(askDialogues.scrollPane != null)askDialogues.scrollPane.setVisible(false);
             if(questsDialogues.scrollPane != null)questsDialogues.scrollPane.setVisible(false);
         }else if ((source == storyDialogue || source == pressToContinueLabel) && isClickableDialogue){
