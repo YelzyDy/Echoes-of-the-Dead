@@ -4,6 +4,7 @@ import EOD.characters.Npc;
 import EOD.gameInterfaces.*;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
@@ -41,7 +42,6 @@ public class Dialogues implements Freeable, MouseInteractable {
     private Thread typewriterThread = null;
     private final int PORTRAIT_WIDTH = (int)(screenSize.width * 0.2);
     private final int PORTRAIT_HEIGHT = (int)(screenSize.height * 0.35);
-    
 
     public Dialogues() {
         // TEXT WINDOW

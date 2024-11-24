@@ -176,7 +176,7 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/city2.jpg")), 1);
             sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/city3.jpg")), 2);
             sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/graveyard.jpg")), 3);
-            sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/landOfDeath.png")), 4);
+            sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/pillars1.png")), 4);
             sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         } else if (world.getTitle().equals("world2")) {
@@ -185,7 +185,7 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/city1.png")), 1);
             sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/city1.png")), 2);
             sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/cemetary.png")), 3);
-            sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/pillars1.png")), 4);
+            sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/landOfDeath.png")), 4);
             sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         } else if (world.getTitle().equals("world3")) {
