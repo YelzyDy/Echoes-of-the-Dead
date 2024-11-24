@@ -59,7 +59,7 @@ public class BattleExperiment implements Skillable{
         Timer poisonTimer = new Timer(1000, new ActionListener() { // 1 second delay
             @Override
             public void actionPerformed(ActionEvent e) {
-                int poisonTickDamage = (int) ((enemy.getBaseHp() * 0.05) * poisonStacks);
+                int poisonTickDamage = (int) ((player.attributes.getBaseHp() * 0.05) * poisonStacks);
                 enemy.takeDamage(poisonTickDamage);
                 enemy.getAnimator().triggerHurtAnimation();
                 // Check enemy death after poison damage
