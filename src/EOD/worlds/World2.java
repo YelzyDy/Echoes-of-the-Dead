@@ -3,6 +3,7 @@ package EOD.worlds;
 import EOD.characters.*;
 import EOD.characters.enemies.Death;
 import EOD.characters.enemies.Enemy;
+import EOD.characters.enemies.Necromancer;
 import EOD.characters.enemies.Skeleton2;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
@@ -129,15 +130,15 @@ public class World2 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton2("Dual-Wield Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.19), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        // scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Death("Death",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Necromancer("Necromancer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.0), screenSize.width * 0.4, screenSize.width * 0.8, player));
+         // scene.enemyList.add(new Gorgon("Gorgon",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 0);
             if (enemy.getCharacterType().equals("skeleton2")) {
                 enemy.setIndex(3);
-            }else if(enemy.getCharacterType().equals("death")) {
+            }else if(enemy.getCharacterType().equals("necromancer")) {
                 enemy.setIndex(4);
             }
         }

@@ -1,6 +1,7 @@
 package EOD.worlds;
 
 import EOD.characters.*;
+import EOD.characters.enemies.Death;
 import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Necromancer;
 import EOD.characters.enemies.Skeleton1;
@@ -165,14 +166,14 @@ public class World1 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton1("Broadaxe Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.2), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Necromancer("Necromancer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.0), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Death("Death",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.005), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);
             scene.setComponentZOrder(enemy, 1);
             if (enemy.getCharacterType().equals("skeleton1")) {
                 enemy.setIndex(3);
-            }else if(enemy.getCharacterType().equals("necromancer")) {
+            }else if(enemy.getCharacterType().equals("death")) {
                 enemy.setIndex(4);
             }
         }
