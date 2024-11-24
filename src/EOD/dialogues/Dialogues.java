@@ -8,6 +8,7 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
 import EOD.characters.enemies.Killer;
+import EOD.characters.enemies.Enemy;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     private Thread typewriterThread = null;
     private final int PORTRAIT_WIDTH = (int)(screenSize.width * 0.2);
     private final int PORTRAIT_HEIGHT = (int)(screenSize.height * 0.35);
-    private Killer killer;
+    private Enemy killer;
 
     public Dialogues() {
         // TEXT WINDOW
@@ -190,7 +191,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         this.npc = npc;
     }
 
-    public void setKiller(Killer killer){
+    public void setKiller(Enemy killer){
         this.killer = killer;
     }
 

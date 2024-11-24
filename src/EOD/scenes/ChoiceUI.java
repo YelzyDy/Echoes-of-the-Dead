@@ -74,6 +74,7 @@ public class ChoiceUI extends JPanel {
                         (world.getPlayer().getCharacterType().equals("priest") && button.getText().equals("Natty")) ||
                         (world.getPlayer().getCharacterType().equals("knight") && button.getText().equals("Yoo"))) {
                         Dialogues script = new Dialogues();
+                        script.setKiller(world.getScene().enemyList.get(1));
                         //dialogues.displayDialogue(1);
                         isKillerFound = true;
                         setVisible(false); // Hide choice UI
