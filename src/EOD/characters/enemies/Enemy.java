@@ -187,7 +187,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     @Override
     public void performQuest(){
         animator.stopMovement();
-        if (animator.getIsInBattle()) return;
+        if (animator.getIsInBattle() || getIsDefeated()) return;
         player.getAnimator().setIsInBattle(true);
         animator.setIsInBattle(true);
         positionForBattle();
