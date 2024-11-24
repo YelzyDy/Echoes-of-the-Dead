@@ -165,7 +165,7 @@ public class World1 extends World{
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
         scene.enemyList.add(new Skeleton1("Broadaxe Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.2), screenSize.width * 0.4, screenSize.width * 0.8, player));
-        scene.enemyList.add(new Necromancer("Necromancer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.05), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Necromancer("Necromancer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.0), screenSize.width * 0.4, screenSize.width * 0.8, player));
         for(Enemy enemy : scene.enemyList){
             enemy.setWorld(this);
             scene.add(enemy);

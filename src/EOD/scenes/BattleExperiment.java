@@ -100,15 +100,16 @@ public class BattleExperiment implements Skillable{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (player.getAnimator().isExecutingSkill()) {
+                        player.playSfx(skillNumber);
                         if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                             performPriestPoison(damageHolder);
                         }
 
                         if (damageEnemy) {
                             enemy.takeDamage(damageHolder[0]);
-                            player.playSfx(skillNumber);
                             enemy.getAnimator().triggerHurtAnimation();
                                 
+
                             // Check enemy death immediately after damage
                             if (enemy.getHp() <= 0) {
                                 ((Timer)e.getSource()).stop();
@@ -163,13 +164,19 @@ public class BattleExperiment implements Skillable{
             damageHolder[0] = (int)(initialDamage * 0.4);
         }
 
-        Timer skillCheckTimer = new Timer(16, new ActionListener() {
+
+
+        Timer skillCheckTimer = new Timer(enemy.playerHurtDelay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (enemy.getAnimator().isExecutingSkill()) {
                     enemy.playSfx(enemy, chosenSkill);
                     if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                         performPriestPoison(playerDamageHolder);
+                    }
+                    if(enemy.getCharacterType().equals("necromancer")){
+                        enemy.setPosX(player.getPosX());
+                        System.out.println("going thru here");
                     }
                     player.takeDamage(damageHolder[0]);
                     player.getAnimator().triggerHurtAnimation();
@@ -342,17 +349,6 @@ public class BattleExperiment implements Skillable{
         battleUI.setSkillButtonsEnabled(false);
     }
 
-    private double getEnemyDeathPosY(Enemy enemy){
-        if(enemy.getCharacterType().equals("skeleton2")){
-            return 0.15;
-        }else if(enemy.getCharacterType().equals("necromancer")){
-            return 20;
-        }else if(enemy.getCharacterType().equals("skeleton1")){
-            return 0.15;
-        }
-        return 0.0;
-    }
-
     private int getPortalIndex(String name){
         if(name.equals("portal")){
             return 3;
@@ -363,7 +359,6 @@ public class BattleExperiment implements Skillable{
     }
 
     private void handleWin(){
-        double enemyDeathY = getEnemyDeathPosY(enemy);
         String portalName = battleUI.getPortal().getName();
         int portalIndex = getPortalIndex(portalName);
         battleUI.getPortal().setIndex(portalIndex);
@@ -389,7 +384,7 @@ public class BattleExperiment implements Skillable{
                     default:
                         break;
                 }
-                enemy.getAnimator().triggerDeathAnimation(enemy.getPosY() + enemy.getPosY() * enemyDeathY);
+                enemy.getAnimator().triggerDeathAnimation(enemy.getPosY());
             }
         });
         deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once

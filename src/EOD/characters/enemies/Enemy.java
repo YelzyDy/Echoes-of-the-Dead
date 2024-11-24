@@ -38,7 +38,9 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     protected int autoCloseDelay = 0; // Delay in milliseconds (e.g., 3 seconds)
     protected boolean allowDialogues;
     protected SFXPlayer sfxPlayer = SFXPlayer.getInstance();
+    public SkillEffects skill1Effects;
     public SkillEffects skill2Effects;
+    public int playerHurtDelay = 16;
     
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,

@@ -259,6 +259,7 @@ public void createWorldScene() {
         if(world == null) return;
         if(player.getAnimator().getIsInBattle()){
             Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
+            if(enemy.skill1Effects != null) enemy.skill1Effects.updateEffect();
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
             ArrayList<Player> playerList = player.getWorld().getPlayerList();
 
@@ -267,7 +268,6 @@ public void createWorldScene() {
                     player.setPosX(screenSize.width * 0.35);
                 }
             }
-            if(enemy.getCharacterType().equals("necromancer")) enemy.setPosY(screenSize.height * 0.05);
 
             if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
                 world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect();
@@ -384,6 +384,9 @@ public void createWorldScene() {
                 //     obj.setVisible(false);
                 // }
                    // comment out the code above if ganahan mu nextWorldPortal kay naa dayun pero sa last scene ra sha ma click
+                // if(obj.getName().equals("portalMiniBoss")){
+                //     obj.setVisible(true);
+                // }
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);
