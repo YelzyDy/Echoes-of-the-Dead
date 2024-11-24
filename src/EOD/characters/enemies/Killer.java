@@ -4,11 +4,9 @@ import EOD.characters.Player;
 import EOD.dialogues.Dialogues;
 import EOD.objects.ClickableObjects;
 
-import java.awt.event.MouseEvent; // added this for onClick method -j mugana na onclick sa override if naa ni sha
-
 public class Killer extends Enemy{
     private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 200;
+    private static final int BASE_HEALTH = 20;
     private boolean fightEnabled = false;
     public Dialogues dialogues;
     // Skill cooldowns
