@@ -222,7 +222,7 @@ public void createWorldScene() {
         if(world == null) return;
         
         Quests quests = world.getQuests();
-        quests.callPerformQuests();
+        quests.callPerformClicks();
     }
 
     public void updateStats(){

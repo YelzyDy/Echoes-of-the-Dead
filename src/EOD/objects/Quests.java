@@ -443,7 +443,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    public void callperformClicks(){
+    public void callPerformClicks(){
         int currentSceneIndex = world.getScene().getCurrentSceneIndex();
         Player player = world.getScene().getPlayer();
 

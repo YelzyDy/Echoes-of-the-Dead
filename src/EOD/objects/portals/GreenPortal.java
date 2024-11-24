@@ -26,7 +26,8 @@ public class GreenPortal extends ClickableObjects{
         BattleUI battle = world.getBattle();
         Quests quests = world.getQuests();
         ArrayList<Player> playerList = world.getPlayerList();
-
+        world.getPlayer().getAllyProfiles().resetDeathStates();
+        
         if(scene.enemyList != null && !scene.enemyList.get(0).getIsDefeated()){
             sfxPlayer.playSFX("src/audio_assets/sfx/general/teleport.wav");
             bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
