@@ -6,6 +6,7 @@ import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
 import EOD.objects.SkillEffects;
 import EOD.objects.profiles.AllyProfiles;
+import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World; // -z
 import java.awt.Dimension; // -z
@@ -372,14 +373,16 @@ public class BattleExperiment implements Skillable{
                         sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerdead.wav");
                         break;
                     case "Death":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathdead.wav");
                         break;
                     case "Skeleton1":
-                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton1dead.wav");
+                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
                         break;
                     case "Skeleton2":
-                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2dead.wav");
+                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
                         break;
                     case "Skeleton3":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
                         break;
                     default:
                         break;
