@@ -89,7 +89,6 @@ public class PlayerAttributes implements Freeable{
             numSprites,
             player.getPanel()
         );
-        player.getPanel().add(effect);
         effect.setLooping(looping);
         return effect;
     }
