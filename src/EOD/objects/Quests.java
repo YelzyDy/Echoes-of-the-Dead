@@ -518,6 +518,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
         if(npcList != null){
             for(Npc npc : npcList) {
+                if(npc == null) break;
                 if (npc.doneDialogues) {
                         npc.onExit(null);
                         npc.dialogues.askButton.setVisible(true);

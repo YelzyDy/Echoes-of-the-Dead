@@ -71,6 +71,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
 
     private int getDialogueId(){
         if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard") || getCharacterType().equals("reaper"))){
+            System.out.println("nganu naa ka ar reaper?");
             return 0;
         }
         if (getCharacterType().equals("natty")){
