@@ -105,6 +105,10 @@ public abstract class Animator implements Freeable{
         deathAnimationTimer = null;
     }
 
+    public boolean isReachedTarget(){
+        return reachedTarget;
+    }
+
     public boolean isExecutingSkill() {
         return isUsingSkill && reachedTarget && !skillCompleted;
     }
@@ -200,9 +204,10 @@ public abstract class Animator implements Freeable{
     public void updateSkillAnimation() {
         character.getPanel().setComponentZOrder(character, 0);
         if (!reachedTarget) {
+            System.out.println("not reached target");
             updateMovement();
             currentFrame = (currentFrame + 1) % walkSprites.getSize();
-            if (!isMoving) {
+            if (!isMoving) {System.out.println("not moving");
                 reachedTarget = true;
             }
         } else if (!skillCompleted) {
@@ -268,7 +273,7 @@ public abstract class Animator implements Freeable{
             
             final int fps = 60;
             
-            hurtAnimationTimer = new Timer(5000 / fps, new ActionListener() {
+            hurtAnimationTimer = new Timer(8000 / fps, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (hurtAnimationFrame < hurtSprites.getSize()) {
@@ -292,7 +297,6 @@ public abstract class Animator implements Freeable{
             hurtAnimationTimer.start();
         }
     }
-
 
 
     public void triggerSkillAnimation(int skillNumber, int targetX) {

@@ -28,7 +28,7 @@ public class Character extends TransparentPanel implements Entity{
     private SceneBuilder panel;
     private int index;
     private Animator animator;
-
+    
     public Character(String name, String characterType, double  posX, double posY) {
         super(posX, posY, 0, 0);
         this.posY = posY;

@@ -34,17 +34,27 @@ public class Necromancer extends Enemy {
         animator.importSprites("character_asset", "idle", (int)(screenSize.height * 0.007), 50);
         animator.importSprites("character_asset", "dead", (int)(screenSize.height * 0.007), 52);
         animator.importSprites("character_asset","hurt", (int)(screenSize.height * 0.007), 9);
-        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.007), 48);
-        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.007), 48);
+        animator.importSkillSprites(1, "character_asset", (int)(screenSize.height * 0.007), 47);
+        animator.importSkillSprites(2, "character_asset", (int)(screenSize.height * 0.007), 47);
         animator.startMovement();
         animator.chooseNewDirection();
         animator.updateBounds();
-        skill2Effects = new SkillEffects(  "effects",
+        skill1Effects = new SkillEffects(  "effects",
         (int)(screenSize.width * 0.1), (int)(screenSize.width * 0.1),
         (int) (screenSize.width * 0.2),
         (int) (screenSize.width * 0.2),
         "smoke",
         11,
+        player.getPanel()
+        );
+        skill1Effects.setLooping(false);
+
+        skill2Effects = new SkillEffects(  "effects",
+        (int)(screenSize.width * 0.1), (int)(screenSize.width * 0.1),
+        (int) (screenSize.width * 0.13),
+        (int) (screenSize.width * 0.07),
+        "summonSkelArcher",
+        8,
         player.getPanel()
         );
         skill2Effects.setLooping(false);
@@ -56,6 +66,18 @@ public class Necromancer extends Enemy {
         damageDealt = attack + (int)(Math.random() * 3);
         actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
+        skill1Effects.bindToTarget(player, -player.getWidth() * 1, -player.getHeight() * 1);
+        playerHurtDelay = 2700;
+        Timer effectsTimer = new Timer(2500, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            skill1Effects.play();
+            skill1Effects.setStopFrame(11);
+            ((Timer)e.getSource()).stop(); // Stop the timer after playing effects
+        }
+        });
+        effectsTimer.setRepeats(false);
+        effectsTimer.start();
     }
 
     @Override 
@@ -67,15 +89,14 @@ public class Necromancer extends Enemy {
         actionString = getName() + " used Mutilate, dealt " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
-        skill2Effects.bindToTarget(player, -player.getWidth() * 1, -player.getHeight() * 1);
-
-         // Create a timer with desired delay (e.g., 500ms = 0.5 seconds)
-
-        Timer effectsTimer = new Timer(2500, new ActionListener() {
+        skill2Effects.bindToTarget(player, -player.getWidth() * -1.5, -player.getHeight() * 0.1);
+        playerHurtDelay = 1200;
+        Timer effectsTimer = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             skill2Effects.play();
-            skill2Effects.setStopFrame(11);
+            skill2Effects.setStopFrame(8);
+            player.takeDamage(baseSkill2Damage);
             ((Timer)e.getSource()).stop(); // Stop the timer after playing effects
         }
         });
@@ -211,7 +232,7 @@ public class Necromancer extends Enemy {
 
     @Override
     public double getXFactor(){
-        return screenSize.width * 0.4;
+        return screenSize.width * 0.75;
     }
 
 
