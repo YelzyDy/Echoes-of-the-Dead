@@ -4,10 +4,10 @@ import EOD.characters.Npc;
 import EOD.gameInterfaces.*;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
-import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
+import EOD.characters.enemies.Killer;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -42,6 +42,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     private Thread typewriterThread = null;
     private final int PORTRAIT_WIDTH = (int)(screenSize.width * 0.2);
     private final int PORTRAIT_HEIGHT = (int)(screenSize.height * 0.35);
+    private Killer killer;
 
     public Dialogues() {
         // TEXT WINDOW
@@ -187,6 +188,10 @@ public class Dialogues implements Freeable, MouseInteractable {
 
     public void setNpc(Npc npc) {
         this.npc = npc;
+    }
+
+    public void setKiller(Killer killer){
+        this.killer = killer;
     }
 
     public void setPlayerType(String playerType) {
@@ -429,6 +434,10 @@ public class Dialogues implements Freeable, MouseInteractable {
                 ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17  || ID == 18|| ID == 23)) {
                 npc.doneDialogues = true;
             }
+
+            if(!killer.doneDialogues){
+                killer.doneDialogues = true;
+            }
         }
     }
 
@@ -553,6 +562,9 @@ public class Dialogues implements Freeable, MouseInteractable {
                 ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 18|| ID == 23)) {
                 npc.doneDialogues = true;
             }  
+            if(!killer.doneDialogues){
+                killer.doneDialogues = true;
+            }
         } else if(source == askButton) {
             // Stop the typewriter
             resetDialogueState();

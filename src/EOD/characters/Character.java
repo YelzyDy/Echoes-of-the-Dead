@@ -28,7 +28,7 @@ public class Character extends TransparentPanel implements Entity{
     private SceneBuilder panel;
     private int index;
     private Animator animator;
-    
+    public boolean doneDialogues;
     public Character(String name, String characterType, double  posX, double posY) {
         super(posX, posY, 0, 0);
         this.posY = posY;
@@ -36,6 +36,7 @@ public class Character extends TransparentPanel implements Entity{
         this.characterType = characterType;
         this.setVisible(true);
         this.setName(name);
+        doneDialogues = false;
     }   
 
     @Override

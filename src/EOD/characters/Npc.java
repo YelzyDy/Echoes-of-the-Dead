@@ -12,7 +12,6 @@ public class Npc extends Character implements MouseInteractable, Clickable{
     public Dialogues dialogues = new Dialogues();
     protected NpcAnimator animator;
     private boolean isStatic;
-    public boolean doneDialogues;
     public boolean doneQDialogues;
     public boolean[] doneODialogues;
     public boolean activateQuest;
@@ -28,7 +27,6 @@ public class Npc extends Character implements MouseInteractable, Clickable{
         this.addMouseListener(new MouseClickListener(this));
         initializeNpcSprites();
         isStatic = true;
-        doneDialogues = false;
         doneQDialogues = false;
         doneODialogues = new boolean[4];
         doneODialogues[0] = false; doneODialogues[1] = false; doneODialogues[2] = false; doneODialogues[3] = false;

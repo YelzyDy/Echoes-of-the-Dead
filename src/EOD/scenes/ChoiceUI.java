@@ -30,7 +30,7 @@ public class ChoiceUI extends JPanel {
             setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             //setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
             setLayout(new BorderLayout(0, 20)); // Add vertical gap between components
-            
+            setVisible(false);
             JPanel containerPanel = new JPanel();
             containerPanel.setLayout(new BorderLayout(0, 20));
             containerPanel.setBackground(Color.BLACK);
@@ -79,17 +79,9 @@ public class ChoiceUI extends JPanel {
                         setVisible(false); // Hide choice UI
                         SceneBuilder scene = world.getScene();
                         scene.setCurrentSceneIndex(5);
-                        // Make killer visible but don't start battle yet
-                        for(Enemy enemy : world.getScene().enemyList) {
-                            if(enemy.getCharacterType().equals("killer")) {
-                                enemy.setVisible(true);
-                                ((Killer)enemy).setFightEnabled(false);
-                                break;
-                            }
-                        }
+
                         
-                        // Show appropriate dialogue based on player type before battle
-                        /*switch (world.getPlayer().getCharacterType()){
+                        switch (world.getPlayer().getCharacterType()){
                             case "knight":
                                 script.displayDialogues(21, world);
                                 break;
@@ -99,7 +91,10 @@ public class ChoiceUI extends JPanel {
                             case "wizard":
                                 script.displayDialogues(19, world);
                                 break; 
-                        }*/
+                        }
+
+                
+
                     } else {
                         dialogues.displayDialogue(2);
                         isKillerFound = false;
