@@ -186,7 +186,8 @@ public class Player extends Character implements MouseInteractable{
 
     public void reset(boolean playerWon) {
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
-        skill2BuffRemaining = shieldBuffRemaining = poisonDebuffRemaining = 0;
+        skill2BuffRemaining = shieldBuffRemaining = poisonDebuffRemaining  = 0;
+        poisonStacks = 1;
         attributes.setMana((int)(attributes.getBaseMana() * 0.75));
         
         if(attributes.getMana() < attributes.getBaseMana() * 0.75) attributes.setMana((int)(attributes.getBaseMana() * 0.75));
@@ -321,9 +322,6 @@ public class Player extends Character implements MouseInteractable{
             poisonDebuffRemaining--;
             poisonStacks++;
             poisonDebuffer = true;
-            if (poisonDebuffRemaining == 0) {
-                poisonDebuffer = false;
-            }
         } else {
             // Ensure damage reducer is false when no shield is active
             poisonStacks = 1;

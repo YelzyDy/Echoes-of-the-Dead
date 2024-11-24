@@ -96,7 +96,6 @@ public class Necromancer extends Enemy {
         public void actionPerformed(ActionEvent e) {
             skill2Effects.play();
             skill2Effects.setStopFrame(8);
-            player.takeDamage(baseSkill2Damage);
             ((Timer)e.getSource()).stop(); // Stop the timer after playing effects
         }
         });
