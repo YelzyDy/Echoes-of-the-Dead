@@ -1555,7 +1555,7 @@ public class StoryLine implements Freeable{
                 }else if(playerType.equals(("wizard").toString())){
                         this.arr[i++] = "Quantum Shift(Cost: 30 Mana): Has a 45% chance of evading the next attack. If successful, deal 35 damage and gain 90 mana.";
                 }else{
-                        this.arr[i++] = "Vital Degrade(Cost: 40 Mana): Deals 10% of the Priest's base Soul Energy as damage to enemy for 3 turns.";
+                        this.arr[i++] = "Vital Degrade(Cost: 30 Mana): Deals 10% of the Priest's base Soul Energy as damage to enemy for 3 turns.";
                 }
 
                 if(playerType.equals(("knight").toString())){

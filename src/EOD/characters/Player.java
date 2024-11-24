@@ -484,7 +484,7 @@ public class Player extends Character implements MouseInteractable{
                     return false;
                 }
                 //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill1.wav");
-                attributes.money -= 10;
+                attributes.money -= 15;
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
                 actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 15 for " + SKILL2_DURATION + " turns!";
@@ -512,7 +512,7 @@ public class Player extends Character implements MouseInteractable{
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill1.wav");
                 attributes.health -= 25;
                 originalAttack = attributes.attack;
-                attributes.attack += 30;
+                attributes.attack += 15;
                 actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 30 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
@@ -561,7 +561,7 @@ public class Player extends Character implements MouseInteractable{
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
                 int Damage = (int)(attributes.baseHealth * 0.1);
                 damageDealt = Damage;
-                attributes.mana -= 40;
+                attributes.mana -= 30;
                 applySkillEffect(attributes.skillEffects3, enemy, 7, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 attributes.skill3Cd = 4;
                 actionString = "Health converted to force! Dealing poison damage for 3 turns!";
