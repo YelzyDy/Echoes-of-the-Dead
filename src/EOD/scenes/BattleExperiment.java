@@ -359,6 +359,7 @@ public class BattleExperiment implements Skillable{
     }
 
     private void handleWin(){
+        AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
         String portalName = battleUI.getPortal().getName();
         int portalIndex = getPortalIndex(portalName);
         battleUI.getPortal().setIndex(portalIndex);
@@ -390,6 +391,17 @@ public class BattleExperiment implements Skillable{
         deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
         deathAnimationTimer.start();
         handleRewards();
+        //reset hp to 75 if dead
+        for(Player player : allyProfiles.getPlayerList()){
+            if(player.getAttributes().getHp() <= 0){
+                player.getAttributes().setHp(75);
+                switch(player.getCharacterType()){
+                    case "knight" -> isKnightDead = false;
+                    case "priest" -> isPriestDead = false;
+                    case "wizard" -> isWizardDead = false;
+                }
+            }
+        }
     }
 
     private void handleLose(){
