@@ -10,7 +10,7 @@ import javax.swing.Timer;
 
 public class Necromancer extends Enemy {    
     private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 150;
+    private static final int BASE_HEALTH = 250;
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
