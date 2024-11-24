@@ -3,8 +3,7 @@ package EOD.objects;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
-import javax.swing.JLayeredPane;
+import EOD.characters.Player;
 import java.awt.Image;
 
 import EOD.gameInterfaces.Entity;
@@ -38,9 +37,12 @@ public class SkillEffects extends EchoesObjects {
         panel = null;
     }
     
-    public void updateEffect() {
+    public void updateEffect(Player player) {
         if (!isActive) return;
-        panel.setComponentZOrder(this, 0);
+        // Assuming 'panel' is the parent container of your components
+
+        panel.setComponentZOrder(this, 1);
+        panel.setComponentZOrder(player, 2);
         updateAnimation();
         
         if (target != null) {
@@ -113,7 +115,7 @@ public class SkillEffects extends EchoesObjects {
         this.target = target;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        updateEffect(); // Immediately update position
+        // updateEffect(); // Immediately update position
     }
 
     public void unbindTarget() {
@@ -128,7 +130,7 @@ public class SkillEffects extends EchoesObjects {
         
         if (!panel.isAncestorOf(this)) {
             panel.setLayout(null);
-            panel.add(this, JLayeredPane.DRAG_LAYER);
+            panel.add(this);
         }
         
         // Check if we have a bound target and update position immediately
