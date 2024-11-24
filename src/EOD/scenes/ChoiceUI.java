@@ -70,14 +70,15 @@ public class ChoiceUI extends JPanel {
                 button.addActionListener(e -> {
                     System.out.println(button.getText() + " button clicked!");
                     
-                    if ((world.getPlayer().getCharacterType().equals("wizard") && button.getText().equals("Yoo")) ||
+                    if ((world.getPlayer().getCharacterType().equals("wizard") && button.getText().equals("Faithful")) ||
                         (world.getPlayer().getCharacterType().equals("priest") && button.getText().equals("Natty")) ||
-                        (world.getPlayer().getCharacterType().equals("knight") && button.getText().equals("Faithful"))) {
+                        (world.getPlayer().getCharacterType().equals("knight") && button.getText().equals("Yoo"))) {
                         Dialogues script = new Dialogues();
-                        dialogues.displayDialogue(1);
+                        //dialogues.displayDialogue(1);
                         isKillerFound = true;
                         setVisible(false); // Hide choice UI
-                        
+                        SceneBuilder scene = world.getScene();
+                        scene.setCurrentSceneIndex(5);
                         // Make killer visible but don't start battle yet
                         for(Enemy enemy : world.getScene().enemyList) {
                             if(enemy.getCharacterType().equals("killer")) {
@@ -88,17 +89,17 @@ public class ChoiceUI extends JPanel {
                         }
                         
                         // Show appropriate dialogue based on player type before battle
-                        switch (world.getPlayer().getCharacterType()){
+                        /*switch (world.getPlayer().getCharacterType()){
                             case "knight":
-                                script.displayDialogues(102, world);
+                                script.displayDialogues(21, world);
                                 break;
                             case "priest":
-                                script.displayDialogues(103, world);
+                                script.displayDialogues(20, world);
                                 break;
                             case "wizard":
-                                script.displayDialogues(104, world);
+                                script.displayDialogues(19, world);
                                 break; 
-                        }
+                        }*/
                     } else {
                         dialogues.displayDialogue(2);
                         isKillerFound = false;
