@@ -14,8 +14,10 @@ public class SettingsWindow extends JFrame {
     private JRadioButton musicOffButton;
     private JRadioButton sfxOnButton;
     private JRadioButton sfxOffButton;
-    private JSlider volumeSlider;
-    private JLabel volumeLabel;
+    private JSlider musicVolumeSlider;
+    private JSlider sfxVolumeSlider;
+    private JLabel musicVolumeLabel;
+    private JLabel sfxVolumeLabel;
     private BGMPlayer bgmPlayer;
     private SFXPlayer sfxPlayer;
     private static SettingsWindow instance = null;
@@ -24,15 +26,19 @@ public class SettingsWindow extends JFrame {
         this.bgmPlayer = bgmPlayer;
         this.sfxPlayer = sfxPlayer;
         this.setTitle("Settings");
-        this.setSize(400, 300);
+        this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setLayout(new GridLayout(7, 1));  // Adjusted for proper spacing
+        
+        // Use BoxLayout for better vertical spacing control
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Music toggle section
-        JLabel musicLabel = new JLabel("Enable or disable sound:");
-        musicLabel.setHorizontalAlignment(JLabel.CENTER);
-
+        // Sound toggle section
+        JLabel soundLabel = new JLabel("Enable or disable sound:");
+        soundLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
         // Create radio buttons
         musicOnButton = new JRadioButton("Music On", bgmPlayer.getIsMusicEnabled());
         musicOffButton = new JRadioButton("Music Off", !bgmPlayer.getIsMusicEnabled());
@@ -48,47 +54,80 @@ public class SettingsWindow extends JFrame {
         sfxGroup.add(sfxOnButton);
         sfxGroup.add(sfxOffButton);
 
-        // Add action listeners to the buttons
+        // Add action listeners
         musicOnButton.addActionListener(new MusicToggleListener());
         musicOffButton.addActionListener(new MusicToggleListener());
         sfxOnButton.addActionListener(new SfxToggleListener());
         sfxOffButton.addActionListener(new SfxToggleListener());
 
-        // Volume control section
-        JPanel volumePanel = new JPanel(new FlowLayout());
-        float currentVolume = sfxPlayer.getCurrentVolume();
-        int sliderValue = (int)(currentVolume * 100);
-        volumeLabel = new JLabel("Volume: " + sliderValue + "%");
+        // Create panels for radio buttons with FlowLayout
+        JPanel musicButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        musicButtonPanel.add(musicOnButton);
+        musicButtonPanel.add(musicOffButton);
+
+        JPanel sfxButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        sfxButtonPanel.add(sfxOnButton);
+        sfxButtonPanel.add(sfxOffButton);
+
+        // Music volume section
+        JLabel musicControlLabel = new JLabel("Music Volume Control:");
+        musicControlLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // Create volume slider
-        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, sliderValue);
-        volumeSlider.setMajorTickSpacing(20);
-        volumeSlider.setMinorTickSpacing(5);
-        volumeSlider.setPaintTicks(true);
-        volumeSlider.setPaintLabels(true);
-        volumeSlider.addChangeListener(new VolumeChangeListener());
+        // Create music volume panel with label and slider
+        JPanel musicVolumePanel = new JPanel(new BorderLayout(10, 0));
+        float currentMusicVolume = bgmPlayer.getCurrentVolume();
+        int musicSliderValue = (int)(currentMusicVolume * 100);
+        musicVolumeLabel = new JLabel("Music Volume: " + musicSliderValue + "%");
+        
+        musicVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, musicSliderValue);
+        musicVolumeSlider.setMajorTickSpacing(20);
+        musicVolumeSlider.setMinorTickSpacing(5);
+        musicVolumeSlider.setPaintTicks(true);
+        musicVolumeSlider.setPaintLabels(true);
+        musicVolumeSlider.addChangeListener(new MusicVolumeChangeListener());
 
-        volumePanel.add(volumeLabel);
-        volumePanel.add(volumeSlider);
+        musicVolumePanel.add(musicVolumeLabel, BorderLayout.WEST);
+        musicVolumePanel.add(musicVolumeSlider, BorderLayout.CENTER);
 
-        // Add all components to the frame
-        this.add(musicLabel);
-        JPanel musicPanel = new JPanel(new FlowLayout());
-        musicPanel.add(musicOnButton);
-        musicPanel.add(musicOffButton);
-        this.add(musicPanel);
+        // SFX volume section
+        JLabel sfxControlLabel = new JLabel("SFX Volume Control:");
+        sfxControlLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        // Create SFX volume panel with label and slider
+        JPanel sfxVolumePanel = new JPanel(new BorderLayout(10, 0));
+        float currentSFXVolume = sfxPlayer.getCurrentVolume();
+        int sfxSliderValue = (int)(currentSFXVolume * 100);
+        sfxVolumeLabel = new JLabel("SFX Volume: " + sfxSliderValue + "%");
+        
+        sfxVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, sfxSliderValue);
+        sfxVolumeSlider.setMajorTickSpacing(20);
+        sfxVolumeSlider.setMinorTickSpacing(5);
+        sfxVolumeSlider.setPaintTicks(true);
+        sfxVolumeSlider.setPaintLabels(true);
+        sfxVolumeSlider.addChangeListener(new SFXVolumeChangeListener());
 
-        JPanel sfxPanel = new JPanel(new FlowLayout());
-        sfxPanel.add(sfxOnButton);
-        sfxPanel.add(sfxOffButton);
-        this.add(sfxPanel);
+        sfxVolumePanel.add(sfxVolumeLabel, BorderLayout.WEST);
+        sfxVolumePanel.add(sfxVolumeSlider, BorderLayout.CENTER);
 
-        this.add(new JLabel("Volume Control:", JLabel.CENTER));
-        this.add(volumePanel);
+        // Add components to main panel with spacing
+        mainPanel.add(soundLabel);
+        mainPanel.add(Box.createVerticalStrut(10));
+        mainPanel.add(musicButtonPanel);
+        mainPanel.add(sfxButtonPanel);
+        mainPanel.add(Box.createVerticalStrut(20));
+        mainPanel.add(musicControlLabel);
+        mainPanel.add(Box.createVerticalStrut(5));
+        mainPanel.add(musicVolumePanel);
+        mainPanel.add(Box.createVerticalStrut(20));
+        mainPanel.add(sfxControlLabel);
+        mainPanel.add(Box.createVerticalStrut(5));
+        mainPanel.add(sfxVolumePanel);
 
-        // Pack the frame to ensure proper layout
+        // Add main panel to frame
+        this.add(mainPanel);
+        this.setResizable(false);
         this.pack();
-        this.setSize(400, 300); // Set final size after packing
+        this.setSize(400, 400);
     }
 
     public static SettingsWindow getInstance(BGMPlayer bgmPlayer, SFXPlayer sfxPlayer) {
@@ -125,14 +164,22 @@ public class SettingsWindow extends JFrame {
         }
     }
 
-    private class VolumeChangeListener implements ChangeListener {
+    private class MusicVolumeChangeListener implements ChangeListener {
         @Override
         public void stateChanged(ChangeEvent e) {
-            int value = volumeSlider.getValue();
-            volumeLabel.setText("Volume: " + value + "%");
-            
+            int value = musicVolumeSlider.getValue();
+            musicVolumeLabel.setText("Music Volume: " + value + "%");
             float normalizedVolume = value / 100.0f;
             bgmPlayer.setVolume(normalizedVolume);
+        }
+    }
+
+    private class SFXVolumeChangeListener implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            int value = sfxVolumeSlider.getValue();
+            sfxVolumeLabel.setText("SFX Volume: " + value + "%");
+            float normalizedVolume = value / 100.0f;
             sfxPlayer.setVolume(normalizedVolume);
         }
     }
