@@ -246,11 +246,17 @@ public class Dialogues implements Freeable, MouseInteractable {
                 this.portraitPath = "/portrait_assets/faithful.png";
                 break;
             case 6:
-                story.knightIntro(playerType); break;
+                story.knightIntro(playerType);
+                this.portraitPath = "/portrait_assets/lawyer.png";
+                break;
             case 7:
-                story.wizardIntro(playerType); break;
+                story.wizardIntro(playerType);
+                this.portraitPath = "/portrait_assets/cs.png";
+                break;
             case 8:
-                story.priestIntro(playerType); break;
+                story.priestIntro(playerType);
+                this.portraitPath = "/portrait_assets/nurse.png";
+                break;
             case 9:
                 story.skeleton1Corpse();
                 isClickableDialogue = false;
@@ -554,6 +560,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");
                 storyDialogue.dispose();
+                portraitDialog.dispose();
                 buttonPanel.setVisible(false);
                 askDialogues.setPlayerType(playerType);
                 askDialogues.setPlayerName(playerName);

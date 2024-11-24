@@ -1574,7 +1574,7 @@ public class StoryLine implements Freeable{
         public void preEnding() {
                 int i = 0;
 
-                this.arr[i++] = playerName + "r journey nears its ends. You can't begin to fathom the idea of how far you've come. The friends and foes you made along the way, the obstacles you had to take, and the painstaking long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
+                this.arr[i++] = "Your journey nears its ends. You can't begin to fathom the idea of how far you've come. The friends and foes you made along the way, the obstacles you had to take, and the painstaking long walk to get here. You are finally given the decision to bring forth justice and finally claim your right to live again.";
                 this.arr[i++] = "The darkness around you thickens, as if waiting for your next move, feeding off your hesitation. The hollowed voice of Death echoes again, its ethereal presence sending a chill down your spine.";
                 this.arr[i++] = "Your time is slipping away. Have you made a decision yet?\"";
                 this.arr[i++] = "As you hear those words spoken, you feel your throat run dry. You are faced with one of the most difficult decisions yet - a decision that could lead you to live your life once again. You went through the depths of despair rummaging for hope to find the future - or if there is any at all. Exhaustion sweeps through your core once more.";
@@ -1598,18 +1598,18 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "As the veil of darkness fades, the reality of the situation sets in. You are face-to-face with the very man who destroyed everything you cherished. The air between you hums with tension, the weight of betrayal heavy on your chest. You can feel your heart pounding in your ears, but there is no time for hesitation.";
                 this.arr[i++] = "Faithful, your former professor, now stands before you as the orchestrator of your death—and his. His expression is chilling, devoid of remorse, a complete 180 degrees. The very thought twists your stomach into knots, but you can not afford to let him see your fear.";
                 this.arr[i++] = "“So, you finally figured it out. Took you long enough hehe.,” Faithful sneers, his voice dripping with mockery.";
-                this.arr[i++] = playerName + "r mind races, trying to comprehend the truth. All the pieces finally fit together—the late-night visits your mother would never explain, the mysterious tension between you and Faithful, and now this. It was Faithful that led you to your death—and his own.";
+                this.arr[i++] = "Your mind races, trying to comprehend the truth. All the pieces finally fit together—the late-night visits your mother would never explain, the mysterious tension between you and Faithful, and now this. It was Faithful that led you to your death—and his own.";
                 this.arr[i++] = "“Why did you do it? What did I ever do to you?” You choke out, barely able to contain your fury.";
                 this.arr[i++] = "Faithful steps forward, the darkness still clinging to him like a cloak. His eyes gleam with malice, and for the first time, he speaks with a twisted kind of honesty. “You were an obstacle. A problem that needed solving. Your mother was mine, and you… you were just something standing in the way of our perfect life together.”";
                 this.arr[i++] = "“Perfect life?” You feel your fists clench at your sides, nails digging into your palms. “You killed me! You killed both of us! And for what? You're sick.”";
                 this.arr[i++] = "Faithful shrugs, his indifference chilling. “It would have been perfect… if you hadn't been there. She would have chosen me eventually. I was just speeding up the process.” His smile grows even more twisted as he continues. “Too bad for you, though. I never expected her to love you so much. It was irritating.”";
-                this.arr[i++] = playerName + "r body trembles with a mixture of rage and disbelief. How could someone like him, someone who had been a complete hopeless romantic, harbor such malevolence and jealousy? And how could your mother, caring and careful as she was, fall for someone like him? You shake your head, pushing the thoughts aside. It no longer matters. None of it does.";
+                this.arr[i++] = "Your body trembles with a mixture of rage and disbelief. How could someone like him, someone who had been a complete hopeless romantic, harbor such malevolence and jealousy? And how could your mother, caring and careful as she was, fall for someone like him? You shake your head, pushing the thoughts aside. It no longer matters. None of it does.";
                 this.arr[i++] = "This is your final chance.";
                 this.arr[i++] = "Faithful, now standing taller, seems to be amused with your internal struggle. “You think you can stop me?” he taunts. “You've already lost once. This time, I'll make sure you stay dead.”";
                 this.arr[i++] = "But you are no longer afraid. The weight of your own death, the weight of his death—those burdens no longer hold you back anymore. Instead, they fuel the fire burning inside you. Faithful may have taken everything from you, but now, you have the power to end this nightmare.";
                 this.arr[i++] = "“No,” you say, your voice steady and unwavering. “I'm going to put you down for good.”";
                 this.arr[i++] = "Faithful laughs, the sound grating in your ears. He reaches for something in the darkness, and in an instant, a grotesque weapon materializes in his hand—an ebony blade, the edge shimmering with malevolent energy. The air around it warps, twisting as if reality itself is being bent by its presence.";
-                this.arr[i++] = playerName + " take a deep breath, summoning all the strength and resolve you have gained throughout your journey. You are not the same person who died before. You have fought your way through the darkest depths of the underworld, battled creatures that defy description, and now, you stand at the end of that road.";
+                this.arr[i++] = "You take a deep breath, summoning all the strength and resolve you have gained throughout your journey. You are not the same person who died before. You have fought your way through the darkest depths of the underworld, battled creatures that defy description, and now, you stand at the end of that road.";
                 this.arr[i++] = "“Let's finish this,” you mumbled.";
                 
                 this.size = i;
@@ -1624,7 +1624,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "\"Oh, there you are! I've been dying to see you!\"";
                 this.arr[i++] = "Shocked as she kept moving closer, you took a huge step back.";
                 this.arr[i++] = "\"Dying? Well, we sure are getting there!\"";
-                this.arr[i++] = playerName + " took a look again, this time, you looked closely at this petite looking girl. Then, something hit you. These eyes, this face, and this conversation! You've heard a hundred times. Hell, you've even heard it today!";
+                this.arr[i++] =" You took a look again, this time, you looked closely at this petite looking girl. Then, something hit you. These eyes, this face, and this conversation! You've heard a hundred times. Hell, you've even heard it today!";
                 this.arr[i++] = "\"Wait, wait, wait, wait, I don't understand. Weren't you one of the patients I attended? Wasn't I good to you? How come?\"";
                 this.arr[i++] = "Still baffled, he looks for the reaper to find his answers, and yet he didn't know where he was.";
                 this.arr[i++] = "\"Hi! Do you remember me Nurse?\"";
@@ -1641,14 +1641,14 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "\"Accidentally. Well, I was too excited to see you so I immediately tried to see you and hehe... huh... OH MY GOSHH I KILLED YOU! I'm sorry. I didn't mean to? \"";
                 this.arr[i++] = "Confused on what he should be feeling, he tried to gather himself and all it lead to was a huge...";
                 this.arr[i++] = "\"AHAHAHHAAAHAAHAHAH... this is crazy. I can't even be mad at you cause this - this was all an accident.\"";
-                this.arr[i++] = playerName + " now understand everything. A person sick in the mind, trying to do things they're were not supposed to. What can you even do about that? For a second, you forgot all the anguish you felt. Now, everything should feel better, yet for some reason, you still can't escape the uneasy feeling you had when you first arrived in this world. Was this really the justice you've been looking for?";
+                this.arr[i++] = "You now understand everything. A person sick in the mind, trying to do things they're were not supposed to. What can you even do about that? For a second, you forgot all the anguish you felt. Now, everything should feel better, yet for some reason, you still can't escape the uneasy feeling you had when you first arrived in this world. Was this really the justice you've been looking for?";
                 this.arr[i++] = "\"Hey nurse, I'm really sorry about what happened okay? Can we just call it a truce? I, I didn't really mean it. hehe\"";
                 this.arr[i++] = "There was nothing left to do. It was stupid to be angry at a person who can't control himself. So, you let go of everything.";
                 this.arr[i++] = "\"Fine... There's nothing to be angry about anyway.\"";
                 this.arr[i++] = "Natty reached out for her hand and as they came closer together she kept smiling. The eerie feeling you had did not escape as you reached out as well. You shook hands but then...";
                 this.arr[i++] = "She suddenly grabbed you closer, and whispered something.";
                 this.arr[i++] = "\"I meant it you know, your death was my doing.\"";
-                this.arr[i++] = playerName + " pulled back and all the anguish came rushing again.";
+                this.arr[i++] = "You pulled back and all the anguish came rushing again.";
                 this.arr[i++] = "\"AHAHAHAHAHHAHA.... you fell for it! You fell for it again, just like how you fell for every act that I did when I was still in that stupid asylum!\"";
                 this.arr[i++] = "\"What the - what do you even mean??\"";
                 this.arr[i++] = "\"I was jealous of you, you know. You might forget, that was an asylum for murderers! Murderers like me. It was natural instinct. Something like, if I can't live a life, why don't I just die with the person who's loved by all.\"";
@@ -1667,12 +1667,12 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "As the darkness lifts, the truth becomes clear. Standing before you is the man that took your life that night. The tension between you two is electrifying. Your heart pounds in your ears, but there's no room for hesitation now.";
                 this.arr[i++] = "Yoo, your former classmate, now stands before you as the orchestrator of your death—and his. His expression is dull, devoid of all emotions, even more so than ever.";
                 this.arr[i++] = "“What took you so long to figure it out? I was getting tired of waiting.” Yoo states in a voice filled with sarcasm.";
-                this.arr[i++] = playerName + "r mind races, trying to comprehend the truth. All the pieces finally fit together—the moments of underhanded criticism, the subtle sabotage of your achievements, the jealousy you always tried to ignore. Yoo could not stand to see you surpass him, outshine him in every way.";
+                this.arr[i++] = "Your mind races, trying to comprehend the truth. All the pieces finally fit together—the moments of underhanded criticism, the subtle sabotage of your achievements, the jealousy you always tried to ignore. Yoo could not stand to see you surpass him, outshine him in every way.";
                 this.arr[i++] = "“Why?” you ask, barely able to contain your anger.";
                 this.arr[i++] = "“You were too perfect, too good at everything. Your success was my failure. Everyone started comparing me to you, and I couldn't stand it.” His voice shakes with bitter resentment. “I built you up, but you outgrew me. You became everything I wanted to be.”";
                 this.arr[i++] = "“You killed me because I was better than you?” Your voice is incredulous, but deep down, the truth settles like a cold weight in your gut.";
                 this.arr[i++] = "Yoo's dead demeanor only deepens. “It wasn't enough to outshine me, was it? You had to take everything. My recognition, my reputation... Even in death, you were still that competent. But now? Now you're nothing.”";
-                this.arr[i++] = playerName + "r fists clench at your sides, nails digging into your palms. You can feel the rage bubbling inside you, a molten fury that threatens to consume you.";
+                this.arr[i++] = "You'r fists clench at your sides, nails digging into your palms. You can feel the rage bubbling inside you, a molten fury that threatens to consume you.";
                 this.arr[i++] = "All the sacrifices you made, all the battles you fought, only to find out it was jealousy that tore everything apart.";
                 this.arr[i++] = "“I won't let you get away with this,” you reply.";
                 this.arr[i++] = "Yoo shrugs, his indifference chilling.";
@@ -1680,8 +1680,8 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "But you are no longer afraid. The weight of your death, the weight of his betrayal—those burdens no longer hold you back. Instead, they fuel the fire burning inside you. Yoo may have taken your life away from you, but now, you have the power to bring forth justice.";
                 this.arr[i++] = "“No,” you say, your voice steady and unwavering. “This time, I'll make sure you pay for your sins.”";
                 this.arr[i++] = "Yoo stares, a soul-piercing gaze. He steps forward, and in an instant, a ghostly aura emanates from his body. The air around it warps, twisting as if reality itself is being bent by his presence.";
-                this.arr[i++] = playerName + " take a deep breath, summoning all the strength and resolve you have gained throughout your journey.";
-                this.arr[i++] = playerName + " are not the same person who died before. You have fought your way through the darkest depths of the underworld, battled creatures that defy description, and now, you stand at the end of that road.";
+                this.arr[i++] = "You take a deep breath, summoning all the strength and resolve you have gained throughout your journey.";
+                this.arr[i++] = "You are not the same person who died before. You have fought your way through the darkest depths of the underworld, battled creatures that defy description, and now, you stand at the end of that road.";
                 this.arr[i++] = "“Let's finish this.”";
 
                 this.size = i;
@@ -1704,12 +1704,12 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "\"Will I be able to see anyone again?\" you ask.";            
                 this.arr[i++] = "\"Of course, they'll be waiting for you. I'll get to see you again in fifty years or so, haha.\" Death replies, as he begins to dissipate.";            
                 this.arr[i++] = "As the void around you begins to fade too, you feel wet sand enveloping you—and before you know it, you are laying on the seashore across the city. The weight of the afterlife lifts from your shoulders, and for the first time in what feels like an eternity, you breathe freely.";                
-                this.arr[i++] = playerName + "'re alive.";                
+                this.arr[i++] = "You're alive.";                
                 this.arr[i++] = "Opening your eyes, you find yourself standing in a familiar place. The sunlight filters through the palm trees, the scent of earth and sea filling the air.";
-                this.arr[i++] = playerName + "'re back. Back in the world of the living.";               
+                this.arr[i++] = "You're're back. Back in the world of the living.";               
                 this.arr[i++] = "A sense of peace washes over you. It's over. Finally, it's over.";                
-                this.arr[i++] = playerName + " close your eyes and take a deep breath, knowing that though your journey may have been long and painful, you've earned a second chance. You wanted to tell your mom everything that happened, but it might be pointless—no one would ever believe the things you went through.";  
-                this.arr[i++] = playerName + " are simply grateful to live a second time.";    
+                this.arr[i++] = "You close your eyes and take a deep breath, knowing that though your journey may have been long and painful, you've earned a second chance. You wanted to tell your mom everything that happened, but it might be pointless—no one would ever believe the things you went through.";  
+                this.arr[i++] = "You are simply grateful to live a second time.";    
                 this.arr[i++] = "And this time, you won't waste it.";
 
                 this.size = i;
@@ -1722,9 +1722,9 @@ public class StoryLine implements Freeable{
                 
                 this.arr[i++] = "The cold, thick air fills everything with a pause of deafening silence. It envelops every inch of space that comes between you and Death. However, as seconds pass, it seems to whirl around Death more and more.";
                 
-                this.arr[i++] = playerName + " wonder why Death hasn't said anything at all.";
+                this.arr[i++] = "You wonder why Death hasn't said anything at all.";
                 
-                this.arr[i++] = playerName + " failed.";
+                this.arr[i++] = "You failed.";
                 
                 this.size = i;
         }

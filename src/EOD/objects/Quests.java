@@ -44,10 +44,18 @@ public class Quests extends JPanel implements MouseInteractable{
     private boolean monologuerDone = false;
     private Npc constance;
     private Npc miggins;
+    private ChoiceUI choiceUI;
 
     public Quests(World world) {
         this.textPanel = new JPanel();
         this.world = world;
+        choiceUI = new ChoiceUI(world);
+        JLayeredPane layeredPane = world.getLayeredPane();
+        layeredPane.add(choiceUI, JLayeredPane.POPUP_LAYER);
+        choiceUI.setBounds(
+            0, (int)(screenSize.height * 0.4), 
+                 (int)(screenSize.width), (int)(screenSize.height * 0.6)
+        );
     }
 
     private boolean shouldClickLocal(Npc npc){
@@ -932,19 +940,28 @@ public class Quests extends JPanel implements MouseInteractable{
             }
         }
 
-        if(ifActive == 10){
-            if(npcList.get(7).doneDialogues){
-                System.out.println("Reaper ali sa gud" + npcList.get(7).getName());
-                ChoiceUI choiceUI = new ChoiceUI(world);
-                JLayeredPane layeredPane = world.getLayeredPane();
-                layeredPane.add(choiceUI, JLayeredPane.POPUP_LAYER);
+        // if(ifActive == 10){
+        //     if(npcList.get(7).doneDialogues){
+        //         System.out.println("Reaper ali sa gud" + npcList.get(7).getName());
+        //         ChoiceUI choiceUI = new ChoiceUI(world);
+        //         JLayeredPane layeredPane = world.getLayeredPane();
+        //         layeredPane.add(choiceUI, JLayeredPane.POPUP_LAYER);
 
-                choiceUI.setBounds(
-                    0, (int)(screenSize.height * 0.4), 
-                         (int)(screenSize.width), (int)(screenSize.height * 0.6)
-                );
+        //         choiceUI.setBounds(
+        //             0, (int)(screenSize.height * 0.4), 
+        //                  (int)(screenSize.width), (int)(screenSize.height * 0.6)
+        //         );
+        //         setQuestStatus(11);
+        //         choiceUI.setVisible(true);
+        //         return true;
+        //     }
+        // }
+
+        if(world.getTitle().equals("world3")){
+            if(npcList.get(7).doneDialogues){
                 setQuestStatus(11);
                 choiceUI.setVisible(true);
+                
                 return true;
             }
         }

@@ -14,6 +14,7 @@ public class Killer extends Enemy{
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
+    public boolean doneDialogues;
 
     public Killer(String name, int posX, int posY, 
             double minRange, double maxRange, Player protagonist) {
@@ -26,6 +27,7 @@ public class Killer extends Enemy{
             animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(1);
             animator.setSkillAnimationSpeedMultiplier(1);
+            doneDialogues = false;
     }
 
     public void configureSprites(){
@@ -208,18 +210,6 @@ public class Killer extends Enemy{
     protected void onBattleStart() {
         ClickableObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
-    }
-
-    @Override
-    public void onClick(MouseEvent e) {
-        if (!fightEnabled) return;
-        
-        animator.stopMovement();
-        if (animator.getIsInBattle()) return;
-        player.getAnimator().setIsInBattle(true);
-        animator.setIsInBattle(true);
-        positionForBattle();
-        onBattleStart();
     }
 
 }
