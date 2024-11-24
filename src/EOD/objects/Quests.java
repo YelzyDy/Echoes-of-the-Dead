@@ -952,6 +952,7 @@ public class Quests extends JPanel implements MouseInteractable{
             if(enemyList.get(1).doneDialogues){
                 enemyList.get(1).isPerformQActive = false;
                 enemyList.get(1).performClick();
+                setQuestStatus(12);
                 return true;
             }
         }
