@@ -165,8 +165,6 @@ public class BattleExperiment implements Skillable{
             damageHolder[0] = (int)(initialDamage * 0.4);
         }
 
-
-
         Timer skillCheckTimer = new Timer(enemy.playerHurtDelay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -335,6 +333,22 @@ public class BattleExperiment implements Skillable{
         isProcessingTurn = false;
         World world = player.getWorld();
         
+        for(Player player : world.getPlayerList()){
+            player.reset(playerWon);
+        }
+          // Enable all profiles explicitly
+        AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
+        allyProfiles.resetDeathStates();
+        for(Player player : allyProfiles.getPlayerList()){
+            if(player.getAttributes().getHp() <= 0){
+                switch(player.getCharacterType()){
+                    case "knight" -> isKnightDead = false;
+                    case "priest" -> isPriestDead = false;
+                    case "wizard" -> isWizardDead = false;
+                }
+            }
+        }
+        
         if(playerWon){
             world.callVictory();
             handleWin();
@@ -342,13 +356,7 @@ public class BattleExperiment implements Skillable{
             world.callDefeat();
             handleLose();
         }
-        
-        for(Player player : world.getPlayerList()){
-            player.reset(playerWon);
-        }
-        enemy.skill1Effects.stop();
-        enemy.skill2Effects.stop();
-        player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
+
         battleUI.setSkillButtonsEnabled(false);
     }
 
@@ -396,18 +404,6 @@ public class BattleExperiment implements Skillable{
         deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
         deathAnimationTimer.start();
         handleRewards();
-        //reset hp to 75 if dead
-        for(Player player : allyProfiles.getPlayerList()){
-            if(player.getAttributes().getHp() <= 0){
-                player.getAttributes().setHp(75);
-                player.getAttributes().setMana(75);
-                switch(player.getCharacterType()){
-                    case "knight" -> isKnightDead = false;
-                    case "priest" -> isPriestDead = false;
-                    case "wizard" -> isWizardDead = false;
-                }
-            }
-        }
     }
 
     private void handleLose(){

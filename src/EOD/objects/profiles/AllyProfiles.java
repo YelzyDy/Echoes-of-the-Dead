@@ -114,6 +114,19 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         panel.repaint();
     }
 
+    public void resetDeathStates() {
+        // Re-enable all profiles that should be visible
+        if(knightProfile != null && knightProfile.isVisible()) {
+            knightProfile.setEnabled(true);
+        }
+        if(wizardProfile != null && wizardProfile.isVisible()) {
+            wizardProfile.setEnabled(true);
+        }
+        if(priestProfile != null && priestProfile.isVisible()) {
+            priestProfile.setEnabled(true);
+        }
+    }
+
     public void changeYCoordinate(String type, int index) {
         double newYCoordinate = yCoordinates[index];
         switch (type) {

@@ -165,7 +165,7 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         battleSample.battleEnded = false;
         enemyWrapper.setVisible(true);
         setSkillButtonsEnabled(true);
-        player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
+        player.getWorld().getPlayer().getAllyProfiles().resetDeathStates();
         topTextBox.setText("Turn 1: Your Turn");
         textList.setVisible(true);
         player.getWorld().getQuests().setVisible(false);
