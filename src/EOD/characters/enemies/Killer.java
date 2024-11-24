@@ -212,16 +212,4 @@ public class Killer extends Enemy{
         getPanel().configureBattle(this, portal);
     }
 
-    @Override
-    public void onClick(MouseEvent e) {
-        if (!fightEnabled) return;
-        
-        animator.stopMovement();
-        if (animator.getIsInBattle()) return;
-        player.getAnimator().setIsInBattle(true);
-        animator.setIsInBattle(true);
-        positionForBattle();
-        onBattleStart();
-    }
-
 }
