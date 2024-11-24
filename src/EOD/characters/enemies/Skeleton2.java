@@ -2,6 +2,8 @@ package EOD.characters.enemies;
 
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import EOD.objects.QuestableObjects;
+
 import java.awt.event.MouseEvent;
 
 public class Skeleton2 extends Enemy {
@@ -226,7 +228,7 @@ public class Skeleton2 extends Enemy {
 
     @Override
     protected void onBattleStart() {
-        EchoesObjects portal = getPanel().objList.get(1);
+        QuestableObjects portal = getPanel().objList.get(1);
         getPanel().configureBattle(this, portal);
     }
 

@@ -188,7 +188,7 @@ public class QuestsDialogues extends JFrame{
         if (dialogues.isTyping) {
             // If typing is in progress, interrupt it and show the full text immediately
             dialogues.isTyping = false;
-            if (i < size) {
+            if (i < size + 1) {
                 i -= 1;
                 textBox.setText(story.getLine(i++, currentDialogue));
             }

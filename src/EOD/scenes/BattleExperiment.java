@@ -405,7 +405,9 @@ public class BattleExperiment implements Skillable{
             player.getAnimator().setIsInBattle(false);
         }
         battleUI.toggleInventoryOff();
-        player.getWorld().quests.ifActive--;
+        // player.getWorld().quests.ifActive--;
+        // player.getWorld().quests.addQuests();
+
         System.out.println("You lose");
         
     }

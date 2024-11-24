@@ -466,6 +466,13 @@ public class Quests extends JPanel implements MouseInteractable{
                 obj.performQuest();
             }
         }
+
+        for(Enemy enemy: enemyList){
+            if((int)player.getPosX() == (int)enemy.targetX && currentSceneIndex == enemy.getIndex()){
+                enemy.performQuest();
+            }
+        }
+        
         if((int)player.getPosX() == (int)rewards.getQuestChest().targetX && currentSceneIndex == rewards.getQuestChest().getIndex()){
             rewards.getQuestChest().performQuest();
         }

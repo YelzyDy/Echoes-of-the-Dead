@@ -181,7 +181,6 @@ public class Npc extends Character implements MouseInteractable, Questable{
         animator.setPaused(true);
         animator.setInteracting(true);
         isPerformQActive = false;
-        System.out.println("clicking btch");
     }
 
     @Override
