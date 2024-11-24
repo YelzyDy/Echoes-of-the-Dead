@@ -33,7 +33,7 @@ public class EnemyBar extends JPanel {
         
         // Display actual health value even if it exceeds max
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Enemy Soul Energy: " + enemyHealth + " / " + maxEnemyHealth, barWidth / 3, barHeight - 8);
+        g2d.drawString("Soul Energy: " + enemyHealth + " / " + maxEnemyHealth, barWidth / 3, barHeight - 8);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class PlayerBar extends JPanel {
 
         // Display actual health value even if it exceeds max
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Player Soul Energy: " + playerHealth + " / " + maxPlayerHealth, barWidth / 3, barHeight - 8);
+        g2d.drawString("Soul Energy: " + playerHealth + " / " + maxPlayerHealth, barWidth / 3, barHeight - 8);
 
         // Draw player mana bar background with rounded corners
         g2d.setColor(Color.DARK_GRAY);
@@ -53,7 +53,7 @@ public class PlayerBar extends JPanel {
 
         // Display actual mana value even if it exceeds max
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Player MP: " + playerMana + " / " + maxPlayerMana, barWidth / 3, barHeightSpacing + barHeight - 8);
+        g2d.drawString("MP: " + playerMana + " / " + maxPlayerMana, barWidth / 3, barHeightSpacing + barHeight - 8);
     }
 
     @Override
