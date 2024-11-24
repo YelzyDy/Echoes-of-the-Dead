@@ -395,6 +395,9 @@ public class BattleExperiment implements Skillable{
                     case "Skeleton3":
                         sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
                         break;
+                    case "Killer":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerdead.wav");
+                        break;
                     default:
                         break;
                 }
