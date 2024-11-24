@@ -516,26 +516,27 @@ public class Quests extends JPanel implements MouseInteractable{
                 world.getScene().ally = null;
             }
         }
-
-        for(Npc npc : npcList) {
-            if (npc.doneDialogues) {
-                    npc.onExit(null);
-                    npc.dialogues.askButton.setVisible(true);
-                    switch (npc.getName()) {
-                        case "Yoo" -> yooDone = true;
-                        case "Constance" -> constanceDone = true;
-                        case "Faithful" -> faithfulDone = true;
-                        case "Natty" -> nattyDone = true;
-                        case "Renegald" -> renegaldDone = true;
-                        case "Ruby" -> rubyDone = true;
-                        case "Akefay" -> akefayDone = true;
-                        case "Asriel" -> asrielDone = true;
-                        case "Chea" -> cheaDone = true;
-                        case "Miggins" -> migginsDone = true;
-                        case "Monologuer" -> monologuerDone = true;
-                    }
-            }
-        } 
+        if(npcList != null){
+            for(Npc npc : npcList) {
+                if (npc.doneDialogues) {
+                        npc.onExit(null);
+                        npc.dialogues.askButton.setVisible(true);
+                        switch (npc.getName()) {
+                            case "Yoo" -> yooDone = true;
+                            case "Constance" -> constanceDone = true;
+                            case "Faithful" -> faithfulDone = true;
+                            case "Natty" -> nattyDone = true;
+                            case "Renegald" -> renegaldDone = true;
+                            case "Ruby" -> rubyDone = true;
+                            case "Akefay" -> akefayDone = true;
+                            case "Asriel" -> asrielDone = true;
+                            case "Chea" -> cheaDone = true;
+                            case "Miggins" -> migginsDone = true;
+                            case "Monologuer" -> monologuerDone = true;
+                        }
+                }
+            } 
+        }
         switch(world.getTitle()){
             case "world1" -> {
                 if (callWorld1QDynamically()){
