@@ -242,7 +242,7 @@ public void createWorldScene() {
         }
     }
 
-    public void configureBattle(Enemy enemy, EchoesObjects portal){
+    public void configureBattle(Enemy enemy, QuestableObjects portal){
         for(Player player : world.getPlayerList()){
             player.getAnimator().setIsInBattle(true);
             player.setPosX(screenSize.width * 0.35);

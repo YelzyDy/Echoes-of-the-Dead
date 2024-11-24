@@ -6,6 +6,8 @@ package EOD.characters.enemies;
 
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import EOD.objects.QuestableObjects;
+
 import java.awt.event.MouseEvent;
 
 
@@ -211,7 +213,7 @@ public class Gorgon extends Enemy {
     
     @Override
     protected void onBattleStart() {
-        EchoesObjects portal = getPanel().objList.get(2);
+        QuestableObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
     }
 
