@@ -22,7 +22,7 @@ public class Inventory extends EchoesObjects{
     private World world;
 
     //confirmation messages:
-    private EchoesObjects okButton, useButton, cancelButton;
+    private EchoesObjects useButton, cancelButton;
     private String selectedItemName;
     private boolean isConfirmationVisible;
     private EchoesObjects confirmationPanel;
@@ -55,6 +55,7 @@ public class Inventory extends EchoesObjects{
         initializeConfirmationPanel();
     }
 
+    @Override
     public void setWorld(World world){
         this.world = world;
         world.getLayeredPane().add(this, Integer.valueOf(1));
@@ -173,7 +174,7 @@ public class Inventory extends EchoesObjects{
         String effectMessage = null;
     
         switch (itemName) {
-            case "Item 1":
+            case "Item 1" -> {
                 if (item1Quantity > 0) {
                     if(attributes.getHp() == attributes.getBaseHp()){
                         //sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
@@ -193,8 +194,8 @@ public class Inventory extends EchoesObjects{
                     }
                     effectMessage = "Soul Energy increased by 20";
                 }
-                break;
-            case "Item 2":
+            }
+            case "Item 2" -> {
                 if (item2Quantity > 0) {
                     //sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
                     attributes.setAttack(attributes.getAttack() + 5); // Increase attack
@@ -205,8 +206,8 @@ public class Inventory extends EchoesObjects{
                     }
                     effectMessage = "Attack increased by 5";
                 }
-                break;
-            case "Item 3":
+            }
+            case "Item 3" -> {
                 if (item3Quantity > 0) {
                     if(attributes.getMana() == attributes.getBaseMana()){
                         //sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
@@ -226,8 +227,8 @@ public class Inventory extends EchoesObjects{
                     }
                     effectMessage = "Mana increased by 20";
                 }
-                break;
-            case "Item 4":
+            }
+            case "Item 4" -> {
                 if (item4Quantity > 0) {
                     //sfxPlayer.playSFX("src/audio_assets/sfx/general/consume.wav");
                     attributes.setHp(attributes.getHp() + 10); // Increase health
@@ -240,7 +241,7 @@ public class Inventory extends EchoesObjects{
                     }
                     effectMessage = "Health and Mana increased by 10, Attack increased by 5!";
                 }
-                break;
+            }
         }  
 
          // Check if all items are used up
