@@ -1461,7 +1461,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "..."; 
                 this.arr[i++] =  "Dude, I think you broke it. Looks like you found a feature, not a bug.";
                 this.arr[i++] = "Achievement Unlocked: \"Skeleton Poking Master\"\n" + //
-                                                playerName + "'ve been awarded a temporary increase of +10 base hp for your dedication to poking the dead. The devs were going to patch this out, but decided it was too funny to remove.";
+                                                playerName + "'ve been awarded a temporary increase of +10 base Soul Energy for your dedication to poking the dead. The devs were going to patch this out, but decided it was too funny to remove.";
                 this.size = i;
         }
 
@@ -1527,7 +1527,7 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "..."; 
                 this.arr[i++] =  "Bravo, you've managed to thoroughly de-Gorgon the Gorgon. I'd give you a trophy, but I'm worried it might turn to stone.";
                 this.arr[i++] = "Achievement Unlocked: \"Gorgon Gratification\"\n" + //
-                "We're not sure why you felt the need to click on the Gorgon's corpse 15 times, but your commitment is impressive. As a reward, you've been granted a permanent boost to your Health. Try not to stare at it too long, or you might end up like the Gorgon.";
+                "We're not sure why you felt the need to click on the Gorgon's corpse 15 times, but your commitment is impressive. As a reward, you've been granted a permanent boost to your Soul Energy. Try not to stare at it too long, or you might end up like the Gorgon.";
                 this.size = i;
         }
 
@@ -1547,7 +1547,7 @@ public class StoryLine implements Freeable{
                 }else if(playerType.equals(("wizard").toString())){
                         this.arr[i++] = "Overclock (Cost: 20 Mana): Sacrifice 15 Mana to buff attack by 15 for 2 turns";
                 }else{
-                        this.arr[i++] = "Vital Rush(Cost: 25 HP): Sacrifice 15 HP to buff attack by 15 for 2 turns";
+                        this.arr[i++] = "Vital Rush(Cost: 25 Soul Energy): Sacrifice 15 Soul Energy to buff attack by 15 for 2 turns";
                 }
                 
                 if(playerType.equals(("knight").toString())){
@@ -1555,7 +1555,7 @@ public class StoryLine implements Freeable{
                 }else if(playerType.equals(("wizard").toString())){
                         this.arr[i++] = "Quantum Shift(Cost: 30 Mana): Has a 45% chance of evading the next attack. If successful, deal 35 damage and gain 90 mana.";
                 }else{
-                        this.arr[i++] = "Vital Degrade(Cost: 40 Mana): Deals 10% of the Priest's base HP as damage to enemy for 3 turns.";
+                        this.arr[i++] = "Vital Degrade(Cost: 40 Mana): Deals 10% of the Priest's base Soul Energy as damage to enemy for 3 turns.";
                 }
 
                 if(playerType.equals(("knight").toString())){
@@ -1563,7 +1563,7 @@ public class StoryLine implements Freeable{
                 }else if(playerType.equals(("wizard").toString())){
                         this.arr[i++] = "Azure Inferno(Cost: 50 Mana): Incenerates enemy in blue flames, dealing 30 + 30% Base Mana";
                 }else{
-                        this.arr[i++] = "Vengeful Vitality(Cost: 50 Mana): Deals 60% of missing HP to opponent and heals 40% of base HP to the party";
+                        this.arr[i++] = "Vengeful Vitality(Cost: 50 Mana): Deals 60% of missing Soul Energy to opponent and heals 40% of base Soul Energy to the party";
                 }
                 
                 this.size = i;
