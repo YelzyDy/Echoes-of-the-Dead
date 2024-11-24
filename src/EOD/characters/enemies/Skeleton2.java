@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
-    private static final int BASE_ATTACK = 10;
+    private static final int BASE_ATTACK = 15;
     private static final int BASE_HEALTH = 100;
     
     // Skill cooldowns
@@ -49,7 +49,7 @@ public class Skeleton2 extends Enemy {
         // Basic attack - consistent but low damage
         //sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2basicatk.wav");
         damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
-        actionString = getName() + " used mediocre bone punch " + damageDealt + " damage!";
+        actionString = getName() + " thrusted its word dealing " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
 
