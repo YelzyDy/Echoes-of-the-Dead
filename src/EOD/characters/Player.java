@@ -322,7 +322,6 @@ public class Player extends Character implements MouseInteractable{
             poisonStacks++;
             poisonDebuffer = true;
             if (poisonDebuffRemaining == 0) {
-                poisonStacks = 1;
                 poisonDebuffer = false;
             }
         } else {
