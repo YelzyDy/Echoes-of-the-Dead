@@ -8,6 +8,8 @@ import EOD.utils.SFXPlayer;
 import EOD.worlds.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Shop extends QuestableObjects{
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -21,6 +23,11 @@ public class Shop extends QuestableObjects{
     private int item1Stock, item2Stock, item3Stock, item4Stock;
     private Inventory inventory;
     private SFXPlayer sfxPlayer;
+
+    //added soul shards - sm
+    private EchoesObjects shopSoulShard; // New field for shop's soul shard
+    private JPanel shopMoneyPanel; // New field for shop's money panel
+    private JLabel shopMoneyLabel; // New field for shop's money label
 
     public Shop(World world) {
         super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 

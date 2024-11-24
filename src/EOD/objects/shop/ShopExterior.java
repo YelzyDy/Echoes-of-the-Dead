@@ -1,5 +1,6 @@
 package EOD.objects.shop;
 import EOD.objects.QuestableObjects;
+
 public class ShopExterior  extends QuestableObjects{
     public ShopExterior(){
         super("shop",
