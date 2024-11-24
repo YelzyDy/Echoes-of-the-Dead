@@ -379,10 +379,8 @@ public void createWorldScene() {
         for (EchoesObjects obj : objList) {
             if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated()); 
-                if(obj.getName().equals("portalNextWorld"))obj.setVisible(true);
-                else{
-                    obj.setVisible(false);
-                }
+                if(obj.getName().equals("portalNextWorld") && currentSceneIndex == 2)obj.setVisible(true);
+                
                    // comment out the code above if ganahan mu nextWorldPortal kay naa dayun pero sa last scene ra sha ma click
                 // if(obj.getName().equals("portalMiniBoss")){
                 //     obj.setVisible(true);
