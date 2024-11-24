@@ -99,7 +99,7 @@ public class SFXPlayer {
         }
     }
 
-    public void stopAllSFX() {
+    public synchronized void stopAllSFX() {
         activeClips.forEach((filePath, clips) -> {
             clips.forEach(clip -> {
                 clip.stop();
@@ -108,6 +108,7 @@ public class SFXPlayer {
         });
         activeClips.clear();
     }
+    
 
     public void setVolume(float volume) {
         currentVolume = volume;

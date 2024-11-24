@@ -1,6 +1,8 @@
 package EOD.characters.enemies;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import EOD.objects.QuestableObjects;
+
 import java.awt.event.MouseEvent;
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
@@ -9,7 +11,7 @@ public class Skeleton1 extends Enemy {
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
-    private static final int SKILL2_MAX_COOLDOWN = 2;
+    private static final int SKILL2_MAX_COOLDOWN = 3;
 
     public Skeleton1(String name, int posX, int posY, 
             double minRange, double maxRange, Player protagonist) {
@@ -226,7 +228,7 @@ public class Skeleton1 extends Enemy {
 
     @Override
     protected void onBattleStart() {
-        EchoesObjects portal = getPanel().objList.get(1);
+        QuestableObjects portal = getPanel().objList.get(1);
         getPanel().configureBattle(this, portal);
     }
 

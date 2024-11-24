@@ -328,9 +328,10 @@ public class Dialogues implements Freeable, MouseInteractable {
     
     
     public void handleSetText() {
+        
         if (isTyping) {
             resetDialogueState();
-            if (i < size) {
+            if (i < size + 1) {
                 i -= 1;
                 textBox.setText(story.getLine(i++));
             }
@@ -477,7 +478,6 @@ public class Dialogues implements Freeable, MouseInteractable {
         } else if(source == askButton) {
             // Stop the typewriter
             resetDialogueState();
-            
             // Clear the text immediately
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");

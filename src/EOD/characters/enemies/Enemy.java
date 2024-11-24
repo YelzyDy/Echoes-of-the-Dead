@@ -4,19 +4,21 @@ import EOD.animator.EnemyAnimator;
 import EOD.characters.Character;
 import EOD.characters.Player;
 import EOD.gameInterfaces.MouseInteractable;
+import EOD.gameInterfaces.Questable;
 import EOD.gameInterfaces.Skillable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.SkillEffects;
+import EOD.objects.QuestableObjects;
 import EOD.utils.SFXPlayer;
 
 import java.awt.event.MouseEvent;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.Component;
 import EOD.dialogues.*;
 
-public abstract class Enemy extends Character implements MouseInteractable, Skillable{
+public abstract class Enemy extends Character implements MouseInteractable, Skillable, Questable{
     protected Player player;
     protected int health;
     protected int attack;
@@ -41,6 +43,8 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     public SkillEffects skill1Effects;
     public SkillEffects skill2Effects;
     public int playerHurtDelay = 16;
+    public double targetX;
+    public boolean isPerformQActive;
     
     public Enemy(String name, String characterType, int posX, int posY, 
         double minRange, double maxRange,
@@ -55,6 +59,8 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
         isDefeated = false;
         isClicked = false;
         allowDialogues = true;
+        targetX = -15;
+        isPerformQActive = false;
     }
 
     public void setPlayer(Player player){
@@ -177,16 +183,53 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
         // Start the timer
         autoCloseTimer.restart();
     }
-    
 
     @Override
-    public void onClick(MouseEvent e) {
+    public void performQuest(){
         animator.stopMovement();
         if (animator.getIsInBattle()) return;
         player.getAnimator().setIsInBattle(true);
         animator.setIsInBattle(true);
         positionForBattle();
         onBattleStart();
+        isPerformQActive = true;
+    }
+    
+
+    @Override
+    public void onClick(MouseEvent e) {
+        System.out.println("NPC clicked: " + getCharacterType());
+        Player player = this.getPanel().getPlayer();
+        int currentScene = this.getPanel().getCurrentSceneIndex();
+        targetX = 0;
+        Component targetComponent = null;
+
+        if(currentScene == getIndex()){
+            if(player.getX() > getX()) targetX = getX() * 1.1;
+            else targetX = getX() * 0.9;
+            targetComponent = this;
+        }else{
+            QuestableObjects portal = getWorld().getBattle().getPortal();
+            portal.onClick(null);
+            return;
+        }
+
+        // System.out.println("current scene: " + currentScene + "npc index: " + getIndex());
+
+        MouseEvent fakeClickEvent = new MouseEvent(
+            targetComponent,                            // Target component
+            MouseEvent.MOUSE_CLICKED,       // Event type
+            System.currentTimeMillis(),     // Event time
+            0,                              // Modifiers (no modifiers here)
+            (int) targetX,                        // Specified X position
+            targetComponent.getY(),                        // Specified Y position
+            1,                              // Click count
+            false                           // Not a popup trigger
+        );
+    
+        // Call the world's click handler with the created event
+        player.onClick(fakeClickEvent);
+        isPerformQActive = false;
     }
 
     public void positionForBattle() {

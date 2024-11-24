@@ -2,6 +2,7 @@ package EOD.characters.enemies;
 
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import EOD.objects.QuestableObjects;
 import EOD.objects.SkillEffects;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,7 +85,7 @@ public class Necromancer extends Enemy {
     public void skill2() {
         //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
         int baseSkill2Damage = (int)(attack * 1.5);
-        damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
+        damageDealt = baseSkill2Damage + (int)(Math.random() * 4);
         
         actionString = getName() + " used Mutilate, dealt " + damageDealt + " damage!";
         lastUsedSkill = 2;
@@ -255,7 +256,7 @@ public class Necromancer extends Enemy {
     
     @Override
     protected void onBattleStart() {
-        EchoesObjects portal = getPanel().objList.get(2);
+        QuestableObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
     }
 

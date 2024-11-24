@@ -1,11 +1,13 @@
 package EOD.characters.enemies;
 import EOD.characters.Player;
 import EOD.objects.EchoesObjects;
+import EOD.objects.QuestableObjects;
+
 import java.awt.event.MouseEvent;
 public class Skeleton3 extends Enemy {
     // Constants for better maintainability
-    private static final int BASE_ATTACK = 10;
-    private static final int BASE_HEALTH = 100;
+    private static final int BASE_ATTACK = 20;
+    private static final int BASE_HEALTH = 140;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -56,7 +58,7 @@ public class Skeleton3 extends Enemy {
         // Special attack - bone throw with damage variation
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
-        damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
+        damageDealt = baseSkill2Damage + (int)(Math.random() * 4); // 10-14 damage with variation
         
         actionString = getName() + " swings its rusty dull sword for " + damageDealt + " damage!";
         lastUsedSkill = 2;
@@ -221,7 +223,7 @@ public class Skeleton3 extends Enemy {
 
     @Override
     protected void onBattleStart() {
-        EchoesObjects portal = getPanel().objList.get(1);
+        QuestableObjects portal = getPanel().objList.get(1);
         getPanel().configureBattle(this, portal);
     }
 

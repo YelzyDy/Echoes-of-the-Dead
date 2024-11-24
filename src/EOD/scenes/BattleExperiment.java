@@ -346,6 +346,8 @@ public class BattleExperiment implements Skillable{
         for(Player player : world.getPlayerList()){
             player.reset(playerWon);
         }
+        enemy.skill1Effects.stop();
+        enemy.skill2Effects.stop();
         player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.setSkillButtonsEnabled(false);
     }
@@ -408,6 +410,9 @@ public class BattleExperiment implements Skillable{
             player.getAnimator().setIsInBattle(false);
         }
         battleUI.toggleInventoryOff();
+        // player.getWorld().quests.ifActive--;
+        // player.getWorld().quests.addQuests();
+
         System.out.println("You lose");
         
     }
