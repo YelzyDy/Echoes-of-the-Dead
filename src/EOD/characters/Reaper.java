@@ -1,10 +1,18 @@
 package EOD.characters;
 
+import EOD.dialogues.Dialogues;
+
+
 public class Reaper extends Npc {
+    public Dialogues dialogues = new Dialogues();
+    
     public Reaper(){
-        super("Reaper", "reaper", (int)(screenSize.width * 0.45), (int)(screenSize.height * 0.01), screenSize.width * 0.1, screenSize.width * 0.55);
+        super("Reaper", "reaper", (int)(screenSize.width * 0.45), (int)(screenSize.height * 0.01), 
+              screenSize.width * 0.1, screenSize.width * 0.55);
         setStatic(false);
+        dialogues.setNpc(this);
     }
+
     @Override
     public void initializeNpcSprites(){
         animator.importSprites("character_asset", "walk", (int)(screenSize.height * 0.006), 8);
@@ -16,8 +24,21 @@ public class Reaper extends Npc {
 
     @Override
     public void performClick(){
-        super.performClick();
+        if(isPerformQActive) return;
+        dialogues.setPlayerType(world.getPlayerType());
+        dialogues.setPlayerName(world.getPlayer().getName());
+        
+        if(dialogues.getStoryJDialog().isDisplayable()){
+            dialogues.getStoryJDialog().dispose();
+            return;
+        }
 
+        animator.stopMovement();
+        animator.setPaused(true);
+        animator.setInteracting(true);
+        
+        // Display preEnding dialogues (ID 18)
+        dialogues.displayDialogues(18, world);
+        isPerformQActive = true;
     }
-
 }

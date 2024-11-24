@@ -1,10 +1,9 @@
 package EOD.scenes;
-import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Killer;
 import EOD.dialogues.Dialogues;
 import EOD.dialogues.FullScreenDialogues;
-import EOD.worlds.World3;
+import EOD.worlds.World;
 import java.awt.*;
 import javax.swing.*;
 
@@ -14,8 +13,7 @@ public class ChoiceUI extends JPanel {
     private final int height = (int) (screenSize.height * 0.3);
     private final JPanel choicePanel;
     private boolean isKillerFound;
-    private Player player;
-    private World3 world;
+    private World world;
     private String[] buttonNames = {
         "Faithful", "Ruby", "Akefay",
         "Monologuer", "Natty", "Asriel",
@@ -23,8 +21,7 @@ public class ChoiceUI extends JPanel {
     };
     private JLayeredPane layeredPane;
     
-    public ChoiceUI(Player player, World3 world) {
-        this.player = player;
+    public ChoiceUI(World world) {
         this.world = world;
         this.layeredPane = world.getLayeredPane();
             // Main panel setup
@@ -59,7 +56,7 @@ public class ChoiceUI extends JPanel {
             choicePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
             
             FullScreenDialogues dialogues = new FullScreenDialogues();
-            dialogues.setPlayerType(player.getCharacterType());
+            dialogues.setPlayerType(world.getPlayer().getCharacterType()); 
     
             // Create and add 9 buttons
             for (int i = 0; i < 9; i++) {
@@ -73,9 +70,9 @@ public class ChoiceUI extends JPanel {
                 button.addActionListener(e -> {
                     System.out.println(button.getText() + " button clicked!");
                     
-                    if ((player.getCharacterType().equals("wizard") && button.getText().equals("Yoo")) ||
-                        (player.getCharacterType().equals("priest") && button.getText().equals("Natty")) ||
-                        (player.getCharacterType().equals("knight") && button.getText().equals("Faithful"))) {
+                    if ((world.getPlayer().getCharacterType().equals("wizard") && button.getText().equals("Yoo")) ||
+                        (world.getPlayer().getCharacterType().equals("priest") && button.getText().equals("Natty")) ||
+                        (world.getPlayer().getCharacterType().equals("knight") && button.getText().equals("Faithful"))) {
                         Dialogues script = new Dialogues();
                         dialogues.displayDialogue(1);
                         isKillerFound = true;
@@ -91,7 +88,7 @@ public class ChoiceUI extends JPanel {
                         }
                         
                         // Show appropriate dialogue based on player type before battle
-                        switch (player.getCharacterType()){
+                        switch (world.getPlayer().getCharacterType()){
                             case "knight":
                                 script.displayDialogues(102, world);
                                 break;

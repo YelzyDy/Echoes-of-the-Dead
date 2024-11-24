@@ -14,18 +14,16 @@ import EOD.objects.portals.GreenPortal;
 import EOD.objects.portals.PurplePortal;
 import EOD.objects.portals.RedPortal;
 import EOD.objects.shop.ShopExterior;
-import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
-import java.util.ArrayList;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 /**
  *
  * @author zendy
  */
 public class World3 extends World{
-    private boolean isKillerFound;
-    private ChoiceUI choicepan;
+
     public World3(Player player, ArrayList<Player> playerList){
         super("world3");
         scene = new SceneBuilder(this);
