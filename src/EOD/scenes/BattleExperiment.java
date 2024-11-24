@@ -94,9 +94,6 @@ public class BattleExperiment implements Skillable{
                 public void actionPerformed(ActionEvent e) {
                     if (player.getAnimator().isExecutingSkill()) {
                         player.playSfx(skillNumber);
-                        if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
-                            performPriestPoison(damageHolder);
-                        }
 
                         if (damageEnemy) {
                             enemy.takeDamage(damageHolder[0]);
