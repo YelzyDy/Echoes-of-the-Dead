@@ -53,19 +53,13 @@ public class BattleExperiment implements Skillable{
     private void performPriestPoison(int damageHolder[]){
         System.out.println("damageHolder[0] = " + damageHolder[0]);
         System.out.println("Poison Stacks: " + player.getPoisonStacks());
-        System.out.println("Enemy name: " + enemy.getName());
-        System.out.println("enemy base hp: " + enemy.getBaseHp());
         int poisonStacks = Math.min(player.getPoisonStacks(), 3);
         System.out.println("Posion Stacks from Math.min: " + poisonStacks);
-        double poisonMultiplier = (poisonStacks * 0.08);
-        System.out.println("Posion multiplier: " + poisonMultiplier);
-        System.out.println("Damage Holder after calculation: " + damageHolder[0]);
         // Create a Timer for delayed poison tick damage
         Timer poisonTimer = new Timer(1000, new ActionListener() { // 1 second delay
             @Override
             public void actionPerformed(ActionEvent e) {
-                int poisonTickDamage = (int) (enemy.getBaseHp() * 0.1 * poisonStacks);
-                System.out.println("Huy nganu ka\n " + enemy.getBaseHp() +  " * 0.02 "+" * " + poisonStacks + " = " + poisonTickDamage);
+                int poisonTickDamage = (int) ((enemy.getBaseHp() * 0.05) * poisonStacks);
                 enemy.takeDamage(poisonTickDamage);
                 enemy.getAnimator().triggerHurtAnimation();
                 // Check enemy death after poison damage
