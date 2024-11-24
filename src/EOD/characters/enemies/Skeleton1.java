@@ -46,7 +46,7 @@ public class Skeleton1 extends Enemy {
     @Override 
     public void skill1() {
         // Basic attack - consistent but low damage
-        damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
+        damageDealt = attack + (int)(Math.random() * 3); // 10-13 damage
         actionString = getName() + " thrusted its broadaxe dealing " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
