@@ -215,7 +215,7 @@ public class Quests extends JPanel implements MouseInteractable{
         switch (index) {
             case 13: return "Warp to the next world";
             case 12: return "Bring good news to Miggins";
-            case 11: return  "Defeat the Necromancer";
+            case 11: return "Defeat the Executioner of Death";
             case 10: return "Enter the red portal.";
             case 9: return "Speak to Miggins about a quest";
             case 8: return "Buy an item from Miggin's shop.";
@@ -235,7 +235,7 @@ public class Quests extends JPanel implements MouseInteractable{
         switch (index) {
             case 12: return "Warp to the next world";
             case 11: return "Bring good news to Miggins";
-            case 10: return "Defeat the Executioner";
+            case 10: return  "Defeat the Necromancer";
             case 9: return "Enter the red portal.";
             case 8: return "Speak to Miggins about a quest";
             case 7: return "Speak to the old woman near the shop.";
