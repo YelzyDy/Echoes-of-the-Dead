@@ -84,7 +84,7 @@ public class Necromancer extends Enemy {
     public void skill2() {
         //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
         int baseSkill2Damage = (int)(attack * 1.5);
-        damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
+        damageDealt = baseSkill2Damage + (int)(Math.random() * 4);
         
         actionString = getName() + " used Mutilate, dealt " + damageDealt + " damage!";
         lastUsedSkill = 2;
