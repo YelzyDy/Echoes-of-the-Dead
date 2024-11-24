@@ -345,6 +345,8 @@ public class BattleExperiment implements Skillable{
         for(Player player : world.getPlayerList()){
             player.reset(playerWon);
         }
+        enemy.skill1Effects.stop();
+        enemy.skill2Effects.stop();
         player.getWorld().getPlayer().getAllyProfiles().setAllProfileEnabled(true);
         battleUI.setSkillButtonsEnabled(false);
     }
