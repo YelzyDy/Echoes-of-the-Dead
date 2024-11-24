@@ -9,7 +9,7 @@ public class Skeleton1 extends Enemy {
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
-    private static final int SKILL2_MAX_COOLDOWN = 2;
+    private static final int SKILL2_MAX_COOLDOWN = 3;
 
     public Skeleton1(String name, int posX, int posY, 
             double minRange, double maxRange, Player protagonist) {

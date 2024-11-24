@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 100;
+    private static final int BASE_HEALTH = 120;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -59,7 +59,7 @@ public class Skeleton2 extends Enemy {
         //sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeleton2skill1.wav");
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
-        damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
+        damageDealt = baseSkill2Damage + (int)(Math.random() * 4); // 10-14 damage with variation
         
         actionString = getName() + " used steel slash " + damageDealt + " damage!";
         lastUsedSkill = 2;
