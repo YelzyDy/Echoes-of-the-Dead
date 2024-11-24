@@ -78,14 +78,16 @@ public class ChoiceUI extends JPanel {
                         isKillerFound = true;
                         setVisible(false); // Hide choice UI
                         
-                        // Make killer visible but don't start battle yet
-                        for(Enemy enemy : world.getScene().enemyList) {
-                            if(enemy.getCharacterType().equals("killer")) {
-                                enemy.setVisible(true);
-                                ((Killer)enemy).setFightEnabled(false);
-                                break;
-                            }
-                        }
+                        // // Make killer visible but don't start battle yet
+                        // for(Enemy enemy : world.getScene().enemyList) {
+                        //     if(enemy.getCharacterType().equals("killer")) {
+                        //         enemy.setVisible(true);
+                        //         ((Killer)enemy).setFightEnabled(false);
+                        //         break;
+                        //     }
+                        // }
+
+                        world.getScene().setCurrentSceneIndex(5);
                         
                         // Show appropriate dialogue based on player type before battle
                         switch (world.getPlayer().getCharacterType()){
