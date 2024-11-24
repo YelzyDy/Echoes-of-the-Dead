@@ -5,10 +5,10 @@ import EOD.dialogues.*;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 import java.awt.event.MouseEvent;
-import EOD.gameInterfaces.Questable;
+import EOD.gameInterfaces.Clickable;
 import java.awt.Component;
 // This class makes NPC move randomly
-public class Npc extends Character implements MouseInteractable, Questable{
+public class Npc extends Character implements MouseInteractable, Clickable{
     public Dialogues dialogues = new Dialogues();
     protected NpcAnimator animator;
     private boolean isStatic;
@@ -119,7 +119,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
     }
 
     @Override
-    public void performQuest(){
+    public void performClick(){
         if(isPerformQActive) return;
         dialogues.setPlayerType(world.getPlayerType());
         dialogues.setPlayerName(world.getPlayer().getName());

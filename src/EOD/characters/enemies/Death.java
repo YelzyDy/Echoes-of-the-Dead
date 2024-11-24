@@ -1,7 +1,7 @@
 package EOD.characters.enemies;
 
 import EOD.characters.Player;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 
 public class Death extends Enemy{
     private static final int BASE_ATTACK = 15;
@@ -202,7 +202,7 @@ public class Death extends Enemy{
     
     @Override
     protected void onBattleStart() {
-        QuestableObjects portal = getPanel().objList.get(2);
+        ClickableObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
     }
 }

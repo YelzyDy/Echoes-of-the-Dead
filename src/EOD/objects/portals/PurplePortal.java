@@ -1,7 +1,7 @@
 package EOD.objects.portals;
 
 import EOD.characters.Player;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
@@ -10,14 +10,14 @@ import EOD.worlds.World2;
 import EOD.worlds.World3;
 import java.util.ArrayList;
 
-public class PurplePortal extends QuestableObjects{
+public class PurplePortal extends ClickableObjects{
     public PurplePortal(){
         super("world1", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalNextWorld", true, false, 27);
         setIndex(2);
     }
 
     @Override
-    public void performQuest(){
+    public void performClick(){
         if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
 

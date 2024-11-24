@@ -1,7 +1,7 @@
 package EOD.objects.shop;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 
-public class ShopExterior  extends QuestableObjects{
+public class ShopExterior  extends ClickableObjects{
     public ShopExterior(){
         super("shop",
         (int)(screenSize.width * 0.78),
@@ -13,7 +13,7 @@ public class ShopExterior  extends QuestableObjects{
     }
 
     @Override
-    public void performQuest() {
+    public void performClick() {
         if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
         Shop shop = world.getShop();

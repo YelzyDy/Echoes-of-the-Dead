@@ -1,7 +1,7 @@
 package EOD.objects.portals;
 import EOD.characters.Player;
 import EOD.dialogues.Dialogues;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 import EOD.objects.Quests;
 import EOD.scenes.BattleUI;
 import EOD.scenes.SceneBuilder;
@@ -9,14 +9,14 @@ import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
 import java.util.ArrayList;
 
-public class RedPortal extends QuestableObjects{
+public class RedPortal extends ClickableObjects{
     public RedPortal(){
         super("world1", (int)(screenSize.width * 0.15), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portalMiniBoss", true, false, 47);
         setIndex(2);
     }
 
     @Override
-    public void performQuest(){
+    public void performClick(){
         if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
         SceneBuilder scene = world.getScene();

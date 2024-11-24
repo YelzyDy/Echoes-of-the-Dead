@@ -15,9 +15,9 @@ public class Reaper extends Npc {
     }
 
     @Override
-    public void performQuest(){
-        super.performQuest();
-        
+    public void performClick(){
+        super.performClick();
+
     }
 
 }

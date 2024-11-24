@@ -50,8 +50,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected Player priest;
     protected Player wizard;
     protected ArrayList<Player> playerList;
-    private boolean initiateChoiceUi = true;
-    private ChoiceUI choicepan;
     protected Rewards rewards;
 
     //public Enemy skeleton; // minions -z

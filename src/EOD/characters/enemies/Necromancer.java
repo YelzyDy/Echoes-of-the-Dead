@@ -1,8 +1,7 @@
 package EOD.characters.enemies;
 
 import EOD.characters.Player;
-import EOD.objects.EchoesObjects;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 import EOD.objects.SkillEffects;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -256,7 +255,7 @@ public class Necromancer extends Enemy {
     
     @Override
     protected void onBattleStart() {
-        QuestableObjects portal = getPanel().objList.get(2);
+        ClickableObjects portal = getPanel().objList.get(2);
         getPanel().configureBattle(this, portal);
     }
 

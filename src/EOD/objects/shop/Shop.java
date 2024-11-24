@@ -2,16 +2,14 @@ package EOD.objects.shop;
 
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 import EOD.objects.inventory.Inventory;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-public class Shop extends QuestableObjects{
+public class Shop extends ClickableObjects{
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private World world;
     // objects
@@ -25,9 +23,6 @@ public class Shop extends QuestableObjects{
     private SFXPlayer sfxPlayer;
 
     //added soul shards - sm
-    private EchoesObjects shopSoulShard; // New field for shop's soul shard
-    private JPanel shopMoneyPanel; // New field for shop's money panel
-    private JLabel shopMoneyLabel; // New field for shop's money label
 
     public Shop(World world) {
         super("shop", (int) (screenSize.width * 0.1), (int) (screenSize.height * 0.1), 
@@ -115,7 +110,7 @@ public class Shop extends QuestableObjects{
     }
 
     @Override
-    public void performQuest() {
+    public void performClick() {
         if(!doneInteraction) doneInteraction = true;
     }
     
@@ -205,7 +200,7 @@ public class Shop extends QuestableObjects{
                 }
             }
         }
-        performQuest();
+        performClick();
         // Deduct money and play success sound
         world.getPlayer().getAttributes().setMoney(playerMoney - itemCost);
     }

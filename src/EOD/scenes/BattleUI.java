@@ -7,7 +7,7 @@ import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
     private Player player;
     private Enemy enemy;
     private BattleExperiment battleSample;
-    private QuestableObjects portal;
+    private ClickableObjects portal;
     private String temp;
     private JPanel bottomPanel;
     //private SFXPlayer sfxPlayer;
@@ -407,11 +407,11 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         return enemyWrapper;
     }
 
-    public void setPortal(QuestableObjects portal){
+    public void setPortal(ClickableObjects portal){
         this.portal = portal;
     }
 
-    public QuestableObjects getPortal(){
+    public ClickableObjects getPortal(){
         return portal;
     }
 
