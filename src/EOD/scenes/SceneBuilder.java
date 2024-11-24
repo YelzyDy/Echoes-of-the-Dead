@@ -382,9 +382,9 @@ public void createWorldScene() {
                 if(obj.getName().equals("portalNextWorld") && currentSceneIndex == 2)obj.setVisible(true);
                 
                    // comment out the code above if ganahan mu nextWorldPortal kay naa dayun pero sa last scene ra sha ma click
-                // if(obj.getName().equals("portalMiniBoss")){
-                //     obj.setVisible(true);
-                // }
+                if(obj.getName().equals("portalMiniBoss")){
+                    obj.setVisible(true);
+                }
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);
