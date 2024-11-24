@@ -9,7 +9,7 @@ public class Skeleton1 extends Enemy {
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
-    private static final int SKILL2_MAX_COOLDOWN = 3;
+    private static final int SKILL2_MAX_COOLDOWN = 2;
 
     public Skeleton1(String name, int posX, int posY, 
             double minRange, double maxRange, Player protagonist) {
@@ -46,7 +46,7 @@ public class Skeleton1 extends Enemy {
     @Override 
     public void skill1() {
         // Basic attack - consistent but low damage
-        damageDealt = attack + (int)(Math.random() * 3); // 8-10 damage
+        damageDealt = attack + (int)(Math.random() * 3); // 10-13 damage
         actionString = getName() + " thrusted its broadaxe dealing " + damageDealt + " damage!";
         lastUsedSkill = 1;
     }
@@ -55,7 +55,7 @@ public class Skeleton1 extends Enemy {
     public void skill2(){
         // Slightly higher damage than basic attack but unreliable
         int baseSkill2Damage = (int)(attack * 1.5);
-        damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2; // 10-14 damage with variation
+        damageDealt = baseSkill2Damage + (int)(Math.random() * 4); // 10-14 damage with variation
         
         actionString = getName() + " spins its broadaxe dealing " + damageDealt + " damage!";
         lastUsedSkill = 2;

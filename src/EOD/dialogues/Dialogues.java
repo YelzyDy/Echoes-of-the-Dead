@@ -370,7 +370,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         } else if (ID == 4){
             if (worldType.equals("world1") && i == 1){
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins1.wav");
-            } else if (worldType.equals("world2") && i == 0){
+            } else if (worldType.equals("world2") && i == 1){
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins2.wav");
             } else if (worldType.equals("world3") && i == 1){
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins3.wav");
@@ -393,7 +393,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Asriel.wav");
         } else if (ID == 17 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Chea.wav");
-        } else if (ID == 2 && i == 1){
+        } else if (ID == 23 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Mono.wav");
         } else {
             sfxPlayer.stopAllSFX();

@@ -458,12 +458,10 @@ public class Player extends Character implements MouseInteractable{
             case "wizard":
                 //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardbasicatk.wav");
                 damageDealt = attributes.attack;
-                attributes.mana = Math.min(attributes.mana + 5, attributes.baseMana); // Mana return on basic attack
                 break;
             case "priest":
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestbasicatk.wav");
                 damageDealt = attributes.attack;
-                attributes.health = Math.min(attributes.health + 5, attributes.baseHealth); // Small heal on basic attack
                 break;
         }
         actionString = firstLetterCap(getCharacterType()) + " dealt " + damageDealt + " damage to the enemy!";
@@ -484,7 +482,7 @@ public class Player extends Character implements MouseInteractable{
                     return false;
                 }
                 //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill1.wav");
-                attributes.money -= 10;
+                attributes.money -= 15;
                 originalAttack = attributes.attack; // Store current attack
                 attributes.attack += 15;
                 actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 15 for " + SKILL2_DURATION + " turns!";
@@ -499,20 +497,20 @@ public class Player extends Character implements MouseInteractable{
                 //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill1.wav");
                 attributes.mana -= 20;
                 originalAttack = attributes.attack;
-                attributes.attack += 20;
+                attributes.attack += 15;
                 actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 20 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
                 
             case "priest":
-                if (attributes.health < 25) {
-                    actionString = "Not enough Soul Energy!";
+                if (attributes.health < 50) {
+                    actionString = "Soul Energy is too low!";
                     return false;
                 }
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill1.wav");
                 attributes.health -= 25;
                 originalAttack = attributes.attack;
-                attributes.attack += 30;
+                attributes.attack += 15;
                 actionString = firstLetterCap(getCharacterType()) + "\'s attack increased by 30 for " + SKILL2_DURATION + " turns!";
                 applySkillEffect(attributes.skillEffects2, this, getSkillEffectStopFrame(), 0.35, 0.3);
                 break;
@@ -539,7 +537,7 @@ public class Player extends Character implements MouseInteractable{
                 return true;
 
             case "wizard":
-                if (!canUseSkill(40, attributes.skill3Cd)) return false;
+                if (!canUseSkill(30, attributes.skill3Cd)) return false;
                 attributes.mana -= 30;
                 if (random.nextInt(100) < 46) { // 45% success rate
                     //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill2.wav");
@@ -561,7 +559,7 @@ public class Player extends Character implements MouseInteractable{
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill2.wav");
                 int Damage = (int)(attributes.baseHealth * 0.1);
                 damageDealt = Damage;
-                attributes.mana -= 40;
+                attributes.mana -= 30;
                 applySkillEffect(attributes.skillEffects3, enemy, 7, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 attributes.skill3Cd = 4;
                 actionString = "Health converted to force! Dealing poison damage for 3 turns!";
@@ -598,7 +596,7 @@ public class Player extends Character implements MouseInteractable{
 
             case "wizard":
                 //sfxPlayer.playSFX("src/audio_assets/sfx/wizard/wizardskill3.wav");
-                damageDealt = 30 + (int)(attributes.mana * 0.3);
+                damageDealt = 30 + (int)(attributes.mana * 0.25);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;
                 applySkillEffect(attributes.skillEffects4, enemy, 12, enemy.getOffsetX(4), enemy.getOffsetY(4));
