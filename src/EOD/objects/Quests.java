@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
+import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
@@ -252,6 +253,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     public String initializeIndicesForWorld3Q(int index){
         switch (index) {
+            case 10: return "Talk to the Grim Reaper.";
             case 9: return "Enter the red portal.";
             case 8: return "Speak to Miggins about a quest";
             case 7: return "Speak to the old woman near the shop.";
@@ -337,6 +339,16 @@ public class Quests extends JPanel implements MouseInteractable{
 
     private void clickPurplePortal(){
         objList.get(3).onClick(null);
+    }
+
+    private void clickReaper(){
+        for(Npc npc : npcList) {
+            if ((npc.getName().equals("Reaper")) 
+                && (!npc.doneDialogues || !npc.doneQDialogues || !npc.doneODialogues[0] || !npc.doneODialogues[1])) {
+                npc.onClick(null);
+                break;
+            }
+        }
     }
 
     private String getEnemyType(String type){
@@ -440,6 +452,8 @@ public class Quests extends JPanel implements MouseInteractable{
             clickMiggins();
         }else if(ifActive == 9){
             clickRedPortal();
+        }else{
+            clickReaper();
         }
     }
 
@@ -914,6 +928,23 @@ public class Quests extends JPanel implements MouseInteractable{
             ClickableObjects obj = objList.get(2);
             if(obj.doneInteraction){
                 setQuestStatus(10);
+                return true;
+            }
+        }
+
+        if(ifActive == 10){
+            if(npcList.get(7).doneDialogues){
+                System.out.println("Reaper ali sa gud" + npcList.get(7).getName());
+                ChoiceUI choiceUI = new ChoiceUI(world);
+                JLayeredPane layeredPane = world.getLayeredPane();
+                layeredPane.add(choiceUI, JLayeredPane.POPUP_LAYER);
+
+                choiceUI.setBounds(
+                    0, (int)(screenSize.height * 0.4), 
+                         (int)(screenSize.width), (int)(screenSize.height * 0.6)
+                );
+                setQuestStatus(11);
+                choiceUI.setVisible(true);
                 return true;
             }
         }

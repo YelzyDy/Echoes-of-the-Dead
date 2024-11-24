@@ -420,7 +420,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             portraitDialog.dispose();
     
             if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
-                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 23)) {
+                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17  || ID == 18|| ID == 23)) {
                 npc.doneDialogues = true;
             }
         }
