@@ -951,11 +951,10 @@ public class Quests extends JPanel implements MouseInteractable{
 
         if(world.getTitle().equals("world3")){
             if(npcList.get(7).doneDialogues){
-                System.out.println("Reaper ali sa gud" + npcList.get(7).getName());
                 ChoiceUI choiceUI = new ChoiceUI(world);
                 JLayeredPane layeredPane = world.getLayeredPane();
                 layeredPane.add(choiceUI, JLayeredPane.POPUP_LAYER);
-            
+
                 choiceUI.setBounds(
                     0, (int)(screenSize.height * 0.4), 
                          (int)(screenSize.width), (int)(screenSize.height * 0.6)
