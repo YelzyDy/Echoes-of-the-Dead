@@ -17,7 +17,7 @@ import EOD.worlds.*;
 public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public int ifActive = 0;
+    public int ifActive = 10;
 
     private final JPanel textPanel;
     private JScrollPane scrollPane;
@@ -940,31 +940,21 @@ public class Quests extends JPanel implements MouseInteractable{
             }
         }
 
-        // if(ifActive == 10){
-        //     if(npcList.get(7).doneDialogues){
-        //         System.out.println("Reaper ali sa gud" + npcList.get(7).getName());
-        //         ChoiceUI choiceUI = new ChoiceUI(world);
-        //         JLayeredPane layeredPane = world.getLayeredPane();
-        //         layeredPane.add(choiceUI, JLayeredPane.POPUP_LAYER);
-
-        //         choiceUI.setBounds(
-        //             0, (int)(screenSize.height * 0.4), 
-        //                  (int)(screenSize.width), (int)(screenSize.height * 0.6)
-        //         );
-        //         setQuestStatus(11);
-        //         choiceUI.setVisible(true);
-        //         return true;
-        //     }
-        // }
-
-        if(world.getTitle().equals("world3")){
+        if(ifActive == 10){
             if(npcList.get(7).doneDialogues){
                 setQuestStatus(11);
                 choiceUI.setVisible(true);
-                
                 return true;
             }
         }
+
+        if(ifActive == 11){
+            if(enemyList.get(1).doneDialogues){
+                enemyList.get(1).onClick(null);
+                return true;
+            }
+        }
+
         return false;
     }   
     

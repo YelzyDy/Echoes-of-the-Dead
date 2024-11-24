@@ -61,6 +61,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
         allowDialogues = true;
         targetX = -15;
         isPerformQActive = false;
+        doneDialogues = false;
     }
 
     public void setPlayer(Player player){
