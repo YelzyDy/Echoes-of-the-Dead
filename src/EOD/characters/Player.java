@@ -326,6 +326,7 @@ public class Player extends Character implements MouseInteractable{
             }
         } else {
             // Ensure damage reducer is false when no shield is active
+            poisonStacks = 1;
             poisonDebuffer = false;
         }  
         System.out.println("Shield Buff Remaining: " + shieldBuffRemaining);
@@ -606,7 +607,7 @@ public class Player extends Character implements MouseInteractable{
                 //sfxPlayer.playSFX("src/audio_assets/sfx/priest/priestskill3.wav");
                 int missingHealth = attributes.baseHealth - attributes.health;
                 damageDealt = (int)(missingHealth * 0.6);
-                int ultimateHeal = (int)(attributes.baseHealth * 0.4);
+                int ultimateHeal = (int)(missingHealth * 0.4);
                 attributes.health = Math.min(attributes.health + ultimateHeal, attributes.baseHealth);
                 attributes.mana -= 50;
                 attributes.skill4Cd = 4;

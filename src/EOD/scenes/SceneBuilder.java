@@ -176,7 +176,7 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/city2.jpg")), 1);
             sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/city3.jpg")), 2);
             sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/graveyard.jpg")), 3);
-            sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/landOfDeath.png")), 4);
+            sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/pillars1.png")), 4);
             sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         } else if (world.getTitle().equals("world2")) {
@@ -185,7 +185,7 @@ public void createWorldScene() {
             sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/city1.png")), 1);
             sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/city1.png")), 2);
             sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/cemetary.png")), 3);
-            sceneList.add(ImageIO.read(getClass().getResource("/world2_assets/pillars1.png")), 4);
+            sceneList.add(ImageIO.read(getClass().getResource("/world1_assets/landOfDeath.png")), 4);
             sceneList.add(ImageIO.read(getClass().getResource("/shop_assets/shopbg.png")), 5);
             sceneList.resizeImageList((int)(screenSize.width), screenSize.height * 0.4);
         } else if (world.getTitle().equals("world3")) {
@@ -259,8 +259,8 @@ public void createWorldScene() {
         if(world == null) return;
         if(player.getAnimator().getIsInBattle()){
             Enemy enemy = world.getBattle().getBattleExperiment().getEnemy();
-            if(enemy.skill1Effects != null) enemy.skill1Effects.updateEffect();
-            if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect();
+            if(enemy.skill1Effects != null) enemy.skill1Effects.updateEffect(player);
+            if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect(player);
             ArrayList<Player> playerList = player.getWorld().getPlayerList();
 
             if(player.getAnimator().isExecutingSkillAndIsNotReturning()){
@@ -270,7 +270,7 @@ public void createWorldScene() {
             }
 
             if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
-                world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect();
+                world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect(player);
                 double offsetX = 0, offsetY = 0;
                 if(player.getCharacterType().equals("priest")){
                    offsetX =  0.25;
@@ -287,7 +287,7 @@ public void createWorldScene() {
             }
 
         
-            if(playerList.get(1).getAttributes().skillEffects3 != null) playerList.get(1).getAttributes().skillEffects3.updateEffect();
+            if(playerList.get(1).getAttributes().skillEffects3 != null) playerList.get(1).getAttributes().skillEffects3.updateEffect(player);
             if(!world.getBattle().getBattleExperiment().getEnemy().getIsDefeated()){
                 world.getBattle().updateCooldowns();
             }
@@ -324,12 +324,12 @@ public void createWorldScene() {
         }
 
         if (world != null) {
-            if (player.getAttributes().skillEffects1 != null) player.getAttributes().skillEffects1.updateEffect();
-            if (player.getAttributes().skillEffects2 != null) player.getAttributes().skillEffects2.updateEffect();
-            if (player.getAttributes().skillEffects3 != null) player.getAttributes().skillEffects3.updateEffect();
-            if (player.getAttributes().skillEffects4 != null) player.getAttributes().skillEffects4.updateEffect();
+            if (player.getAttributes().skillEffects1 != null) player.getAttributes().skillEffects1.updateEffect(player);
+            if (player.getAttributes().skillEffects2 != null) player.getAttributes().skillEffects2.updateEffect(player);
+            if (player.getAttributes().skillEffects3 != null) player.getAttributes().skillEffects3.updateEffect(player);
+            if (player.getAttributes().skillEffects4 != null) player.getAttributes().skillEffects4.updateEffect(player);
             
-            if (player.getAttributes().skillEffectsRandom != null) player.getAttributes().skillEffectsRandom.updateEffect();
+            if (player.getAttributes().skillEffectsRandom != null) player.getAttributes().skillEffectsRandom.updateEffect(player);
 
             if (objList == null) return;
 
@@ -380,11 +380,12 @@ public void createWorldScene() {
             if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated()); 
                 if(obj.getName().equals("portalNextWorld") && currentSceneIndex == 2)obj.setVisible(true);
+                if(obj.getName().equals("portalMiniBoss") && currentSceneIndex == 2)obj.setVisible(true);
                 
-                   // comment out the code above if ganahan mu nextWorldPortal kay naa dayun pero sa last scene ra sha ma click
-                 //if(obj.getName().equals("portalMiniBoss")){
-                //     obj.setVisible(true);
-                 //}
+                //    comment out the code above if ganahan mu nextWorldPortal kay naa dayun pero sa last scene ra sha ma click
+                 if(obj.getName().equals("portalMiniBoss")){
+                    obj.setVisible(true);
+                 }
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);

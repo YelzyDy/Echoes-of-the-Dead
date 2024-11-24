@@ -1,6 +1,8 @@
 package EOD.characters;
 
 import EOD.dialogues.Dialogues;
+import EOD.scenes.ChoiceUI;
+import javax.swing.JLayeredPane;
 
 
 public class Reaper extends Npc {
@@ -24,21 +26,6 @@ public class Reaper extends Npc {
 
     @Override
     public void performClick(){
-        if(isPerformQActive) return;
-        dialogues.setPlayerType(world.getPlayerType());
-        dialogues.setPlayerName(world.getPlayer().getName());
-        
-        if(dialogues.getStoryJDialog().isDisplayable()){
-            dialogues.getStoryJDialog().dispose();
-            return;
-        }
-
-        animator.stopMovement();
-        animator.setPaused(true);
-        animator.setInteracting(true);
-        
-        // Display preEnding dialogues (ID 18)
-        dialogues.displayDialogues(18, world);
-        isPerformQActive = true;
+        super.performClick();
     }
 }

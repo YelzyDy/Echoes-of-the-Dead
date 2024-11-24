@@ -4,6 +4,7 @@ import EOD.characters.Npc;
 import EOD.gameInterfaces.*;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.scenes.ChoiceUI;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
@@ -41,7 +42,6 @@ public class Dialogues implements Freeable, MouseInteractable {
     private Thread typewriterThread = null;
     private final int PORTRAIT_WIDTH = (int)(screenSize.width * 0.2);
     private final int PORTRAIT_HEIGHT = (int)(screenSize.height * 0.35);
-    
 
     public Dialogues() {
         // TEXT WINDOW
@@ -426,7 +426,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             portraitDialog.dispose();
     
             if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
-                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 23)) {
+                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17  || ID == 18|| ID == 23)) {
                 npc.doneDialogues = true;
             }
         }
@@ -550,7 +550,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 }
             }
             if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
-                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 23)) {
+                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 18|| ID == 23)) {
                 npc.doneDialogues = true;
             }  
         } else if(source == askButton) {

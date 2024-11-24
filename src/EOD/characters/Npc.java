@@ -70,7 +70,7 @@ public class Npc extends Character implements MouseInteractable, Clickable{
 
 
     private int getDialogueId(){
-        if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard") || getCharacterType().equals("reaper"))){
+        if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard"))){
             return 0;
         }
         if (getCharacterType().equals("natty")){
@@ -112,6 +112,9 @@ public class Npc extends Character implements MouseInteractable, Clickable{
         if(getCharacterType().equals("chea")){
             return 17;
         }
+        if(getCharacterType().equals("reaper")){
+            return 18;
+        }
         if(getCharacterType().equals("monologuer")){
             return 23;
         }
@@ -138,9 +141,7 @@ public class Npc extends Character implements MouseInteractable, Clickable{
         animator.setPaused(true);
         animator.setInteracting(true);
         System.out.println("questing");
-        if(!getCharacterType().equals("reaper")){
-            dialogues.displayDialogues(getDialogueId(), world);
-        }
+        dialogues.displayDialogues(getDialogueId(), world);
         isPerformQActive = true;
     }
     
