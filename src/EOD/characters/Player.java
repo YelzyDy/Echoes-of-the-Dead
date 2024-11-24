@@ -322,11 +322,11 @@ public class Player extends Character implements MouseInteractable{
             poisonStacks++;
             poisonDebuffer = true;
             if (poisonDebuffRemaining == 0) {
-                attributes.attack = originalAttack;
                 poisonDebuffer = false;
             }
         } else {
             // Ensure damage reducer is false when no shield is active
+            poisonStacks = 1;
             poisonDebuffer = false;
         }  
         System.out.println("Shield Buff Remaining: " + shieldBuffRemaining);
