@@ -187,7 +187,6 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     @Override
     public void performClick(){
         animator.stopMovement();
-        if (animator.getIsInBattle() || getIsDefeated()) return;
         player.getAnimator().setIsInBattle(true);
         animator.setIsInBattle(true);
         positionForBattle();
@@ -198,6 +197,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
 
     @Override
     public void onClick(MouseEvent e) {
+        if(getIsDefeated() || animator.getIsInBattle()) return;
         System.out.println("NPC clicked: " + getCharacterType());
         Player player = this.getPanel().getPlayer();
         int currentScene = this.getPanel().getCurrentSceneIndex();
