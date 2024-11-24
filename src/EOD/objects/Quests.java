@@ -43,11 +43,28 @@ public class Quests extends JPanel implements MouseInteractable{
     private boolean monologuerDone = false;
     private Npc constance;
     private Npc miggins;
-    
 
     public Quests(World world) {
         this.textPanel = new JPanel();
         this.world = world;
+    }
+
+    private boolean shouldClickLocal(Npc npc){
+        if (world.getTitle().equals("world1") && (npc.getName().equals("Yoo") || npc.getName().equals("Natty") || npc.getName().equals("Faithful"))) {
+            return true;
+        }
+
+        // Check for world 2 locals
+        if (world.getTitle().equals("world2") && (npc.getName().equals("Faithful") || npc.getName().equals("Ruby") || 
+            npc.getName().equals("Renegald") || npc.getName().equals("Monologuer"))) {
+            return true;
+        }
+
+        // Check for world 3 locals
+        if (world.getTitle().equals("world3") && (npc.getName().equals("Chea") || npc.getName().equals("Asriel") || npc.getName().equals("Akefay"))) {
+            return true;
+        }
+        return false;
     }
 
     public void setRewards(Rewards rewards){
@@ -279,9 +296,7 @@ public class Quests extends JPanel implements MouseInteractable{
 
     private void clickLocals(){
         for(Npc npc : npcList) {
-            if (npc.getName().equals("Yoo") || npc.getName().equals("Natty") || npc.getName().equals("Faithful") ||
-                npc.getName().equals("Ruby") || npc.getName().equals("Renegald") || npc.getName().equals("Chea") || 
-                npc.getName().equals("Asriel") || npc.getName().equals("Akefay") || npc.getName().equals("Monologuer")) {
+            if (shouldClickLocal(npc)) {
                 if (!npc.doneDialogues) {
                     npc.onClick(null);
                     break;
@@ -472,7 +487,7 @@ public class Quests extends JPanel implements MouseInteractable{
                 enemy.performQuest();
             }
         }
-        
+
         if((int)player.getPosX() == (int)rewards.getQuestChest().targetX && currentSceneIndex == rewards.getQuestChest().getIndex()){
             rewards.getQuestChest().performQuest();
         }

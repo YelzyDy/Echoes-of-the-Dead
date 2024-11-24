@@ -328,6 +328,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     
     
     public void handleSetText() {
+        
         if (isTyping) {
             resetDialogueState();
             if (i < size + 1) {
@@ -362,6 +363,10 @@ public class Dialogues implements Freeable, MouseInteractable {
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Constance2.wav");
             } else if (worldType.equals("world3") && i == 1){
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Constance3.wav");
+            } else {
+                sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Constance1.wav");
+                sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Constance2.wav");
+                sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Constance3.wav");
             }
         } else if (ID == 2 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Natty.wav");
@@ -370,19 +375,29 @@ public class Dialogues implements Freeable, MouseInteractable {
         } else if (ID == 4){
             if (worldType.equals("world1") && i == 1){
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins1.wav");
-            } else if (worldType.equals("world2") && i == 1){
+            } else if (worldType.equals("world2") && i == 0){
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins2.wav");
             } else if (worldType.equals("world3") && i == 1){
                 sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Miggins3.wav");
+            } else {
+                sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Miggins1.wav");
+                sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Miggins2.wav");
+                sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Miggins3.wav");
             }
         } else if (ID == 5 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Faithful.wav");
-        } else if (ID == 6 && i == 1){
+        } else if (ID == 6 && i == 0){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Knight.wav");
         } else if (ID == 7 && i == 0){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Wizard.wav");
-        } else if (ID == 8 && i == 1){
+        } else if (ID == 8 && i == 0){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Priest.wav");
+        } else if (ID == 9 && i == 15){
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/achievement.wav");
+        } else if (ID == 10 && i == 15){
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/achievement.wav");
+        } else if (ID == 11 && i == 15){
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/achievement.wav");
         } else if (ID == 13 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Ruby.wav");
         } else if (ID == 14 && i == 1){
@@ -396,7 +411,18 @@ public class Dialogues implements Freeable, MouseInteractable {
         } else if (ID == 23 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Mono.wav");
         } else {
-            sfxPlayer.stopAllSFX();
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Natty.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Yoo.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Faithful.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Knight.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Wizard.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Priest.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Ruby.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Reginald.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Akefay.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Asriel.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Chea.wav");
+            sfxPlayer.stopSFX("src/audio_assets/sfx/voicelines/Mono.wav");
         }
     }
 
@@ -432,6 +458,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         Object source = e.getSource();
         sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if(source == skipButton){
+            sfxPlayer.stopAllSFX();
             storyDialogue.dispose();
             System.out.println("o index: " + (questsDialogues.getObjectiveIndex() - 1));
             
@@ -451,7 +478,6 @@ public class Dialogues implements Freeable, MouseInteractable {
         } else if(source == askButton) {
             // Stop the typewriter
             resetDialogueState();
-            
             // Clear the text immediately
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");
