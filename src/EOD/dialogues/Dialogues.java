@@ -328,6 +328,7 @@ public class Dialogues implements Freeable, MouseInteractable {
     
     
     public void handleSetText() {
+        
         if (isTyping) {
             resetDialogueState();
             if (i < size + 1) {
@@ -395,8 +396,6 @@ public class Dialogues implements Freeable, MouseInteractable {
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Chea.wav");
         } else if (ID == 23 && i == 1){
             sfxPlayer.playSFX("src/audio_assets/sfx/voicelines/Mono.wav");
-        } else {
-            sfxPlayer.stopAllSFX();
         }
     }
 
@@ -433,6 +432,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
         if(source == skipButton){
             storyDialogue.dispose();
+            sfxPlayer.stopAllSFX();
             System.out.println("o index: " + (questsDialogues.getObjectiveIndex() - 1));
             
             if(questsDialogues.isQuestDialoguesActive){
@@ -451,7 +451,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         } else if(source == askButton) {
             // Stop the typewriter
             resetDialogueState();
-            
+            sfxPlayer.stopAllSFX();
             // Clear the text immediately
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");
@@ -465,6 +465,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         }else if(source == questsButton){
             // Stop the typewriter
             resetDialogueState();
+            sfxPlayer.stopAllSFX();
             // Clear the text immediately
             SwingUtilities.invokeLater(() -> {
                 textBox.setText("");
@@ -476,6 +477,7 @@ public class Dialogues implements Freeable, MouseInteractable {
             });
         }else if (source == scene){
             storyDialogue.dispose();
+            sfxPlayer.stopAllSFX();
             if(askDialogues.scrollPane != null)askDialogues.scrollPane.setVisible(false);
             if(questsDialogues.scrollPane != null)questsDialogues.scrollPane.setVisible(false);
         }else if ((source == storyDialogue || source == pressToContinueLabel) && isClickableDialogue){
