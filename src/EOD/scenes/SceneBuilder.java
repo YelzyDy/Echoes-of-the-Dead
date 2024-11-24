@@ -379,7 +379,7 @@ public void createWorldScene() {
         for (EchoesObjects obj : objList) {
             if(obj.getName().equals("portal") || obj.getName().equals("portalMiniBoss") || obj.getName().equals("portalNextWorld")){
                 obj.setVisible(obj.getIndex() == currentSceneIndex && obj.getIsActivated()); 
-                if(obj.getName().equals("portalNextWorld"))obj.setVisible(true);
+                if(obj.getName().equals("portalNextWorld") && currentSceneIndex == 2)obj.setVisible(true);
                 else{
                     obj.setVisible(false);
                 }
