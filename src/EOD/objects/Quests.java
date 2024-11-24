@@ -25,7 +25,7 @@ public class Quests extends JPanel implements MouseInteractable{
     private Player player;
     private SceneBuilder scene;
     private ArrayList<Npc> npcList;
-    private ArrayList<QuestableObjects> objList;
+    private ArrayList<ClickableObjects> objList;
     private ArrayList<Enemy> enemyList;
     private World world;
 
@@ -443,7 +443,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
     }
 
-    public void callPerformQuests(){
+    public void callPerformClicks(){
         int currentSceneIndex = world.getScene().getCurrentSceneIndex();
         Player player = world.getScene().getPlayer();
 
@@ -476,39 +476,39 @@ public class Quests extends JPanel implements MouseInteractable{
         rewards.getMiniBossChest().setVisible(!rewards.getMiniBossChest().isPerformQActive && currentSceneIndex != 0 && currentSceneIndex  == rewards.getMiniBossChest().getIndex());
         rewards.getQuestChest().setVisible(!rewards.getQuestChest().isPerformQActive && currentSceneIndex != 0 && currentSceneIndex == rewards.getQuestChest().getIndex());
 
-        for(QuestableObjects obj : objList){
+        for(ClickableObjects obj : objList){
             if((int)player.getPosX() == (int)obj.targetX && currentSceneIndex == obj.getIndex()){
-                obj.performQuest();
+                obj.performClick();
             }
         }
 
         for(Enemy enemy: enemyList){
             if((int)player.getPosX() == (int)enemy.targetX && currentSceneIndex == enemy.getIndex()){
-                enemy.performQuest();
+                enemy.performClick();
             }
         }
 
         if((int)player.getPosX() == (int)rewards.getQuestChest().targetX && currentSceneIndex == rewards.getQuestChest().getIndex()){
-            rewards.getQuestChest().performQuest();
+            rewards.getQuestChest().performClick();
         }
 
         if((int)player.getPosX() == (int)rewards.getMinionsChest().targetX && currentSceneIndex == rewards.getMinionsChest().getIndex()){
-            rewards.getMinionsChest().performQuest();
+            rewards.getMinionsChest().performClick();
         }
 
         if((int)player.getPosX() == (int)rewards.getMiniBossChest().targetX && currentSceneIndex == rewards.getMiniBossChest().getIndex()){
-            rewards.getMiniBossChest().performQuest();
+            rewards.getMiniBossChest().performClick();
         }
 
         for(Npc npc : npcList){
             if((int)player.getPosX() == (int)npc.targetX && currentSceneIndex == npc.getIndex()){
-                npc.performQuest();
+                npc.performClick();
             }
         }
 
         if(scene.ally != null){
             if((int)player.getPosX() == (int)scene.ally.targetX && currentSceneIndex == scene.ally.getIndex()){
-                scene.ally.performQuest();
+                scene.ally.performClick();
             }
             if(scene.ally.doneDialogues){
                 world.getRewards().handleAllyProfileRewards();
@@ -516,26 +516,28 @@ public class Quests extends JPanel implements MouseInteractable{
                 world.getScene().ally = null;
             }
         }
-
-        for(Npc npc : npcList) {
-            if (npc.doneDialogues) {
-                    npc.onExit(null);
-                    npc.dialogues.askButton.setVisible(true);
-                    switch (npc.getName()) {
-                        case "Yoo" -> yooDone = true;
-                        case "Constance" -> constanceDone = true;
-                        case "Faithful" -> faithfulDone = true;
-                        case "Natty" -> nattyDone = true;
-                        case "Renegald" -> renegaldDone = true;
-                        case "Ruby" -> rubyDone = true;
-                        case "Akefay" -> akefayDone = true;
-                        case "Asriel" -> asrielDone = true;
-                        case "Chea" -> cheaDone = true;
-                        case "Miggins" -> migginsDone = true;
-                        case "Monologuer" -> monologuerDone = true;
-                    }
-            }
-        } 
+        if(npcList != null){
+            for(Npc npc : npcList) {
+                if(npc == null) break;
+                if (npc.doneDialogues) {
+                        npc.onExit(null);
+                        npc.dialogues.askButton.setVisible(true);
+                        switch (npc.getName()) {
+                            case "Yoo" -> yooDone = true;
+                            case "Constance" -> constanceDone = true;
+                            case "Faithful" -> faithfulDone = true;
+                            case "Natty" -> nattyDone = true;
+                            case "Renegald" -> renegaldDone = true;
+                            case "Ruby" -> rubyDone = true;
+                            case "Akefay" -> akefayDone = true;
+                            case "Asriel" -> asrielDone = true;
+                            case "Chea" -> cheaDone = true;
+                            case "Miggins" -> migginsDone = true;
+                            case "Monologuer" -> monologuerDone = true;
+                        }
+                }
+            } 
+        }
         switch(world.getTitle()){
             case "world1" -> {
                 if (callWorld1QDynamically()){
@@ -600,7 +602,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 4){
-            QuestableObjects obj = objList.get(1);
+            ClickableObjects obj = objList.get(1);
             if(obj.doneInteraction){ 
                 setQuestStatus(5);
                 return true;
@@ -634,7 +636,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 8){
-            QuestableObjects obj = world.getShop();
+            ClickableObjects obj = world.getShop();
             if(obj.doneInteraction){  
                 miggins.activateQuest = true;
                 setQuestStatus(9);
@@ -651,7 +653,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 10){
-            QuestableObjects obj = objList.get(2);
+            ClickableObjects obj = objList.get(2);
             if(obj.doneInteraction){
                 setQuestStatus(11);
                 return true;
@@ -682,7 +684,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 13){
-            QuestableObjects obj = objList.get(3);
+            ClickableObjects obj = objList.get(3);
             if(obj.doneInteraction){  
                 setQuestStatus(14);
                 return true;
@@ -737,7 +739,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 4){
-            QuestableObjects obj = objList.get(1);
+            ClickableObjects obj = objList.get(1);
             if(obj.doneInteraction){ 
                 setQuestStatus(5);
                 return true;
@@ -780,7 +782,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 9){
-            QuestableObjects obj = objList.get(2);
+            ClickableObjects obj = objList.get(2);
             if(obj.doneInteraction){
                 setQuestStatus(10);
                 return true;
@@ -811,7 +813,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 12){
-            QuestableObjects obj = objList.get(3);
+            ClickableObjects obj = objList.get(3);
             if(obj.doneInteraction){  
                 setQuestStatus(13);
                 return true;
@@ -866,7 +868,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 4){
-            QuestableObjects obj = objList.get(1);
+            ClickableObjects obj = objList.get(1);
             if(obj.doneInteraction){ 
                 setQuestStatus(5);
                 return true;
@@ -909,7 +911,7 @@ public class Quests extends JPanel implements MouseInteractable{
         }
 
         if(ifActive == 9){
-            QuestableObjects obj = objList.get(2);
+            ClickableObjects obj = objList.get(2);
             if(obj.doneInteraction){
                 setQuestStatus(10);
                 return true;

@@ -1,15 +1,15 @@
 package EOD.objects;
 
 import EOD.characters.Player;
-import EOD.gameInterfaces.Questable;
+import EOD.gameInterfaces.Clickable;
 import EOD.scenes.SceneBuilder;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
-public abstract class QuestableObjects extends EchoesObjects implements Questable{
+public abstract class ClickableObjects extends EchoesObjects implements Clickable{
     public double targetX;
     protected boolean isPerformQActive;
     public boolean doneInteraction;
-    public QuestableObjects (String assetPackage, double x, double y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
+    public ClickableObjects (String assetPackage, double x, double y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
         super(assetPackage, x, y, width, height, type, isAnimated, isState, numOfSprites);
         targetX = -15;
         isPerformQActive = false;

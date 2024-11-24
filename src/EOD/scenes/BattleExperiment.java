@@ -4,9 +4,7 @@ import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
 import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
-import EOD.objects.SkillEffects;
 import EOD.objects.profiles.AllyProfiles;
-import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World; // -z
 import java.awt.Dimension; // -z
@@ -348,7 +346,7 @@ public class BattleExperiment implements Skillable{
                 }
             }
         }
-        
+
         if(playerWon){
             world.callVictory();
             handleWin();
@@ -370,7 +368,6 @@ public class BattleExperiment implements Skillable{
     }
 
     private void handleWin(){
-        AllyProfiles allyProfiles = player.getWorld().getPlayer().getAllyProfiles();
         String portalName = battleUI.getPortal().getName();
         int portalIndex = getPortalIndex(portalName);
         battleUI.getPortal().setIndex(portalIndex);

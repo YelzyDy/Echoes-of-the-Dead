@@ -1,10 +1,10 @@
 package EOD.objects.chests;
 
 import EOD.characters.Player;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 import EOD.utils.SFXPlayer;
 
-public class Chest extends QuestableObjects{
+public class Chest extends ClickableObjects{
     private int gold = 0;
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     public Chest(String assetPackage, double x, double y, int width, int height, String type, boolean isAnimated, boolean isState, int numOfSprites){
@@ -17,7 +17,7 @@ public class Chest extends QuestableObjects{
     }
 
     @Override
-    public void performQuest(){
+    public void performClick(){
         if(isPerformQActive) return;
         if(!doneInteraction) doneInteraction = true;
         Player player = world.getPlayer();

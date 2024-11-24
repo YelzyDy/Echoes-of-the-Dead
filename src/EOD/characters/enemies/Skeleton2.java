@@ -1,10 +1,7 @@
 package EOD.characters.enemies;
 
 import EOD.characters.Player;
-import EOD.objects.EchoesObjects;
-import EOD.objects.QuestableObjects;
-
-import java.awt.event.MouseEvent;
+import EOD.objects.ClickableObjects;
 
 public class Skeleton2 extends Enemy {
     // Constants for better maintainability
@@ -228,73 +225,7 @@ public class Skeleton2 extends Enemy {
 
     @Override
     protected void onBattleStart() {
-        QuestableObjects portal = getPanel().objList.get(1);
+        ClickableObjects portal = getPanel().objList.get(1);
         getPanel().configureBattle(this, portal);
     }
-
-    @Override
-    public void onClick(MouseEvent e) {
-        super.onClick(e);
-        
-        if (animator.getIsDead()) {
-
-            // First click initialization
-            if (!isClicked) {
-                handleFirstClick();
-            }
-
-            // Make dialogue visible
-            dialogues.setVisible(true);
-
-            // Adjust dimensions based on click count or specific dialogue requirements
-            if (i == 14) {
-               handleI14();
-            } else if (i == 15) {
-                handleI15();
-            }else if (i != 4 && i != 9){
-                handleDots();
-            }else{
-                dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
-                                     (int)(getPanel().getHeight() * 0.1));
-                autoCloseDelay = 3000;
-            }
-            if(allowDialogues) dialogues.handleSetText();
-            resetAndStartTimer();
-            if (i != 15) i++;
-        }
-    }
-
-    private void handleFirstClick(){
-        dialogues.displayDialogues(11, world);
-        dialogues.setFontSize(getWidth() * 0.12);
-        // Set initial dimensions and coordinates
-        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
-                             (int)(getPanel().getHeight() * 0.1));
-        dialogues.setCoordinates(getPosX(), 
-                               getPosY() - getPanel().getHeight() * 0.2);
-        isClicked = true;
-    }
-
-    private void handleDots(){
-        dialogues.setDimension((int)(getPanel().getWidth() * 0.15), 
-        (int)(getPanel().getHeight() * 0.1));
-        autoCloseDelay = 1500;
-    }
-
-    private void handleI14(){
-        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
-                                     (int)(getPanel().getHeight() * 0.21));
-        autoCloseDelay = 5000;
-    }
-
-    private void handleI15(){
-        dialogues.setDimension((int)(getPanel().getWidth() * 0.4), 
-        (int)(getPanel().getHeight() * 0.35));
-        dialogues.setCoordinates(dialogues.getStoryJDialog().getX(), getPanel().getHeight() * 0.1);
-        autoCloseDelay = 10000;
-        System.out.println("auto close delay " + autoCloseDelay);
-        if(allowDialogues) world.getPlayer().getAttributes().setAttack(world.getPlayer().getAttributes().getAttack() + 10);
-        allowDialogues = false;
-    }
-
 }

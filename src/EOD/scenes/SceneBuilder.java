@@ -35,7 +35,7 @@ public class SceneBuilder extends JPanel implements Freeable{
     
     private World world;
 
-    public ArrayList<QuestableObjects> objList;
+    public ArrayList<ClickableObjects> objList;
 
     public ArrayList<Npc> npcList;
 
@@ -222,7 +222,7 @@ public void createWorldScene() {
         if(world == null) return;
         
         Quests quests = world.getQuests();
-        quests.callPerformQuests();
+        quests.callPerformClicks();
     }
 
     public void updateStats(){
@@ -242,7 +242,7 @@ public void createWorldScene() {
         }
     }
 
-    public void configureBattle(Enemy enemy, QuestableObjects portal){
+    public void configureBattle(Enemy enemy, ClickableObjects portal){
         for(Player player : world.getPlayerList()){
             player.getAnimator().setIsInBattle(true);
             player.setPosX(screenSize.width * 0.35);

@@ -4,11 +4,11 @@ import EOD.animator.EnemyAnimator;
 import EOD.characters.Character;
 import EOD.characters.Player;
 import EOD.gameInterfaces.MouseInteractable;
-import EOD.gameInterfaces.Questable;
+import EOD.gameInterfaces.Clickable;
 import EOD.gameInterfaces.Skillable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.SkillEffects;
-import EOD.objects.QuestableObjects;
+import EOD.objects.ClickableObjects;
 import EOD.utils.SFXPlayer;
 
 import java.awt.event.MouseEvent;
@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.Component;
 import EOD.dialogues.*;
 
-public abstract class Enemy extends Character implements MouseInteractable, Skillable, Questable{
+public abstract class Enemy extends Character implements MouseInteractable, Skillable, Clickable{
     protected Player player;
     protected int health;
     protected int attack;
@@ -185,7 +185,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
     }
 
     @Override
-    public void performQuest(){
+    public void performClick(){
         animator.stopMovement();
         if (animator.getIsInBattle() || getIsDefeated()) return;
         player.getAnimator().setIsInBattle(true);
@@ -209,7 +209,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
             else targetX = getX() * 0.9;
             targetComponent = this;
         }else{
-            QuestableObjects portal = getWorld().getBattle().getPortal();
+            ClickableObjects portal = getWorld().getBattle().getPortal();
             portal.onClick(null);
             return;
         }

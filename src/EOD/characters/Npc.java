@@ -5,10 +5,10 @@ import EOD.dialogues.*;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.*;
 import java.awt.event.MouseEvent;
-import EOD.gameInterfaces.Questable;
+import EOD.gameInterfaces.Clickable;
 import java.awt.Component;
 // This class makes NPC move randomly
-public class Npc extends Character implements MouseInteractable, Questable{
+public class Npc extends Character implements MouseInteractable, Clickable{
     public Dialogues dialogues = new Dialogues();
     protected NpcAnimator animator;
     private boolean isStatic;
@@ -70,7 +70,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
 
 
     private int getDialogueId(){
-        if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard"))){
+        if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard") || getCharacterType().equals("reaper"))){
             return 0;
         }
         if (getCharacterType().equals("natty")){
@@ -119,7 +119,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
     }
 
     @Override
-    public void performQuest(){
+    public void performClick(){
         if(isPerformQActive) return;
         dialogues.setPlayerType(world.getPlayerType());
         dialogues.setPlayerName(world.getPlayer().getName());
@@ -138,7 +138,9 @@ public class Npc extends Character implements MouseInteractable, Questable{
         animator.setPaused(true);
         animator.setInteracting(true);
         System.out.println("questing");
-        dialogues.displayDialogues(getDialogueId(), world);
+        if(!getCharacterType().equals("reaper")){
+            dialogues.displayDialogues(getDialogueId(), world);
+        }
         isPerformQActive = true;
     }
     
@@ -193,7 +195,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
     
     @Override
     public void onExit(MouseEvent e) {
-        if(dialogues != null && dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
+        if((dialogues != null && dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) || animator == null) return;
         if(!isStatic) animator.startMovement();
         animator.setPaused(false);
         animator.setInteracting(false);
