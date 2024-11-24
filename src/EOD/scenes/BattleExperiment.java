@@ -400,6 +400,7 @@ public class BattleExperiment implements Skillable{
         for(Player player : allyProfiles.getPlayerList()){
             if(player.getAttributes().getHp() <= 0){
                 player.getAttributes().setHp(75);
+                player.getAttributes().setMana(75);
                 switch(player.getCharacterType()){
                     case "knight" -> isKnightDead = false;
                     case "priest" -> isPriestDead = false;
