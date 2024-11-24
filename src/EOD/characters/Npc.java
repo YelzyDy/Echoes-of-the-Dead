@@ -71,7 +71,6 @@ public class Npc extends Character implements MouseInteractable, Questable{
 
     private int getDialogueId(){
         if(isStatic && !(getCharacterType().equals("knight") || getCharacterType().equals("priest") || getCharacterType().equals("wizard") || getCharacterType().equals("reaper"))){
-            System.out.println("nganu naa ka ar reaper?");
             return 0;
         }
         if (getCharacterType().equals("natty")){
@@ -139,7 +138,9 @@ public class Npc extends Character implements MouseInteractable, Questable{
         animator.setPaused(true);
         animator.setInteracting(true);
         System.out.println("questing");
-        dialogues.displayDialogues(getDialogueId(), world);
+        if(!getCharacterType().equals("reaper")){
+            dialogues.displayDialogues(getDialogueId(), world);
+        }
         isPerformQActive = true;
     }
     
@@ -194,7 +195,7 @@ public class Npc extends Character implements MouseInteractable, Questable{
     
     @Override
     public void onExit(MouseEvent e) {
-        if(dialogues != null && dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) return;
+        if((dialogues != null && dialogues.getStoryJDialog() != null && dialogues.getStoryJDialog().isDisplayable()) || animator == null) return;
         if(!isStatic) animator.startMovement();
         animator.setPaused(false);
         animator.setInteracting(false);
