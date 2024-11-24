@@ -950,7 +950,8 @@ public class Quests extends JPanel implements MouseInteractable{
 
         if(ifActive == 11){
             if(enemyList.get(1).doneDialogues){
-                enemyList.get(1).onClick(null);
+                enemyList.get(1).isPerformQActive = false;
+                enemyList.get(1).performClick();
                 return true;
             }
         }

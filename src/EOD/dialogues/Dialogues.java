@@ -431,12 +431,11 @@ public class Dialogues implements Freeable, MouseInteractable {
             storyDialogue.dispose();
             portraitDialog.dispose();
     
-            if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
-                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17  || ID == 18|| ID == 23)) {
+            if (npc != null && !npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
+                ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 18|| ID == 23)) {
                 npc.doneDialogues = true;
-            }
-
-            if(!killer.doneDialogues){
+            }  
+            if(killer != null && killer.doneDialogues){
                 killer.doneDialogues = true;
             }
         }
@@ -559,11 +558,12 @@ public class Dialogues implements Freeable, MouseInteractable {
                     npc.doneODialogues[questsDialogues.getObjectiveIndex() - 1] = true;
                 }
             }
-            if (!npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
+            if (npc != null && !npc.doneDialogues && (ID == 3 || ID == 1 || ID == 2 || ID == 5 || ID == 4 || ID == 6 ||
                 ID == 7 || ID == 8 || ID == 13 || ID == 14 || ID == 15 || ID == 16 || ID == 17 || ID == 18|| ID == 23)) {
                 npc.doneDialogues = true;
             }  
-            if(!killer.doneDialogues){
+            if(killer != null && !killer.doneDialogues){
+                System.out.println("agi ari done dialogues sa killer");
                 killer.doneDialogues = true;
             }
         } else if(source == askButton) {
