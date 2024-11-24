@@ -233,7 +233,11 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.questNotComplete(); break;
             case 1:
                 story.missConstanceIntro(playerType, worldType);
-                this.portraitPath = "/portrait_assets/carefree_constance.png";
+                if (this.worldType == "world3") {
+                    this.portraitPath = "/portrait_assets/anxious_constance.png";
+                } else {
+                    this.portraitPath = "/portrait_assets/carefree_constance.png";
+                }
                 break;
             case 2:
                 story.nattyIntro();
@@ -245,7 +249,11 @@ public class Dialogues implements Freeable, MouseInteractable {
                 break;
             case 4:
                 story.migginsIntro(playerType, worldType);
-                this.portraitPath = "/portrait_assets/miggins.png";
+                if (this.worldType == "world3") {
+                    this.portraitPath = "/portrait_assets/anxious_miggins.png";
+                } else {
+                    this.portraitPath = "/portrait_assets/caring_miggins.png";
+                }
                 break;
             case 5:
                 story.faithfulIntro();
