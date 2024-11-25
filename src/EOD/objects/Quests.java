@@ -14,6 +14,7 @@ import EOD.characters.enemies.Enemy;
 import EOD.characters.Npc;
 import java.util.ArrayList;
 import EOD.worlds.*;
+import EOD.Ending;
 public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -953,6 +954,15 @@ public class Quests extends JPanel implements MouseInteractable{
                 enemyList.get(1).isPerformQActive = false;
                 enemyList.get(1).performClick();
                 setQuestStatus(12);
+                return true;
+            }
+        }
+
+        if(ifActive == 12){
+            if(enemyList.get(1).getIsDefeated()){
+                new Ending(true).setVisible(true);
+                world.setVisible(false);
+                setQuestStatus(13);
                 return true;
             }
         }

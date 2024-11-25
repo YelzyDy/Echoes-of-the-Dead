@@ -92,13 +92,11 @@ public class ChoiceUI extends JPanel {
                                 script.displayDialogues(19, world);
                                 break; 
                         }
-
-                
-
                     } else {
                         dialogues.displayDialogue(2);
                         isKillerFound = false;
-                        new Ending(false).setVisible(true);;
+                        new Ending(false).setVisible(true);
+                        world.setVisible(false);
                     }
                 });
 
