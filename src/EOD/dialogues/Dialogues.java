@@ -145,8 +145,10 @@ public class Dialogues implements Freeable, MouseInteractable {
             portraitBox.setIcon(new ImageIcon(scaledImage));
         } catch (Exception e) {
             e.printStackTrace();
-            portraitBox.setText("Finish Quest First!");
-            portraitBox.setForeground(Color.RED);
+            portraitDialog.dispose();
+            portraitBox.setVisible(false);
+            // portraitBox.setText("Finish Quest First!");
+            // portraitBox.setForeground(Color.RED);
         }
     
         portraitDialog.add(portraitBox);
@@ -292,15 +294,15 @@ public class Dialogues implements Freeable, MouseInteractable {
                 break;
             case 6:
                 story.knightIntro(playerType);
-                this.portraitPath = "/portrait_assets/lawyer.png";
+                this.portraitPath = "/portrait_assets/lawyer.jpg";
                 break;
             case 7:
                 story.wizardIntro(playerType);
-                this.portraitPath = "/portrait_assets/cs.png";
+                this.portraitPath = "/portrait_assets/cs.jpg";
                 break;
             case 8:
                 story.priestIntro(playerType);
-                this.portraitPath = "/portrait_assets/nurse.png";
+                this.portraitPath = "/portrait_assets/nurse.jpg";
                 break;
             case 9:
                 story.skeleton1Corpse();
