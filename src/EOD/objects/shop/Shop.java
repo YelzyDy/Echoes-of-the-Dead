@@ -29,7 +29,8 @@ public class Shop extends ClickableObjects{
               (int) (screenSize.width * 0.8), (int) (screenSize.height * 0.8), "shopbg", false, false, 1);
         this.world = world;
         // Initialize stocks
-        item1Stock = item2Stock = item3Stock = item4Stock = 3;
+        item1Stock = item2Stock = item3Stock = 3;
+        item4Stock = 1;
         setVisible(false);
         setLayout(null);
         world.getLayeredPane().add(this, Integer.valueOf(2));
