@@ -86,7 +86,7 @@ public class Ending extends javax.swing.JFrame implements MouseInteractable {
         if ("play again".equals(clickedButton.getName())) {
             bgmPlayer.stopBGM();
             this.dispose(); // Close current ending screen
-            new Main(); // Uncomment and adjust to start a new game
+            new Main().setVisible(true); 
         } else if ("exit".equals(clickedButton.getName())) {
             // Terminate the whole program
             System.exit(0);
