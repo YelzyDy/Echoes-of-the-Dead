@@ -9,8 +9,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.Timer;
 
 public class Necromancer extends Enemy {    
-    private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 250;
+    // private static final int BASE_ATTACK = 15;
+    // private static final int BASE_HEALTH = 250;
+    private static final int BASE_ATTACK = 20;
+    private static final int BASE_HEALTH = 25;
     // Skill cooldowns
     private int skill2Cooldown = 0;
     private static final int SKILL2_MAX_COOLDOWN = 3;
@@ -64,7 +66,7 @@ public class Necromancer extends Enemy {
     public void skill1() {
         //sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerskill1.wav");
         damageDealt = attack + (int)(Math.random() * 3);
-        actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
+        actionString = getName() + " used shadow grasp, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
         skill1Effects.bindToTarget(player, -player.getWidth() * 1, -player.getHeight() * 1);
         playerHurtDelay = 2700;
@@ -86,7 +88,7 @@ public class Necromancer extends Enemy {
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4);
         
-        actionString = getName() + " used Mutilate, dealt " + damageDealt + " damage!";
+        actionString = getName() + " used Summon, dealt " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
         skill2Effects.bindToTarget(player, -player.getWidth() * -1.5, -player.getHeight() * 0.1);

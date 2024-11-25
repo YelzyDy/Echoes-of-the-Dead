@@ -4,11 +4,9 @@ import EOD.characters.Player;
 import EOD.dialogues.Dialogues;
 import EOD.objects.ClickableObjects;
 
-import java.awt.event.MouseEvent; // added this for onClick method -j mugana na onclick sa override if naa ni sha
-
 public class Killer extends Enemy{
-    private static final int BASE_ATTACK = 15;
-    private static final int BASE_HEALTH = 200;
+    private static final int BASE_ATTACK = 25;
+    private static final int BASE_HEALTH = 300;
     private boolean fightEnabled = false;
     public Dialogues dialogues;
     // Skill cooldowns
@@ -43,7 +41,7 @@ public class Killer extends Enemy{
 
     public void skill1() {
         damageDealt = attack + (int)(Math.random() * 3);
-        actionString = getName() + " used a basic spell, dealt " + damageDealt + " damage!";
+        actionString = getName() + " used Shadow Blade, dealt " + damageDealt + " damage!";
         lastUsedSkill = 1;
         xFactor = screenSize.width * 0.2;
         yFactor = 0;
@@ -52,9 +50,9 @@ public class Killer extends Enemy{
     @Override 
     public void skill2() {
         int baseSkill2Damage = (int)(attack * 1.5);
-        damageDealt = baseSkill2Damage + (int)(Math.random() * 4) - 2;
+        damageDealt = baseSkill2Damage + (int)(Math.random() * 4);
         
-        actionString = getName() + " used Mutilate, dealt " + damageDealt + " damage!";
+        actionString = getName() + " used Umbral Strike, dealt " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
         xFactor = screenSize.width * 0.2;

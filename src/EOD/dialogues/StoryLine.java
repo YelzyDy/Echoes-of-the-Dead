@@ -267,7 +267,7 @@ public class StoryLine implements Freeable{
                         if (!objDone[1]) {
                                 this.oArr[o++] = "These pesky mindless minions will do anything to stop you from reaching their boss.";
                         } else {
-                                this.oArr[o++] = "Now there is nothing between you and the Necromancer.";
+                                this.oArr[o++] = "Now there is nothing between you and the Executioner.";
                         }
                 
                         // Dialogue Sequence
@@ -291,7 +291,7 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = playerName + ": \"Wait, how did you know I was looking for them?\"";
                                 this.arr[i++] = "Miss C: \"Oh, you were mumbling about it earlier. It wasn't hard to pick up. I guess you're the victim?\"";
                                 this.arr[i++] = playerName + ": \"Duh! Hello?\"";
-                                this.arr[i++] = "Miss C: \"Oh, just one more thing. That Necromancer doesn't just play with magic—he lives for it. Make sure you're not his next meal or minion, alright?\"";
+                                this.arr[i++] = "Miss C: \"Oh, just one more thing. That Executioner doesn't just play with magic—he lives for it. Make sure you're not his next meal or minion, alright?\"";
                                 this.arr[i++] = playerName + ": \"Thanks. I'll get started.\"";
                                 this.arr[i++] = "Miss C: \"You better! The city's counting on you... and so am I. Hehehe.\"";
                         } else if (objDone[0]) {
@@ -349,7 +349,7 @@ public class StoryLine implements Freeable{
                                 this.arr[i++] = playerName + ": \"[sarcastic] Oh nooo... How can it be?\"";
                                 this.arr[i++] = "Miss C: \"HAHAHA! Oh honey, that's the least of your worries!\"";
                                 this.arr[i++] = playerName + ": \"What's that supposed to mean?!\"";
-                                this.arr[i++] = "Miss C: \"I heard the Necromancer sent an assassin after you! Bet you made him *really* mad! HAHAHA!\"";
+                                this.arr[i++] = "Miss C: \"I heard the Executioner sent an assassin after you! Bet you made him *really* mad! HAHAHA!\"";
                                 this.arr[i++] = playerName + ": \"That's not funny! You need to help me!\"";
                                 this.arr[i++] = "Miss C: \"Try asking the locals if they've seen this little assassin. He's sneaky, you know? You wouldn't even see him coming.\"";
                                 this.arr[i++] = playerName + ": \"[Groan] When will this nightmare end?\"";
@@ -687,146 +687,138 @@ public class StoryLine implements Freeable{
                 
                 if (worldType == "world1") {
                         boolean isQuestDone = objDone[0];
-                        if(isQuestDone) {
-                                this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
-                        } else if(objDone[0]) {
-                                this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
+                        if (isQuestDone) {
+                            this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
                         } else {
-                                this.qArr[q++] = "Quest: Escape the City.";
+                            this.qArr[q++] = "Quest: Escape the City.";
                         }
-
+                    
                         // Revised Quest Objectives
-                        if(!objDone[0]){
-                                this.qArr[q++] = "Objective #1: Defeat The Necromancer Beyond the Crimson Portal.";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the Necromancer!</font>";
+                        if (!objDone[0]) {
+                            this.qArr[q++] = "Objective #1: Defeat The Executioner Beyond the Crimson Portal.";
+                        } else {
+                            this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the Executioner!</font>";
                         }
-
-                         // sample rani guys i fix lng pls kay dili connected sa story
-                        if(!objDone[0]){
-                                // pwede pd ni sha himuon dialogue instead of description lng
-                                this.oArr[o++] = "Some obejctive description1";
-                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
-                        }else{
-                                // handle conversation if allo bjective is done // ing ania lng pd ka constance pls
-                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
-                                this.oArr[o++] = playerName + ": blablabla";
-                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
-                                this.oArr[o++] = playerName + ": blablabla";
-                                this.oArr[o++] = "-";
+                    
+                        // Objective Descriptions
+                        if (!objDone[0]) {
+                            this.oArr[o++] = "The Executioner, a merciless enforcer sent by your nemesis, guards the Crimson Portal. To escape the city, you must defeat this terrifying foe.";
+                            this.oArr[o++] = "-"; // End of Objective 1
+                        } else {
+                            this.oArr[o++] = "Miggins: \"Thank you for defeating the Executioner! The city can finally breathe again.\"";
+                            this.oArr[o++] = playerName + ": \"It wasn't easy, but at least now people can move freely again.\"";
+                            this.oArr[o++] = "Miggins: \"Indeed, and I knew you'd be the one to end this nightmare!\"";
+                            this.oArr[o++] = "-";
                         }
-                        if(!isQuestDone){
-                                this.arr[i++] = playerName + ": \"Can you point me the way out of the city? This place is way too vast to leave on foot.\"";
-                                this.arr[i++] = "Miggins: \"Oh, bless your heart! There's a purple portal nearby. That's your exit, but... well, it's got a bit of a problem.\"";
-                                this.arr[i++] = playerName + ": \"A problem?\"";
-                                this.arr[i++] = "Miggins: \"A necromancer got the portal locked down, it's ridiculous. It's terrible for my business. No one trades with a skeleton army lurking about.\"";
-                                this.arr[i++] = playerName + ": \"Maybe I can deal with this Necromancer.\"";
-                                this.arr[i++] = "Miggins: \"Oh, you would? You're a lifesaver! Here's the deal: take care of that menace, and I'll give you a reward in exchange. You'll need it!\"";
-                                this.arr[i++] = playerName + ": \"Why trust me?\"";
-                                this.arr[i++] = "Miggins: \"Well, it's not like I've got a line of heroes waiting to volunteer, love. You've got that spark of determination.\"";
-                                this.arr[i++] = playerName + ": \"Fine.\"";
-                                this.arr[i++] = "Miggins: \"Good on you! Just be careful, alright? That Necromancer didn't get power by being nice. Come back here when it's done.\"";
-                        }else if(objDone[0]){
-                                for(int l = 0; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
-                                }
+                    
+                        // Dialogue Sequences
+                        if (!isQuestDone) {
+                            this.arr[i++] = playerName + ": \"Can you point me to the way out of the city? This place is too vast to leave on foot.\"";
+                            this.arr[i++] = "Miggins: \"Oh, bless your heart! There's a portal nearby—the Crimson Portal. But it's... complicated.\"";
+                            this.arr[i++] = playerName + ": \"Complicated?\"";
+                            this.arr[i++] = "Miggins: \"The Executioner, a giant brute with a thirst for blood, has locked it down. It's been terrible for business—no one trades when there's a skeleton army in the streets.\"";
+                            this.arr[i++] = playerName + ": \"I'll deal with this Executioner.\"";
+                            this.arr[i++] = "Miggins: \"Oh, would you? You're a lifesaver! Deal with that monster, and I'll make sure you're rewarded properly.\"";
+                            this.arr[i++] = playerName + ": \"Why trust me?\"";
+                            this.arr[i++] = "Miggins: \"Well, it's not like I've got a line of heroes knocking on my door. Besides, you've got that spark of determination.\"";
+                            this.arr[i++] = playerName + ": \"Fine. I'll do it.\"";
+                            this.arr[i++] = "Miggins: \"Good on you! But be careful, alright? That Executioner isn't powerful by accident. Come back here when it's done.\"";
+                        } else {
+                            for (int l = 0; l < objectivesSize; l++) {
+                                this.arr[i++] = this.oArr[l];
+                            }
                         }
-                }
-            
-                if (worldType == "world2") {
+                    }
+                    
+                    if (worldType == "world2") {
                         boolean isQuestDone = objDone[0];
-            
+                    
                         // Quest Objectives
-                        this.oArr[o++] = "There seems to be some kind of anomaly beyond the crimson portal, this warrants an investigation. Enter at your own discretion.";
-                        if(!isQuestDone){
-                                 // Quest Title
-                                this.qArr[q++] = "Quest: The Outskirt Spirit.";
-                        }else{
-                                this.qArr[q++] = "<font color='#00f541'> Quest Complete!</font>";
+                        this.oArr[o++] = "The crimson portal leads to a dangerous anomaly on the city outskirts. It warrants investigation, but proceed with caution.";
+                        if (!isQuestDone) {
+                            this.qArr[q++] = "Quest: The Outskirt Spirit.";
+                        } else {
+                            this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
                         }
-
+                    
                         // Revised Quest Objectives
-                        if(!objDone[0]){
-                                this.qArr[q++] = "Objective #1: Defeat the Executioner.";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the Executioner!</font>";
+                        if (!objDone[0]) {
+                            this.qArr[q++] = "Objective #1: Defeat the Necromancer haunting the outskirts.";
+                        } else {
+                            this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the Necromancer!</font>";
                         }
-
-                         // sample rani guys i fix lng pls kay dili connected sa story
-                        if(!objDone[0]){
-                                // pwede pd ni sha himuon dialogue instead of description lng
-                                this.oArr[o++] = "Some obejctive description1";
-                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
-                        }else{
-                                // handle conversation if allo bjective is done // ing ania lng pd ka constance pls
-                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
-                                this.oArr[o++] = playerName + ": blablabla";
-                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
-                                this.oArr[o++] = playerName + ": blablabla";
-                                this.oArr[o++] = "-";
+                    
+                        // Objective Descriptions
+                        if (!objDone[0]) {
+                            this.oArr[o++] = "A Necromancer has taken control of the outskirts, raising the dead and spreading terror. Put an end to their reign to secure the area.";
+                            this.oArr[o++] = "-"; // End of Objective 1
+                        } else {
+                            this.oArr[o++] = "Miggins: \"Thank you for defeating the Necromancer! We can finally start rebuilding what was lost.\"";
+                            this.oArr[o++] = playerName + ": \"It's not much, but at least the threat is gone.\"";
+                            this.oArr[o++] = "Miggins: \"You're too modest. This is the first step to reclaiming our home. Thank you.\"";
+                            this.oArr[o++] = "-";
                         }
-                        if(!isQuestDone){
-                                this.arr[i++] = playerName + ": \"What's the best way to get past the outskirts?\"";
-                                this.arr[i++] = "Miggins: \"Oh, dearie, it's a mess out there. Foggy, spooky, you name it. But I know you'll manage if you're determined.\"";
-                                this.arr[i++] = playerName + ": \"What do you suggest I do?\"";
-                                this.arr[i++] = "Miggins: \"Find your way through. Keep your wits about you, and don't let the eerie stuff get to you. If you do manage it, I'll give you something special.\"";
-                                this.arr[i++] = playerName + ": \"\"";
-                                this.arr[i++] = "Miggins: \"Oh, I've got a good feeling about you, love. Besides, you've already made it this far.\"";
-                                this.arr[i++] = playerName + ": \"Alright.\"";
-                                this.arr[i++] = "Miggins: \"Good on you! Be careful out there. The outskirts aren't for the faint of heart. I'll be waiting right here when you're done.\"";
-                        }else if(objDone[0]){
-                                for(int l = 0; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
-                                }
+                    
+                        // Dialogue Sequences
+                        if (!isQuestDone) {
+                            this.arr[i++] = playerName + ": \"What's the best way to get past the outskirts?\"";
+                            this.arr[i++] = "Miggins: \"Oh, dearie, it's a mess out there—foggy, spooky, and full of undead. But you can manage.\"";
+                            this.arr[i++] = playerName + ": \"What should I do?\"";
+                            this.arr[i++] = "Miggins: \"Head to the crimson portal and confront the source of the chaos: the Necromancer. It won't be easy, but I know you can handle it.\"";
+                            this.arr[i++] = playerName + ": \"Alright. I'll take care of it.\"";
+                            this.arr[i++] = "Miggins: \"Be careful out there, love. The outskirts aren't for the faint of heart. I'll be here when you're done.\"";
+                        } else {
+                            for (int l = 0; l < objectivesSize; l++) {
+                                this.arr[i++] = this.oArr[l];
+                            }
                         }
-                }
+                    }              
             
-                if (worldType == "world3") {
+                    if (worldType == "world3") {
                         boolean isQuestDone = objDone[0];
-            
+                    
                         // Quest Objectives
-                        if(!isQuestDone){
-                                 // Quest Title
-                                this.qArr[q++] = "Quest: Cleanse the Forest.";
-                        }else{
-                                this.qArr[q++] = "<font color='#00f541'> Quest Complete!</font>";
+                        if (!isQuestDone) {
+                            // Quest Title
+                            this.qArr[q++] = "Quest: Cleanse the Forest.";
+                        } else {
+                            this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
                         }
-
+                    
                         // Revised Quest Objectives
-                        if(!objDone[0]){
-                                this.qArr[q++] = "Objective #1: Banish the Demon.";
-                        }else{
-                                this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the Demon!</font>";
+                        if (!objDone[0]) {
+                            this.qArr[q++] = "Objective #1: Confront and defeat your Nemesis' minion.";
+                        } else {
+                            this.qArr[q++] = "<font color='#FFFF00'>- Objective #1 Done!: Defeated the minion!</font>";
                         }
-
-                         // sample rani guys i fix lng pls kay dili connected sa story
-                        if(!objDone[0]){
-                                // pwede pd ni sha himuon dialogue instead of description lng
-                                this.oArr[o++] = "Some obejctive description1";
-                                this.oArr[o++] = "-"; // put this line at the end to segment conversation according to each objectives this is objective 1
-                        }else{
-                                // handle conversation if allo bjective is done // ing ania lng pd ka constance pls
-                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
-                                this.oArr[o++] = playerName + ": blablabla";
-                                this.oArr[o++] = "Miggins: Thank you for defeating the Necromancer!";
-                                this.oArr[o++] = playerName + ": blablabla";
-                                this.oArr[o++] = "-";
+                    
+                        // Objective Descriptions
+                        if (!objDone[0]) {
+                            this.oArr[o++] = "Your killer has corrupted the forest. To restore peace, you must confront and banish them. Starting with their pesky minions.";
+                            this.oArr[o++] = "-"; // End of Objective 1
+                        } else {
+                            this.oArr[o++] = "Miggins: \"Thank you for defeating the minion!\"";
+                            this.oArr[o++] = playerName + ": \"It wasn't easy, but it's just a step closer in ending this nightmare.\"";
+                            this.oArr[o++] = "Miggins: \"Indeed, and we all owe you a debt of gratitude. You're a true hero.\"";
+                            this.oArr[o++] = "-";
                         }
-                        if(!isQuestDone){
-                                this.arr[i++] = playerName + ": \"I need to get through the forest. Any advice?\"";
-                                this.arr[i++] = "Miggins: \"Oh, the forest? That place is bad news, love. Something dark's taken root here. But if anyone can handle it, it's you.\"";
-                                this.arr[i++] = playerName + ": \"What do I need to do?\"";
-                                this.arr[i++] = "Miggins: \"There's a demon causing all sorts of trouble. It's lurking at the other side of the forest crimson portal.\"";
-                                this.arr[i++] = playerName + ": \"Is it that dangerous?\"";
-                                this.arr[i++] = "Miggins: \"Very. However, I have faith in you. I'm sure you'll be able to handle it!\"";
-                                this.arr[i++] = playerName + ": \"I will.\"";
-                                this.arr[i++] = "Miggins: \"That's the spirit! We're all counting on you! Watch your back out there, and don't let that demon trick you. I heard that it was truly tantalizing yet terrifying!\"";
-                        }else if(objDone[0]){
-                                for(int l = 0; l < objectivesSize; l++){
-                                        this.arr[i++] = this.oArr[l];
-                                }
+                    
+                        // Dialogue Sequences
+                        if (!isQuestDone) {
+                            this.arr[i++] = playerName + ": \"I need to get through the forest. Any advice?\"";
+                            this.arr[i++] = "Miggins: \"Oh, the forest? This place is bad news, dear. Something dark has taken root there. But if anyone can handle it, it's you.\"";
+                            this.arr[i++] = playerName + ": \"What do I need to do?\"";
+                            this.arr[i++] = "Miggins: \"Your nemesis causing all sorts of trouble. It's lurking beyond the Crimson Portal near here.\"";
+                            this.arr[i++] = playerName + ": \"Are they really dangerous?\"";
+                            this.arr[i++] = "Miggins: \"Very. It's not just dangerous—it's cunning and cruel. But I have faith in you. I know you'll see this through.\"";
+                            this.arr[i++] = playerName + ": \"I'll take care of it.\"";
+                            this.arr[i++] = "Miggins: \"That's the spirit! We're all counting on you. Watch your back out there, and don't let that Nemesis fool you—it's as deceptive as it is deadly.\"";
+                        } else {
+                            for (int l = 0; l < objectivesSize; l++) {
+                                this.arr[i++] = this.oArr[l];
+                            }
                         }
-                }
+                }            
             
                 this.size = i;
                 this.questSize = q;

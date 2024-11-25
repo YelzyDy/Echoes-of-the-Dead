@@ -2,6 +2,7 @@ package EOD.scenes;
 
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
+import EOD.dialogues.FullScreenDialogues;
 import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
 import EOD.objects.profiles.AllyProfiles;
@@ -151,7 +152,8 @@ public class BattleExperiment implements Skillable{
 
         
         if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
-            damageHolder[0] = (int)(initialDamage * 0.4);
+            damageHolder[0] = (int)(initialDamage * 0.5);
+            battleUI.showAction("Damage Halved! Only " + damageHolder[0] + " received!");
         }
 
         Timer skillCheckTimer = new Timer(enemy.playerHurtDelay, new ActionListener() {
@@ -382,6 +384,9 @@ public class BattleExperiment implements Skillable{
                         sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
                         break;
                     case "Killer":
+                        FullScreenDialogues dialogues = new FullScreenDialogues();
+                        dialogues.setPlayerType(player.getCharacterType()); 
+                        dialogues.displayDialogue(1);
                         sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerdead.wav");
                         break;
                     default:

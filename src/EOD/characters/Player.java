@@ -527,7 +527,7 @@ public class Player extends Character implements MouseInteractable{
                 if (!canUseSkill(30, attributes.skill3Cd)) return false;
                 //sfxPlayer.playSFX("src/audio_assets/sfx/knight/knightskill2.wav");
                 damageReducer = true;
-                attributes.skill3Cd = 3;
+                attributes.skill3Cd = 5;
                 attributes.mana -= 30;
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
                 actionString = "Defense activated! Damage reduced by 50% for 3 turns!";
