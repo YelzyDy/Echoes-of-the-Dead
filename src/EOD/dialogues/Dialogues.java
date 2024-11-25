@@ -41,8 +41,8 @@ public class Dialogues implements Freeable, MouseInteractable {
     private String worldType;
     protected volatile boolean isTyping = false;
     private Thread typewriterThread = null;
-    private final int PORTRAIT_WIDTH = (int)(screenSize.width * 0.2);
-    private final int PORTRAIT_HEIGHT = (int)(screenSize.height * 0.35);
+    private final int PORTRAIT_WIDTH = (int)(screenSize.width * 0.16);
+    private final int PORTRAIT_HEIGHT = (int)(screenSize.height * 0.28);
     private Enemy killer;
 
     public Dialogues() {
@@ -323,15 +323,17 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.monoIntro(playerType, worldType);
                 this.portraitPath = "/portrait_assets/mono.png";
                 break;
-            default: 
-                if (playerType == "knight") {
-                    this.portraitPath = "/portrait_assets/furious_faithful.png";
-                }
-                if (playerType == "wizard") {
-                    this.portraitPath = "/portrait_assets/disgust_yoo.png";
-                }
-                if (playerType == "priest") {
-                    this.portraitPath = "/portrait_assets/naughty_natty.png";
+            default:
+                if (worldType == "world3") {
+                    if (playerType == "knight") {
+                        this.portraitPath = "/portrait_assets/furious_faithful.png";
+                    }
+                    if (playerType == "wizard") {
+                        this.portraitPath = "/portrait_assets/disgust_yoo.png";
+                    }
+                    if (playerType == "priest") {
+                        this.portraitPath = "/portrait_assets/naughty_natty.png";
+                    }
                 }
                 break;
         }

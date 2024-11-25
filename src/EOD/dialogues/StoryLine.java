@@ -236,7 +236,7 @@ public class StoryLine implements Freeable{
                         if(isQuestDone) {
                             this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
                         } else if(objDone[0]) {
-                            this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
+                            this.qArr[q++] = "<font color='#00d5ff'>Objective #1 Complete!</font>";
                         } else {
                             this.qArr[q++] = "Quest: Investigate The City";
                         }
@@ -309,7 +309,7 @@ public class StoryLine implements Freeable{
                         if(isQuestDone) {
                             this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
                         } else if(objDone[0]) {
-                            this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
+                            this.qArr[q++] = "<font color='#00d5ff'>Objective #1 Complete!</font>";
                         } else {
                             this.qArr[q++] = "Quest: Purge the City's Outskirts";
                         }
@@ -378,7 +378,7 @@ public class StoryLine implements Freeable{
                         if(isQuestDone) {
                             this.qArr[q++] = "<font color='#00f541'>Quest Complete!</font>";
                         } else if(objDone[0]) {
-                            this.qArr[q++] = "<font color='#00d5ff'>Objective1 Complete!</font>";
+                            this.qArr[q++] = "<font color='#00d5ff'>Objective #1 Complete!</font>";
                         } else {
                             this.qArr[q++] = "Quest: Explore and purify the forest";
                         }
