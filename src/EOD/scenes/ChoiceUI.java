@@ -95,7 +95,8 @@ public class ChoiceUI extends JPanel {
                     } else {
                         dialogues.displayDialogue(2);
                         isKillerFound = false;
-                        new Ending(false).setVisible(true);;
+                        new Ending(false).setVisible(true);
+                        world.setVisible(false);
                     }
                 });
 

@@ -39,6 +39,7 @@ public class PurplePortal extends ClickableObjects{
         }
         window.setVisible(true);
         window.setBGMPlayer(bgmPlayer);
+        world.setVisible(false);
         scene.setVisible(false);
         isPerformQActive = true;
     }
