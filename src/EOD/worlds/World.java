@@ -19,8 +19,6 @@ import java.util.Random;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
-
-
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -57,14 +55,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     protected Player wizard;
     protected ArrayList<Player> playerList;
     protected Rewards rewards;
-
-    //public Enemy skeleton; // minions -z
-    //public Enemy necromancer; // this is just temporary... this should be a list of enemeies. 
-    // create a class for enemies. Preferrably in different classes. Must have one superclass for polymorphsism
-    // so that we will be able to iterate our enemies using the super class for example Enemy minions1 Enemy miniboss2
-    // j
-
     
+
+    // CONSTRUCTOR
     public World(String worldType){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(worldType);
@@ -100,22 +93,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         playerList = new ArrayList<>();
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
-    }
-
-    public Rewards getRewards(){
-        return rewards;
-    }
-
-    public BGMPlayer getBGMPlayer(){
-        return bgmPlayer;
-    }
-
-    public Quests getQuests(){
-        return quests;
-    }
-
-    public Shop getShop(){
-        return shop;
     }
 
     private void freeObjects(){
@@ -156,16 +133,42 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         }
     }
 
-    public ArrayList<Player> getPlayerList(){
-        return playerList;
-    }
 
+    
+    // SETTERS
     public void setMoneyLabel(String moneyLabel){
         this.moneyLabel.setText(moneyLabel);
     }
 
     public void setMoney(int money){
         player.getAttributes().setMoney(money);
+    }
+
+    public void setBGMPlayer(BGMPlayer bgmPlayer){
+        this.bgmPlayer = bgmPlayer;
+    }
+
+
+
+    // GETTERS
+    public Rewards getRewards(){
+        return rewards;
+    }
+
+    public BGMPlayer getBGMPlayer(){
+        return bgmPlayer;
+    }
+
+    public Quests getQuests(){
+        return quests;
+    }
+
+    public Shop getShop(){
+        return shop;
+    }
+
+    public ArrayList<Player> getPlayerList(){
+        return playerList;
     }
 
     public int getMoney(){
@@ -177,21 +180,25 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         return battle;
     }
 
-    public abstract void initializeProtagonist();
+    public JLayeredPane getPane(){
+        return layeredPane;
+    }
 
-    
+    public Player getPlayer(){
+        return player;
+    }
+
+    public String getPlayerType(){
+        return player.getCharacterType();
+    }
+
+
+
+    // LOCAL METHODS
     public void updatePlayerMoneyLabel(){
         moneyLabel.setText(player.getAttributes().getMoney() + "");
     }
-/* 
-    public void setInitiateChoiceUi (boolean initiateChoiceUi){
-        this.initiateChoiceUi = initiateChoiceUi;
-    }
 
-    public boolean getInitiateChoiceUi (){
-        return initiateChoiceUi;
-    }
-*/
     public void initializeBattleUI(){
         System.out.println("called>");
         battle = new BattleUI(player);
@@ -212,10 +219,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void closeQuests() {
         this.quests.setVisible(false);
     }
-
-    public abstract void initializeAllyProfiles();
-
-    public abstract void initializePlayerProfile();
 
     public void configureBanners(){
         victoryBanner = new EchoesObjects("banner", (int)(screenSize.width * 0.1),(int)(screenSize.width * 0.01), (int)(screenSize.width * 0.8),(int)(screenSize.width * 0.3), "win", false, false, 1);
@@ -298,88 +301,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         shop.setInventory(player.getInventory());
     }
 
-    public void setBGMPlayer(BGMPlayer bgmPlayer){
-        this.bgmPlayer = bgmPlayer;
-    }
-
-    public JLayeredPane getPane(){
-        return layeredPane;
-    }
-
-    public Player getPlayer(){
-        return player;
-    }
-
-    public String getPlayerType(){
-        return player.getCharacterType();
-    }
-
-    public abstract void initializeObjects();
-
-    public abstract void initializeWorldChars();
-
-    public abstract void initializeEnemies();
-
     private void initializeRewards(){
         rewards = new Rewards(this);
-    }
-    private class InitializationWorker extends SwingWorker<Void, Integer> {
-        @Override
-        protected Void doInBackground() {
-            try {
-                System.out.println("Starting Initialization");
-                publish(0); // Start progress
-                initializeWorldChars();
-                publish(25);
-                System.out.println("World characters initialized");
-
-                initializeObjects();
-                publish(50);
-                System.out.println("Objects initialized");
-                
-                initializeProtagonist();
-                publish(75);
-                System.out.println("Protagonist initialized");
-    
-                initializeEnemies();
-                publish(100);
-                System.out.println("Enemies initialized");
-    
-                // Check if all initialization steps were successful
-                assert scene != null : "Scene was not initialized!";
-                assert battle != null : "BattleUI was not initialized!";
-                
-                scene.createWorldScene();
-            } catch (Exception e) {
-                System.err.println("Error during initialization: " + e.getMessage());
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void process(java.util.List<Integer> chunks) {
-            for (int value : chunks) {
-                progressBar.setValue(value);
-            }
-        }
-
-        @Override
-        protected void done() {
-            progressBar.setString("Loading Complete");
-            removeWelcome();
-            openQuests();
-            initializeBattleUI();
-            initializeAllyProfiles();
-            
-            initializePlayerProfile();
-            player.getAllyProfiles().showAllProfiles();
-            initializeRewards();
-            quests.setRewards(rewards);
-            battle.setRewards(rewards);
-            scene.initializeGameLoop();
-
-        }
     }
 
     public EchoesObjects createObj(String assetPackage, int x, int y, double width, double height, 
@@ -567,6 +490,9 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     }
     private int btn_okCount = 0;
 
+
+
+    // OVERRIDDEN METHODS
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
@@ -633,5 +559,80 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     public void onExit(MouseEvent e) {
        
     }
+
+
+
+    // ABSTRACT METHODS
+    public abstract void initializeProtagonist();
+
+    public abstract void initializeAllyProfiles();
+
+    public abstract void initializePlayerProfile();
+
+    public abstract void initializeObjects();
+
+    public abstract void initializeWorldChars();
+
+    public abstract void initializeEnemies();
+    
+    private class InitializationWorker extends SwingWorker<Void, Integer> {
+        @Override
+        protected Void doInBackground() {
+            try {
+                System.out.println("Starting Initialization");
+                publish(0); // Start progress
+                initializeWorldChars();
+                publish(25);
+                System.out.println("World characters initialized");
+
+                initializeObjects();
+                publish(50);
+                System.out.println("Objects initialized");
+                
+                initializeProtagonist();
+                publish(75);
+                System.out.println("Protagonist initialized");
+    
+                initializeEnemies();
+                publish(100);
+                System.out.println("Enemies initialized");
+    
+                // Check if all initialization steps were successful
+                assert scene != null : "Scene was not initialized!";
+                assert battle != null : "BattleUI was not initialized!";
+                
+                scene.createWorldScene();
+            } catch (Exception e) {
+                System.err.println("Error during initialization: " + e.getMessage());
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void process(java.util.List<Integer> chunks) {
+            for (int value : chunks) {
+                progressBar.setValue(value);
+            }
+        }
+
+        @Override
+        protected void done() {
+            progressBar.setString("Loading Complete");
+            removeWelcome();
+            openQuests();
+            initializeBattleUI();
+            initializeAllyProfiles();
+            
+            initializePlayerProfile();
+            player.getAllyProfiles().showAllProfiles();
+            initializeRewards();
+            quests.setRewards(rewards);
+            battle.setRewards(rewards);
+            scene.initializeGameLoop();
+
+        }
+    }
+
     
 }

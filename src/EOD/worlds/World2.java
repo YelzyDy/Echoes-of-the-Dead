@@ -15,11 +15,9 @@ import EOD.utils.BGMPlayer;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-/**
- *
- * @author Joana
- */
 public class World2 extends World{
+
+    // CONSTRUCTOR
     public World2(Player player, ArrayList<Player> playerList) {
         super("world2");
         scene = new SceneBuilder(this);
@@ -32,6 +30,13 @@ public class World2 extends World{
         Welcome();
     }
 
+    // SETTERS - NONE
+
+    // GETTERS - NONE
+
+    // LOCAL METHODS - NONE
+
+    // OVERRIDDEN METHODS
     @Override
     public void initializeAllyProfiles() {
         player.getAllyProfiles().setWorld(this);
@@ -145,5 +150,7 @@ public class World2 extends World{
     public void onWindowClosing(WindowEvent e){
         bgmPlayer.stopBGM();
     }
+
+    // ABSTRACT METHODS - NONE
       
 }

@@ -15,15 +15,13 @@ import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-/**
- *
- * @author Joana
- */
 
 public class World1 extends World{
     private String characterType;
     public boolean sideQuest1 = false;
 
+
+    // CONSTRUCTOR
     public World1(String characterType, String playerName){
         super("world1");
         bgmPlayer = BGMPlayer.getInstance();
@@ -35,25 +33,13 @@ public class World1 extends World{
         Welcome();
     }
     
-    @Override
-    public void initializeProtagonist(){
-        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
-        initializePlayer();
-        setMoney(player.getAttributes().getMoney());
-        setMoneyLabel(player.getAttributes().getMoney() + "");
-        player.setWorld(this);
-        player.setVisible(true);
-        scene.add(player);
-        scene.setComponentZOrder(player, 0);
-        scene.setPlayer(player);
-        playerList.add(knight);
-        playerList.add(priest);
-        playerList.add(wizard);
-        player.initializeInventory();
-        configureShopAndInventory();
-        System.out.println("Player type in world2: " + characterType);
-    }
+    // SETTERS - NONE
 
+
+    // GETTERS - NONE
+
+
+    // LOCAL METHODS
     private void initializePlayer(){
         if(characterType.equals("knight")){
             initializeKnight();
@@ -119,6 +105,28 @@ public class World1 extends World{
         priest.setCharacterType("priest");
         scene.add(priest);
         scene.addMouseListener(new MouseClickListener(priest));
+    }
+
+
+
+    // OVERRIDDEN METHODS
+    @Override
+    public void initializeProtagonist(){
+        // this constructor automatically imports sprites so we must be careful where to put these(obj and npcs too) -- jian
+        initializePlayer();
+        setMoney(player.getAttributes().getMoney());
+        setMoneyLabel(player.getAttributes().getMoney() + "");
+        player.setWorld(this);
+        player.setVisible(true);
+        scene.add(player);
+        scene.setComponentZOrder(player, 0);
+        scene.setPlayer(player);
+        playerList.add(knight);
+        playerList.add(priest);
+        playerList.add(wizard);
+        player.initializeInventory();
+        configureShopAndInventory();
+        System.out.println("Player type in world2: " + characterType);
     }
 
     @Override
@@ -194,5 +202,7 @@ public class World1 extends World{
     public void onWindowClosing(WindowEvent e){
         bgmPlayer.stopBGM();
     }
+
+    // ABSTRACT METHODS - NONE
       
 }

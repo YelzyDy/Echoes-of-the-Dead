@@ -13,6 +13,7 @@ public class BGMPlayer {
     private boolean isMusicEnabled = true;
     private String filepath;
 
+    // CONSTRUCTORS
     // Private constructor to prevent multiple instances
     private BGMPlayer() {}
 
@@ -24,7 +25,57 @@ public class BGMPlayer {
         return instance;
     }
 
+    // SETTERS 
+    public void setVolume(float volume) {
+        try {
+            currentVolume = volume; // Store the current volume level
+            
+            if (gainControl != null) {
+                // Convert linear scale (0.0 to 1.0) to dB scale (-80.0 to 6.0 dB)
+                float min = gainControl.getMinimum();
+                float max = gainControl.getMaximum();
+                
+                // Avoid log(0) by using a small value when volume is 0
+                float adjustedVolume = (volume < 0.0001f) ? 0.0001f : volume;
+                
+                // Convert to dB
+                float dB = (float) (Math.log10(adjustedVolume) * 20.0f);
+                
+                // Ensure the value is within valid range
+                dB = Math.max(min, Math.min(max, dB));
+                
+                gainControl.setValue(dB);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void setMusicEnabled(boolean enabled) {
+        isMusicEnabled = enabled;
+        if (!enabled) {
+            stopBGM(); // Stop playing music if it is disabled
+        }
+    }
+
+
+
+    // GETTERS 
+    public float getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public boolean getIsMusicEnabled() {
+        return isMusicEnabled;
+    }
+
+    public String getFilePath(){
+        return filepath;
+    }
+
+
+
+    // LOCAL METHODS
     public void playBGM(String filePath) {
         this.filepath = filePath;
         if (!isMusicEnabled){
@@ -71,35 +122,6 @@ public class BGMPlayer {
         currentBGMPath = null;
     }    
 
-    public void setVolume(float volume) {
-        try {
-            currentVolume = volume; // Store the current volume level
-            
-            if (gainControl != null) {
-                // Convert linear scale (0.0 to 1.0) to dB scale (-80.0 to 6.0 dB)
-                float min = gainControl.getMinimum();
-                float max = gainControl.getMaximum();
-                
-                // Avoid log(0) by using a small value when volume is 0
-                float adjustedVolume = (volume < 0.0001f) ? 0.0001f : volume;
-                
-                // Convert to dB
-                float dB = (float) (Math.log10(adjustedVolume) * 20.0f);
-                
-                // Ensure the value is within valid range
-                dB = Math.max(min, Math.min(max, dB));
-                
-                gainControl.setValue(dB);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public float getCurrentVolume() {
-        return currentVolume;
-    }
-
     // Pause the current BGM
     public void pauseBGM() {
         if (clip != null && clip.isRunning()) {
@@ -127,18 +149,7 @@ public class BGMPlayer {
         return clip != null && clip.isRunning();
     }
 
-    public void setMusicEnabled(boolean enabled) {
-        isMusicEnabled = enabled;
-        if (!enabled) {
-            stopBGM(); // Stop playing music if it is disabled
-        }
-    }
+    // OVERRIDDEN METHODS - NONE
 
-    public boolean getIsMusicEnabled() {
-        return isMusicEnabled;
-    }
-
-    public String getFilePath(){
-        return filepath;
-    }
+    // ABSTRACT METHODS - NONE
 }

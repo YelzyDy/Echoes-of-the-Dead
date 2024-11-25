@@ -24,6 +24,7 @@ import java.util.ArrayList;
  */
 public class World3 extends World{
 
+    // CONSTRUCTOR
     public World3(Player player, ArrayList<Player> playerList){
         super("world3");
         scene = new SceneBuilder(this);
@@ -38,6 +39,25 @@ public class World3 extends World{
         Welcome();
     }
 
+    // SETTERS - NONE
+
+    // GETTERS - NONE
+
+    // LOCAL METHODS
+    public void startKillerBattle() {
+        bgmPlayer.stopBGM();
+        bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
+        scene.setCurrentSceneIndex(5);
+        // Make sure killer is visible/active for battle
+        for(Enemy enemy : scene.enemyList) {
+            if(enemy.getCharacterType().equals("killer")) {
+                enemy.setVisible(true);
+                break;
+            }
+        }
+    }
+
+    // OVERRIDDEN 
     @Override
     public void initializeAllyProfiles() {
         player.getAllyProfiles().setWorld(this);
@@ -154,20 +174,10 @@ public class World3 extends World{
         }
     }
 
-    public void startKillerBattle() {
-        bgmPlayer.stopBGM();
-        bgmPlayer.playBGM("src/audio_assets/bgm/fightbgm.wav");
-        scene.setCurrentSceneIndex(5);
-        // Make sure killer is visible/active for battle
-        for(Enemy enemy : scene.enemyList) {
-            if(enemy.getCharacterType().equals("killer")) {
-                enemy.setVisible(true);
-                break;
-            }
-        }
-    }
     @Override
     public void onWindowClosing(WindowEvent e){
         bgmPlayer.stopBGM();
     }
+
+    // ABSTRACT - NONE
 }

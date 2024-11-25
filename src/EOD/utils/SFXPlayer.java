@@ -16,6 +16,8 @@ public class SFXPlayer {
     private float currentVolume = 1.0f;
     private boolean isSFXEnabled = true;
 
+
+    // CONSTRUCTORS
     // Private constructor to prevent multiple instances
     private SFXPlayer() {}
 
@@ -27,6 +29,56 @@ public class SFXPlayer {
         return instance;
     }
 
+
+
+    // SETTERS 
+    public void setSFXEnabled(boolean enabled) {
+        isSFXEnabled = enabled;
+        if (!enabled) {
+            stopAllSFX();
+        }
+    }
+
+    public void setVolume(float volume) {
+        currentVolume = volume;
+        // Update volume for all active clips
+        activeClips.forEach((filePath, clips) -> {
+            clips.forEach(clip -> {
+                if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                    setVolumeForControl(gainControl, volume);
+                }
+            });
+        });
+    }
+
+    private void setVolumeForControl(FloatControl gainControl, float volume) {
+        try {
+            float min = gainControl.getMinimum();
+            float max = gainControl.getMaximum();
+            float adjustedVolume = Math.max(0.0001f, volume);
+            float dB = (float) (Math.log10(adjustedVolume) * 20.0f);
+            dB = Math.max(min, Math.min(max, dB));
+            gainControl.setValue(dB);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    // GETTERS 
+    public boolean getIsSFXEnabled() {
+        return isSFXEnabled;
+    }
+
+    public float getCurrentVolume() {
+        return currentVolume;
+    }
+
+
+
+    // LOCAL METHODS 
     public synchronized void playSFX(String filePath) {
         if (!isSFXEnabled || filePath == null || filePath.isEmpty()) {
             return;
@@ -108,37 +160,6 @@ public class SFXPlayer {
         });
         activeClips.clear();
     }
-    
-
-    public void setVolume(float volume) {
-        currentVolume = volume;
-        // Update volume for all active clips
-        activeClips.forEach((filePath, clips) -> {
-            clips.forEach(clip -> {
-                if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-                    FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    setVolumeForControl(gainControl, volume);
-                }
-            });
-        });
-    }
-
-    private void setVolumeForControl(FloatControl gainControl, float volume) {
-        try {
-            float min = gainControl.getMinimum();
-            float max = gainControl.getMaximum();
-            float adjustedVolume = Math.max(0.0001f, volume);
-            float dB = (float) (Math.log10(adjustedVolume) * 20.0f);
-            dB = Math.max(min, Math.min(max, dB));
-            gainControl.setValue(dB);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public float getCurrentVolume() {
-        return currentVolume;
-    }
 
     public boolean isAnyPlaying() {
         return !activeClips.isEmpty();
@@ -150,20 +171,13 @@ public class SFXPlayer {
         return clips != null && !clips.isEmpty();
     }
 
-    public void setSFXEnabled(boolean enabled) {
-        isSFXEnabled = enabled;
-        if (!enabled) {
-            stopAllSFX();
-        }
-    }
-
-    public boolean getIsSFXEnabled() {
-        return isSFXEnabled;
-    }
-
     // Cleanup method to be called when shutting down
     public void cleanup() {
         stopAllSFX();
         threadPool.shutdown();
     }
+
+    // OVERRIDDEN METHODS - NONE
+
+    // ABSTRACT METHODS - NONE
 }
