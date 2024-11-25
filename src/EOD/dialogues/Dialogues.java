@@ -11,6 +11,7 @@ import EOD.characters.enemies.Enemy;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import java.awt.event.MouseListener;
 
 public class Dialogues implements Freeable, MouseInteractable {
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
@@ -118,6 +119,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         pressToContinueLabel.setVisible(true);
         
         storyDialogue.add(pressToContinueLabel, BorderLayout.SOUTH);
+        setupPortraitDialog(portraitPath);
     }
 
     private void setupPortraitDialog(String path) {
@@ -154,7 +156,7 @@ public class Dialogues implements Freeable, MouseInteractable {
         int portraitX = (int)(screenSize.width - PORTRAIT_WIDTH - 10); // 20 pixels from right edge
         int portraitY = 30; // 30 pixels from top
         portraitDialog.setLocation(portraitX, portraitY);
-        portraitDialog.setVisible(true);
+        portraitDialog.setVisible(false);
     }    
 
     public QuestsDialogues getQuestsDialogues(){
@@ -213,11 +215,41 @@ public class Dialogues implements Freeable, MouseInteractable {
         textBox.setFont(new Font("Monospaced", Font.PLAIN, (int) size));
     }
 
+    private void addMouseListenerIfAbsent(JComponent component, MouseListener listener) {
+        boolean alreadyHasListener = false;
+    
+        // Check if the listener is already added
+        for (MouseListener existingListener : component.getMouseListeners()) {
+            if (existingListener == listener) {
+                alreadyHasListener = true;
+                break;
+            }
+        }
+    
+        // Add the listener only if it's not already added
+        if (!alreadyHasListener) {
+            component.addMouseListener(listener);
+        }
+    }
+
+    private void updatePortraitImage(String newPath) {
+        try {
+            ImageIcon portraitImage = new ImageIcon(getClass().getResource(newPath));
+            Image scaledImage = portraitImage.getImage().getScaledInstance(PORTRAIT_WIDTH, PORTRAIT_HEIGHT, Image.SCALE_SMOOTH);
+            portraitBox.setIcon(new ImageIcon(scaledImage));
+            portraitDialog.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            portraitBox.setText("Image Load Failed!");
+            portraitBox.setForeground(Color.RED);
+        }
+    }
+
     public void displayDialogues(int ID, World world) {
         this.world = world;
         this.scene = world.getScene();
         this.worldType = world.getTitle();
-        scene.addMouseListener(new MouseClickListener(this));
+        addMouseListenerIfAbsent(scene, new MouseClickListener(this));
         story.setPlayerName(playerName);
         buttonPanel.setVisible(true);
         if(npc != null && npc.activateQuest) questsButton.setVisible(true);
@@ -337,7 +369,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 break;
         }
 
-        setupPortraitDialog(this.portraitPath);
+        updatePortraitImage(this.portraitPath);
 
         if ((ID == 4 || ID == 1 || ID == 2 || ID == 3 || ID == 5) && npc.activateQuest)
             questsButton.setVisible(true);
