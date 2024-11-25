@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class GreenPortal extends ClickableObjects{
     public GreenPortal(){
-        super("world1", (int)(screenSize.width * 0.4), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);
+        super("world1", (int)(screenSize.width * 0.2), (int)(screenSize.height * 0.165), (int)(screenSize.width * 0.1), (int)(screenSize.height * 0.25), "portal", true, false, 29);
         setIndex(1);
 
     }
