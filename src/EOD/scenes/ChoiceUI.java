@@ -1,6 +1,5 @@
 package EOD.scenes;
-import EOD.characters.enemies.Enemy;
-import EOD.characters.enemies.Killer;
+import EOD.Ending;
 import EOD.dialogues.Dialogues;
 import EOD.dialogues.FullScreenDialogues;
 import EOD.worlds.World;
@@ -99,6 +98,7 @@ public class ChoiceUI extends JPanel {
                     } else {
                         dialogues.displayDialogue(2);
                         isKillerFound = false;
+                        new Ending(false).setVisible(true);;
                     }
                 });
 

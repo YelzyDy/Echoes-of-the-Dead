@@ -6,7 +6,7 @@ import EOD.objects.ClickableObjects;
 
 public class Killer extends Enemy{
     private static final int BASE_ATTACK = 25;
-    private static final int BASE_HEALTH = 300;
+    private static final int BASE_HEALTH = 30;
     private boolean fightEnabled = false;
     public Dialogues dialogues;
     // Skill cooldowns
