@@ -10,6 +10,8 @@ import EOD.objects.profiles.AllyProfiles;
 import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World; // -z
+
+import java.awt.Dialog;
 import EOD.worlds.World1;
 import EOD.worlds.World2;
 import EOD.worlds.World3;
@@ -348,11 +350,9 @@ public class BattleExperiment implements Skillable{
             world.callVictory();
             handleWin();
         }else{
-
             Timer loseTimer = new Timer(200, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("defeat banner vis: " + world.defeatBanner.isVisible());
                     if(!world.defeatBanner.isVisible()){
                         handleLose();
                         player.getAnimator().reverseDeathAnimation();
@@ -374,7 +374,6 @@ public class BattleExperiment implements Skillable{
                 });
                 reverseDeathTimer.setRepeats(false);
                 reverseDeathTimer.start();
-                
                 return;
             }
             world.callDefeat();
@@ -394,6 +393,7 @@ public class BattleExperiment implements Skillable{
     private void handleWin(){
         String portalName = battleUI.getPortal().getName();
         int portalIndex = getPortalIndex(portalName);
+        World world = player.getWorld();
         battleUI.getPortal().setIndex(portalIndex);
         enemy.setIsDefeated(true);
         Timer deathAnimationTimer = new Timer(800, new ActionListener() {
@@ -427,17 +427,34 @@ public class BattleExperiment implements Skillable{
         deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
         deathAnimationTimer.start();
 
-        if(enemy.getCharacterType().equals("killer")){
-                FullScreenDialogues dialogues = new FullScreenDialogues();
-                dialogues.setPlayerType(player.getCharacterType()); 
-                dialogues.displayDialogue(1);
-                if(!dialogues.isDisplayable()){
-                    new Ending(true).setVisible(true);
-                    player.getWorld().setVisible(false);
+        if (enemy.getCharacterType().equals("killer")) {
+            FullScreenDialogues dialogues = new FullScreenDialogues();
+            dialogues.setPlayerType(player.getCharacterType());
+        
+            Timer dialogueAndEndTimer = new Timer(200, new ActionListener() {
+                private boolean dialogueTriggered = false;
+        
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (!world.victoryBanner.isVisible() && !dialogueTriggered) {
+                        dialogues.displayDialogue(1);
+                        dialogueTriggered = true; 
+                    }
+                    System.out.println("Dialogues vis?" + dialogues.isDisplayable());
+                    if (dialogueTriggered && !dialogues.isVisible()) {
+                        new Ending(true, world).setVisible(true);
+                        world.setVisible(false);
+                        ((Timer) e.getSource()).stop();
+                    }
                 }
+            });
+        
+            dialogueAndEndTimer.setRepeats(true);
+            dialogueAndEndTimer.start();
         }
         handleRewards();
     }
+
 
     private void handleLose(){
         bgmPlayer.stopBGM();

@@ -27,7 +27,7 @@ import java.awt.event.*;
 public abstract class World extends javax.swing.JFrame implements MouseInteractable, Freeable, WindowInteractable{ // this is the superclass for all 3 worlds -- jian
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
-    private EchoesObjects victoryBanner;
+    public EchoesObjects victoryBanner;
     public EchoesObjects defeatBanner;
     private EchoesObjects soulShard;
     private JLabel name;  

@@ -1,25 +1,31 @@
 package EOD;
 
 import EOD.gameInterfaces.MouseInteractable;
+import EOD.gameInterfaces.WindowInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
+import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
+import EOD.worlds.World;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
-public class Ending extends javax.swing.JFrame implements MouseInteractable {
+public class Ending extends javax.swing.JFrame implements MouseInteractable, WindowInteractable {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int width = screenSize.width;
     private int height = screenSize.height;
     private BGMPlayer bgmPlayer = BGMPlayer.getInstance();
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     private boolean isGoodEnding;
-
+    private World world;
     // Constructor for Good or Bad Ending
-    public Ending(boolean isGoodEnding) {
+    public Ending(boolean isGoodEnding, World world) {
+        this.world = world;
         this.isGoodEnding = isGoodEnding;
 
         // Set up basic frame properties
@@ -83,6 +89,10 @@ public class Ending extends javax.swing.JFrame implements MouseInteractable {
         sfxPlayer = SFXPlayer.getInstance();
         sfxPlayer.playSFX("src/audio_assets/sfx/general/click.wav");
 
+        SceneBuilder scene = world.getScene();
+        scene.gameLoopTimer.stop();
+        scene.free();
+
         if ("play again".equals(clickedButton.getName())) {
             bgmPlayer.stopBGM();
             this.dispose(); // Close current ending screen
@@ -101,5 +111,10 @@ public class Ending extends javax.swing.JFrame implements MouseInteractable {
     @Override
     public void onExit(MouseEvent e) {
 
+    }
+
+    @Override
+    public void onWindowClosing(WindowEvent e) {
+        bgmPlayer.stopBGM();
     }
 }
