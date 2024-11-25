@@ -350,12 +350,12 @@ public class BattleExperiment implements Skillable{
             world.callVictory();
             handleWin();
         }else{
-            Timer loseTimer = new Timer(200, new ActionListener() {
+            Timer loseTimer = new Timer(500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(!world.defeatBanner.isVisible()){
                         handleLose();
-                        player.getAnimator().reverseDeathAnimation();
+                        player.getAnimator().revertDeath();
                         ((Timer)e.getSource()).stop();
                     }
                 }
@@ -440,7 +440,6 @@ public class BattleExperiment implements Skillable{
                         dialogues.displayDialogue(1);
                         dialogueTriggered = true; 
                     }
-                    System.out.println("Dialogues vis?" + dialogues.isDisplayable());
                     if (dialogueTriggered && !dialogues.isVisible()) {
                         new Ending(true, world).setVisible(true);
                         world.setVisible(false);
