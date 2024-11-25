@@ -280,7 +280,7 @@ public abstract class Enemy extends Character implements MouseInteractable, Skil
             switch(skillNumber){
                 case 1 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerbasicatk.wav");
                 case 2 -> sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/necromancerskill1.wav");
-                   
+                
             }
         } else if (enemy.getCharacterType().equals("death")){
             switch(skillNumber){
