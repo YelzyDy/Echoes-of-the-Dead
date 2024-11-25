@@ -269,6 +269,12 @@ public void createWorldScene() {
                 }
             }
 
+            if(enemy.getAnimator().isNotExecutingSkill()){
+                if(enemy.getCharacterType().equals("skeleton3")){
+                    enemy.setPosY(screenSize.height * 0.22);
+                }
+            }
+
             if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
                 world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect(player);
                 double offsetX = 0, offsetY = 0;
@@ -386,6 +392,10 @@ public void createWorldScene() {
                  if(obj.getName().equals("portalMiniBoss")){
                     obj.setVisible(true);
                  }
+                 if(obj.getName().equals("portal")){
+                    obj.setVisible(true);
+                 }
+
             }
             else{
                 obj.setVisible(obj.getIndex() == currentSceneIndex);

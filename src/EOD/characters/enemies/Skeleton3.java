@@ -57,6 +57,7 @@ public class Skeleton3 extends Enemy {
         int baseSkill2Damage = (int)(attack * 1.5);
         damageDealt = baseSkill2Damage + (int)(Math.random() * 4); // 10-14 damage with variation
         
+        
         actionString = getName() + " swings its rusty dull sword for " + damageDealt + " damage!";
         lastUsedSkill = 2;
         skill2Cooldown = SKILL2_MAX_COOLDOWN;
