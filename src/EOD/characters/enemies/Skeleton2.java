@@ -23,7 +23,7 @@ public class Skeleton2 extends Enemy {
         health = BASE_HEALTH;
         baseHp = BASE_HEALTH;
         baseAttack = BASE_ATTACK;
-        moneyDrop = 30;
+        moneyDrop = 50;
         animator.setSpeedMultiplier(1);
     }
 
