@@ -89,7 +89,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         list.add(noNamePrompt); 
         list.add(scene);
         for(Freeable item : list){
-            item.free();
+            if(item != null)item.free();
             item = null;
         }
         charType = null;
