@@ -241,11 +241,11 @@ public class Dialogues implements Freeable, MouseInteractable {
                 break;
             case 2:
                 story.nattyIntro();
-                this.portraitPath = "/portrait_assets/nanno.png";
+                this.portraitPath = "/portrait_assets/nice_natty.png";
                 break;
             case 3:
                 story.yooIntro();
-                this.portraitPath = "/portrait_assets/yoo.png";
+                this.portraitPath = "/portrait_assets/disdain_yoo.png";
                 break;
             case 4:
                 story.migginsIntro(playerType, worldType);
@@ -257,7 +257,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 break;
             case 5:
                 story.faithfulIntro();
-                this.portraitPath = "/portrait_assets/faithful.png";
+                this.portraitPath = "/portrait_assets/fine_faithful.png";
                 break;
             case 6:
                 story.knightIntro(playerType);
@@ -308,7 +308,9 @@ public class Dialogues implements Freeable, MouseInteractable {
                 this.portraitPath = "/portrait_assets/chea.png";
                 break;
             case 18:
-                story.preEnding(); break;
+                story.preEnding();
+                this.portraitPath = "/portrait_assets/reaper.png";
+                break;
             case 19:
                 story.ending1(); break;
             case 20:
@@ -321,7 +323,17 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.monoIntro(playerType, worldType);
                 this.portraitPath = "/portrait_assets/mono.png";
                 break;
-            default: break;
+            default: 
+                if (playerType == "knight") {
+                    this.portraitPath = "/portrait_assets/furious_faithful.png";
+                }
+                if (playerType == "wizard") {
+                    this.portraitPath = "/portrait_assets/disgust_yoo.png";
+                }
+                if (playerType == "priest") {
+                    this.portraitPath = "/portrait_assets/naughty_natty.png";
+                }
+                break;
         }
 
         setupPortraitDialog(this.portraitPath);
