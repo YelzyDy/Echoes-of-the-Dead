@@ -162,9 +162,8 @@ public class BattleExperiment implements Skillable{
                     if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                         performPriestPoison(playerDamageHolder);
                     }
-                    if(enemy.getCharacterType().equals("necromancer")){
-                        enemy.setPosX(player.getPosX());
-                        System.out.println("going thru here");
+                    if(enemy.getCharacterType().equals("skeleton3") && chosenSkill == 2){
+                        enemy.setPosY(screenSize.height * 0.13);
                     }
                     player.takeDamage(damageHolder[0]);
                     player.getAnimator().triggerHurtAnimation();
@@ -191,7 +190,6 @@ public class BattleExperiment implements Skillable{
             }
         });
         skillCheckTimer.start();
-    
         // Set callback for enemy's animation completion - only finish turn if battle hasn't ended
         enemy.getAnimator().setOnAnimationComplete(() -> {
             if (!battleEnded) {  // Only finish enemy turn if battle hasn't ended
