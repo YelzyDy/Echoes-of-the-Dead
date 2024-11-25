@@ -131,6 +131,7 @@ public class Player extends Character implements MouseInteractable{
         animator.importSprites("character_asset", "walk", spriteSize, 8);
         animator.importSprites("character_asset", "idle", spriteSize, 6);
         animator.importSprites("character_asset","hurt", spriteSize, 4);
+        animator.importSprites("character_asset","dead", spriteSize, 4);
         animator.importSkillSprites(1, "character_asset", spriteSize, attributes.s1num);
         animator.importSkillSprites(2, "character_asset", spriteSize, attributes.s2num);
         animator.importSkillSprites(3, "character_asset", spriteSize, attributes.s3num);

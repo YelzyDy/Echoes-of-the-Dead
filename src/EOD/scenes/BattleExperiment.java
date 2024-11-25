@@ -152,7 +152,8 @@ public class BattleExperiment implements Skillable{
         final int initialPlayerDamage = player.getDamageDealt();
         final int playerDamageHolder[] = {initialPlayerDamage};
 
-        
+        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
+
         if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
             damageHolder[0] = (int)(initialDamage * 0.5);
             battleUI.showAction("Damage Halved! Only " + damageHolder[0] + " received!");
@@ -339,6 +340,22 @@ public class BattleExperiment implements Skillable{
                 }
             }
         }
+        battleUI.setSkillButtonsEnabled(false);
+        if(enemy.getCharacterType().equals("killer")){
+            player.getAnimator().triggerDeathAnimation(player.getPosY());
+            Timer reverseDeathTimer = new Timer(3000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    world.applyAdvancedGlitchEffect();
+                    player.getAnimator().reverseDeathAnimation();
+                    ((Timer)e.getSource()).stop();
+                }
+            });
+            reverseDeathTimer.setRepeats(false);
+            reverseDeathTimer.start();
+            
+            return;
+        }
 
         if(playerWon){
             world.callVictory();
@@ -347,8 +364,6 @@ public class BattleExperiment implements Skillable{
             world.callDefeat();
             handleLose();
         }
-
-        battleUI.setSkillButtonsEnabled(false);
     }
 
     private int getPortalIndex(String name){
@@ -386,7 +401,6 @@ public class BattleExperiment implements Skillable{
                         sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerdead.wav");
                         dialogues.setPlayerType(player.getCharacterType()); 
                         dialogues.displayDialogue(1);
-                        
                         new Ending(true).setVisible(true);
                         break;
                     default:
