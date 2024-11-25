@@ -363,10 +363,9 @@ public class BattleExperiment implements Skillable{
             Timer reverseDeathTimer = new Timer(200, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(!world.defeatBanner.isVisible()){
                         handleLose();
                         player.getAnimator().reverseDeathAnimation();
-                    }
+
                     ((Timer)e.getSource()).stop();
                 }
             });
