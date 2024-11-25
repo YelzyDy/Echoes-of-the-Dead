@@ -105,9 +105,6 @@ public abstract class Animator implements Freeable{
         deathAnimationTimer = null;
     }
 
-    public boolean isSkill2(){
-        currentSkill
-    }
 
     public boolean isReachedTarget(){
         return reachedTarget;

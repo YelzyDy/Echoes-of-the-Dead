@@ -1,13 +1,11 @@
 package EOD.scenes;
 
-import EOD.Ending;
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
 import EOD.dialogues.FullScreenDialogues;
 import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
 import EOD.objects.profiles.AllyProfiles;
-import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World; // -z
 import java.awt.Dimension; // -z
@@ -156,7 +154,7 @@ public class BattleExperiment implements Skillable{
 
         if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
             damageHolder[0] = (int)(initialDamage * 0.5);
-            battleUI.showAction("Damage Halved! Only " + damageHolder[0] + " received!");
+            battleUI.showAction("Damage reduced! Only " + damageHolder[0] + " damage received!");
         }
 
         Timer skillCheckTimer = new Timer(enemy.playerHurtDelay, new ActionListener() {
@@ -167,16 +165,14 @@ public class BattleExperiment implements Skillable{
                     if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                         performPriestPoison(playerDamageHolder);
                     }
-                    if(enemy.getCharacterType().equals("skeleton3") && chosenSkill == 2){
-                        enemy.setPosY(screenSize.height * 0.12);
-                    }
+
                     player.takeDamage(damageHolder[0]);
                     player.getAnimator().triggerHurtAnimation();
 
                     if (player.getWorld().getPlayerList().get(0).isDamageReducerActive() && 
                         damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {
-                        player.getAttributes().addMoney(30);
-                        battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
+                        player.getAttributes().addMoney(15);
+                        battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 15 Soul Shards");
                     }
                     player.resetDamageReducer();
 
@@ -207,7 +203,6 @@ public class BattleExperiment implements Skillable{
             (int)enemy.getXFactor()
         );
         enemy.getAnimator().setMovingRight(false);
-        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
     }
 
     private boolean checkAllVisibleAlliesDead(AllyProfiles allyProfiles) {
@@ -341,40 +336,27 @@ public class BattleExperiment implements Skillable{
             }
         }
         battleUI.setSkillButtonsEnabled(false);
-        if(enemy.getCharacterType().equals("killer")){
-            player.getAnimator().triggerDeathAnimation(player.getPosY());
-            Timer reverseDeathTimer = new Timer(3000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    world.applyAdvancedGlitchEffect();
-                    player.getAnimator().reverseDeathAnimation();
-                    battleUI.setSkillButtonsEnabled(true);
-                    ((Timer)e.getSource()).stop();
-                }
-            });
-            reverseDeathTimer.setRepeats(false);
-            reverseDeathTimer.start();
-            
-            return;
-        }
 
         if(playerWon){
             world.callVictory();
             handleWin();
         }else{
-            player.getAnimator().triggerDeathAnimation(player.getPosY());
-            world.callDefeat();
-            Timer reverseDeathTimer = new Timer(200, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                        handleLose();
+            if(enemy.getCharacterType().equals("killer")){
+                player.getAnimator().triggerDeathAnimation(player.getPosY());
+                Timer reverseDeathTimer = new Timer(3000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        world.applyAdvancedGlitchEffect();
                         player.getAnimator().reverseDeathAnimation();
-
-                    ((Timer)e.getSource()).stop();
-                }
-            });
-            reverseDeathTimer.setRepeats(false);
-            reverseDeathTimer.start();
+                        ((Timer)e.getSource()).stop();
+                    }
+                });
+                reverseDeathTimer.setRepeats(false);
+                reverseDeathTimer.start();
+                
+                return;
+            }
+            handleLose();
         }
     }
 
@@ -404,16 +386,19 @@ public class BattleExperiment implements Skillable{
                         sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/deathdead.wav");
                         break;
                     case "Skeleton1":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
+                        break;
                     case "Skeleton2":
+                        sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
+                        break;
                     case "Skeleton3":
                         sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
                         break;
                     case "Killer":
                         FullScreenDialogues dialogues = new FullScreenDialogues();
-                        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerdead.wav");
                         dialogues.setPlayerType(player.getCharacterType()); 
                         dialogues.displayDialogue(1);
-                        new Ending(true).setVisible(true);
+                        sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerdead.wav");
                         break;
                     default:
                         break;
@@ -427,6 +412,8 @@ public class BattleExperiment implements Skillable{
     }
 
     private void handleLose(){
+        player.getWorld().callDefeat();
+        
         player.getAnimator().setMoving(false);
         enemy.getAnimator().setIsInBattle(false);
         enemy.getAnimator().setMoving(true);
