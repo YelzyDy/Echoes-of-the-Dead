@@ -4,6 +4,9 @@ import EOD.characters.Player;
 import EOD.objects.ClickableObjects;
 
 public class Death extends Enemy{
+    // private static final int BASE_ATTACK = 15;
+    // private static final int BASE_HEALTH = 150;
+
     private static final int BASE_ATTACK = 15;
     private static final int BASE_HEALTH = 150;
     
