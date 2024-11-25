@@ -150,6 +150,7 @@ public class BattleExperiment implements Skillable{
         final int initialPlayerDamage = player.getDamageDealt();
         final int playerDamageHolder[] = {initialPlayerDamage};
 
+        battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
         
         if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
             damageHolder[0] = (int)(initialDamage * 0.5);
@@ -164,9 +165,7 @@ public class BattleExperiment implements Skillable{
                     if (player.getWorld().getPlayerList().get(1).isPoisonDebufferActive()) {
                         performPriestPoison(playerDamageHolder);
                     }
-                    if(enemy.getCharacterType().equals("skeleton3") && chosenSkill == 2){
-                        enemy.setPosY(screenSize.height * 0.12);
-                    }
+
                     player.takeDamage(damageHolder[0]);
                     player.getAnimator().triggerHurtAnimation();
 

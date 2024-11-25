@@ -269,11 +269,6 @@ public void createWorldScene() {
                 }
             }
 
-            if(enemy.getAnimator().isNotExecutingSkill()){
-                if(enemy.getCharacterType().equals("skeleton3")){
-                    enemy.setPosY(screenSize.height * 0.22);
-                }
-            }
 
             if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
                 world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect(player);

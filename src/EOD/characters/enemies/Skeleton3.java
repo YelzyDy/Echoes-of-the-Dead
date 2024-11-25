@@ -29,11 +29,11 @@ public class Skeleton3 extends Enemy {
         int baseSize = (int)(screenSize.height * 0.007);
         
         // Import all sprite sets
-        animator.importSprites("character_asset", "walk", baseSize, 8);
+        animator.importSprites("character_asset", "walk", baseSize, 9);
         animator.importSprites("character_asset", "idle", baseSize, 6);
         animator.importSprites("character_asset", "dead", baseSize, 4);
         animator.importSprites("character_asset","hurt", baseSize, 4);
-        animator.importSkillSprites(1, "character_asset", baseSize, 9);
+        animator.importSkillSprites(1, "character_asset", baseSize, 7);
         animator.importSkillSprites(2, "character_asset", baseSize, 12);
     
         
