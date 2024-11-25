@@ -102,8 +102,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         layeredPane.add(progressBar, Integer.valueOf(1));
     }
 
-    
-
     public Rewards getRewards(){
         return rewards;
     }
