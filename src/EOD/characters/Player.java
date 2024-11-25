@@ -131,6 +131,7 @@ public class Player extends Character implements MouseInteractable{
         animator.importSprites("character_asset", "walk", spriteSize, 8);
         animator.importSprites("character_asset", "idle", spriteSize, 6);
         animator.importSprites("character_asset","hurt", spriteSize, 4);
+        animator.importSprites("character_asset","dead", spriteSize, 4);
         animator.importSkillSprites(1, "character_asset", spriteSize, attributes.s1num);
         animator.importSkillSprites(2, "character_asset", spriteSize, attributes.s2num);
         animator.importSkillSprites(3, "character_asset", spriteSize, attributes.s3num);
@@ -530,7 +531,7 @@ public class Player extends Character implements MouseInteractable{
                 attributes.skill3Cd = 5;
                 attributes.mana -= 30;
                 applySkillEffect(attributes.skillEffects3, this, 14, enemy.getOffsetX(3), enemy.getOffsetY(3));
-                actionString = "Defense activated! Damage reduced by 50% for 3 turns!";
+                actionString = "Defense activated! Damage reduced by 40% for 3 turns!";
                 shieldBuffRemaining = SHIELD_DURATION;
                 return true;
 

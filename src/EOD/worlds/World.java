@@ -15,6 +15,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Random;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.AlphaComposite;
+
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -22,7 +28,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private EchoesObjects victoryBanner;
-    private EchoesObjects defeatBanner;
+    public EchoesObjects defeatBanner;
     private EchoesObjects soulShard;
     private JLabel name;  
     private String worldType;  
@@ -95,6 +101,8 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         // Add progress bar to the UI (e.g., at the bottom of your frame)
         layeredPane.add(progressBar, Integer.valueOf(1));
     }
+
+    
 
     public Rewards getRewards(){
         return rewards;
@@ -518,6 +526,46 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
         bag.setVisible(true);
         soulShard.setVisible(true);
         moneyPanel.setVisible(true);
+    }
+
+    public void applyAdvancedGlitchEffect() {
+        // Create a temporary overlay panel with random color shifts and offsets
+        World frame = this;
+        JPanel glitchOverlay = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+
+                // Random color shifts and offsets
+                for (int i = 0; i < 5; i++) {
+                    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+                    g2d.setColor(new Color(
+                        new Random().nextInt(255), 
+                        new Random().nextInt(255), 
+                        new Random().nextInt(255)
+                    ));
+
+                    int offsetX = new Random().nextInt(20) - 10;
+                    int offsetY = new Random().nextInt(20) - 10;
+                    g2d.fillRect(offsetX, offsetY, getWidth(), getHeight());
+                }
+            }
+        };
+
+        glitchOverlay.setOpaque(false);
+        glitchOverlay.setBounds(frame.getBounds());
+        frame.getLayeredPane().add(glitchOverlay, JLayeredPane.POPUP_LAYER);
+
+        Timer removeTimer = new Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getLayeredPane().remove(glitchOverlay);
+                frame.repaint();
+                ((Timer)e.getSource()).stop();
+            }
+        });
+        removeTimer.start();
     }
     private int btn_okCount = 0;
 

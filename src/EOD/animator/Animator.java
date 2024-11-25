@@ -105,9 +105,6 @@ public abstract class Animator implements Freeable{
         deathAnimationTimer = null;
     }
 
-    public boolean isSkill2(){
-        currentSkill
-    }
 
     public boolean isReachedTarget(){
         return reachedTarget;
@@ -367,6 +364,42 @@ public abstract class Animator implements Freeable{
         });
 
         deathAnimationTimer.start();
+    }
+
+    public void reverseDeathAnimation() {
+        if (isDead && !isDeathAnimating) {
+            isDead = false;
+            isDeathAnimating = true;
+            
+            final double startY = targetY;
+            final double originalY = currentY;
+            
+            final int baseAnimationDuration = 1000;
+            final int adjustedDuration = (int)(baseAnimationDuration / deathAnimationSpeedMultiplier);
+            final int fps = 60;
+            final int totalFrames = adjustedDuration / (1000 / fps);
+            final double stepSize = Math.abs(startY - originalY) / totalFrames;
+    
+            deathAnimationTimer = new Timer(1000 / fps, new ActionListener() {
+                int frame = 0;
+    
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (frame < totalFrames) {
+                        currentY -= stepSize;
+                        character.setPosY(currentY);
+                        frame += Math.max(1, (int)(1 * deathAnimationSpeedMultiplier));
+                        updateBounds();
+                    } else {
+                        isDeathAnimating = false;
+                        currentFrame = 0;
+                        ((Timer) e.getSource()).stop();
+                    }
+                }
+            });
+    
+            deathAnimationTimer.start();
+        }
     }
 
     public void scaleSprites(String spriteType, double scale) {
