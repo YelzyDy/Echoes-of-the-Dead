@@ -20,6 +20,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /**
  *
@@ -34,8 +35,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private EchoesObjects btn_ok;
     private EchoesObjects btn_cancel;
     private EchoesObjects promptPanel;
-    private EchoesObjects noNamePrompt;
-    private EchoesObjects noNameOkButton;
     private String charType;
     private JTextField nameField;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -46,7 +45,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private Player player;
     private BGMPlayer bgmPlayer;
     private SFXPlayer sfxPlayer;
-    
     public ChooseChar() {
         bgmPlayer = BGMPlayer.getInstance();
         sfxPlayer = sfxPlayer.getInstance();
@@ -72,6 +70,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         btn_select.addMouseListener(new MouseClickListener(this)); // attaching a mouseListener to our btn_select --jian
         // the MouseClickListener class's parameter is a class that implements MouseInteractable, which is this class  --jian
         scene.add(btn_select);
+
         addTransparentButton();
     }
 
@@ -81,8 +80,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         list.add(btn_ok);
         list.add(btn_cancel);
         list.add(promptPanel);
-        list.add(noNameOkButton);
-        list.add(noNamePrompt); 
         list.add(scene);
         for(Freeable item : list){
             item.free();
@@ -150,24 +147,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         scene.add(promptPanel);  
     }
 
-    //sheen
-    private void addNoNamePrompt(){
-        // Hide the original promptPanel first
-        if (promptPanel != null) {
-            promptPanel.setVisible(false);
-        }
-    
-        noNamePrompt = createObj(
-            "world1", (int) (screenSize.width * 0.25), (int) (screenSize.height * 0.05), 
-            (int) (screenSize.width * 0.50), (int) (screenSize.height * 0.85), 
-            "nameEmpty", false, false, 1
-        );
-        scene.add(noNamePrompt);
-        // Ensure noNamePrompt is on top
-        scene.revalidate();
-        scene.repaint(); 
-    }
-
     private void addNameField(int panelHeight, int panelWidth){
         // Create and add a transparent JTextField to the promptPanel --jian
         nameField = new JTextField(20);
@@ -196,22 +175,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             btn_ok.setVisible(true);
             btn_ok.addMouseListener(new MouseClickListener(this));
             promptPanel.add(btn_ok);
-    }
-
-    private void addNoNameOK(int panelHeight, int panelWidth){
-                // Center the OK button for the error prompt
-                noNameOkButton = createObj(
-                    "button", (int) (panelWidth * 0.96),  // Centered position
-                    (int) (panelHeight * 0.65),   // Adjusted vertical position
-                    (int) (panelWidth * 0.18),   // Width
-                    (int) (panelHeight * 0.09),   // Height
-                    "ok_button",
-                    false,true,2
-                );
-                noNameOkButton.setVisible(true);
-                noNameOkButton.addMouseListener(new MouseClickListener(this));
-                noNamePrompt.add(noNameOkButton);
-                scene.setComponentZOrder(noNameOkButton, 0);
     }
 
     public void addBtnCancel(int panelHeight, int panelWidth){
@@ -269,54 +232,22 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             player.setPosY(height * 0.45); // Update position based on height
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
-            // if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
-            //     sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
-            //     //JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
-
-            //     //-sheen
-            //     addNoNamePrompt(); // if btn_select is clicked, we create the PromptNamePannel using this method --jian
-            //     //return;
-            // }
-            //     scene.gameLoopTimer.stop();
-            //     World window = new World1(charType, nameField.getText());
-            //     window.setVisible(true);
-            //     window.setBGMPlayer(bgmPlayer);
-            //     this.setVisible(false);
-            //     //bgmPlayer.stopBGM();
-            //     this.free();
-            
-                if (nameField != null && nameField.getText().trim().isEmpty()) {
-                    sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
-                    addNoNamePrompt();
-                    int width = noNamePrompt.getWidth();
-                    int height = noNamePrompt.getHeight();
-                    addNoNameOK(width, height);
-                    scene.setComponentZOrder(noNamePrompt, 1);
-                } else {
-                    // Handle normal OK button behavior
-                    scene.gameLoopTimer.stop();
-                    World window = new World1(charType, nameField.getText());
-                    window.setVisible(true);
-                    window.setBGMPlayer(bgmPlayer);
-                    this.setVisible(false);
-                    this.free();
-                }
-        }else if(source == btn_cancel || source == noNameOkButton){ 
-            // promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian
-            // selectButtonIsEnable = true; // this allows us to click our btn_select again because promptPanel is closed --jian
-            if (noNamePrompt != null && noNamePrompt.isVisible()) {
-                scene.remove(noNamePrompt);
-                addPromptNamePanel();
-                int width = promptPanel.getWidth();
-                int height = promptPanel.getHeight();
-                addNameField(width, height);
-                addOkButton(width, height);
-                addBtnCancel(width, height);
-                scene.setComponentZOrder(promptPanel, 0);
-            } else {
-                promptPanel.setVisible(false);
-                selectButtonIsEnable = true;
+            if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
+            sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+            JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
+                scene.gameLoopTimer.stop();
+                World window = new World1(charType, nameField.getText());
+                window.setVisible(true);
+                window.setBGMPlayer(bgmPlayer);
+                this.setVisible(false);
+                //bgmPlayer.stopBGM();
+                this.free();
+            
+        }else if(source == btn_cancel){ 
+            promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian
+            selectButtonIsEnable = true; // this allows us to click our btn_select again because promptPanel is closed --jian
         }
     }
 
