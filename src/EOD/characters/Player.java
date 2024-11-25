@@ -189,10 +189,12 @@ public class Player extends Character implements MouseInteractable{
         attributes.skill3Cd = attributes.skill4Cd  = attributes.skill2Cd = 0;
         skill2BuffRemaining = shieldBuffRemaining = poisonDebuffRemaining  = 0;
         poisonStacks = 1;
-        attributes.setMana((int)(attributes.getBaseMana() * 0.75));
-        
         if(attributes.getMana() < attributes.getBaseMana() * 0.75) attributes.setMana((int)(attributes.getBaseMana() * 0.75));
-        if(attributes.getHp() < attributes.getBaseHp() * 0.75) attributes.setHp((int)(attributes.getBaseHp() * 0.75));
+        if(attributes.getHp() <= 0){
+            attributes.setHp((int)(attributes.getBaseHp() * 0.75));
+        }else{
+            if(attributes.getHp() < attributes.getBaseHp() * 0.75) attributes.setHp((int)(attributes.getBaseHp() * 0.75));
+        }
         System.out.println("Player won? " + playerWon);
     }
 

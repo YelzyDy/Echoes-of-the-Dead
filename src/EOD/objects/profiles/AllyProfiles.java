@@ -201,9 +201,15 @@ public class AllyProfiles implements MouseInteractable, Freeable {
 
     public void setProfileEnabled(String type, boolean enabled){
         switch(type){
-            case "knight" -> knightProfile.setEnabled(enabled);
-            case "wizard" -> wizardProfile.setEnabled(enabled);
-            case "priest" -> priestProfile.setEnabled(enabled);
+            case "knight" ->{
+                knightProfile.setEnabled(enabled);
+            }
+            case "wizard" ->{
+                wizardProfile.setEnabled(enabled);
+            } 
+            case "priest" ->{ 
+                priestProfile.setEnabled(enabled);
+            }
         }
     }
 
