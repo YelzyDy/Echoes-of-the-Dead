@@ -336,27 +336,26 @@ public class BattleExperiment implements Skillable{
             }
         }
         battleUI.setSkillButtonsEnabled(false);
-        if(enemy.getCharacterType().equals("killer")){
-            player.getAnimator().triggerDeathAnimation(player.getPosY());
-            Timer reverseDeathTimer = new Timer(3000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    world.applyAdvancedGlitchEffect();
-                    player.getAnimator().reverseDeathAnimation();
-                    ((Timer)e.getSource()).stop();
-                }
-            });
-            reverseDeathTimer.setRepeats(false);
-            reverseDeathTimer.start();
-            
-            return;
-        }
 
         if(playerWon){
             world.callVictory();
             handleWin();
         }else{
-            player.getAnimator().triggerDeathAnimation(player.getPosY());
+            if(enemy.getCharacterType().equals("killer")){
+                player.getAnimator().triggerDeathAnimation(player.getPosY());
+                Timer reverseDeathTimer = new Timer(3000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        world.applyAdvancedGlitchEffect();
+                        player.getAnimator().reverseDeathAnimation();
+                        ((Timer)e.getSource()).stop();
+                    }
+                });
+                reverseDeathTimer.setRepeats(false);
+                reverseDeathTimer.start();
+                
+                return;
+            }
             handleLose();
         }
     }
