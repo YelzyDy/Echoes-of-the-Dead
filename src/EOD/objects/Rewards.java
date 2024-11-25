@@ -119,9 +119,9 @@ public class Rewards implements Freeable{
 
     private void handleKnightAllyAdding() {
         if (NECROMANCER.equals(enemyType)) {
-            addPriestToScene();
-        } else if (DEATH.equals(enemyType)) {   
             addWizardToScene();
+        } else if (DEATH.equals(enemyType)) {   
+            addPriestToScene();
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
         }
@@ -130,9 +130,9 @@ public class Rewards implements Freeable{
 
     private void handlePriestAllyAdding() {
         if (NECROMANCER.equals(enemyType)) {
-            addKnightToScene();
-        } else if (DEATH.equals(enemyType)) {
             addWizardToScene();
+        } else if (DEATH.equals(enemyType)) {
+            addKnightToScene();
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
         }
@@ -141,9 +141,9 @@ public class Rewards implements Freeable{
   
     private void handleWizardAllyAdding() {
         if (NECROMANCER.equals(enemyType)) {
-            addPriestToScene();
-        } else if (DEATH.equals(enemyType)) {
             addKnightToScene();
+        } else if (DEATH.equals(enemyType)) {
+            addPriestToScene();
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
         }
@@ -162,11 +162,11 @@ public class Rewards implements Freeable{
 
     private void handleKnightRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            allyProfiles.setPriestProfileVisible();
-            allyProfiles.addAlly(PRIEST);
-        } else if (DEATH.equals(enemyType)) {
             allyProfiles.setWizardProfileVisible();
             allyProfiles.addAlly(WIZARD);
+        } else if (DEATH.equals(enemyType)) {
+            allyProfiles.setPriestProfileVisible();
+            allyProfiles.addAlly(PRIEST);
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
         }
@@ -174,11 +174,11 @@ public class Rewards implements Freeable{
 
     private void handlePriestRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            allyProfiles.setKnightProfileVisible();
-            allyProfiles.addAlly(KNIGHT);
-        } else if (DEATH.equals(enemyType)) {
             allyProfiles.setWizardProfileVisible();
             allyProfiles.addAlly(WIZARD);
+        } else if (DEATH.equals(enemyType)) {
+            allyProfiles.setKnightProfileVisible();
+            allyProfiles.addAlly(KNIGHT);
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
         }
@@ -186,11 +186,11 @@ public class Rewards implements Freeable{
 
     private void handleWizardRewards() {
         if (NECROMANCER.equals(enemyType)) {
-            allyProfiles.setPriestProfileVisible();
-            allyProfiles.addAlly(PRIEST);
-        } else if (DEATH.equals(enemyType)) {
             allyProfiles.setKnightProfileVisible();
             allyProfiles.addAlly(KNIGHT);
+        } else if (DEATH.equals(enemyType)) {
+            allyProfiles.setPriestProfileVisible();
+            allyProfiles.addAlly(PRIEST);
         } else {
             System.out.println("Unknown enemy type: " + enemyType);
         }

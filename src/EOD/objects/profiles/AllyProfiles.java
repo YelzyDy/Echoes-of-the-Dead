@@ -84,6 +84,7 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         if(ally.equals("knight")) setKnightProfileVisible();
         else if(ally.equals("priest")) setPriestProfileVisible();
         else if(ally.equals("wizard")) setWizardProfileVisible();
+        setProfileEnabled(ally, true);
     }
 
     public void addProfile(String type, int index) {
@@ -106,7 +107,9 @@ public class AllyProfiles implements MouseInteractable, Freeable {
             case "knight" ->{
                 knightProfile = profile;
             }
-            case "priest" -> priestProfile = profile;
+            case "priest" -> {
+                priestProfile = profile;
+            }
             case "wizard" ->{
                 wizardProfile = profile;
             }
@@ -203,12 +206,18 @@ public class AllyProfiles implements MouseInteractable, Freeable {
         switch(type){
             case "knight" ->{
                 knightProfile.setEnabled(enabled);
+                knightProfile.revalidate();
+                knightProfile.repaint();
             }
             case "wizard" ->{
                 wizardProfile.setEnabled(enabled);
+                wizardProfile.revalidate();
+                wizardProfile.repaint();
             } 
             case "priest" ->{ 
                 priestProfile.setEnabled(enabled);
+                priestProfile.revalidate();
+                priestProfile.repaint();
             }
         }
     }
