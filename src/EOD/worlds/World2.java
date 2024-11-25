@@ -1,7 +1,6 @@
 package EOD.worlds;
 
 import EOD.characters.*;
-import EOD.characters.enemies.Death;
 import EOD.characters.enemies.Enemy;
 import EOD.characters.enemies.Necromancer;
 import EOD.characters.enemies.Skeleton2;
@@ -13,8 +12,8 @@ import EOD.objects.portals.RedPortal;
 import EOD.objects.shop.ShopExterior;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.BGMPlayer;
-import java.util.ArrayList;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -52,7 +51,6 @@ public class World2 extends World{
         player.setpanel(scene);
         player.setWorld(this);
         player.configureSkills();
-        
         System.out.println("Player type in world2: " + player.getCharacterType());
         
         // Add player to scene

@@ -57,7 +57,6 @@ public class World3 extends World{
         player.setpanel(scene);
         player.setWorld(this);
         player.configureSkills();
-        
         System.out.println("Player type in world2: " + player.getCharacterType());
         
         // Add player to scene

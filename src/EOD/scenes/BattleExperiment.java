@@ -7,10 +7,15 @@ import EOD.dialogues.FullScreenDialogues;
 import EOD.gameInterfaces.Skillable;
 import EOD.objects.Rewards;
 import EOD.objects.profiles.AllyProfiles;
+import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World; // -z
 
 import java.awt.Dialog;
+import EOD.worlds.World1;
+import EOD.worlds.World2;
+import EOD.worlds.World3;
+
 import java.awt.Dimension; // -z
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -25,7 +30,8 @@ public class BattleExperiment implements Skillable{
     private int turnCount = 1;
     private boolean isProcessingTurn = false;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
+    protected SFXPlayer sfxPlayer = SFXPlayer.getInstance();
+    protected BGMPlayer bgmPlayer = BGMPlayer.getInstance();
     protected boolean battleEnded = false;
     private boolean isKnightDead = false, isPriestDead = false, isWizardDead = false;
     public boolean isProcessingTurn(){
@@ -450,6 +456,15 @@ public class BattleExperiment implements Skillable{
 
 
     private void handleLose(){
+        bgmPlayer.stopBGM();
+        if (player.getWorld() instanceof World1){
+            bgmPlayer.playBGM("src/audio_assets/bgm/world1bgm.wav");
+        } else if (player.getWorld() instanceof  World2){
+            bgmPlayer.playBGM("src/audio_assets/bgm/world2bgm.wav");
+        } else if (player.getWorld() instanceof  World3){
+            bgmPlayer.playBGM("src/audio_assets/bgm/world3bgm.wav");
+        }
+
         player.getAnimator().setMoving(false);
         enemy.getAnimator().setIsInBattle(false);
         enemy.getAnimator().setMoving(true);

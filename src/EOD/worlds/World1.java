@@ -3,7 +3,6 @@ package EOD.worlds;
 import EOD.characters.*;
 import EOD.characters.enemies.Death;
 import EOD.characters.enemies.Enemy;
-import EOD.characters.enemies.Necromancer;
 import EOD.characters.enemies.Skeleton1;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
@@ -42,7 +41,7 @@ public class World1 extends World{
         initializePlayer();
         setMoney(player.getAttributes().getMoney());
         setMoneyLabel(player.getAttributes().getMoney() + "");
-        
+        player.setWorld(this);
         player.setVisible(true);
         scene.add(player);
         scene.setComponentZOrder(player, 0);
