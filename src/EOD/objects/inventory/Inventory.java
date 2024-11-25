@@ -259,7 +259,6 @@ public class Inventory extends EchoesObjects{
         }
     }
 
-    
     @Override 
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
