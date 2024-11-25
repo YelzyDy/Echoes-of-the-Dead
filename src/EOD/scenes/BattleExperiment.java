@@ -172,8 +172,8 @@ public class BattleExperiment implements Skillable{
 
                     if (player.getWorld().getPlayerList().get(0).isDamageReducerActive() && 
                         damageHolder[0] > (player.getAttributes().getHp() * 0.2)) {
-                        player.getAttributes().addMoney(30);
-                        battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 30 Soul Shards");
+                        player.getAttributes().addMoney(15);
+                        battleUI.showAction("Turn " + turnCount + ": Effect activated! Get 15 Soul Shards");
                     }
                     player.resetDamageReducer();
 
