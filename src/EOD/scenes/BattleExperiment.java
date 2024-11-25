@@ -350,18 +350,22 @@ public class BattleExperiment implements Skillable{
             world.callVictory();
             handleWin();
         }else{
-            Timer loseTimer = new Timer(500, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if(!world.defeatBanner.isVisible()){
-                        handleLose();
-                        player.getAnimator().revertDeath();
-                        ((Timer)e.getSource()).stop();
+
+            if(!enemy.getCharacterType().equals("killer")){
+                Timer loseTimer = new Timer(500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(!world.defeatBanner.isVisible()){
+                            handleLose();
+                            player.getAnimator().revertDeath();
+                            ((Timer)e.getSource()).stop();
+                        }
                     }
-                }
-            });
-            loseTimer.setRepeats(true);
-            loseTimer.start();
+                });
+                loseTimer.setRepeats(true);
+                loseTimer.start();
+                world.callDefeat();
+            }
 
             if(enemy.getCharacterType().equals("killer")){
                 Timer reverseDeathTimer = new Timer(3000, new ActionListener() {
@@ -369,14 +373,13 @@ public class BattleExperiment implements Skillable{
                     public void actionPerformed(ActionEvent e) {
                         world.applyAdvancedGlitchEffect();
                         player.getAnimator().reverseDeathAnimation();
+                        battleUI.setSkillButtonsEnabled(true);
                         ((Timer)e.getSource()).stop();
                     }
                 });
                 reverseDeathTimer.setRepeats(false);
                 reverseDeathTimer.start();
-                return;
             }
-            world.callDefeat();
             player.getAnimator().triggerDeathAnimation(player.getPosY());
         }
     }

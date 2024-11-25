@@ -14,11 +14,10 @@ import EOD.characters.enemies.Enemy;
 import EOD.characters.Npc;
 import java.util.ArrayList;
 import EOD.worlds.*;
-import EOD.Ending;
 public class Quests extends JPanel implements MouseInteractable{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public int ifActive = 10;
+    public int ifActive = 0;
 
     private final JPanel textPanel;
     private JScrollPane scrollPane;

@@ -404,7 +404,7 @@ public abstract class Animator implements Freeable{
             final int totalFrames = adjustedDuration / (1000 / fps);
             final double stepSize = Math.abs(startY - originalY) / totalFrames;
     
-            deathAnimationTimer = new Timer(1000 / fps, new ActionListener() {
+            deathAnimationTimer = new Timer(5000 / fps, new ActionListener() {
                 int frame = 0;
     
                 @Override
