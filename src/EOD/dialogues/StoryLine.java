@@ -731,7 +731,6 @@ public class StoryLine implements Freeable{
                         boolean isQuestDone = objDone[0];
                     
                         // Quest Objectives
-                        this.oArr[o++] = "The crimson portal leads to a dangerous anomaly on the city outskirts. It warrants investigation, but proceed with caution.";
                         if (!isQuestDone) {
                             this.qArr[q++] = "Quest: The Outskirt Spirit.";
                         } else {

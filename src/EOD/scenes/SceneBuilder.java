@@ -263,11 +263,11 @@ public void createWorldScene() {
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect(player);
             ArrayList<Player> playerList = player.getWorld().getPlayerList();
 
-            if(player.getAnimator().isExecutingSkillAndIsNotReturning()){
-                for(Player player : playerList){
-                    player.setPosX(screenSize.width * 0.35);
-                }
-            }
+            // if(player.getAnimator().isExecutingSkillAndIsNotReturning()){
+            //     for(Player player : playerList){
+            //         player.setPosX(screenSize.width * 0.35);
+            //     }
+            // }
 
 
             if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
