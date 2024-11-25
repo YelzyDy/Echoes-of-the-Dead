@@ -165,7 +165,7 @@ public class BattleExperiment implements Skillable{
                         performPriestPoison(playerDamageHolder);
                     }
                     if(enemy.getCharacterType().equals("skeleton3") && chosenSkill == 2){
-                        enemy.setPosY(screenSize.height * 0.13);
+                        enemy.setPosY(screenSize.height * 0.12);
                     }
                     player.takeDamage(damageHolder[0]);
                     player.getAnimator().triggerHurtAnimation();
