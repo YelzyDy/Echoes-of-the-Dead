@@ -20,7 +20,6 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /**
  *
@@ -45,6 +44,11 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private Player player;
     private BGMPlayer bgmPlayer;
     private SFXPlayer sfxPlayer;
+
+    //sheena
+    private EchoesObjects noNamePrompt; //sheen
+    private EchoesObjects noNameOkButton; //sheen
+
     public ChooseChar() {
         bgmPlayer = BGMPlayer.getInstance();
         sfxPlayer = sfxPlayer.getInstance();
@@ -80,6 +84,9 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         list.add(btn_ok);
         list.add(btn_cancel);
         list.add(promptPanel);
+        //sheen
+        list.add(noNameOkButton);
+        list.add(noNamePrompt); 
         list.add(scene);
         for(Freeable item : list){
             item.free();
@@ -147,6 +154,24 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         scene.add(promptPanel);  
     }
 
+    //sheen
+    private void addNoNamePrompt(){
+        // Hide the original promptPanel first
+        if (promptPanel != null) {
+            promptPanel.setVisible(false);
+        }
+    
+        noNamePrompt = createObj(
+            "world1", (int) (screenSize.width * 0.25), (int) (screenSize.height * 0.05), 
+            (int) (screenSize.width * 0.50), (int) (screenSize.height * 0.85), 
+            "nameEmpty", false, false, 1
+        );
+        scene.add(noNamePrompt);
+        // Ensure noNamePrompt is on top
+        scene.revalidate();
+        scene.repaint(); 
+    }
+
     private void addNameField(int panelHeight, int panelWidth){
         // Create and add a transparent JTextField to the promptPanel --jian
         nameField = new JTextField(20);
@@ -177,6 +202,22 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             promptPanel.add(btn_ok);
     }
 
+    //sheena
+    private void addNoNameOK(int panelHeight, int panelWidth){
+        noNameOkButton = createObj(
+            "button", (int) (panelWidth * 0.96),  // horizontal position
+            (int) (panelHeight * 0.65),   // vertical position
+            (int) (panelWidth * 0.18),   // Width
+            (int) (panelHeight * 0.09),   // Height
+            "ok_button",
+            false,true,2
+        );
+        noNameOkButton.setVisible(true);
+        noNameOkButton.addMouseListener(new MouseClickListener(this));
+        noNamePrompt.add(noNameOkButton);
+        scene.setComponentZOrder(noNameOkButton, 0);
+    }
+
     public void addBtnCancel(int panelHeight, int panelWidth){
         btn_cancel = createObj(
                 "button", (int) (panelWidth * 0.89),
@@ -189,6 +230,7 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             btn_cancel.addMouseListener(new MouseClickListener(this));
             promptPanel.add(btn_cancel);
     }
+
     @Override
     public void onClick(MouseEvent e) {
         // Since we have many EchoesObjects (buttons) that is attached with a MouseListener, we have to listen --jian
@@ -232,22 +274,55 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             player.setPosY(height * 0.45); // Update position based on height
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
-            if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
-            sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
-            JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
+            // if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
+            // sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+            // JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
+            //     return;
+            // }
+            //     scene.gameLoopTimer.stop();
+            //     World window = new World1(charType, nameField.getText());
+            //     window.setVisible(true);
+            //     window.setBGMPlayer(bgmPlayer);
+            //     this.setVisible(false);
+            //     //bgmPlayer.stopBGM();
+            //     this.free();
+            
+            //sheena
+            if (nameField != null && nameField.getText().trim().isEmpty()) {
+                sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
+                addNoNamePrompt();
+                int width = noNamePrompt.getWidth();
+                int height = noNamePrompt.getHeight();
+                addNoNameOK(width, height);
+                scene.setComponentZOrder(noNamePrompt, 1);
+            } else {
+                // Handle normal OK button behavior
                 scene.gameLoopTimer.stop();
                 World window = new World1(charType, nameField.getText());
                 window.setVisible(true);
                 window.setBGMPlayer(bgmPlayer);
                 this.setVisible(false);
-                //bgmPlayer.stopBGM();
                 this.free();
-            
-        }else if(source == btn_cancel){ 
-            promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian
-            selectButtonIsEnable = true; // this allows us to click our btn_select again because promptPanel is closed --jian
+            }
+
+        }else if(source == btn_cancel || source == noNameOkButton){ 
+            // promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian
+            // selectButtonIsEnable = true; // this allows us to click our btn_select again because promptPanel is closed --jian
+
+            //sheena edited
+            if (noNamePrompt != null && noNamePrompt.isVisible()) {
+                scene.remove(noNamePrompt);
+                addPromptNamePanel();
+                int width = promptPanel.getWidth();
+                int height = promptPanel.getHeight();
+                addNameField(width, height);
+                addOkButton(width, height);
+                addBtnCancel(width, height);
+                scene.setComponentZOrder(promptPanel, 0);
+            } else {
+                promptPanel.setVisible(false);
+                selectButtonIsEnable = true;
+            } 
         }
     }
 
