@@ -20,6 +20,13 @@ public class Inventory extends EchoesObjects{
     private int item1Quantity = 0, item2Quantity = 0, item3Quantity = 0, item4Quantity = 0;
     private PlayerAttributes attributes;
     private World world;
+
+    //sheena
+    private EchoesObjects confirmationPanel;
+    private EchoesObjects useButton;
+    private EchoesObjects cancelButton;
+
+
     public Inventory() {
         super("inventory",
             (int) (screenSize.width * 0.3),
@@ -42,6 +49,7 @@ public class Inventory extends EchoesObjects{
         this.setLayout(null);
         initializeItems();
         initializeLabels();
+        //initializeConfirmationPanel();
     }
 
     public void setWorld(World world){
@@ -251,7 +259,6 @@ public class Inventory extends EchoesObjects{
         }
     }
 
-    
     @Override 
     public void onClick(MouseEvent e) {
         Object source = e.getSource();
@@ -289,6 +296,7 @@ public class Inventory extends EchoesObjects{
         }
     }
 
+    
 
     @Override
     public void onHover(MouseEvent e){
