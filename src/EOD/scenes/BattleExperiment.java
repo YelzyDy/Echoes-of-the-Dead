@@ -1,5 +1,6 @@
 package EOD.scenes;
 
+import EOD.Ending;
 import EOD.characters.Player;
 import EOD.characters.enemies.Enemy;
 import EOD.dialogues.FullScreenDialogues;
@@ -341,8 +342,22 @@ public class BattleExperiment implements Skillable{
             world.callVictory();
             handleWin();
         }else{
+
+            Timer loseTimer = new Timer(200, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("defeat banner vis: " + world.defeatBanner.isVisible());
+                    if(!world.defeatBanner.isVisible()){
+                        handleLose();
+                        player.getAnimator().reverseDeathAnimation();
+                        ((Timer)e.getSource()).stop();
+                    }
+                }
+            });
+            loseTimer.setRepeats(true);
+            loseTimer.start();
+
             if(enemy.getCharacterType().equals("killer")){
-                player.getAnimator().triggerDeathAnimation(player.getPosY());
                 Timer reverseDeathTimer = new Timer(3000, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -356,7 +371,8 @@ public class BattleExperiment implements Skillable{
                 
                 return;
             }
-            handleLose();
+            world.callDefeat();
+            player.getAnimator().triggerDeathAnimation(player.getPosY());
         }
     }
 
@@ -374,7 +390,6 @@ public class BattleExperiment implements Skillable{
         int portalIndex = getPortalIndex(portalName);
         battleUI.getPortal().setIndex(portalIndex);
         enemy.setIsDefeated(true);
-        System.out.println("You won");
         Timer deathAnimationTimer = new Timer(800, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -395,9 +410,6 @@ public class BattleExperiment implements Skillable{
                         sfxPlayer.playSFX("src/audio_assets/sfx/skeletons/skeletondead.wav");
                         break;
                     case "Killer":
-                        FullScreenDialogues dialogues = new FullScreenDialogues();
-                        dialogues.setPlayerType(player.getCharacterType()); 
-                        dialogues.displayDialogue(1);
                         sfxPlayer.playSFX("src/audio_assets/sfx/miniboss/killerdead.wav");
                         break;
                     default:
@@ -408,12 +420,20 @@ public class BattleExperiment implements Skillable{
         });
         deathAnimationTimer.setRepeats(false); // Ensure the timer only fires once
         deathAnimationTimer.start();
+
+        if(enemy.getCharacterType().equals("killer")){
+                FullScreenDialogues dialogues = new FullScreenDialogues();
+                dialogues.setPlayerType(player.getCharacterType()); 
+                dialogues.displayDialogue(1);
+                if(!dialogues.isDisplayable()){
+                    new Ending(true).setVisible(true);
+                    player.getWorld().setVisible(false);
+                }
+        }
         handleRewards();
     }
 
     private void handleLose(){
-        player.getWorld().callDefeat();
-        
         player.getAnimator().setMoving(false);
         enemy.getAnimator().setIsInBattle(false);
         enemy.getAnimator().setMoving(true);

@@ -610,7 +610,6 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
             // Hide defeat banner if it's visible
             if (defeatBanner.isVisible()) {
                 defeatBanner.setVisible(false);
-                System.out.println("defeatBanner hidden");
             }
             counterLabel.setVisible(false);
         }else if(source == victoryBanner){

@@ -958,15 +958,6 @@ public class Quests extends JPanel implements MouseInteractable{
             }
         }
 
-        if(ifActive == 12){
-            if(enemyList.get(1).getIsDefeated()){
-                new Ending(true).setVisible(true);
-                world.setVisible(false);
-                setQuestStatus(13);
-                return true;
-            }
-        }
-
         return false;
     }   
     
