@@ -1,7 +1,7 @@
 package EOD;
 
-import EOD.characters.Player;
 import EOD.gameInterfaces.MouseInteractable;
+import EOD.gameInterfaces.WindowInteractable;
 import EOD.listeners.MouseClickListener;
 import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
@@ -11,10 +11,11 @@ import EOD.worlds.World;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-public class Ending extends javax.swing.JFrame implements MouseInteractable {
+public class Ending extends javax.swing.JFrame implements MouseInteractable, WindowInteractable {
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private int width = screenSize.width;
     private int height = screenSize.height;
@@ -110,5 +111,10 @@ public class Ending extends javax.swing.JFrame implements MouseInteractable {
     @Override
     public void onExit(MouseEvent e) {
 
+    }
+
+    @Override
+    public void onWindowClosing(WindowEvent e) {
+        bgmPlayer.stopBGM();
     }
 }
