@@ -7,7 +7,6 @@ import EOD.objects.EchoesObjects;
 import EOD.scenes.SceneBuilder;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World;
-import EOD.characters.enemies.Killer;
 import EOD.characters.enemies.Enemy;
 import java.awt.*;
 import java.awt.event.MouseEvent;
