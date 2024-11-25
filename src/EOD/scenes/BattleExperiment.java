@@ -344,6 +344,7 @@ public class BattleExperiment implements Skillable{
                 public void actionPerformed(ActionEvent e) {
                     world.applyAdvancedGlitchEffect();
                     player.getAnimator().reverseDeathAnimation();
+                    battleUI.setSkillButtonsEnabled(true);
                     ((Timer)e.getSource()).stop();
                 }
             });
@@ -357,8 +358,20 @@ public class BattleExperiment implements Skillable{
             world.callVictory();
             handleWin();
         }else{
+            player.getAnimator().triggerDeathAnimation(player.getPosY());
             world.callDefeat();
-            handleLose();
+            Timer reverseDeathTimer = new Timer(200, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(!world.defeatBanner.isVisible()){
+                        handleLose();
+                        player.getAnimator().reverseDeathAnimation();
+                    }
+                    ((Timer)e.getSource()).stop();
+                }
+            });
+            reverseDeathTimer.setRepeats(false);
+            reverseDeathTimer.start();
         }
     }
 
@@ -426,10 +439,6 @@ public class BattleExperiment implements Skillable{
             player.getAnimator().setIsInBattle(false);
         }
         battleUI.toggleInventoryOff();
-        // player.getWorld().quests.ifActive--;
-        // player.getWorld().quests.addQuests();
-
-        System.out.println("You lose");
         
     }
 

@@ -28,7 +28,7 @@ public abstract class World extends javax.swing.JFrame implements MouseInteracta
     private EchoesObjects promptPanel;
     protected EchoesObjects btn_ok;
     private EchoesObjects victoryBanner;
-    private EchoesObjects defeatBanner;
+    public EchoesObjects defeatBanner;
     private EchoesObjects soulShard;
     private JLabel name;  
     private String worldType;  
