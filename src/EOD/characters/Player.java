@@ -424,7 +424,7 @@ public class Player extends Character implements MouseInteractable{
         switch(skill){
             case 1 ->{
                 if(enemy.getCharacterType().equals("skeleton1")){
-                    return screenSize.width * 0.3;
+                    return screenSize.width * 0.33;
                 }else if(enemy.getCharacterType().equals("skeleton2")){
                     return screenSize.width * 0.3;
                 }else if(enemy.getCharacterType().equals("necromancer")){
