@@ -333,38 +333,62 @@ public abstract class Animator implements Freeable{
     }
 
     public void triggerDeathAnimation(double targetY) {
-        isDead = true;
-        isDeathAnimating = true;
-        currentFrame = 0;
-        this.targetY = targetY;
-        this.currentY = character.getPosY();
-
-        final double totalDistance = targetY - currentY;
-        final int baseAnimationDuration = 1000; // Base duration of 1 second
-        final int adjustedDuration = (int)(baseAnimationDuration / deathAnimationSpeedMultiplier);
-        final int fps = 60;
-        final int totalFrames = adjustedDuration / (1000 / fps);
-        final double stepSize = totalDistance / totalFrames;
-
-        deathAnimationTimer = new Timer(1000 / fps, new ActionListener() {
-            int frame = 0;
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (frame < totalFrames) {
-                    currentY += stepSize;
-                    character.setPosY(currentY);
-                    frame += Math.max(1, (int)(1 * deathAnimationSpeedMultiplier));
-                    updateBounds();
-                } else {
-                    isDeathAnimating = false;
-                    ((Timer) e.getSource()).stop();
+        if(!isDeathAnimating){
+            isDead = true;
+            isDeathAnimating = true;
+            currentFrame = 0;
+            this.targetY = targetY;
+            this.currentY = character.getPosY();
+            
+            final double totalDistance = targetY - currentY;
+            final int baseAnimationDuration = 1000; // Base duration of 1 second
+            final int adjustedDuration = (int)(baseAnimationDuration / deathAnimationSpeedMultiplier);
+            final int fps = 60;
+            final int totalFrames = adjustedDuration / (1000 / fps);
+            final double stepSize = totalDistance / totalFrames;
+            
+            deathAnimationTimer = new Timer(1000 / fps, new ActionListener() {
+                int frame = 0;
+            
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (frame < totalFrames) {
+                        currentY += stepSize;
+                        character.setPosY(currentY);
+                        frame += Math.max(1, (int)(1 * deathAnimationSpeedMultiplier));
+                        updateBounds();
+                    } else {
+                        isDeathAnimating = false;
+                        ((Timer) e.getSource()).stop();
+                    }
                 }
-            }
-        });
-
-        deathAnimationTimer.start();
+            });
+        
+            deathAnimationTimer.start();
+        }
     }
+
+    public void revertDeath() {
+        if (isDead) {
+            // Reset death state
+            isDead = false;
+            isDeathAnimating = false;
+            
+            // Reset position to the original position (not the death position)
+            currentY = targetY;  // If targetY is the death position, reset to originalY if needed.
+            character.setPosY(currentY);  // Set the character's Y position back
+            
+            // Reset the current frame to 0 (start of idle animation)
+            currentFrame = 0;
+            
+            
+            // Optionally, reset movement flags if needed
+            isMoving = false;
+            isMovingRight = true;
+        }
+    }
+    
+    
 
     public void reverseDeathAnimation() {
         if (isDead && !isDeathAnimating) {
