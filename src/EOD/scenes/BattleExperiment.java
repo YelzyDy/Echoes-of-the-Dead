@@ -152,7 +152,8 @@ public class BattleExperiment implements Skillable{
 
         
         if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
-            damageHolder[0] = (int)(initialDamage * 0.4);
+            damageHolder[0] = (int)(initialDamage * 0.5);
+            battleUI.showAction("Damage Halved! Only " + damageHolder[0] + " received!");
         }
 
         Timer skillCheckTimer = new Timer(enemy.playerHurtDelay, new ActionListener() {
