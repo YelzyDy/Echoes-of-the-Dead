@@ -11,7 +11,6 @@ import EOD.utils.BGMPlayer;
 import EOD.utils.SFXPlayer;
 import EOD.worlds.World; // -z
 
-import java.awt.Dialog;
 import EOD.worlds.World1;
 import EOD.worlds.World2;
 import EOD.worlds.World3;

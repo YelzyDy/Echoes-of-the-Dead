@@ -23,7 +23,6 @@ public class Quests extends JPanel implements MouseInteractable{
     private JScrollPane scrollPane;
     private JList<String> textList;
     private DefaultListModel<String> textListModel;
-    private Player player;
     private SceneBuilder scene;
     private ArrayList<Npc> npcList;
     private ArrayList<ClickableObjects> objList;
@@ -81,7 +80,6 @@ public class Quests extends JPanel implements MouseInteractable{
     }
 
     public void setPlayer(Player player){
-        this.player = player;
         this.npcList = player.getPanel().npcList;
         this.objList = player.getPanel().objList;
         this.enemyList = player.getPanel().enemyList;

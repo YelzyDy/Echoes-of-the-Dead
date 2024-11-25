@@ -1,8 +1,6 @@
 package EOD.characters;
 
 import EOD.dialogues.Dialogues;
-import EOD.scenes.ChoiceUI;
-import javax.swing.JLayeredPane;
 
 
 public class Reaper extends Npc {

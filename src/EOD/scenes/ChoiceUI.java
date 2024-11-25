@@ -12,17 +12,13 @@ public class ChoiceUI extends JPanel {
     private final int height = (int) (screenSize.height * 0.3);
     private final JPanel choicePanel;
     private boolean isKillerFound;
-    private World world;
     private String[] buttonNames = {
         "Faithful", "Ruby", "Akefay",
         "Monologuer", "Natty", "Asriel",
         "Renegald", "Chea", "Yoo"
     };
-    private JLayeredPane layeredPane;
     
     public ChoiceUI(World world) {
-        this.world = world;
-        this.layeredPane = world.getLayeredPane();
             // Main panel setup
             setPreferredSize(new Dimension(width, height));
             setBackground(Color.BLACK);

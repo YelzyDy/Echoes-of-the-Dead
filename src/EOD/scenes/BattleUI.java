@@ -6,7 +6,6 @@ import EOD.dialogues.*;
 import EOD.gameInterfaces.Freeable;
 import EOD.gameInterfaces.MouseInteractable;
 import EOD.listeners.MouseClickListener;
-import EOD.objects.EchoesObjects;
 import EOD.objects.ClickableObjects;
 import EOD.objects.Rewards;
 import EOD.objects.bars.BattleBars;

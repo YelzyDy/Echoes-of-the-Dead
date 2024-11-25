@@ -2,7 +2,6 @@ package EOD.characters.enemies;
 import EOD.characters.Player;
 import EOD.objects.ClickableObjects;
 
-import java.awt.event.MouseEvent;
 public class Skeleton1 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 10;

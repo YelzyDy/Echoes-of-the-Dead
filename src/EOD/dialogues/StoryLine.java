@@ -1,14 +1,11 @@
 package EOD.dialogues;
 import EOD.gameInterfaces.Freeable;
-import EOD.utils.SFXPlayer;
 import java.awt.*;
 public class StoryLine implements Freeable{
 
         private String[] arr = new String[50];
         private String[] qArr = new String[50];
         private String[] oArr = new String[50];
-
-        private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
         private int size;
         private int questSize;
         private int objectivesSize;

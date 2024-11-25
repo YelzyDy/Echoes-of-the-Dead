@@ -7,7 +7,6 @@ import EOD.objects.ClickableObjects;
 public class Killer extends Enemy{
     private static final int BASE_ATTACK = 25;
     private static final int BASE_HEALTH = 300;
-    private boolean fightEnabled = false;
     public Dialogues dialogues;
     // Skill cooldowns
     private int skill2Cooldown = 0;
@@ -179,10 +178,6 @@ public class Killer extends Enemy{
                 return 0.28;
             }
         }
-    }
-
-    public void setFightEnabled(boolean enabled) {
-        this.fightEnabled = enabled;
     }
 
     @Override
