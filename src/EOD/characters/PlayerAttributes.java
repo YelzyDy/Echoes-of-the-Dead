@@ -29,12 +29,48 @@ public class PlayerAttributes implements Freeable{
 
     private final Dimension screenSize;
 
+    //Constructor
     public PlayerAttributes(Player player) {
         this.player = player;
         this.screenSize = player.screenSize;
         configure(player.getCharacterType());
     }
 
+    //Setters
+    public void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
+        this.attack = atk;
+        this.baseAttack = attack;
+        this.health = hp;
+        this.baseHealth = hp;
+        this.mana = mp;
+        this.baseMana = mp;
+        this.money = moneyAmt;
+        this.baseMoney = money;
+        this.s1num = s1;
+        this.s2num = s2;
+        this.s3num = s3;
+        this.s4num = s4;
+    }
+
+    public void setHp(int newHealth) { health = newHealth; }
+    public void setBaseHp(int newBaseHp) { baseHealth = newBaseHp; }
+    public void setMana(int newMana) { mana = newMana; }
+    public void setBaseMana(int newBaseMana) { baseMana = newBaseMana; }
+    public void setMoney(int newMoney) { money = newMoney; }
+    public void addMoney(int newMoney) { money += newMoney; }
+    public void setAttack(int newAttack) { attack = newAttack; }
+    public void setBaseAttack(int newBaseAttack) { baseAttack = newBaseAttack; }
+
+    //Getters
+    public int getHp() { return health; }
+    public int getBaseHp() { return baseHealth; }
+    public int getMana() { return mana; }
+    public int getBaseMana() { return baseMana; }
+    public int getMoney() { return money; }
+    public int getAttack() { return attack; }
+    public int getBaseAttack() { return baseAttack; }
+
+    //Local Methods
     @Override
     public void free(){
         if(skillEffects1 != null) skillEffects1.free();
@@ -61,22 +97,7 @@ public class PlayerAttributes implements Freeable{
                 setupAttributes(15, 130, 100, 0, 9, 9, 9, 6);
                 break;
         }
-    }
-
-    public void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
-        this.attack = atk;
-        this.baseAttack = attack;
-        this.health = hp;
-        this.baseHealth = hp;
-        this.mana = mp;
-        this.baseMana = mp;
-        this.money = moneyAmt;
-        this.baseMoney = money;
-        this.s1num = s1;
-        this.s2num = s2;
-        this.s3num = s3;
-        this.s4num = s4;
-    }
+    }       
 
     public SkillEffects createSkillEffect(String type, double xFactor, double yFactor, int numSprites, boolean looping) {
         SkillEffects effect = new SkillEffects(
@@ -92,24 +113,4 @@ public class PlayerAttributes implements Freeable{
         effect.setLooping(looping);
         return effect;
     }
-
-    // Getters and Setters for attributes (health, mana, attack, etc.)
-    public int getHp() { return health; }
-    public void setHp(int newHealth) { health = newHealth; }
-    public int getBaseHp() { return baseHealth; }
-    public void setBaseHp(int newBaseHp) { baseHealth = newBaseHp; }
-
-    public int getMana() { return mana; }
-    public void setMana(int newMana) { mana = newMana; }
-    public int getBaseMana() { return baseMana; }
-    public void setBaseMana(int newBaseMana) { baseMana = newBaseMana; }
-
-    public int getMoney() { return money; }
-    public void addMoney(int newMoney) { money += newMoney; }
-    public void setMoney(int newMoney) { money = newMoney; }
-
-    public int getAttack() { return attack; }
-    public void setAttack(int newAttack) { attack = newAttack; }
-    public int getBaseAttack() { return baseAttack; }
-    public void setBaseAttack(int newBaseAttack) { baseAttack = newBaseAttack; }
 }
