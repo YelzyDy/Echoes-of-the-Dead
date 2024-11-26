@@ -178,7 +178,7 @@ public class BattleExperiment implements Skillable{
         battleUI.showAction("Turn " + turnCount + ": " + enemy.getAction());
 
         if (player.getWorld().getPlayerList().get(0).isDamageReducerActive()){ 
-            damageHolder[0] = (int)(initialDamage * 0.4);
+            damageHolder[0] = (int)(initialDamage * 0.6);
             battleUI.showAction("Damage reduced! Only " + damageHolder[0] + " damage received!");
         }
 
@@ -344,7 +344,7 @@ public class BattleExperiment implements Skillable{
         battleEnded = true;     
         isProcessingTurn = false;
         World world = player.getWorld();
-        
+        player.attributes.setAttack(player.originalAttack);
         for(Player player : world.getPlayerList()){
             player.reset(playerWon);
         }

@@ -44,7 +44,7 @@ public class Player extends Character implements MouseInteractable{
     private int skill2BuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int shieldBuffRemaining = 0; // Tracks remaining turns of skill 2 buff
     private int poisonDebuffRemaining = 0;
-    private int originalAttack; // Stores original attack value
+    public int originalAttack; // Stores original attack value
     private Inventory inventory;
     private AllyProfiles allyProfiles;
     private PlayerProfile playerProfile;
@@ -619,6 +619,8 @@ public class Player extends Character implements MouseInteractable{
 
                 for(Player player : playerList){
                     int playerHp = player.getAttributes().getHp();
+                    if(player.getCharacterType() == "priest")
+                        continue;
                     if(playerHp > 0){
                         player.getAttributes().setHp(playerHp + (int)(player.getAttributes().getBaseHp()*0.3));
                         if(player.getAttributes().getHp()>player.getAttributes().getBaseHp()){

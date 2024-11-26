@@ -770,7 +770,7 @@ public class Quests extends JPanel implements MouseInteractable{
             Enemy enemy = enemyList.get(0);
             if(enemy.getIsDefeated()){
                 setQuestStatus(6); //katong inig human ug pildi sa executioner
-                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), 75, enemy.getX() * 1.2, screenSize.height * 0.23);
+                rewards.getEnemyRewards(getEnemyType(enemy.getCharacterType()), enemy.getMoneyDrop(), enemy.getX() * 1.2, screenSize.height * 0.23);
                 rewards.getMinionsChest().setIndex(enemy.getIndex());
                 constance.dialogues.getQuestsDialogues().updateObjectivesAtIndex(1, true);
                 return true;
