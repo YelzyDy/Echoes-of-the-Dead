@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
+
 public class Main extends javax.swing.JFrame implements MouseInteractable {
     FullScreenDialogues dialogues = new FullScreenDialogues();
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
