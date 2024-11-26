@@ -22,6 +22,7 @@ public class Death extends Enemy{
             attack = BASE_ATTACK;
             baseHp = BASE_HEALTH;
             baseAttack = BASE_ATTACK;
+            moneyDrop = 50;
             animator.setMovementMultiplier(2);
             animator.setDeathAnimationSpeedMultiplier(1);
             animator.setSkillAnimationSpeedMultiplier(1);
