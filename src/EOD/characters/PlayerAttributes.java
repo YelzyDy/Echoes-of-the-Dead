@@ -91,10 +91,10 @@ public class PlayerAttributes implements Freeable{
                 setupAttributes(15, 100, 100, 30, 7, 4, 4, 11);
                 break;
             case "wizard":
-                setupAttributes(15, 100, 130, 0, 6, 6, 6, 6);
+                setupAttributes(15, 100, 130, 15, 6, 6, 6, 6);
                 break;
             case "priest":
-                setupAttributes(15, 130, 100, 0, 9, 9, 9, 6);
+                setupAttributes(15, 130, 100, 15, 9, 9, 9, 6);
                 break;
         }
     }       
