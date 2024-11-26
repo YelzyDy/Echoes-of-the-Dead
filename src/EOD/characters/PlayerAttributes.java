@@ -29,10 +29,27 @@ public class PlayerAttributes implements Freeable{
 
     private final Dimension screenSize;
 
+    //Constructor
     public PlayerAttributes(Player player) {
         this.player = player;
         this.screenSize = player.screenSize;
         configure(player.getCharacterType());
+    }
+
+    //Setters
+    public void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
+        this.attack = atk;
+        this.baseAttack = attack;
+        this.health = hp;
+        this.baseHealth = hp;
+        this.mana = mp;
+        this.baseMana = mp;
+        this.money = moneyAmt;
+        this.baseMoney = money;
+        this.s1num = s1;
+        this.s2num = s2;
+        this.s3num = s3;
+        this.s4num = s4;
     }
 
     @Override
@@ -61,22 +78,7 @@ public class PlayerAttributes implements Freeable{
                 setupAttributes(15, 130, 100, 0, 9, 9, 9, 6);
                 break;
         }
-    }
-
-    public void setupAttributes(int atk, int hp, int mp, int moneyAmt, int s1, int s2, int s3, int s4) {
-        this.attack = atk;
-        this.baseAttack = attack;
-        this.health = hp;
-        this.baseHealth = hp;
-        this.mana = mp;
-        this.baseMana = mp;
-        this.money = moneyAmt;
-        this.baseMoney = money;
-        this.s1num = s1;
-        this.s2num = s2;
-        this.s3num = s3;
-        this.s4num = s4;
-    }
+    }       
 
     public SkillEffects createSkillEffect(String type, double xFactor, double yFactor, int numSprites, boolean looping) {
         SkillEffects effect = new SkillEffects(
