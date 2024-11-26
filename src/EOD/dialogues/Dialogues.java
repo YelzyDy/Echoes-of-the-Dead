@@ -146,9 +146,6 @@ public class Dialogues implements Freeable, MouseInteractable {
         } catch (Exception e) {
             e.printStackTrace();
             portraitDialog.dispose();
-            portraitBox.setVisible(false);
-            // portraitBox.setText("Finish Quest First!");
-            // portraitBox.setForeground(Color.RED);
         }
     
         portraitDialog.add(portraitBox);
@@ -356,7 +353,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                 story.monoIntro(playerType, worldType);
                 this.portraitPath = "/portrait_assets/mono.png";
                 break;
-            default:
+            case 24:
                 if (worldType == "world3") {
                     if (playerType == "knight") {
                         this.portraitPath = "/portrait_assets/furious_faithful.png";
@@ -368,6 +365,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                         this.portraitPath = "/portrait_assets/naughty_natty.png";
                     }
                 }
+            default:
                 break;
         }
 
