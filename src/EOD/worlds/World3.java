@@ -159,7 +159,7 @@ public class World3 extends World{
     @Override
     public void initializeEnemies(){
         scene.enemyList = new ArrayList<>();
-        scene.enemyList.add(new Skeleton3("Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
+        scene.enemyList.add(new Skeleton3("Broadsword Skeleton",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
         scene.enemyList.add(new Killer("Killer",  (int) (screenSize.width * 0.65), (int)(screenSize.height * 0.1), screenSize.width * 0.4, screenSize.width * 0.8, player));
         
         for(Enemy enemy : scene.enemyList){

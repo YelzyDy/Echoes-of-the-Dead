@@ -264,7 +264,7 @@ public class Quests extends JPanel implements MouseInteractable{
             case 8: return "Speak to Miggins about a quest";
             case 7: return "Speak to the old woman near the shop.";
             case 6: return "Tell Constance you've defeated the skeleton";
-            case 5: return "Defeat the shield-wielding skeleton.";
+            case 5: return "Defeat the broadsword skeleton.";
             case 4: return "Enter the green portal.";
             case 3: return "Tell Constance you're done talking to the locals.";
             case 2: return "Talk to the locals (0/3).";
