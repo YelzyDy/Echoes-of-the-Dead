@@ -67,7 +67,7 @@ public class AskDialogues extends JFrame {
                 story.cheaLines(playerType);
                 break;
             case 23:
-                story.monoLines();
+                story.monoLines(playerType);
                 break;
             default:
                 break;

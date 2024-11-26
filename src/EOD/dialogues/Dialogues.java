@@ -365,6 +365,7 @@ public class Dialogues implements Freeable, MouseInteractable {
                         this.portraitPath = "/portrait_assets/naughty_natty.png";
                     }
                 }
+                break;
             default:
                 break;
         }

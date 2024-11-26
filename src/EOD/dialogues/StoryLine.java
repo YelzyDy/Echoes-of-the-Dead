@@ -664,13 +664,13 @@ public class StoryLine implements Freeable{
                         this.arr[i++] = playerName + ": \"I'll handle it. Don't worry.\"";
                         this.arr[i++] = "Miggins: \"Don't worry, he says! You're braver than I could ever be, that's for sure. Good luck out there, dear.\"";
                         if (playerType == "knight") {
-                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had " + "<font color='#FF0000'>" + "short" + "</font>" + ", " + "<font color='#FF0000'>" + "wavy hair" + "</font>" + ".\"";
+                                this.arr[i++] = "Miggins: \"Oh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "short" + "</font>" + ", " + "<font color='#FF0000'>" + "straight hair" + "</font>" + ".\"";;
                         }
                         if (playerType == "wizard") {
-                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had " + "<font color='#FF0000'>" + "short" + "</font>" + ", " + "<font color='#FF0000'>" + "straight hair" + "</font>" + ".\"";
+                                this.arr[i++] = "Miggins: \"Oh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "short" + "</font>" + ", " + "<font color='#FF0000'>" + "wavy hair" + "</font>" + ".\"";
                         }
                         if (playerType == "priest") {
-                                this.arr[i++] = "Miggins: \"Keep on the lookout for your killer too, I got a glimpse of them summoning that vile demon. They were far from view, but I'm certain they had " + "<font color='#FF0000'>" + "long" + "</font>" + ", " + "<font color='#FF0000'>" + "straight hair" + "</font>" + ".\"";
+                                this.arr[i++] = "Miggins: \"Oh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "long" + "</font>" + ", " + "<font color='#FF0000'>" + "straight hair" + "</font>" + ".\"";;
                         }
                 }
             
@@ -953,11 +953,11 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "[They fidget with their sleeves while speaking, eyes darting around.]";
                 this.arr[i++] = "Mono: \"I'll be here if you need anything. I like this spot. It's quiet. Good for... thinking. And I hear things. From the shadows. Not in a weird way! Just... you know what, never mind.\"";
                 this.arr[i++] = "Mono: \"Um, goodbye? Yes, goodbye. That's the right thing to say now, I think.\"";
-            
+
                 this.size = i;
         }
 
-        public void monoLines() {
+        public void monoLines(String playerType) {
                 int i = 0;
             
                 this.arr[i++] = playerName + ": \"Do you always talk to yourself?\"";
@@ -985,8 +985,12 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Mono: \"Yes! I mean, maybe. The shadows whisper about them but... no, that sounds weird. Let me start over. They're important, that's all I know for sure.\"";
             
                 this.arr[i++] = playerName + ": \"Have you seen others pass through here?\"";
-                this.arr[i++] = "Mono: \"Many. Some stop to talk. Most don't. Which is fine! Totally fine. I'm not very good at talking anyway.\"";
-            
+                        if (playerType == "priest") {
+                                this.arr[i++] = "Mono: \"I did, one in particular was boasting about how they killed someonOh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "bright clothes on" + "</font>" + ".\"";
+                        } else {
+                                this.arr[i++] = "Mono: \"I did, one in particular was boasting about how they killed someonOh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "dark clothes on" + "</font>" + ".\"";
+                        }
+
                 this.arr[i++] = playerName + ": \"What do you do all day?\"";
                 this.arr[i++] = "Mono: \"Watch. Listen. Practice talking. Though clearly I need more practice. Was that supposed to be funny? I'm trying to learn humor.\"";
             
@@ -1048,7 +1052,7 @@ public class StoryLine implements Freeable{
                 } else if (playerType.equals("priest")) {
                         this.arr[i++] = "Ruby: \"No, I mean yes. She's been around here somewhere. I guess she's a bit chatty and unpredictable?\"";
                 } else {
-                        this.arr[i++] = "Ruby: \"Yep, some dude talking about how pissed he was at dying like that. He got a hair thing growing out his chin.\"";
+                        this.arr[i++] = "Ruby: \"Yep, some dude talking about how pissed he was at dying like that. He got a " + "<font color='#FF0000'>" + "beard" + "</font>" + "on his chin.\"";
                 }
             
                 this.arr[i++] = playerName + ": \"I drowned. How about you?\"";
@@ -1057,7 +1061,7 @@ public class StoryLine implements Freeable{
                 this.size = i;
         }
 
-        public void reginaldIntro() {
+        public void reginaldIntro(String playerType) {
                 int i = 0;
             
                 this.arr[i++] = playerName + " approach the edge of the city, where you see a well-dressed gentleman standing alone, adjusting his suit with exaggerated care.";
@@ -1070,6 +1074,15 @@ public class StoryLine implements Freeable{
                 this.arr[i++] = "Reginald: \"Indeed, but one must rise above it! My attire may not be entirely suitable for these surroundings, but one must maintain a sense of dignity.\"";
                 this.arr[i++] = playerName + ": \"Sure, because dignity's so helpful down here.\"";
                 this.arr[i++] = "Reginald: \"Ah, sarcasm. I do find it rather charming.\"";
+                if (playerType == "knight") {
+                    this.arr[i++] = "Reginald: \"Oh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "black hair" + "</font>" + ".\"";;
+                }
+                if (playerType == "wizard") {
+                    this.arr[i++] = "Reginald: \"Oh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "black hair" + "</font>" + ".\"";
+                }
+                if (playerType == "priest") {
+                    this.arr[i++] = "Reginald: \"Oh, your attitude reminds me of that person speaking not so nice about you, I'm sure they had " + "<font color='#FF0000'>" + "brown eyes" + "</font>" + ".\"";
+                }
             
                 this.size = i;
         }
@@ -1240,15 +1253,15 @@ public class StoryLine implements Freeable{
 
                 if (playerType == "knight") {
                         this.arr[i++] = playerName + ": \"Can you atleast tell me if you know anything about a-\"";
-                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "blood" + "</font>" + " all over them.\"";
+                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had a " + "<font color='#FF0000'>" + "mole" + "</font>" + " on their cheek.\"";
                 }
                 if (playerType == "wizard") {
                         this.arr[i++] = playerName + ": \"Can you atleast tell me if you know anything about a-\"";
-                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "scars" + "</font>" + " all over them.\"";
+                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "glasses" + "</font>" + " on their face.\"";
                 } 
                 if (playerType == "priest") {
                         this.arr[i++] = playerName + ": \"Can you atleast tell me if you know anything about a-\"";
-                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "blood" + "</font>" + ".\"";
+                        this.arr[i++] = "Chea: \"Murderer? Oh yes! I told Constance, she visits here all the time. I swear they had " + "<font color='#FF0000'>" + "bulky necklace" + "</font>" + ".\"";
                 }
 
                 this.size = i;
