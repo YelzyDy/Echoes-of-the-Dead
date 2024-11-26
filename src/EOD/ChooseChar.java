@@ -49,6 +49,8 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
     private EchoesObjects noNamePrompt; //sheen
     private EchoesObjects noNameOkButton; //sheen
 
+
+    // CONSTRUCTOR
     public ChooseChar() {
         bgmPlayer = BGMPlayer.getInstance();
         sfxPlayer = sfxPlayer.getInstance();
@@ -97,6 +99,11 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
         screenSize = null;
     }
 
+    // SETTERS - NONE
+
+    // GETTERS - NONE
+
+    // LOCAL METHODS
     public void initiializeProtagonist(){
         player = new Player(charType, (int)(screenSize.width * 0.32), (int)(screenSize.height * 0.45));
         player.setpanel(scene);
@@ -231,6 +238,8 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             promptPanel.add(btn_cancel);
     }
 
+
+    // OVERRIDDEN METHODS
     @Override
     public void onClick(MouseEvent e) {
         // Since we have many EchoesObjects (buttons) that is attached with a MouseListener, we have to listen --jian
@@ -274,20 +283,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             player.setPosY(height * 0.45); // Update position based on height
             scene.setCurrentSceneIndex(2);
         }else if(source == btn_ok){
-            // if((nameField.getText().trim().isEmpty())){ // a condition that sends a warning message to the user if they clicked ok when they didn't enter a name --jian
-            // sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
-            // JOptionPane.showMessageDialog(null, "Please enter a name!", "", JOptionPane.INFORMATION_MESSAGE);
-            //     return;
-            // }
-            //     scene.gameLoopTimer.stop();
-            //     World window = new World1(charType, nameField.getText());
-            //     window.setVisible(true);
-            //     window.setBGMPlayer(bgmPlayer);
-            //     this.setVisible(false);
-            //     //bgmPlayer.stopBGM();
-            //     this.free();
-            
-            //sheena
             if (nameField != null && nameField.getText().trim().isEmpty()) {
                 sfxPlayer.playSFX("src/audio_assets/sfx/general/invalid.wav");
                 addNoNamePrompt();
@@ -306,10 +301,6 @@ public class ChooseChar extends javax.swing.JFrame implements MouseInteractable 
             }
 
         }else if(source == btn_cancel || source == noNameOkButton){ 
-            // promptPanel.setVisible(false);  // setting the promptPanel's visibility to false if cancel is clicked --jian
-            // selectButtonIsEnable = true; // this allows us to click our btn_select again because promptPanel is closed --jian
-
-            //sheena edited
             if (noNamePrompt != null && noNamePrompt.isVisible()) {
                 scene.remove(noNamePrompt);
                 addPromptNamePanel();

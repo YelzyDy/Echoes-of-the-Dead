@@ -45,6 +45,8 @@ public class SceneBuilder extends JPanel implements Freeable{
 
     private SceneTransitionHandler transitionHandler;
 
+
+    // CONSTRUCTORS
     public SceneBuilder(World world){
         this.world = world;
         this.setBackground(Color.black);
@@ -87,23 +89,7 @@ public class SceneBuilder extends JPanel implements Freeable{
         this.gameLoopTimer = null;
     }
 
-    public ImageList getSceneList(){
-        return sceneList;
-    }
-
-
-    public int getNumOfScenes(){
-        return sceneList.getSize();
-    }
-
-    public int getCurrentSceneIndex(){
-        return currentSceneIndex;
-    }
-
-    public Player getPlayer(){
-        return player;
-    }
-
+    // SETTERS
     public void setPlayer(Player player){
         this.player = player;
     }
@@ -142,6 +128,28 @@ public class SceneBuilder extends JPanel implements Freeable{
     public void setCurrentSceneIndex(int value){
         this.currentSceneIndex = value;
     }
+
+
+    // GETTERS
+    public ImageList getSceneList(){
+        return sceneList;
+    }
+
+    public int getNumOfScenes(){
+        return sceneList.getSize();
+    }
+
+    public int getCurrentSceneIndex(){
+        return currentSceneIndex;
+    }
+
+    public Player getPlayer(){
+        return player;
+    }
+
+    
+
+    // LOCAL METHODS
 
     public void decCurrentScene(){
         this.currentSceneIndex--;
@@ -263,13 +271,6 @@ public void createWorldScene() {
             if(enemy.skill2Effects != null) enemy.skill2Effects.updateEffect(player);
             ArrayList<Player> playerList = player.getWorld().getPlayerList();
 
-            // if(player.getAnimator().isExecutingSkillAndIsNotReturning()){
-            //     for(Player player : playerList){
-            //         player.setPosX(screenSize.width * 0.35);
-            //     }
-            // }
-
-
             if (world.getPlayerList().get(0).getAttributes().skillEffects3 != null){
                 world.getPlayerList().get(0).getAttributes().skillEffects3.updateEffect(player);
                 double offsetX = 0, offsetY = 0;
@@ -361,6 +362,9 @@ public void createWorldScene() {
         debugWorldEnding();
     }
 
+
+
+    // OVERRIDDEN METHODS
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -399,10 +403,10 @@ public void createWorldScene() {
         
         if(ally != null) ally.setVisible(ally.getIndex() == currentSceneIndex);
         for (Npc npc : npcList) {
-            npc.setVisible(npc.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+            npc.setVisible(npc.getIndex() == currentSceneIndex); 
         }
         for (Enemy enemy : enemyList) {
-            enemy.setVisible(enemy.getIndex() == currentSceneIndex); // i fix pa nang mo hide if na transport
+            enemy.setVisible(enemy.getIndex() == currentSceneIndex); 
         }
     }
 

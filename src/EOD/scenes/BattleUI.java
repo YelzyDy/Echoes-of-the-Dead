@@ -48,8 +48,8 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
     private ClickableObjects portal;
     private String temp;
     private JPanel bottomPanel;
-    //private SFXPlayer sfxPlayer;
-
+    
+    // CONSTRUCTOR
     public BattleUI(Player player){
         this.player = player;
         this.story = new StoryLine();
@@ -57,11 +57,7 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         this.textPanel = new JPanel(new GridLayout(3, 1));
         this.battleBars = new BattleBars();
         initializeUI();
-        //sfxPlayer = SFXPlayer.getInstance();
-    }
-
-    public void setRewards(Rewards rewards){
-        this.rewards = rewards;
+        
     }
 
     @Override
@@ -148,10 +144,65 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         }      
     }
 
+
+
+    // SETTERS
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;
     }
 
+    public void setRewards(Rewards rewards){
+        this.rewards = rewards;
+    }
+
+    public void setPortal(ClickableObjects portal){
+        this.portal = portal;
+    }
+
+    public void setPlayer(Player player){
+        this.player = player;
+        if (battleSample != null)battleSample.setPlayer(player);
+        if(player.getAnimator().getIsInBattle()){
+            enemy.setPlayer(player);
+            player.setEnemy(enemy);
+        }
+        handleSkillVisibility();
+    }
+
+
+    // GETTERS
+    public JPanel getEnemyWrapper(){
+        return enemyWrapper;
+    }
+
+    public ClickableObjects getPortal(){
+        return portal;
+    }
+
+    public BattleExperiment getBattleExperiment(){
+        return battleSample;
+    }
+
+    public JPanel getSidePanel(){
+        return sidePanel;
+    }
+
+    public JPanel getBottomPanel(){
+        return bottomPanel;
+    }
+
+    private JButton getSkillButton(int index) {
+        switch (index) {
+            case 1: return skillB;
+            case 2: return skillC;
+            case 3: return skillD;
+            default: return null;
+        }
+    }
+
+
+
+    // LOCAL METHODS
     public void startBattle(){
         textListModel.clear();
         battleSample = new BattleExperiment();
@@ -402,32 +453,6 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         return wrapper;
     }
 
-    public JPanel getEnemyWrapper(){
-        return enemyWrapper;
-    }
-
-    public void setPortal(ClickableObjects portal){
-        this.portal = portal;
-    }
-
-    public ClickableObjects getPortal(){
-        return portal;
-    }
-
-    public BattleExperiment getBattleExperiment(){
-        return battleSample;
-    }
-
-
-    public JPanel getSidePanel(){
-        return sidePanel;
-    }
-
-    public JPanel getBottomPanel(){
-        return bottomPanel;
-    }
-
-
     public void toggleInventoryOn(){
         if(player.getAnimator().getIsInBattle()) temp = topTextBox.getText();
         topTextBox.setText("Inventory");
@@ -448,16 +473,6 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
 
     public void updateTextDetail(String detail){
         bottomTextBox.setText(detail);
-    }
-
-    public void setPlayer(Player player){
-        this.player = player;
-        if (battleSample != null)battleSample.setPlayer(player);
-        if(player.getAnimator().getIsInBattle()){
-            enemy.setPlayer(player);
-            player.setEnemy(enemy);
-        }
-        handleSkillVisibility();
     }
 
     public void handleSkillVisibility(){
@@ -582,15 +597,6 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         }
     }
 
-    private JButton getSkillButton(int index) {
-        switch (index) {
-            case 1: return skillB;
-            case 2: return skillC;
-            case 3: return skillD;
-            default: return null;
-        }
-    }
-
     public ImageIcon scaleImageIcon(String path) {
         int width = (int) (screenSize.width * 0.06);
         int height = (int) (screenSize.width * 0.06);
@@ -603,6 +609,9 @@ public class BattleUI extends JPanel implements Freeable, MouseInteractable{
         return new ImageIcon(scaledImg);
     }
 
+
+
+    // OVERRIDDEN METHODS
     @Override
     public void onClick(MouseEvent e) {
         Object source = e.getSource();

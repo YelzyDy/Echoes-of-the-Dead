@@ -33,10 +33,8 @@ public class BattleExperiment implements Skillable{
     protected BGMPlayer bgmPlayer = BGMPlayer.getInstance();
     protected boolean battleEnded = false;
     private boolean isKnightDead = false, isPriestDead = false, isWizardDead = false;
-    public boolean isProcessingTurn(){
-        return isProcessingTurn;
-    }
 
+    // SETTERS
     public void setEnemy(Enemy enemy){
         this.enemy = enemy;
     }
@@ -45,6 +43,19 @@ public class BattleExperiment implements Skillable{
         this.player = player;
     }
 
+    public void setBattleUI(BattleUI battle){
+        this.battleUI = battle;
+        rewards = battleUI.rewards;
+    }
+
+
+
+    // GETTERS
+    public boolean isProcessingTurn(){
+        return isProcessingTurn;
+    }
+
+    
     public Enemy getEnemy(){
         return enemy;
     }
@@ -53,12 +64,18 @@ public class BattleExperiment implements Skillable{
         return player;
     }
 
-    public void setBattleUI(BattleUI battle){
-        this.battleUI = battle;
-        rewards = battleUI.rewards;
+    private int getPortalIndex(String name){
+        if(name.equals("portal")){
+            return 3;
+        }else if(name.equals("portalMiniBoss")){
+            return 4;
+        }
+        return -1;
     }
 
 
+    
+    // LOCAL METHODS
     private void performPriestPoison(int damageHolder[]){
         System.out.println("damageHolder[0] = " + damageHolder[0]);
         System.out.println("Poison Stacks: " + player.getPoisonStacks());
@@ -381,15 +398,6 @@ public class BattleExperiment implements Skillable{
             }
             player.getAnimator().triggerDeathAnimation(player.getPosY());
         }
-    }
-
-    private int getPortalIndex(String name){
-        if(name.equals("portal")){
-            return 3;
-        }else if(name.equals("portalMiniBoss")){
-            return 4;
-        }
-        return -1;
     }
 
     private void handleWin(){

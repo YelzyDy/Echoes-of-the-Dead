@@ -12,7 +12,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
 
 public class Ending extends javax.swing.JFrame implements MouseInteractable, WindowInteractable {
@@ -23,6 +22,7 @@ public class Ending extends javax.swing.JFrame implements MouseInteractable, Win
     private SFXPlayer sfxPlayer = SFXPlayer.getInstance();
     private boolean isGoodEnding;
     private World world;
+
     // Constructor for Good or Bad Ending
     public Ending(boolean isGoodEnding, World world) {
         this.world = world;
