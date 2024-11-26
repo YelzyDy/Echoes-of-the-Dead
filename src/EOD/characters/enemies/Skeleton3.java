@@ -4,7 +4,7 @@ import EOD.objects.ClickableObjects;
 public class Skeleton3 extends Enemy {
     // Constants for better maintainability
     private static final int BASE_ATTACK = 20;
-    private static final int BASE_HEALTH = 140;
+    private static final int BASE_HEALTH = 150;
     
     // Skill cooldowns
     private int skill2Cooldown = 0;
