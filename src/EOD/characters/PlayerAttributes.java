@@ -52,6 +52,25 @@ public class PlayerAttributes implements Freeable{
         this.s4num = s4;
     }
 
+    public void setHp(int newHealth) { health = newHealth; }
+    public void setBaseHp(int newBaseHp) { baseHealth = newBaseHp; }
+    public void setMana(int newMana) { mana = newMana; }
+    public void setBaseMana(int newBaseMana) { baseMana = newBaseMana; }
+    public void setMoney(int newMoney) { money = newMoney; }
+    public void addMoney(int newMoney) { money += newMoney; }
+    public void setAttack(int newAttack) { attack = newAttack; }
+    public void setBaseAttack(int newBaseAttack) { baseAttack = newBaseAttack; }
+
+    //Getters
+    public int getHp() { return health; }
+    public int getBaseHp() { return baseHealth; }
+    public int getMana() { return mana; }
+    public int getBaseMana() { return baseMana; }
+    public int getMoney() { return money; }
+    public int getAttack() { return attack; }
+    public int getBaseAttack() { return baseAttack; }
+
+    //Local Methods
     @Override
     public void free(){
         if(skillEffects1 != null) skillEffects1.free();
@@ -94,24 +113,4 @@ public class PlayerAttributes implements Freeable{
         effect.setLooping(looping);
         return effect;
     }
-
-    // Getters and Setters for attributes (health, mana, attack, etc.)
-    public int getHp() { return health; }
-    public void setHp(int newHealth) { health = newHealth; }
-    public int getBaseHp() { return baseHealth; }
-    public void setBaseHp(int newBaseHp) { baseHealth = newBaseHp; }
-
-    public int getMana() { return mana; }
-    public void setMana(int newMana) { mana = newMana; }
-    public int getBaseMana() { return baseMana; }
-    public void setBaseMana(int newBaseMana) { baseMana = newBaseMana; }
-
-    public int getMoney() { return money; }
-    public void addMoney(int newMoney) { money += newMoney; }
-    public void setMoney(int newMoney) { money = newMoney; }
-
-    public int getAttack() { return attack; }
-    public void setAttack(int newAttack) { attack = newAttack; }
-    public int getBaseAttack() { return baseAttack; }
-    public void setBaseAttack(int newBaseAttack) { baseAttack = newBaseAttack; }
 }
